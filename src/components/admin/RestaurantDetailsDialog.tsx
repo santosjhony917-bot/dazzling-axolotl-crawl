@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,7 @@ import {
   Search, 
   Eye, 
   Globe, 
+  Phone,
   Instagram, 
   Facebook, 
   Clock,
@@ -59,6 +60,417 @@ const cleanPhone = (phone: string) => {
   return phone.replace(/[^\d+]/g, '');
 };
 
+type ContactCandidate = {
+  phone: string;
+  normalized_phone: string;
+  kind: 'whatsapp' | 'mobile' | 'phone' | 'tollfree';
+  source?: string;
+  source_url?: string;
+  label?: string;
+  whatsapp_url?: string;
+  confidence?: number;
+  score?: number;
+  raw?: string;
+  found_at?: string;
+};
+
+const normalizePhoneDigits = (value: any) => {
+  let digits = String(value || '').replace(/\D/g, '');
+  if (!digits) return '';
+  if (digits.startsWith('00')) digits = digits.slice(2);
+  if (digits.startsWith('0800')) return digits.slice(0, 11);
+  if (digits.startsWith('55') && (digits.length === 12 || digits.length === 13)) return digits;
+  if (digits.length === 10 || digits.length === 11) return `55${digits}`;
+  return digits;
+};
+
+const parseComboMoney = (value: any) => {
+  if (value === null || value === undefined || value === '') return null;
+  const parsed = Number(String(value).replace(/[^\d.,-]/g, '').replace(',', '.'));
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+const cleanOptionNameForSearchLabel = (value: any) => String(value || '')
+  .replace(/^\s*(?:\d+\s*\/\s*\d+|1\/2|meia|meio)\s*/i, '')
+  .replace(/^\s*(?:add|adc|adicional)\s+/i, '')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+const buildSearchableOptionLabel = (itemName: any, option: any) => {
+  const explicit = String(option?.search_label || '').trim();
+  if (explicit) return explicit;
+  if (!option?.is_searchable_variant) return null;
+  const baseName = String(itemName || '').trim();
+  const optionName = cleanOptionNameForSearchLabel(option?.name);
+  return [baseName, optionName].filter(Boolean).join(' ').trim() || null;
+};
+
+const parseComboLine = (line: string) => {
+  const cleaned = String(line || '').trim();
+  if (!cleaned) return null;
+  const parts = cleaned.split('|').map(part => part.trim()).filter(Boolean);
+  const priceMatch = cleaned.match(/(?:\+|R\$)\s*([\d.,]+)/i);
+  const explicitPrice = parts.length > 1 ? parseComboMoney(parts[1]) : null;
+  const price_delta = explicitPrice ?? (priceMatch ? parseComboMoney(priceMatch[1]) : null);
+  const name = (parts[0] || cleaned)
+    .replace(/\s*(?:\+|R\$)\s*[\d.,]+\s*$/i, '')
+    .trim();
+  if (!name) return null;
+  return {
+    name,
+    description: parts.length > 2 ? parts.slice(2).join(' | ') : null,
+    price_delta,
+    price_behavior: price_delta && price_delta > 0 ? 'price_delta' : 'included',
+    is_searchable_variant: true,
+  };
+};
+
+const parseComboLines = (value: any) => String(value || '')
+  .split(/\r?\n/)
+  .map(parseComboLine)
+  .filter(Boolean) as any[];
+
+const comboComponentsSearchText = (components: any[]) => (components || [])
+  .flatMap((component: any) => [
+    component.name,
+    component.description,
+    component.type,
+    ...(component.items || []).flatMap((option: any) => [option.name, option.description, option.search_label, option.search_aliases])
+  ])
+  .filter(Boolean)
+  .join(' ');
+
+const comboLinesFromComponents = (item: any, type: string) => {
+  const components = Array.isArray(item?.combo_components)
+    ? item.combo_components
+    : Array.isArray(item?.comboComponents)
+      ? item.comboComponents
+      : [];
+  return components
+    .filter((component: any) => component.type === type)
+    .flatMap((component: any) => {
+      if (Array.isArray(component.items) && component.items.length) {
+        return component.items.map((option: any) => {
+          const price = option.price_delta ?? option.price;
+          return `${option.name || ''}${price ? ` | ${price}` : ''}${option.description ? ` | ${option.description}` : ''}`;
+        });
+      }
+      const price = component.price_delta ?? component.price;
+      return [`${component.name || ''}${price ? ` | ${price}` : ''}${component.description ? ` | ${component.description}` : ''}`];
+    })
+    .filter(Boolean)
+    .join('\n');
+};
+
+const buildEditableComboComponents = (item: any) => {
+  if ((item.commercial_type || item.commercialType) !== 'combo_builder') return [];
+
+  const rawComponents = Array.isArray(item.combo_components)
+    ? item.combo_components
+    : Array.isArray(item.comboComponents)
+      ? item.comboComponents
+      : [];
+
+  const included = parseComboLines(item.combo_included_text ?? comboLinesFromComponents(item, 'fixed_item'));
+  const choices = parseComboLines(item.combo_choices_text ?? comboLinesFromComponents(item, 'choice_group'));
+  const addons = parseComboLines(item.combo_addons_text ?? comboLinesFromComponents(item, 'addon_group'));
+
+  if (!included.length && !choices.length && !addons.length && rawComponents.length) return rawComponents;
+
+  const components: any[] = [];
+  if (included.length) {
+    components.push({
+      type: 'fixed_item',
+      name: 'Itens inclusos',
+      quantity: 1,
+      min_quantity: 0,
+      max_quantity: null,
+      is_required: false,
+      price_behavior: 'included',
+      items: included.map((option, index) => ({ ...option, order_index: index })),
+    });
+  }
+  if (choices.length) {
+    const min = parseComboMoney(item.combo_choice_min) ?? 1;
+    const max = parseComboMoney(item.combo_choice_max) ?? min;
+    components.push({
+      type: 'choice_group',
+      name: item.combo_choice_group_name || `Escolha ${max} opÃ§Ãµes`,
+      min_quantity: min,
+      max_quantity: max,
+      is_required: true,
+      price_behavior: 'included',
+      items: choices.map((option, index) => ({ ...option, order_index: index })),
+    });
+  }
+  if (addons.length) {
+    components.push({
+      type: 'addon_group',
+      name: 'Adicionais do combo',
+      min_quantity: 0,
+      max_quantity: null,
+      is_required: false,
+      price_behavior: 'price_delta',
+      items: addons.map((option, index) => ({ ...option, price_behavior: option.price_behavior || 'price_delta', order_index: index })),
+    });
+  }
+  return components;
+};
+
+const createComboComponent = (type: 'fixed_item' | 'choice_group' | 'addon_group' | 'upsell_group') => {
+  const isChoice = type === 'choice_group';
+  const isAddon = type === 'addon_group';
+  const isUpsell = type === 'upsell_group';
+  return {
+    type,
+    name: type === 'fixed_item'
+      ? 'Itens inclusos'
+      : isChoice
+        ? 'Escolhas do combo'
+        : isUpsell
+          ? 'Transformar em combo'
+          : 'Adicionais do combo',
+    quantity: 1,
+    min_quantity: isChoice ? 1 : 0,
+    max_quantity: isChoice ? 1 : null,
+    is_required: isChoice,
+    price_behavior: isAddon || isUpsell ? 'price_delta' : 'included',
+    items: [],
+  };
+};
+
+const createComboComponentItem = (componentType: string) => ({
+  name: '',
+  description: '',
+  price: null,
+  price_delta: componentType === 'addon_group' || componentType === 'upsell_group' ? 0 : null,
+  price_behavior: componentType === 'addon_group' || componentType === 'upsell_group' ? 'price_delta' : 'included',
+  image_url: '',
+  is_searchable_variant: componentType !== 'addon_group',
+});
+
+const parseDescriptionMenuPayload = (description: any) => {
+  const raw = String(description || '').trim();
+  if (!raw.startsWith('{')) return { description: raw, optionGroups: [] as any[] };
+  try {
+    const parsed = JSON.parse(raw);
+    return {
+      description: String(parsed.description || '').trim(),
+      optionGroups: Array.isArray(parsed.options) ? parsed.options : [],
+    };
+  } catch (_) {
+    return { description: raw, optionGroups: [] as any[] };
+  }
+};
+
+const normalizeAdminOptionGroups = (item: any) => {
+  const fromMenuOptionGroups = Array.isArray(item?.menu_option_groups)
+    ? item.menu_option_groups
+    : [];
+  const fromStructuredGroups = Array.isArray(item?.option_groups)
+    ? item.option_groups
+    : Array.isArray(item?.optionGroups)
+      ? item.optionGroups
+      : [];
+  const fromOptions = Array.isArray(item?.options) ? item.options : [];
+  const fromDescription = parseDescriptionMenuPayload(item?.description).optionGroups;
+
+  const sourceGroups = fromMenuOptionGroups.length
+    ? fromMenuOptionGroups
+    : fromStructuredGroups.length
+      ? fromStructuredGroups
+      : fromOptions.some((option: any) => Array.isArray(option?.items) || Array.isArray(option?.options) || Array.isArray(option?.itens))
+        ? fromOptions
+        : fromDescription;
+
+  if (sourceGroups.length) {
+    return sourceGroups
+      .map((group: any, groupIndex: number) => {
+        const children = Array.isArray(group?.menu_item_options)
+          ? group.menu_item_options
+          : Array.isArray(group?.items)
+            ? group.items
+            : Array.isArray(group?.options)
+              ? group.options
+              : Array.isArray(group?.itens)
+                ? group.itens
+                : [];
+        return {
+          id: group?.id || null,
+          name: String(group?.name || group?.title || group?.group_name || 'OpÃ§Ãµes').trim() || 'OpÃ§Ãµes',
+          min_quantity: Number(group?.min_quantity ?? group?.min ?? 0),
+          max_quantity: group?.max_quantity ?? group?.max ?? null,
+          is_required: Boolean(group?.is_required ?? group?.required ?? false),
+          order_index: Number(group?.order_index ?? groupIndex),
+          semantic_type: group?.semantic_type || null,
+          price_behavior: group?.price_behavior || null,
+          items: children
+            .map((option: any, optionIndex: number) => ({
+              id: option?.id || null,
+              name: String(option?.name || option?.title || option?.label || '').trim(),
+              description: String(option?.description || '').trim() || null,
+              price: parseComboMoney(option?.price),
+              price_delta: parseComboMoney(option?.price_delta ?? option?.delta ?? option?.price),
+              min_quantity: Number(option?.min_quantity ?? group?.min_quantity ?? 0),
+              max_quantity: option?.max_quantity ?? group?.max_quantity ?? null,
+              is_required: Boolean(option?.is_required ?? group?.is_required ?? false),
+              order_index: Number(option?.order_index ?? optionIndex),
+              semantic_type: option?.semantic_type || group?.semantic_type || null,
+              price_behavior: option?.price_behavior || group?.price_behavior || null,
+              search_label: option?.search_label || null,
+              search_aliases: option?.search_aliases || null,
+              image_url: String(option?.image_url || option?.imageUrl || '').trim() || null,
+              raw_data: option?.raw_data || option,
+            }))
+            .filter((option: any) => option.name.length >= 2),
+        };
+      })
+      .filter((group: any) => group.name.length >= 2 && group.items.length > 0);
+  }
+
+  const flatOptions = fromOptions.filter((option: any) => option && !Array.isArray(option?.items) && !Array.isArray(option?.options));
+  if (!flatOptions.length) return [];
+
+  const grouped = new Map<string, any>();
+  flatOptions.forEach((option: any, optionIndex: number) => {
+    const groupName = String(option?.group_name || option?.groupName || 'OpÃ§Ãµes').trim() || 'OpÃ§Ãµes';
+    if (!grouped.has(groupName)) {
+      grouped.set(groupName, {
+        name: groupName,
+        min_quantity: Number(option?.min_quantity ?? 0),
+        max_quantity: option?.max_quantity ?? null,
+        is_required: Boolean(option?.is_required),
+        order_index: Number(option?.group_order_index ?? 0),
+        semantic_type: option?.semantic_type || null,
+        price_behavior: option?.price_behavior || null,
+        items: [],
+      });
+    }
+    grouped.get(groupName).items.push({
+      name: String(option?.name || '').trim(),
+      description: String(option?.description || '').trim() || null,
+      price: parseComboMoney(option?.price),
+      price_delta: parseComboMoney(option?.price_delta ?? option?.price),
+      min_quantity: Number(option?.min_quantity ?? 0),
+      max_quantity: option?.max_quantity ?? null,
+      is_required: Boolean(option?.is_required),
+      order_index: Number(option?.order_index ?? optionIndex),
+      semantic_type: option?.semantic_type || null,
+      price_behavior: option?.price_behavior || null,
+      search_label: option?.search_label || null,
+      search_aliases: option?.search_aliases || null,
+      image_url: String(option?.image_url || '').trim() || null,
+      raw_data: option?.raw_data || option,
+    });
+  });
+
+  return Array.from(grouped.values())
+    .map((group: any) => ({
+      ...group,
+      items: group.items.filter((option: any) => option.name.length >= 2),
+    }))
+    .filter((group: any) => group.items.length > 0);
+};
+
+const contactKindFromDigits = (digits: string, explicitWhatsapp = false): ContactCandidate['kind'] => {
+  const normalized = normalizePhoneDigits(digits);
+  if (normalized.startsWith('0800')) return 'tollfree';
+  if (explicitWhatsapp) return 'whatsapp';
+  const national = normalized.startsWith('55') ? normalized.slice(2) : normalized;
+  return national.length === 11 && national[2] === '9' ? 'mobile' : 'phone';
+};
+
+const formatContactPhone = (digits: string) => {
+  const normalized = normalizePhoneDigits(digits);
+  if (!normalized) return '';
+  if (normalized.startsWith('0800')) return normalized.replace(/^(\d{4})(\d{3})(\d{4}).*/, '$1 $2 $3');
+  const national = normalized.startsWith('55') ? normalized.slice(2) : normalized;
+  if (national.length === 11) return `+55 (${national.slice(0, 2)}) ${national.slice(2, 7)}-${national.slice(7)}`;
+  if (national.length === 10) return `+55 (${national.slice(0, 2)}) ${national.slice(2, 6)}-${national.slice(6)}`;
+  return normalized.startsWith('55') ? `+${normalized}` : normalized;
+};
+
+const whatsappUrlFromPhone = (phone: string) => {
+  const normalized = normalizePhoneDigits(phone);
+  return normalized && !normalized.startsWith('0800') ? `https://wa.me/${normalized}` : '';
+};
+
+const normalizeContactCandidatesForSave = (data: any): ContactCandidate[] => {
+  const contacts = Array.isArray(data?.contact_candidates) ? data.contact_candidates : [];
+  const normalized = contacts
+    .map((item: any) => {
+      const normalizedPhone = normalizePhoneDigits(item?.normalized_phone || item?.phone || item?.telefone || '');
+      if (!normalizedPhone) return null;
+      const kind = (['whatsapp', 'mobile', 'phone', 'tollfree'].includes(item?.kind)
+        ? item.kind
+        : contactKindFromDigits(normalizedPhone, Boolean(item?.whatsapp_url))) as ContactCandidate['kind'];
+      return {
+        phone: item?.phone || formatContactPhone(normalizedPhone),
+        normalized_phone: normalizedPhone,
+        kind,
+        source: item?.source || 'manual_admin',
+        source_url: item?.source_url || '',
+        label: item?.label || '',
+        whatsapp_url: item?.whatsapp_url || (kind === 'whatsapp' ? whatsappUrlFromPhone(normalizedPhone) : ''),
+        confidence: Number(item?.confidence || (kind === 'whatsapp' ? 0.95 : 0.7)),
+        score: Number(item?.score || (kind === 'whatsapp' ? 110 : kind === 'mobile' ? 75 : kind === 'phone' ? 45 : 5)),
+        raw: item?.raw || '',
+        found_at: item?.found_at || new Date().toISOString(),
+      } as ContactCandidate;
+    })
+    .filter(Boolean) as ContactCandidate[];
+
+  if (data?.phone) {
+    const normalizedPhone = normalizePhoneDigits(data.phone);
+    if (normalizedPhone && !normalized.some(contact => contact.normalized_phone === normalizedPhone)) {
+      const kind = contactKindFromDigits(normalizedPhone, false);
+      normalized.push({
+        phone: formatContactPhone(normalizedPhone),
+        normalized_phone: normalizedPhone,
+        kind,
+        source: 'manual_phone_field',
+        whatsapp_url: kind === 'whatsapp' ? whatsappUrlFromPhone(normalizedPhone) : '',
+        confidence: 0.7,
+        score: kind === 'mobile' ? 75 : kind === 'phone' ? 45 : 5,
+        found_at: new Date().toISOString(),
+      });
+    }
+  }
+
+  if (data?.whatsapp_url) {
+    const normalizedPhone = normalizePhoneDigits(data.whatsapp_url);
+    if (normalizedPhone) {
+      const existing = normalized.find(contact => contact.normalized_phone === normalizedPhone);
+      if (existing) {
+        existing.kind = 'whatsapp';
+        existing.whatsapp_url = whatsappUrlFromPhone(normalizedPhone);
+        existing.score = Math.max(Number(existing.score || 0), 110);
+        existing.source = existing.source || 'manual_whatsapp_url';
+      } else {
+        normalized.push({
+          phone: formatContactPhone(normalizedPhone),
+          normalized_phone: normalizedPhone,
+          kind: 'whatsapp',
+          source: 'manual_whatsapp_url',
+          whatsapp_url: whatsappUrlFromPhone(normalizedPhone),
+          confidence: 0.95,
+          score: 110,
+          found_at: new Date().toISOString(),
+        });
+      }
+    }
+  }
+
+  const byPhone = new Map<string, ContactCandidate>();
+  for (const contact of normalized) {
+    const current = byPhone.get(contact.normalized_phone);
+    if (!current || Number(contact.score || 0) > Number(current.score || 0) || (contact.kind === 'whatsapp' && current.kind !== 'whatsapp')) {
+      byPhone.set(contact.normalized_phone, contact);
+    }
+  }
+  return [...byPhone.values()].sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
+};
+
 const cleanAddress = (address: string) => {
   if (!address) return '';
   return address.trim();
@@ -94,15 +506,15 @@ const enrichMenuItemsWithAI = async (
       description: item.description || ''
     }));
 
-    const promptText = `Você receberá uma lista de pratos da categoria "${categoryName}" do restaurante "${restaurantName}" no formato JSON.
-Sua tarefa é analisar o contexto e sugerir um nome de exibição otimizado para a BUSCA GLOBAL (searchDisplayName) para cada um deles.
+    const promptText = `VocÃª receberÃ¡ uma lista de pratos da categoria "${categoryName}" do restaurante "${restaurantName}" no formato JSON.
+Sua tarefa Ã© analisar o contexto e sugerir um nome de exibiÃ§Ã£o otimizado para a BUSCA GLOBAL (searchDisplayName) para cada um deles.
 Regras:
-1. Nomes genéricos como "Filé" em uma categoria "Saladas" devem ser transformados em "Salada com Filé".
-2. Nomes genéricos como "Frango" em uma categoria "Saladas" devem ser transformados em "Salada de Frango".
+1. Nomes genÃ©ricos como "FilÃ©" em uma categoria "Saladas" devem ser transformados em "Salada com FilÃ©".
+2. Nomes genÃ©ricos como "Frango" em uma categoria "Saladas" devem ser transformados em "Salada de Frango".
 3. Se o nome contiver prefixos redundantes como "011: Pizza", remova-os (retornando apenas "Pizza").
-4. Apenas corrija se necessário. Se o nome já for descritivo e claro, retorne-o exatamente como está (em Title Case).
-5. O nome deve ser curto (máximo 40 caracteres).
-6. Retorne APENAS um array JSON válido sem markdown ou blocos de código. Exemplo: {"results": [{"id": "...", "searchDisplayName": "..."}]}.
+4. Apenas corrija se necessÃ¡rio. Se o nome jÃ¡ for descritivo e claro, retorne-o exatamente como estÃ¡ (em Title Case).
+5. O nome deve ser curto (mÃ¡ximo 40 caracteres).
+6. Retorne APENAS um array JSON vÃ¡lido sem markdown ou blocos de cÃ³digo. Exemplo: {"results": [{"id": "...", "searchDisplayName": "..."}]}.
 
 JSON:
 ${JSON.stringify(listForPrompt, null, 2)}`;
@@ -160,10 +572,10 @@ ${JSON.stringify(listForPrompt, null, 2)}`;
             .eq('id', res.id);
         }
       }
-      console.log(`[IA 2º Plano] Sanitização de busca concluída para a categoria ${categoryName}.`);
+      console.log(`[IA 2Âº Plano] SanitizaÃ§Ã£o de busca concluÃ­da para a categoria ${categoryName}.`);
     }
   } catch (err) {
-    console.warn("Erro ao enriquecer nomes de cardápio com IA em 2º plano:", err);
+    console.warn("Erro ao enriquecer nomes de cardÃ¡pio com IA em 2Âº plano:", err);
   }
 };
 
@@ -265,11 +677,11 @@ const parseAddressString = (addressStr: string) => {
 
 const daysTranslation: Record<string, string> = {
   monday: 'Segunda-feira',
-  tuesday: 'Terça-feira',
+  tuesday: 'TerÃ§a-feira',
   wednesday: 'Quarta-feira',
   thursday: 'Quinta-feira',
   friday: 'Sexta-feira',
-  saturday: 'Sábado',
+  saturday: 'SÃ¡bado',
   sunday: 'Domingo'
 };
 
@@ -300,7 +712,7 @@ const isVideoUrl = (url: string | undefined): boolean => {
 };
 
 const renderOpeningHours = (hours: any) => {
-  if (!hours) return <p className="text-gray-400 text-xs font-semibold">Sem horários informados</p>;
+  if (!hours) return <p className="text-gray-400 text-xs font-semibold">Sem horÃ¡rios informados</p>;
   
   return (
     <div className="grid grid-cols-1 gap-1.5 bg-gray-50 p-4 rounded-2xl border border-gray-100">
@@ -369,7 +781,7 @@ const downloadExternalImage = async (url: string): Promise<string> => {
 
   if (useExtension && extId) {
     const isInstagramPost = /instagram\.com\/(p|reel)\//i.test(url) || /instagr\.am\/(p|reel)\//i.test(url);
-    console.log("Baixando imagem via extensão:", url, "Insta Post?", isInstagramPost);
+    console.log("Baixando imagem via extensÃ£o:", url, "Insta Post?", isInstagramPost);
     const chromeObj = (window as any).chrome;
     return new Promise((resolve, reject) => {
       chromeObj.runtime.sendMessage(
@@ -378,11 +790,11 @@ const downloadExternalImage = async (url: string): Promise<string> => {
         (response: any) => {
           const lastError = chromeObj.runtime.lastError;
           if (lastError) {
-            reject(new Error("Erro na extensão: " + lastError.message));
+            reject(new Error("Erro na extensÃ£o: " + lastError.message));
           } else if (response && response.success && response.logoDataUrl) {
             resolve(response.logoDataUrl);
           } else {
-            reject(new Error(response?.error || "Erro ao baixar imagem via extensão."));
+            reject(new Error(response?.error || "Erro ao baixar imagem via extensÃ£o."));
           }
         }
       );
@@ -403,13 +815,13 @@ const normalizeCategory = (category: string | null | undefined): string => {
   if (!category) return 'Outros';
   const clean = category.toLowerCase().trim();
   
-  if (clean.includes('hambúrg') || clean.includes('burg') || clean.includes('lanche') || clean.includes('cachorro-quente') || clean.includes('diner')) {
+  if (clean.includes('hambÃºrg') || clean.includes('burg') || clean.includes('lanche') || clean.includes('cachorro-quente') || clean.includes('diner')) {
     return 'Hamburgueria';
   }
   if (clean.includes('pizza')) {
     return 'Pizzaria';
   }
-  if (clean.includes('café') || clean.includes('cafeteria') || clean.includes('padaria') || clean.includes('casa de chá')) {
+  if (clean.includes('cafÃ©') || clean.includes('cafeteria') || clean.includes('padaria') || clean.includes('casa de chÃ¡')) {
     return 'Cafeteria';
   }
   if (clean.includes('doce') || clean.includes('confeitaria') || clean.includes('doceria') || clean.includes('sobremesa') || clean.includes('chocolate') || clean.includes('bolo')) {
@@ -427,13 +839,13 @@ const normalizeCategory = (category: string | null | undefined): string => {
   if (clean.includes('bar') || clean.includes('pub') || clean.includes('petiscaria') || clean.includes('cervejaria')) {
     return 'Bar';
   }
-  if (clean.includes('açaí') || clean.includes('acai') || clean.includes('sorvete')) {
-    return 'Açaí / Sorveteria';
+  if (clean.includes('aÃ§aÃ­') || clean.includes('acai') || clean.includes('sorvete')) {
+    return 'AÃ§aÃ­ / Sorveteria';
   }
-  if (clean.includes('saudável') || clean.includes('saudavel') || clean.includes('salada') || clean.includes('fit') || clean.includes('vegano') || clean.includes('vegetariano')) {
-    return 'Saudável / Fit';
+  if (clean.includes('saudÃ¡vel') || clean.includes('saudavel') || clean.includes('salada') || clean.includes('fit') || clean.includes('vegano') || clean.includes('vegetariano')) {
+    return 'SaudÃ¡vel / Fit';
   }
-  if (clean.includes('restaurante') || clean.includes('comida') || clean.includes('almoço')) {
+  if (clean.includes('restaurante') || clean.includes('comida') || clean.includes('almoÃ§o')) {
     return 'Restaurante';
   }
   
@@ -453,6 +865,57 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const [aiModel, setAiModel] = useState<'gemini' | 'openai'>('gemini');
   const [expandedPreviewItems, setExpandedPreviewItems] = useState<Record<string, boolean>>({});
 
+  const getEditedContacts = () => {
+    if (Array.isArray(editedData?.contact_candidates)) {
+      return editedData.contact_candidates as ContactCandidate[];
+    }
+    return normalizeContactCandidatesForSave(editedData || {});
+  };
+
+  const updateContactAt = (index: number, patch: Partial<ContactCandidate>) => {
+    if (!editedData) return;
+    const contacts = getEditedContacts();
+    const current = contacts[index];
+    if (!current) return;
+    const nextContact: ContactCandidate = { ...current, ...patch };
+    if (patch.phone || patch.normalized_phone || patch.kind) {
+      const normalizedPhone = normalizePhoneDigits(nextContact.normalized_phone || nextContact.phone);
+      nextContact.normalized_phone = normalizedPhone;
+      nextContact.phone = patch.phone ?? formatContactPhone(normalizedPhone);
+      if (!patch.kind) nextContact.kind = contactKindFromDigits(normalizedPhone, nextContact.kind === 'whatsapp');
+      if (nextContact.kind === 'whatsapp') nextContact.whatsapp_url = whatsappUrlFromPhone(normalizedPhone);
+    }
+    const next = contacts.map((contact, contactIndex) => contactIndex === index ? nextContact : contact);
+    setEditedData({ ...editedData, contact_candidates: next });
+  };
+
+  const addContact = () => {
+    if (!editedData) return;
+    const contacts = getEditedContacts();
+    setEditedData({
+      ...editedData,
+      contact_candidates: [
+        ...contacts,
+        {
+          phone: '',
+          normalized_phone: '',
+          kind: 'whatsapp',
+          source: 'manual_admin',
+          whatsapp_url: '',
+          confidence: 0.8,
+          score: 90,
+          found_at: new Date().toISOString(),
+        }
+      ]
+    });
+  };
+
+  const removeContactAt = (index: number) => {
+    if (!editedData) return;
+    const contacts = getEditedContacts().filter((_, contactIndex) => contactIndex !== index);
+    setEditedData({ ...editedData, contact_candidates: contacts });
+  };
+
   useEffect(() => {
     const fetchFullData = async () => {
       if (!restaurant?.id) return null;
@@ -463,7 +926,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             *,
             menu_categories (
               *,
-              menu_items (*)
+              menu_items (
+                *,
+                menu_option_groups (
+                  *,
+                  menu_item_options (*)
+                )
+              )
             ),
             restaurant_gallery (*)
           `)
@@ -489,7 +958,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           cep: fullRestaurant.cep || ''
         };
         
-        // Auto-parse se cep/number/neighborhood estiverem vazios mas address contém a string completa
+        // Auto-parse se cep/number/neighborhood estiverem vazios mas address contÃ©m a string completa
         if (!fullRestaurant.cep && fullRestaurant.address && (fullRestaurant.address.includes(',') || fullRestaurant.address.includes('-'))) {
           const parsed = parseAddressString(fullRestaurant.address);
           parsedAddress = {
@@ -512,7 +981,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           cep: parsedAddress.cep,
           category: normalizeCategory(fullRestaurant.category),
           logo: fullRestaurant.image_url || fullRestaurant.logo,
-          coverImage: fullRestaurant.cover_image_url || fullRestaurant.coverImage
+          coverImage: fullRestaurant.cover_image_url || fullRestaurant.coverImage,
+          whatsapp_url: fullRestaurant.whatsapp_url || '',
+          contact_candidates: normalizeContactCandidatesForSave(fullRestaurant)
         };
 
         setEditedData(JSON.parse(JSON.stringify(formattedRestaurant)));
@@ -567,7 +1038,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const handleScrapeInstagramLogoAndFollowers = async () => {
     if (isScrapingLogo) return;
     if (!editedData || !editedData.id) {
-      showError("Dados do restaurante não disponíveis.");
+      showError("Dados do restaurante nÃ£o disponÃ­veis.");
       return;
     }
 
@@ -594,7 +1065,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         return s;
       }).filter((s: any) => s && s.url);
 
-      // Se não havia instagram na lista de redes sociais, adiciona
+      // Se nÃ£o havia instagram na lista de redes sociais, adiciona
       if (!currentSocials.some((s: any) => s && s.platform === 'instagram')) {
         currentSocials.push({ platform: 'instagram', url: rawInstagram.trim() });
       }
@@ -608,7 +1079,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         console.warn("Aviso ao atualizar Instagram no Supabase:", updateInstaError.message);
       }
 
-      // Tenta usar a extensão do Chrome se estiver instalada e configurada
+      // Tenta usar a extensÃ£o do Chrome se estiver instalada e configurada
       let useExtension = false;
       const extId = localStorage.getItem('chrome_extension_id')?.trim();
       if (extId) {
@@ -619,7 +1090,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       }
 
       if (useExtension && extId) {
-        console.log("Usando extensão do Chrome para raspagem:", extId);
+        console.log("Usando extensÃ£o do Chrome para raspagem:", extId);
         const chromeObj = (window as any).chrome;
         
         chromeObj.runtime.sendMessage(
@@ -629,7 +1100,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             const lastError = chromeObj.runtime.lastError;
             if (lastError) {
               setIsScrapingLogo(false);
-              showError("Erro na comunicação com a extensão: " + lastError.message);
+              showError("Erro na comunicaÃ§Ã£o com a extensÃ£o: " + lastError.message);
               return;
             }
             
@@ -687,7 +1158,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 if (dbUpdateError) {
                   showError("Erro ao salvar no banco: " + dbUpdateError.message);
                 } else {
-                  showSuccess("Coleta de logo e seguidores concluída via Extensão!");
+                  showSuccess("Coleta de logo e seguidores concluÃ­da via ExtensÃ£o!");
                   setLogoTimestamp(Date.now());
                   window.dispatchEvent(new Event('local-sync-restaurants'));
                   localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
@@ -701,21 +1172,21 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 }
               }
             } else if (response && response.isLoginRequired) {
-              showError("Login do Instagram necessário! A aba do Instagram foi aberta. Faça login e clique no botão novamente.");
+              showError("Login do Instagram necessÃ¡rio! A aba do Instagram foi aberta. FaÃ§a login e clique no botÃ£o novamente.");
             } else {
-              showError(response?.error || "Erro desconhecido na extensão.");
+              showError(response?.error || "Erro desconhecido na extensÃ£o.");
             }
             setIsScrapingLogo(false);
           }
         );
       } else {
-        // Fallback para o robô local /api
+        // Fallback para o robÃ´ local /api
         const res = await fetch(`/api/local-collector/re-scrape-logo?restaurantId=${restaurantId}`, { method: 'POST' });
         
         if (res.ok) {
           const result = await res.json();
           if (result.success) {
-            showSuccess("Coleta de logo e seguidores concluída com sucesso!");
+            showSuccess("Coleta de logo e seguidores concluÃ­da com sucesso!");
             setLogoTimestamp(Date.now());
             window.dispatchEvent(new Event('local-sync-restaurants'));
             localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
@@ -734,7 +1205,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             
             onSyncSuccess();
           } else {
-            showError(result.error || "Não foi possível coletar os dados do Instagram.");
+            showError(result.error || "NÃ£o foi possÃ­vel coletar os dados do Instagram.");
           }
         } else {
           const err = await res.json();
@@ -744,7 +1215,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       }
     } catch (err: any) {
       if (err.message && err.message.includes('fetch')) {
-        showError("Servidor local offline. Para coletar direto do seu navegador, instale a Extensão do Chrome e insira o ID no painel.");
+        showError("Servidor local offline. Para coletar direto do seu navegador, instale a ExtensÃ£o do Chrome e insira o ID no painel.");
       } else {
         showError(err.message || "Erro desconhecido ao tentar coletar.");
       }
@@ -782,10 +1253,94 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         return match ? match[1].toLowerCase() : 'jpg';
       };
 
+      const insertMenuItemOptionGroups = async (menuItemId: string, item: any) => {
+        const groups = normalizeAdminOptionGroups(item);
+        if (!groups.length) return;
+
+        for (const group of groups) {
+          const groupPayload: any = {
+            menu_item_id: menuItemId,
+            name: group.name,
+            min_quantity: Number(group.min_quantity || 0),
+            max_quantity: group.max_quantity == null ? null : Number(group.max_quantity),
+            is_required: Boolean(group.is_required),
+            order_index: Number(group.order_index || 0),
+            semantic_type: group.semantic_type || null,
+            price_behavior: group.price_behavior || null,
+            raw_data: { source: 'admin_modal_preserved_options', group },
+          };
+
+          let groupResult = await supabase
+            .from('menu_option_groups')
+            .insert(groupPayload as any)
+            .select('id')
+            .single();
+
+          if (groupResult.error && /semantic_type|price_behavior|schema cache|column/i.test(groupResult.error.message || '')) {
+            const { semantic_type, price_behavior, ...fallbackGroup } = groupPayload;
+            groupResult = await supabase
+              .from('menu_option_groups')
+              .insert(fallbackGroup as any)
+              .select('id')
+              .single();
+          }
+
+          if (groupResult.error && /does not exist|schema cache|relation/i.test(groupResult.error.message || '')) {
+            console.warn('Tabelas de opÃ§Ãµes de cardÃ¡pio indisponÃ­veis; mantendo opÃ§Ãµes no raw_data do item.', groupResult.error.message);
+            return;
+          }
+          if (groupResult.error) throw groupResult.error;
+
+          const groupId = groupResult.data?.id || null;
+          const optionRows = (group.items || []).map((option: any, optionIndex: number) => ({
+            menu_item_id: menuItemId,
+            group_id: groupId,
+            group_name: group.name,
+            name: option.name,
+            description: option.description || null,
+            price: option.price == null || Number.isNaN(Number(option.price)) ? null : Number(option.price),
+            price_delta: option.price_delta == null || Number.isNaN(Number(option.price_delta)) ? null : Number(option.price_delta),
+            min_quantity: Number(option.min_quantity ?? group.min_quantity ?? 0),
+            max_quantity: option.max_quantity == null ? null : Number(option.max_quantity),
+            is_required: Boolean(option.is_required ?? group.is_required),
+            is_available: true,
+            order_index: Number(option.order_index ?? optionIndex),
+            semantic_type: option.semantic_type || group.semantic_type || null,
+            price_behavior: option.price_behavior || group.price_behavior || null,
+            search_label: option.search_label || buildSearchableOptionLabel(item.name, option),
+            search_aliases: option.search_aliases || null,
+            is_searchable_variant: Boolean(option.is_searchable_variant),
+            image_url: option.image_url || null,
+            raw_data: option.raw_data || option,
+          }));
+
+          if (!optionRows.length) continue;
+          let optionResult = await supabase.from('menu_item_options').insert(optionRows as any);
+          if (optionResult.error && /group_id|semantic_type|price_behavior|search_label|search_aliases|is_searchable_variant|image_url|schema cache|column/i.test(optionResult.error.message || '')) {
+            const legacyRows = optionRows.map(({
+              group_id,
+              semantic_type,
+              price_behavior,
+              search_label,
+              search_aliases,
+              is_searchable_variant,
+              image_url,
+              ...row
+            }: any) => row);
+            optionResult = await supabase.from('menu_item_options').insert(legacyRows as any);
+          }
+          if (optionResult.error && /does not exist|schema cache|relation/i.test(optionResult.error.message || '')) {
+            console.warn('Tabela menu_item_options indisponÃ­vel; mantendo opÃ§Ãµes no raw_data do item.', optionResult.error.message);
+            return;
+          }
+          if (optionResult.error) throw optionResult.error;
+        }
+      };
+
       let latitude = updatedRest.latitude !== undefined && updatedRest.latitude !== null ? updatedRest.latitude : null;
       let longitude = updatedRest.longitude !== undefined && updatedRest.longitude !== null ? updatedRest.longitude : null;
 
-      // Se as coordenadas não estão definidas ou são zero, tentamos geocodificar o endereço completo
+      // Se as coordenadas nÃ£o estÃ£o definidas ou sÃ£o zero, tentamos geocodificar o endereÃ§o completo
       if (latitude === null || longitude === null || latitude === 0 || longitude === 0) {
         const addrParts = [];
         if (updatedRest.address) {
@@ -808,7 +1363,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         const fullAddress = addrParts.join(', ');
         if (fullAddress.trim()) {
           try {
-            console.log(`[syncSingleToSupabase] Tentando geocodificar endereço completo: "${fullAddress}"`);
+            console.log(`[syncSingleToSupabase] Tentando geocodificar endereÃ§o completo: "${fullAddress}"`);
             const coords = await geocodeAddress(fullAddress);
             if (coords) {
               latitude = coords.lat;
@@ -820,7 +1375,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
       }
 
-      // Se ainda não temos coordenadas, tentamos extrair do googleMapsUrl
+      // Se ainda nÃ£o temos coordenadas, tentamos extrair do googleMapsUrl
       if ((latitude === null || longitude === null || latitude === 0 || longitude === 0) && updatedRest.googleMapsUrl) {
         const coords = extractCoordsFromUrl(updatedRest.googleMapsUrl);
         if (coords) {
@@ -829,7 +1384,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
       }
 
-      let visitNotes = updatedRest.visit_notes || `Fonte Cardápio: ${updatedRest.menuSourceUrl || 'Não informado'}`;
+      let visitNotes = updatedRest.visit_notes || `Fonte CardÃ¡pio: ${updatedRest.menuSourceUrl || 'NÃ£o informado'}`;
       if (updatedRest.googleMapsUrl) {
         if (visitNotes.includes('Google Maps:')) {
           visitNotes = visitNotes.replace(/Google Maps:\s*(https?:\/\/[^\s]+)/, `Google Maps: ${updatedRest.googleMapsUrl}`);
@@ -838,7 +1393,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
       }
 
-      // Busca o is_published atual do banco para não sobrescrever com valor errado
+      // Busca o is_published atual do banco para nÃ£o sobrescrever com valor errado
       // (evita restaurante sumir da lista quando o editedData tem status desatualizado)
       let currentVisitStatus = updatedRest.is_published === true;
       try {
@@ -854,12 +1409,19 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         // Se falhar, usa o valor que temos
       }
 
+      const contactCandidates = normalizeContactCandidatesForSave(updatedRest);
+      const primaryContact = contactCandidates.find(contact => contact.kind === 'whatsapp') || contactCandidates[0] || null;
+
       // Prepara objeto restaurante
       const restaurantData: any = {
         id: uuidId,
         name: updatedRest.name,
         plan: updatedRest.plan || 'free',
-        phone: cleanPhone(updatedRest.phone || ''),
+        phone: primaryContact?.phone ? cleanPhone(primaryContact.phone) : cleanPhone(updatedRest.phone || ''),
+        whatsapp_url: primaryContact?.whatsapp_url || updatedRest.whatsapp_url || null,
+        contact_candidates: contactCandidates,
+        primary_contact_source: primaryContact?.source || updatedRest.primary_contact_source || null,
+        contacts_last_checked_at: contactCandidates.length ? new Date().toISOString() : updatedRest.contacts_last_checked_at || null,
         cep: updatedRest.cep || '',
         address: cleanAddress(updatedRest.address || ''),
         number: updatedRest.number || '',
@@ -887,11 +1449,29 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       if (longitude !== null) restaurantData.longitude = longitude;
 
       // 1. Upsert Restaurant
-      const { error: restError } = await supabase
-        .from('restaurants')
-        .upsert(restaurantData);
+      let restaurantPayload = { ...restaurantData };
+      const optionalRestaurantColumns = ['contact_candidates', 'primary_contact_source', 'contacts_last_checked_at', 'whatsapp_url'];
+      for (let attempt = 0; attempt < 8; attempt += 1) {
+        const { error: restError } = await supabase
+          .from('restaurants')
+          .upsert(restaurantPayload);
 
-      if (restError) throw restError;
+        if (!restError) break;
+
+        const message = restError.message || '';
+        const missingColumn = message.match(/'([^']+)'\s+column/i)?.[1] || message.match(/column\s+"([^"]+)"/i)?.[1];
+        const removable = missingColumn && Object.prototype.hasOwnProperty.call(restaurantPayload, missingColumn)
+          ? missingColumn
+          : optionalRestaurantColumns.find(column => Object.prototype.hasOwnProperty.call(restaurantPayload, column) && /schema cache|column/i.test(message));
+
+        if (removable) {
+          const { [removable]: _removed, ...nextPayload } = restaurantPayload;
+          restaurantPayload = nextPayload;
+          continue;
+        }
+
+        throw restError;
+      }
 
       // 2. Limpar categorias e pratos antigos
       const { data: existingCats } = await supabase
@@ -906,7 +1486,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           .delete()
           .in('category_id', catIds);
         if (deleteItemsError) {
-          console.warn("Erro ao limpar itens de cardápio no Supabase:", deleteItemsError.message);
+          console.warn("Erro ao limpar itens de cardÃ¡pio no Supabase:", deleteItemsError.message);
         }
       }
 
@@ -959,27 +1539,99 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             }
 
             const sanitizedName = toTitleCase(cleanPrefixes(item.name));
+            const commercialType = item.commercial_type || item.commercialType || 'simple_item';
+            const comboComponents = buildEditableComboComponents({ ...item, commercial_type: commercialType });
+            const optionGroups = normalizeAdminOptionGroups(item);
+            const comboRules = commercialType === 'combo_builder' && (item.combo_rules_summary || item.combo_rules || item.comboRules)
+              ? (typeof (item.combo_rules || item.comboRules) === 'object'
+                ? (item.combo_rules || item.comboRules)
+                : { summary: item.combo_rules_summary || item.combo_rules || item.comboRules })
+              : null;
+            const isConfigurable = Boolean(item.is_configurable || item.isConfigurable || comboComponents.length || optionGroups.length || ['configurable_item', 'combo_builder', 'simple_with_addons'].includes(commercialType));
+            const searchKeywords = [
+              item.search_keywords,
+              comboComponentsSearchText(comboComponents),
+              optionGroups
+                .flatMap((group: any) => [
+                  group.name,
+                  ...(group.items || []).flatMap((option: any) => [option.name, option.description, option.search_label, option.search_aliases])
+                ])
+                .filter(Boolean)
+                .join(' '),
+              comboRules?.summary,
+              commercialType === 'combo_builder' ? item.description : '',
+              cat.name,
+              item.name,
+            ].filter(Boolean).join(' ');
 
             itemsToInsert.push({
               id: itemId,
               category_id: catUuid,
               name: item.name,
+              display_name: item.name,
               description: item.description || '',
               price: priceVal,
+              display_price: priceVal,
+              price_type: item.price_type || (commercialType === 'combo_builder' ? 'fixed' : (isConfigurable ? 'starting_at' : 'fixed')),
+              price_min: item.price_min || priceVal,
+              price_max: item.price_max || priceVal,
+              price_source: 'manual_admin_form',
+              commercial_type: commercialType,
+              is_configurable: isConfigurable,
+              combo_components: comboComponents.length ? comboComponents : null,
+              combo_rules: comboRules,
+              combo_display_mode: null,
+              raw_data: (comboComponents.length || optionGroups.length)
+                ? { editor: 'admin_menu_editor', combo_components: comboComponents, combo_rules: comboRules, option_groups: optionGroups }
+                : null,
               image_url: finalImgUrl,
               order_index: itemIdx,
               is_active: true,
-              search_display_name: sanitizedName
+              search_display_name: sanitizedName,
+              search_keywords: searchKeywords || sanitizedName,
+              import_notes: commercialType === 'combo_builder'
+                ? 'Cadastrado como combo estruturado: componentes, escolhas e adicionais ficam dentro do item.'
+                : null
             });
           }
 
-          const { error: itemsError } = await supabase
+          let { error: itemsError } = await supabase
             .from('menu_items')
             .insert(itemsToInsert);
 
+          if (itemsError && /column|schema cache|display_name|display_price|price_type|price_min|price_max|price_source|commercial_type|is_configurable|search_keywords|import_notes|combo_components|combo_rules|combo_display_mode|raw_data/i.test(itemsError.message || '')) {
+            const fallbackItems = itemsToInsert.map(({
+              display_name,
+              display_price,
+              price_type,
+              price_min,
+              price_max,
+              price_source,
+              combo_components,
+              combo_rules,
+              combo_display_mode,
+              raw_data,
+              commercial_type,
+              is_configurable,
+              search_keywords,
+              import_notes,
+              ...item
+            }: any) => item);
+            const fallbackResult = await supabase
+              .from('menu_items')
+              .insert(fallbackItems);
+            itemsError = fallbackResult.error;
+          }
+
           if (itemsError) throw itemsError;
 
-          // Enriquecer nomes de cardápio com IA em segundo plano (fire-and-forget)
+          for (let optionItemIdx = 0; optionItemIdx < items.length; optionItemIdx++) {
+            const optionSourceItem = items[optionItemIdx];
+            const optionItemId = getDeterministicUUID(optionSourceItem.id || `item-${optionSourceItem.name}-${optionItemIdx}`);
+            await insertMenuItemOptionGroups(optionItemId, optionSourceItem);
+          }
+
+          // Enriquecer nomes de cardÃ¡pio com IA em segundo plano (fire-and-forget)
           const apiKey = aiModel === 'gemini'
             ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
             : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
@@ -1040,32 +1692,32 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     const phone = r.phone || '';
     const cleanPhoneStr = phone.replace(/\D/g, '');
     if (!phone.trim() || phone.toLowerCase().includes('sem telefone') || phone.toLowerCase().includes('nao informado') || cleanPhoneStr.length < 8) {
-      return 'Número de telefone inválido ou ausente.';
+      return 'NÃºmero de telefone invÃ¡lido ou ausente.';
     }
     
     const cep = r.cep || '';
     const cleanCep = cep.replace(/\D/g, '');
     if (!cep.trim() || cleanCep.length !== 8) {
-      return 'CEP inválido ou ausente (deve conter 8 dígitos).';
+      return 'CEP invÃ¡lido ou ausente (deve conter 8 dÃ­gitos).';
     }
 
     const address = r.address || '';
     const neighborhood = r.neighborhood || '';
     if (!address.trim()) {
-      return 'O endereço (rua) é obrigatório.';
+      return 'O endereÃ§o (rua) Ã© obrigatÃ³rio.';
     }
     if (address.toLowerCase() === 's/n' || address.toLowerCase() === 'sem numero') {
-      return 'O nome da rua é inválido.';
+      return 'O nome da rua Ã© invÃ¡lido.';
     }
     if (neighborhood.trim() && address.trim().toLowerCase() === neighborhood.trim().toLowerCase()) {
-      return 'O endereço não pode ser idêntico ao bairro.';
+      return 'O endereÃ§o nÃ£o pode ser idÃªntico ao bairro.';
     }
 
     return null;
   };
 
   const runGeocodingAndValidate = async (data: any) => {
-    // 1. Validar campos básicos
+    // 1. Validar campos bÃ¡sicos
     const basicError = getDetailsValidationError(data);
     if (basicError) {
       showError(basicError);
@@ -1085,7 +1737,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       }
     }
 
-    // Se ainda não temos coordenadas, tentamos geocodificar o endereço completo
+    // Se ainda nÃ£o temos coordenadas, tentamos geocodificar o endereÃ§o completo
     if (latitude === null || longitude === null || latitude === 0 || longitude === 0) {
       const addrParts = [];
       if (data.address) {
@@ -1113,7 +1765,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           if (coords) {
             latitude = coords.lat;
             longitude = coords.lon;
-            console.log(`[Validation] Geocodificação bem-sucedida: lat=${latitude}, lon=${longitude}`);
+            console.log(`[Validation] GeocodificaÃ§Ã£o bem-sucedida: lat=${latitude}, lon=${longitude}`);
           }
         } catch (e) {
           console.warn('Erro ao geocodificar no validador:', e);
@@ -1123,7 +1775,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
     // 3. Validar coordenadas
     if (!latitude || !longitude || latitude === 0 || longitude === 0) {
-      showError('Não foi possível obter as coordenadas exatas para o endereço informado. Verifique o CEP/endereço.');
+      showError('NÃ£o foi possÃ­vel obter as coordenadas exatas para o endereÃ§o informado. Verifique o CEP/endereÃ§o.');
       return null;
     }
 
@@ -1143,7 +1795,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
       const success = await syncSingleToSupabase(validatedData);
       if (success) {
-        showSuccess('Alterações salvas no Supabase!');
+        showSuccess('AlteraÃ§Ãµes salvas no Supabase!');
         setIsEditing(false);
         // Aguarda 800ms para evitar race condition entre o upsert e o reload da lista
         await new Promise(resolve => setTimeout(resolve, 800));
@@ -1163,7 +1815,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     try {
       let dataToSave = { ...editedData };
 
-      // Automatização da Logo e Seguidores do Instagram junto com o "Validar e Salvar"
+      // AutomatizaÃ§Ã£o da Logo e Seguidores do Instagram junto com o "Validar e Salvar"
       const rawInstagram = dataToSave.instagram || getSocialUrl(dataToSave, 'instagram') || '';
       const hasLogo = !!(dataToSave.logo || dataToSave.image_url);
       
@@ -1178,7 +1830,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
 
         if (useExtension && extId) {
-          showSuccess("Coletando logo e seguidores do Instagram automaticamente via Extensão...");
+          showSuccess("Coletando logo e seguidores do Instagram automaticamente via ExtensÃ£o...");
           const uuidId = getDeterministicUUID(dataToSave.id);
           
           try {
@@ -1233,17 +1885,17 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 followers_override: finalFollowers !== null ? finalFollowers : dataToSave.followers_override
               };
               
-              showSuccess("Logo e seguidores coletados com sucesso via Extensão!");
+              showSuccess("Logo e seguidores coletados com sucesso via ExtensÃ£o!");
             } else if (response && response.isLoginRequired) {
-              showError("A extensão necessita de login no Instagram. Faça login e clique novamente.");
+              showError("A extensÃ£o necessita de login no Instagram. FaÃ§a login e clique novamente.");
               return;
             }
           } catch (scrapeErr) {
-            console.error("Erro ao coletar Instagram automaticamente via Extensão:", scrapeErr);
+            console.error("Erro ao coletar Instagram automaticamente via ExtensÃ£o:", scrapeErr);
           }
         } else {
-          // Fallback para o robô local /api/local-collector/re-scrape-logo
-          showSuccess("Iniciando coleta automática de logo e seguidores via servidor local...");
+          // Fallback para o robÃ´ local /api/local-collector/re-scrape-logo
+          showSuccess("Iniciando coleta automÃ¡tica de logo e seguidores via servidor local...");
           try {
             const res = await fetch(`/api/local-collector/re-scrape-logo?restaurantId=${dataToSave.id}`, { method: 'POST' });
             if (res.ok) {
@@ -1262,11 +1914,11 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 };
                 showSuccess("Logo e seguidores coletados com sucesso via servidor local!");
               } else {
-                console.warn("Aviso na coleta automática via servidor:", result.error);
+                console.warn("Aviso na coleta automÃ¡tica via servidor:", result.error);
               }
             }
           } catch (apiErr) {
-            console.error("Erro na coleta de Instagram automática via API local:", apiErr);
+            console.error("Erro na coleta de Instagram automÃ¡tica via API local:", apiErr);
           }
         }
       }
@@ -1277,9 +1929,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       const success = await syncSingleToSupabase(validatedData);
 
       if (success) {
-        showSuccess('Alterações salvas com sucesso no Supabase!');
+        showSuccess('AlteraÃ§Ãµes salvas com sucesso no Supabase!');
         
-        // Atualiza os dados locais para refletir na aba de Visualização imediatamente
+        // Atualiza os dados locais para refletir na aba de VisualizaÃ§Ã£o imediatamente
         setEditedData(validatedData);
         setLogoTimestamp(Date.now());
         setCoverTimestamp(Date.now());
@@ -1334,7 +1986,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const handleAIExtraction = async () => {
     const content = aiPastedContent.trim();
     if (!content) {
-      showError('Cole o texto do cardápio bruto ou HTML antes de processar.');
+      showError('Cole o texto do cardÃ¡pio bruto ou HTML antes de processar.');
       return;
     }
 
@@ -1354,25 +2006,25 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         console.log(`[IA Extrator] ${msg}`);
       };
 
-      addLog("Iniciando extração do cardápio...");
+      addLog("Iniciando extraÃ§Ã£o do cardÃ¡pio...");
       addLog(`URL formatada: ${formattedUrl}`);
-      addLog(`ID da extensão configurada: ${extId || 'Nenhum'}`);
-      addLog(`Ambiente local? ${isLocalhost ? 'Sim' : 'Não'}`);
+      addLog(`ID da extensÃ£o configurada: ${extId || 'Nenhum'}`);
+      addLog(`Ambiente local? ${isLocalhost ? 'Sim' : 'NÃ£o'}`);
 
       try {
         if (extId) {
-          addLog("Verificando se a extensão está instalada e ativa...");
+          addLog("Verificando se a extensÃ£o estÃ¡ instalada e ativa...");
           useExtension = await checkExtensionInstalled(extId);
-          addLog(`Resultado da verificação: Extensão ativa? ${useExtension ? 'Sim' : 'Não'}`);
+          addLog(`Resultado da verificaÃ§Ã£o: ExtensÃ£o ativa? ${useExtension ? 'Sim' : 'NÃ£o'}`);
         }
 
         if (!isLocalhost && !useExtension) {
-          addLog("Erro: Extensão não detectada em produção (Vercel).");
-          throw new Error('A extração direta por URL em nuvem (Vercel) precisa da Extensão do Chrome instalada e configurada com o ID correspondente no menu da extensão. Caso contrário, copie o texto do cardápio e cole aqui.');
+          addLog("Erro: ExtensÃ£o nÃ£o detectada em produÃ§Ã£o (Vercel).");
+          throw new Error('A extraÃ§Ã£o direta por URL em nuvem (Vercel) precisa da ExtensÃ£o do Chrome instalada e configurada com o ID correspondente no menu da extensÃ£o. Caso contrÃ¡rio, copie o texto do cardÃ¡pio e cole aqui.');
         }
 
         // 1. Atualizar o link no Supabase
-        addLog("Sincronizando link do cardápio com o banco de dados...");
+        addLog("Sincronizando link do cardÃ¡pio com o banco de dados...");
         const { error: updateError } = await supabase
           .from('restaurants')
           .update({
@@ -1383,7 +2035,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
         if (updateError) {
           if (updateError.code === '23505') {
-            addLog("Aviso: Link já cadastrado em outro restaurante (23505). Continuando mesmo assim...");
+            addLog("Aviso: Link jÃ¡ cadastrado em outro restaurante (23505). Continuando mesmo assim...");
           } else {
             addLog(`Erro ao atualizar URL no banco de dados: ${updateError.message}`);
             throw updateError;
@@ -1391,13 +2043,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
 
         if (useExtension && extId) {
-          addLog("Enviando solicitação de leitura de página para a extensão...");
+          addLog("Enviando solicitaÃ§Ã£o de leitura de pÃ¡gina para a extensÃ£o...");
           
           const chromeObj = (window as any).chrome;
           const scrapeResult: any = await new Promise((resolve, reject) => {
             const timeoutId = setTimeout(() => {
-              addLog("Erro: Timeout de 35 segundos atingido esperando a extensão.");
-              reject(new Error("Tempo limite excedido aguardando resposta da extensão. Certifique-se de que a extensão está ativada e atualizada no Chrome."));
+              addLog("Erro: Timeout de 35 segundos atingido esperando a extensÃ£o.");
+              reject(new Error("Tempo limite excedido aguardando resposta da extensÃ£o. Certifique-se de que a extensÃ£o estÃ¡ ativada e atualizada no Chrome."));
             }, 35000); // 35 segundos de timeout
 
             chromeObj.runtime.sendMessage(
@@ -1408,14 +2060,14 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 const lastError = chromeObj.runtime.lastError;
                 
                 if (lastError) {
-                  addLog(`Erro de comunicação com a extensão: ${lastError.message}`);
-                  reject(new Error("Erro na extensão: " + lastError.message));
+                  addLog(`Erro de comunicaÃ§Ã£o com a extensÃ£o: ${lastError.message}`);
+                  reject(new Error("Erro na extensÃ£o: " + lastError.message));
                 } else if (response && response.success) {
-                  addLog("Página lida e estruturada com sucesso pela extensão!");
+                  addLog("PÃ¡gina lida e estruturada com sucesso pela extensÃ£o!");
                   resolve(response);
                 } else {
-                  addLog(`Extensão retornou erro: ${response?.error || 'sem detalhes'}`);
-                  reject(new Error(response?.error || "Falha na extração pela extensão."));
+                  addLog(`ExtensÃ£o retornou erro: ${response?.error || 'sem detalhes'}`);
+                  reject(new Error(response?.error || "Falha na extraÃ§Ã£o pela extensÃ£o."));
                 }
               }
             );
@@ -1424,25 +2076,25 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           let parsed: any = null;
 
           if ((scrapeResult.isAnotaAi || scrapeResult.isCardapioWeb) && scrapeResult.parsedMenu) {
-            const platformName = scrapeResult.isAnotaAi ? "Anota AI" : "Cardápio Web";
-            addLog(`Cardápio do ${platformName} detectado e estruturado diretamente da API (com adicionais e fotos oficiais)!`);
+            const platformName = scrapeResult.isAnotaAi ? "Anota AI" : "CardÃ¡pio Web";
+            addLog(`CardÃ¡pio do ${platformName} detectado e estruturado diretamente da API (com adicionais e fotos oficiais)!`);
             parsed = scrapeResult.parsedMenu;
           } else {
             const xmlContent = scrapeResult.xmlContent;
-            addLog(`XML recebido da página: ${xmlContent ? xmlContent.length : 0} caracteres.`);
+            addLog(`XML recebido da pÃ¡gina: ${xmlContent ? xmlContent.length : 0} caracteres.`);
 
             if (!xmlContent || xmlContent.trim() === '<menu>\n</menu>' || xmlContent.trim() === '<menu></menu>') {
-              addLog("Erro: XML extraído está vazio ou sem dados legíveis.");
-              throw new Error("Nenhum prato ou categoria foi detectado na página pela extensão.");
+              addLog("Erro: XML extraÃ­do estÃ¡ vazio ou sem dados legÃ­veis.");
+              throw new Error("Nenhum prato ou categoria foi detectado na pÃ¡gina pela extensÃ£o.");
             }
 
-            addLog(`Enviando conteúdo para IA do servidor (${aiModel}). Aguarde processamento...`);
+            addLog(`Enviando conteÃºdo para IA do servidor (${aiModel}). Aguarde processamento...`);
 
             const apiKey = aiModel === 'gemini' 
               ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
               : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
 
-            addLog(`Chave da API local configurada? ${apiKey ? 'Sim' : 'Não (tentará chave global do servidor)'}`);
+            addLog(`Chave da API local configurada? ${apiKey ? 'Sim' : 'NÃ£o (tentarÃ¡ chave global do servidor)'}`);
 
             const { data: edgeData, error: edgeError } = await supabase.functions.invoke('parse-menu-with-ai', {
               body: {
@@ -1467,14 +2119,14 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             if (arrayKey) {
               parsed = parsed[arrayKey];
             } else {
-              addLog("Erro: Formato retornado pela IA não é compatível com uma lista.");
-              throw new Error('Formato retornado pela IA não é compatível com uma lista.');
+              addLog("Erro: Formato retornado pela IA nÃ£o Ã© compatÃ­vel com uma lista.");
+              throw new Error('Formato retornado pela IA nÃ£o Ã© compatÃ­vel com uma lista.');
             }
           }
 
           if (!Array.isArray(parsed)) {
-            addLog("Erro: A resposta da IA não retornou uma lista.");
-            throw new Error('A resposta da IA não retornou uma lista.');
+            addLog("Erro: A resposta da IA nÃ£o retornou uma lista.");
+            throw new Error('A resposta da IA nÃ£o retornou uma lista.');
           }
 
           const formattedCategories = parsed.map((cat: any, cIdx: number) => ({
@@ -1494,30 +2146,30 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             menu_categories: formattedCategories
           }));
 
-          addLog(`Extração concluída com sucesso! ${formattedCategories.length} categorias extraídas.`);
-          showSuccess(`Sucesso! Extensão + IA extraíram ${formattedCategories.length} categorias do cardápio.`);
+          addLog(`ExtraÃ§Ã£o concluÃ­da com sucesso! ${formattedCategories.length} categorias extraÃ­das.`);
+          showSuccess(`Sucesso! ExtensÃ£o + IA extraÃ­ram ${formattedCategories.length} categorias do cardÃ¡pio.`);
           setAiPastedContent('');
-          setIsEditing(true); // Habilita o modo de edição para mostrar o cardápio
-          setActiveDialogTab('edit'); // Redireciona para o formulário de edição para visualizar
+          setIsEditing(true); // Habilita o modo de ediÃ§Ã£o para mostrar o cardÃ¡pio
+          setActiveDialogTab('edit'); // Redireciona para o formulÃ¡rio de ediÃ§Ã£o para visualizar
 
         } else {
-          // Fallback para o robô do servidor local
-          addLog("Iniciando fallback do robô local...");
-          showSuccess('Iniciando o robô extrator local...');
+          // Fallback para o robÃ´ do servidor local
+          addLog("Iniciando fallback do robÃ´ local...");
+          showSuccess('Iniciando o robÃ´ extrator local...');
           const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurant.id}`, {
             method: 'POST'
           });
 
           if (!res.ok) {
-            addLog("Falha na comunicação com o servidor local.");
-            throw new Error('Falha na comunicação com o servidor local.');
+            addLog("Falha na comunicaÃ§Ã£o com o servidor local.");
+            throw new Error('Falha na comunicaÃ§Ã£o com o servidor local.');
           }
 
           const data = await res.json();
-          addLog(`Resposta do robô local: ${data.success ? 'Sucesso' : 'Falha'}`);
+          addLog(`Resposta do robÃ´ local: ${data.success ? 'Sucesso' : 'Falha'}`);
 
           if (data.success) {
-            addLog("Cardápio extraído com sucesso pelo robô local! Atualizando dados do restaurante...");
+            addLog("CardÃ¡pio extraÃ­do com sucesso pelo robÃ´ local! Atualizando dados do restaurante...");
             
             // Buscar os dados atualizados do restaurante direto do Supabase
             const { data: updatedRest, error: fetchError } = await supabase
@@ -1526,7 +2178,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 *,
                 menu_categories (
                   *,
-                  menu_items (*)
+                  menu_items (
+                    *,
+                    menu_option_groups (
+                      *,
+                      menu_item_options (*)
+                    )
+                  )
                 ),
                 restaurant_gallery (*)
               `)
@@ -1542,11 +2200,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 id: cat.id,
                 name: cat.name,
                 items: (cat.menu_items || []).map((item: any) => ({
+                  ...item,
                   id: item.id,
                   name: item.name,
                   description: item.description || '',
                   price: item.price,
-                  image_url: item.image_url || ''
+                  image_url: item.image_url || '',
+                  option_groups: item.menu_option_groups || item.option_groups || [],
                 }))
               }));
               
@@ -1586,13 +2246,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
             onSyncSuccess();
           } else {
-            addLog(`O robô local falhou: ${data.error || 'Erro desconhecido.'}`);
-            showError('O robô local falhou ao processar o cardápio: ' + (data.error || 'Erro desconhecido.'));
+            addLog(`O robÃ´ local falhou: ${data.error || 'Erro desconhecido.'}`);
+            showError('O robÃ´ local falhou ao processar o cardÃ¡pio: ' + (data.error || 'Erro desconhecido.'));
           }
         }
       } catch (err: any) {
         addLog(`EXCEPTION capturada no fluxo principal: ${err.message}`);
-        showError('Erro ao executar a extração: ' + err.message);
+        showError('Erro ao executar a extraÃ§Ã£o: ' + err.message);
       } finally {
         setIsExtractingAI(false);
         addLog("Fluxo finalizado.");
@@ -1605,7 +2265,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
 
     if (!apiKey) {
-      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não está configurada. Insira a chave no painel de configuração da Extensão.`);
+      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} nÃ£o estÃ¡ configurada. Insira a chave no painel de configuraÃ§Ã£o da ExtensÃ£o.`);
       return;
     }
 
@@ -1620,7 +2280,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       });
 
       if (edgeError || !edgeData?.success) {
-        throw new Error(edgeError?.message || edgeData?.error || 'Erro ao processar o cardápio com a IA do servidor.');
+        throw new Error(edgeError?.message || edgeData?.error || 'Erro ao processar o cardÃ¡pio com a IA do servidor.');
       }
 
       let parsed = edgeData.data;
@@ -1630,12 +2290,12 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         if (arrayKey) {
           parsed = parsed[arrayKey];
         } else {
-          throw new Error('Formato retornado pela IA não é compatível com uma lista.');
+          throw new Error('Formato retornado pela IA nÃ£o Ã© compatÃ­vel com uma lista.');
         }
       }
 
       if (!Array.isArray(parsed)) {
-        throw new Error('A resposta da IA não retornou uma lista.');
+        throw new Error('A resposta da IA nÃ£o retornou uma lista.');
       }
 
       const formattedCategories = parsed.map((cat: any, cIdx: number) => ({
@@ -1655,13 +2315,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         menu_categories: formattedCategories
       }));
 
-      showSuccess(`Sucesso! IA extraiu ${formattedCategories.length} categorias do cardápio.`);
+      showSuccess(`Sucesso! IA extraiu ${formattedCategories.length} categorias do cardÃ¡pio.`);
       setAiPastedContent('');
-      setIsEditing(true); // Habilita o modo de edição para mostrar o cardápio
-      setActiveDialogTab('edit'); // Redireciona para o formulário de edição para visualizar
+      setIsEditing(true); // Habilita o modo de ediÃ§Ã£o para mostrar o cardÃ¡pio
+      setActiveDialogTab('edit'); // Redireciona para o formulÃ¡rio de ediÃ§Ã£o para visualizar
     } catch (e: any) {
       console.error(e);
-      showError(`Falha na extração de IA: ${e.message || 'Verifique o formato e as chaves de API.'}`);
+      showError(`Falha na extraÃ§Ã£o de IA: ${e.message || 'Verifique o formato e as chaves de API.'}`);
     } finally {
       setIsExtractingAI(false);
     }
@@ -1669,7 +2329,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
   const handleAIHoursExtraction = async () => {
     if (!aiHoursPastedContent.trim()) {
-      showError('Cole o texto dos horários de funcionamento antes de processar.');
+      showError('Cole o texto dos horÃ¡rios de funcionamento antes de processar.');
       return;
     }
 
@@ -1678,21 +2338,21 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
 
     if (!apiKey) {
-      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não está configurada. Insira a chave no painel de configuração da Extensão.`);
+      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} nÃ£o estÃ¡ configurada. Insira a chave no painel de configuraÃ§Ã£o da ExtensÃ£o.`);
       return;
     }
 
     setIsExtractingHoursAI(true);
     try {
-      const prompt = `Você é um assistente de IA especialista em dados de horários de funcionamento de estabelecimentos.
-Analise o seguinte texto bruto contendo horários de funcionamento de um restaurante e formate-o no JSON correto esperado pelo nosso sistema.
+      const prompt = `VocÃª Ã© um assistente de IA especialista em dados de horÃ¡rios de funcionamento de estabelecimentos.
+Analise o seguinte texto bruto contendo horÃ¡rios de funcionamento de um restaurante e formate-o no JSON correto esperado pelo nosso sistema.
 
 Regras importantes:
-1. Os dias da semana no JSON final devem ser estritamente em inglês como chaves: "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday".
-2. Para cada dia da semana, se o restaurante estiver aberto nesse dia, defina "isOpen": true e inclua o slot de horário no array "slots" com "start" e "end" formatados como HH:MM (24 horas, ex: "11:00" ou "22:30").
-3. Se o dia for explicitamente fechado ou não mencionado em dias de funcionamento normais, defina "isOpen": false e "slots": [].
-4. Se houver mais de um período de funcionamento no mesmo dia (ex: almoço 11:30 às 14:30 e jantar 18:00 às 22:00), adicione os slots correspondentes no array "slots".
-5. Retorne a resposta estritamente no formato JSON, sem qualquer outro texto ou explicações, no seguinte esquema:
+1. Os dias da semana no JSON final devem ser estritamente em inglÃªs como chaves: "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday".
+2. Para cada dia da semana, se o restaurante estiver aberto nesse dia, defina "isOpen": true e inclua o slot de horÃ¡rio no array "slots" com "start" e "end" formatados como HH:MM (24 horas, ex: "11:00" ou "22:30").
+3. Se o dia for explicitamente fechado ou nÃ£o mencionado em dias de funcionamento normais, defina "isOpen": false e "slots": [].
+4. Se houver mais de um perÃ­odo de funcionamento no mesmo dia (ex: almoÃ§o 11:30 Ã s 14:30 e jantar 18:00 Ã s 22:00), adicione os slots correspondentes no array "slots".
+5. Retorne a resposta estritamente no formato JSON, sem qualquer outro texto ou explicaÃ§Ãµes, no seguinte esquema:
 {
   "monday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "22:00" }] },
   "tuesday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "22:00" }] },
@@ -1703,7 +2363,7 @@ Regras importantes:
   "sunday": { "isOpen": false, "slots": [] }
 }
 
-Texto bruto com os horários colados:
+Texto bruto com os horÃ¡rios colados:
 ${aiHoursPastedContent}
 `;
 
@@ -1783,26 +2443,26 @@ ${aiHoursPastedContent}
         openingHours: validatedHours
       }));
 
-      showSuccess(`Sucesso! Horários de funcionamento extraídos e preenchidos pela IA.`);
+      showSuccess(`Sucesso! HorÃ¡rios de funcionamento extraÃ­dos e preenchidos pela IA.`);
       setAiHoursPastedContent('');
     } catch (e: any) {
       console.error(e);
-      showError(`Falha na extração de horários: ${e.message || 'Verifique o formato e as chaves de API.'}`);
+      showError(`Falha na extraÃ§Ã£o de horÃ¡rios: ${e.message || 'Verifique o formato e as chaves de API.'}`);
     } finally {
       setIsExtractingHoursAI(false);
     }
   };
 
   const handleDeleteMenu = () => {
-    if (!window.confirm('Deseja realmente excluir todo o cardápio deste restaurante?')) return;
+    if (!window.confirm('Deseja realmente excluir todo o cardÃ¡pio deste restaurante?')) return;
     setEditedData((prev: any) => ({
       ...prev,
       menu_categories: []
     }));
-    showSuccess('Cardápio limpo no formulário de edição.');
+    showSuccess('CardÃ¡pio limpo no formulÃ¡rio de ediÃ§Ã£o.');
   };
 
-  // Funções de manipulação do cardápio estruturado no Form
+  // FunÃ§Ãµes de manipulaÃ§Ã£o do cardÃ¡pio estruturado no Form
   const handleEditCategoryName = (catId: string, name: string) => {
     setEditedData((prev: any) => ({
       ...prev,
@@ -1835,7 +2495,18 @@ ${aiHoursPastedContent}
       name: '',
       price: 0,
       description: '',
-      image_url: ''
+      image_url: '',
+      commercial_type: 'simple_item',
+      price_type: 'fixed',
+      is_configurable: false,
+      search_keywords: '',
+      combo_included_text: '',
+      combo_choice_group_name: '',
+      combo_choice_min: 1,
+      combo_choice_max: 1,
+      combo_choices_text: '',
+      combo_addons_text: '',
+      combo_rules_summary: ''
     };
     setEditedData((prev: any) => ({
       ...prev,
@@ -1888,6 +2559,114 @@ ${aiHoursPastedContent}
         return c;
       })
     }));
+  };
+
+  const updateItemById = (catId: string, itemId: string, updater: (item: any) => any) => {
+    setEditedData((prev: any) => ({
+      ...prev,
+      menu_categories: (prev.menu_categories || []).map((c: any) => {
+        if (c.id !== catId) return c;
+        return {
+          ...c,
+          items: (c.items || []).map((item: any) => item.id === itemId ? updater(item) : item)
+        };
+      })
+    }));
+  };
+
+  const getComboComponentsForEditor = (item: any) => {
+    const components = buildEditableComboComponents(item);
+    return Array.isArray(components) ? components : [];
+  };
+
+  const handleAddComboComponentGroup = (
+    catId: string,
+    itemId: string,
+    type: 'fixed_item' | 'choice_group' | 'addon_group' | 'upsell_group'
+  ) => {
+    updateItemById(catId, itemId, (item: any) => ({
+      ...item,
+      commercial_type: 'combo_builder',
+      is_configurable: true,
+      combo_components: [...getComboComponentsForEditor(item), createComboComponent(type)]
+    }));
+  };
+
+  const handleUpdateComboComponentGroup = (catId: string, itemId: string, groupIndex: number, field: string, value: any) => {
+    updateItemById(catId, itemId, (item: any) => {
+      const components = getComboComponentsForEditor(item);
+      const next = components.map((component: any, index: number) => {
+        if (index !== groupIndex) return component;
+        const numericFields = ['min_quantity', 'max_quantity', 'quantity'];
+        return {
+          ...component,
+          [field]: numericFields.includes(field)
+            ? (value === '' ? null : Number(value))
+            : value
+        };
+      });
+      return { ...item, combo_components: next };
+    });
+  };
+
+  const handleRemoveComboComponentGroup = (catId: string, itemId: string, groupIndex: number) => {
+    updateItemById(catId, itemId, (item: any) => ({
+      ...item,
+      combo_components: getComboComponentsForEditor(item).filter((_: any, index: number) => index !== groupIndex)
+    }));
+  };
+
+  const handleAddComboComponentItem = (catId: string, itemId: string, groupIndex: number) => {
+    updateItemById(catId, itemId, (item: any) => {
+      const components = getComboComponentsForEditor(item);
+      const next = components.map((component: any, index: number) => {
+        if (index !== groupIndex) return component;
+        return {
+          ...component,
+          items: [...(component.items || []), createComboComponentItem(component.type)]
+        };
+      });
+      return { ...item, combo_components: next };
+    });
+  };
+
+  const handleUpdateComboComponentItem = (catId: string, itemId: string, groupIndex: number, optionIndex: number, field: string, value: any) => {
+    updateItemById(catId, itemId, (item: any) => {
+      const components = getComboComponentsForEditor(item);
+      const next = components.map((component: any, index: number) => {
+        if (index !== groupIndex) return component;
+        const optionRows = component.items || [];
+        return {
+          ...component,
+          items: optionRows.map((option: any, optionRowIndex: number) => {
+            if (optionRowIndex !== optionIndex) return option;
+            const numericFields = ['price', 'price_delta', 'quantity'];
+            return {
+              ...option,
+              [field]: numericFields.includes(field)
+                ? (value === '' ? null : parseComboMoney(value))
+                : value,
+              ...(field === 'price_delta' ? { price_behavior: 'price_delta' } : {})
+            };
+          })
+        };
+      });
+      return { ...item, combo_components: next };
+    });
+  };
+
+  const handleRemoveComboComponentItem = (catId: string, itemId: string, groupIndex: number, optionIndex: number) => {
+    updateItemById(catId, itemId, (item: any) => {
+      const components = getComboComponentsForEditor(item);
+      const next = components.map((component: any, index: number) => {
+        if (index !== groupIndex) return component;
+        return {
+          ...component,
+          items: (component.items || []).filter((_: any, optionRowIndex: number) => optionRowIndex !== optionIndex)
+        };
+      });
+      return { ...item, combo_components: next };
+    });
   };
 
   const handleEditHoursToggle = (day: string, checked: boolean) => {
@@ -2000,7 +2779,7 @@ ${aiHoursPastedContent}
         blob = base64ToBlob(base64Data);
       } catch (err: any) {
         if (err.message !== "extension_not_available") {
-          console.warn("Erro ao baixar via extensão:", err);
+          console.warn("Erro ao baixar via extensÃ£o:", err);
         }
         
         const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(url)}&path=${encodeURIComponent(storagePath)}`, {
@@ -2042,7 +2821,7 @@ ${aiHoursPastedContent}
           image_url: newUrl
         }));
         setLogoTimestamp(Date.now());
-        showSuccess('Logo baixada e hospedada no Supabase via Extensão!');
+        showSuccess('Logo baixada e hospedada no Supabase via ExtensÃ£o!');
       }
     } catch (e: any) {
       console.error(e);
@@ -2079,7 +2858,7 @@ ${aiHoursPastedContent}
         blob = base64ToBlob(base64Data);
       } catch (err: any) {
         if (err.message !== "extension_not_available") {
-          console.warn("Erro ao baixar via extensão:", err);
+          console.warn("Erro ao baixar via extensÃ£o:", err);
         }
         const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(url)}&path=${encodeURIComponent(storagePath)}`, {
           method: 'POST'
@@ -2120,7 +2899,7 @@ ${aiHoursPastedContent}
           cover_image_url: newUrl
         }));
         setCoverTimestamp(Date.now());
-        showSuccess('Imagem de capa baixada e hospedada no Supabase via Extensão!');
+        showSuccess('Imagem de capa baixada e hospedada no Supabase via ExtensÃ£o!');
       }
     } catch (e: any) {
       console.error(e);
@@ -2198,7 +2977,7 @@ ${aiHoursPastedContent}
       } catch (err: any) {
         extensionError = err;
         if (err.message !== "extension_not_available") {
-          console.warn("Erro ao baixar via extensão:", err);
+          console.warn("Erro ao baixar via extensÃ£o:", err);
         }
         const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(urlToProcess)}&path=${encodeURIComponent(storagePath)}`, {
           method: 'POST'
@@ -2258,16 +3037,16 @@ ${aiHoursPastedContent}
         });
 
         setNewGalleryUrl('');
-        showSuccess('Foto baixada e adicionada à galeria!');
+        showSuccess('Foto baixada e adicionada Ã  galeria!');
       } else {
         if (extensionError) {
           if (extensionError.message === "extension_not_available") {
-            showError('Extensão auxiliar do Chrome não configurada ou inativa. Configure o ID nas configurações.');
+            showError('ExtensÃ£o auxiliar do Chrome nÃ£o configurada ou inativa. Configure o ID nas configuraÃ§Ãµes.');
           } else {
-            showError('Erro ao baixar imagem via extensão: ' + extensionError.message);
+            showError('Erro ao baixar imagem via extensÃ£o: ' + extensionError.message);
           }
         } else {
-          showError('Não foi possível fazer download e upload desta foto. Certifique-se de que o link é válido e público.');
+          showError('NÃ£o foi possÃ­vel fazer download e upload desta foto. Certifique-se de que o link Ã© vÃ¡lido e pÃºblico.');
         }
       }
     } catch (err: any) {
@@ -2316,7 +3095,7 @@ ${aiHoursPastedContent}
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col p-0 bg-white rounded-3xl">
+      <DialogContent className="w-[96vw] max-w-6xl max-h-[92vh] overflow-hidden flex flex-col p-0 bg-white rounded-3xl">
         <DialogHeader className="p-6 pb-2 border-b border-gray-100 flex flex-row items-center justify-between">
           <div>
             <DialogTitle className="text-2xl font-bold text-primary flex items-center gap-2">
@@ -2328,7 +3107,7 @@ ${aiHoursPastedContent}
               )}
             </DialogTitle>
             <DialogDescription className="text-xs mt-1">
-              {restaurant.category} • ID: {restaurant.id}
+              {restaurant.category} â€¢ ID: {restaurant.id}
             </DialogDescription>
           </div>
         </DialogHeader>
@@ -2337,13 +3116,13 @@ ${aiHoursPastedContent}
           <div className="px-6 bg-slate-50 border-b border-gray-100 flex items-center justify-between">
             <TabsList className="bg-transparent h-auto py-1 shadow-none border-b-0 rounded-none">
               <TabsTrigger value="preview" disabled={isEditing} className="py-2.5 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent font-semibold text-sm">
-                Visualização
+                VisualizaÃ§Ã£o
               </TabsTrigger>
               <TabsTrigger value="edit" className="py-2.5 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent font-semibold text-sm">
-                Edição {isEditing && '*'}
+                EdiÃ§Ã£o {isEditing && '*'}
               </TabsTrigger>
               <TabsTrigger value="ai" className="py-2.5 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent font-semibold text-sm text-purple-700 gap-1">
-                <Sparkles className="w-3.5 h-3.5" /> Extração via IA
+                <Sparkles className="w-3.5 h-3.5" /> ExtraÃ§Ã£o via IA
               </TabsTrigger>
             </TabsList>
             
@@ -2353,12 +3132,12 @@ ${aiHoursPastedContent}
                 onClick={() => setIsEditing(true)}
                 className="bg-purple-600 hover:bg-purple-700 text-white font-bold h-8 gap-1"
               >
-                <Edit2 className="w-3.5 h-3.5" /> Habilitar Edição
+                <Edit2 className="w-3.5 h-3.5" /> Habilitar EdiÃ§Ã£o
               </Button>
             )}
           </div>
 
-          <ScrollArea className="flex-1 p-6 overflow-y-auto max-h-[55vh]">
+          <ScrollArea className="flex-1 p-4 sm:p-6 overflow-y-auto max-h-[68vh]">
             {/* Tab 1: Preview */}
             <TabsContent value="preview" className="m-0 space-y-6">
               {restaurant && (
@@ -2396,17 +3175,17 @@ ${aiHoursPastedContent}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Dados Gerais */}
                     <div className="space-y-4">
-                      <h3 className="font-bold text-sm text-primary uppercase tracking-wider">Informações Gerais</h3>
+                      <h3 className="font-bold text-sm text-primary uppercase tracking-wider">InformaÃ§Ãµes Gerais</h3>
                       <div className="space-y-2 text-xs">
                         <p>
-                          <span className="font-bold text-gray-500">Endereço:</span>{' '}
+                          <span className="font-bold text-gray-500">EndereÃ§o:</span>{' '}
                           {restaurant.address}
                           {restaurant.number ? `, ${restaurant.number}` : ''}
                           {restaurant.neighborhood ? ` - ${restaurant.neighborhood}` : ''}
                           , {restaurant.city} - {restaurant.state}
                           {restaurant.cep ? `, ${restaurant.cep}` : ''}
                         </p>
-                        <p><span className="font-bold text-gray-500">Telefone:</span> {hasNoPhone(restaurant) ? <span className="text-red-500 font-semibold">Não informado</span> : restaurant.phone}</p>
+                        <p><span className="font-bold text-gray-500">Telefone:</span> {hasNoPhone(restaurant) ? <span className="text-red-500 font-semibold">NÃ£o informado</span> : restaurant.phone}</p>
                         <p>
                           <span className="font-bold text-gray-500">Links Sociais:</span>
                           <span className="inline-flex items-center gap-2 ml-2">
@@ -2427,8 +3206,8 @@ ${aiHoursPastedContent}
                             )}
                           </span>
                         </p>
-                        <p><span className="font-bold text-gray-500">Google Maps:</span> {restaurant.googleMapsUrl ? <a href={restaurant.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Ver no Maps ↗</a> : 'Não cadastrado'}</p>
-                        <p><span className="font-bold text-gray-500">Descrição:</span> {restaurant.description || 'Nenhuma descrição fornecida.'}</p>
+                        <p><span className="font-bold text-gray-500">Google Maps:</span> {restaurant.googleMapsUrl ? <a href={restaurant.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Ver no Maps â†—</a> : 'NÃ£o cadastrado'}</p>
+                        <p><span className="font-bold text-gray-500">DescriÃ§Ã£o:</span> {restaurant.description || 'Nenhuma descriÃ§Ã£o fornecida.'}</p>
                       </div>
 
                       {/* Galeria de Fotos */}
@@ -2448,16 +3227,16 @@ ${aiHoursPastedContent}
                       </div>
                     </div>
 
-                    {/* Horários */}
+                    {/* HorÃ¡rios */}
                     <div className="space-y-4">
-                      <h3 className="font-bold text-sm text-primary uppercase tracking-wider">Horários de Funcionamento</h3>
+                      <h3 className="font-bold text-sm text-primary uppercase tracking-wider">HorÃ¡rios de Funcionamento</h3>
                       {renderOpeningHours(restaurant.openingHours || restaurant.opening_hours)}
                     </div>
                   </div>
 
-                  {/* Cardápio Estruturado */}
+                  {/* CardÃ¡pio Estruturado */}
                   <div className="space-y-4 pt-4 border-t border-gray-100">
-                    <h3 className="font-bold text-sm text-primary uppercase tracking-wider">Cardápio Estruturado</h3>
+                    <h3 className="font-bold text-sm text-primary uppercase tracking-wider">CardÃ¡pio Estruturado</h3>
                     {restaurant.menu_categories && restaurant.menu_categories.length > 0 ? (
                       <div className="space-y-4">
                         {restaurant.menu_categories.map((cat: any) => (
@@ -2465,18 +3244,9 @@ ${aiHoursPastedContent}
                             <h4 className="font-bold text-sm text-slate-800 mb-2 border-b border-gray-200 pb-1">{cat.name}</h4>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               {(cat.items || cat.menu_items || []).map((item: any) => {
-                                let descText = item.description || '';
-                                let options: any[] = [];
-                                
-                                try {
-                                  if (item.description && item.description.startsWith('{')) {
-                                    const parsed = JSON.parse(item.description);
-                                    descText = parsed.description || '';
-                                    options = parsed.options || [];
-                                  }
-                                } catch (e) {
-                                  // ignore
-                                }
+                                const descriptionPayload = parseDescriptionMenuPayload(item.description);
+                                const descText = descriptionPayload.description;
+                                const options = normalizeAdminOptionGroups(item);
 
                                 const isExpanded = !!expandedPreviewItems[item.id];
 
@@ -2519,29 +3289,35 @@ ${aiHoursPastedContent}
                                       </div>
                                     </div>
 
-                                    {options.length > 0 && isExpanded && (
-                                      <div className="p-2 bg-slate-50 border border-slate-100 rounded-lg space-y-2 text-[10px]">
-                                        {options.map((optGroup, gIdx) => (
-                                          <div key={gIdx} className="space-y-1">
-                                            <p className="text-[8px] font-extrabold text-slate-400 uppercase tracking-wider">{optGroup.title}</p>
-                                            <div className="grid grid-cols-1 gap-1 text-[10px]">
-                                              {optGroup.itens.map((opt: any, oIdx: number) => (
-                                                <div key={oIdx} className="flex justify-between items-center bg-white px-2 py-1 rounded border border-slate-150 shadow-sm">
-                                                  <span className="font-medium text-slate-700">{opt.name}</span>
-                                                  {opt.price > 0 ? (
-                                                    <span className="font-bold text-[#EF2A39]">
-                                                      +R$ {opt.price.toFixed(2).replace('.', ',')}
-                                                    </span>
-                                                  ) : (
-                                                    <span className="font-bold text-emerald-600 bg-emerald-50 px-1 rounded-[3px]">
-                                                      Incluso
-                                                    </span>
-                                                  )}
+                                        {options.length > 0 && isExpanded && (
+                                          <div className="p-2 bg-slate-50 border border-slate-100 rounded-lg space-y-2 text-[10px]">
+                                            {options.map((optGroup, gIdx) => (
+                                              <div key={gIdx} className="space-y-1">
+                                                <p className="text-[8px] font-extrabold text-slate-400 uppercase tracking-wider">
+                                                  {optGroup.name}
+                                                  {optGroup.is_required ? ' â€¢ obrigatÃ³rio' : ''}
+                                                  {optGroup.max_quantity ? ` â€¢ atÃ© ${optGroup.max_quantity}` : ''}
+                                                </p>
+                                                <div className="grid grid-cols-1 gap-1 text-[10px]">
+                                                  {(optGroup.items || []).map((opt: any, oIdx: number) => {
+                                                    const optionPrice = parseComboMoney(opt.price_delta ?? opt.price) || 0;
+                                                    return (
+                                                    <div key={oIdx} className="flex justify-between items-center bg-white px-2 py-1 rounded border border-slate-150 shadow-sm">
+                                                      <span className="font-medium text-slate-700">{opt.name}</span>
+                                                      {optionPrice > 0 ? (
+                                                        <span className="font-bold text-[#df4b1c]">
+                                                          +R$ {optionPrice.toFixed(2).replace('.', ',')}
+                                                        </span>
+                                                      ) : (
+                                                        <span className="font-bold text-emerald-600 bg-emerald-50 px-1 rounded-[3px]">
+                                                          Incluso
+                                                        </span>
+                                                      )}
+                                                    </div>
+                                                  )})}
                                                 </div>
-                                              ))}
-                                            </div>
-                                          </div>
-                                        ))}
+                                              </div>
+                                            ))}
                                       </div>
                                     )}
                                   </div>
@@ -2553,7 +3329,7 @@ ${aiHoursPastedContent}
                       </div>
                     ) : (
                       <div className="text-center py-6 bg-slate-50 rounded-2xl border border-dashed border-gray-200">
-                        <p className="text-xs text-gray-500 font-bold">Nenhum cardápio estruturado.</p>
+                        <p className="text-xs text-gray-500 font-bold">Nenhum cardÃ¡pio estruturado.</p>
                         {restaurant.menuSourceUrl && (
                           <p className="text-[10px] text-gray-400 mt-1">
                             Possui link de origem:{' '}
@@ -2573,23 +3349,23 @@ ${aiHoursPastedContent}
             <TabsContent value="edit" className="m-0 space-y-6">
               {!isEditing ? (
                 <div className="text-center py-12 bg-slate-50 border border-dashed border-gray-200 rounded-3xl space-y-3">
-                  <p className="text-sm text-gray-500 font-bold">O modo de edição está desabilitado.</p>
+                  <p className="text-sm text-gray-500 font-bold">O modo de ediÃ§Ã£o estÃ¡ desabilitado.</p>
                   <Button 
                     size="sm" 
                     onClick={() => setIsEditing(true)}
                     className="bg-purple-600 hover:bg-purple-700 text-white font-bold gap-1"
                   >
-                    <Edit2 className="w-3.5 h-3.5" /> Habilitar Edição
+                    <Edit2 className="w-3.5 h-3.5" /> Habilitar EdiÃ§Ã£o
                   </Button>
                 </div>
               ) : editedData && (
                 <div className="space-y-6">
-                  {/* Log de Validação da IA */}
+                  {/* Log de ValidaÃ§Ã£o da IA */}
                   {editedData.ai_log && (
                     <div className="bg-purple-50/50 p-5 rounded-2xl border border-purple-100 space-y-3">
                       <h4 className="font-bold text-sm text-purple-700 uppercase tracking-wider mb-2 border-b border-purple-100 pb-1 flex items-center gap-2">
                         <Sparkles className="w-4 h-4" />
-                        Log de Validação da IA
+                        Log de ValidaÃ§Ã£o da IA
                       </h4>
                       <div className="bg-white p-3 rounded-xl border border-purple-100/50 text-xs text-slate-600 whitespace-pre-wrap font-mono leading-relaxed shadow-inner overflow-y-auto max-h-[200px]">
                         {editedData.ai_log}
@@ -2597,9 +3373,9 @@ ${aiHoursPastedContent}
                     </div>
                   )}
 
-                  {/* Infos Gerais Formulário */}
+                  {/* Infos Gerais FormulÃ¡rio */}
                   <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4">
-                    <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Cadastro Básico</h4>
+                    <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Cadastro BÃ¡sico</h4>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-1">
@@ -2642,7 +3418,7 @@ ${aiHoursPastedContent}
                         />
                       </div>
                       <div className="space-y-1">
-                        <Label htmlFor="edit-number" className="text-xs font-bold">Número</Label>
+                        <Label htmlFor="edit-number" className="text-xs font-bold">NÃºmero</Label>
                         <Input 
                           id="edit-number"
                           value={editedData.number || ''}
@@ -2769,7 +3545,7 @@ ${aiHoursPastedContent}
                         />
                       </div>
                       <div className="space-y-1">
-                        <Label htmlFor="edit-menu-source" className="text-xs font-bold">Link Origem Cardápio (menuSourceUrl)</Label>
+                        <Label htmlFor="edit-menu-source" className="text-xs font-bold">Link Origem CardÃ¡pio (menuSourceUrl)</Label>
                         <Input 
                           id="edit-menu-source"
                           value={editedData.menuSourceUrl || ''}
@@ -2779,12 +3555,108 @@ ${aiHoursPastedContent}
                       </div>
                     </div>
 
+                    <div className="bg-emerald-50/60 p-5 rounded-2xl border border-emerald-100 space-y-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <h4 className="font-bold text-sm text-emerald-900 uppercase tracking-wider flex items-center gap-2">
+                            <Phone className="w-4 h-4" /> Contatos encontrados (CRM)
+                          </h4>
+                          <p className="text-xs text-emerald-700 mt-1">
+                            O Validar IA salva todos os telefones achados e prioriza WhatsApp para contato comercial.
+                          </p>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={addContact}
+                          className="bg-white border-emerald-200 text-emerald-700 hover:bg-emerald-50 font-bold h-8"
+                        >
+                          <Plus className="w-3.5 h-3.5 mr-1" /> Contato
+                        </Button>
+                      </div>
+
+                      <div className="space-y-3">
+                        {getEditedContacts().length === 0 ? (
+                          <div className="rounded-xl border border-dashed border-emerald-200 bg-white/70 p-4 text-xs text-emerald-700 font-semibold">
+                            Nenhum contato adicional salvo ainda. Clique em â€œContatoâ€ ou rode o Validar IA para coletar automaticamente.
+                          </div>
+                        ) : (
+                          getEditedContacts().map((contact: ContactCandidate, index: number) => (
+                            <div key={`${contact.normalized_phone || 'novo'}-${index}`} className="grid grid-cols-1 lg:grid-cols-12 gap-2 bg-white rounded-xl border border-emerald-100 p-3 shadow-sm">
+                              <div className="lg:col-span-3 space-y-1">
+                                <Label className="text-[11px] font-bold text-slate-600">NÃºmero</Label>
+                                <Input
+                                  value={contact.phone || ''}
+                                  onChange={(e) => updateContactAt(index, { phone: e.target.value })}
+                                  placeholder="+55 (83) 98757-5442"
+                                  className="h-9 text-xs"
+                                />
+                              </div>
+                              <div className="lg:col-span-2 space-y-1">
+                                <Label className="text-[11px] font-bold text-slate-600">Tipo</Label>
+                                <Select
+                                  value={contact.kind || 'whatsapp'}
+                                  onValueChange={(value) => updateContactAt(index, { kind: value as ContactCandidate['kind'] })}
+                                >
+                                  <SelectTrigger className="h-9 text-xs">
+                                    <SelectValue />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="whatsapp">WhatsApp</SelectItem>
+                                    <SelectItem value="mobile">Celular</SelectItem>
+                                    <SelectItem value="phone">Telefone</SelectItem>
+                                    <SelectItem value="tollfree">0800</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className="lg:col-span-3 space-y-1">
+                                <Label className="text-[11px] font-bold text-slate-600">Fonte</Label>
+                                <Input
+                                  value={contact.source || ''}
+                                  onChange={(e) => updateContactAt(index, { source: e.target.value })}
+                                  placeholder="anota_ai, instagram, google..."
+                                  className="h-9 text-xs"
+                                />
+                              </div>
+                              <div className="lg:col-span-3 space-y-1">
+                                <Label className="text-[11px] font-bold text-slate-600">Link/Fonte</Label>
+                                <Input
+                                  value={contact.source_url || contact.whatsapp_url || ''}
+                                  onChange={(e) => updateContactAt(index, { source_url: e.target.value })}
+                                  placeholder="URL onde o nÃºmero foi encontrado"
+                                  className="h-9 text-xs"
+                                />
+                              </div>
+                              <div className="lg:col-span-1 flex items-end justify-end">
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => removeContactAt(index)}
+                                  className="h-9 w-9 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
+                                  title="Remover contato"
+                                >
+                                  <Trash className="w-4 h-4" />
+                                </Button>
+                              </div>
+                              {contact.kind === 'whatsapp' && (contact.whatsapp_url || contact.normalized_phone) ? (
+                                <div className="lg:col-span-12 text-[11px] text-emerald-700 font-semibold">
+                                  WhatsApp: {contact.whatsapp_url || whatsappUrlFromPhone(contact.normalized_phone)}
+                                </div>
+                              ) : null}
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
+
                     {/* Identidade Visual - Logo e Capa */}
                     <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-6">
                       <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Identidade Visual (Logo e Capa)</h4>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Seção da Logo */}
+                        {/* SeÃ§Ã£o da Logo */}
                         <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4">
                           <Label className="text-xs font-bold text-slate-700 block">Logo do Restaurante</Label>
                           
@@ -2807,7 +3679,7 @@ ${aiHoursPastedContent}
                               ) : (
                                 <div className={`w-full h-full flex items-center justify-center ${editedData.logo ? 'bg-red-50 text-red-500' : 'text-gray-400'}`}>
                                   <span className="text-[10px] font-bold text-center leading-none">
-                                    {editedData.logo ? "Inválida" : "Sem Logo"}
+                                    {editedData.logo ? "InvÃ¡lida" : "Sem Logo"}
                                   </span>
                                 </div>
                               )}
@@ -2850,7 +3722,7 @@ ${aiHoursPastedContent}
                                 ) : (
                                   <Sparkles className="w-3.5 h-3.5 text-pink-600" />
                                 )}
-                                Coletar via Robô (Instagram)
+                                Coletar via RobÃ´ (Instagram)
                               </Button>
                             </div>
                           </div>
@@ -2874,7 +3746,7 @@ ${aiHoursPastedContent}
                           </div>
                         </div>
 
-                        {/* Seção da Capa */}
+                        {/* SeÃ§Ã£o da Capa */}
                         <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4">
                           <Label className="text-xs font-bold text-slate-700 block">Imagem de Capa (Banner)</Label>
                           
@@ -2897,7 +3769,7 @@ ${aiHoursPastedContent}
                               ) : (
                                 <div className={`w-full h-full flex items-center justify-center ${(editedData.coverImage || editedData.cover_image_url) ? 'bg-red-50 text-red-500' : 'text-gray-400'}`}>
                                   <span className="text-[10px] font-bold text-center leading-none">
-                                    {(editedData.coverImage || editedData.cover_image_url) ? "Inválida" : "Sem Capa"}
+                                    {(editedData.coverImage || editedData.cover_image_url) ? "InvÃ¡lida" : "Sem Capa"}
                                   </span>
                                 </div>
                               )}
@@ -2954,7 +3826,7 @@ ${aiHoursPastedContent}
                     </div>
 
                     <div className="space-y-1">
-                      <Label htmlFor="edit-description" className="text-xs font-bold">Sobre o Restaurante (Descrição)</Label>
+                      <Label htmlFor="edit-description" className="text-xs font-bold">Sobre o Restaurante (DescriÃ§Ã£o)</Label>
                       <Textarea 
                         id="edit-description"
                         value={editedData.description || ''}
@@ -2964,22 +3836,22 @@ ${aiHoursPastedContent}
                     </div>
                   </div>
 
-                  {/* Horários Formulário */}
+                  {/* HorÃ¡rios FormulÃ¡rio */}
                   <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4">
                     <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Funcionamento semanal</h4>
 
-                    {/* IA Horários Input */}
+                    {/* IA HorÃ¡rios Input */}
                     <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-3 shadow-sm mb-4">
                       <div className="flex items-center justify-between">
                         <Label htmlFor="ai-hours-paste" className="text-xs font-black text-slate-700 flex items-center gap-1.5">
-                          <Sparkles className="w-3.5 h-3.5 text-[#EF2A39]" />
-                          Preencher Horários por IA
+                          <Sparkles className="w-3.5 h-3.5 text-[#df4b1c]" />
+                          Preencher HorÃ¡rios por IA
                         </Label>
                         <span className="text-[10px] text-slate-400 font-semibold">Gemini / GPT</span>
                       </div>
                       <Textarea 
                         id="ai-hours-paste"
-                        placeholder="Cole o texto bruto de horários do restaurante aqui. Ex: 'Segunda a Sexta das 11h às 23h. Sábado das 12h às 00h. Domingo fechado.'"
+                        placeholder="Cole o texto bruto de horÃ¡rios do restaurante aqui. Ex: 'Segunda a Sexta das 11h Ã s 23h. SÃ¡bado das 12h Ã s 00h. Domingo fechado.'"
                         value={aiHoursPastedContent}
                         onChange={(e) => setAiHoursPastedContent(e.target.value)}
                         className="bg-[#F9FAFB] border-gray-300 text-xs min-h-[50px] placeholder:text-gray-400"
@@ -2991,17 +3863,17 @@ ${aiHoursPastedContent}
                           type="button"
                           onClick={handleAIHoursExtraction}
                           disabled={isExtractingHoursAI || !aiHoursPastedContent.trim()}
-                          className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white font-bold h-8.5 rounded-lg active:scale-95 transition-all text-xs border-none shadow-none"
+                          className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-bold h-8.5 rounded-lg active:scale-95 transition-all text-xs border-none shadow-none"
                         >
                           {isExtractingHoursAI ? (
                             <>
                               <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
-                              Processando Horários...
+                              Processando HorÃ¡rios...
                             </>
                           ) : (
                             <>
                               <Sparkles className="w-3 h-3 mr-1 text-white fill-white" />
-                              Extrair Horários
+                              Extrair HorÃ¡rios
                             </>
                           )}
                         </Button>
@@ -3027,14 +3899,14 @@ ${aiHoursPastedContent}
                             
                             {dayInfo.isOpen && (
                               <div className="flex items-center gap-2">
-                                <span className="text-xs text-gray-500">Horário:</span>
+                                <span className="text-xs text-gray-500">HorÃ¡rio:</span>
                                 <Input 
                                   value={slot.start}
                                   placeholder="11:00"
                                   onChange={(e) => handleEditHoursSlot(dayKey, 0, 'start', e.target.value)}
                                   className="w-16 h-8 text-center text-xs p-1"
                                 />
-                                <span className="text-xs text-gray-400">até</span>
+                                <span className="text-xs text-gray-400">atÃ©</span>
                                 <Input 
                                   value={slot.end}
                                   placeholder="22:00"
@@ -3052,7 +3924,7 @@ ${aiHoursPastedContent}
                     </div>
                   </div>
 
-                  {/* Galeria Formulário */}
+                  {/* Galeria FormulÃ¡rio */}
                   <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4">
                     <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Galeria de Fotos</h4>
                     
@@ -3129,16 +4001,16 @@ ${aiHoursPastedContent}
                      </div>
                   </div>
 
-                  {/* Cardápio Formulário */}
+                  {/* CardÃ¡pio FormulÃ¡rio */}
                   <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-6">
                     <div className="flex justify-between items-center border-b border-gray-250 pb-2">
-                      <h4 className="font-bold text-sm text-primary uppercase tracking-wider">Cardápio Estruturado</h4>
+                      <h4 className="font-bold text-sm text-primary uppercase tracking-wider">CardÃ¡pio Estruturado</h4>
                       <div className="flex gap-2">
                         <Button size="sm" onClick={handleAddCategory} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
                           <PlusCircle className="w-3.5 h-3.5 mr-1" /> Nova Categoria
                         </Button>
                         <Button size="sm" variant="destructive" onClick={handleDeleteMenu} className="font-bold bg-red-600 hover:bg-red-700">
-                          <Trash className="w-3.5 h-3.5 mr-1" /> Excluir Cardápio
+                          <Trash className="w-3.5 h-3.5 mr-1" /> Excluir CardÃ¡pio
                         </Button>
                       </div>
                     </div>
@@ -3147,7 +4019,7 @@ ${aiHoursPastedContent}
                     {editedData.menu_categories && editedData.menu_categories.length > 0 ? (
                       <div className="space-y-6">
                         {editedData.menu_categories.map((cat: any) => (
-                          <div key={cat.id} className="bg-white p-4 border border-gray-200 rounded-2xl space-y-3 shadow-sm">
+                            <div key={cat.id} className="bg-white p-3 sm:p-4 border border-gray-200 rounded-2xl space-y-3 shadow-sm min-w-0 overflow-hidden">
                             {/* Categoria Header */}
                             <div className="flex justify-between items-center gap-3 border-b border-gray-100 pb-2">
                               <div className="flex-1">
@@ -3169,10 +4041,10 @@ ${aiHoursPastedContent}
                             </div>
 
                             {/* Loop de Itens da Categoria */}
-                            <div className="space-y-3 pl-0 sm:pl-3">
+                            <div className="space-y-3 pl-0 sm:pl-3 min-w-0">
                               {(cat.items || cat.menu_items || []).map((item: any) => (
-                                <div key={item.id} className="relative p-3 bg-slate-50/50 hover:bg-slate-50 border border-gray-150 rounded-xl flex flex-col sm:flex-row gap-3 items-start">
-                                  {/* Pré-visualização da Imagem do Prato */}
+                                <div key={item.id} className="relative p-3 bg-slate-50/50 hover:bg-slate-50 border border-gray-150 rounded-xl flex flex-col sm:flex-row gap-3 items-start min-w-0 overflow-hidden">
+                                  {/* PrÃ©-visualizaÃ§Ã£o da Imagem do Prato */}
                                   <div key={item.image_url || 'no-image'} className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gray-250 bg-slate-100 flex items-center justify-center self-center sm:self-start shadow-inner">
                                     {item.image_url ? (
                                       <img 
@@ -3185,7 +4057,7 @@ ${aiHoursPastedContent}
                                           if (parent && !parent.querySelector('.img-error-fallback')) {
                                             const fallback = document.createElement('div');
                                             fallback.className = 'img-error-fallback flex flex-col items-center justify-center p-1 text-center w-full h-full bg-red-50 text-red-400';
-                                            fallback.innerHTML = '<span class="text-[8px] font-bold leading-tight">Link inválido</span>';
+                                            fallback.innerHTML = '<span class="text-[8px] font-bold leading-tight">Link invÃ¡lido</span>';
                                             parent.appendChild(fallback);
                                           }
                                         }}
@@ -3199,8 +4071,8 @@ ${aiHoursPastedContent}
                                   </div>
 
                                   {/* Inputs do Item */}
-                                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-4 gap-3 items-start w-full">
-                                    <div className="sm:col-span-2 space-y-2">
+                                  <div className={`flex-1 grid grid-cols-1 gap-3 items-start w-full min-w-0 ${(item.commercial_type || item.commercialType) === 'combo_builder' ? '' : 'sm:grid-cols-4'}`}>
+                                    <div className={`${(item.commercial_type || item.commercialType) === 'combo_builder' ? 'min-w-0' : 'sm:col-span-2'} space-y-2`}>
                                       <Input 
                                         value={item.name}
                                         placeholder="Nome do Prato/Bebida"
@@ -3209,15 +4081,167 @@ ${aiHoursPastedContent}
                                       />
                                       <Textarea 
                                         value={item.description}
-                                        placeholder="Descrição dos ingredientes, acompanhamentos..."
+                                        placeholder="DescriÃ§Ã£o dos ingredientes, acompanhamentos..."
                                         onChange={(e) => handleEditItem(cat.id, item.id, 'description', e.target.value)}
                                         className="text-xs min-h-[40px] bg-white border-gray-300"
                                       />
+                                      {(item.commercial_type || item.commercialType) === 'combo_builder' && (() => {
+                                        const comboComponents = getComboComponentsForEditor(item);
+                                        const groupLabel = (type: string) => type === 'fixed_item'
+                                          ? 'Itens inclusos'
+                                          : type === 'choice_group'
+                                            ? 'Escolhas obrigatÃ³rias'
+                                            : type === 'upsell_group'
+                                              ? 'Upsell'
+                                              : 'Adicionais do combo';
+                                        return (
+                                          <div className="rounded-2xl border border-rose-100 bg-rose-50/60 p-3 space-y-3 min-w-0 overflow-hidden">
+                                            <div className="flex flex-wrap items-center justify-between gap-2">
+                                              <div>
+                                                <p className="text-[11px] font-black uppercase tracking-wide text-rose-600">Editor de combo estruturado</p>
+                                                <p className="text-[10px] text-rose-500">Cada linha vira parte visÃ­vel/clicÃ¡vel no card especial do app.</p>
+                                              </div>
+                                              <span className="rounded-full bg-white px-2 py-0.5 text-[9px] font-bold text-rose-500">card especial no app</span>
+                                            </div>
+                                            <Input
+                                              value={item.combo_rules_summary || (typeof item.combo_rules === 'object' ? item.combo_rules?.summary : item.combo_rules) || ''}
+                                              placeholder="Etiqueta/regra. Ex: Combo sugerido, Pague 3 leve 4"
+                                              onChange={(e) => handleEditItem(cat.id, item.id, 'combo_rules_summary', e.target.value)}
+                                              className="h-8 bg-white text-[11px]"
+                                            />
+                                            <div className="flex flex-wrap gap-1.5">
+                                              <Button type="button" size="sm" variant="outline" className="h-7 bg-white text-[10px]" onClick={() => handleAddComboComponentGroup(cat.id, item.id, 'fixed_item')}>
+                                                <Plus className="w-3 h-3 mr-1" /> Item incluso
+                                              </Button>
+                                              <Button type="button" size="sm" variant="outline" className="h-7 bg-white text-[10px]" onClick={() => handleAddComboComponentGroup(cat.id, item.id, 'choice_group')}>
+                                                <Plus className="w-3 h-3 mr-1" /> Grupo de escolha
+                                              </Button>
+                                              <Button type="button" size="sm" variant="outline" className="h-7 bg-white text-[10px]" onClick={() => handleAddComboComponentGroup(cat.id, item.id, 'addon_group')}>
+                                                <Plus className="w-3 h-3 mr-1" /> Adicional
+                                              </Button>
+                                            </div>
+                                            {comboComponents.length === 0 && (
+                                              <div className="rounded-xl border border-dashed border-rose-200 bg-white/70 p-3 text-[11px] text-rose-500">
+                                                Nenhum componente cadastrado. Adicione itens inclusos, escolhas ou adicionais especÃ­ficos deste combo.
+                                              </div>
+                                            )}
+                                            {comboComponents.map((component: any, groupIndex: number) => (
+                                              <div key={`${component.type}-${groupIndex}`} className="rounded-xl border border-rose-100 bg-white p-2 space-y-2 min-w-0 overflow-hidden">
+                                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-1.5 items-center min-w-0">
+                                                  <Badge variant="secondary" className="lg:col-span-2 justify-center text-[9px] bg-rose-100 text-rose-700">
+                                                    {groupLabel(component.type)}
+                                                  </Badge>
+                                                  <Input value={component.name || ''} placeholder="Nome do grupo" onChange={(e) => handleUpdateComboComponentGroup(cat.id, item.id, groupIndex, 'name', e.target.value)} className="h-8 text-[11px] lg:col-span-5 min-w-0" />
+                                                  <Input value={component.min_quantity ?? ''} placeholder="Min" onChange={(e) => handleUpdateComboComponentGroup(cat.id, item.id, groupIndex, 'min_quantity', e.target.value)} className="h-8 text-[11px] lg:col-span-1 min-w-0" />
+                                                  <Input value={component.max_quantity ?? ''} placeholder="Max" onChange={(e) => handleUpdateComboComponentGroup(cat.id, item.id, groupIndex, 'max_quantity', e.target.value)} className="h-8 text-[11px] lg:col-span-1 min-w-0" />
+                                                  <Button type="button" size="sm" variant="ghost" onClick={() => handleAddComboComponentItem(cat.id, item.id, groupIndex)} className="h-8 text-[10px] lg:col-span-2">
+                                                    <Plus className="w-3 h-3 mr-1" /> Linha
+                                                  </Button>
+                                                  <Button type="button" size="icon" variant="ghost" onClick={() => handleRemoveComboComponentGroup(cat.id, item.id, groupIndex)} className="h-8 w-8 text-red-500 hover:bg-red-50">
+                                                    <Trash2 className="w-3.5 h-3.5" />
+                                                  </Button>
+                                                </div>
+                                                <div className="space-y-1.5">
+                                                  {(component.items || []).map((option: any, optionIndex: number) => (
+                                                    <div key={`${groupIndex}-${optionIndex}`} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-1.5 items-center min-w-0">
+                                                      <Input value={option.name || ''} placeholder={component.type === 'fixed_item' ? 'Ex: 1x Batata mÃ©dia' : 'Ex: Blitz Bacon'} onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'name', e.target.value)} className="h-8 text-[11px] xl:col-span-3 min-w-0" />
+                                                      <Input value={option.price_delta ?? option.price ?? ''} placeholder={component.type === 'fixed_item' ? 'Valor ref.' : '+ R$'} onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, component.type === 'fixed_item' ? 'price' : 'price_delta', e.target.value)} className="h-8 text-[11px] xl:col-span-2 min-w-0" />
+                                                      <Input value={option.description || ''} placeholder="DescriÃ§Ã£o literal/opcional" onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'description', e.target.value)} className="h-8 text-[11px] xl:col-span-3 min-w-0" />
+                                                      <Input value={option.image_url || ''} placeholder="Foto desta opÃ§Ã£o" onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'image_url', e.target.value)} className="h-8 text-[10px] xl:col-span-3 min-w-0" />
+                                                      <Button type="button" size="icon" variant="ghost" onClick={() => handleRemoveComboComponentItem(cat.id, item.id, groupIndex, optionIndex)} className="h-8 w-8 text-red-500 hover:bg-red-50">
+                                                        <XCircle className="w-3.5 h-3.5" />
+                                                      </Button>
+                                                    </div>
+                                                  ))}
+                                                </div>
+                                              </div>
+                                            ))}
+                                            <p className="text-[10px] leading-relaxed text-rose-500">
+                                              Dica: adicionais aqui ficam presos ao combo. Se a batata custa R$5 no combo e R$10 avulsa, cadastre os dois contextos separados.
+                                            </p>
+                                          </div>
+                                        );
+                                      })()}
+                                      {false && (item.commercial_type || item.commercialType) === 'combo_builder' && (
+                                        <div className="rounded-2xl border border-rose-100 bg-rose-50/60 p-3 space-y-2">
+                                          <div className="flex items-center justify-between gap-2">
+                                            <p className="text-[11px] font-black uppercase tracking-wide text-rose-600">Editor de combo</p>
+                                            <span className="rounded-full bg-white px-2 py-0.5 text-[9px] font-bold text-rose-500">card especial no app</span>
+                                          </div>
+                                          <Input
+                                            value={item.combo_rules_summary || (typeof item.combo_rules === 'object' ? item.combo_rules?.summary : item.combo_rules) || ''}
+                                            placeholder="Regra/etiqueta. Ex: Combo sugerido, Pague 3 leve 4"
+                                            onChange={(e) => handleEditItem(cat.id, item.id, 'combo_rules_summary', e.target.value)}
+                                            className="h-8 bg-white text-[11px]"
+                                          />
+                                          <Textarea
+                                            value={item.combo_included_text ?? comboLinesFromComponents(item, 'fixed_item')}
+                                            placeholder={'Itens inclusos, um por linha. Ex:\n1x Burger artesanal | 34\n1x Batata mÃ©dia | 16\n2x Suco natural | 16'}
+                                            onChange={(e) => handleEditItem(cat.id, item.id, 'combo_included_text', e.target.value)}
+                                            className="min-h-[76px] bg-white text-[11px]"
+                                          />
+                                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                            <Input
+                                              value={item.combo_choice_group_name || ''}
+                                              placeholder="Grupo de escolha. Ex: Escolha os burgers"
+                                              onChange={(e) => handleEditItem(cat.id, item.id, 'combo_choice_group_name', e.target.value)}
+                                              className="h-8 bg-white text-[11px] sm:col-span-2"
+                                            />
+                                            <div className="grid grid-cols-2 gap-1">
+                                              <Input
+                                                value={item.combo_choice_min ?? ''}
+                                                placeholder="Min"
+                                                onChange={(e) => handleEditItem(cat.id, item.id, 'combo_choice_min', e.target.value)}
+                                                className="h-8 bg-white text-[11px]"
+                                              />
+                                              <Input
+                                                value={item.combo_choice_max ?? ''}
+                                                placeholder="Max"
+                                                onChange={(e) => handleEditItem(cat.id, item.id, 'combo_choice_max', e.target.value)}
+                                                className="h-8 bg-white text-[11px]"
+                                              />
+                                            </div>
+                                          </div>
+                                          <Textarea
+                                            value={item.combo_choices_text ?? comboLinesFromComponents(item, 'choice_group')}
+                                            placeholder={'OpÃ§Ãµes escolhÃ­veis, uma por linha. Ex:\nBlitz Salada\nBlitz Bacon | 2 | acrÃ©scimo se escolhido'}
+                                            onChange={(e) => handleEditItem(cat.id, item.id, 'combo_choices_text', e.target.value)}
+                                            className="min-h-[62px] bg-white text-[11px]"
+                                          />
+                                          <Textarea
+                                            value={item.combo_addons_text ?? comboLinesFromComponents(item, 'addon_group')}
+                                            placeholder={'Adicionais exclusivos deste combo. Ex:\nBatata P | 5\nRefrigerante lata | 6'}
+                                            onChange={(e) => handleEditItem(cat.id, item.id, 'combo_addons_text', e.target.value)}
+                                            className="min-h-[52px] bg-white text-[11px]"
+                                          />
+                                          <p className="text-[10px] leading-relaxed text-rose-500">
+                                            Dica: adicionais aqui ficam presos ao combo. Se a batata custa R$5 no combo e R$10 avulsa, cadastre os dois contextos separados.
+                                          </p>
+                                        </div>
+                                      )}
                                     </div>
                                     <div className="space-y-2">
+                                      <Select
+                                        value={item.commercial_type || item.commercialType || 'simple_item'}
+                                        onValueChange={(value) => {
+                                          handleEditItem(cat.id, item.id, 'commercial_type', value);
+                                          handleEditItem(cat.id, item.id, 'is_configurable', ['configurable_item', 'combo_builder', 'simple_with_addons'].includes(value));
+                                          handleEditItem(cat.id, item.id, 'price_type', value === 'configurable_item' ? 'starting_at' : 'fixed');
+                                        }}
+                                      >
+                                        <SelectTrigger className="text-[11px] h-8 bg-white border-gray-300">
+                                          <SelectValue placeholder="Tipo do item" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                          <SelectItem value="simple_item">Item individual</SelectItem>
+                                          <SelectItem value="combo_builder">Combo</SelectItem>
+                                          <SelectItem value="configurable_item">Montavel / opcoes</SelectItem>
+                                          <SelectItem value="simple_with_addons">Item com adicionais</SelectItem>
+                                        </SelectContent>
+                                      </Select>
                                       <Input 
                                         value={item.price || ''}
-                                        placeholder="Preço (ex: 35.90)"
+                                        placeholder="PreÃ§o (ex: 35.90)"
                                         onChange={(e) => handleEditItem(cat.id, item.id, 'price', e.target.value)}
                                         className="text-xs h-8 bg-white border-gray-300 font-bold"
                                       />
@@ -3243,14 +4267,14 @@ ${aiHoursPastedContent}
                               ))}
 
                               {(cat.items || cat.menu_items || []).length === 0 && (
-                                <p className="text-[11px] text-gray-400 italic text-center py-2">Esta categoria não tem nenhum prato.</p>
+                                <p className="text-[11px] text-gray-400 italic text-center py-2">Esta categoria nÃ£o tem nenhum prato.</p>
                               )}
                             </div>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-gray-500 text-center py-6">Nenhuma categoria ou prato criado. Clique em "Nova Categoria" para começar!</p>
+                      <p className="text-xs text-gray-500 text-center py-6">Nenhuma categoria ou prato criado. Clique em "Nova Categoria" para comeÃ§ar!</p>
                     )}
                   </div>
                 </div>
@@ -3262,8 +4286,8 @@ ${aiHoursPastedContent}
               <div className="space-y-2">
                 <h4 className="font-bold text-sm text-purple-900">Extrator Manual com IA</h4>
                 <p className="text-xs text-gray-500 leading-relaxed">
-                  Copie e cole o texto bruto do cardápio ou o código-fonte HTML da página de cardápio digital do restaurante. 
-                  Nossa inteligência artificial estruturará automaticamente em categorias, pratos, preços, descrições e identificará links de imagens.
+                  Copie e cole o texto bruto do cardÃ¡pio ou o cÃ³digo-fonte HTML da pÃ¡gina de cardÃ¡pio digital do restaurante. 
+                  Nossa inteligÃªncia artificial estruturarÃ¡ automaticamente em categorias, pratos, preÃ§os, descriÃ§Ãµes e identificarÃ¡ links de imagens.
                 </p>
               </div>
 
@@ -3292,12 +4316,12 @@ ${aiHoursPastedContent}
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="ai-pasted-menu" className="text-xs font-bold">Conteúdo do Cardápio (Texto ou HTML)</Label>
+                <Label htmlFor="ai-pasted-menu" className="text-xs font-bold">ConteÃºdo do CardÃ¡pio (Texto ou HTML)</Label>
                 <Textarea 
                   id="ai-pasted-menu"
                   value={aiPastedContent}
                   onChange={(e) => setAiPastedContent(e.target.value)}
-                  placeholder="Cole o cardápio bruto aqui..."
+                  placeholder="Cole o cardÃ¡pio bruto aqui..."
                   className="min-h-[220px] bg-slate-50 border-gray-300 text-xs font-mono"
                 />
               </div>
@@ -3353,26 +4377,26 @@ ${aiHoursPastedContent}
           </ScrollArea>
 
           {/* Dialog Footer Actions */}
-          <div className="p-6 border-t border-gray-100 bg-slate-50 flex flex-col sm:flex-row justify-between items-center gap-4 rounded-b-3xl">
-            <div>
+          <div className="p-4 sm:p-6 border-t border-gray-100 bg-slate-50 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 rounded-b-3xl">
+            <div className="w-full lg:w-auto">
               <Button 
                 variant="outline" 
                 size="sm" 
                 onClick={handleDeleteRestaurant}
-                className="text-red-500 hover:text-red-700 hover:bg-red-50 border-red-200 font-bold h-9"
+                className="text-red-500 hover:text-red-700 hover:bg-red-50 border-red-200 font-bold h-9 w-full lg:w-auto"
               >
                 <Trash className="w-3.5 h-3.5 mr-1" /> Excluir Estabelecimento
               </Button>
             </div>
 
-            <div className="flex gap-2 w-full sm:w-auto justify-end">
+            <div className="flex flex-wrap gap-2 w-full lg:w-auto justify-end">
               {isEditing ? (
                 <>
                   <Button 
                     variant="outline" 
                     size="sm"
                     onClick={() => setIsEditing(false)} 
-                    className="border-gray-300 font-semibold h-9"
+                    className="border-gray-300 font-semibold h-9 flex-1 sm:flex-none"
                   >
                     Cancelar
                   </Button>
@@ -3380,14 +4404,14 @@ ${aiHoursPastedContent}
                     variant="outline" 
                     size="sm" 
                     onClick={handleSaveLocal}
-                    className="border-blue-400 text-blue-700 hover:bg-blue-50 font-bold h-9 gap-1"
+                    className="border-blue-400 text-blue-700 hover:bg-blue-50 font-bold h-9 gap-1 flex-1 sm:flex-none"
                   >
                     <Save className="w-3.5 h-3.5" /> Salvar Local
                   </Button>
                   <Button 
                     size="sm" 
                     onClick={handleValidateAndSave}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-9 gap-1"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-9 gap-1 flex-1 sm:flex-none"
                   >
                     <Sparkles className="w-3.5 h-3.5" /> Validar e Salvar no Supabase
                   </Button>

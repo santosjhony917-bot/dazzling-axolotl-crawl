@@ -37,3 +37,14 @@ scratch/puppeteer_user_data/
 scratch/puppeteer_user_data_single/
 scratch/puppeteer_chrome_profile/
 scratch/*.png
+scratch/chrome-default-cdp-profile/
+scratch/.tesseract-cache/
+scratch/screenshots/
+scratch/backups/
+
+# Local diagnostics and browser bridge artifacts
+.tmp/
+
+# Local Chrome extension development reload config
+public/chrome-extension/dev-reload-config.js
+

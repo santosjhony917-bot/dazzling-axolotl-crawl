@@ -9,6 +9,31 @@ export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { r
     .from('menu_items')
     .select(`
       *,
+      menu_option_groups(
+        id,
+        name,
+        min_quantity,
+        max_quantity,
+        is_required,
+        order_index,
+        semantic_type,
+        price_behavior,
+        menu_item_options(
+          id,
+          name,
+          description,
+          price,
+          price_delta,
+          min_quantity,
+          max_quantity,
+          is_required,
+          order_index,
+          semantic_type,
+          price_behavior,
+          search_label,
+          search_aliases
+        )
+      ),
       menu_categories (
         restaurant:restaurants (*)
       )
@@ -25,9 +50,10 @@ export async function fetchMenuItemById(itemId: string): Promise<(MenuItem & { r
   
   // Extract the restaurant data from the nested menu_categories array
   // data.menu_categories is an array of objects, each containing { restaurant: Restaurant }
-  const restaurantData = Array.isArray(data.menu_categories) && data.menu_categories.length > 0 
-    ? (data.menu_categories[0] as unknown as { restaurant: Restaurant }).restaurant
-    : null;
+  const categoryRelation = (data as any).menu_categories;
+  const restaurantData = Array.isArray(categoryRelation)
+    ? ((categoryRelation[0] as unknown as { restaurant: Restaurant })?.restaurant || null)
+    : ((categoryRelation as unknown as { restaurant: Restaurant })?.restaurant || null);
 
   // Remove the nested key before returning
   const { menu_categories, ...item } = data;
@@ -84,7 +110,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     return null;
   }
 
-  if (!data || data.is_published !== true) return null;
+  if (!data || data.is_published !== true || data.menu_status !== 'found') return null;
 
   // Simulação de addressSummary e logoUrl (que pode ser image_url)
   const addressSummary = data.city && data.state ? `${data.city}, ${data.state}` : data.address;

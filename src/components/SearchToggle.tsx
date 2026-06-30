@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Utensils, Store } from 'lucide-react';
 
 type SearchType = 'dishes' | 'restaurants';
@@ -14,39 +14,36 @@ const SearchToggle: React.FC<SearchToggleProps> = ({ activeType, onToggle }) => 
   const isDishesActive = activeType === 'dishes';
 
   return (
-    <div className="relative flex w-full bg-[#F1F3F5] rounded-[18px] p-1 mb-5 h-[52px]">
-      {/* Pill deslizante */}
+    <div className="relative mb-5 flex h-11 w-full rounded-[18px] border border-slate-100 bg-slate-50 p-1">
       <motion.div
-        className="absolute top-1 bottom-1 bg-white rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.10)]"
+        className="absolute bottom-1 top-1 rounded-[14px] bg-white shadow-sm"
         animate={{ left: isDishesActive ? '4px' : 'calc(50% + 0px)', width: 'calc(50% - 4px)' }}
         transition={{ type: 'spring', stiffness: 500, damping: 38 }}
       />
 
-      {/* Botão Pratos */}
       <button
         onClick={() => onToggle('dishes')}
         className={cn(
-          'relative z-10 flex-1 flex items-center justify-center gap-2 text-[15px] font-semibold transition-colors duration-200 focus:outline-none rounded-[14px]',
-          isDishesActive ? 'text-[#EF2A39]' : 'text-[#9CA3AF]'
+          'relative z-10 flex flex-1 items-center justify-center gap-2 rounded-[14px] text-sm font-semibold transition-colors duration-200 focus:outline-none',
+          isDishesActive ? 'text-highlight' : 'text-text-secondary'
         )}
       >
-        <Utensils className="w-4 h-4" />
+        <Utensils className="h-4 w-4" />
         Pratos
       </button>
 
-      {/* Botão Restaurantes */}
       <button
         onClick={() => onToggle('restaurants')}
         className={cn(
-          'relative z-10 flex-1 flex items-center justify-center gap-2 text-[15px] font-semibold transition-colors duration-200 focus:outline-none rounded-[14px]',
-          !isDishesActive ? 'text-[#EF2A39]' : 'text-[#9CA3AF]'
+          'relative z-10 flex flex-1 items-center justify-center gap-2 rounded-[14px] text-sm font-semibold transition-colors duration-200 focus:outline-none',
+          !isDishesActive ? 'text-highlight' : 'text-text-secondary'
         )}
       >
-        <Store className="w-4 h-4" />
+        <Store className="h-4 w-4" />
         Restaurantes
       </button>
     </div>
   );
 };
 
-export default SearchToggle;
+export default SearchToggle;

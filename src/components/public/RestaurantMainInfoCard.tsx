@@ -88,10 +88,10 @@ const RestaurantMainInfoCard: React.FC<RestaurantMainInfoCardProps> = ({
                 size="default"
                 onClick={onViewMenu || (() => navigate(`/restaurant/${restaurant.id}/menu`))}
                 className={cn(
-                  "flex-1 text-white bg-[#EF2A39] hover:bg-[#EF2A39]/90 transition-all duration-300 active:scale-95 font-bold",
+                  "flex-1 text-white bg-[#df4b1c] hover:bg-[#df4b1c]/90 transition-all duration-300 active:scale-95 font-bold",
                   isCompact 
-                    ? "rounded-xl h-9 text-xs shadow-[0_4px_12px_rgba(239,42,57,0.25)]" 
-                    : "rounded-full h-12 text-sm shadow-[0_8px_20px_rgba(239,42,57,0.35)] hover:shadow-[0_12px_28px_rgba(239,42,57,0.45)]"
+                    ? "rounded-xl h-9 text-xs shadow-[0_4px_12px_rgba(223,75,28,0.25)]" 
+                    : "rounded-full h-12 text-sm shadow-[0_8px_20px_rgba(223,75,28,0.35)] hover:shadow-[0_12px_28px_rgba(223,75,28,0.45)]"
                 )}
               >
                 Ver Cardápio

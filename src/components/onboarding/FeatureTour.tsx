@@ -166,7 +166,7 @@ export const FeatureTour: React.FC<FeatureTourProps> = ({ onClose }) => {
           borderRadius: currentStep.isCircle ? '9999px' : '26px',
         }}
         transition={{ type: 'spring', stiffness: 220, damping: 26 }}
-        className="fixed border-2 border-[#EF2A39] shadow-[0_0_20px_rgba(239,42,57,0.6)] pointer-events-none z-[102]"
+        className="fixed border-2 border-[#df4b1c] shadow-[0_0_20px_rgba(223,75,28,0.6)] pointer-events-none z-[102]"
         style={{
           animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         }}
@@ -207,13 +207,13 @@ export const FeatureTour: React.FC<FeatureTourProps> = ({ onClose }) => {
             className="bg-white/95 backdrop-blur-md border border-white/20 rounded-[28px] p-6 shadow-[0_15px_45px_rgba(0,0,0,0.35)] flex flex-col gap-4 relative overflow-hidden"
           >
             {/* Decorative colored glow on top of card */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF7E40] to-[#EF2A39]" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF7E40] to-[#df4b1c]" />
 
             <div className="space-y-2">
               {/* Step indicator */}
-              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#EF2A39] flex items-center gap-1.5">
+              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#df4b1c] flex items-center gap-1.5">
                 <span>Passo {stepIndex + 1} de {steps.length}</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#EF2A39]/30" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#df4b1c]/30" />
               </div>
               <h3 className="text-base font-extrabold text-[#3C2F2F] tracking-tight">
                 {currentStep.title}
@@ -231,7 +231,7 @@ export const FeatureTour: React.FC<FeatureTourProps> = ({ onClose }) => {
                   <div
                     key={idx}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
-                      idx === stepIndex ? 'w-4 bg-[#EF2A39]' : 'w-1.5 bg-slate-200'
+                      idx === stepIndex ? 'w-4 bg-[#df4b1c]' : 'w-1.5 bg-slate-200'
                     }`}
                   />
                 ))}
@@ -241,7 +241,7 @@ export const FeatureTour: React.FC<FeatureTourProps> = ({ onClose }) => {
               {stepIndex === steps.length - 1 ? (
                 <Button
                   onClick={handleComplete}
-                  className="bg-gradient-to-r from-[#FF7E40] to-[#EF2A39] hover:brightness-110 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-[0_4px_12px_rgba(239,42,57,0.3)] flex items-center gap-1.5 border-none cursor-pointer"
+                  className="bg-gradient-to-r from-[#FF7E40] to-[#df4b1c] hover:brightness-110 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-[0_4px_12px_rgba(223,75,28,0.3)] flex items-center gap-1.5 border-none cursor-pointer"
                 >
                   Começar a Usar! <Sparkles className="w-3.5 h-3.5" />
                 </Button>

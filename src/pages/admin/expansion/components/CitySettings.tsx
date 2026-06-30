@@ -59,7 +59,7 @@ export default function CitySettings() {
 
         const { data: restData, error: restError } = await supabase
           .from('restaurants')
-          .select('id, name, phone, plan, ai_validated, created_at, is_deleted, ai_log, visit_status')
+          .select('id, name, phone, plan, ai_validated, created_at, is_deleted, ai_log')
           .eq('city', cityData.name)
           .eq('state', cityData.state);
 

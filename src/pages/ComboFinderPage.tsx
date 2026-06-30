@@ -96,7 +96,18 @@ export default function ComboFinderPage() {
         p_offset: 0
       });
       if (!error && data) {
-        return data.filter((r: any) => r.distance_km <= maxDistKm && !deletedIds.has(r.id));
+        const ids = data.map((r: any) => r.id).filter(Boolean);
+        const { data: statusRows } = ids.length
+          ? await supabase
+            .from('restaurants')
+            .select('id, is_published, is_deleted, menu_status')
+            .in('id', ids)
+          : { data: [] as any[] };
+        const publishableIds = new Set((statusRows || [])
+          .filter((row: any) => row.is_published === true && row.is_deleted !== true && row.menu_status === 'found')
+          .map((row: any) => row.id));
+
+        return data.filter((r: any) => r.distance_km <= maxDistKm && !deletedIds.has(r.id) && publishableIds.has(r.id));
       }
     } catch(e){}
 
@@ -266,7 +277,7 @@ export default function ComboFinderPage() {
             >
               {/* Avatar */}
               {m.sender === 'bot' ? (
-                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40] flex items-center justify-center text-white shrink-0 shadow-[0_4px_12px_rgba(239,42,57,0.25)] border-2 border-white ring-2 ring-red-50/50">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#df4b1c] to-[#FF7E40] flex items-center justify-center text-white shrink-0 shadow-[0_4px_12px_rgba(223,75,28,0.25)] border-2 border-white ring-2 ring-red-50/50">
                   <Sparkles className="w-5 h-5 text-white fill-white" />
                 </div>
               ) : (
@@ -282,11 +293,11 @@ export default function ComboFinderPage() {
                 className={cn(
                   "p-4 text-sm leading-relaxed font-sans font-medium",
                   m.sender === 'user' 
-                    ? "bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] text-white rounded-[22px] rounded-br-none shadow-[0_8px_20px_rgba(239,42,57,0.15)]" 
+                    ? "bg-gradient-to-r from-[#df4b1c] to-[#FF7E40] text-white rounded-[22px] rounded-br-none shadow-[0_8px_20px_rgba(223,75,28,0.15)]" 
                     : "bg-white border border-slate-100 text-slate-700 rounded-[22px] rounded-bl-none shadow-[0_8px_20px_rgba(0,0,0,0.03)]"
                 )}
               >
-                {m.id === 'typing' && <Loader2 className="w-4 h-4 animate-spin text-[#EF2A39] mb-1.5" />}
+                {m.id === 'typing' && <Loader2 className="w-4 h-4 animate-spin text-[#df4b1c] mb-1.5" />}
                 <p className="whitespace-pre-line">{m.text}</p>
               </div>
             </motion.div>
@@ -297,7 +308,7 @@ export default function ComboFinderPage() {
         {combos.length > 0 && (
           <div className="space-y-4 pt-2 w-full max-w-[90%] self-end pl-10">
             <div className="flex items-center gap-1.5 px-1">
-              <Sparkles className="w-4 h-4 text-[#EF2A39]" />
+              <Sparkles className="w-4 h-4 text-[#df4b1c]" />
               <h2 className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Combos Sugeridos</h2>
             </div>
             
@@ -342,7 +353,7 @@ export default function ComboFinderPage() {
                               )}
                             </h3>
                             <p className="text-[10px] text-slate-400 font-bold flex items-center gap-1 mt-0.5">
-                              <MapPin className="w-3 h-3 text-[#EF2A39]" /> a {combo.restaurant.distance_km?.toFixed(1) || '1.0'} km ({combo.restaurant.category})
+                              <MapPin className="w-3 h-3 text-[#df4b1c]" /> a {combo.restaurant.distance_km?.toFixed(1) || '1.0'} km ({combo.restaurant.category})
                             </p>
                           </div>
                           <div className="bg-emerald-500/10 text-emerald-600 text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase shrink-0 border border-emerald-500/20">
@@ -356,7 +367,7 @@ export default function ComboFinderPage() {
                           {combo.items.map((item, itemIdx) => (
                             <div key={itemIdx} className="flex justify-between items-center text-xs text-slate-700">
                               <div className="flex items-center gap-2">
-                                <span className="bg-[#EF2A39]/10 text-[#EF2A39] text-[9px] font-black h-5 w-5 rounded-md flex items-center justify-center shrink-0">1x</span>
+                                <span className="bg-[#df4b1c]/10 text-[#df4b1c] text-[9px] font-black h-5 w-5 rounded-md flex items-center justify-center shrink-0">1x</span>
                                 <span className="font-bold truncate max-w-[150px]">{item.name}</span>
                               </div>
                               <span className="font-extrabold text-slate-700">{item.price != null ? `R$ ${item.price.toFixed(2)}` : 'Preço sob consulta'}</span>
@@ -365,7 +376,7 @@ export default function ComboFinderPage() {
                           
                           <div className="border-t border-slate-200 mt-2.5 pt-2.5 flex justify-between items-center">
                             <span className="text-xs font-extrabold text-slate-500">Total do Combo:</span>
-                            <span className="text-sm font-black text-[#EF2A39]">R$ {combo.totalPrice.toFixed(2)}</span>
+                            <span className="text-sm font-black text-[#df4b1c]">R$ {combo.totalPrice.toFixed(2)}</span>
                           </div>
                         </div>
 
@@ -389,7 +400,7 @@ export default function ComboFinderPage() {
                           </Button>
                           <Button
                             onClick={() => handleOpenHHModal(combo.restaurant.id)}
-                            className="flex-grow h-10 rounded-xl text-xs font-bold bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] hover:opacity-95 text-white active:scale-95 transition-all shadow-none border-none flex items-center justify-center gap-1.5"
+                            className="flex-grow h-10 rounded-xl text-xs font-bold bg-gradient-to-r from-[#df4b1c] to-[#FF7E40] hover:opacity-95 text-white active:scale-95 transition-all shadow-none border-none flex items-center justify-center gap-1.5"
                           >
                             <Vote className="w-3.5 h-3.5" />
                             Sugerir HH
@@ -434,8 +445,8 @@ export default function ComboFinderPage() {
 
       {/* Campo de Entrada de Texto do Chat - Card Suspenso Flutuante na base */}
       <div className="p-4 bg-gradient-to-t from-slate-50 via-slate-50/90 to-transparent border-none absolute bottom-0 left-0 right-0 w-full z-30 pt-10">
-        <form onSubmit={handleSend} className="flex items-center gap-2 bg-white/90 backdrop-blur-md p-2 rounded-[24px] shadow-[0_12px_30px_rgba(0,0,0,0.08)] border border-slate-100 max-w-md mx-auto w-full group focus-within:border-[#EF2A39]/30 focus-within:shadow-[0_12px_32px_rgba(239,42,57,0.08)] transition-all duration-300">
-          <Sparkles className="w-5 h-5 text-slate-400 group-focus-within:text-[#EF2A39] shrink-0 ml-3 transition-colors duration-200" />
+        <form onSubmit={handleSend} className="flex items-center gap-2 bg-white/90 backdrop-blur-md p-2 rounded-[24px] shadow-[0_12px_30px_rgba(0,0,0,0.08)] border border-slate-100 max-w-md mx-auto w-full group focus-within:border-[#df4b1c]/30 focus-within:shadow-[0_12px_32px_rgba(223,75,28,0.08)] transition-all duration-300">
+          <Sparkles className="w-5 h-5 text-slate-400 group-focus-within:text-[#df4b1c] shrink-0 ml-3 transition-colors duration-200" />
           <Input
             type="text"
             placeholder="Ex: Lanche para 2 até R$ 120"
@@ -448,7 +459,7 @@ export default function ComboFinderPage() {
             type="submit"
             size="icon"
             disabled={loading || !inputText.trim()}
-            className="h-11 w-11 rounded-full shrink-0 bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white active:scale-95 transition-all flex items-center justify-center shadow-[0_4px_12px_rgba(239,42,57,0.25)] border-none"
+            className="h-11 w-11 rounded-full shrink-0 bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white active:scale-95 transition-all flex items-center justify-center shadow-[0_4px_12px_rgba(223,75,28,0.25)] border-none"
           >
             <Send className="w-4 h-4 text-white" />
           </Button>

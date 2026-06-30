@@ -56,7 +56,7 @@ const renderUserAvatar = (p: { id: string; first_name?: string | null; avatar_ur
     'bg-pink-500 text-white',
     'bg-indigo-500 text-white',
     'bg-teal-500 text-white',
-    'bg-[#EF2A39] text-white',
+    'bg-[#df4b1c] text-white',
   ];
   let colorIndex = 0;
   if (p.id) {
@@ -597,7 +597,7 @@ export default function HappyHourRoom() {
             <button
               onClick={() => setActiveTab('chat')}
               className={`flex-1 py-2 text-xs font-bold rounded-full transition-colors relative z-10 border-none bg-transparent cursor-pointer flex items-center justify-center gap-1.5 ${
-                activeTab === 'chat' ? 'text-[#EF2A39]' : 'text-slate-500 hover:text-slate-700'
+                activeTab === 'chat' ? 'text-[#df4b1c]' : 'text-slate-500 hover:text-slate-700'
               }`}
             >
               <MessageSquare className="w-4 h-4" /> CONVERSA
@@ -605,7 +605,7 @@ export default function HappyHourRoom() {
             <button
               onClick={() => setActiveTab('poll')}
               className={`flex-1 py-2 text-xs font-bold rounded-full transition-colors relative z-10 border-none bg-transparent cursor-pointer flex items-center justify-center gap-1.5 ${
-                activeTab === 'poll' ? 'text-[#EF2A39]' : 'text-slate-500 hover:text-slate-700'
+                activeTab === 'poll' ? 'text-[#df4b1c]' : 'text-slate-500 hover:text-slate-700'
               }`}
             >
               <Vote className="w-4 h-4" /> VOTAÇÃO ({details.pollRestaurants.length})
@@ -696,7 +696,7 @@ export default function HappyHourRoom() {
 
             {/* Chat message input form - Floating Card style */}
             <div className="p-3 bg-gradient-to-t from-slate-50 via-slate-50/95 to-transparent border-none shrink-0 z-35">
-              <form onSubmit={handleSendMessage} className="flex items-center gap-2 bg-white/90 backdrop-blur-md p-1.5 pl-3.5 rounded-[24px] shadow-[0_12px_30px_rgba(0,0,0,0.08)] border border-slate-100/80 max-w-md mx-auto w-full group focus-within:border-[#EF2A39]/30 transition-all duration-300">
+              <form onSubmit={handleSendMessage} className="flex items-center gap-2 bg-white/90 backdrop-blur-md p-1.5 pl-3.5 rounded-[24px] shadow-[0_12px_30px_rgba(0,0,0,0.08)] border border-slate-100/80 max-w-md mx-auto w-full group focus-within:border-[#df4b1c]/30 transition-all duration-300">
                 <Input
                   type="text"
                   placeholder="Escreva uma mensagem..."
@@ -707,7 +707,7 @@ export default function HappyHourRoom() {
                 <Button
                   type="submit"
                   disabled={sendingMsg || !newMessage.trim()}
-                  className="h-11 w-11 rounded-full shrink-0 bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white active:scale-95 transition-all flex items-center justify-center shadow-[0_4px_12px_rgba(239,42,57,0.25)] border-none"
+                  className="h-11 w-11 rounded-full shrink-0 bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white active:scale-95 transition-all flex items-center justify-center shadow-[0_4px_12px_rgba(223,75,28,0.25)] border-none"
                 >
                   {sendingMsg ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <Send className="w-4.5 h-4.5 text-white" />}
                 </Button>
@@ -722,7 +722,7 @@ export default function HappyHourRoom() {
             
             {/* Highlight do Vencedor Atual (Trophy Card) */}
             {winnerData && (
-              <div className="bg-gradient-to-br from-[#EF2A39] via-[#EF2A39] to-[#FF7E40] p-5 rounded-[24px] text-white shadow-[0_12px_28px_rgba(239,42,57,0.25)] border border-white/10 relative overflow-hidden flex items-center gap-4">
+              <div className="bg-gradient-to-br from-[#df4b1c] via-[#df4b1c] to-[#FF7E40] p-5 rounded-[24px] text-white shadow-[0_12px_28px_rgba(223,75,28,0.25)] border border-white/10 relative overflow-hidden flex items-center gap-4">
                 {/* Background decorative circles */}
                 <div className="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-white/10 pointer-events-none" />
                 <div className="absolute -top-6 -left-6 w-16 h-16 rounded-full bg-white/5 pointer-events-none" />
@@ -755,7 +755,7 @@ export default function HappyHourRoom() {
                       onClick={() => setIsDateDialogOpen(true)}
                       size="sm"
                       variant="outline"
-                      className="h-8 rounded-lg text-xs font-bold border-slate-200 text-slate-700 hover:bg-[#EF2A39]/10 hover:text-[#EF2A39] hover:border-[#EF2A39]/20 gap-1.5 shadow-none transition-colors"
+                      className="h-8 rounded-lg text-xs font-bold border-slate-200 text-slate-700 hover:bg-[#df4b1c]/10 hover:text-[#df4b1c] hover:border-[#df4b1c]/20 gap-1.5 shadow-none transition-colors"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       Sugerir Data
@@ -785,7 +785,7 @@ export default function HappyHourRoom() {
                           key={dObj.id} 
                           className={cn(
                             "border bg-white rounded-2xl overflow-hidden transition-all duration-200 shadow-none",
-                            hasVoted ? "border-[#EF2A39] ring-1 ring-[#EF2A39]/10" : "border-slate-100"
+                            hasVoted ? "border-[#df4b1c] ring-1 ring-[#df4b1c]/10" : "border-slate-100"
                           )}
                         >
                           <CardContent className="p-3.5 flex items-center justify-between gap-3">
@@ -822,7 +822,7 @@ export default function HappyHourRoom() {
                               className={cn(
                                 "h-10 rounded-[14px] px-3.5 flex flex-col items-center justify-center shrink-0 min-w-[60px] transition-all duration-200 active:scale-95 border",
                                 hasVoted 
-                                  ? "bg-[#EF2A39] border-[#EF2A39] text-white shadow-sm hover:bg-[#EF2A39]/95" 
+                                  ? "bg-[#df4b1c] border-[#df4b1c] text-white shadow-sm hover:bg-[#df4b1c]/95" 
                                   : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
                               )}
                             >
@@ -853,7 +853,7 @@ export default function HappyHourRoom() {
                   onClick={() => setIsPollDialogOpen(true)}
                   size="sm"
                   variant="outline"
-                  className="h-8 rounded-lg text-xs font-bold border-slate-200 text-slate-700 hover:bg-[#EF2A39]/10 hover:text-[#EF2A39] hover:border-[#EF2A39]/20 gap-1.5 shadow-none transition-colors"
+                  className="h-8 rounded-lg text-xs font-bold border-slate-200 text-slate-700 hover:bg-[#df4b1c]/10 hover:text-[#df4b1c] hover:border-[#df4b1c]/20 gap-1.5 shadow-none transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Sugerir Lugar
@@ -876,7 +876,7 @@ export default function HappyHourRoom() {
                       className={cn(
                         "border bg-white rounded-[24px] overflow-hidden transition-all duration-300",
                         hasUserVoted 
-                          ? "border-[#EF2A39] shadow-soft ring-1 ring-[#EF2A39]/10" 
+                          ? "border-[#df4b1c] shadow-soft ring-1 ring-[#df4b1c]/10" 
                           : "border-slate-100/80 hover:border-slate-200 hover:shadow-soft"
                       )}
                     >
@@ -891,8 +891,8 @@ export default function HappyHourRoom() {
                             <h4 className="text-sm font-black text-slate-800 truncate leading-tight">
                               {pr.name}
                             </h4>
-                            <p className="text-[10px] text-[#EF2A39] font-extrabold flex items-center gap-1 mt-1">
-                              <Utensils className="w-3 h-3 text-[#EF2A39]" />
+                            <p className="text-[10px] text-[#df4b1c] font-extrabold flex items-center gap-1 mt-1">
+                              <Utensils className="w-3 h-3 text-[#df4b1c]" />
                               {pr.category || 'Alimentação'}
                             </p>
                             {pr.address && (
@@ -926,7 +926,7 @@ export default function HappyHourRoom() {
                           className={cn(
                             "h-12 rounded-[18px] px-4.5 flex flex-col items-center justify-center shrink-0 min-w-[72px] transition-all duration-200 active:scale-95 border",
                             hasUserVoted 
-                              ? "bg-[#EF2A39] border-[#EF2A39] text-white shadow-[0_4px_12px_rgba(239,42,57,0.3)] hover:bg-[#EF2A39]/95" 
+                              ? "bg-[#df4b1c] border-[#df4b1c] text-white shadow-[0_4px_12px_rgba(223,75,28,0.3)] hover:bg-[#df4b1c]/95" 
                               : "bg-white text-slate-705 border-slate-202 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900"
                           )}
                         >

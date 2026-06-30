@@ -17,8 +17,8 @@ export function InfoCardItem({ label, value, isLocked = false }: InfoCardItemPro
         {label}
       </span>
       <div className="flex items-center space-x-2">
-        {isLocked && <Lock className="h-4 w-4 text-[#EF2A39]" />}
-        <span className={cn("text-sm text-gray-900 dark:text-gray-100", isLocked && "text-[#EF2A39]")}>
+        {isLocked && <Lock className="h-4 w-4 text-[#df4b1c]" />}
+        <span className={cn("text-sm text-gray-900 dark:text-gray-100", isLocked && "text-[#df4b1c]")}>
           {isLocked ? "Exclusivo Premium" : displayValue}
         </span>
       </div>

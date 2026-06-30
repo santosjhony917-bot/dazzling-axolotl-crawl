@@ -13,32 +13,34 @@ const MetricsPage: React.FC = () => {
   
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
+      <RestaurantAreaPageLayout title="Métricas e Desempenho" icon={BarChart3} backPath="restaurant-area/profile-menu">
+        <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-slate-100 bg-white shadow-soft">
+          <Loader2 className="h-8 w-8 animate-spin text-[#df4b1c]" />
+        </div>
+      </RestaurantAreaPageLayout>
     );
   }
   
   const content = isPremium ? (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4 text-primary">Métricas de Desempenho</h2>
-      <Card className="shadow-none border-none rounded-2xl p-6">
-        <CardContent className="p-0 text-gray-600">
+    <div>
+      <h2 className="text-xl font-semibold mb-4 text-[#3C2F2F]">Métricas de Desempenho</h2>
+      <Card className="rounded-2xl border border-slate-100 bg-white p-6 shadow-soft">
+        <CardContent className="p-0 text-slate-500">
           <p>Gráficos e dados de visualizações, cliques no cardápio e taxa de conversão serão exibidos aqui.</p>
-          <p className="mt-4 font-bold text-green-600">Recurso Premium Ativo!</p>
+          <p className="mt-4 font-bold text-[#df4b1c]">Recurso Premium Ativo!</p>
         </CardContent>
       </Card>
     </div>
   ) : (
-    <div className="p-4">
-      <Card className="shadow-none border-none rounded-2xl p-6 bg-yellow-50 border-yellow-300">
-        <h2 className="text-xl font-semibold mb-4 text-yellow-800">Recurso Premium</h2>
-        <p className="text-gray-700 mb-6">
+    <div>
+      <Card className="rounded-2xl border border-slate-100 bg-white p-6 shadow-soft">
+        <h2 className="text-xl font-semibold mb-4 text-[#3C2F2F]">Recurso Premium</h2>
+        <p className="text-slate-500 mb-6">
           As métricas de desempenho e o acompanhamento de seguidores são exclusivos do plano Premium.
         </p>
         <Button 
           onClick={() => navigate(createPageUrl('restaurant-area/upgrade'))}
-          className="bg-highlight hover:bg-highlight/90"
+          className="rounded-2xl bg-[#df4b1c] hover:bg-[#bd3f17]"
         >
           Fazer Upgrade
         </Button>

@@ -12,7 +12,8 @@ const onboardingScreens = [
   {
     title: "Bem-vindo ao FilterFood",
     description: "Descubra os melhores restaurantes perto de você. Compare preços, avalie opções e encontre sua próxima refeição perfeita.",
-    backgroundImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
+    backgroundImage: "/images/filterfood_combo_food.png",
+    accentImage: "/images/filterfood_combo_food.png",
     features: [
       { icon: Search, label: "Buscar" },
       { icon: Star, label: "Avaliar" },
@@ -22,7 +23,8 @@ const onboardingScreens = [
   {
     title: "Compare",
     description: "Encontre a opção perfeita para você. Compare preços, veja onde os restaurantes estão e filtre pelo seu tipo de comida favorito.",
-    backgroundImage: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
+    backgroundImage: "/images/filterfood_compare_table.png",
+    accentImage: "/images/filterfood_price_search.png",
     features: [
       { icon: DollarSign, label: "Preço" },
       { icon: MapPin, label: "Localização" },
@@ -32,7 +34,8 @@ const onboardingScreens = [
   {
     title: "Comece Agora",
     description: "Tudo pronto! Explore restaurantes incríveis, compare opções e aproveite sua experiência culinária perfeita.",
-    backgroundImage: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+    backgroundImage: "/images/filterfood_price_search.png",
+    accentImage: "/images/filterfood_compare_table.png",
     features: null
   }
 ];
@@ -65,6 +68,7 @@ export default function Onboarding() {
     if (isCompleting) return; // Prevent multiple clicks
     
     setIsCompleting(true);
+    localStorage.setItem('filterfood_onboarding_completed', 'true');
     try {
       await base44.auth.updateMe({ onboarding_completed: true });
       console.log("Onboarding marked as completed.");
@@ -119,7 +123,7 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
-      <div className="relative w-full h-screen overflow-hidden bg-background-light max-w-md mx-auto border-x border-slate-200/60">
+      <div className="app-phone-shell relative h-screen overflow-hidden">
         <AnimatePresence initial={false} custom={direction} mode="wait">
         <motion.div
           key={currentScreen}
@@ -139,14 +143,15 @@ export default function Onboarding() {
             description={screen.description}
             features={screen.features}
             backgroundImage={screen.backgroundImage}
+            accentImage={screen.accentImage}
           >
             {/* Navigation Footer */}
-            <div className="flex w-full justify-between items-center px-4 pb-4 mt-auto">
+            <div className="mt-auto flex w-full items-center justify-between px-4 pb-4">
               <Button
                 onClick={skipOnboarding}
                 disabled={isCompleting}
                 variant="ghost"
-                className="text-gray-600 text-base font-medium hover:text-gray-800 transition-colors disabled:opacity-50"
+                className="h-10 px-3 text-sm font-medium text-slate-500 transition-colors hover:text-slate-700 disabled:opacity-50"
               >
                 Pular
               </Button>
@@ -164,7 +169,7 @@ export default function Onboarding() {
                         opacity: isActive ? 1 : 0.3
                       }}
                       transition={{ duration: 0.3 }}
-                      className="h-2 rounded-full bg-[#EF2A39]"
+                      className="h-1.5 rounded-full bg-highlight"
                     />
                   );
                 })}
@@ -176,8 +181,9 @@ export default function Onboarding() {
                   onClick={handleNext}
                   disabled={isCompleting}
                   variant="highlight"
-                  className="flex h-12 w-12 items-center justify-center rounded-full shadow-[0_8px_20px_rgba(239,42,57,0.22)] border-none transition-all active:scale-95 disabled:opacity-70 p-0"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/70 p-0 shadow-none transition-all active:scale-95 disabled:opacity-70"
                   title="Próximo"
+                  aria-label={currentScreen < onboardingScreens.length - 1 ? 'Próxima tela' : 'Concluir onboarding'}
                 >
                   {isCompleting ? (
                     <Loader2 className="w-5 h-5 animate-spin" />

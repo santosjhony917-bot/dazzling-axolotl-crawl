@@ -58,11 +58,11 @@ const GallerySection: React.FC<GallerySectionProps> = ({ restaurantId }) => {
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-2">
           {images.slice(0, 4).map((image) => (
-            <div key={image.id} className="relative aspect-square overflow-hidden rounded-lg">
+            <div key={image.id} className="relative aspect-square overflow-hidden rounded-lg bg-slate-50">
               <img
                 src={image.image_url}
                 alt={image.caption || 'Imagem do restaurante'}
-                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                className="h-full w-full object-contain"
               />
             </div>
           ))}

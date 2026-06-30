@@ -1,20 +1,25 @@
 # Handoff Report
 
 ## Observation
-A new user request has been received to fix the Instagram bio link extraction logic in the Chrome Extension (`background.js`) under the new DOM structure. The request has been recorded in `.agents/ORIGINAL_REQUEST.md`. The orchestrator `02f760f3-be0a-48e5-86bc-c5a048f72e27` has responded and is actively monitoring verification subagents.
+A follow-up request has been received on 2026-06-22T20:02:31Z with two additional requirements:
+1. Click product modals (e.g. Saipos classes like `.item-content`, `.item-title`, etc.), extract options text, and close the modal in `background.js`.
+2. Extract secondary phones/WhatsApp from Instagram bio, format with ` / ` in the Supabase database `phone` field, and save them in `visit_notes` and `ai_log` in `validate_instagram.cjs`.
+
+The project orchestrator has been launched to handle the request.
 
 ## Logic Chain
-1. Appended the follow-up request to `.agents/ORIGINAL_REQUEST.md` and root `ORIGINAL_REQUEST.md`.
-2. Updated `BRIEFING.md` in `.agents/sentinel/` to reflect the active orchestrator ID.
-3. Spawned a new `teamwork_preview_orchestrator` instance.
-4. Background crons are active to monitor progress and liveness.
+1. Appended new request to both `.agents/ORIGINAL_REQUEST.md` and the workspace root `ORIGINAL_REQUEST.md`.
+2. Spanned the Project Orchestrator subagent (current active run: `39a5a1c5-cf83-4ef5-bf0a-2060b2f3a3a4` after previous runs failed due to model 429 quota exhaustion).
+3. Passed the updated prompt detailing all implementation requirements to the orchestrator.
+4. Timers and crons are already active.
 
 ## Caveats
-- The orchestrator has just responded. It is tracking Verifier 1 (cfcef6b8-0c19-4f14-85bf-228516bee9c3) and Reviewer 1 (ebef3b42-7e05-4dcc-b3ff-c97f5a718a40).
-- Progress monitoring and liveness tracking are active.
+- The system must run continuously.
+- Victory Audit is MANDATORY before reporting completion.
 
 ## Conclusion
-The active orchestrator is `02f760f3-be0a-48e5-86bc-c5a048f72e27`.
+The implementation phase continues with the updated requirements. The orchestrator is actively processing them.
 
 ## Verification Method
-- Monitor progress of the active orchestrator.
+- Monitor `progress.md` of the orchestrator.
+- Await completion notification.

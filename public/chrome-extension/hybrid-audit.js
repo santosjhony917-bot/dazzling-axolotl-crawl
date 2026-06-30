@@ -2,9 +2,21 @@
 
 const HYBRID_PRICE_RE = /(?:R\$\s*)?\d{1,4}(?:[.,]\d{2})(?!\d)/i;
 const waitHybrid = ms => new Promise(resolve => setTimeout(resolve, ms));
+const isUnsafeHybridMenuDestination = value => {
+  try {
+    const parsed = new URL(value);
+    const host = parsed.hostname.replace(/^www\./, '').toLowerCase();
+    const pathAndQuery = `${parsed.pathname}${parsed.search}`.toLowerCase();
+    if (['instagram.com', 'threads.net', 'threads.com', 'facebook.com', 'fb.com', 'tiktok.com', 'x.com', 'twitter.com', 'youtube.com'].some(domain => host === domain || host.endsWith('.' + domain))) return true;
+    return /\/(?:share|sharer|intent|login|auth|account|cart|checkout|wp-json|feed\b|tag\/|author\/|category\/(?:bookkeeping|contabilidade|blog|noticias|news))|[?&](?:share|u|url)=https?%3a/i.test(pathAndQuery);
+  } catch (_) {
+    return true;
+  }
+};
 
-async function auditMenuPage(url) {
+async function auditMenuPage(url, options = {}) {
   if (!/^https?:\/\//i.test(String(url || ''))) throw new Error('URL de cardápio inválida.');
+  if (isUnsafeHybridMenuDestination(url)) throw new Error('URL bloqueada: destino não parece ser cardápio.');
   const previousTabs = await chrome.tabs.query({ active: true, currentWindow: true });
   const previousTabId = previousTabs[0]?.id;
   const tab = await chrome.tabs.create({ url, active: true });
@@ -22,14 +34,30 @@ async function auditMenuPage(url) {
       chrome.tabs.onUpdated.addListener(listener);
     });
     await waitHybrid(1200);
+    const currentBefore = await chrome.tabs.get(tab.id);
+    if (isUnsafeHybridMenuDestination(currentBefore?.url || url)) {
+      throw new Error(`Destino bloqueado após navegação: ${currentBefore?.url || url}`);
+    }
     const injection = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: async () => {
         const normalize = value => String(value || '').replace(/\s+/g, ' ').trim();
         const priceRe = /(?:R\$\s*)?\d{1,4}(?:[.,]\d{2})(?!\d)/i;
         const clickWords = ['aceitar', 'concordo', 'entendi', 'apenas visualizar', 'quero continuar aqui', 'ver cardápio', 'ver cardapio', 'continuar sem informar', 'ver mesmo assim', 'fechar'];
+        const isUnsafeHref = href => {
+          try {
+            const parsed = new URL(href, location.href);
+            const host = parsed.hostname.replace(/^www\./, '').toLowerCase();
+            const pathAndQuery = `${parsed.pathname}${parsed.search}`.toLowerCase();
+            if (['instagram.com', 'threads.net', 'threads.com', 'facebook.com', 'fb.com', 'tiktok.com', 'x.com', 'twitter.com', 'youtube.com'].some(domain => host === domain || host.endsWith('.' + domain))) return true;
+            return /\/(?:share|sharer|intent|login|auth|account|cart|checkout|wp-json|feed\b|tag\/|author\/|category\/(?:bookkeeping|contabilidade|blog|noticias|news))|[?&](?:share|u|url)=https?%3a/i.test(pathAndQuery);
+          } catch (_) {
+            return true;
+          }
+        };
         for (const button of document.querySelectorAll('button, [role="button"], a')) {
           const text = normalize(button.textContent).toLowerCase();
+          if (button.tagName === 'A' && isUnsafeHref(button.href || button.getAttribute('href') || '')) continue;
           if (clickWords.some(word => text === word || text.includes(word))) {
             try { button.click(); } catch (_) {}
           }
@@ -75,22 +103,30 @@ async function auditMenuPage(url) {
       }
     });
     const snapshot = injection[0]?.result || {};
+    if (isUnsafeHybridMenuDestination(snapshot.finalUrl || url)) {
+      return { success: false, error: `Destino bloqueado após auditoria: ${snapshot.finalUrl || url}`, finalUrl: snapshot.finalUrl || url };
+    }
     const screenshots = [];
     const itemCount = snapshot.metrics?.itemCandidates || 0;
     const priceCoverage = snapshot.metrics?.priceCoverage || 0;
     const unresolvedBlockers = (snapshot.blockers || []).filter(blocker => ['captcha', 'cloudflare', 'login'].includes(blocker));
-    const needsVisualEvidence = itemCount < 5 || priceCoverage < 0.65 || (snapshot.blockers || []).length > 0 || !HYBRID_PRICE_RE.test(snapshot.rawText || '');
+    const needsVisualEvidence = Boolean(options.forceScreenshots)
+      || itemCount < 5
+      || priceCoverage < 0.65
+      || (snapshot.blockers || []).length > 0
+      || !HYBRID_PRICE_RE.test(snapshot.rawText || '');
     if (needsVisualEvidence && unresolvedBlockers.length === 0) {
       await chrome.tabs.update(tab.id, { active: true });
       await waitHybrid(500);
-      const positions = [0, 0.5, 1];
+      const maxScreenshots = Math.max(1, Math.min(5, Number(options.maxScreenshots || 3)));
+      const positions = maxScreenshots <= 2 ? [0, 1] : [0, 0.33, 0.66, 1].slice(0, maxScreenshots);
       for (const position of positions) {
         await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: ratio => window.scrollTo(0, Math.max(0, (document.documentElement.scrollHeight - innerHeight) * ratio)), args: [position] });
         // Chrome limita captureVisibleTab a poucas chamadas por segundo.
         await waitHybrid(1200);
         const image = await chrome.tabs.captureVisibleTab(tab.windowId, { format: 'jpeg', quality: 72 });
         if (image && !screenshots.includes(image)) screenshots.push(image);
-        if (itemCount >= 5 && screenshots.length >= 2) break;
+        if (!options.forceScreenshots && itemCount >= 5 && screenshots.length >= 2) break;
       }
     }
     const routeLevel = screenshots.length ? 2 : 1;
@@ -106,6 +142,6 @@ async function auditMenuPage(url) {
 
 chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
   if (message?.action !== 'auditMenuHybrid') return false;
-  auditMenuPage(message.url).then(sendResponse).catch(error => sendResponse({ success: false, error: error.message }));
+  auditMenuPage(message.url, message || {}).then(sendResponse).catch(error => sendResponse({ success: false, error: error.message }));
   return true;
 });

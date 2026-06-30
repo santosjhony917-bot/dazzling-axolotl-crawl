@@ -44,7 +44,7 @@ interface UpdateMultiplePlansPayload {
 
 interface UpdateStatusPayload {
   restaurantId: string;
-  newStatus: VisitStatus;
+  newStatus: VisitStatus | boolean;
 }
 
 interface UpdateNotesPayload {
@@ -380,6 +380,30 @@ const updateMultipleRestaurantPlans = async ({ restaurantIds, newPlan }: UpdateM
 };
 
 const updateRestaurantVisitStatus = async ({ restaurantId, newStatus }: UpdateStatusPayload): Promise<void> => {
+  if (newStatus === true) {
+    const localRestaurant = getLocalFallbackRestaurants().find(r => r.id === restaurantId);
+    const isLocalOnly = restaurantId.startsWith('mock-') || restaurantId.startsWith('scraped-');
+
+    if (isLocalOnly && localRestaurant?.menu_status !== 'found') {
+      showError('Este restaurante so pode ser publicado depois que o cardapio estiver validado pela IA.');
+      throw new Error('Publication blocked: menu_status is not found.');
+    }
+
+    if (!isLocalOnly) {
+      const uuidId = getDeterministicUUID(restaurantId);
+      const { data, error } = await supabase
+        .from('restaurants')
+        .select('menu_status')
+        .eq('id', uuidId)
+        .maybeSingle();
+
+      if (error || data?.menu_status !== 'found') {
+        showError('Este restaurante so pode ser publicado depois que o cardapio estiver validado pela IA.');
+        throw new Error(`Publication blocked: menu_status is ${data?.menu_status || 'unknown'}.`);
+      }
+    }
+  }
+
   // Always update locally first
   try {
     const list = getLocalFallbackRestaurants();

@@ -8,6 +8,59 @@ import fs from "fs";
 let activeProcess: any = null;
 let validationProcess: any = null;
 let logBuffer = "";
+const extensionTelemetryBuffer: any[] = [];
+const EXTENSION_TELEMETRY_LIMIT = 500;
+const extensionCommandQueue: any[] = [];
+const extensionCommandResults: any[] = [];
+const EXTENSION_COMMAND_LIMIT = 100;
+const EXTENSION_COMMAND_RESULT_LIMIT = 200;
+const extensionMonitorDir = path.join(__dirname, ".tmp", "extension-monitor");
+const extensionSnapshotDir = path.join(extensionMonitorDir, "snapshots");
+
+function readRequestBody(req: any, maxBytes = 1024 * 1024): Promise<string> {
+  return new Promise((resolve, reject) => {
+    let body = "";
+    req.on("data", (chunk: Buffer | string) => {
+      body += chunk.toString();
+      if (body.length > maxBytes) {
+        reject(new Error("Request body too large"));
+      }
+    });
+    req.on("end", () => resolve(body));
+    req.on("error", reject);
+  });
+}
+
+function createExtensionCommandId() {
+  return `cmd_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function ensureExtensionSnapshotDir() {
+  fs.mkdirSync(extensionSnapshotDir, { recursive: true });
+}
+
+function saveExtensionSnapshot(commandId: string, dataUrl: string) {
+  const match = String(dataUrl || "").match(/^data:image\/(png|jpe?g|webp);base64,([A-Za-z0-9+/=]+)$/);
+  if (!match) return null;
+  ensureExtensionSnapshotDir();
+  const ext = match[1].replace("jpeg", "jpg");
+  const fileName = `${commandId}.${ext}`;
+  const filePath = path.join(extensionSnapshotDir, fileName);
+  const buffer = Buffer.from(match[2], "base64");
+  fs.writeFileSync(filePath, buffer);
+  return {
+    snapshotFile: fileName,
+    snapshotPath: filePath,
+    bytes: buffer.length
+  };
+}
+
+function storeExtensionCommandResult(entry: any) {
+  extensionCommandResults.push(entry);
+  if (extensionCommandResults.length > EXTENSION_COMMAND_RESULT_LIMIT) {
+    extensionCommandResults.splice(0, extensionCommandResults.length - EXTENSION_COMMAND_RESULT_LIMIT);
+  }
+}
 
 function loadLocalDotEnv() {
   try {
@@ -68,6 +121,173 @@ export default defineConfig(() => ({
             const urlParams = new URLSearchParams(urlParts[1] || "");
             
             const stateFilePath = path.join(__dirname, "scratch", "google_maps_scraper_state.json");
+
+            if (urlPath === "/api/local-collector/extension-telemetry") {
+              if (req.method === "GET") {
+                res.writeHead(200);
+                res.end(JSON.stringify({
+                  success: true,
+                  count: extensionTelemetryBuffer.length,
+                  events: extensionTelemetryBuffer.slice(-200)
+                }));
+                return;
+              }
+
+              if (req.method === "DELETE") {
+                extensionTelemetryBuffer.length = 0;
+                res.writeHead(200);
+                res.end(JSON.stringify({ success: true }));
+                return;
+              }
+
+              if (req.method === "POST") {
+                readRequestBody(req)
+                  .then((body) => {
+                    const parsed = body ? JSON.parse(body) : {};
+                    const event = {
+                      receivedAt: new Date().toISOString(),
+                      ...parsed
+                    };
+                    extensionTelemetryBuffer.push(event);
+                    if (extensionTelemetryBuffer.length > EXTENSION_TELEMETRY_LIMIT) {
+                      extensionTelemetryBuffer.splice(0, extensionTelemetryBuffer.length - EXTENSION_TELEMETRY_LIMIT);
+                    }
+                    res.writeHead(200);
+                    res.end(JSON.stringify({ success: true }));
+                  })
+                  .catch((error) => {
+                    res.writeHead(400);
+                    res.end(JSON.stringify({
+                      success: false,
+                      error: error instanceof Error ? error.message : String(error)
+                    }));
+                  });
+                return;
+              }
+
+              res.writeHead(405);
+              res.end(JSON.stringify({ success: false, error: "Method not allowed" }));
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/extension-command") {
+              if (req.method === "GET") {
+                const command = extensionCommandQueue.shift() || null;
+                res.writeHead(200);
+                res.end(JSON.stringify({
+                  success: true,
+                  command,
+                  queued: extensionCommandQueue.length
+                }));
+                return;
+              }
+
+              if (req.method === "DELETE") {
+                extensionCommandQueue.length = 0;
+                extensionCommandResults.length = 0;
+                res.writeHead(200);
+                res.end(JSON.stringify({ success: true }));
+                return;
+              }
+
+              if (req.method === "POST") {
+                readRequestBody(req)
+                  .then((body) => {
+                    const parsed = body ? JSON.parse(body) : {};
+                    const type = String(parsed.type || parsed.action || "").trim();
+                    if (!type) {
+                      res.writeHead(400);
+                      res.end(JSON.stringify({ success: false, error: "Missing command type" }));
+                      return;
+                    }
+                    const command = {
+                      ...parsed,
+                      id: parsed.id || createExtensionCommandId(),
+                      type,
+                      queuedAt: new Date().toISOString()
+                    };
+                    extensionCommandQueue.push(command);
+                    if (extensionCommandQueue.length > EXTENSION_COMMAND_LIMIT) {
+                      extensionCommandQueue.splice(0, extensionCommandQueue.length - EXTENSION_COMMAND_LIMIT);
+                    }
+                    res.writeHead(200);
+                    res.end(JSON.stringify({
+                      success: true,
+                      command,
+                      queued: extensionCommandQueue.length
+                    }));
+                  })
+                  .catch((error) => {
+                    res.writeHead(400);
+                    res.end(JSON.stringify({
+                      success: false,
+                      error: error instanceof Error ? error.message : String(error)
+                    }));
+                  });
+                return;
+              }
+
+              res.writeHead(405);
+              res.end(JSON.stringify({ success: false, error: "Method not allowed" }));
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/extension-command-result") {
+              if (req.method === "GET") {
+                res.writeHead(200);
+                res.end(JSON.stringify({
+                  success: true,
+                  queued: extensionCommandQueue.length,
+                  count: extensionCommandResults.length,
+                  results: extensionCommandResults.slice(-100)
+                }));
+                return;
+              }
+
+              if (req.method === "DELETE") {
+                extensionCommandResults.length = 0;
+                res.writeHead(200);
+                res.end(JSON.stringify({ success: true }));
+                return;
+              }
+
+              if (req.method === "POST") {
+                readRequestBody(req, 12 * 1024 * 1024)
+                  .then((body) => {
+                    const parsed = body ? JSON.parse(body) : {};
+                    const commandId = String(parsed.commandId || parsed.command?.id || createExtensionCommandId());
+                    const result = parsed.result || {};
+                    let snapshot: any = null;
+                    if (typeof result.dataUrl === "string") {
+                      snapshot = saveExtensionSnapshot(commandId, result.dataUrl);
+                      delete result.dataUrl;
+                    }
+                    storeExtensionCommandResult({
+                      receivedAt: new Date().toISOString(),
+                      commandId,
+                      command: parsed.command || null,
+                      success: parsed.success !== false,
+                      error: parsed.error || null,
+                      result,
+                      snapshot
+                    });
+                    res.writeHead(200);
+                    res.end(JSON.stringify({ success: true, snapshot }));
+                  })
+                  .catch((error) => {
+                    res.writeHead(400);
+                    res.end(JSON.stringify({
+                      success: false,
+                      error: error instanceof Error ? error.message : String(error)
+                    }));
+                  });
+                return;
+              }
+
+              res.writeHead(405);
+              res.end(JSON.stringify({ success: false, error: "Method not allowed" }));
+              return;
+            }
 
             if (urlPath === "/api/local-collector/status") {
               res.writeHead(200);
@@ -271,6 +491,7 @@ export default defineConfig(() => ({
                   const parsed = JSON.parse(bodyData);
                   const message = parsed.message || '';
                   const systemContext = parsed.systemContext || '';
+                  const jsonMode = parsed.jsonMode === true;
                   
                   // Chamar OpenAI diretamente daqui do servidor node local.
                   // Preferimos a chave OpenAI/GPT do projeto; OpenRouter fica como fallback
@@ -298,14 +519,18 @@ export default defineConfig(() => ({
                     let lastError: any = null;
                     for (let attempt = 0; attempt < 8; attempt++) {
                       try {
-                        return await openai.chat.completions.create({
+                        const completionPayload: any = {
                           model: model,
                           messages: [
                             { role: 'system', content: systemContext },
                             { role: 'user', content: message }
                           ],
                           temperature: 0.1
-                        });
+                        };
+                        if (jsonMode && apiKey) {
+                          completionPayload.response_format = { type: 'json_object' };
+                        }
+                        return await openai.chat.completions.create(completionPayload);
                       } catch (retryErr: any) {
                         lastError = retryErr;
                         const status = retryErr?.status || retryErr?.code;
@@ -342,7 +567,14 @@ export default defineConfig(() => ({
               req.on('end', async () => {
                 try {
                   const parsed = JSON.parse(bodyData);
-                  const images: string[] = parsed.images || [];
+                  const maxImages = Math.max(1, Math.min(8, Number(parsed.maxImages || 8)));
+                  const source = String(parsed.source || 'galeria').trim();
+                  const images: string[] = (parsed.images || [])
+                    .map((item: any) => typeof item === 'string' ? item : item?.image || item?.url)
+                    .filter((item: any) => typeof item === 'string' && item.trim())
+                    .map((item: string) => item.trim())
+                    .filter((item: string) => !/^data:video\//i.test(item) && !/\.(mp4|mov|webm|m4v)(\?|#|$)/i.test(item))
+                    .slice(0, 24);
                   
                   if (images.length === 0) {
                     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -377,12 +609,16 @@ export default defineConfig(() => ({
                         messages: [
                           {
                             role: 'system',
-                            content: 'Você é um assistente de IA que analisa imagens de redes sociais para um guia gastronômico. Responda apenas com a palavra "APROVADO" ou "REJEITADO". Classifique como APROVADO se a imagem for claramente de comida, bebida ou prato real servido (prato de comida pronto, sobremesa, drink, café, ingredientes de cozinha). Classifique como REJEITADO se a imagem contiver pessoas (mesmo parcialmente), rostos, cadeiras/mesas vazias (sem comida/bebida em foco), ambiente geral sem destaque para comida, cardápios impressos, panfletos, promoções de texto, memes, logotipos ou flyers promocionais.'
+                            content: 'Voce e um assistente de IA que escolhe fotos para a galeria publica de um restaurante. Responda apenas com a palavra "APROVADO" ou "REJEITADO". APROVADO: foto real, bonita e util de comida, bebida, sobremesa, prato servido, fachada limpa, salao/ambiente limpo ou vitrine/balcao apresentavel do proprio restaurante. REJEITADO: video, thumbnail com play, cardapio impresso/digital, print de app, panfleto, flyer, arte promocional, logo isolado, meme, texto como foco principal, pessoas/rostos como foco, funcionario ou cliente posando, mesa vazia ou suja, lixo, embalagem sem comida, imagem borrada, escura, cortada demais, generica ou que nao pareca pertencer ao restaurante.'
+                          },
+                          {
+                            role: 'system',
+                            content: 'Regra obrigatoria e conservadora: priorize fotos de comida; use fotos de ambiente/fachada apenas quando forem limpas, bem enquadradas e ajudarem o usuario a reconhecer o restaurante. Fotos de cardapio nao pertencem a galeria; elas sao evidencias para extracao de cardapio. Na duvida, responda REJEITADO.'
                           },
                           {
                             role: 'user',
                             content: [
-                              { type: 'text', text: 'Analise esta imagem e responda apenas com a palavra APROVADO ou REJEITADO:' },
+                              { type: 'text', text: `Origem: ${source}. Analise esta imagem e responda apenas APROVADO ou REJEITADO:` },
                               { type: 'image_url', image_url: { url: img } }
                             ]
                           }
@@ -400,7 +636,7 @@ export default defineConfig(() => ({
                   });
 
                   const results = await Promise.all(promises);
-                  const approvedImages = results.filter(r => r.isApproved).map(r => r.img);
+                  const approvedImages = results.filter(r => r.isApproved).map(r => r.img).slice(0, maxImages);
 
                   res.writeHead(200, { 'Content-Type': 'application/json' });
                   res.end(JSON.stringify({ success: true, filteredImages: approvedImages }));
@@ -501,6 +737,204 @@ export default defineConfig(() => ({
                 } catch (err: any) {
                   res.writeHead(500, { 'Content-Type': 'application/json' });
                   res.end(JSON.stringify({ success: false, error: err.message }));
+                }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/audit-menu-visual-structure" && req.method === "POST") {
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', async () => {
+                try {
+                  const parsed = JSON.parse(bodyData || '{}');
+                  const images: string[] = (parsed.images || [])
+                    .map((item: any) => typeof item === 'string' ? item : item?.image || item?.url)
+                    .filter((value: any) => typeof value === 'string' && value.startsWith('data:image'))
+                    .slice(0, 4);
+                  const structuredMenu = parsed.structuredMenu || [];
+                  const sourceUrl = parsed.sourceUrl || '';
+
+                  if (images.length === 0) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({
+                      success: false,
+                      visualAudit: {
+                        usable: false,
+                        recommendation: 'needs_more_screenshots',
+                        reason: 'Nenhum screenshot visual do cardápio foi enviado.'
+                      }
+                    }));
+                    return;
+                  }
+
+                  const { OpenAI } = await import('openai');
+                  const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
+                  if (!apiKey) throw new Error('Chave OpenAI não configurada no .env');
+                  const openai = new OpenAI({ apiKey, timeout: 45000, maxRetries: 1 });
+
+                  const compactMenu = (Array.isArray(structuredMenu) ? structuredMenu : [])
+                    .slice(0, 30)
+                    .map((category: any) => ({
+                      name: category?.name,
+                      items: (category?.items || category?.menu_items || [])
+                        .slice(0, 40)
+                        .map((item: any) => ({
+                          name: item?.name,
+                          description: String(item?.description || '').slice(0, 180),
+                          image_url: item?.image_url || item?.imageUrl || null,
+                          price: item?.price ?? item?.display_price ?? item?.price_min ?? null,
+                          commercial_type: item?.commercial_type || null,
+                          option_groups: item?.option_groups || item?.options || [],
+                          combo_components: item?.combo_components || item?.comboComponents || []
+                        }))
+                    }));
+
+                  const response = await openai.chat.completions.create({
+                    model: process.env.MENU_VISUAL_AUDIT_MODEL || process.env.MENU_IMAGE_MODEL || 'gpt-4o-mini',
+                    temperature: 0,
+                    response_format: { type: 'json_object' },
+                    messages: [
+                      {
+                        role: 'system',
+                        content: [
+                          'Você é auditor visual de cardápios para um app público de restaurantes.',
+                          'Compare screenshots reais do cardápio com o JSON estruturado proposto.',
+                          'Procure sinais de categorias, abas, subcategorias, combos, escolhas obrigatórias e adicionais que sumiram ou foram transformados em itens/categorias erradas.',
+                          'Não exija extrair o cardápio completo pelo print: a tarefa é detectar inconsistências estruturais evidentes.',
+                          'Se o print mostra abas/categorias/subcategorias que não aparecem no JSON, marque needs_restructure.',
+                          'Se o JSON colocou adicionais/escolhas como itens principais, marque needs_restructure.',
+                          'Se a estrutura parece coerente com o que está visível, marque ready.',
+                          'Responda somente JSON: {"usable":true,"confidence":0.0,"structure_matches":true,"recommendation":"ready|needs_restructure|needs_more_screenshots","visual_summary":"curto","missing_categories":[],"missing_subcategories":[],"missing_options_or_addons":[],"wrongly_promoted_items":[],"warnings":[],"reason":"curto"}.'
+                        ].join(' ')
+                      },
+                      {
+                        role: 'user',
+                        content: [
+                          {
+                            type: 'text',
+                            text: `Fonte: ${sourceUrl}\n\nMenu estruturado proposto:\n${JSON.stringify(compactMenu).slice(0, 24000)}`
+                          },
+                          ...images.map((image) => ({ type: 'image_url', image_url: { url: image } }))
+                        ]
+                      }
+                    ]
+                  });
+
+                  const content = response.choices[0]?.message?.content || '{}';
+                  const visualAudit = JSON.parse(String(content).match(/\{[\s\S]*\}/)?.[0] || '{}');
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ success: true, visualAudit }));
+                } catch (err: any) {
+                  console.error('[audit-menu-visual-structure] Erro:', err?.message || err);
+                  res.writeHead(500, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ success: false, error: err?.message || 'Erro desconhecido na auditoria visual' }));
+                }
+              });
+              return;
+            }
+
+            if (urlPath === "/api/local-collector/audit-menu-consistency" && req.method === "POST") {
+              let bodyData = '';
+              req.on('data', chunk => { bodyData += chunk.toString(); });
+              req.on('end', async () => {
+                try {
+                  const parsed = JSON.parse(bodyData || '{}');
+                  const proposedMenu = Array.isArray(parsed.proposedMenu) ? parsed.proposedMenu : [];
+                  const sourceMenu = Array.isArray(parsed.sourceMenu) ? parsed.sourceMenu : [];
+                  const sourceText = String(parsed.sourceText || '').slice(0, 70000);
+                  const sourceUrl = String(parsed.sourceUrl || '');
+                  const visualAudit = parsed.visualAudit || null;
+                  const images: string[] = (parsed.images || [])
+                    .map((item: any) => typeof item === 'string' ? item : item?.image || item?.url)
+                    .filter((value: any) => typeof value === 'string' && value.startsWith('data:image'))
+                    .slice(0, 3);
+
+                  if (!proposedMenu.length) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({
+                      success: true,
+                      consistencyAudit: {
+                        verdict: 'block',
+                        confidence: 1,
+                        reason: 'Menu proposto vazio.',
+                        errors: [{ type: 'empty_menu', severity: 'blocking', message: 'Menu proposto vazio.' }],
+                        correctedMenu: []
+                      }
+                    }));
+                    return;
+                  }
+
+                  const { OpenAI } = await import('openai');
+                  const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
+                  if (!apiKey) throw new Error('Chave OpenAI não configurada no .env');
+                  const openai = new OpenAI({ apiKey, timeout: 60000, maxRetries: 1 });
+
+                  const compactMenu = (menu: any[]) => menu.slice(0, 35).map((category: any) => ({
+                    name: category?.name,
+                    items: (category?.items || category?.menu_items || []).slice(0, 60).map((item: any) => ({
+                      name: item?.name,
+                      description: String(item?.description || '').slice(0, 240),
+                      image_url: item?.image_url || item?.imageUrl || null,
+                      price: item?.price ?? item?.display_price ?? item?.price_min ?? null,
+                      price_type: item?.price_type || null,
+                      commercial_type: item?.commercial_type || null,
+                      combo_components: item?.combo_components || item?.comboComponents || [],
+                      option_groups: item?.option_groups || item?.options || []
+                    }))
+                  }));
+
+                  const response = await openai.chat.completions.create({
+                    model: process.env.MENU_CONSISTENCY_AUDIT_MODEL || process.env.MENU_VISUAL_AUDIT_MODEL || 'gpt-4o-mini',
+                    temperature: 0,
+                    response_format: { type: 'json_object' },
+                    messages: [
+                      {
+                        role: 'system',
+                        content: [
+                          'A IA nao e redatora. Ela so pode classificar/posicionar textos existentes: categoria, subcategoria, item, combo, escolha, adicional, preco e horario.',
+                          'Nao crie nomes amigaveis, nao renomeie combo, nao crie categoria por interpretacao e nao escreva descricoes de marketing. Se nao estiver literalmente ou claramente no texto/print, remova ou bloqueie.',
+                          'correctedMenu deve ser um subconjunto/reorganizacao fiel da fonte. Nao acrescente nenhum texto novo exceto campos tecnicos vazios/nulos.',
+                          'Você é o AGENTE AUDITOR do Validar IA. Sua função é fiscalizar a IA curadora, não agradar.',
+                          'Compare o cardápio estruturado proposto contra a fonte original: texto bruto, itens brutos do extrator, auditoria visual e prints.',
+                          'Regra principal: NUNCA permita invenção. Item, preço, categoria, descrição, combo, adicional e opção precisam estar apoiados na fonte.',
+                          'Descrições genéricas inventadas como "deliciosa", "perfeita", "item montável", "valor final conforme escolhas", "combinação perfeita" devem ser removidas, salvo se aparecerem literalmente na fonte.',
+                          'Se o item existe mas a descrição foi inventada, mantenha o item e deixe descrição vazia ou factual somente com palavras da fonte.',
+                          'Se categoria pública está errada/duplicada, corrija. Ex: massa não deve ficar em Pratos Principais se já há Massas.',
+                          'Se combo estiver como combo_builder, ele deve ter combo_components/option_groups apoiados na fonte. Combo sem componentes claros deve bloquear ou virar item simples somente se a fonte vender como item fechado.',
+                          'Se adicional/escolha foi promovido a item principal, corrija para option_groups/combo_components ou bloqueie.',
+                          'Se uma subcategoria/aba aparece na fonte visual/textual e sumiu no proposto, corrija ou bloqueie.',
+                          'Você pode retornar correctedMenu limpo. Se corrigir, preserve apenas dados apoiados na fonte.',
+                          'Responda somente JSON. Em reason e message, explique objetivamente o que foi corrigido ou por que bloqueou; nunca responda com placeholder. Formato: {"verdict":"pass|corrected|block","confidence":0.0,"reason":"ex: removi descricoes inventadas e mantive itens com nome/preco comprovados","errors":[{"type":"invented_description|invented_item|wrong_category|missing_category|combo_without_components|addon_promoted|price_mismatch|unsupported_data","severity":"warning|blocking","item":"nome","message":"ex: descricao nao aparece literalmente na fonte"}],"correctedMenu":[{"name":"Categoria","items":[{"name":"Item","description":"","price":35.9,"display_price":35.9,"price_type":"fixed|starting_at|range|option_only","commercial_type":"simple_item|configurable_item|combo_builder|simple_with_addons","search_display_name":"", "search_keywords":"", "combo_rules":null, "combo_components":[], "option_groups":[]}]}]}'
+                        ].join(' ')
+                      },
+                      {
+                        role: 'user',
+                        content: [
+                          {
+                            type: 'text',
+                            text: [
+                              `Fonte: ${sourceUrl}`,
+                              `Auditoria visual: ${JSON.stringify(visualAudit || {}).slice(0, 5000)}`,
+                              `Itens/categorias brutos do extrator: ${JSON.stringify(compactMenu(sourceMenu)).slice(0, 18000)}`,
+                              `Texto bruto original: ${sourceText.slice(0, 24000)}`,
+                              `Menu proposto pela IA curadora: ${JSON.stringify(compactMenu(proposedMenu)).slice(0, 24000)}`
+                            ].join('\n\n')
+                          },
+                          ...images.map((image) => ({ type: 'image_url', image_url: { url: image } }))
+                        ]
+                      }
+                    ]
+                  });
+
+                  const content = response.choices[0]?.message?.content || '{}';
+                  const consistencyAudit = JSON.parse(String(content).match(/\{[\s\S]*\}/)?.[0] || '{}');
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ success: true, consistencyAudit }));
+                } catch (err: any) {
+                  console.error('[audit-menu-consistency] Erro:', err?.message || err);
+                  res.writeHead(500, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({ success: false, error: err?.message || 'Erro desconhecido na auditoria de consistência' }));
                 }
               });
               return;
@@ -1085,16 +1519,27 @@ export default defineConfig(() => ({
                   fs.writeFileSync(evidenceFile, JSON.stringify(parsed.menuEvidence));
                   args.push("--evidence-file", evidenceFile);
                 }
+                if (parsed.dryRun || parsed.previewOnly) {
+                  args.push("--dry-run");
+                  logBuffer += `ðŸ§ª Modo prÃ©via: cardÃ¡pio serÃ¡ auditado antes de salvar.\n`;
+                }
                 const proc = spawn("node", args, { shell: true });
                 validationProcess = proc;
 
                 let resultJsonStr = "";
+                let stdoutBuffer = "";
                 proc.stdout.on("data", (data) => {
                   const text = data.toString("utf-8");
+                  stdoutBuffer += text;
+                  if (stdoutBuffer.length > 2000000) stdoutBuffer = stdoutBuffer.slice(-2000000);
                   logBuffer += text;
                   if (logBuffer.length > 100000) logBuffer = logBuffer.slice(-100000);
-                  const match = text.match(/RESULT:(.+)/);
-                  if (match) resultJsonStr = match[1].trim();
+                  const markerIndex = stdoutBuffer.lastIndexOf("RESULT:");
+                  if (markerIndex >= 0) {
+                    const resultTail = stdoutBuffer.slice(markerIndex + "RESULT:".length);
+                    const firstLine = resultTail.split(/\r?\n/)[0]?.trim();
+                    if (firstLine) resultJsonStr = firstLine;
+                  }
                 });
 
                 proc.stderr.on("data", (data) => {

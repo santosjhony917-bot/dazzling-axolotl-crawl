@@ -19,6 +19,7 @@ export interface RestaurantWithDistance {
   distance_km: number;
   neighborhood?: string | null;
   is_published?: boolean;
+  menu_status?: string | null;
   opening_hours?: any;
 }
 
@@ -115,7 +116,25 @@ export const useNearbyRestaurants = ({
         }
 
         const list = data && data.length > 0 ? data : mockRestaurants;
-        return list.filter((r: any) => (!r.hasOwnProperty('is_published') || r.is_published === true) && !deletedIds.has(r.id));
+        const realIds = list
+          .map((r: any) => r.id)
+          .filter((id: any) => id && !String(id).startsWith('mock-'));
+        const { data: statusRows } = realIds.length
+          ? await supabase
+            .from('restaurants')
+            .select('id, menu_status')
+            .in('id', realIds)
+          : { data: [] as any[] };
+        const publishableMenuIds = new Set((statusRows || [])
+          .filter((row: any) => row.menu_status === 'found')
+          .map((row: any) => row.id));
+
+        return list.filter((r: any) => {
+          if (deletedIds.has(r.id)) return false;
+          if (String(r.id || '').startsWith('mock-')) return true;
+          if (r.hasOwnProperty('is_published') && r.is_published !== true) return false;
+          return r.menu_status === 'found' || publishableMenuIds.has(r.id);
+        });
       } catch (err) {
         console.warn("Error calling Supabase, returning mock restaurants.", err);
         return mockRestaurants;

@@ -16,50 +16,67 @@
 
 @layer base {
   :root {
-    /* Cores Semânticas Oficiais (Hex) - Tema GrubGo */
-    --primary-hex: #EF2A39;
-    --highlight-hex: #EF2A39;
-    --bg-hex: #FAFAFA;
-    --card-bg-hex: #FFFFFF;
-    --text-hex: #2A2A2A;
-    --text-muted-hex: #888888;
+    /* FilterFood identity tokens: /restaurant-area-hub is the source reference. */
+    --filterfood-orange: #df4b1c;
+    --filterfood-orange-hover: #bd3f17;
+    --filterfood-ink: #3C2F2F;
+    --filterfood-muted: #888888;
+    --filterfood-canvas: #FAFAFA;
+    --filterfood-shell: #f1f5f9;
+    --filterfood-surface: #FFFFFF;
+    --filterfood-border: rgba(226, 232, 240, 0.75);
+    --filterfood-shell-border: rgba(203, 213, 225, 0.6);
+    --filterfood-focus-ring: rgba(223, 75, 28, 0.32);
+
+    /* Cores Semanticas Oficiais (Hex) - Tema FilterFood */
+    --primary-hex: var(--filterfood-orange);
+    --highlight-hex: var(--filterfood-orange);
+    --bg-hex: var(--filterfood-canvas);
+    --app-outer-bg: var(--filterfood-shell);
+    --card-bg-hex: var(--filterfood-surface);
+    --text-hex: var(--filterfood-ink);
+    --text-muted-hex: var(--filterfood-muted);
     --border-hex: #F3F4F6;
     --magic-feature-hex: #5D3DBD;
 
-    /* Sombras GrubGo (Clean UI) */
-    --soft-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-    --float-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+    /* Sombras FilterFood (Clean UI) */
+    --soft-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    --float-shadow: 0 14px 38px rgba(15, 23, 42, 0.065);
+    --hover-shadow: 0 16px 38px rgba(15, 23, 42, 0.08);
+    --focus-shadow: 0 0 0 3px var(--filterfood-focus-ring), 0 12px 30px rgba(15, 23, 42, 0.08);
+    --nav-shadow: 0 -4px 30px rgba(15, 23, 42, 0.04);
+    --modal-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
 
     /* Mapeamento HSL para compatibilidade com Tailwind */
-    --background: 0 0% 98%;      /* #FAFAFA */
-    --foreground: 0 0% 16%;      /* #2A2A2A */
+    --background: 0 0% 98%;        /* #FAFAFA */
+    --foreground: 13 13% 21%;      /* #3C2F2F */
     
-    --card: 0 0% 100%;              /* #FFFFFF */
-    --card-foreground: 0 0% 16%; /* #2A2A2A */
+    --card: 0 0% 100%;             /* #FFFFFF */
+    --card-foreground: 13 13% 21%; /* #3C2F2F */
     
-    --primary: 357 86% 57%;         /* #EF2A39 */
+    --primary: 14 78% 49%;          /* #df4b1c */
     --primary-foreground: 0 0% 100%;
     
     --secondary: 0 0% 98%;
-    --secondary-foreground: 0 0% 16%;
+    --secondary-foreground: 13 13% 21%;
     
     --muted: 0 0% 98%;
     --muted-foreground: 0 0% 53%; /* #888888 */
     
     --accent: 0 0% 98%;
-    --accent-foreground: 0 0% 16%;
+    --accent-foreground: 13 13% 21%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 220 13% 91%;          /* #F3F4F6 */
-    --input: 220 13% 91%;
-    --ring: 357 86% 57%;
+    --border: 220 18% 94%;
+    --input: 220 18% 94%;
+    --ring: 14 78% 49%;
     
-    --radius: 1.25rem; /* 20px */
+    --radius: 1.5rem; /* 24px */
     
     --background-light: 0 0% 98%; 
-    --highlight: 357 86% 57%;        /* #EF2A39 */
+    --highlight: 14 78% 49%;         /* #df4b1c */
     --magic-feature: 255 51% 49%;   
     --text-secondary: 0 0% 53%;
   }
@@ -70,8 +87,8 @@
     --foreground: 0 0% 16%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 16%;
-    --primary: 357 86% 57%;
-    --highlight: 357 86% 57%;
+    --primary: 14 78% 49%;
+    --highlight: 14 78% 49%;
     --magic-feature: 255 51% 49%;
   }
 }
@@ -86,9 +103,7 @@
   }
 
   body {
-    background: #e2e8f0; /* Darker background outside the app container on desktop */
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-    background-size: 20px 20px; /* Subtle grid pattern on desktop */
+    background: var(--filterfood-shell);
     color: var(--text-hex);
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -102,28 +117,29 @@
 /* --- CLASSE DE CONTAINER MOBILE PADRÃO --- */
 .mobile-viewport-container {
   width: 100%;
-  max-width: 440px; /* Slight increase for better readability */
+  max-width: 448px;
   margin: 0 auto;
-  background-color: var(--card-bg-hex);
+  background-color: var(--bg-hex);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  border-left: 1px solid var(--filterfood-shell-border);
+  border-right: 1px solid var(--filterfood-shell-border);
+  box-shadow: none;
   overflow-x: hidden;
 }
 
 @media (min-width: 440px) {
   .mobile-viewport-container {
-    max-width: 480px;
+    max-width: 448px;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
-    background-color: white;
-    height: 100vh; /* Fill screen height but constrain it */
-    overflow-y: auto; /* Scroll inside the app container instead of the whole body */
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-    -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+    background-color: var(--bg-hex);
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   .mobile-viewport-container::-webkit-scrollbar {
     display: none; /* Hide scrollbar for Chrome, Safari and Opera */
@@ -182,18 +198,20 @@
   color: var(--text-muted-hex);
 }
 
-/* --- GRUBGO CARD BASE --- */
+/* --- FILTERFOOD CARD BASE --- */
+.filterfood-card,
 .grubgo-card {
-  background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.02);
+  background-color: var(--filterfood-surface);
+  border: 1px solid var(--filterfood-border);
   border-radius: 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--soft-shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+.filterfood-card:hover,
 .grubgo-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--hover-shadow);
 }
 
 /* --- GRID E ESPAÇAMENTO RÍGIDO --- */
@@ -248,7 +266,7 @@
 
 .search-bar-container:focus-within {
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--focus-shadow);
 }
 
 .search-input-field {
@@ -287,7 +305,7 @@
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.search-btn-action:hover { background-color: #C81E27; }
+.search-btn-action:hover { background-color: var(--filterfood-orange-hover); }
 
 .search-btn-action:active {
   transform: scale(0.95);
@@ -465,7 +483,7 @@
   height: 65px;
   background-color: var(--card-bg-hex);
   border-top: none;
-  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--nav-shadow);
   display: flex;
   width: 100%;
   position: absolute;
@@ -528,14 +546,43 @@
 
 /* --- SOFT UI BASE CLASSES --- */
 .soft-card {
-  background: #FFFFFF;
+  background: var(--filterfood-surface);
   border-radius: 24px;
-  --tw-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  --tw-shadow: var(--soft-shadow);
   --tw-shadow-colored: 0 4px 16px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--filterfood-border);
 }
 
 .soft-pill {
   border-radius: 9999px; /* Pill shape */
+}
+
+.app-phone-shell {
+  width: 100%;
+  max-width: 448px;
+  min-height: 100vh;
+  margin: 0 auto;
+  border-left: 1px solid var(--filterfood-shell-border);
+  border-right: 1px solid var(--filterfood-shell-border);
+  background: var(--filterfood-canvas);
+  overflow-x: hidden;
+}
+
+.hub-surface {
+  background: var(--filterfood-surface);
+  border: 1px solid var(--filterfood-border);
+  border-radius: 24px;
+  box-shadow: var(--soft-shadow);
+}
+
+.hub-icon-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 1rem;
+  background: rgba(223, 75, 28, 0.08);
+  color: var(--highlight-hex);
 }

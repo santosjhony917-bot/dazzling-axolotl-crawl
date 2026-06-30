@@ -1,17 +1,16 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Restaurant, FavoriteRestaurant } from '@/types/supabase'; // CORREÇÃO: FavoriteRestaurant agora é exportado
+import { Restaurant } from '@/types/supabase';
 import { Button } from '@/components/ui/button';
 import { Loader2, Heart, MapPin, Utensils, ArrowLeft } from 'lucide-react';
 import { useAuthData } from '@/context/AuthContext';
 import { createPageUrl } from '@/utils/url';
 import { showError, showSuccess } from '@/utils/toast';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
-import Header from '@/components/Header'; // Importando o componente Header
+import Header from '@/components/Header';
+import PhoneShell from '@/components/layout/PhoneShell';
 
-// Definindo o tipo de dado que esperamos do join (user_favorites -> restaurants)
 type FavoriteRestaurantData = {
   restaurant: Restaurant;
 };
@@ -23,7 +22,7 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurantData[]>
 
   const { data, error } = await supabase
     .from('user_favorites')
-    .select('restaurant:restaurants(*)') // Seleciona todos os campos do restaurante relacionado
+    .select('restaurant:restaurants(*)')
     .eq('user_id', userId);
 
   if (error) {
@@ -33,10 +32,7 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurantData[]>
 
   if (!data) return [];
 
-  // O Supabase retorna um array de objetos com a chave 'restaurant' contendo o objeto Restaurant.
-  // Filtramos para garantir que o objeto 'restaurant' exista e fazemos o cast.
-  return (data as unknown as FavoriteRestaurantData[])
-    .filter(item => item && item.restaurant) as FavoriteRestaurantData[];
+  return (data as unknown as FavoriteRestaurantData[]).filter(item => item && item.restaurant);
 };
 
 const removeFavorite = async (restaurantId: string, userId: string) => {
@@ -67,7 +63,8 @@ export default function Favorites() {
   });
 
   const removeFavoriteMutation = useMutation({
-    mutationFn: ({ restaurantId, userId }: { restaurantId: string, userId: string }) => removeFavorite(restaurantId, userId),
+    mutationFn: ({ restaurantId, userId }: { restaurantId: string; userId: string }) =>
+      removeFavorite(restaurantId, userId),
     onSuccess: () => {
       showSuccess('Restaurante removido dos favoritos.');
       queryClient.invalidateQueries({ queryKey: ['favorites', user?.id] });
@@ -81,111 +78,132 @@ export default function Favorites() {
 
   if (isAuthLoading || isFavoritesLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
+      <PhoneShell>
+        <div className="flex min-h-screen items-center justify-center bg-[#FAFAFA]">
+          <Loader2 className="h-7 w-7 animate-spin text-highlight" />
+        </div>
+      </PhoneShell>
     );
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="p-6 text-center">
-        <h2 className="text-xl font-bold mb-4">Acesso Negado</h2>
-        <p className="text-gray-600 mb-6">Faça login para ver seus restaurantes favoritos.</p>
-        <Button onClick={() => navigate(createPageUrl('auth'))}>
-          Fazer Login
-        </Button>
-      </div>
+      <PhoneShell>
+        <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
+          <Header title="Meus Favoritos" leftAction={{ icon: ArrowLeft, onClick: handleBack }} />
+          <div className="flex flex-1 flex-col items-center justify-center px-8 text-center">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-slate-100 bg-white text-highlight shadow-soft">
+              <Heart className="h-5 w-5" />
+            </div>
+            <h2 className="mb-2 text-[22px] font-semibold tracking-tight text-[#3C2F2F]">
+              Entre para ver favoritos
+            </h2>
+            <p className="mb-6 max-w-[280px] text-sm leading-relaxed text-text-secondary">
+              Faça login para guardar restaurantes e voltar neles com calma.
+            </p>
+            <Button className="h-11 px-6 shadow-none" onClick={() => navigate(createPageUrl('auth'))}>
+              Fazer login
+            </Button>
+          </div>
+        </div>
+      </PhoneShell>
     );
   }
 
   if (!favorites || favorites.length === 0) {
     return (
-      <div className="flex flex-col w-full flex-grow bg-white font-['Poppins']">
-        <Header 
-          title="Meus Favoritos"
-          leftAction={{ icon: ArrowLeft, onClick: handleBack }}
-        />
-        <div className="flex-grow flex flex-col items-center justify-center p-8 text-center mt-12 bg-transparent">
-          <Heart className="w-12 h-12 text-slate-300 mb-3" />
-          <h2 className="text-lg font-extrabold text-slate-800 mb-2">Nenhum Favorito Encontrado</h2>
-          <p className="text-slate-400 text-sm font-medium leading-relaxed max-w-[250px]">
-            Parece que você ainda não adicionou nenhum restaurante aos seus favoritos.
-          </p>
+      <PhoneShell>
+        <div className="flex min-h-screen w-full flex-col bg-[#FAFAFA] font-['Poppins']">
+          <Header title="Meus Favoritos" leftAction={{ icon: ArrowLeft, onClick: handleBack }} />
+          <div className="flex flex-1 flex-col items-center justify-center px-8 pb-20 text-center">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-slate-100 bg-white text-highlight shadow-soft">
+              <Heart className="h-5 w-5" />
+            </div>
+            <h2 className="mb-2 text-[22px] font-semibold tracking-tight text-[#3C2F2F]">
+              Nenhum favorito ainda
+            </h2>
+            <p className="max-w-[280px] text-sm font-normal leading-relaxed text-text-secondary">
+              Salve os restaurantes que você quer visitar de novo ou comparar depois.
+            </p>
+          </div>
         </div>
-      </div>
+      </PhoneShell>
     );
   }
 
   return (
-    <div className="flex flex-col w-full flex-grow bg-white font-['Poppins']">
-      <Header 
-        title="Meus Favoritos"
-        leftAction={{ icon: ArrowLeft, onClick: handleBack }}
-      />
-      <div className="p-4 space-y-4">
-        <h2 className="text-sm font-extrabold text-slate-800 px-1">Restaurantes Salvos ({favorites.length})</h2>
-        
-        <div className="space-y-4">
-          {favorites.map((item, index) => {
-            const restaurant = item.restaurant;
-            
-            if (!restaurant) return null; 
-            
-            return (
-              <div 
-                key={restaurant.id} 
-                className="soft-card flex overflow-hidden cursor-pointer hover:scale-[1.01] transition-transform relative h-24 bg-white"
-              >
-                <div 
-                  className="flex flex-1"
-                  onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
-                >
-                  <img 
-                    src={restaurant.image_url || PLACEHOLDER_IMAGE_URL} 
-                    alt={restaurant.name}
-                    className="w-[28%] h-full object-cover flex-shrink-0"
-                  />
-                  <div className="p-3 flex-1 min-w-0 flex flex-col justify-center">
-                    <h3 className="text-base font-extrabold text-[#3C2F2F] truncate pr-6">{restaurant.name}</h3>
-                    
-                    {restaurant.category && (
-                      <p className="text-xs font-semibold text-[#6A6A6A] mt-1 flex items-center gap-1">
-                        <Utensils className="w-3.5 h-3.5 text-[#EF2A39]/70" /> {restaurant.category}
-                      </p>
-                    )}
+    <PhoneShell>
+      <div className="flex min-h-screen w-full flex-col bg-[#FAFAFA] font-['Poppins']">
+        <Header title="Meus Favoritos" leftAction={{ icon: ArrowLeft, onClick: handleBack }} />
+        <div className="space-y-4 px-4 pb-24 pt-4">
+          <h2 className="px-1 text-sm font-semibold text-[#3C2F2F]">
+            Restaurantes salvos ({favorites.length})
+          </h2>
 
-                    {restaurant.city && (
-                      <p className="text-xs font-semibold text-[#6A6A6A] flex items-center gap-1 mt-0.5">
-                        <MapPin className="w-3.5 h-3.5 text-[#EF2A39]/55" /> {restaurant.city}
-                      </p>
-                    )}
+          <div className="space-y-3">
+            {favorites.map((item) => {
+              const restaurant = item.restaurant;
+
+              if (!restaurant) return null;
+
+              return (
+                <div
+                  key={restaurant.id}
+                  className="relative flex h-[92px] cursor-pointer overflow-hidden rounded-[22px] border border-slate-100 bg-white shadow-soft transition-transform hover:translate-y-[-1px]"
+                >
+                  <div
+                    className="flex flex-1"
+                    onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
+                  >
+                    <img
+                      src={restaurant.image_url || PLACEHOLDER_IMAGE_URL}
+                      alt={restaurant.name}
+                      className="h-full w-[30%] flex-shrink-0 bg-slate-50 object-contain"
+                    />
+                    <div className="flex min-w-0 flex-1 flex-col justify-center p-3">
+                      <h3 className="truncate pr-7 text-[15px] font-semibold text-[#3C2F2F]">
+                        {restaurant.name}
+                      </h3>
+
+                      {restaurant.category && (
+                        <p className="mt-1 flex items-center gap-1 text-xs font-normal text-text-secondary">
+                          <Utensils className="h-3.5 w-3.5 text-highlight" /> {restaurant.category}
+                        </p>
+                      )}
+
+                      {restaurant.city && (
+                        <p className="mt-0.5 flex items-center gap-1 text-xs font-normal text-text-secondary">
+                          <MapPin className="h-3.5 w-3.5 text-highlight/80" /> {restaurant.city}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute top-1.5 right-1.5 text-[#EF2A39] hover:bg-[#EF2A39]/10 w-8 h-8 rounded-full flex items-center justify-center transition-colors"
-                  disabled={removeFavoriteMutation.isPending}
-                  onClick={(e) => {
-                    e.stopPropagation(); 
-                    if (user) {
-                      removeFavoriteMutation.mutate({ restaurantId: restaurant.id, userId: user.id });
-                    }
-                  }}
-                >
-                  {removeFavoriteMutation.isPending ? (
-                    <Loader2 className="w-4 h-4 animate-spin text-[#EF2A39]" />
-                  ) : (
-                    <Heart className="w-4.5 h-4.5 fill-[#EF2A39] text-[#EF2A39]" />
-                  )}
-                </Button>
-              </div>
-            );
-          })}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full text-highlight transition-colors hover:bg-highlight/10"
+                    disabled={removeFavoriteMutation.isPending}
+                    aria-label="Remover favorito"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (user) {
+                        removeFavoriteMutation.mutate({ restaurantId: restaurant.id, userId: user.id });
+                      }
+                    }}
+                  >
+                    {removeFavoriteMutation.isPending ? (
+                      <Loader2 className="h-4 w-4 animate-spin text-highlight" />
+                    ) : (
+                      <Heart className="h-[18px] w-[18px] fill-highlight text-highlight" />
+                    )}
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </PhoneShell>
   );
 }

@@ -17,7 +17,7 @@ import Header from '@/components/Header';
 const SettingsCard = ({ title, description, link, icon: Icon }) => (
   <Link to={link} className="block p-4 bg-white rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 border border-slate-100">
     <div className="flex items-center">
-      <div className="p-2 rounded-xl bg-[#EF2A39]/10 text-[#EF2A39] mr-4">
+      <div className="p-2 rounded-xl bg-[#df4b1c]/10 text-[#df4b1c] mr-4">
         <Icon className="w-5 h-5" />
       </div>
       <div>

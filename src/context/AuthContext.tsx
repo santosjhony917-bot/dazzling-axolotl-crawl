@@ -101,6 +101,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       setIsLoading(false);
     };
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      handleAuthChange('INITIAL_SESSION', session);
+    });
     
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       handleAuthChange(event, session);

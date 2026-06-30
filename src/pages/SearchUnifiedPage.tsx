@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+﻿import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -68,15 +68,15 @@ export default function SearchUnifiedPage() {
   const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
   const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
   const [excludedDishCategoryIds, setExcludedDishCategoryIds] = useState<string[]>([]);
-  const [includedRestaurantCategories, setIncludedRestaurantCategories] = useState<string[]>([]); // Alterado para categorias INCLUÍDAS
+  const [includedRestaurantCategories, setIncludedRestaurantCategories] = useState<string[]>([]); // Alterado para categorias INCLUÃDAS
   const [selectedNeighborhoodFilter, setSelectedNeighborhoodFilter] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const userLat = location.latitude;
   const userLon = location.longitude;
 
-  const [page, setPage] = useState(1); // Estado para a página atual
-  const pageSize = 10; // Número de itens por página
+  const [page, setPage] = useState(1); // Estado para a pÃ¡gina atual
+  const pageSize = 10; // NÃºmero de itens por pÃ¡gina
 
   // New states for accumulated results
   const [accumulatedDishResults, setAccumulatedDishResults] = useState<SearchItemResult[]>([]);
@@ -92,7 +92,7 @@ export default function SearchUnifiedPage() {
     return parsedQuery.cleanedQuery || parsedQuery.category || '';
   }, [searchQuery, parsedQuery]);
 
-  // Efeito para ler os parâmetros da URL e inicializar os estados
+  // Efeito para ler os parÃ¢metros da URL e inicializar os estados
   useEffect(() => {
     const urlSearchQuery = searchParams.get('searchQuery') || '';
     const urlMinPrice = searchParams.get('minPrice');
@@ -111,7 +111,7 @@ export default function SearchUnifiedPage() {
     setExcludedDishCategoryIds(urlExcludedCategoryIds ? urlExcludedCategoryIds.split(',') : []);
     setIncludedRestaurantCategories(urlIncludedCategories ? urlIncludedCategories.split(',') : []);
     setSelectedNeighborhoodFilter(urlNeighborhood);
-    setPage(1); // Resetar a página ao carregar da URL
+    setPage(1); // Resetar a pÃ¡gina ao carregar da URL
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     
@@ -194,11 +194,11 @@ export default function SearchUnifiedPage() {
     }
   }, [activeSearchType, restaurantSearchResults, restaurantsLoading, page, restaurantsHasMore]);
 
-  // Group João Pessoa neighborhoods by region
+  // Group JoÃ£o Pessoa neighborhoods by region
   const REGIONS_NEIGHBORHOODS = useMemo(() => ({
-    orla: ['Tambaú', 'Cabo Branco', 'Manaíra', 'Bessa', 'Altiplano', 'Jardim Oceania', 'Aeroclube'],
-    zona_sul: ['Bancários', 'Mangabeira', 'Geisel', 'Valentina', 'Castelo Branco', 'Portal do Sol', 'José Américo', 'Cidade Universitária'],
-    centro_norte: ['Centro', 'Torre', 'Tambiá', 'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre Zé', 'Miramar', 'Tambauzinho', 'Expedicionários']
+    orla: ['TambaÃº', 'Cabo Branco', 'ManaÃ­ra', 'Bessa', 'Altiplano', 'Jardim Oceania', 'Aeroclube'],
+    zona_sul: ['BancÃ¡rios', 'Mangabeira', 'Geisel', 'Valentina', 'Castelo Branco', 'Portal do Sol', 'JosÃ© AmÃ©rico', 'Cidade UniversitÃ¡ria'],
+    centro_norte: ['Centro', 'Torre', 'TambiÃ¡', 'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre ZÃ©', 'Miramar', 'Tambauzinho', 'ExpedicionÃ¡rios']
   }), []);
 
   // Effect to apply filters to accumulated results and set displayedResults
@@ -338,11 +338,11 @@ export default function SearchUnifiedPage() {
   const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto sua localização é definida para realizar a busca.");
+      showError("Aguarde enquanto sua localizaÃ§Ã£o Ã© definida para realizar a busca.");
       return;
     }
     setIsSubmitted(true);
-    setPage(1); // Resetar a página para 1 ao fazer uma nova busca
+    setPage(1); // Resetar a pÃ¡gina para 1 ao fazer uma nova busca
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchDishes(); // This will trigger a fetch for page 1
@@ -362,19 +362,19 @@ export default function SearchUnifiedPage() {
     setAccumulatedRestaurantResults([]);
   };
 
-  // Predefined search suggestion combos mapping João Pessoa neighborhood and categories
+  // Predefined search suggestion combos mapping JoÃ£o Pessoa neighborhood and categories
   const SUGGESTED_COMBOS = useMemo(() => [
-    { text: '🍕 Pizzaria em Tambaú', query: 'Pizzaria em Tambaú' },
-    { text: '🍔 Hamburgueria nos Bancários', query: 'Hamburgueria nos Bancários' },
-    { text: '🏖️ Restaurantes na Orla', query: 'Restaurantes na Orla' },
-    { text: '🥩 Churrasco no Centro', query: 'Churrasco no Centro' },
-    { text: '🍦 Sorvete em Cabo Branco', query: 'Sorvete em Cabo Branco' },
-    { text: '🍣 Sushi em Manaíra', query: 'Sushi em Manaíra' },
-    { text: '☕ Café em Tambaú', query: 'Café em Tambaú' },
-    { text: '🍧 Açaí em Mangabeira', query: 'Açaí em Mangabeira' }
+    { text: 'Pizzaria em Tambaú', query: 'Pizzaria em Tambaú' },
+    { text: 'Hamburgueria nos Bancários', query: 'Hamburgueria nos Bancários' },
+    { text: 'Restaurantes na Orla', query: 'Restaurantes na Orla' },
+    { text: 'Churrasco no Centro', query: 'Churrasco no Centro' },
+    { text: 'Sorvete em Cabo Branco', query: 'Sorvete em Cabo Branco' },
+    { text: 'Sushi em Manaíra', query: 'Sushi em Manaíra' },
+    { text: 'Café em Tambaú', query: 'Café em Tambaú' },
+    { text: 'Açaí em Mangabeira', query: 'Açaí em Mangabeira' },
   ], []);
 
-  // Predictive autocompletes based on typed content mapping João Pessoa details local parser
+  // Predictive autocompletes based on typed content mapping JoÃ£o Pessoa details local parser
   const generateAutocompleteSuggestions = useCallback((query: string) => {
     const normalized = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if (!normalized) return [];
@@ -383,11 +383,11 @@ export default function SearchUnifiedPage() {
 
     // Mappings from searchParser
     const NEIGHBORHOODS_LIST = [
-      'Tambaú', 'Cabo Branco', 'Manaíra', 'Bessa', 'Bancários', 'Mangabeira', 
-      'Geisel', 'Valentina', 'Centro', 'Torre', 'Altiplano', 'Tambiá', 
-      'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre Zé', 
+      'TambaÃº', 'Cabo Branco', 'ManaÃ­ra', 'Bessa', 'BancÃ¡rios', 'Mangabeira', 
+      'Geisel', 'Valentina', 'Centro', 'Torre', 'Altiplano', 'TambiÃ¡', 
+      'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre ZÃ©', 
       'Miramar', 'Tambauzinho', 'Jardim Oceania', 'Aeroclube', 'Castelo Branco', 
-      'Portal do Sol', 'José Américo', 'Cidade Universitária', 'Expedicionários'
+      'Portal do Sol', 'JosÃ© AmÃ©rico', 'Cidade UniversitÃ¡ria', 'ExpedicionÃ¡rios'
     ];
 
     const CATEGORIES_LIST = [
@@ -396,8 +396,8 @@ export default function SearchUnifiedPage() {
       { key: 'sushi', label: 'Japonesa' },
       { key: 'cafe', label: 'Cafeteria' },
       { key: 'churrasco', label: 'Churrascaria' },
-      { key: 'sorvete', label: 'Açaí / Sorveteria' },
-      { key: 'saudavel', label: 'Saudável / Fit' }
+      { key: 'sorvete', label: 'AÃ§aÃ­ / Sorveteria' },
+      { key: 'saudavel', label: 'SaudÃ¡vel / Fit' }
     ];
 
     const REGIONS_LIST = [
@@ -415,14 +415,14 @@ export default function SearchUnifiedPage() {
     if (matchedCats.length > 0) {
       const categoryName = matchedCats[0].label;
       suggestionsList.push({
-        text: `🔍 Buscar por ${categoryName}`,
+        text: `ðŸ” Buscar por ${categoryName}`,
         query: categoryName,
         type: 'category'
       });
       // Add popular neighborhood combos for category
-      ['Tambaú', 'Cabo Branco', 'Bancários', 'Manaíra'].forEach(neigh => {
+      ['TambaÃº', 'Cabo Branco', 'BancÃ¡rios', 'ManaÃ­ra'].forEach(neigh => {
         suggestionsList.push({
-          text: `🔍 ${categoryName} em ${neigh}`,
+          text: `ðŸ” ${categoryName} em ${neigh}`,
           query: `${categoryName} em ${neigh}`,
           type: 'combo'
         });
@@ -432,14 +432,14 @@ export default function SearchUnifiedPage() {
     if (matchedNeighs.length > 0) {
       matchedNeighs.slice(0, 2).forEach(neighName => {
         suggestionsList.push({
-          text: `📍 Ir para ${neighName}`,
+          text: `ðŸ“ Ir para ${neighName}`,
           query: neighName,
           type: 'neighborhood'
         });
         // Add popular category combos
-        ['Pizzaria', 'Hamburgueria', 'Cafeteria', 'Açaí / Sorveteria'].forEach(cat => {
+        ['Pizzaria', 'Hamburgueria', 'Cafeteria', 'AÃ§aÃ­ / Sorveteria'].forEach(cat => {
           suggestionsList.push({
-            text: `🔍 ${cat} em ${neighName}`,
+            text: `ðŸ” ${cat} em ${neighName}`,
             query: `${cat} em ${neighName}`,
             type: 'combo'
           });
@@ -450,12 +450,12 @@ export default function SearchUnifiedPage() {
     if (matchedRegions.length > 0) {
       const regionLabel = matchedRegions[0].label;
       suggestionsList.push({
-        text: `🏖️ Restaurantes na ${regionLabel}`,
+        text: `ðŸ–ï¸ Restaurantes na ${regionLabel}`,
         query: `Restaurantes na ${regionLabel}`,
         type: 'combo'
       });
       suggestionsList.push({
-        text: `🍔 Hamburgueria na ${regionLabel}`,
+        text: `ðŸ” Hamburgueria na ${regionLabel}`,
         query: `Hamburgueria na ${regionLabel}`,
         type: 'combo'
       });
@@ -465,20 +465,20 @@ export default function SearchUnifiedPage() {
     const parsed = parseSearchQuery(query);
     if (parsed.category && parsed.neighborhood) {
       suggestionsList.unshift({
-        text: `✨ Buscar ${parsed.category} em ${parsed.neighborhood}`,
+        text: `âœ¨ Buscar ${parsed.category} em ${parsed.neighborhood}`,
         query: `${parsed.category} em ${parsed.neighborhood}`,
         type: 'combo'
       });
     } else if (parsed.cleanedQuery && parsed.neighborhood) {
       suggestionsList.unshift({
-        text: `✨ Buscar "${parsed.cleanedQuery}" em ${parsed.neighborhood}`,
+        text: `âœ¨ Buscar "${parsed.cleanedQuery}" em ${parsed.neighborhood}`,
         query: `${parsed.cleanedQuery} em ${parsed.neighborhood}`,
         type: 'combo'
       });
     }
 
     suggestionsList.push({
-      text: `🔍 Buscar por "${query}"`,
+      text: `ðŸ” Buscar por "${query}"`,
       query: query,
       type: 'general'
     });
@@ -501,7 +501,7 @@ export default function SearchUnifiedPage() {
   
   const handleSearchByPrice = () => {
     if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de preço.");
+      showError("Defina sua localizaÃ§Ã£o primeiro para usar o filtro de preÃ§o.");
       return;
     }
     setIsPriceModalOpen(true);
@@ -510,9 +510,9 @@ export default function SearchUnifiedPage() {
   const handleApplyPriceFilter = (min: number, max: number) => {
     setMinPriceFilter(min);
     setMaxPriceFilter(max);
-    showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
+    showInfo(`Filtro de preÃ§o aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
     setIsPriceModalOpen(false);
-    setPage(1); // Resetar a página ao aplicar filtro
+    setPage(1); // Resetar a pÃ¡gina ao aplicar filtro
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchDishes(); // Refetch with new price filter
@@ -520,7 +520,7 @@ export default function SearchUnifiedPage() {
 
   const handleSearchNearby = () => {
     if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
+      showError("Defina sua localizaÃ§Ã£o primeiro para usar o filtro de distÃ¢ncia.");
       return;
     }
     setIsDistanceModalOpen(true);
@@ -528,9 +528,9 @@ export default function SearchUnifiedPage() {
   
   const handleApplyDistanceFilter = (distance: number) => {
     setMaxDistanceFilter(distance);
-    showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
+    showInfo(`Filtro de distÃ¢ncia aplicado: atÃ© ${distance} km. Atualizando resultados.`);
     setIsDistanceModalOpen(false);
-    setPage(1); // Resetar a página ao aplicar filtro
+    setPage(1); // Resetar a pÃ¡gina ao aplicar filtro
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchRestaurants(); // Refetch with new distance filter
@@ -539,7 +539,7 @@ export default function SearchUnifiedPage() {
   const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => {
     setExcludedDishCategoryIds(newExcludedIds);
     showInfo(`Filtro de categorias de pratos aplicado. Atualizando resultados.`);
-    setPage(1); // Resetar a página ao aplicar filtro
+    setPage(1); // Resetar a pÃ¡gina ao aplicar filtro
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchDishes(); // Refetch with new category filter
@@ -548,7 +548,7 @@ export default function SearchUnifiedPage() {
   const handleApplyRestaurantCategoryFilter = (newIncludedCategories: string[]) => {
     setIncludedRestaurantCategories(newIncludedCategories);
     showInfo(`Filtro de categorias de restaurantes aplicado. Atualizando resultados.`);
-    setPage(1); // Resetar a página ao aplicar filtro
+    setPage(1); // Resetar a pÃ¡gina ao aplicar filtro
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchRestaurants(); // Refetch with new category filter
@@ -572,7 +572,7 @@ export default function SearchUnifiedPage() {
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
   const handleToggleChange = (type: 'dishes' | 'restaurants') => {
     setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
-    // Resetar filtros e página ao trocar de aba
+    // Resetar filtros e pÃ¡gina ao trocar de aba
     setMinPriceFilter(null);
     setMaxPriceFilter(null);
     setMaxDistanceFilter(null);
@@ -619,54 +619,54 @@ export default function SearchUnifiedPage() {
   const hasActiveFilters = minPriceFilter !== null || maxPriceFilter !== null || maxDistanceFilter !== null || selectedNeighborhoodFilter !== null;
 
   const pageContent = (
-    <div className="px-5 pb-5 pt-4 space-y-4">
+    <div className="space-y-4 px-5 pb-5 pt-4">
 
-      {/* Filtros Rápidos — estilo pill compacto */}
-      <div className="flex gap-2 flex-wrap">
+      {/* Filtros RÃ¡pidos â€” estilo pill compacto */}
+      <div className="flex flex-wrap gap-2">
         <motion.button
-          whileTap={{ scale: 0.93 }}
+          whileTap={{ scale: 0.96 }}
           onClick={handleSearchByPrice}
           className={cn(
-            'h-[38px] px-4 rounded-full flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-200 border',
+            'flex h-9 items-center gap-1.5 rounded-full border px-3.5 text-[13px] font-semibold transition-all duration-200',
             minPriceFilter !== null || maxPriceFilter !== null
-              ? 'bg-[#EF2A39] text-white border-[#EF2A39] shadow-[0_4px_12px_rgba(239,42,57,0.30)]'
-              : 'bg-white text-[#6A6A6A] border-[#E5E7EB] shadow-[0_2px_6px_rgba(0,0,0,0.06)] hover:border-[#EF2A39]/40'
+              ? 'border-highlight bg-highlight text-white shadow-sm'
+              : 'border-slate-100 bg-white text-text-secondary shadow-soft hover:border-highlight/30'
           )}
         >
-          <DollarSign className="w-3.5 h-3.5" />
+          <DollarSign className="h-3.5 w-3.5" />
           {minPriceFilter !== null || maxPriceFilter !== null
-            ? `R$${minPriceFilter || 0}–R$${maxPriceFilter || '∞'}`
-            : 'Preço'}
+            ? `R$${minPriceFilter || 0}â€“R$${maxPriceFilter || 'âˆž'}`
+            : 'PreÃ§o'}
         </motion.button>
 
         <motion.button
-          whileTap={{ scale: 0.93 }}
+          whileTap={{ scale: 0.96 }}
           onClick={handleSearchNearby}
           className={cn(
-            'h-[38px] px-4 rounded-full flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-200 border',
+            'flex h-9 items-center gap-1.5 rounded-full border px-3.5 text-[13px] font-semibold transition-all duration-200',
             maxDistanceFilter !== null
-              ? 'bg-[#EF2A39] text-white border-[#EF2A39] shadow-[0_4px_12px_rgba(239,42,57,0.30)]'
-              : 'bg-white text-[#6A6A6A] border-[#E5E7EB] shadow-[0_2px_6px_rgba(0,0,0,0.06)] hover:border-[#EF2A39]/40'
+              ? 'border-highlight bg-highlight text-white shadow-sm'
+              : 'border-slate-100 bg-white text-text-secondary shadow-soft hover:border-highlight/30'
           )}
         >
-          <Compass className="w-3.5 h-3.5" />
-          {maxDistanceFilter !== null ? `Até ${maxDistanceFilter} km` : 'Distância'}
+          <Compass className="h-3.5 w-3.5" />
+          {maxDistanceFilter !== null ? `AtÃ© ${maxDistanceFilter} km` : 'DistÃ¢ncia'}
         </motion.button>
 
         {selectedNeighborhoodFilter !== null && (
-          <div className="h-[38px] px-4 rounded-full flex items-center gap-1.5 text-[13px] font-semibold bg-[#EF2A39] text-white border border-[#EF2A39] shadow-[0_4px_12px_rgba(239,42,57,0.30)]">
-            <MapPin className="w-3.5 h-3.5" />
+          <div className="flex h-9 items-center gap-1.5 rounded-full border border-highlight bg-highlight px-3.5 text-[13px] font-semibold text-white shadow-sm">
+            <MapPin className="h-3.5 w-3.5" />
             {selectedNeighborhoodFilter}
           </div>
         )}
 
         {hasActiveFilters && (
           <motion.button
-            whileTap={{ scale: 0.93 }}
+            whileTap={{ scale: 0.96 }}
             onClick={handleClearFilters}
-            className="h-[38px] px-4 rounded-full flex items-center gap-1.5 text-[13px] font-semibold bg-[#FEE2E2] text-[#EF2A39] border border-[#FECACA] transition-all duration-200"
+            className="flex h-9 items-center gap-1.5 rounded-full border border-highlight/15 bg-highlight/10 px-3.5 text-[13px] font-semibold text-highlight transition-all duration-200"
           >
-            ✕ Limpar
+            âœ• Limpar
           </motion.button>
         )}
       </div>
@@ -674,8 +674,8 @@ export default function SearchUnifiedPage() {
       <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
 
       <div className="flex items-center justify-between">
-        <h2 className="text-[20px] font-bold text-[#3C2F2F] tracking-tight">
-          Resultados da Busca
+        <h2 className="text-[18px] font-semibold tracking-tight text-[#3C2F2F]">
+          Resultados da busca
         </h2>
         {activeSearchType === 'dish' && (
           <AdvancedFilterDrawer
@@ -730,7 +730,7 @@ export default function SearchUnifiedPage() {
                 <Button
                   onClick={handleLoadMore}
                   variant="outline"
-                  className="w-full h-11 rounded-2xl border-gray-300 text-slate-700 hover:bg-highlight/10 shadow-none transition-all mt-4 text-xs font-bold"
+                  className="mt-4 h-11 w-full rounded-2xl border-slate-200 text-xs font-semibold text-slate-700 shadow-none transition-all hover:bg-highlight/10"
                   disabled={
                     (activeSearchType === 'dish' && dishesLoading) ||
                     (activeSearchType === 'restaurant' && restaurantsLoading)
@@ -749,20 +749,20 @@ export default function SearchUnifiedPage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-col items-center justify-center py-14 px-6 text-center"
+              className="flex flex-col items-center justify-center px-6 py-14 text-center"
             >
-              {/* Ilustração emoji grande */}
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#FFF1F1] to-[#FFE4E4] flex items-center justify-center mb-5 shadow-[0_8px_24px_rgba(239,42,57,0.12)]">
-                <span className="text-5xl">🍽️</span>
+              {/* IlustraÃ§Ã£o emoji grande */}
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-slate-100 bg-white text-highlight shadow-soft">
+                <Search className="h-5 w-5" />
               </div>
-              <h2 className="text-[20px] font-bold text-[#3C2F2F] mb-2">Hmm, não achamos nada...</h2>
-              <p className="text-[14px] text-[#9CA3AF] font-medium leading-relaxed mb-6">
+              <h2 className="mb-2 text-[20px] font-semibold text-[#3C2F2F]">Não achamos nada</h2>
+              <p className="mb-6 text-[14px] font-normal leading-relaxed text-text-secondary">
                 Tente usar palavras diferentes ou remover os filtros aplicados.
               </p>
               {hasActiveFilters && (
                 <button
                   onClick={handleClearFilters}
-                  className="h-[46px] px-8 rounded-[20px] bg-[#EF2A39] text-white font-semibold text-[15px] shadow-[0_6px_18px_rgba(239,42,57,0.30)] active:scale-95 transition-transform"
+                  className="h-11 rounded-[18px] bg-highlight px-7 text-[15px] font-semibold text-white shadow-none transition-transform active:scale-95"
                 >
                   Limpar filtros
                 </button>
@@ -793,30 +793,30 @@ export default function SearchUnifiedPage() {
   const renderSuggestions = () => {
     if (searchQuery === '') {
       return (
-        <div className="px-5 pt-6 space-y-6">
+        <div className="space-y-6 px-5 pt-6">
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-[#3C2F2F]">
-              <span className="text-[14px] font-bold tracking-wider uppercase opacity-75">
-                Buscas Recomendadas por IA
+              <span className="text-[13px] font-semibold uppercase tracking-wide text-[#3C2F2F]/75">
+                Buscas recomendadas
               </span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] bg-[#FFF1F1] text-[#EF2A39] font-bold">
+              <span className="rounded-full bg-highlight/10 px-2 py-0.5 text-[10px] font-semibold text-highlight">
                 Novo
               </span>
             </div>
-            <p className="text-[12px] text-[#9CA3AF] font-medium leading-tight">
+            <p className="text-[12px] font-normal leading-relaxed text-text-secondary">
               Combine pratos, categorias e bairros de João Pessoa em uma única busca natural.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {SUGGESTED_COMBOS.map((combo, idx) => (
                 <motion.button
                   key={idx}
-                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileHover={{ y: -1 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleSuggestionClick(combo.query)}
-                  className="flex items-center justify-between p-4 rounded-[20px] bg-white border border-slate-100/80 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(239,42,57,0.08)] hover:border-[#EF2A39]/30 text-left transition-all duration-300"
+                  className="flex items-center justify-between rounded-[20px] border border-slate-100 bg-white p-4 text-left shadow-soft transition-all duration-300 hover:border-highlight/25"
                 >
-                  <span className="text-[14px] font-bold text-[#3C2F2F]">{combo.text}</span>
-                  <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
+                  <span className="text-[14px] font-semibold text-[#3C2F2F]">{combo.text}</span>
+                  <ChevronRight className="h-4 w-4 text-text-secondary" />
                 </motion.button>
               ))}
             </div>
@@ -830,34 +830,34 @@ export default function SearchUnifiedPage() {
     if (autocompleteList.length === 0) return null;
 
     return (
-      <div className="px-5 pt-4 space-y-3">
-        <h3 className="text-[12px] font-bold text-[#9CA3AF] tracking-wider uppercase pl-1">
+      <div className="space-y-3 px-5 pt-4">
+        <h3 className="pl-1 text-[12px] font-semibold uppercase tracking-wide text-text-secondary">
           Sugestões de busca
         </h3>
-        <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_12px_30px_rgba(0,0,0,0.05)] overflow-hidden">
+        <div className="overflow-hidden rounded-[24px] border border-slate-100 bg-white shadow-soft">
           {autocompleteList.map((item, idx) => (
             <motion.button
               key={idx}
               whileTap={{ scale: 0.99 }}
               onClick={() => handleSuggestionClick(item.query)}
               className={cn(
-                "w-full flex items-center justify-between p-4 text-left transition-all duration-150 border-b border-slate-50 last:border-0 hover:bg-slate-50/80",
-                idx === 0 && "bg-[#FFF1F1]/30 hover:bg-[#FFF1F1]/50"
+                "flex w-full items-center justify-between border-b border-slate-50 p-4 text-left transition-all duration-150 last:border-0 hover:bg-slate-50/80",
+                idx === 0 && "bg-highlight/5 hover:bg-highlight/10"
               )}
             >
               <div className="flex items-center gap-3">
                 <div className={cn(
-                  "w-9 h-9 rounded-full flex items-center justify-center",
-                  item.type === 'neighborhood' ? "bg-red-50 text-[#EF2A39]" :
+                  "flex h-9 w-9 items-center justify-center rounded-full",
+                  item.type === 'neighborhood' ? "bg-highlight/10 text-highlight" :
                   item.type === 'category' ? "bg-amber-50 text-amber-500" :
                   item.type === 'combo' ? "bg-emerald-50 text-emerald-500" : "bg-slate-50 text-slate-400"
                 )}>
                   {item.type === 'neighborhood' ? (
-                    <MapPin className="w-4 h-4" />
+                    <MapPin className="h-4 w-4" />
                   ) : item.type === 'category' ? (
-                    <Pizza className="w-4 h-4" />
+                    <Pizza className="h-4 w-4" />
                   ) : (
-                    <Search className="w-4 h-4" />
+                    <Search className="h-4 w-4" />
                   )}
                 </div>
                 <div>
@@ -866,7 +866,7 @@ export default function SearchUnifiedPage() {
                   </span>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
+              <ChevronRight className="h-4 w-4 text-text-secondary" />
             </motion.button>
           ))}
         </div>

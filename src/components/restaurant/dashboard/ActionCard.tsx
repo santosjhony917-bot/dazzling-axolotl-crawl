@@ -26,7 +26,7 @@ const ActionCard: React.FC<ActionCardProps> = ({ title, icon: Icon, onClick }) =
         <CardContent className="p-4 flex flex-col items-center text-center">
           <div className="mb-2">
             <div 
-              className="h-11 w-11 rounded-full bg-[#EF2A39]/10 text-highlight border border-[#EF2A39]/20 flex items-center justify-center shadow-none shrink-0"
+              className="h-11 w-11 rounded-full bg-[#df4b1c]/10 text-highlight border border-[#df4b1c]/20 flex items-center justify-center shadow-none shrink-0"
             >
               <Icon className="h-5 w-5" />
             </div>

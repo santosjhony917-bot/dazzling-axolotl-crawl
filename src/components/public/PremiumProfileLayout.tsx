@@ -313,7 +313,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                       className={cn(
                         'relative z-10 flex-1 flex items-center justify-center gap-1.5 text-[12px] font-bold transition-colors duration-200 focus:outline-none rounded-[14px] uppercase tracking-wider',
                         isCompact && 'text-[10px] normal-case tracking-normal gap-1',
-                        activeTab === 'gallery' ? 'text-[#EF2A39]' : 'text-[#9CA3AF]'
+                        activeTab === 'gallery' ? 'text-[#df4b1c]' : 'text-[#9CA3AF]'
                       )}
                     >
                       <Image className="w-3.5 h-3.5" />
@@ -326,7 +326,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                       className={cn(
                         'relative z-10 flex-1 flex items-center justify-center gap-1.5 text-[12px] font-bold transition-colors duration-200 focus:outline-none rounded-[14px] uppercase tracking-wider',
                         isCompact && 'text-[10px] normal-case tracking-normal gap-1',
-                        activeTab === 'menu' ? 'text-[#EF2A39]' : 'text-[#9CA3AF]'
+                        activeTab === 'menu' ? 'text-[#df4b1c]' : 'text-[#9CA3AF]'
                       )}
                     >
                       <Utensils className="w-3.5 h-3.5" />
@@ -339,7 +339,7 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                       className={cn(
                         'relative z-10 flex-1 flex items-center justify-center gap-1.5 text-[12px] font-bold transition-colors duration-200 focus:outline-none rounded-[14px] uppercase tracking-wider',
                         isCompact && 'text-[10px] normal-case tracking-normal gap-1',
-                        activeTab === 'info' ? 'text-[#EF2A39]' : 'text-[#9CA3AF]'
+                        activeTab === 'info' ? 'text-[#df4b1c]' : 'text-[#9CA3AF]'
                       )}
                     >
                       <Info className="w-3.5 h-3.5" />
@@ -380,8 +380,8 @@ const PremiumProfileLayout: React.FC<PremiumProfileLayoutProps> = ({ restaurant,
                   {restaurant.description && (
                     <Card className="p-5 shadow-[0_4px_20px_rgba(0,0,0,0.07)] rounded-[20px] bg-white border border-slate-100/60">
                       <h2 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <span className="w-7 h-7 rounded-xl bg-[#EF2A39]/10 flex items-center justify-center">
-                          <span className="w-1.5 h-3.5 bg-[#EF2A39] rounded-full"></span>
+                        <span className="w-7 h-7 rounded-xl bg-[#df4b1c]/10 flex items-center justify-center">
+                          <span className="w-1.5 h-3.5 bg-[#df4b1c] rounded-full"></span>
                         </span>
                         Nossa História
                       </h2>

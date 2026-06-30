@@ -260,8 +260,8 @@ const CategoryDetails: React.FC = () => {
   if (loading || isRestaurantLoading) {
     return (
       <RestaurantAreaPageLayout title="Carregando Categoria" icon={Loader2} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
-        <div className="flex justify-center items-center h-full">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-slate-100 bg-white shadow-soft">
+          <Loader2 className="h-8 w-8 animate-spin text-[#df4b1c]" />
         </div>
       </RestaurantAreaPageLayout>
     );
@@ -270,9 +270,9 @@ const CategoryDetails: React.FC = () => {
   if (!category) {
     return (
       <RestaurantAreaPageLayout title="Categoria Não Encontrada" icon={Utensils} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
-        <div className="flex flex-col items-center justify-center h-full text-gray-500">
-          <p className="text-lg">Categoria não encontrada.</p>
-          <Button onClick={() => navigate(-1)} className="mt-4">
+        <div className="flex min-h-[320px] flex-col items-center justify-center rounded-2xl border border-slate-100 bg-white p-8 text-center text-slate-500 shadow-soft">
+          <p className="text-lg font-semibold text-[#3C2F2F]">Categoria não encontrada.</p>
+          <Button onClick={() => navigate(-1)} className="mt-4 rounded-2xl bg-[#df4b1c] hover:bg-[#bd3f17]">
             <ArrowLeft className="h-4 w-4 mr-2" /> Voltar
           </Button>
         </div>
@@ -282,16 +282,16 @@ const CategoryDetails: React.FC = () => {
 
   return (
     <RestaurantAreaPageLayout title={category.name} icon={Utensils} backPath={restaurant?.id ? `/restaurant/${restaurant.id}/menu` : undefined}>
-      <div className="p-4 space-y-6">
+      <div className="space-y-6">
         {user && restaurant && user.id === restaurant.user_id && (
-          <Card className="mb-4">
+          <Card className="mb-4 rounded-2xl border border-slate-100 bg-white shadow-soft">
             <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <CardTitle>Gerenciar Categoria</CardTitle>
+              <CardTitle className="text-[#3C2F2F]">Gerenciar Categoria</CardTitle>
               <div className="flex flex-wrap justify-end gap-2 w-full">
-                <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="w-full sm:w-auto">
+                <Button onClick={() => setIsCategoryEditDialogOpen(true)} variant="outline" className="w-full rounded-2xl border-slate-100 text-[#3C2F2F] hover:bg-slate-50 sm:w-auto">
                   <Edit className="h-4 w-4 mr-2" /> Editar Categoria
                 </Button>
-                <Button onClick={handleAddItem} className="w-full sm:w-auto">
+                <Button onClick={handleAddItem} className="w-full rounded-2xl bg-[#df4b1c] hover:bg-[#bd3f17] sm:w-auto">
                   <Plus className="h-4 w-4 mr-2" /> Adicionar Item
                 </Button>
               </div>
@@ -299,7 +299,7 @@ const CategoryDetails: React.FC = () => {
           </Card>
         )}
 
-        <div className="bg-white p-4 rounded-2xl shadow-none">
+        <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-soft">
           <MenuItemList
             items={menuItems}
             onEditItem={handleEditItem}
@@ -311,9 +311,9 @@ const CategoryDetails: React.FC = () => {
 
       {/* Edit Category Dialog */}
       <Dialog open={isCategoryEditDialogOpen} onOpenChange={setIsCategoryEditDialogOpen}>
-        <DialogContent>
+        <DialogContent className="rounded-[24px] border border-slate-100 bg-white text-[#3C2F2F] shadow-soft">
           <DialogHeader>
-            <DialogTitle>Editar Categoria</DialogTitle>
+            <DialogTitle className="text-[#3C2F2F]">Editar Categoria</DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSaveCategory)} className="space-y-4">
@@ -334,9 +334,9 @@ const CategoryDetails: React.FC = () => {
                 control={form.control}
                 name="is_active"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <FormItem className="flex flex-row items-center justify-between rounded-2xl border border-slate-100 bg-[#FAFAFA] p-4">
                     <div className="space-y-0.5">
-                      <FormLabel className="text-base">Categoria Ativa</FormLabel>
+                      <FormLabel className="text-base text-[#3C2F2F]">Categoria Ativa</FormLabel>
                       <FormDescription>
                         Se desativado, esta categoria e seus itens não aparecerão no menu público.
                       </FormDescription>
@@ -355,9 +355,9 @@ const CategoryDetails: React.FC = () => {
                 control={form.control}
                 name="is_popular"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <FormItem className="flex flex-row items-center justify-between rounded-2xl border border-slate-100 bg-[#FAFAFA] p-4">
                     <div className="space-y-0.5">
-                      <FormLabel className="text-base">Categoria Popular</FormLabel>
+                      <FormLabel className="text-base text-[#3C2F2F]">Categoria Popular</FormLabel>
                       <FormDescription>
                         Marque para destacar esta categoria como popular no menu.
                       </FormDescription>
@@ -382,7 +382,7 @@ const CategoryDetails: React.FC = () => {
                   {isDeletingCategory ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Trash2 className="h-4 w-4 mr-2" />}
                   Deletar Categoria
                 </Button>
-                <Button type="submit" disabled={isSavingCategory}>
+                <Button type="submit" disabled={isSavingCategory} className="rounded-2xl bg-[#df4b1c] hover:bg-[#bd3f17]">
                   {isSavingCategory && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
                   Salvar Alterações
                 </Button>

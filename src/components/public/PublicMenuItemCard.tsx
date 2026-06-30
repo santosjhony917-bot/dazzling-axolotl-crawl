@@ -30,11 +30,13 @@ const PublicMenuItemCard: React.FC<PublicMenuItemCardProps> = ({ item, onClick }
       className="flex items-center gap-4 bg-white dark:bg-background-dark rounded-2xl p-3 shadow-none cursor-pointer hover:shadow-none transition-shadow"
       onClick={() => onClick(item.id)}
     >
-      <div 
-        className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-20 flex-shrink-0" 
-        style={{ backgroundImage: `url("${item.image_url || PLACEHOLDER_IMAGE_URL}")` }}
-        data-alt={item.name}
-      />
+      <div className="aspect-square size-20 flex-shrink-0 overflow-hidden rounded-lg bg-slate-50">
+        <img
+          src={item.image_url || PLACEHOLDER_IMAGE_URL}
+          alt={itemDisplayName}
+          className="h-full w-full object-contain"
+        />
+      </div>
       <div className="flex-1 min-w-0">
         <p className="text-[#111418] dark:text-white text-base font-bold leading-normal truncate">{itemDisplayName}</p>
         <p className="text-text-secondary dark:text-gray-400 text-sm font-normal leading-snug line-clamp-2">{item.description || item.restaurantName}</p>

@@ -2,8 +2,20 @@
 
 const FilterFoodUniversalAgent = (() => {
   const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const socialHosts = ['instagram.com', 'facebook.com', 'threads.com', 'threads.net', 'tiktok.com', 'x.com', 'twitter.com', 'youtube.com'];
+  const socialHosts = ['instagram.com', 'facebook.com', 'threads.com', 'threads.net', 'tiktok.com', 'x.com', 'twitter.com', 'youtube.com', 'meta.ai', 'meta.com', 'about.meta.com'];
   const dangerousText = /comprar|finalizar|pagar|pagamento|excluir|remover|deletar|publicar|enviar pedido|confirmar pedido/i;
+  const unsafeNonMenuUrlPattern = /casino|poker|bonus|bono|bet\b|betting|aposta|apostas|slot|slots|gambling|holdem|reward\s*code|cupom|coupon|cashback|fidelidade|loyalty|promocao|promocoes|promo|promotions?|pagamento|payment|wallet|voucher|gift|viagra|forex|crypto|binary|adult|escort|seo-spam|meta\.ai/i;
+  const isUnsafeMenuDestination = value => {
+    try {
+      const parsed = new URL(value || '');
+      const haystack = `${parsed.hostname} ${parsed.pathname} ${parsed.search}`.toLowerCase();
+      return unsafeNonMenuUrlPattern.test(haystack)
+        || /\/(?:promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty|pagamento|payment|wallet|orders?|pedidos?|checkout|cart)(?:\/|$|\?)/i.test(`${parsed.pathname}${parsed.search}`)
+        || /[?&](?:tab|origin)=[^&]*(?:cashback|promo|cupom|coupon|fidelidade|payment|pagamento)/i.test(parsed.search);
+    } catch (_) {
+      return false;
+    }
+  };
 
   async function snapshot(tabId) {
     const result = await chrome.scripting.executeScript({
@@ -85,6 +97,7 @@ const FilterFoodUniversalAgent = (() => {
     const target = state.elements.find(element => element.id === decision.targetId);
     if (!target || target.disabled) return { ok: false, error: 'Target unavailable' };
     if (dangerousText.test(`${target.text} ${target.aria}`)) return { ok: false, requiresHuman: true, error: 'Potentially consequential click blocked' };
+    if (isUnsafeMenuDestination(target.href)) return { ok: false, error: `Unsafe destination blocked: ${target.href}` };
     const beforeTabs = await chrome.tabs.query({ currentWindow: true });
     const beforeIds = new Set(beforeTabs.map(tab => tab.id));
     const result = await chrome.scripting.executeScript({
@@ -164,6 +177,12 @@ const FilterFoodUniversalAgent = (() => {
         createdUrl = fresh.pendingUrl || fresh.url || createdUrl;
       } catch (_) {}
       const targetUrl = unwrapInstagramRedirect(createdUrl);
+      if (isUnsafeMenuDestination(targetUrl)) {
+        if (createdTab.id !== tabId) {
+          try { await chrome.tabs.remove(createdTab.id); ownedTabs.delete(createdTab.id); } catch (_) {}
+        }
+        return;
+      }
       if (targetUrl && /^https?:\/\//i.test(targetUrl)) {
         try { await chrome.tabs.update(tabId, { url: targetUrl, active: true }); } catch (_) {}
       }
@@ -177,6 +196,9 @@ const FilterFoodUniversalAgent = (() => {
       for (let step = 0; step < Math.min(18, Math.max(1, maxSteps)); step++) {
         const state = await snapshot(tabId);
         if (!state) throw new Error('Could not inspect page');
+        if (isUnsafeMenuDestination(state.url)) {
+          return { success: false, requiresHuman: false, history, blocker: 'unsafe_spam_destination', error: `Unsafe destination blocked: ${state.url}` };
+        }
         try {
           const current = new URL(state.url);
           const wrapped = current.hostname.endsWith('instagram.com') ? current.searchParams.get('u') : '';
@@ -187,6 +209,9 @@ const FilterFoodUniversalAgent = (() => {
           }
           const isSocial = socialHosts.some(domain => current.hostname === domain || current.hostname.endsWith(`.${domain}`));
           if (context.expectedExternalDestination && !isSocial && /^https?:\/\//i.test(state.url) && !ignoredDestinationHosts.has(current.hostname.toLowerCase())) {
+            if (isUnsafeMenuDestination(state.url)) {
+              return { success: false, requiresHuman: false, history, blocker: 'unsafe_spam_destination', error: `Unsafe destination blocked: ${state.url}` };
+            }
             return { success: true, finalUrl: state.url, title: state.title, rawText: state.bodyText, history, confidence: 0.9 };
           }
         } catch (_) {}
@@ -199,6 +224,11 @@ const FilterFoodUniversalAgent = (() => {
         if (decision.action === 'human') { keepOpen = true; return { success: false, requiresHuman: true, tabId, history, error: decision.reason || 'GPT requested human help' }; }
         if (decision.action === 'done') {
           const finalUrl = state.url;
+          if (isUnsafeMenuDestination(finalUrl)) {
+            history.push({ step, rejected: 'unsafe_spam_destination', finalUrl });
+            await wait(400);
+            continue;
+          }
           const host = new URL(finalUrl).hostname.toLowerCase();
           const stillSocial = socialHosts.some(domain => host === domain || host.endsWith(`.${domain}`));
           if (stillSocial && context.expectedExternalDestination) {

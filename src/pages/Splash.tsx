@@ -4,72 +4,56 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
-import { useAuthData } from "@/context/AuthContext"; 
-import { Loader2 } from "lucide-react";
-
-const LOGO_URL = "/assets/filterfood-logo.png";
+import { useAuthData } from "@/context/AuthContext";
 
 export default function Splash() {
   const navigate = useNavigate();
-  // Agora estamos pegando também os dados do restaurante e o estado de carregamento do restaurante
-  const { user, isLoading, restaurant, isRestaurantLoading } = useAuthData(); 
+  const { user, isLoading, restaurant, isRestaurantLoading } = useAuthData();
 
   useEffect(() => {
-    // Espera o estado de autenticação e os dados do restaurante serem resolvidos
     if (isLoading || isRestaurantLoading) {
       return;
     }
 
-    let targetPath: string;
-    let delay = 2000; // Atraso padrão para a tela de splash
+    const targetPath = createPageUrl("onboarding");
+    const delay = user ? 50 : 2200;
 
-    if (user) {
-      if (restaurant) {
-        // Usuário autenticado E possui um restaurante
-        targetPath = createPageUrl("home");
-        delay = 50; // Redirecionamento rápido para proprietários de restaurante
-      } else {
-        // Usuário autenticado, mas NÃO possui um restaurante (usuário cliente)
-        targetPath = createPageUrl("home");
-        delay = 50; // Redirecionamento rápido para usuários clientes
-      }
-    } else {
-      // Usuário não autenticado
-      // Redireciona sempre para onboarding para manter a consistência de desenvolvimento/teste
-      targetPath = createPageUrl("onboarding");
-      delay = 2000;
-    }
-    
     console.log(`Splash screen loaded. Redirecting to ${targetPath} in ${delay}ms...`);
-    
+
     const timer = setTimeout(() => {
-      // Redireciona sempre que a lógica for resolvida, pois a tela de splash é um ponto de entrada.
       navigate(targetPath, { replace: true });
     }, delay);
-    
+
     return () => clearTimeout(timer);
-  }, [navigate, user, isLoading, restaurant, isRestaurantLoading]); // Adicionando restaurant e isRestaurantLoading às dependências
+  }, [navigate, user, isLoading, restaurant, isRestaurantLoading]);
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
-      <div className="relative flex min-h-screen w-full max-w-md mx-auto border-x border-slate-200/60 flex-col bg-gradient-to-br from-[#FF7E40] to-[#EF2A39] font-['Poppins'] overflow-hidden shadow-none items-center justify-center">
+    <div className="min-h-screen w-full bg-[#f1f5f9] flex justify-center">
+      <div className="flex min-h-screen w-full max-w-md mx-auto items-center justify-center overflow-hidden bg-[#df4b1c] font-['Poppins']">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }} 
-          className="text-center px-8"
+          initial={{ scale: 0.92, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10"
         >
-          <h1 className="font-['Lobster'] text-[56px] text-white leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.1)]">
-            FilterFood
-          </h1>
+          <motion.div
+            initial={{ clipPath: "inset(0 100% 0 0)" }}
+            animate={{ clipPath: "inset(0 0% 0 0)" }}
+            transition={{ delay: 0.18, duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+            className="relative overflow-hidden px-8 py-4"
+          >
+            <motion.h1
+              aria-label="FilterFood"
+              initial={{ y: 18 }}
+              animate={{ y: 0 }}
+              transition={{ delay: 0.18, duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
+              className="font-['Lobster'] text-[76px] leading-none text-white"
+            >
+              FilterFood
+            </motion.h1>
+          </motion.div>
+
         </motion.div>
-        
-        {/* Indicador de carregamento enquanto isLoading ou isRestaurantLoading é true */}
-        {(isLoading || isRestaurantLoading) && (
-          <div className="absolute bottom-10">
-            <Loader2 className="w-8 h-8 animate-spin text-white" />
-          </div>
-        )}
       </div>
     </div>
   );

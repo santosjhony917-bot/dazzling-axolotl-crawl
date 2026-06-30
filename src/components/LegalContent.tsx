@@ -28,12 +28,12 @@ const TermsOfUseContent = () => (
     <LegalSection
       number={1}
       title="Aceitação dos Termos"
-      content="Ao acessar ou usar o GrubGo, você concorda em cumprir estes Termos de Uso."
+      content="Ao acessar ou usar o FilterFood, você concorda em cumprir estes Termos de Uso."
     />
     <LegalSection
       number={2}
       title="Descrição do Serviço"
-      content="O GrubGo é uma plataforma que permite aos usuários encontrar e visualizar cardápios de restaurantes, enquanto os restaurantes podem gerenciar suas informações e promoções."
+      content="O FilterFood é uma plataforma que permite aos usuários encontrar e visualizar cardápios de restaurantes, enquanto os restaurantes podem gerenciar suas informações e promoções."
     />
     <LegalSection
       number={3}
@@ -53,7 +53,7 @@ const TermsOfUseContent = () => (
     <LegalSection
       number={6}
       title="Propriedade Intelectual"
-      content="Todo o conteúdo do GrubGo, incluindo logotipos, textos e gráficos, é de nossa propriedade ou de nossos licenciadores e é protegido por leis de direitos autorais."
+      content="Todo o conteúdo do FilterFood, incluindo logotipos, textos e gráficos, é de nossa propriedade ou de nossos licenciadores e é protegido por leis de direitos autorais."
     />
     <LegalSection
       number={7}
@@ -123,7 +123,7 @@ const LegalContent: React.FC = () => {
           <ArrowLeft className="h-6 w-6" />
         </Button>
         <div className="flex items-center gap-2">
-          <h2 className="text-primary text-xl font-bold font-logo text-highlight">GrubGo</h2>
+          <h2 className="text-primary text-xl font-bold font-logo text-highlight">FilterFood</h2>
         </div>
         <div className="w-10"></div>
       </header>

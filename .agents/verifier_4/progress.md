@@ -1,8 +1,9 @@
 # Progress Tracker
 
-Last visited: 2026-06-22T05:34:30Z
+Last visited: 2026-06-22T13:01:10Z
 
-- [x] Run build `npm run build` (Proposed twice; permission prompt timed out)
-- [x] Run integration test `node scratch/test_ext_communication.cjs` (Proposed; permission prompt timed out)
-- [x] Document outcomes in handoff.md
-- [x] Send message to caller
+- [ ] Run build `npm run build` using `run_command`
+- [ ] Run integration test `node scratch/test_ext_communication.cjs` using `run_command`
+- [ ] Validate correct extraction of `https://alainesfihariapatos.saipos.com`
+- [ ] Document exact command outputs and verdict in handoff.md
+- [ ] Send progress report/message to the callers

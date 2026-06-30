@@ -1,7 +1,7 @@
-# BRIEFING — 2026-06-22T05:30:03Z
+# BRIEFING — 2026-06-22T13:01:03Z
 
 ## Mission
-Verify the safety, robustness, correctness, and security of Chrome Extension communication changes, frontend validation, and integration tests.
+Verify the safety, robustness, correctness, and security of Chrome Extension communication changes, frontend validation, and Instagram bio link extraction fixes.
 
 ## 🔒 My Identity
 - Archetype: reviewer/critic
@@ -16,11 +16,12 @@ Verify the safety, robustness, correctness, and security of Chrome Extension com
 - Must verify safety of Tabs API error handlers and retries.
 - Must verify no leftover fallback logs/actions triggered when the extension succeeds.
 - Must verify external messaging is securely/correctly routed via persistent ports for scrapeMenuFromInstagram.
+- Must verify correct detection and resolution of Multiple Links button modal dialog and single link fallback.
 - Must flag integrity violations (such as hardcoded test outputs or facade implementations) with REQUEST_CHANGES and CRITICAL.
 
 ## Current Parent
 - Conversation ID: 46b74978-b4be-4f2a-a14b-df638106be4a
-- Updated: 2026-06-22T05:30:03Z
+- Updated: 2026-06-22T13:01:03Z
 
 ## Review Scope
 - **Files to review**:
@@ -35,6 +36,7 @@ Verify the safety, robustness, correctness, and security of Chrome Extension com
 - Confirmed that Tabs API wrappers are implemented correctly and are secure.
 - Confirmed that no fallback logs/actions are executed when the extension succeeds.
 - Confirmed that persistent ports are used securely and correctly routed.
+- Confirmed correct multiple links button modal detection, extraction, location filtering, and closing logic.
 - Issued verdict: PASS.
 
 ## Artifact Index
@@ -46,6 +48,6 @@ Verify the safety, robustness, correctness, and security of Chrome Extension com
 - **Unverified claims**: none
 
 ## Attack Surface
-- **Hypotheses tested**: Checked for unhandled exceptions in the wrapper functions and for fallback leaks in the frontend components.
+- **Hypotheses tested**: Checked for unhandled exceptions in the wrapper functions and for fallback leaks in the frontend components. Tested modal dialog detection and matching logic against different candidate link combinations.
 - **Vulnerabilities found**: none
 - **Untested angles**: Runtime verification of the Puppeteer integration test due to user approval timeout.

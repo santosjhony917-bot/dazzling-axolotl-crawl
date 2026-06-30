@@ -17,6 +17,7 @@ import {
   normalizeExpansionKey,
   resolveExpansionNeighborhoods,
 } from '@/utils/expansionCollection';
+import { normalizeRestaurantDisplayName } from '@/utils/formatters';
 
 type MapsLead = {
   name?: string;
@@ -38,6 +39,28 @@ type SearchQueryPlan = {
 
 const learnedMissingRestaurantColumns = new Set<string>();
 const warnedMissingRestaurantColumns = new Set<string>();
+const FIXED_EXTENSION_ID = 'kehbedmdplkodjgfiohgnebicblmhghe';
+const REQUIRED_EXTENSION_VERSION = '1.10.30';
+
+const compareVersions = (current = '', required = '') => {
+  const currentParts = String(current || '').split('.').map(part => Number(part) || 0);
+  const requiredParts = String(required || '').split('.').map(part => Number(part) || 0);
+  const length = Math.max(currentParts.length, requiredParts.length);
+  for (let index = 0; index < length; index += 1) {
+    const currentValue = currentParts[index] || 0;
+    const requiredValue = requiredParts[index] || 0;
+    if (currentValue > requiredValue) return 1;
+    if (currentValue < requiredValue) return -1;
+  }
+  return 0;
+};
+
+const isCompatibleExtensionPing = (response: any) => {
+  if (!response?.success) return false;
+  const versionOk = compareVersions(response.version || '0.0.0', REQUIRED_EXTENSION_VERSION) >= 0;
+  const capabilities = response.capabilities || {};
+  return versionOk && capabilities.nativePlatformAdapters !== false;
+};
 
 function normalizeKey(value: string) {
   return normalizeExpansionKey(value);
@@ -97,13 +120,18 @@ function buildPhase1Payload(lead: MapsLead, city: any, plannedNeighborhood?: str
   const googleMapsUrl = buildMapsUrlFromLead(lead);
   const rawName = safeText(lead.name);
   const neighborhood = safeText(lead.neighborhood) || safeText(plannedNeighborhood);
-  const name = rawName || 'Lead Google Maps sem nome';
+  const nameCleanup = normalizeRestaurantDisplayName(rawName || 'Lead Google Maps sem nome', {
+    city: city.name,
+    state: city.state,
+    neighborhood,
+  });
+  const name = nameCleanup.displayName || rawName || 'Lead Google Maps sem nome';
 
   return {
     id: crypto.randomUUID(),
     name,
     google_maps_name: rawName || name,
-    name_cleanup_notes: 'Fase 1 preservou o nome bruto do Google Maps; Validar IA deve decidir o nome comercial final.',
+    name_cleanup_notes: nameCleanup.cleanupReason || 'Fase 1 preservou o nome bruto do Google Maps; Validar IA deve decidir o nome comercial final.',
     category: 'Pendente validação',
     address: null,
     neighborhood: neighborhood || null,
@@ -116,6 +144,7 @@ function buildPhase1Payload(lead: MapsLead, city: any, plannedNeighborhood?: str
     visit_notes: [
       googleMapsUrl ? `Google Maps: ${googleMapsUrl}` : '',
       rawName ? `Nome candidato no Google Maps: ${rawName}` : '',
+      nameCleanup.changed ? `Nome público sugerido: ${name}` : '',
       'Fase 1: lead mínimo coletado pela extensão. Somente o link do Google Maps e o nome candidato foram capturados. Validar IA deve descobrir endereço, telefone, Instagram, cardápio, elegibilidade, nome final e rejeitar falsos restaurantes.',
     ].filter(Boolean).join('\n'),
     other_url: null,
@@ -329,11 +358,14 @@ export default function CityCollection() {
   const [logs, setLogs] = useState('');
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [city, setCity] = useState<any>(null);
-  const [extensionId, setExtensionId] = useState(() => localStorage.getItem('chrome_extension_id') || '');
+  const [extensionId, setExtensionId] = useState(() => localStorage.getItem('chrome_extension_id') || FIXED_EXTENSION_ID);
   const [isExtensionActive, setIsExtensionActive] = useState(false);
+  const [extensionVersion, setExtensionVersion] = useState<string | null>(null);
+  const [isExtensionCompatible, setIsExtensionCompatible] = useState(false);
   const [progress, setProgress] = useState(0);
   const abortRef = useRef(false);
   const logEndRef = useRef<HTMLDivElement>(null);
+  const isExtensionReady = isExtensionActive && isExtensionCompatible;
 
   const addLog = (line: string) => setLogs(prev => `${prev}${line}\n`);
 
@@ -370,11 +402,17 @@ export default function CityCollection() {
   }, [logs]);
 
   useEffect(() => {
-    const id = localStorage.getItem('chrome_extension_id') || extensionId;
+    const id = localStorage.getItem('chrome_extension_id') || extensionId || FIXED_EXTENSION_ID;
+    if (!localStorage.getItem('chrome_extension_id')) localStorage.setItem('chrome_extension_id', id);
     setExtensionId(id);
 
     sendExtensionMessageBridge(id, { action: 'ping' }, 3000).then((res) => {
       setIsExtensionActive(!!res?.success);
+      setExtensionVersion(res?.version || null);
+      setIsExtensionCompatible(isCompatibleExtensionPing(res));
+      if (res?.success && !isCompatibleExtensionPing(res)) {
+        showError(`Extensão desatualizada/incompleta (${res.version || 'sem versão'}). Atualize para ${REQUIRED_EXTENSION_VERSION}+ antes de iniciar a Fase 1.`);
+      }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -444,11 +482,13 @@ export default function CityCollection() {
 
   const handleStartScraping = async () => {
     if (isRunning || !city) return;
-    const id = (localStorage.getItem('chrome_extension_id') || extensionId || '').trim();
+    const id = (localStorage.getItem('chrome_extension_id') || extensionId || FIXED_EXTENSION_ID).trim();
 
     const ping = await sendExtensionMessageBridge(id, { action: 'ping' }, 3000);
     if (!ping?.success) {
       setIsExtensionActive(false);
+      setExtensionVersion(null);
+      setIsExtensionCompatible(false);
       showError(`Extensão inativa: ${ping?.error || 'sem resposta'}`);
       return;
     }
@@ -666,8 +706,12 @@ export default function CityCollection() {
                 </div>
               </div>
               <div className="pt-3 border-t border-slate-100 text-xs text-slate-600 font-medium flex items-center gap-2">
-                <div className={`w-2 h-2 rounded-full ${isExtensionActive ? 'bg-emerald-500' : 'bg-rose-500'}`} />
-                {isExtensionActive ? 'Extensão ativa e pronta para navegar.' : 'Extensão inativa: carregue/atualize a extensão e salve o ID.'}
+                <div className={`w-2 h-2 rounded-full ${isExtensionReady ? 'bg-emerald-500' : isExtensionActive ? 'bg-amber-500' : 'bg-rose-500'}`} />
+                {isExtensionReady
+                  ? `Extensão ativa v${extensionVersion || REQUIRED_EXTENSION_VERSION} e pronta para navegar.`
+                  : isExtensionActive
+                    ? `Extensão carregada, mas desatualizada/incompleta (${extensionVersion || 'sem versão'}). Atualize para ${REQUIRED_EXTENSION_VERSION}+.`
+                    : 'Extensão inativa: carregue/atualize a extensão e salve o ID.'}
               </div>
               <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-3 text-xs text-blue-800 font-semibold leading-relaxed">
                 Ao iniciar, a Fase 1 descobre/cacheia bairros e monta uma cobertura adaptativa: bairros para termos essenciais, polos comerciais para cauda longa e, em cidades grandes, zonas/polos macro como “Zona Sul” ou “Centro Comercial” para ampliar cobertura sem explodir tempo.
@@ -759,7 +803,9 @@ export default function CityCollection() {
                   {restaurants.map((r, i) => (
                     <div key={r.id || i} className="p-4 hover:bg-slate-50 transition-colors flex flex-col gap-1">
                       <div className="flex justify-between items-start gap-2">
-                        <span className="font-bold text-sm text-slate-900 line-clamp-1">{r.name}</span>
+                        <span className="font-bold text-sm text-slate-900 line-clamp-1">
+                          {normalizeRestaurantDisplayName(r.name || '', { city: r.city, state: r.state, neighborhood: r.neighborhood }).displayName || r.name}
+                        </span>
                         {r.ai_validated ? (
                           <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded flex-shrink-0">
                             Validado
@@ -770,6 +816,11 @@ export default function CityCollection() {
                           </span>
                         )}
                       </div>
+                      {normalizeRestaurantDisplayName(r.name || '', { city: r.city, state: r.state, neighborhood: r.neighborhood }).changed && (
+                        <div className="text-[11px] text-slate-400 line-clamp-1" title={r.name}>
+                          Maps: {r.name}
+                        </div>
+                      )}
                       <div className="flex items-center gap-1.5 text-xs text-slate-500">
                         <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
                         <span className="line-clamp-1">{r.address || r.google_maps_url || 'Google Maps aguardando validação'}</span>

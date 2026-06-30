@@ -55,7 +55,7 @@ const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
       />
       <InfoCardItem 
         label="E-mail de Contato" 
-        value={restaurant?.email || "teste@grubgo.com"} 
+        value={restaurant?.email || "teste@filterfood.com"} 
         icon={Mail} 
         isPremium={isPremium}
         onClick={() => handleEditField('email', 'Editar E-mail', 'E-mail de Contato', <Mail className="h-6 w-6 text-primary" />, emailSchema, "email")}

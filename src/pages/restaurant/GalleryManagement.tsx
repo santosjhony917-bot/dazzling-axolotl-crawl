@@ -166,17 +166,21 @@ export default function GalleryManagement() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
+      <RestaurantAreaPageLayout title="Gerenciamento de Imagens" icon={Image} backPath="restaurant-area/profile-menu">
+        <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-slate-100 bg-white shadow-soft">
+          <Loader2 className="h-8 w-8 animate-spin text-[#df4b1c]" />
+        </div>
+      </RestaurantAreaPageLayout>
     );
   }
   
   if (galleryError) {
     return (
-      <div className="p-4 text-red-500">
-        <AlertTriangle className="h-6 w-6 inline mr-2" /> Erro ao carregar galeria: {galleryError}
-      </div>
+      <RestaurantAreaPageLayout title="Gerenciamento de Imagens" icon={Image} backPath="restaurant-area/profile-menu">
+        <div className="rounded-2xl border border-red-100 bg-white p-6 text-red-500 shadow-soft">
+          <AlertTriangle className="h-6 w-6 inline mr-2" /> Erro ao carregar galeria: {galleryError}
+        </div>
+      </RestaurantAreaPageLayout>
     );
   }
 
@@ -186,12 +190,12 @@ export default function GalleryManagement() {
       icon={Image} 
       backPath="restaurant-area/profile-menu"
     >
-      <div className="p-4 space-y-8 max-w-4xl mx-auto">
+      <div className="space-y-8 max-w-4xl mx-auto">
         
         {/* 1. Uploader de Imagem de Capa */}
-        <Card className="shadow-none border-none rounded-2xl bg-white">
+        <Card className="rounded-2xl border border-slate-100 bg-white shadow-soft">
           <CardHeader>
-            <CardTitle className="text-xl text-primary">Imagem de Capa</CardTitle>
+            <CardTitle className="text-xl text-[#3C2F2F]">Imagem de Capa</CardTitle>
           </CardHeader>
           <CardContent>
             <CoverImageUploader
@@ -199,19 +203,19 @@ export default function GalleryManagement() {
               coverImageUrl={restaurant?.cover_image_url}
               onUploadComplete={handleCoverUploadComplete}
             />
-            <p className="text-sm text-gray-600 mt-4">
+            <p className="text-sm text-slate-500 mt-4">
               Esta imagem aparece no topo do seu perfil público.
             </p>
           </CardContent>
         </Card>
         
         {/* 2. Gerenciamento da Galeria */}
-        <Card className="shadow-none border-none rounded-2xl bg-white">
+        <Card className="rounded-2xl border border-slate-100 bg-white shadow-soft">
           <CardHeader>
-            <CardTitle className="text-xl text-primary">Galeria de Fotos</CardTitle>
+            <CardTitle className="text-xl text-[#3C2F2F]">Galeria de Fotos</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-slate-500 mb-4">
               Arraste e solte as imagens para reordenar. A primeira imagem será usada como destaque.
             </p>
             
@@ -221,11 +225,11 @@ export default function GalleryManagement() {
                   onUploadComplete={handleGalleryImageUploadComplete}
                   bucketName={RESTAURANT_IMAGES_BUCKET}
                   folderPath={`${restaurantId}/gallery`}
-                  className="bg-primary text-white hover:bg-primary/95 h-10 w-10 p-0 rounded-xl shadow-none shrink-0 relative"
+                  className="bg-[#df4b1c] text-white hover:bg-[#bd3f17] h-10 w-10 p-0 rounded-2xl shrink-0 relative"
                   icon={<Plus className="h-5 w-5" />}
                   disabled={isMutating}
                 />
-                <span className="text-sm font-bold text-slate-700">
+                <span className="text-sm font-bold text-[#3C2F2F]">
                   {isMutating ? "Processando..." : "Adicionar Imagem"}
                 </span>
               </div>
@@ -233,7 +237,7 @@ export default function GalleryManagement() {
               <Button 
                 onClick={handleSaveOrder}
                 disabled={isMutating || localGallery.length === 0}
-                className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white rounded-xl font-bold shadow-none h-10 w-full sm:w-auto flex items-center justify-center gap-2"
+                className="bg-[#df4b1c] hover:bg-[#bd3f17] text-white rounded-2xl font-bold h-10 w-full sm:w-auto flex items-center justify-center gap-2"
               >
                 {isMutating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                 Salvar Ordem
@@ -265,7 +269,7 @@ export default function GalleryManagement() {
             </DndContext>
             
             {localGallery.length === 0 && !isLoading && (
-              <p className="text-center text-gray-500 mt-8">Nenhuma imagem na galeria ainda. Adicione a primeira!</p>
+              <p className="text-center text-slate-500 mt-8">Nenhuma imagem na galeria ainda. Adicione a primeira!</p>
             )}
           </CardContent>
         </Card>

@@ -45,6 +45,14 @@ export const PATH_MAP = {
   adminExpansion: '/admin/expansion',
   adminCollector: '/admin/collector',
   adminCityDashboard: '/admin/expansion/:cityId',  
+  adminPlans: '/admin/plans',
+  adminCrm: '/admin/crm',
+  adminSettings: '/admin/settings',
+  adminRestaurants: '/admin/restaurants',
+  adminUsers: '/admin/users',
+  adminCategories: '/admin/categories',
+  adminFiles: '/admin/files',
+  adminImport: '/admin/import',
   // Rotas com parâmetros complexos (mantidas)
   restaurantProfile: '/restaurant/:restaurantId',
 } as const;

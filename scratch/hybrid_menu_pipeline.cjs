@@ -5,7 +5,7 @@ const path = require('path');
 
 const PRICE_RE = /(?:R\$\s*)?(\d{1,4}(?:[.,]\d{2}))(?!\d)/gi;
 const CATEGORY_HINTS = /^(entradas?|petiscos?|porcoes?|porções?|pratos?|principais?|executivos?|combos?|pizzas?|esfihas?|calzones?|massas?|past[eé]is|pasteis|lanches?|hamburguer(?:es)?|hambúrguer(?:es)?|sandu[ií]ches?|beirutes?|marmitas?|saladas?|acompanhamentos?|adicionais|extras?|bebidas?|sucos?|refrigerantes?|drinks?|cervejas?|vinhos?|sobremesas?|doces?|cafes?|cafés?)$/i;
-const NOISE_RE = /^(adicionar|comprar|pedido|minha conta|buscar|inicio|início|voltar|avançar|proximo|próximo|fechar|aceitar|cookies?)$/i;
+const NOISE_RE = /^(adicionar|comprar|pedido|minha conta|buscar|inicio|início|voltar|avançar|proximo|próximo|fechar|aceitar|cookies?|pedido\s*m[ií]n(?:imo|\.?)?|cupom|cupons?|taxa\s+de\s+entrega|subtotal|total|sacola|carrinho|aberto\s+at[eé]|fecha\s+\d|abre\s+\d|hor[aá]rio|loja\s+fechada|retirada|delivery|entrega)$/i;
 
 function normalizeSpace(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
@@ -36,6 +36,8 @@ function extractItemsFromText(text) {
   const addItem = (name, description, price) => {
     const cleanName = normalizeName(name);
     if (cleanName.length < 2 || NOISE_RE.test(cleanName)) return;
+    const haystack = normalizeSpace(`${cleanName} ${description || ''}`).toLowerCase();
+    if (/pedido\s*m[ií]n|cupom|taxa\s+de\s+entrega|subtotal|sacola|carrinho|aberto\s+at[eé]|loja\s+fechada/.test(haystack)) return;
     const key = currentCategory || 'Cardápio';
     if (!categories.has(key)) categories.set(key, []);
     const items = categories.get(key);

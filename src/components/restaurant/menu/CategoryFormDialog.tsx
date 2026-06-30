@@ -31,7 +31,7 @@ interface CategoryFormDialogProps {
   isLoading: boolean; 
 }
 
-export default function CategoryFormDialog({ isOpen, onClose, initialData, onSave, isLoading }: CategoryFormDialogProps) {
+export default function CategoryFormDialog({ isOpen, onClose, restaurantId, initialData, onSave, isLoading }: CategoryFormDialogProps) {
   const [sections, setSections] = React.useState<{ id: string; name: string }[]>([]);
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(categorySchema),

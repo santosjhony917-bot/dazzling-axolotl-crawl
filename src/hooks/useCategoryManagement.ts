@@ -111,10 +111,12 @@ export const useCategoryMutations = (restaurantId: string): UseCategoryMutations
 
 
 export const useMenuManagement = (restaurantId: string): UseMenuManagementResult => {
+  const shouldFetchCategories = !!restaurantId && !restaurantId.startsWith('mock-');
+
   const categoriesQuery = useQuery<MenuCategory[], Error>({
     queryKey: ['menu_categories', restaurantId],
     queryFn: () => fetchCategories(restaurantId),
-    enabled: !!restaurantId,
+    enabled: shouldFetchCategories,
   });
 
   return { categoriesQuery };

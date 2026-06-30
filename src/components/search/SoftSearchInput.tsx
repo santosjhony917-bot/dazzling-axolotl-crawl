@@ -12,12 +12,12 @@ const SoftSearchInput: React.FC<SoftSearchInputProps> = ({ onSubmitAction, class
         e.preventDefault();
         if (onSubmitAction) onSubmitAction(e);
       }} 
-      className={`bg-white soft-pill w-full h-[60px] flex items-center px-5 gap-3 shadow-[0_12px_30px_rgba(0,0,0,0.12)] border border-slate-100/50 ${className || ''}`}
+      className={`flex h-12 w-full items-center gap-3 rounded-full border border-slate-100 bg-white px-4 shadow-soft ${className || ''}`}
     >
-      <Search className="w-6 h-6 text-[#3C2F2F] stroke-[2] flex-shrink-0" />
+      <Search className="h-5 w-5 flex-shrink-0 text-highlight stroke-[2]" />
       <input
         {...props}
-        className="flex-grow w-full h-full bg-transparent border-none outline-none text-[#3C2F2F] font-medium text-[16px] placeholder:text-[#6A6A6A]/60"
+        className="h-full w-full flex-grow border-none bg-transparent text-[15px] font-normal text-[#3C2F2F] outline-none placeholder:text-text-secondary/70"
       />
     </form>
   );

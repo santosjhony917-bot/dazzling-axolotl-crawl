@@ -27,13 +27,13 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
       className={cn(
         "w-full p-6 rounded-[24px] relative overflow-hidden",
         isPremium
-          ? "shadow-[0_12px_40px_rgba(239,42,57,0.28)]"
-          : "shadow-[0_8px_28px_rgba(239,42,57,0.14)]"
+          ? "shadow-[0_12px_40px_rgba(223,75,28,0.28)]"
+          : "shadow-[0_8px_28px_rgba(223,75,28,0.14)]"
       )}
       style={{
         background: isPremium
-          ? 'linear-gradient(135deg, #EF2A39 0%, #FF5C38 50%, #FF7E40 100%)'
-          : 'linear-gradient(135deg, #FF7E40 0%, #EF2A39 100%)',
+          ? 'linear-gradient(135deg, #df4b1c 0%, #FF5C38 50%, #FF7E40 100%)'
+          : 'linear-gradient(135deg, #FF7E40 0%, #df4b1c 100%)',
       }}
     >
       {/* Marca d'água decorativa */}
@@ -53,7 +53,7 @@ const MainProfileCard: React.FC<MainProfileCardProps> = ({
               onUploadComplete={onLogoUploadComplete}
               bucketName={RESTAURANT_IMAGES_BUCKET}
               folderPath={restaurantId || 'temp'}
-              className="p-0 rounded-full h-7 w-7 bg-white text-[#EF2A39] shadow-md hover:brightness-110 transition-all border border-white/40"
+              className="p-0 rounded-full h-7 w-7 bg-white text-[#df4b1c] shadow-md hover:brightness-110 transition-all border border-white/40"
               icon={<Camera className="h-3 w-3" />}
               disabled={uploading}
             />

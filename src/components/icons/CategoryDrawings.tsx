@@ -12,7 +12,7 @@ export const ChefPlatterIllustration: React.FC<IllustrationProps> = ({ className
       <defs>
         <linearGradient id="clocheGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FF8A65" />
-          <stop offset="100%" stopColor="#EF2A39" />
+          <stop offset="100%" stopColor="#df4b1c" />
         </linearGradient>
         <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FFF176" />
@@ -37,7 +37,7 @@ export const ChefPlatterIllustration: React.FC<IllustrationProps> = ({ className
       
       {/* Steam / Aroma */}
       <path d="M26 8C26 8 27 5 29 5C31 5 32 8 32 8" stroke="#FF8A65" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
-      <path d="M34 7C34 7 35 4 37 4C39 4 40 7 40 7" stroke="#EF2A39" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+      <path d="M34 7C34 7 35 4 37 4C39 4 40 7 40 7" stroke="#df4b1c" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
     </svg>
   );
 };
@@ -49,7 +49,7 @@ export const ComboIllustration: React.FC<IllustrationProps> = ({ className = "w-
       <defs>
         <linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FFA726" />
-          <stop offset="100%" stopColor="#EF2A39" />
+          <stop offset="100%" stopColor="#df4b1c" />
         </linearGradient>
         <linearGradient id="bunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FFE082" />
@@ -63,7 +63,7 @@ export const ComboIllustration: React.FC<IllustrationProps> = ({ className = "w-
       <path d="M36 21C36 19.9 36.9 19 38 19H58C59.1 19 60 19.9 60 21V24H36V21Z" fill="#3C2F2F" />
       {/* Straw */}
       <path d="M49 8L46 19" stroke="#E8EAED" strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M49 8H53" stroke="#EF2A39" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M49 8H53" stroke="#df4b1c" strokeWidth="3.5" strokeLinecap="round" />
       
       {/* Burger */}
       {/* Bottom Bun */}
@@ -116,8 +116,8 @@ export const BurgerIllustration: React.FC<IllustrationProps> = ({ className = "w
       <path d="M8 34L14 40L20 34H32L38 40L44 34H56V36C56 36 50 39 46 40H18C14 40 8 36 8 36V34Z" fill="url(#cheeseGrad)" />
       
       {/* Tomato Slices */}
-      <rect x="13" y="27" width="16" height="6" rx="3" fill="#EF2A39" />
-      <rect x="35" y="27" width="16" height="6" rx="3" fill="#EF2A39" />
+      <rect x="13" y="27" width="16" height="6" rx="3" fill="#df4b1c" />
+      <rect x="35" y="27" width="16" height="6" rx="3" fill="#df4b1c" />
       
       {/* Lettuce */}
       <path d="M7 26C7 26 11 22 16 25C21 28 27 23 32 26C37 29 43 24 48 26C53 28 57 26 57 26" stroke="#2ECC71" strokeWidth="4.5" strokeLinecap="round" />
@@ -168,7 +168,7 @@ export const CupcakeIllustration: React.FC<IllustrationProps> = ({ className = "
       <rect x="23" y="14" width="18" height="9" rx="4.5" fill="url(#creamGrad)" />
       
       {/* Cherry */}
-      <circle cx="32" cy="10" r="4.5" fill="#EF2A39" />
+      <circle cx="32" cy="10" r="4.5" fill="#df4b1c" />
       <path d="M34 9C36 5 39 4 41 6" stroke="#4CAF50" strokeWidth="1.5" strokeLinecap="round" />
       
       {/* Sprinkles */}
@@ -202,13 +202,13 @@ export const PizzaIllustration: React.FC<IllustrationProps> = ({ className = "w-
       <path d="M16 21L32 53L48 21Z" fill="url(#cheesePizzaGrad)" />
       
       {/* Pepperoni slices */}
-      <circle cx="26" cy="27" r="4.5" fill="#EF2A39" />
+      <circle cx="26" cy="27" r="4.5" fill="#df4b1c" />
       <circle cx="26" cy="27" r="2.5" fill="#C62828" opacity="0.6" />
       
-      <circle cx="38" cy="31" r="4" fill="#EF2A39" />
+      <circle cx="38" cy="31" r="4" fill="#df4b1c" />
       <circle cx="38" cy="31" r="2" fill="#C62828" opacity="0.6" />
       
-      <circle cx="30" cy="41" r="3.5" fill="#EF2A39" />
+      <circle cx="30" cy="41" r="3.5" fill="#df4b1c" />
       <circle cx="30" cy="41" r="1.5" fill="#C62828" opacity="0.6" />
       
       {/* Oregano and green peppers */}
@@ -249,7 +249,7 @@ export const SaladIllustration: React.FC<IllustrationProps> = ({ className = "w-
       <circle cx="26" cy="24" r="2" fill="#4E342E" />
       
       {/* Cherry Tomatoes */}
-      <circle cx="36" cy="26" r="4.5" fill="#EF2A39" />
+      <circle cx="36" cy="26" r="4.5" fill="#df4b1c" />
       <circle cx="34.5" cy="24.5" r="1" fill="white" opacity="0.6" />
       
       {/* Egg slice */}

@@ -190,7 +190,7 @@ const UpgradePageContent: React.FC = () => {
       <div className="absolute inset-0 bg-[#090D1A] bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
       
       {/* Mesh Glow Backgrounds */}
-      <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[340px] h-[340px] bg-gradient-to-b from-[#EF2A39]/12 to-transparent rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute top-[-80px] left-1/2 -translate-x-1/2 w-[340px] h-[340px] bg-gradient-to-b from-[#df4b1c]/12 to-transparent rounded-full blur-[80px] pointer-events-none" />
       <div className="absolute bottom-40 left-[-50px] w-[280px] h-[280px] bg-[#8B5CF6]/8 rounded-full blur-[90px] pointer-events-none" />
 
       {/* 1. Hero Section com Headline Ultra Persuasiva */}
@@ -200,13 +200,13 @@ const UpgradePageContent: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="relative z-10 pt-4 pb-8 text-center px-4"
       >
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-[#EF2A39]/10 to-violet-500/10 border border-[#EF2A39]/30 text-[#EF2A39] text-[10px] font-extrabold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(239,42,57,0.15)]">
-          <Crown className="w-3.5 h-3.5 fill-[#EF2A39]" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-[#df4b1c]/10 to-violet-500/10 border border-[#df4b1c]/30 text-[#df4b1c] text-[10px] font-extrabold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(223,75,28,0.15)]">
+          <Crown className="w-3.5 h-3.5 fill-[#df4b1c]" />
           Parceiro Oficial Premium
         </div>
 
         <h1 className="text-[25px] font-black leading-tight tracking-tight text-white mb-3">
-          Destaque seu Restaurante e <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EF2A39] via-[#F43F5E] to-[#F59E0B] drop-shadow-[0_2px_10px_rgba(239,42,57,0.2)]">Atraia 3x Mais</span> Clientes 🚀
+          Destaque seu Restaurante e <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#df4b1c] via-[#E17A24] to-[#F59E0B] drop-shadow-[0_2px_10px_rgba(223,75,28,0.2)]">Atraia 3x Mais</span> Clientes 🚀
         </h1>
         
         <p className="text-xs font-semibold text-slate-400 max-w-sm mx-auto leading-relaxed mb-6">
@@ -263,7 +263,7 @@ const UpgradePageContent: React.FC = () => {
             <motion.div
               className={cn(
                 "absolute top-1 bottom-1 rounded-lg shadow-md",
-                previewPlan === 'free' ? "bg-white" : "bg-gradient-to-r from-[#EF2A39] to-[#F43F5E]"
+                previewPlan === 'free' ? "bg-white" : "bg-gradient-to-r from-[#df4b1c] to-[#E17A24]"
               )}
               animate={{
                 left: previewPlan === 'free' ? '4px' : 'calc(50% - 2px)',
@@ -274,10 +274,10 @@ const UpgradePageContent: React.FC = () => {
           </div>
 
           {/* Premium Bezel-less Phone Frame Mockup */}
-          <div className="relative mx-auto w-full max-w-[360px] h-[670px] rounded-[48px] border-[6px] border-slate-800 bg-[#090D1A] shadow-[0_0_50px_rgba(239,42,57,0.25)] overflow-hidden flex flex-col transition-all duration-300">
+          <div className="relative mx-auto w-full max-w-[360px] h-[670px] rounded-[48px] border-[6px] border-slate-800 bg-[#090D1A] shadow-[0_0_50px_rgba(223,75,28,0.25)] overflow-hidden flex flex-col transition-all duration-300">
             {/* Dynamic Island Notch */}
             <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-28 h-5.5 bg-black rounded-full z-50 flex items-center justify-center border border-white/5 shadow-[0_1px_5px_rgba(255,255,255,0.05)]">
-              <div className="w-1.5 h-1.5 bg-gradient-to-br from-indigo-500 to-[#EF2A39] rounded-full animate-pulse mr-2" />
+              <div className="w-1.5 h-1.5 bg-gradient-to-br from-indigo-500 to-[#df4b1c] rounded-full animate-pulse mr-2" />
               <span className="text-[8px] font-extrabold text-slate-400 tracking-widest uppercase">PREVIEW</span>
             </div>
 
@@ -369,7 +369,7 @@ const UpgradePageContent: React.FC = () => {
                     )}
                   </div>
                   <div className="flex flex-col items-center">
-                    <span className="text-[7px] text-[#EF2A39] font-bold uppercase mb-0.5">Premium</span>
+                    <span className="text-[7px] text-[#df4b1c] font-bold uppercase mb-0.5">Premium</span>
                     <Check className="w-4.5 h-4.5 text-green-400 font-bold shrink-0 filter drop-shadow-[0_0_6px_rgba(74,222,128,0.6)]" />
                   </div>
                 </div>
@@ -379,7 +379,7 @@ const UpgradePageContent: React.FC = () => {
         </div>
  
         {/* Prova Social / Neuromarketing Estatístico */}
-        <div className="p-5 bg-gradient-to-br from-[#EF2A39]/20 to-red-600/5 border border-[#EF2A39]/30 text-white rounded-3xl text-center space-y-2 relative overflow-hidden shadow-[0_0_20px_rgba(239,42,57,0.1)]">
+        <div className="p-5 bg-gradient-to-br from-[#df4b1c]/20 to-red-600/5 border border-[#df4b1c]/30 text-white rounded-3xl text-center space-y-2 relative overflow-hidden shadow-[0_0_20px_rgba(223,75,28,0.1)]">
           <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full blur-xl pointer-events-none" />
           <Award className="w-8 h-8 mx-auto stroke-[1.5] text-yellow-300 animate-bounce animate-duration-1000" />
           <h3 className="text-sm font-black tracking-tight leading-snug">
@@ -391,7 +391,7 @@ const UpgradePageContent: React.FC = () => {
         </div>
 
         {/* 3. Seção de Preços com Neuro-ancoragem */}
-        <div className="p-6 bg-gradient-to-b from-[#EF2A39]/10 via-white/[0.01] to-white/[0.02] border border-[#EF2A39]/30 rounded-3xl text-center space-y-4 shadow-[0_0_30px_rgba(239,42,57,0.1)]">
+        <div className="p-6 bg-gradient-to-b from-[#df4b1c]/10 via-white/[0.01] to-white/[0.02] border border-[#df4b1c]/30 rounded-3xl text-center space-y-4 shadow-[0_0_30px_rgba(223,75,28,0.1)]">
           <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-[9px] font-extrabold uppercase tracking-wider mx-auto">
             Oferta de Lançamento Ativa
           </div>
@@ -409,11 +409,11 @@ const UpgradePageContent: React.FC = () => {
           <div className="space-y-1.5 max-w-[280px] mx-auto pt-2">
             <div className="flex justify-between text-[9px] font-bold text-slate-400">
               <span>Vagas promocionais na sua cidade</span>
-              <span className="text-[#EF2A39] font-extrabold">84% Preenchido</span>
+              <span className="text-[#df4b1c] font-extrabold">84% Preenchido</span>
             </div>
             <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
               <motion.div 
-                className="h-full bg-gradient-to-r from-[#EF2A39] to-red-500" 
+                className="h-full bg-gradient-to-r from-[#df4b1c] to-red-500" 
                 initial={{ width: 0 }}
                 animate={{ width: "84%" }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
@@ -441,7 +441,7 @@ const UpgradePageContent: React.FC = () => {
             <Button
               onClick={handleSubscribe}
               disabled={isSubscribing}
-              className="w-full h-11 rounded-xl text-xs font-bold bg-gradient-to-r from-[#EF2A39] to-red-600 hover:from-[#EF2A39]/95 hover:to-red-600/95 text-white shadow-[0_4px_20px_rgba(239,42,57,0.3)] hover:shadow-none transition-all flex items-center justify-center gap-2 border-0"
+              className="w-full h-11 rounded-xl text-xs font-bold bg-gradient-to-r from-[#df4b1c] to-red-600 hover:from-[#df4b1c]/95 hover:to-red-600/95 text-white shadow-[0_4px_20px_rgba(223,75,28,0.3)] hover:shadow-none transition-all flex items-center justify-center gap-2 border-0"
             >
               {isSubscribing ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

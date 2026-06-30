@@ -32,6 +32,9 @@ interface SearchItemCardProps {
 
 const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
   const isDish = item.type === 'dish';
+  const isCombo = isDish && item.commercialType === 'combo_builder';
+  const getBustedUrl = useImageCacheBuster();
+
   const formattedPrice = isDish
     ? formatMenuPrice({
         price: item.price,
@@ -43,56 +46,51 @@ const SearchItemCard: React.FC<SearchItemCardProps> = ({ item, onClick }) => {
         is_configurable: item.isConfigurable,
       })
     : null;
-  const displayDescription = isDish 
-    ? `${item.restaurantName}${item.itemCategoryName ? ` • ${item.itemCategoryName}` : ''}${item.neighborhood ? ` • ${item.neighborhood}` : ''}`
+
+  const displayDescription = isDish
+    ? `${item.restaurantName}${item.itemCategoryName ? ` - ${item.itemCategoryName}` : ''}${item.neighborhood ? ` - ${item.neighborhood}` : ''}`
     : item.category;
-  const getBustedUrl = useImageCacheBuster();
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={() => onClick(item.id, item.type)}
-      className="w-full"
-    >
-      <div className="soft-card flex items-center gap-4 p-4 w-full mb-4 cursor-pointer">
-        
-        <div 
-          className="relative bg-center bg-no-repeat bg-cover rounded-[12px] w-20 h-20 flex-shrink-0 bg-gray-100 overflow-hidden" 
-          style={{ backgroundImage: `url("${getBustedUrl(item.imageUrl) || PLACEHOLDER_IMAGE_URL}")` }}
-          data-alt={item.name}
-        >
+    <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.99 }} onClick={() => onClick(item.id, item.type)}>
+      <div className="mb-3 flex w-full cursor-pointer items-center gap-3 rounded-[22px] border border-slate-100 bg-white p-3 shadow-soft">
+        <div className="relative h-[76px] w-[76px] flex-shrink-0 overflow-hidden rounded-[16px] bg-slate-100">
+          <img
+            src={getBustedUrl(item.imageUrl) || PLACEHOLDER_IMAGE_URL}
+            alt={item.name}
+            className={isDish ? "h-full w-full object-contain" : "h-full w-full object-cover"}
+          />
           {isDish && item.imageUrl && item.imageUrl !== PLACEHOLDER_IMAGE_URL && (
-            <div className="absolute top-1 right-1 text-white text-[8px] font-extrabold select-none tracking-wider uppercase drop-shadow-[0_1.5px_2.5px_rgba(0,0,0,0.85)]">
-              Ilustrativa
+            <div className="absolute right-1 top-1 rounded-full bg-black/35 px-1.5 py-0.5 text-[8px] font-medium uppercase tracking-wide text-white">
+              Foto
             </div>
           )}
         </div>
-        
-        <div className="flex-1 min-w-0 flex flex-col justify-center">
-          <p className="text-[#3C2F2F] text-[18px] font-bold leading-tight truncate">
-            {item.name}
-          </p>
-          
+
+        <div className="flex min-w-0 flex-1 flex-col justify-center">
+          <div className="flex min-w-0 items-center gap-2">
+            <p className="truncate text-[16px] font-semibold leading-tight text-[#3C2F2F]">{item.name}</p>
+            {isCombo && (
+              <span className="shrink-0 rounded-full bg-highlight/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-highlight">
+                Combo
+              </span>
+            )}
+          </div>
+
           {isDish && formattedPrice && (
-            <p className="text-[#EF2A39] text-[16px] font-bold mt-1">
-              {formattedPrice}
-            </p>
+            <p className="mt-1 text-[15px] font-semibold text-highlight">{formattedPrice}</p>
           )}
-          
+
           {displayDescription && (
-            <p className="text-[#6A6A6A] text-[13px] font-medium truncate mt-0.5">
-              {displayDescription}
-            </p>
+            <p className="mt-0.5 truncate text-[13px] font-normal text-text-secondary">{displayDescription}</p>
           )}
-          
+
           {!isDish && item.neighborhood && (
-            <p className="text-[#6A6A6A] text-[12px] flex items-center gap-1 mt-1 font-medium">
-              <MapPin className="w-3.5 h-3.5 text-[#EF2A39]" /> {item.neighborhood}
+            <p className="mt-1 flex items-center gap-1 text-[12px] font-normal text-text-secondary">
+              <MapPin className="h-3.5 w-3.5 text-highlight" /> {item.neighborhood}
             </p>
           )}
         </div>
-
       </div>
     </motion.div>
   );

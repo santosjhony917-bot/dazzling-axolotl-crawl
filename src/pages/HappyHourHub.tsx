@@ -342,7 +342,7 @@ export default function HappyHourHub() {
         <div className="px-4 pt-4">
           <Button
             onClick={handleOpenCreateModal}
-            className="w-full h-12 bg-gradient-to-r from-[#EF2A39] to-[#C41230] hover:from-[#EF2A39]/90 hover:to-[#C41230]/90 text-white font-extrabold rounded-2xl shadow-[0_6px_20px_rgba(239,42,57,0.25)] flex items-center justify-center gap-2 border-none active:scale-[0.99] transition-all text-xs uppercase tracking-wider"
+            className="w-full h-12 bg-gradient-to-r from-[#df4b1c] to-[#8F350F] hover:from-[#df4b1c]/90 hover:to-[#8F350F]/90 text-white font-extrabold rounded-2xl shadow-[0_6px_20px_rgba(223,75,28,0.25)] flex items-center justify-center gap-2 border-none active:scale-[0.99] transition-all text-xs uppercase tracking-wider"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
             Criar Novo Happy Hour
@@ -378,7 +378,7 @@ export default function HappyHourHub() {
 
                   {/* Ticket de Data */}
                   <div className="w-[60px] h-[72px] rounded-2xl bg-slate-50 border border-slate-100/80 flex flex-col overflow-hidden shrink-0 shadow-sm relative z-10">
-                    <div className="bg-[#EF2A39] text-white text-[9px] font-extrabold py-1 text-center uppercase tracking-wider">
+                    <div className="bg-[#df4b1c] text-white text-[9px] font-extrabold py-1 text-center uppercase tracking-wider">
                       {month}
                     </div>
                     <div className="flex-grow flex flex-col items-center justify-center bg-white px-1 leading-none">
@@ -421,7 +421,7 @@ export default function HappyHourHub() {
                     <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-100/50">
                       <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1 text-[11px] text-slate-400 font-semibold">
-                          <Clock className="w-3.5 h-3.5 text-[#EF2A39]" />
+                          <Clock className="w-3.5 h-3.5 text-[#df4b1c]" />
                           <span>às {formatEventTime(hh.date_time)}</span>
                         </div>
 
@@ -449,7 +449,7 @@ export default function HappyHourHub() {
                         )}
                       </div>
 
-                      <div className="flex items-center gap-1 text-[11px] text-[#EF2A39] hover:text-[#EF2A39]/80 font-bold transition-colors">
+                      <div className="flex items-center gap-1 text-[11px] text-[#df4b1c] hover:text-[#df4b1c]/80 font-bold transition-colors">
                         <MessageSquare className="w-3.5 h-3.5" />
                         <span>Entrar</span>
                       </div>
@@ -468,7 +468,7 @@ export default function HappyHourHub() {
             </p>
             <Button 
               onClick={handleOpenCreateModal}
-              className="h-12 px-6 bg-gradient-to-r from-[#EF2A39] to-[#C41230] hover:from-[#EF2A39]/90 hover:to-[#C41230]/90 text-white font-extrabold rounded-2xl shadow-[0_6px_20px_rgba(239,42,57,0.25)] flex items-center gap-2 border-none active:scale-[0.99] transition-all duration-200 text-xs uppercase tracking-wider"
+              className="h-12 px-6 bg-gradient-to-r from-[#df4b1c] to-[#8F350F] hover:from-[#df4b1c]/90 hover:to-[#8F350F]/90 text-white font-extrabold rounded-2xl shadow-[0_6px_20px_rgba(223,75,28,0.25)] flex items-center gap-2 border-none active:scale-[0.99] transition-all duration-200 text-xs uppercase tracking-wider"
             >
               <Plus className="w-4 h-4 stroke-[3]" />
               Criar Novo Happy Hour
@@ -686,7 +686,7 @@ export default function HappyHourHub() {
                             onClick={() => handleToggleSelectRestaurant(r)}
                             className={cn(
                               "flex items-center justify-between p-2 rounded-xl cursor-pointer transition-all",
-                              isSelected ? "bg-[#EF2A39]/5 border border-[#EF2A39]/10" : "bg-white border border-transparent hover:bg-slate-50"
+                              isSelected ? "bg-[#df4b1c]/5 border border-[#df4b1c]/10" : "bg-white border border-transparent hover:bg-slate-50"
                             )}
                           >
                             <div className="flex items-center gap-2 min-w-0">
@@ -702,7 +702,7 @@ export default function HappyHourHub() {
                             </div>
                             <div className={cn(
                               "w-4 h-4 rounded-full border flex items-center justify-center transition-all",
-                              isSelected ? "bg-[#EF2A39] border-[#EF2A39] text-white" : "border-slate-350 bg-white"
+                              isSelected ? "bg-[#df4b1c] border-[#df4b1c] text-white" : "border-slate-350 bg-white"
                             )}>
                               {isSelected && <Check className="w-2.5 h-2.5 stroke-[3px]" />}
                             </div>

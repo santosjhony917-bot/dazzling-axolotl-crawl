@@ -12,6 +12,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { auditCategories, extractItemsFromText, mergeCategories: mergeHybridCategories, runLocalOcr } = require('./hybrid_menu_pipeline.cjs');
 
 // ─── Carrega variáveis de ambiente ───────────────────────────────────────────
 function loadEnv() {
@@ -139,6 +140,29 @@ async function analyzeMenuImages(imageUrls, restaurantName, source) {
   if (validImages.length === 0) {
     console.log(`[Menu Extractor] ⚠️ Nenhuma imagem válida para análise.`);
     return [];
+  }
+
+  // Nível 2: OCR local. Somente o texto segue para o formatter econômico;
+  // a imagem é enviada à visão apenas se a auditoria continuar baixa.
+  try {
+    const ocr = await runLocalOcr(validImages, { logger: () => {} });
+    if (ocr.text && ocr.text.trim().length >= 50) {
+      const deterministic = extractItemsFromText(ocr.text);
+      const deterministicAudit = auditCategories(deterministic, ocr.text);
+      if (deterministicAudit.approved) {
+        console.log(`[Menu Extractor] ✅ OCR local aprovado (${deterministicAudit.itemCount} itens); visão evitada.`);
+        return deterministic;
+      }
+      const formatted = await parseMenuTextToCategories(ocr.text, restaurantName, `${source}_local_ocr`);
+      const merged = mergeHybridCategories([deterministic, formatted]);
+      const mergedAudit = auditCategories(merged, ocr.text);
+      if (mergedAudit.confidence !== 'low' && mergedAudit.itemCount >= 5) {
+        console.log(`[Menu Extractor] ✅ OCR + formatter aprovados (${mergedAudit.score}); visão evitada.`);
+        return merged;
+      }
+    }
+  } catch (ocrError) {
+    console.warn(`[Menu Extractor] OCR local falhou: ${ocrError.message}. Prosseguindo para visão.`);
   }
 
   const content = [

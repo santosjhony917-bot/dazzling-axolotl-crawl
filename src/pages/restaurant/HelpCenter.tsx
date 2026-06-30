@@ -37,7 +37,7 @@ const faqData = [
   {
     id: 5,
     question: "Posso ter mais de uma filial cadastrada?",
-    answer: "Sim, o GrubGo suporta múltiplas filiais. Você pode gerenciar as localizações na sua área de cadastro inicial ou entrando em contato com o suporte para planos empresariais.",
+    answer: "Sim, o FilterFood suporta múltiplas filiais. Você pode gerenciar as localizações na sua área de cadastro inicial ou entrando em contato com o suporte para planos empresariais.",
     tags: ["filial", "localização", "cadastro"],
   },
 ];

@@ -77,6 +77,15 @@ export default {
         "text-dark": "#ffffff",
         "orange-accent": "24 84.2% 60.2%",
         "orange-accent-hover": "24 90% 55%",
+        filterfood: {
+          orange: "var(--filterfood-orange)",
+          "orange-hover": "var(--filterfood-orange-hover)",
+          ink: "var(--filterfood-ink)",
+          muted: "var(--filterfood-muted)",
+          canvas: "var(--filterfood-canvas)",
+          shell: "var(--filterfood-shell)",
+          surface: "var(--filterfood-surface)",
+        },
       },
       borderRadius: {
         lg: "1rem", // 16px
@@ -102,6 +111,10 @@ export default {
         'highlight-glow': 'none',
         soft: 'var(--soft-shadow)',
         float: 'var(--float-shadow)',
+        hover: 'var(--hover-shadow)',
+        focus: 'var(--focus-shadow)',
+        nav: 'var(--nav-shadow)',
+        modal: 'var(--modal-shadow)',
       },
       keyframes: {
         "accordion-down": {

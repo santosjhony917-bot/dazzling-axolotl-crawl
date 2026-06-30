@@ -32,7 +32,17 @@ export async function fetchNearbyRestaurants(
   }
 
   const list = data || [];
-  return list.filter((r: any) => !deletedIds.has(r.id));
+  const ids = list.map((r: any) => r.id).filter(Boolean);
+  const { data: menuStatusRows } = ids.length
+    ? await supabase
+      .from('restaurants')
+      .select('id, menu_status')
+      .in('id', ids)
+    : { data: [] as any[] };
+  const publishableMenuIds = new Set((menuStatusRows || [])
+    .filter((row: any) => row.menu_status === 'found')
+    .map((row: any) => row.id));
+  return list.filter((r: any) => !deletedIds.has(r.id) && publishableMenuIds.has(r.id));
 }
 
 // Define a string de seleção para os dados básicos do perfil público
@@ -46,7 +56,14 @@ const PUBLIC_RESTAURANT_BASE_SELECT = `*`; // Simplificado para buscar apenas as
 export async function fetchPublicRestaurantById(restaurantId: string): Promise<PublicRestaurantData | null> {
   console.log(`[fetchPublicRestaurantById] Attempting to fetch restaurant with ID: ${restaurantId}`);
 
-  if (restaurantId && (restaurantId.startsWith('mock-') || restaurantId.startsWith('scraped-'))) {
+  const isMockRestaurant = restaurantId && (restaurantId.startsWith('mock-') || restaurantId.startsWith('scraped-'));
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(restaurantId || '');
+  if (restaurantId && !isMockRestaurant && !isUuid) {
+    console.warn(`[fetchPublicRestaurantById] Invalid restaurant ID: ${restaurantId}`);
+    return null;
+  }
+
+  if (isMockRestaurant) {
     const isPremium = restaurantId.includes('premium');
     
     // Tenta carregar do localStorage mockSession ou mock-completed-restaurants
@@ -124,7 +141,7 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
       statusText: openStatus.statusText,
       nextOpenTime: openStatus.nextOpenTime,
       is_favorite: false,
-      email: savedMockRestaurant?.email || (isPremium ? 'teste@grubgo.com' : 'lancheira@free.com'),
+      email: savedMockRestaurant?.email || (isPremium ? 'teste@filterfood.com' : 'lancheira@free.com'),
       description: savedMockRestaurant?.description || (isPremium 
         ? 'Experiência gastronômica única com ingredientes selecionados e ambiente sofisticado.' 
         : 'Lanches rápidos e saborosos com aquele tempero caseiro que você adora.'),
@@ -187,106 +204,140 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
     return null;
   }
 
-  if (baseData.is_published !== true) {
-    console.log(`[fetchPublicRestaurantById] Restaurant is not validated: ${restaurantId}.`);
+  if (baseData.is_published !== true || baseData.menu_status !== 'found') {
+    console.log(`[fetchPublicRestaurantById] Restaurant is not publishable: ${restaurantId}.`);
     return null;
   }
 
   console.log(`[fetchPublicRestaurantById] Successfully fetched base data for ${restaurantId}.`);
 
-  // 2. Buscar contagem de seguidores separadamente
-  const { data: followersData, error: followersError } = await supabase
-    .from('user_favorites')
-    .select('count')
-    .eq('restaurant_id', restaurantId)
-    .returns<{ count: number }[]>(); // Definir explicitamente o tipo de retorno para count
+  const favoriteStatusPromise = supabase.auth.getUser().then(async ({ data: userData }) => {
+    if (!userData?.user) return false;
 
-  let followersCount = (baseData.followers_override || 0);
-  if (followersError) {
-    console.warn(`[fetchPublicRestaurantById] Error fetching followers count for ${restaurantId}:`, followersError);
-    // Continuar sem lançar erro, followersCount permanecerá baseData.followers_override
-  } else {
-    followersCount += (followersData?.[0]?.count || 0);
-    console.log(`[fetchPublicRestaurantById] Followers count for ${restaurantId}: ${followersCount}`);
-  }
-
-  // 3. Buscar imagens da galeria separadamente
-  const { data: galleryData, error: galleryError } = await supabase
-    .from('restaurant_gallery')
-    .select('id, image_url, caption, order_index')
-    .eq('restaurant_id', restaurantId)
-    .order('order_index', { ascending: true });
-
-  let galleryImages: GalleryImage[] = [];
-  if (galleryError) {
-    console.warn(`[fetchPublicRestaurantById] Error fetching gallery images for ${restaurantId}:`, galleryError);
-    // Continuar sem lançar erro, galleryImages permanecerá vazio
-  } else {
-    galleryImages = (galleryData || []) as GalleryImage[];
-    console.log(`[fetchPublicRestaurantById] Fetched ${galleryImages.length} gallery images for ${restaurantId}.`);
-  }
-  
-  // 3.5. Buscar seções de menu
-  const { data: sectionsData, error: sectionsError } = await supabase
-    .from('menu_sections')
-    .select('id, name, order_index, created_at')
-    .eq('restaurant_id', restaurantId)
-    .order('order_index', { ascending: true });
-
-  let menuSections: any[] = [];
-  if (sectionsError) {
-    console.warn(`[fetchPublicRestaurantById] Error fetching menu sections:`, sectionsError);
-  } else {
-    menuSections = sectionsData || [];
-  }
-  
-  // 4. Buscar categorias e itens de menu separadamente
-  const { data: menuData, error: menuError } = await supabase
-    .from('menu_categories')
-    .select(`
-      id, 
-      name, 
-      order_index, 
-      is_active,
-      section_id,
-      menu_items(
-          id, 
-          name, 
-          description, 
-          price, 
-          image_url, 
-          order_index, 
-          is_active
-      )
-    `)
-    .eq('restaurant_id', restaurantId)
-    .order('order_index', { ascending: true });
-
-  if (menuError) {
-    console.error(`[fetchPublicRestaurantById] Error fetching menu data for ${restaurantId}:`, menuError);
-    // Não lançamos erro fatal aqui, apenas retornamos um array vazio para o menu
-  } else {
-    console.log(`[fetchPublicRestaurantById] Fetched ${menuData?.length || 0} menu categories for ${restaurantId}.`);
-  }
-
-  // 5. Verificar se o usuário atual favoritou este restaurante
-  let isFavorite = false;
-  const { data: userData } = await supabase.auth.getUser();
-  if (userData?.user) {
     const { data: favoriteData, error: favoriteError } = await supabase
       .from('user_favorites')
       .select('id')
       .eq('user_id', userData.user.id)
       .eq('restaurant_id', restaurantId)
-      .single();
+      .maybeSingle();
 
-    if (favoriteData && !favoriteError) {
-      isFavorite = true;
-    } else if (favoriteError && favoriteError.code !== 'PGRST116') { // PGRST116 significa que nenhuma linha foi encontrada
+    if (favoriteError) {
       console.warn(`[fetchPublicRestaurantById] Error checking favorite status for ${restaurantId}:`, favoriteError);
+      return false;
     }
+
+    return !!favoriteData;
+  });
+
+  const [
+    followersResult,
+    galleryResult,
+    sectionsResult,
+    menuResult,
+    isFavorite,
+  ] = await Promise.all([
+    supabase
+      .from('user_favorites')
+      .select('*', { count: 'exact', head: true })
+      .eq('restaurant_id', restaurantId),
+    supabase
+      .from('restaurant_gallery')
+      .select('id, image_url, caption, order_index')
+      .eq('restaurant_id', restaurantId)
+      .order('order_index', { ascending: true }),
+    supabase
+      .from('menu_sections')
+      .select('id, name, order_index, created_at')
+      .eq('restaurant_id', restaurantId)
+      .order('order_index', { ascending: true }),
+    supabase
+      .from('menu_categories')
+      .select(`
+        id, 
+        name, 
+        order_index, 
+        is_active,
+        section_id,
+        menu_items(
+            id, 
+            name, 
+            display_name,
+            description, 
+            price,
+            display_price,
+            price_type,
+            price_min,
+            price_max,
+            commercial_type,
+            is_configurable,
+            search_display_name,
+            search_keywords,
+            combo_components,
+            combo_rules,
+            combo_display_mode,
+            serves_count,
+            raw_data,
+            image_url, 
+            order_index, 
+            is_active,
+            is_illustrative,
+            menu_option_groups(
+              id,
+              name,
+              min_quantity,
+              max_quantity,
+              is_required,
+              order_index,
+              semantic_type,
+              price_behavior,
+              menu_item_options(
+                id,
+                name,
+                description,
+                price,
+                price_delta,
+                min_quantity,
+                max_quantity,
+                is_required,
+                order_index,
+                semantic_type,
+                price_behavior,
+                search_label,
+                search_aliases
+              )
+            )
+        )
+      `)
+      .eq('restaurant_id', restaurantId)
+      .order('order_index', { ascending: true }),
+    favoriteStatusPromise,
+  ]);
+
+  let followersCount = (baseData.followers_override || 0);
+  if (followersResult.error) {
+    console.warn(`[fetchPublicRestaurantById] Error fetching followers count for ${restaurantId}:`, followersResult.error);
+  } else {
+    followersCount += followersResult.count || 0;
   }
 
+  let galleryImages: GalleryImage[] = [];
+  if (galleryResult.error) {
+    console.warn(`[fetchPublicRestaurantById] Error fetching gallery images for ${restaurantId}:`, galleryResult.error);
+  } else {
+    galleryImages = (galleryResult.data || []) as GalleryImage[];
+  }
+
+  let menuSections: any[] = [];
+  if (sectionsResult.error) {
+    console.warn(`[fetchPublicRestaurantById] Error fetching menu sections:`, sectionsResult.error);
+  } else {
+    menuSections = sectionsResult.data || [];
+  }
+
+  const menuData = menuResult.data;
+  if (menuResult.error) {
+    console.error(`[fetchPublicRestaurantById] Error fetching menu data for ${restaurantId}:`, menuResult.error);
+  }
   // 6. Processar e combinar dados
   
   // Constrói o resumo do endereço
@@ -335,3 +386,4 @@ export async function fetchPublicRestaurantById(restaurantId: string): Promise<P
   console.log(`[fetchPublicRestaurantById] Returning restaurant data for ${restaurantId}.`);
   return result;
 }
+

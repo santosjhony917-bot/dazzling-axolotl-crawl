@@ -4,13 +4,13 @@ import { ArrowLeft, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import Header from '@/components/Header';
+import PhoneShell from '@/components/layout/PhoneShell';
 
 export default function HelpCenter() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
-      <div className="min-h-screen bg-background-light max-w-md mx-auto border-x border-slate-200/60 overflow-x-hidden flex flex-col">
+    <PhoneShell shellClassName="flex flex-col">
         <Header
           title={
             <div className="flex items-center gap-2">
@@ -33,7 +33,6 @@ export default function HelpCenter() {
           </Button>
         </div>
       </main>
-      </div>
-    </div>
+    </PhoneShell>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MapPin, Store } from 'lucide-react';
+import { BookOpenText, Store } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createPageUrl } from '@/utils/url';
 import { base44 } from '@/api/base44Client';
@@ -15,86 +15,97 @@ export default function Welcome() {
       await base44.auth.updateMe({ user_role: role });
       navigate(path);
     } catch (error) {
-      showError("Falha ao definir o papel do usuário. Tente novamente.");
+      showError('Falha ao definir o papel do usuário. Tente novamente.');
     }
   };
 
   return (
     <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
-      <div className="relative flex min-h-screen w-full max-w-md mx-auto border-x border-slate-200/60 flex-col bg-[#FAFAFA] font-['Poppins'] overflow-hidden shadow-none">
-        
-        {/* Top Hero Image */}
-        <div className="absolute top-0 inset-x-0 w-full h-[45%]">
-          <img 
-            alt="Welcome Hero" 
-            className="w-full h-full object-cover" 
-            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80" 
+      <div className="app-phone-shell relative flex flex-col bg-[#FAFAFA] font-['Poppins']">
+        <div className="absolute top-0 inset-x-0 w-full h-[42%] min-h-[280px]">
+          <img
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover"
+            src="/images/filterfood_compare_table.png"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/15 to-[#FAFAFA]" />
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.45 }}
+            className="absolute left-5 top-8 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-[#3C2F2F] shadow-[0_10px_24px_rgba(15,23,42,0.10)] backdrop-blur-md"
+          >
+            Cardápios da cidade
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.48, duration: 0.45 }}
+            className="absolute right-5 top-20 rounded-full bg-[#df4b1c] px-4 py-2 text-xs font-semibold text-white shadow-[0_10px_24px_rgba(223,75,28,0.18)]"
+          >
+            Em um só app
+          </motion.div>
         </div>
 
-        {/* Content Card (Bottom) */}
-        <div className="relative flex flex-col h-full justify-end flex-grow z-10">
-          <div className="w-full bg-[#FAFAFA] min-h-[58%] rounded-t-[36px] p-6 pt-8 flex flex-col items-center text-center border-t border-slate-100/50 shadow-[0_-12px_40px_rgba(0,0,0,0.05)]">
-            
-            {/* Logo */}
-            <motion.h1 
+        <main className="relative z-10 flex min-h-screen flex-col justify-end">
+          <section className="w-full bg-[#FAFAFA] min-h-[56%] rounded-t-[32px] px-5 pb-5 pt-7 flex flex-col items-center text-center border-t border-slate-100/70 shadow-[0_-10px_34px_rgba(15,23,42,0.04)]">
+            <motion.h1
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="font-['Lobster'] text-[48px] text-[#EF2A39] leading-tight drop-shadow-[0_2px_5px_rgba(0,0,0,0.04)] mt-2"
+              className="font-['Lobster'] text-[46px] text-[#df4b1c] leading-none drop-shadow-[0_2px_5px_rgba(0,0,0,0.04)] mt-1"
             >
               FilterFood
             </motion.h1>
 
-            {/* Welcome Text */}
-            <motion.div 
+            <motion.div
               initial={{ y: 15, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="w-full text-center mt-3 mb-6"
+              className="w-full max-w-sm text-center mt-4 mb-5"
             >
-              <h2 className="text-[#3C2F2F] text-[22px] font-bold leading-tight">
-                Bem-vindo!
+              <h2 className="text-[#3C2F2F] text-[22px] font-semibold leading-tight">
+                Todos os cardápios da cidade
               </h2>
-              <p className="text-[#6A6A6A] text-sm font-medium mt-1">
-                Escolha como deseja usar o aplicativo hoje.
+              <p className="text-[#6A6A6A] text-sm font-medium mt-2 leading-relaxed">
+                Consulte pratos, preços e restaurantes em um só lugar.
               </p>
             </motion.div>
 
-            {/* Action Buttons */}
-            <motion.div 
+            <motion.div
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="flex flex-col gap-4 w-full px-2 mb-8 mt-auto"
+              className="mt-auto mb-4 flex w-full flex-col gap-3 rounded-[24px] border border-slate-100/80 bg-white p-4 shadow-soft"
             >
               <Button
                 onClick={() => handleNavigation('customer', createPageUrl('auth'))}
-                className="w-full h-[58px] bg-[#EF2A39] hover:bg-[#D62230] text-white rounded-[20px] text-base font-bold shadow-[0px_8px_20px_rgba(239,42,57,0.22)] transition-all duration-200 active:scale-95 border-none flex items-center justify-center gap-2"
+                aria-label="Consultar cardÃ¡pios como cliente"
+                className="w-full h-11 bg-[#df4b1c] hover:bg-[#bd3f17] text-white rounded-2xl text-[15px] font-semibold shadow-none transition-all duration-200 active:scale-95 border-none flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#df4b1c] focus-visible:ring-offset-2"
               >
-                <MapPin className="w-5 h-5 shrink-0" />
-                Encontrar Restaurantes
+                <BookOpenText className="w-5 h-5 shrink-0" />
+                Consultar Cardápios
               </Button>
 
               <Button
                 onClick={() => handleNavigation('restaurant', createPageUrl('restaurant-area-hub'))}
                 variant="outline"
-                className="w-full h-[58px] bg-white border-2 border-[#EF2A39] text-[#EF2A39] hover:bg-[#EF2A39]/5 rounded-[20px] text-base font-bold transition-all duration-200 active:scale-95 shadow-[0_2px_5px_rgba(0,0,0,0.04)] flex items-center justify-center gap-2"
+                aria-label="Entrar na Ã¡rea do restaurante"
+                className="w-full h-11 bg-white border border-[#df4b1c]/35 text-[#df4b1c] hover:bg-[#df4b1c]/5 rounded-2xl text-[15px] font-semibold transition-all duration-200 active:scale-95 shadow-none flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#df4b1c] focus-visible:ring-offset-2"
               >
                 <Store className="w-5 h-5 shrink-0" />
                 Sou Restaurante
               </Button>
             </motion.div>
 
-            {/* Footer */}
-            <footer className="w-full pt-4 mt-auto">
+            <footer className="w-full pt-3 mt-auto">
               <p className="text-[#888888] text-[11px] font-medium text-center">
                 © 2026 FilterFood. Todos os direitos reservados.
               </p>
             </footer>
-          </div>
-        </div>
+          </section>
+        </main>
       </div>
     </div>
   );

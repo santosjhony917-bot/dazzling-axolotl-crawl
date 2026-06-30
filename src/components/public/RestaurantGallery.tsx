@@ -102,7 +102,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
       
       {totalImages === 1 && (
         <Card 
-          className="overflow-hidden rounded-2xl shadow-none border-none p-0 cursor-pointer h-[200px] relative"
+          className="relative h-[200px] cursor-pointer overflow-hidden rounded-2xl border-none bg-slate-50 p-0 shadow-none"
           onClick={() => setCurrentIndex(0)}
         >
           {isVideoUrl(gallery[0].image_url) ? (
@@ -112,7 +112,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                 muted
                 playsInline
                 preload="metadata"
-                className="w-full h-full object-cover"
+                className="h-full w-full object-contain"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/10">
                 <Play className="w-8 h-8 text-white fill-white" />
@@ -122,7 +122,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
             <img
               src={gallery[0].image_url}
               alt={gallery[0].caption || 'Imagem do local'}
-              className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-300"
+              className="h-full w-full object-contain"
             />
           )}
           {gallery[0].caption && (
@@ -138,7 +138,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
           {gallery.map((image, idx) => (
             <Card 
               key={image.id}
-              className="overflow-hidden rounded-2xl shadow-none border-none p-0 cursor-pointer h-full relative"
+               className="relative h-full cursor-pointer overflow-hidden rounded-2xl border-none bg-slate-50 p-0 shadow-none"
               onClick={() => setCurrentIndex(idx)}
             >
               {isVideoUrl(image.image_url) ? (
@@ -148,7 +148,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                     muted
                     playsInline
                     preload="metadata"
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-contain"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/10">
                     <Play className="w-6 h-6 text-white fill-white" />
@@ -158,7 +158,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                 <img
                   src={image.image_url}
                   alt={image.caption || 'Imagem do local'}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="h-full w-full object-contain"
                 />
               )}
               {image.caption && (
@@ -188,7 +188,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
             return (
               <Card
                 key={image.id}
-                className={cn("relative overflow-hidden rounded-2xl shadow-none border-none p-0 cursor-pointer", cardClass)}
+                className={cn("relative cursor-pointer overflow-hidden rounded-2xl border-none bg-slate-50 p-0 shadow-none", cardClass)}
                 onClick={() => setCurrentIndex(slotIndex)}
               >
                 {isVideo ? (
@@ -198,11 +198,11 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                       muted
                       playsInline
                       preload="metadata"
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      className="h-full w-full object-contain"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/25 transition-colors z-10">
                       <div className="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md">
-                        <Play className="w-4 h-4 text-[#EF2A39] fill-[#EF2A39] ml-0.5" />
+                        <Play className="w-4 h-4 text-[#df4b1c] fill-[#df4b1c] ml-0.5" />
                       </div>
                     </div>
                   </div>
@@ -210,7 +210,7 @@ const RestaurantGallery: React.FC<RestaurantGalleryProps> = ({ gallery }) => {
                   <img
                     src={image.image_url}
                     alt={image.caption || 'Imagem da galeria'}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    className="h-full w-full object-contain"
                   />
                 )}
 

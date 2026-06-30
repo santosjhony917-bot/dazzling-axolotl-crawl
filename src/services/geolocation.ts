@@ -54,7 +54,7 @@ export async function reverseGeocode(lat: number, lon: number): Promise<Geocoded
 
   const response = await axios.get(url, {
     headers: {
-      'User-Agent': 'GrubGo Restaurant App', // Header customizado para Nominatim
+      'User-Agent': 'FilterFood Restaurant App', // Header customizado para Nominatim
     }
   });
   const data = response.data;

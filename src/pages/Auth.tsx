@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthData } from '@/context/AuthContext';
-import { Loader2, MapPin, ArrowLeft, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { Loader2, Search, ArrowLeft, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 import { AppleIcon } from '@/components/icons/AppleIcon';
 import { createPageUrl } from '@/utils/url';
@@ -18,9 +18,13 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import Header from '@/components/Header';
+import PhoneShell from '@/components/layout/PhoneShell';
+
+const customerBenefits = ['Preço', 'Bairro', 'Favoritos'];
 
 export default function Auth() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, isLoading: isAuthLoading, refetchProfile, signInWithMock } = useAuthData();
   const [mode, setMode] = useState<'sign_in' | 'sign_up'>('sign_in');
   const [email, setEmail] = useState("");
@@ -29,26 +33,31 @@ export default function Auth() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
 
+  const redirectFrom = (location.state as { from?: { pathname?: string; search?: string; hash?: string } } | null)?.from;
+  const redirectTo = redirectFrom?.pathname
+    ? `${redirectFrom.pathname}${redirectFrom.search ?? ''}${redirectFrom.hash ?? ''}`
+    : createPageUrl('home');
+
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
   // Redireciona se já estiver logado
   useEffect(() => {
     if (user) {
-      navigate(createPageUrl('home'));
+      navigate(redirectTo, { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, redirectTo]);
 
   // Lida com a mudança de estado de autenticação (para erros e sucesso)
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, currentSession) => {
       if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
         refetchProfile();
-        navigate(createPageUrl('home'));
+        navigate(redirectTo, { replace: true });
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate, refetchProfile]);
+  }, [navigate, refetchProfile, redirectTo]);
 
   const handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,7 +81,7 @@ export default function Auth() {
           if (cleanEmail.includes('admin')) {
             navigate(createPageUrl('adminDashboard'));
           } else {
-            navigate(createPageUrl('home'));
+            navigate(redirectTo, { replace: true });
           }
           return;
         }
@@ -106,7 +115,7 @@ export default function Auth() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: window.location.origin + createPageUrl('auth'),
+          redirectTo: `${window.location.origin}${createPageUrl('auth')}`,
         },
       });
       if (error) throw error;
@@ -128,16 +137,20 @@ export default function Auth() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
-      <div className="min-h-screen bg-background-light flex flex-col w-full max-w-md mx-auto border-x border-slate-200/60">
+    <PhoneShell shellClassName="flex flex-col bg-[#FAFAFA]">
 
       {/* Unified Header */}
       <Header 
-        title={mode === 'sign_in' ? 'Login' : 'Cadastro'} 
+        title={
+          <span className="text-lg font-semibold tracking-tight text-[#3C2F2F]">
+            {mode === 'sign_in' ? 'Entrar no FilterFood' : 'Criar conta'}
+          </span>
+        } 
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(createPageUrl('welcome')) }}
+        sticky={false}
       />
 
-      <main className="flex-grow flex flex-col justify-center w-full px-4 py-6">
+      <main className="flex-grow flex flex-col justify-center w-full px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -145,26 +158,36 @@ export default function Auth() {
           className="w-full"
         >
           {/* Icon and Title (Padrão Consistente) */}
-          <div className="flex flex-col items-center justify-center pb-6 w-full max-w-sm mx-auto text-center">
-            <div className="flex items-center justify-center size-16 bg-primary/10 rounded-2xl mx-auto mb-4">
-              <MapPin className="w-8 h-8 text-primary" />
+          <div className="flex flex-col items-center justify-center pb-7 w-full max-w-sm mx-auto text-center">
+            <div className="flex items-center justify-center size-12 bg-white rounded-2xl mx-auto mb-3 border border-slate-100 shadow-sm">
+              <Search className="w-6 h-6 text-primary" />
             </div>
-            <h1 className="text-primary tracking-tight text-3xl font-bold leading-tight">
-              {mode === 'sign_in' ? 'Acesso rápido' : 'Crie sua conta'}
+            <h1 className="text-[#3C2F2F] tracking-tight text-[22px] font-semibold leading-tight">
+              {mode === 'sign_in' ? 'Continue sua busca' : 'Crie sua conta'}
             </h1>
-            <p className="text-text-secondary text-base mt-1">
-              {mode === 'sign_in' ? 'Seu acesso aos melhores pratos!' : 'Descubra os melhores restaurantes!'}
+            <p className="text-text-secondary text-sm mt-2 leading-relaxed max-w-[320px]">
+              {mode === 'sign_in' ? 'Salve favoritos, compare pratos e encontre opções perto de você.' : 'Descubra pratos por preço, bairro e cardápio real.'}
             </p>
+            <div className="mt-3 flex flex-wrap justify-center gap-2">
+              {customerBenefits.map((benefit) => (
+                <span
+                  key={benefit}
+                  className="rounded-full bg-highlight/8 px-3 py-1 text-[11px] font-semibold text-highlight"
+                >
+                  {benefit}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <Card className="w-full shadow-soft border border-slate-100/80 rounded-2xl bg-white">
-            <CardContent className="p-6 pt-4">
+          <Card className="w-full rounded-[24px] border border-slate-100/80 bg-white shadow-soft">
+            <CardContent className="p-5">
               <form onSubmit={handleAuth} className="space-y-4">
                 <Button
                   type="button"
                   onClick={() => handleSocialLogin('google')}
                   variant="channel"
-                  className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
+                  className="flex w-full items-center justify-center rounded-2xl h-11 gap-2 text-[15px] font-semibold shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2"
                   disabled={loading}
                 >
                   <GoogleIcon className="h-5 w-5 shrink-0" />
@@ -174,7 +197,7 @@ export default function Auth() {
                   type="button"
                   onClick={() => handleSocialLogin('apple')}
                   variant="channel"
-                  className="flex w-full items-center justify-center rounded-2xl h-12 gap-2 text-base font-bold shadow-soft"
+                  className="flex w-full items-center justify-center rounded-2xl h-11 gap-2 text-[15px] font-semibold shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2"
                   disabled={loading}
                 >
                   <AppleIcon className="h-6 w-6 text-black dark:text-white shrink-0" />
@@ -185,7 +208,7 @@ export default function Auth() {
                   <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t border-gray-200" />
                   </div>
-                  <div className="relative flex justify-center text-xs uppercase">
+                  <div className="relative flex justify-center text-xs uppercase" aria-hidden="true">
                     <span className="bg-white px-2 text-gray-500">
                       ou
                     </span>
@@ -193,7 +216,7 @@ export default function Auth() {
                 </div>
 
                 <Input
-                  className="h-14 text-base rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
+                  className="h-12 text-[15px] rounded-2xl border-slate-200/80 focus:border-highlight focus:ring-highlight shadow-none"
                   placeholder="E-mail"
                   type="email"
                   value={email}
@@ -203,7 +226,7 @@ export default function Auth() {
                 />
                 <div className="relative">
                   <Input
-                    className="h-14 text-base pr-12 rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-none"
+                    className="h-12 text-[15px] pr-12 rounded-2xl border-slate-200/80 focus:border-highlight focus:ring-highlight shadow-none"
                     placeholder={mode === 'sign_in' ? 'Senha' : 'Crie uma senha'}
                     type={passwordVisible ? "text" : "password"}
                     value={password}
@@ -213,8 +236,9 @@ export default function Auth() {
                   />
                   <button
                     onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors"
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 rounded-2xl"
                     type="button"
+                    aria-label={passwordVisible ? 'Ocultar senha' : 'Mostrar senha'}
                   >
                     {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -224,7 +248,7 @@ export default function Auth() {
                   <div className="flex justify-end">
                     <Link
                       to={createPageUrl('forgotPassword')}
-                      className="text-sm font-medium text-primary hover:underline"
+                      className="text-sm font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 rounded"
                     >
                       Esqueceu sua senha?
                     </Link>
@@ -235,7 +259,7 @@ export default function Auth() {
                   type="submit"
                   disabled={loading}
                   variant="highlight"
-                  className="flex w-full items-center justify-center rounded-2xl h-12 gap-1 text-base font-bold shadow-none transition-all hover:shadow-none"
+                  className="flex w-full items-center justify-center rounded-2xl h-11 gap-1 text-[15px] font-semibold shadow-none transition-all hover:shadow-[0_8px_18px_rgba(223,75,28,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2"
                 >
                   <span className="truncate">
                     {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : (mode === 'sign_in' ? "Entrar" : "Cadastrar-se")}
@@ -250,11 +274,11 @@ export default function Auth() {
                 </p>
               )}
 
-              <p className="pt-6 text-center text-base text-gray-600">
+              <p className="pt-6 text-center text-sm text-slate-600">
                 {mode === 'sign_in' ? "Não tem uma conta?" : "Já tem uma conta?"}
                 <button
                   onClick={() => setMode(mode === 'sign_in' ? 'sign_up' : 'sign_in')}
-                  className="font-bold text-highlight hover:underline ml-1"
+                  className="font-semibold text-highlight hover:underline ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 rounded"
                   disabled={loading}
                 >
                   {mode === 'sign_in' ? 'Crie uma agora' : 'Entrar'}
@@ -266,13 +290,12 @@ export default function Auth() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full max-w-md mx-auto py-6">
-        <div className="flex justify-center items-center gap-6">
-          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Termos</Link>
-          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline">Privacidade (LGPD)</Link>
-        </div>
+      <footer className="w-full max-w-md mx-auto px-4 py-5">
+        <nav className="flex justify-center items-center gap-6" aria-label="Links legais">
+          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 rounded">Termos</Link>
+          <Link to={createPageUrl('legal')} className="text-gray-500 text-sm font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 rounded">Privacidade (LGPD)</Link>
+        </nav>
       </footer>
-      </div>
-    </div>
+    </PhoneShell>
   );
 }

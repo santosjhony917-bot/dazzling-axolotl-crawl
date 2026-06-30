@@ -36,6 +36,11 @@ const getMenuStatus = (restaurant: any) => {
   return restaurant?.menu_status || log?.menu_status || (log?.status === 'menu_found' ? 'found' : '');
 };
 
+const getCrmStatus = (restaurant: any) => {
+  const log = readAiLog(restaurant);
+  return restaurant?.visit_status || log?.crm_status || log?.visit_status || 'Pendente';
+};
+
 const DB_TO_COLUMN: Record<string, string> = {
   Pendente: 'lead',
   lead: 'lead',
@@ -105,7 +110,7 @@ export default function CityCrm() {
 
       const { data, error } = await supabase
         .from('restaurants')
-        .select('id, name, category, phone, created_at, visit_status, ai_validated, is_deleted, ai_log')
+        .select('id, name, category, phone, created_at, ai_validated, is_deleted, ai_log')
         .eq('city', cityData.name)
         .eq('state', cityData.state)
         .eq('ai_validated', true);
@@ -125,7 +130,7 @@ export default function CityCrm() {
 
       const mappedCards: RestaurantCard[] = eligible.map((r) => ({
         id: r.id,
-        columnId: DB_TO_COLUMN[r.visit_status || ''] || 'lead',
+        columnId: DB_TO_COLUMN[getCrmStatus(r) || ''] || 'lead',
         title: r.name,
         category: r.category || 'Restaurante validado',
         contact: r.phone || 'Sem telefone',
@@ -160,7 +165,33 @@ export default function CityCrm() {
         .eq('id', cardId)
         .eq('ai_validated', true);
 
-      if (error) throw error;
+      if (error) {
+        const message = error.message || '';
+        if (!/visit_status|schema cache|column/i.test(message)) throw error;
+
+        const { data: current, error: fetchError } = await supabase
+          .from('restaurants')
+          .select('ai_log')
+          .eq('id', cardId)
+          .single();
+        if (fetchError) throw fetchError;
+
+        const fallbackUpdate: any = {
+          ai_log: {
+            ...readAiLog(current),
+            crm_status: newStatus,
+            crm_status_updated_at: new Date().toISOString(),
+          },
+        };
+        if (newColumnId === 'won') fallbackUpdate.plan = 'premium';
+
+        const { error: fallbackError } = await supabase
+          .from('restaurants')
+          .update(fallbackUpdate)
+          .eq('id', cardId)
+          .eq('ai_validated', true);
+        if (fallbackError) throw fallbackError;
+      }
       toast.success(newColumnId === 'won' ? 'Convertido: assinatura Premium registrada.' : `Status atualizado para ${newStatus}`);
     } catch (err: any) {
       toast.error(`Erro ao atualizar status: ${err?.message || 'erro desconhecido'}`);

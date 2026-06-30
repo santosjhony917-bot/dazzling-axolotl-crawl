@@ -1,6 +1,6 @@
 {
   "name": "Coletor Auxiliar - Dazzling Axolotl",
-  "version": "1.9.5",
+  "version": "1.10.42",
   "manifest_version": 3,
   "description": "Coletor API-first com navegação visível pela extensão, OCR e IA progressivos somente quando necessários.",
   "permissions": [
@@ -17,7 +17,7 @@
     "http://127.0.0.1/*"
   ],
   "background": {
-    "service_worker": "background-loader-1-9-5.js"
+    "service_worker": "background-loader-1-10-42.js"
   },
   "externally_connectable": {
     "matches": [
@@ -52,5 +52,6 @@
       "run_at": "document_start",
       "world": "MAIN"
     }
-  ]
+  ],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4HdGDChrMmWZa92J1vOcB7BDseZxnMI9nI2GvoaAqSWjYaZIn9//ipQVfxqEIwGi0tvLcuOEsVtejcUpEpycrjKaqixcx40tCP5lXBtAhxdSltvSNmDGLhdok8Zi+anxqalH2om/CMMtHNl/ow1665va6mJLcB5f88UkYvdKX574jr22vnoAwj8AdAXFZaJef/lUUofRhQkk9/795/Qs0+eC5QaIhKsP2mWwzc3S7LfzudegmPQTUjt5U6iLScBTPjo1VWQzOe1CoTCGhDoaHDy/UMBmC05s79qcN2y7DjFOVYpCwF3rqGZqPfVUpj/WvXgLxu+MSzNWqI0U5gCsqQIDAQAB"
 }

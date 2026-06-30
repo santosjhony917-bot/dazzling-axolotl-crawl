@@ -32,6 +32,17 @@ const hasFlag = flag => args.includes(flag);
 const clean = value => String(value || '').replace(/\s+/g, ' ').trim();
 const finite = value => value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value)) ? Number(value) : null;
 const money = value => finite(value) == null ? '' : `R$ ${Number(value).toFixed(2).replace('.', ',')}`;
+const MENU_INTERFACE_NOISE_RE = /pedido\s*m[ií]n|cupom|cupons?|taxa\s+de\s+entrega|subtotal|sacola|carrinho|aberto\s+at[eé]|loja\s+fechada|calcular\s+taxa|buscar\s+no\s+card[aá]pio|in[ií]cio|perfil|pedidos/i;
+
+function isMenuInterfaceNoiseItem(item) {
+  const name = clean(item?.name || item?.nome);
+  const description = clean(item?.description || item?.descricao);
+  const haystack = `${name} ${description}`.toLowerCase();
+  if (!name) return true;
+  if (MENU_INTERFACE_NOISE_RE.test(haystack)) return true;
+  if (/^(adicionar|comprar|pedido|minha conta|buscar|voltar|fechar|aceitar|cookies?|subtotal|total|sacola|carrinho)$/i.test(name)) return true;
+  return false;
+}
 
 function isFakeOrTokenPrice(value) {
   const price = finite(value);
@@ -59,6 +70,95 @@ function optionLooksLikeChoice(option) {
   return /escolha|sabor|pizza|calzone|omelete|suco|refrigerante|prote[ií]na|massa|salada|combo|beirute|marmita/.test(`${group} ${name}`) || option.price >= 3;
 }
 
+function optionLooksLikeAddon(option) {
+  const group = clean(option.group_name).toLowerCase();
+  const name = clean(option.name).toLowerCase();
+  return /adicional|adicione|add|extra|acrescimo|acr[eÃ©]scimo|borda|azeitona|molho|observa/.test(`${group} ${name}`);
+}
+
+function optionLooksLikeSecondaryChoice(option) {
+  const group = clean(option.group_name).toLowerCase();
+  const name = clean(option.name).toLowerCase();
+  return /suco|bebida|refrigerante|acompanhamento|complemento|adicional|adicione|add|extra|leite|azeitona|molho/.test(`${group} ${name}`);
+}
+
+function isDisposableOption(option) {
+  const text = normalizeKeywordText(`${option?.group_name || ''} ${option?.name || ''} ${option?.description || ''}`);
+  return /\b(descartavel|descartaveis|talher|talheres|guardanapo|canudo|copo|prato descartavel|embalagem|sacola|ketchup|maionese|mostarda|molho extra)\b/.test(text);
+}
+
+function optionLooksLikeAddon(option) {
+  const group = clean(option.group_name).toLowerCase();
+  const name = clean(option.name).toLowerCase();
+  if (isDisposableOption(option)) return false;
+  return /adicional|adicione|add|extra|acrescimo|acr[eÃƒÂ©]scimo|borda|azeitona|molho|observa/.test(`${group} ${name}`);
+}
+
+function optionLooksLikeSecondaryChoice(option) {
+  const group = clean(option.group_name).toLowerCase();
+  const name = clean(option.name).toLowerCase();
+  if (isDisposableOption(option)) return true;
+  return /suco|bebida|refrigerante|acompanhamento|complemento|adicional|adicione|add|extra|leite|azeitona|molho/.test(`${group} ${name}`);
+}
+
+function optionLooksLikeChoice(option) {
+  const group = clean(option.group_name).toLowerCase();
+  const name = clean(option.name).toLowerCase();
+  if (isDisposableOption(option)) return false;
+  if (!option.price || isFakeOrTokenPrice(option.price)) return false;
+  if (optionLooksLikeAddon(option)) return false;
+  if (/varia[cÃ§][oÃµ]es/.test(group) && /^(unico|Ãºnico)$/i.test(clean(option.name))) return false;
+  return /escolha|sabor|pizza|calzone|omelete|prote[iÃ­]na|massa|salada|combo|beirute|marmita/.test(`${group} ${name}`) || (!optionLooksLikeSecondaryChoice(option) && option.price >= 3);
+}
+
+function looksLikeBuildYourOwnSingleProduct(item, categoryName) {
+  const text = normalizeKeywordText(`${categoryName || ''} ${item?.name || ''} ${item?.description || ''}`);
+  if (!/(monte|montar|crie|criar|personalize|personalizar|escolha)/.test(text)) return false;
+  if (/(combo|pague\s*\d|leve\s*\d|duas\s+pizzas|pizza\s+individual\s*\+|pizza\s+grande.*\+|\+\s*(batata|refri|refrigerante|coca|guarana|suco))/.test(text)) return false;
+  return /(snack|sanduiche|sanduba|burger|hamburguer|pizza|massa|salada|marmita|prato|omelete|beirute|acai|bowl)/.test(text);
+}
+
+function inferBetterOptionGroupName(groupName, options = [], item = {}) {
+  const original = clean(groupName || 'Opcoes');
+  const normalizedGroup = normalizeKeywordText(original);
+  const optionText = normalizeKeywordText(options.map(option => option.name).join(' '));
+  const itemText = normalizeKeywordText(`${item.name || ''} ${item.description || ''}`);
+  const haystack = `${normalizedGroup} ${optionText} ${itemText}`;
+  const snackFlavorGroup = /^escolha seu sabor/.test(normalizedGroup) && /(snack|sanduiche|sanduba|burger|hamburguer|beirute)/.test(itemText);
+  const isGeneric = !original
+    || /^(opcoes|opcao|escolhas?|escolhas obrigatorias|obrigatorias|variacoes|selecione|selecione uma opcao|escolha uma opcao|escolha 1 opcoes?|escolha 1 opcao|escolha ate \d+ opcoes?)$/.test(normalizedGroup)
+    || /^escolha\s+\d+\s+opcoes?$/.test(normalizedGroup)
+    || snackFlavorGroup;
+  if (!isGeneric) return original;
+
+  if (/(borda|massa tradicional|massa fina|requeijao|cream cheese|gorgonzola)/.test(haystack) && /pizza/.test(itemText)) return 'Massas & Bordas';
+  if (/(sabor|mussarela|marguerita|calabresa|toscana|pepperoni|frango|camarao|quatro queijos)/.test(haystack) && /pizza/.test(itemText)) return 'Sabores';
+  if (/(frango|camarao|lombinho|pepperoni|presunto|carne|file|bacon|costela|linguica|proteina)/.test(haystack) && /(snack|sanduiche|sanduba|burger|hamburguer|beirute|salada|marmita|prato)/.test(itemText)) return 'Escolha a proteina';
+  if (/(queijo|mussarela|cheddar|coalho|prato|gorgonzola|requeijao|cream cheese|catupiry)/.test(haystack)) return 'Escolha o queijo';
+  if (/(molho|maionese|ketchup|barbecue|mostarda|rose|alho|picante|pesto)/.test(haystack)) return 'Escolha o molho';
+  if (/(alface|tomate|cebola|rucula|milho|picles|vinagrete|salada)/.test(haystack)) return 'Escolha a salada';
+  if (/(coca|guarana|sprite|fanta|refrigerante|suco|agua|bebida)/.test(haystack)) return 'Escolha a bebida';
+  if (/(adicional|extra|add|acrescimo)/.test(haystack)) return 'Adicionais';
+  return original;
+}
+
+function normalizeOptionGroupNames(options = [], item = {}) {
+  const byGroup = new Map();
+  for (const option of options) {
+    const key = clean(option.group_name || 'Opcoes');
+    if (!byGroup.has(key)) byGroup.set(key, []);
+    byGroup.get(key).push(option);
+  }
+  const betterNames = new Map();
+  for (const [groupName, groupOptions] of byGroup.entries()) {
+    betterNames.set(groupName, inferBetterOptionGroupName(groupName, groupOptions, item));
+  }
+  return options.map(option => ({
+    ...option,
+    group_name: betterNames.get(clean(option.group_name || 'Opcoes')) || option.group_name
+  }));
+}
+
 function summarizeOptionGroup(options, groupName, max = 6) {
   const items = options.filter(option => clean(option.group_name) === groupName);
   if (!items.length) return '';
@@ -68,6 +168,120 @@ function summarizeOptionGroup(options, groupName, max = 6) {
   }).join(', ');
   const suffix = items.length > max ? ` e mais ${items.length - max}` : '';
   return `${groupName}: ${sample}${suffix}`;
+}
+
+function comboRuleFromText(value) {
+  const text = clean(value);
+  const promo = text.match(/pague\s*(\d+)\s*(?:e|,)?\s*leve\s*(\d+)/i);
+  if (!promo) return null;
+  return {
+    summary: `Pague ${promo[1]}, leve ${promo[2]}`,
+    paid_quantity: Number(promo[1]),
+    received_quantity: Number(promo[2])
+  };
+}
+
+function splitComboFixedPieces(item) {
+  const name = clean(item.name);
+  const description = clean(item.description);
+  const text = `${name} ${description}`;
+  const sourceText = /[+]/.test(name) ? name : (/[+]/.test(description) ? description : description);
+  const normalized = normalizeKeywordText(text);
+  if (!/[+]|combo|pague|leve/i.test(text) && !/(duas|dois|2)\s+pizzas/.test(normalized)) return [];
+  if (!/[+]/.test(sourceText) && /(duas|dois|2)\s+pizzas/.test(normalized)) return ['Duas Pizzas Grandes'];
+  return sourceText
+    .split(/\s+\+\s+|\s*\+\s*/g)
+    .map(piece => clean(piece)
+      .replace(/\b(combo|promocao|promo[cç][aã]o|oferta)\b/ig, '')
+      .replace(/\bpor\s+r?\$?\s*[\d.,]+$/i, '')
+      .trim())
+    .map(piece => /^refri$/i.test(piece) ? 'Refrigerante' : piece)
+    .filter(piece => piece.length >= 3 && !/^\d+[,\.]?\d*$/.test(piece))
+    .slice(0, 8);
+}
+
+function buildComboComponentsDraft(item, kind, choiceOptions, addonOptions) {
+  if (kind !== 'combo_builder') return [];
+  const components = [];
+  const fixedPieces = splitComboFixedPieces(item);
+  const groupedChoiceOptions = new Map();
+  const groupedAddonOptions = new Map();
+
+  for (const option of choiceOptions || []) {
+    const key = clean(option.group_name) || 'Escolhas do combo';
+    if (!groupedChoiceOptions.has(key)) groupedChoiceOptions.set(key, []);
+    groupedChoiceOptions.get(key).push(option);
+  }
+  for (const option of addonOptions || []) {
+    const key = clean(option.group_name) || 'Adicionais do combo';
+    if (!groupedAddonOptions.has(key)) groupedAddonOptions.set(key, []);
+    groupedAddonOptions.get(key).push(option);
+  }
+
+  if (fixedPieces.length) {
+    components.push({
+      type: 'fixed_item',
+      name: 'Itens inclusos',
+      min_quantity: 0,
+      max_quantity: null,
+      is_required: false,
+      price_behavior: 'included',
+      items: fixedPieces.map((name, orderIndex) => ({
+        name,
+        price: null,
+        price_delta: null,
+        price_behavior: 'included',
+        is_searchable_variant: true,
+        order_index: orderIndex
+      }))
+    });
+  }
+
+  return components;
+
+  for (const [groupName, options] of groupedChoiceOptions.entries()) {
+    components.push({
+      type: 'choice_group',
+      name: groupName,
+      min_quantity: 1,
+      max_quantity: /escolha\s*(\d+)/i.test(groupName) ? Number(groupName.match(/escolha\s*(\d+)/i)[1]) : 1,
+      is_required: true,
+      price_behavior: 'included',
+      items: options.slice(0, 40).map((option, orderIndex) => ({
+        name: clean(option.name),
+        description: clean(option.description) || null,
+        price: finite(option.price),
+        price_delta: null,
+        price_behavior: 'included',
+        is_searchable_variant: true,
+        search_label: clean(option.search_label) || null,
+        search_aliases: clean(option.search_aliases) || null,
+        order_index: orderIndex
+      }))
+    });
+  }
+
+  for (const [groupName, options] of groupedAddonOptions.entries()) {
+    components.push({
+      type: 'addon_group',
+      name: groupName,
+      min_quantity: 0,
+      max_quantity: null,
+      is_required: false,
+      price_behavior: 'price_delta',
+      items: options.slice(0, 40).map((option, orderIndex) => ({
+        name: clean(option.name),
+        description: clean(option.description) || null,
+        price: null,
+        price_delta: finite(option.price),
+        price_behavior: 'price_delta',
+        is_searchable_variant: false,
+        order_index: orderIndex
+      }))
+    });
+  }
+
+  return components;
 }
 
 function buildCommercialPresentation(item, categoryName) {
@@ -87,14 +301,19 @@ function buildCommercialPresentation(item, categoryName) {
     .map(option => finite(option.price))
     .filter(value => value != null && !isFakeOrTokenPrice(value));
   const directPrice = finite(item.price);
+  const explicitCombo = /combo|pague\s*\d+|leve\s*\d+|duas\s+pizzas|pizza\s+individual\s*\+|pizza\s+grande.*\+|\+\s*(batata|refri|refrigerante|coca|guaran[aá]|suco)/i.test(`${haystack} ${clean(item.description)}`);
+  const buildYourOwnSingleProduct = looksLikeBuildYourOwnSingleProduct(item, categoryName);
   let kind = directPrice != null && !isFakeOrTokenPrice(directPrice) ? 'simple_item' : 'from_price_item';
-  if (/meio\s*a\s*meio|1\/2/.test(haystack)) kind = 'half_half_pizza';
-  else if (/monte|combo|marmita|pratos executivos|salada/.test(haystack) && choiceOptions.length >= 2) kind = 'combo_builder';
+  if (buildYourOwnSingleProduct) kind = 'configurable_item';
+  else if (/meio\s*a\s*meio|1\/2/.test(haystack)) kind = 'half_half_pizza';
+  else if (explicitCombo) kind = 'combo_builder';
+  else if (/combo|pague|leve/.test(haystack) && choiceOptions.length >= 2) kind = 'combo_builder';
+  else if (/marmita|pratos executivos|salada/.test(haystack) && choiceOptions.length >= 2) kind = 'configurable_item';
   else if (choiceOptions.length >= 4 && item.price_type !== 'fixed') kind = 'configurable_item';
   else if (addonOptions.length && directPrice != null) kind = 'simple_with_addons';
 
   let displayPrice = directPrice != null && !isFakeOrTokenPrice(directPrice) ? directPrice : null;
-  if ((kind !== 'simple_item' && kind !== 'simple_with_addons') && (mainChoicePrices.length || choicePrices.length)) {
+  if ((kind !== 'simple_item' && kind !== 'simple_with_addons') && !(kind === 'combo_builder' && directPrice != null && !isFakeOrTokenPrice(directPrice)) && (mainChoicePrices.length || choicePrices.length)) {
     displayPrice = Math.min(...(mainChoicePrices.length ? mainChoicePrices : choicePrices));
   }
   if ((displayPrice == null || isFakeOrTokenPrice(displayPrice)) && allRealOptionPrices.length) {
@@ -129,7 +348,10 @@ function buildCommercialPresentation(item, categoryName) {
   return {
     commercial_kind: kind,
     display_price: Number(displayPrice.toFixed(2)),
-    display_description: descriptionParts.filter(Boolean).join(' | ').slice(0, 900)
+    // Nunca inventar texto publicavel: a descricao exibida deve ser somente literal da fonte.
+    display_description: baseDescription.slice(0, 900),
+    combo_components: buildComboComponentsDraft(item, kind, choiceOptions, addonOptions),
+    combo_rules: comboRuleFromText(`${item.name} ${item.description}`)
   };
 }
 
@@ -153,6 +375,8 @@ function buildSearchKeywords(item, categoryName) {
   push(item.display_description);
   push(categoryName);
   push(item.commercial_kind);
+  push(JSON.stringify(item.combo_components || []));
+  push(JSON.stringify(item.combo_rules || {}));
   for (const option of item.options || []) {
     push(option.group_name);
     push(option.name);
@@ -180,10 +404,10 @@ function inferOptionSemantic(category, item, option) {
   const categoryName = normalizeKeywordText(category.name);
   const basePrice = finite(item.display_price ?? item.price ?? item.price_min);
   const optionPrice = finite(option.price_delta ?? option.price);
-  const isAddon = /adicional|acrescimo|extra|borda|azeitona|molho|embalagem|observa|leite/.test(`${group} ${optionName}`);
+  const isAddon = /adicional|adicione|add|acrescimo|extra|borda|azeitona|molho|embalagem|observa|leite/.test(`${group} ${optionName}`);
   const isPizzaContext = /pizza/.test(`${categoryName} ${itemName} ${group} ${optionName}`);
   const genericPizza = isGenericPizzaBase(item);
-  const isChoiceGroup = /sabor|pizza|calzone|omelete|escolha|prato|proteina|proteina|salada|marmita|beirute|suco|refrigerante|bebida|combo/.test(group);
+  const isChoiceGroup = !/adicione|add|adicional|extra/.test(group) && /sabor|pizza|calzone|omelete|escolha|prato|proteina|proteina|salada|marmita|beirute|suco|refrigerante|bebida|combo/.test(group);
   const isNotSearchable = /embalagem|observa|azeitona|leite|molho/.test(`${group} ${optionName}`);
 
   let semanticType = 'required_choice';
@@ -415,16 +639,121 @@ function isTrivialSingleVariant(option) {
   return /variac|variant|opcoes/.test(group) && /^(unico|unica|padrao|default)$/.test(name);
 }
 
+function parseEmbeddedDescriptionOptions(rawDescription) {
+  const original = clean(rawDescription);
+  if (!original || !original.startsWith('{') || !/"options"|\"opcoes\"|\"opções\"/i.test(original)) {
+    return { description: original, options: [] };
+  }
+  try {
+    const parsed = JSON.parse(original);
+    const groups = Array.isArray(parsed.options)
+      ? parsed.options
+      : Array.isArray(parsed.opcoes)
+        ? parsed.opcoes
+        : Array.isArray(parsed['opções'])
+          ? parsed['opções']
+          : [];
+    const options = [];
+    for (const group of groups) {
+      const groupName = clean(group.title || group.name || group.nome || group.group_name || 'Opções');
+      const groupItems = Array.isArray(group.itens)
+        ? group.itens
+        : Array.isArray(group.items)
+          ? group.items
+          : Array.isArray(group.options)
+            ? group.options
+            : [];
+      groupItems.forEach((option, index) => {
+        const optionName = clean(option.name || option.nome || option.title || option.label);
+        if (!optionName) return;
+        options.push({
+          external_id: clean(option.external_id || option.id) || null,
+          group_name: groupName,
+          name: optionName,
+          description: clean(option.description || option.descricao) || null,
+          price: finite(option.price ?? option.preco ?? option.value),
+          price_delta: finite(option.price_delta ?? option.delta),
+          min_quantity: Number(option.min_quantity ?? option.min ?? 0),
+          max_quantity: finite(option.max_quantity ?? option.max),
+          is_required: Boolean(group.required || group.is_required || option.is_required),
+          is_available: option.is_available !== false && option.available !== false,
+          order_index: Number(option.order_index ?? index),
+          raw_data: option
+        });
+      });
+    }
+    return {
+      description: clean(parsed.description || parsed.descricao || parsed.text || ''),
+      options
+    };
+  } catch (_) {
+    return { description: original, options: [] };
+  }
+}
+
 function normalizeItem(item, index, sourceUrl) {
-  const options = (item.options || item.variants || []).map(normalizeOption).filter(option => option.name && !isTrivialSingleVariant(option));
+  const embedded = parseEmbeddedDescriptionOptions(item.description || item.descricao || '');
+  const rawSourceItem = item?.raw_data?.item || item?.item || {};
+  const groupedOptions = Array.isArray(item.option_groups)
+    ? item.option_groups.flatMap(group => {
+      const children = Array.isArray(group.items) ? group.items : Array.isArray(group.options) ? group.options : [];
+      return children.map(option => ({
+        ...option,
+        group_name: option.group_name || group.name || group.group_name,
+        min_quantity: option.min_quantity ?? group.min_quantity,
+        max_quantity: option.max_quantity ?? group.max_quantity,
+        is_required: option.is_required ?? group.is_required
+      }));
+    })
+    : [];
+  const rawOptions = [
+    ...(Array.isArray(item.options) ? item.options : []),
+    ...groupedOptions,
+    ...(Array.isArray(item.variants) ? item.variants : []),
+    ...embedded.options
+  ];
+  const seenOptions = new Set();
+  const dedupedOptions = rawOptions
+    .map(normalizeOption)
+    .filter(option => {
+      if (isDisposableOption(option)) return false;
+      if (!option.name || isTrivialSingleVariant(option)) return false;
+      const key = `${normalizeKeywordText(option.group_name)}::${normalizeKeywordText(option.name)}::${finite(option.price) ?? ''}`;
+      if (seenOptions.has(key)) return false;
+      seenOptions.add(key);
+      return true;
+    });
+  const itemIdentityForGroups = {
+    name: clean(item.name || item.nome),
+    description: embedded.description || clean(item.description || item.descricao) || null
+  };
+  const normalizedOptions = normalizeOptionGroupNames(dedupedOptions, itemIdentityForGroups);
+  const optionsByGroup = new Map();
+  for (const option of normalizedOptions) {
+    const key = clean(option.group_name || 'Opcoes');
+    if (!optionsByGroup.has(key)) optionsByGroup.set(key, []);
+    optionsByGroup.get(key).push(option);
+  }
+  const redundantSingleChoiceGroups = new Set();
+  for (const [groupName, groupItems] of optionsByGroup.entries()) {
+    if (groupItems.length !== 1) continue;
+    const only = groupItems[0];
+    const min = Number(only.min_quantity || 0);
+    const max = Number(only.max_quantity || 0);
+    const optionPrice = finite(only.price ?? only.price_delta);
+    if (min === 1 && max === 1 && (optionPrice == null || optionPrice === 0 || isFakeOrTokenPrice(optionPrice))) {
+      redundantSingleChoiceGroups.add(groupName);
+    }
+  }
+  const options = normalizedOptions.filter(option => !redundantSingleChoiceGroups.has(clean(option.group_name || 'Opcoes')));
   const optionPrices = options.map(option => option.price).filter(value => value != null);
-  const price = finite(item.price ?? item.preco);
+  const price = finite(item.price ?? item.preco ?? item.display_price ?? item.price_base ?? rawSourceItem.price ?? rawSourceItem.price_base);
   let priceMin = finite(item.price_min);
   let priceMax = finite(item.price_max);
-  if (priceMin == null && optionPrices.length) priceMin = Math.min(...optionPrices);
-  if (priceMax == null && optionPrices.length) priceMax = Math.max(...optionPrices);
   if (priceMin == null && price != null) priceMin = price;
   if (priceMax == null && price != null) priceMax = price;
+  if (priceMin == null && optionPrices.length) priceMin = Math.min(...optionPrices);
+  if (priceMax == null && optionPrices.length) priceMax = Math.max(...optionPrices);
   let priceType = clean(item.price_type);
   if (!priceType) priceType = price != null ? 'fixed' : optionPrices.length ? (priceMin === priceMax ? 'option_only' : 'range') : 'unknown';
   const validTypes = new Set(['fixed', 'starting_at', 'range', 'option_only', 'inherited', 'included', 'free', 'unknown']);
@@ -432,7 +761,7 @@ function normalizeItem(item, index, sourceUrl) {
   return {
     external_id: clean(item.external_id || item.source_external_id || item.id) || null,
     name: clean(item.name || item.nome),
-    description: clean(item.description || item.descricao) || null,
+    description: embedded.description || clean(item.description || item.descricao) || null,
     image_url: item.image_url || item.foto_url || null,
     price,
     price_min: priceMin,
@@ -450,16 +779,98 @@ function normalizeItem(item, index, sourceUrl) {
   };
 }
 
+function normalizeCategoryName(name) {
+  const normalized = normalizeKeywordText(name);
+  if (/cheguei|novidade|destaque|promocao do dia|mais pedidos|queridinhos/.test(normalized)) return 'Pratos Principais';
+  if (/bebida|refrigerante|suco|drink|agua|cerveja|vinho/.test(normalized)) return 'Bebidas';
+  if (/pizza/.test(normalized)) return 'Pizzas';
+  if (/massa|macarrao|penne|espaguete|fettuccine|talharim|lasanha/.test(normalized)) return 'Massas';
+  if (/hamb|sanduiche|sanduba|burger|lanche|snack|hot dog/.test(normalized)) return 'Sanduíches';
+  if (/sobremesa|doce|cake|bolo|acai|sorvete/.test(normalized)) return 'Sobremesas';
+  if (/combo|promoc|oferta/.test(normalized)) return 'Combos';
+  if (/almoco|executivo|prato|principal|refeicao/.test(normalized)) return 'Pratos Principais';
+  return clean(name) || 'Cardápio';
+}
+
+function isGenericAggregateCategoryName(name) {
+  const normalized = normalizeKeywordText(name);
+  return /^(cardapio|menu|geral|todos|todos os itens|catalogo|produtos)$/.test(normalized);
+}
+
+function inferBetterCategoryForItem(item, currentCategoryName) {
+  const text = normalizeKeywordText(`${item.name || ''} ${item.description || ''}`);
+  if (/combo|duas pizzas|pizza individual \+|pizza grande .*\+|\+ coca|\+ refri|refrigerante incluso/.test(text)) {
+    return 'Combos';
+  }
+  if (/coca|guarana|sprite|fanta|schweppes|refrigerante|agua|suco|lata|garrafa|pack|cerveja|heineken|brahma|skol|drink/.test(text)) {
+    return 'Bebidas';
+  }
+  if (/pizza|calzone|broto|fatias/.test(text)) return 'Pizzas';
+  if (/penne|macarrao|massa|espaguete|fettuccine|talharim|lasanha/.test(text)) return 'Massas';
+  if (/hamburguer|burger|sanduiche|sanduba|snack|hot dog/.test(text)) return 'Sanduíches';
+  if (/brownie|bolo|cake|acai|sorvete|pudim|sobremesa|brigadeiro/.test(text)) return 'Sobremesas';
+  if (/parmegiana|strogonoff|frango|carne|alcatra|medalhao|medalhao|camarao|salmao|tilapia|galeto|arroz|feijao|grelhado|piamontese|pomodoro/.test(text)) return 'Pratos Principais';
+  if (/combo|promoc/.test(text)) return 'Combos';
+  return normalizeCategoryName(currentCategoryName);
+}
+
+function itemLooksLikeBadAggregateFragment(item) {
+  const name = clean(item.name);
+  const description = clean(item.description);
+  const normalized = normalizeKeywordText(`${name} ${description}`);
+  if (!name) return true;
+  if (/^(ultimo update:?|último update:?|para o menu|cardapio|cardápio|destaques|almoco|almoço|criancas|crianças|zero lactose)$/i.test(name)) return true;
+  if (/pedido min|pedido minimo|cupom|sacola|subtotal|taxa de entrega|buscar no cardapio/.test(normalized)) return true;
+  if (name.length > 150 && !description && !(item.options || []).length) return true;
+  return false;
+}
+
+function sanitizeNormalizedCategories(categories) {
+  const hasSpecificCategories = (categories || []).some(category => !isGenericAggregateCategoryName(category.name));
+  const byCategory = new Map();
+  const seen = new Set();
+
+  const pushItem = (categoryName, item) => {
+    if (!item || itemLooksLikeBadAggregateFragment(item)) return;
+    const targetName = inferBetterCategoryForItem(item, categoryName);
+    const priceKey = finite(item.display_price ?? item.price ?? item.price_min);
+    const key = `${normalizeKeywordText(targetName)}::${normalizeKeywordText(item.name)}::${priceKey ?? ''}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    if (!byCategory.has(targetName)) byCategory.set(targetName, []);
+    byCategory.get(targetName).push(item);
+  };
+
+  for (const category of categories || []) {
+    if (hasSpecificCategories && isGenericAggregateCategoryName(category.name) && (category.items || []).length >= 6) {
+      continue;
+    }
+    for (const item of category.items || []) pushItem(category.name, item);
+  }
+
+  return [...byCategory.entries()].map(([name, items], index) => ({
+    external_id: null,
+    name,
+    order_index: index,
+    items: items.map((item, itemIndex) => ({ ...item, order_index: itemIndex }))
+  })).filter(category => category.items.length);
+}
+
 function normalizeCategories(categories, sourceUrl) {
-  return (categories || []).map((category, categoryIndex) => ({
+  const normalized = (categories || []).map((category, categoryIndex) => ({
     external_id: clean(category.external_id || category.id) || null,
     name: clean(category.name || category.nome || category.category_name) || 'Cardápio',
     order_index: Number(category.order_index ?? categoryIndex),
-    items: (category.items || category.itens || []).map((item, index) => normalizeItem(item, index, sourceUrl)).filter(item => item.name).map(item => {
+    items: (category.items || category.itens || [])
+      .filter(item => !isMenuInterfaceNoiseItem(item))
+      .map((item, index) => normalizeItem(item, index, sourceUrl))
+      .filter(item => item.name && !isMenuInterfaceNoiseItem(item))
+      .map(item => {
       const presentation = buildCommercialPresentation(item, clean(category.name || category.nome || category.category_name));
       return { ...item, ...presentation };
     })
   })).filter(category => category.items.length);
+  return sanitizeNormalizedCategories(normalized);
 }
 
 function readJsonFile(filePath) {
@@ -472,6 +883,7 @@ function audit(categories, evidence) {
   const uniqueKeys = new Set(items.map(item => item.external_id || `${item.name.toLowerCase()}::${item.description || ''}`));
   const unresolved = items.filter(item => item.price_type === 'unknown');
   const optionOnly = items.filter(item => ['option_only', 'range'].includes(item.price_type));
+  const interfaceNoise = items.filter(isMenuInterfaceNoiseItem);
   const suspicious = items.filter(item => item.name.length < 2 || item.name.length > 180);
   const priced = items.filter(item => finite(item.display_price ?? item.price_min ?? item.price) != null && finite(item.display_price ?? item.price_min ?? item.price) > 0);
   const implausiblePrices = priced.filter(item => {
@@ -483,12 +895,13 @@ function audit(categories, evidence) {
   if (!categories.length) issues.push('sem_categorias');
   if (!items.length) issues.push('sem_itens');
   if (duplicates) issues.push('itens_duplicados');
+  if (interfaceNoise.length) issues.push('lixo_de_interface');
   if (suspicious.length) issues.push('nomes_suspeitos');
   if (unresolved.length) issues.push('precos_para_revisao');
   if (implausiblePrices.length) issues.push('precos_implausiveis');
   const sourceConfidence = finite(evidence?.confidence) ?? (evidence?.platform && evidence.platform !== 'generic' ? 0.97 : 0.75);
   const platform = clean(evidence?.platform || '');
-  const nativePlatforms = new Set(['saipos', 'livemenu_tagme', 'anota_ai', 'cardapio_web']);
+  const nativePlatforms = new Set(['saipos', 'livemenu_tagme', 'anota_ai', 'anota_ai_network', 'anota_ai_deep', 'cardapio_web']);
   const isNativePlatform = nativePlatforms.has(platform);
   const routeLevel = Number(evidence?.routeLevel ?? evidence?.extractionLevel ?? (isNativePlatform ? 0 : 3));
   const pricedRatio = items.length ? priced.length / items.length : 0;
@@ -497,6 +910,7 @@ function audit(categories, evidence) {
   if (!isNativePlatform && items.length > 0 && categories.length === 1 && items.length < 4) issues.push('baixa_densidade_cardapio');
   let confidence = sourceConfidence;
   if (duplicates) confidence -= Math.min(0.25, duplicates / Math.max(1, items.length));
+  if (interfaceNoise.length) confidence -= Math.min(0.35, interfaceNoise.length / Math.max(1, items.length));
   if (suspicious.length) confidence -= Math.min(0.25, suspicious.length / Math.max(1, items.length));
   if (unresolved.length) confidence -= Math.min(0.3, unresolved.length / Math.max(1, items.length) * 0.45);
   if (implausiblePrices.length) confidence -= Math.min(0.3, implausiblePrices.length / Math.max(1, priced.length || 1) * 0.4);
@@ -505,7 +919,9 @@ function audit(categories, evidence) {
   const approved = items.length > 0
     && categories.length > 0
     && duplicates === 0
+    && interfaceNoise.length === 0
     && suspicious.length === 0
+    && unresolved.length === 0
     && implausiblePrices.length === 0
     && !weakGenericCollection
     && confidence >= 0.85;
@@ -642,7 +1058,7 @@ function buildBasicItemPayload(item, categoryId) {
   return {
     category_id: categoryId,
     name: item.name,
-    description: item.display_description || item.description,
+    description: item.description || item.display_description,
     price: item.display_price ?? item.price ?? item.price_min ?? 0,
     image_url: item.image_url,
     order_index: item.order_index,
@@ -650,18 +1066,32 @@ function buildBasicItemPayload(item, categoryId) {
   };
 }
 
+function getPublicVisibleOptions(item) {
+  return (item.options || []).filter(option => {
+    if (isDisposableOption(option)) return false;
+    const group = normalizeKeywordText(option.group_name);
+    const isDrinkUpsell = /bebida|refrigerante|suco|agua/.test(group);
+    const isOptional = Number(option.min_quantity || 0) === 0;
+    if (item.commercial_kind !== 'combo_builder' && isDrinkUpsell && isOptional) return false;
+    return true;
+  });
+}
+
 function buildCommercialItemPayload(item, categoryId, categoryName) {
-  const isConfigurable = item.options.length > 0 || !['simple_item'].includes(item.commercial_kind);
+  const isCombo = item.commercial_kind === 'combo_builder';
+  const visibleOptions = getPublicVisibleOptions(item);
+  const isConfigurable = visibleOptions.length > 0 || (item.combo_components || []).length > 0 || !['simple_item'].includes(item.commercial_kind);
+  const hasFixedSourcePrice = finite(item.price) != null && item.price_type === 'fixed';
   return {
     ...buildBasicItemPayload(item, categoryId),
     display_name: item.name,
     display_price: item.display_price ?? item.price ?? item.price_min,
-    price_type: isConfigurable ? 'starting_at' : (item.price_type || 'fixed'),
+    price_type: (isCombo && finite(item.price) != null) || hasFixedSourcePrice ? 'fixed' : (isConfigurable ? 'starting_at' : (item.price_type || 'fixed')),
     price_min: item.display_price ?? item.price_min ?? item.price,
     price_max: item.price_max ?? item.display_price ?? item.price,
     original_price: item.original_price,
     promotional_price: item.promotional_price,
-    price_source: item.price_source || (item.options.length ? 'options' : 'item'),
+    price_source: item.price_source || (visibleOptions.length ? 'options' : 'item'),
     source_url: item.source_url,
     source_external_id: item.external_id,
     raw_data: item.raw_data,
@@ -671,6 +1101,9 @@ function buildCommercialItemPayload(item, categoryId, categoryName) {
     is_configurable: isConfigurable,
     search_display_name: item.name,
     search_keywords: buildSearchKeywords(item, categoryName),
+    combo_components: (item.combo_components || []).length ? item.combo_components : null,
+    combo_rules: item.combo_rules || null,
+    combo_display_mode: isCombo ? 'combo_card' : null,
     import_notes: isConfigurable ? 'Importado como produto configurável: edite sabores, escolhas e adicionais nos grupos de opções.' : null
   };
 }
@@ -681,7 +1114,7 @@ async function insertMenuItemWithSchemaFallback(supabase, item, categoryId, cate
   if (!commercialResult.error) return commercialResult.data;
 
   const message = commercialResult.error.message || '';
-  if (!/column|schema cache|price_type|display_price|commercial_type|search_display_name/i.test(message)) {
+  if (!/column|schema cache|price_type|display_price|commercial_type|search_display_name|combo_components|combo_rules|combo_display_mode/i.test(message)) {
     throw commercialResult.error;
   }
 
@@ -733,7 +1166,27 @@ function groupOptions(options) {
 
 async function insertOptionsWithSchemaFallback(supabase, menuItemId, item) {
   if (!item.options.length) return;
-  const groups = groupOptions(item.options);
+  const visibleOptions = (item.options || []).filter(option => {
+    if (isDisposableOption(option)) return false;
+    const group = normalizeKeywordText(option.group_name);
+    const isDrinkUpsell = /bebida|refrigerante|suco|agua/.test(group);
+    const isOptional = Number(option.min_quantity || 0) === 0;
+    if (item.commercial_kind !== 'combo_builder' && isDrinkUpsell && isOptional) return false;
+    return true;
+  });
+  const groups = groupOptions(visibleOptions).filter(group => {
+    if (!group.items.length) return false;
+    if (group.items.every(isDisposableOption)) return false;
+    if (group.items.length === 1) {
+      const only = group.items[0];
+      const min = Number(only.min_quantity || 0);
+      const max = Number(only.max_quantity || 0);
+      const optionPrice = finite(only.price ?? only.price_delta);
+      if (min === 1 && max === 1 && (optionPrice == null || optionPrice === 0 || isFakeOrTokenPrice(optionPrice))) return false;
+    }
+    return true;
+  });
+  if (!groups.length) return;
   let groupTableAvailable = true;
   let optionTableAvailable = true;
 
@@ -873,7 +1326,11 @@ async function commit(supabase, restaurantId, categories, evidence, resultAudit,
       menu_last_checked_at: new Date().toISOString()
     };
     let updateResult = await supabase.from('restaurants').update(restaurantUpdate).eq('id', restaurantId);
-    if (updateResult.error && /menu_source|menu_status|menu_status_reason|menu_last_checked_at|schema cache|column/i.test(updateResult.error.message || '')) {
+    if (updateResult.error && /menu_source|schema cache|column/i.test(updateResult.error.message || '')) {
+      const { menu_source, ...withoutMenuSource } = restaurantUpdate;
+      updateResult = await supabase.from('restaurants').update(withoutMenuSource).eq('id', restaurantId);
+    }
+    if (updateResult.error && /menu_status|menu_status_reason|menu_last_checked_at|schema cache|column/i.test(updateResult.error.message || '')) {
       const { menu_source, menu_status, menu_status_reason, menu_last_checked_at, ...legacyUpdate } = restaurantUpdate;
       updateResult = await supabase.from('restaurants').update(legacyUpdate).eq('id', restaurantId);
     }
@@ -916,9 +1373,62 @@ async function main() {
   const resultAudit = audit(categories, evidence);
   resultAudit.optionSemanticAI = optionSemanticAudit;
   console.log(`[Menu V2] Auditoria estrutural: ${JSON.stringify(resultAudit)}`);
-  if (!resultAudit.approved) { process.exitCode = await runFallback(); return; }
 
   if (hasFlag('--dry-run')) {
+    const normalizedForAudit = categories.map(category => ({
+      name: category.name,
+      items: category.items.map(item => ({
+        name: item.name,
+        description: item.description || item.display_description || '',
+        price: item.display_price ?? item.price ?? item.price_min ?? 0,
+        display_price: item.display_price ?? item.price ?? item.price_min ?? 0,
+        price_type: item.price_type || null,
+        commercial_type: item.commercial_kind,
+        image_url: item.image_url || null,
+        combo_components: item.combo_components || [],
+        combo_rules: item.combo_rules || null,
+        option_groups: groupOptions(item.options || []).map(group => ({
+          name: group.name,
+          min_quantity: group.payload.min_quantity,
+          max_quantity: group.payload.max_quantity,
+          is_required: group.payload.is_required,
+          semantic_type: group.payload.semantic_type,
+          price_behavior: group.payload.price_behavior,
+          items: group.items.map(option => ({
+            external_id: option.external_id || null,
+            group_name: option.group_name,
+            name: option.name,
+            description: option.description || null,
+            image_url: option.image_url || null,
+            price: option.price,
+            price_delta: option.price_delta,
+            min_quantity: option.min_quantity,
+            max_quantity: option.max_quantity,
+            is_required: option.is_required,
+            semantic_type: option.semantic_type,
+            price_behavior: option.price_behavior,
+            is_searchable_variant: option.is_searchable_variant,
+            search_label: option.search_label
+          }))
+        })),
+        options: (item.options || []).map(option => ({
+          external_id: option.external_id || null,
+          group_name: option.group_name,
+          name: option.name,
+          description: option.description || null,
+          image_url: option.image_url || null,
+          price: option.price,
+          price_delta: option.price_delta,
+          min_quantity: option.min_quantity,
+          max_quantity: option.max_quantity,
+          is_required: option.is_required,
+          semantic_type: option.semantic_type,
+          price_behavior: option.price_behavior,
+          is_searchable_variant: option.is_searchable_variant,
+          search_label: option.search_label
+        }))
+      }))
+    }));
     const preview = categories.map(category => ({
       name: category.name,
       count: category.items.length,
@@ -926,12 +1436,26 @@ async function main() {
         name: item.name,
         price: item.display_price ?? item.price,
         kind: item.commercial_kind,
-        description: item.display_description || item.description || ''
+        description: item.description || item.display_description || ''
       }))
     }));
-    console.log(`RESULT:${JSON.stringify({ success: true, dryRun: true, audit: resultAudit, preview })}`);
+    if (resultAudit.unresolvedPriceCount > 0) {
+      console.log(`RESULT:${JSON.stringify({
+        success: false,
+        dryRun: true,
+        requiresHuman: true,
+        audit: resultAudit,
+        preview,
+        categories: normalizedForAudit,
+        message: `Cardapio enviado para revisao: ${resultAudit.unresolvedPriceCount} item(ns) sem preco confiavel.`
+      })}`);
+      return;
+    }
+    console.log(`RESULT:${JSON.stringify({ success: true, dryRun: true, audit: resultAudit, preview, categories: normalizedForAudit, message: `Prévia estruturada com ${resultAudit.itemCount} itens via ${evidence.platform || 'hybrid'}.` })}`);
     return;
   }
+
+  if (!resultAudit.approved) { process.exitCode = await runFallback(); return; }
 
   const supabase = createClient(process.env.VITE_SUPABASE_URL || 'https://gaawiewmlhorzbaixoqo.supabase.co', process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_1cZaKyo-HHldXBWLKtpKhw_nN7fMfQ3');
   const run = await createStaging(supabase, restaurantId, evidence, categories, resultAudit);

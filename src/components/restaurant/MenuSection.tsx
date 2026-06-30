@@ -45,7 +45,7 @@ const MenuSection: React.FC<MenuSectionProps> = memo(({ categories, menuItems })
   return (
     <div className="mt-8">
       {/* Premium Banner */}
-      <div className="flex items-center gap-3 rounded-xl bg-[#EF2A39] p-4 shadow-none">
+      <div className="flex items-center gap-3 rounded-xl bg-[#df4b1c] p-4 shadow-none">
         <Crown className="w-7 h-7 text-white fill-white" />
         <p className="font-bold text-white">Cardápio Premium</p>
       </div>

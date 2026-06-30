@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useCallback } from 'react';
-import { Plus, Loader2, Utensils } from 'lucide-react';
+import { AlertCircle, Plus, Loader2, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { MenuCategory } from '@/types/supabase';
@@ -119,28 +119,58 @@ const MenuManagement: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
+      <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
+        <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-slate-100 bg-white shadow-soft">
+          <Loader2 className="h-8 w-8 animate-spin text-[#df4b1c]" />
+        </div>
+      </RestaurantAreaPageLayout>
+    );
+  }
+
+  if (!restaurantId) {
+    return (
+      <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
+        <Card className="rounded-2xl border border-dashed border-slate-100 bg-white shadow-soft">
+          <CardContent className="flex flex-col items-center gap-3 p-8 text-center">
+            <AlertCircle className="h-8 w-8 text-[#df4b1c]" />
+            <h2 className="text-lg font-bold text-[#3C2F2F]">Restaurante não encontrado</h2>
+            <p className="text-sm text-slate-500">
+              Não foi possível carregar o restaurante vinculado a esta conta. Recarregue a página ou faça login novamente.
+            </p>
+          </CardContent>
+        </Card>
+      </RestaurantAreaPageLayout>
     );
   }
 
   if (categoriesQuery.isError) {
-    return <div className="text-center text-red-500 p-4">Erro ao carregar categorias: {categoriesQuery.error.message}</div>;
+    return (
+      <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
+        <Card className="rounded-2xl border border-red-100 bg-white shadow-soft">
+          <CardContent className="flex flex-col items-center gap-3 p-8 text-center">
+            <AlertCircle className="h-8 w-8 text-red-500" />
+            <h2 className="text-lg font-bold text-red-700">Erro ao carregar o cardápio</h2>
+            <p className="text-sm text-red-700/80">
+              {categoriesQuery.error.message || 'Tente novamente em alguns instantes.'}
+            </p>
+          </CardContent>
+        </Card>
+      </RestaurantAreaPageLayout>
+    );
   }
 
   return (
     <RestaurantAreaPageLayout title="Gerenciar Cardápio" icon={Utensils} backPath="restaurant-area/profile-menu">
-      <div className="p-4 space-y-6">
+      <div className="space-y-6">
         
-        <Card className="shadow-none border-none rounded-2xl bg-white">
-          <CardContent className="p-4">
+        <Card className="rounded-2xl border border-slate-100 bg-white shadow-soft">
+          <CardContent className="p-5">
             <div className="flex justify-between items-center">
-              <h1 className="text-xl font-bold text-primary">Categorias do Menu</h1>
+              <h1 className="text-xl font-bold text-[#3C2F2F]">Categorias do Menu</h1>
               <Button 
                 onClick={() => handleOpenCategoryDialog(null)} 
                 disabled={isCategoryMutating || !restaurantId} // Desabilita se não houver restaurantId
-                className="bg-highlight hover:bg-highlight/90"
+                className="rounded-2xl bg-[#df4b1c] hover:bg-[#bd3f17]"
               >
                 <Plus className="mr-2 h-4 w-4" /> Adicionar
               </Button>

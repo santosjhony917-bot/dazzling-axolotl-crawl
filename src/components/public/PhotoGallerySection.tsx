@@ -27,11 +27,11 @@ const PhotoGallerySection: React.FC<PhotoGallerySectionProps> = ({ images, resta
       <h2 className="text-xl font-bold text-primary">Galeria de Fotos</h2>
       <div className="grid grid-cols-2 gap-2 h-64">
         {/* Imagem Principal */}
-        <div className="col-span-2 row-span-1 relative rounded-2xl overflow-hidden">
+        <div className="relative col-span-2 row-span-1 overflow-hidden rounded-2xl bg-slate-50">
           <img 
             src={mainImage} 
             alt={`Foto principal de ${restaurantName}`} 
-            className="w-full h-full object-cover" 
+            className="h-full w-full object-contain" 
           />
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center text-white font-bold text-lg">
             {images.length > 1 ? `+${images.length - 1} fotos` : ''}
@@ -43,11 +43,11 @@ const PhotoGallerySection: React.FC<PhotoGallerySectionProps> = ({ images, resta
       {gridImages.length > 0 && (
         <div className="grid grid-cols-4 gap-2">
           {gridImages.map((img, index) => (
-            <div key={index} className="aspect-square rounded-lg overflow-hidden">
+            <div key={index} className="aspect-square overflow-hidden rounded-lg bg-slate-50">
               <img 
                 src={img} 
                 alt={`Miniatura ${index + 1}`} 
-                className="w-full h-full object-cover" 
+                className="h-full w-full object-contain" 
               />
             </div>
           ))}

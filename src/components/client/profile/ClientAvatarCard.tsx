@@ -1,8 +1,6 @@
 import React from 'react';
-import { Card } from '@/components/ui/card';
 import { ImageUploadButton } from '@/components/ImageUploadButton';
 import { Camera, User } from 'lucide-react';
-import { DEFAULT_AVATAR_URL } from "@/constants/assets";
 import { USER_AVATAR_BUCKET } from '@/integrations/supabase/storage';
 
 interface ClientAvatarCardProps {
@@ -23,46 +21,42 @@ const ClientAvatarCard: React.FC<ClientAvatarCardProps> = ({
   userId,
 }) => {
   const fullName = `${firstName || 'Usuário'} ${lastName || 'Anônimo'}`;
-  
+
   return (
-    <Card className="w-full grubgo-card p-6 shadow-soft border border-slate-100/80 bg-white rounded-[24px]">
-      <div className="flex items-center gap-5">
-        {/* Avatar Circular com Anel Gradiente */}
-        <div className="relative w-[88px] h-[88px] rounded-full p-[3px] bg-gradient-to-br from-[#FF7E40] to-[#EF2A39] shrink-0 shadow-[0_6px_20px_rgba(239,42,57,0.22)] flex items-center justify-center overflow-visible">
-          <div className="w-full h-full rounded-full overflow-hidden bg-white border border-white flex items-center justify-center">
+    <section className="w-full rounded-[24px] border border-slate-100 bg-white p-5 shadow-soft">
+      <div className="flex items-center gap-4">
+        <div className="relative flex h-[76px] w-[76px] shrink-0 items-center justify-center overflow-visible rounded-full border border-highlight/15 bg-highlight/5 p-1">
+          <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-full border border-white bg-white">
             {avatarUrl ? (
-              <img 
-                src={avatarUrl} 
-                alt="Avatar do Usuário" 
-                className="w-full h-full object-cover"
-              />
+              <img src={avatarUrl} alt="Avatar do usuário" className="h-full w-full object-cover" />
             ) : (
-              <User className="w-10 h-10 text-slate-350" />
+              <User className="h-8 w-8 text-slate-300" />
             )}
           </div>
-          
-          {/* Botão de Upload Flutuante */}
+
           <div className="absolute bottom-0 right-0 z-20 translate-x-1/10 translate-y-1/10">
             <ImageUploadButton
               imageUrl={avatarUrl || undefined}
               onUploadComplete={onAvatarUploadComplete}
               bucketName={USER_AVATAR_BUCKET}
               folderPath={userId || 'temp'}
-              className="h-8 w-8 p-0 bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white rounded-full shadow-[0_4px_10px_rgba(239,42,57,0.3)] border-2 border-white flex items-center justify-center transition-transform active:scale-90"
+              className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-highlight p-0 text-white shadow-sm transition-transform hover:bg-highlight/90 active:scale-95"
               icon={<Camera className="h-3.5 w-3.5" />}
+              disabled={uploading}
             />
           </div>
         </div>
-        
-        {/* Nome e Instrução */}
-        <div className="flex-grow min-w-0">
-          <h3 className="font-extrabold text-xl text-slate-800 leading-tight truncate">{fullName}</h3>
-          <p className="text-xs text-slate-400 font-bold mt-1.5 leading-normal">
-            Toque no ícone da câmera para alterar sua foto de perfil.
+
+        <div className="min-w-0 flex-grow">
+          <h3 className="truncate text-[20px] font-semibold leading-tight tracking-tight text-[#3C2F2F]">
+            {fullName}
+          </h3>
+          <p className="mt-1.5 text-xs font-normal leading-relaxed text-text-secondary">
+            Atualize sua foto quando quiser.
           </p>
         </div>
       </div>
-    </Card>
+    </section>
   );
 };
 

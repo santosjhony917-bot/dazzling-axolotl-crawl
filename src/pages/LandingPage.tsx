@@ -51,9 +51,9 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center cursor-pointer" onClick={() => navigate('/')}>
-            <img src={LOGO_URL} alt="GrubGo Logo" className="h-10 w-auto mr-3" />
+            <img src={LOGO_URL} alt="FilterFood Logo" className="h-10 w-auto mr-3" />
             <span className="text-xl font-bold tracking-tight text-white hidden sm:block">
-              Grub<span className="text-highlight">Go</span>
+              Filter<span className="text-highlight">Food</span>
             </span>
           </div>
 
@@ -74,7 +74,7 @@ export default function LandingPage() {
             </button>
             <button 
               onClick={handleClientCTA}
-              className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white font-semibold text-sm px-5 py-2.5 rounded-2xl transition-all shadow-none hover:shadow-[#EF2A39]/10 flex items-center gap-1.5"
+              className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-semibold text-sm px-5 py-2.5 rounded-2xl transition-all shadow-none hover:shadow-[#df4b1c]/10 flex items-center gap-1.5"
             >
               Acessar Aplicativo
               <ArrowRight className="w-4 h-4" />
@@ -128,7 +128,7 @@ export default function LandingPage() {
             </button>
             <button 
               onClick={() => { setMobileMenuOpen(false); handleClientCTA(); }}
-              className="w-full bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white font-semibold py-2.5 rounded-2xl text-center flex items-center justify-center gap-1.5 shadow-none"
+              className="w-full bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-semibold py-2.5 rounded-2xl text-center flex items-center justify-center gap-1.5 shadow-none"
             >
               Acessar Aplicativo
               <ArrowRight className="w-4 h-4" />
@@ -152,7 +152,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 bg-highlight/10 border border-highlight/25 px-4 py-1.5 rounded-full text-[#EF2A39] text-sm font-semibold mb-6"
+                className="inline-flex items-center gap-2 bg-highlight/10 border border-highlight/25 px-4 py-1.5 rounded-full text-[#df4b1c] text-sm font-semibold mb-6"
               >
                 <Sparkles className="w-4 h-4 animate-pulse" />
                 O buscador inteligente de cardápios de João Pessoa
@@ -164,7 +164,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6"
               >
-                Encontre o prato perfeito pelo <span className="bg-gradient-to-r from-[#EF2A39] to-[#EF2A39]/80 bg-clip-text text-transparent">preço que deseja pagar</span>
+                Encontre o prato perfeito pelo <span className="bg-gradient-to-r from-[#df4b1c] to-[#df4b1c]/80 bg-clip-text text-transparent">preço que deseja pagar</span>
               </motion.h1>
 
               <motion.p
@@ -185,7 +185,7 @@ export default function LandingPage() {
               >
                 <button
                   onClick={handleClientCTA}
-                  className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white font-bold text-lg px-8 py-4 rounded-2xl transition-all shadow-none hover:shadow-[#EF2A39]/12 flex items-center justify-center gap-2"
+                  className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-bold text-lg px-8 py-4 rounded-2xl transition-all shadow-none hover:shadow-[#df4b1c]/12 flex items-center justify-center gap-2"
                 >
                   Buscar Restaurantes
                   <ArrowRight className="w-5 h-5" />
@@ -241,8 +241,8 @@ export default function LandingPage() {
                   {/* Simulated App Header */}
                   <div className="bg-gradient-to-br from-primary to-[#011b3e] text-white p-5 pt-6 pb-8 rounded-b-[30px] shadow-none flex flex-col gap-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-[#EF2A39]">Assistente Gourmet</span>
-                      <Sparkles className="w-4 h-4 text-[#EF2A39] animate-pulse" />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-[#df4b1c]">Assistente Gourmet</span>
+                      <Sparkles className="w-4 h-4 text-[#df4b1c] animate-pulse" />
                     </div>
                     <span className="text-lg font-bold leading-tight">Monte seu Combo Ideal!</span>
                   </div>
@@ -273,13 +273,13 @@ export default function LandingPage() {
                           <span>R$ 12,00</span>
                         </div>
                         <div className="h-px bg-white/20 my-1" />
-                        <div className="flex justify-between font-bold text-[#EF2A39]">
+                        <div className="flex justify-between font-bold text-[#df4b1c]">
                           <span>Total do Combo</span>
                           <span>R$ 66,00</span>
                         </div>
                       </div>
                       
-                      <div className="flex justify-between items-center text-[10px] bg-highlight/20 text-[#EF2A39] px-2 py-1 rounded-lg border border-highlight/20">
+                      <div className="flex justify-between items-center text-[10px] bg-highlight/20 text-[#df4b1c] px-2 py-1 rounded-lg border border-highlight/20">
                         <span>Economia Real</span>
                         <span className="font-bold">R$ 4,00</span>
                       </div>
@@ -298,7 +298,7 @@ export default function LandingPage() {
                           <h4 className="font-bold text-xs">Meu Hot Dog - Self Service</h4>
                           <p className="text-[10px] text-slate-500">Lanchonete e Hamburgueria</p>
                         </div>
-                        <div className="flex items-center gap-0.5 bg-[#EF2A39]/10 text-[#EF2A39] px-1.5 py-0.5 rounded text-[10px] font-bold">
+                        <div className="flex items-center gap-0.5 bg-[#df4b1c]/10 text-[#df4b1c] px-1.5 py-0.5 rounded text-[10px] font-bold">
                           ★ 4.5
                         </div>
                       </div>
@@ -340,7 +340,7 @@ export default function LandingPage() {
               whileHover={{ y: -6 }}
               className="p-8 bg-slate-900/60 rounded-3xl border border-slate-800/80 shadow-none relative overflow-hidden group"
             >
-              <div className="w-12 h-12 bg-highlight/10 border border-highlight/25 rounded-2xl flex items-center justify-center text-[#EF2A39] mb-6 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 bg-highlight/10 border border-highlight/25 rounded-2xl flex items-center justify-center text-[#df4b1c] mb-6 group-hover:scale-110 transition-transform">
                 <Sparkles className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">Assistente Gourmet IA</h3>
@@ -398,15 +398,27 @@ export default function LandingPage() {
               >
                 <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-highlight/10 rounded-2xl flex items-center justify-center text-[#EF2A39]">
+                    <div className="w-10 h-10 bg-highlight/10 rounded-2xl flex items-center justify-center text-[#df4b1c]">
                       <Store className="w-5 h-5" />
                     </div>
                     <div>
                       <h4 className="font-bold text-white text-sm">Portal do Proprietário</h4>
-                      <p className="text-xs text-slate-400">GrubGo Business</p>
+                      <p className="text-xs text-slate-400">FilterFood Business</p>
                     </div>
                   </div>
                   <span className="text-xs bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">Grátis</span>
+                </div>
+
+                <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900">
+                  <img
+                    src="/images/whatsapp_real_mockup.png"
+                    alt="Mensagem de ativacao do perfil FilterFood pelo WhatsApp"
+                    className="w-full max-h-[420px] object-cover object-top"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent p-4">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[#df4b1c]">Perfil pronto para reivindicar</p>
+                    <p className="text-sm font-bold text-white">Mostre o restaurante publicado antes de pedir cadastro.</p>
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-4 text-sm text-slate-300">
@@ -429,7 +441,7 @@ export default function LandingPage() {
                 <div className="flex flex-col gap-3">
                   <button 
                     onClick={handleClaimCTA}
-                    className="w-full bg-highlight hover:bg-[#EF2A39]/90 text-white font-bold py-3 rounded-2xl transition-all shadow-none text-center"
+                    className="w-full bg-highlight hover:bg-[#df4b1c]/90 text-white font-bold py-3 rounded-2xl transition-all shadow-none text-center"
                   >
                     Reivindicar meu Restaurante
                   </button>
@@ -447,7 +459,7 @@ export default function LandingPage() {
             <div className="order-1 lg:order-2">
               <h2 className="text-base text-highlight font-bold uppercase tracking-wider mb-3">Para Proprietários</h2>
               <h3 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-6">
-                Seu restaurante já está no GrubGo. Reivindique agora!
+                Seu restaurante já está no FilterFood. Reivindique agora!
               </h3>
               <p className="text-slate-300 mb-8 leading-relaxed">
                 Varremos João Pessoa e pré-cadastramos os principais locais de alimentação. Reivindicando seu restaurante de forma 100% gratuita, você garante que as informações dos seus pratos estejam corretas e direciona clientes diretamente para o seu WhatsApp de entrega.
@@ -455,25 +467,25 @@ export default function LandingPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#EF2A39]">
+                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#df4b1c]">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <span className="text-sm font-semibold text-slate-200">Exposição Local Grátis</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#EF2A39]">
+                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#df4b1c]">
                     <TrendingUp className="w-4 h-4" />
                   </div>
                   <span className="text-sm font-semibold text-slate-200">Aumento de Vendas</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#EF2A39]">
+                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#df4b1c]">
                     <Clock className="w-4 h-4" />
                   </div>
                   <span className="text-sm font-semibold text-slate-200">Atualização em Segundos</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#EF2A39]">
+                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#df4b1c]">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <span className="text-sm font-semibold text-slate-200">Público Filtrado por Bairro</span>
@@ -534,7 +546,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={handleClientCTA}
-              className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white font-bold text-lg px-8 py-4 rounded-2xl transition-all shadow-none hover:shadow-[#EF2A39]/12 flex items-center justify-center gap-2"
+              className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-bold text-lg px-8 py-4 rounded-2xl transition-all shadow-none hover:shadow-[#df4b1c]/12 flex items-center justify-center gap-2"
             >
               Começar a Usar Grátis
               <ArrowRight className="w-5 h-5" />
@@ -557,8 +569,8 @@ export default function LandingPage() {
             {/* Column 1: App Info */}
             <div className="flex flex-col gap-4">
               <div className="flex items-center">
-                <img src={LOGO_URL} alt="GrubGo Logo" className="h-9 w-auto mr-3" />
-                <span className="text-lg font-bold text-white">Grub<span className="text-highlight">Go</span></span>
+                <img src={LOGO_URL} alt="FilterFood Logo" className="h-9 w-auto mr-3" />
+                <span className="text-lg font-bold text-white">Filter<span className="text-highlight">Food</span></span>
               </div>
               <p className="text-sm text-slate-500">
                 O maior indexador e buscador inteligente de cardápios de João Pessoa - PB.
@@ -592,10 +604,10 @@ export default function LandingPage() {
                 Dúvidas ou sugestões? Fale com nosso suporte técnico local.
               </p>
               <a 
-                href="mailto:suporte@grubgo.com.br"
-                className="text-sm text-[#EF2A39] hover:text-[#EF2A39]/80 font-semibold"
+                href="mailto:suporte@filterfood.com.br"
+                className="text-sm text-[#df4b1c] hover:text-[#df4b1c]/80 font-semibold"
               >
-                suporte@grubgo.com.br
+                suporte@filterfood.com.br
               </a>
             </div>
 
@@ -605,7 +617,7 @@ export default function LandingPage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
             <span>
-              © 2026 GrubGo. Todos os direitos reservados.
+              © 2026 FilterFood. Todos os direitos reservados.
             </span>
             <span className="flex items-center gap-1">
               Desenvolvido com carinho para João Pessoa - PB

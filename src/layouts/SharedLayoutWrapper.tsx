@@ -45,7 +45,7 @@ const SharedLayoutWrapper: React.FC = () => {
         className={cn(
           "mobile-viewport-container flex-grow mx-auto w-full flex flex-col transition-colors duration-200 relative",
           isUpgradePage ? "bg-[#090D1A]" : "bg-background-light",
-          !hideBottomNav && "pb-24"
+          !hideBottomNav && "pb-36"
         )}
       >
         <motion.div

@@ -31,6 +31,9 @@ export interface Restaurant {
   cnpj?: string | null;
   category?: string | null;
   whatsapp_url?: string | null;
+  contact_candidates?: Json | null;
+  primary_contact_source?: string | null;
+  contacts_last_checked_at?: string | null;
   ifood_url?: string | null;
   other_url?: string | null;
   google_maps_url?: string | null;
@@ -46,6 +49,10 @@ export interface Restaurant {
   cep?: string | null;
   latitude?: number | null;
   longitude?: number | null;
+  location_source?: string | null;
+  location_confidence?: number | null;
+  location_verified_at?: string | null;
+  location_issue_reason?: string | null;
   opening_hours?: Json | null;
   created_at?: string;
   external_url?: string | null;
@@ -60,7 +67,7 @@ export interface Restaurant {
   ai_validated?: boolean | null;
   ai_log?: string | null;
   is_deleted?: boolean | null;
-  menu_status?: 'unknown' | 'found' | 'not_found' | 'unavailable' | 'manual_required' | 'blocked' | 'invalid_source' | 'failed' | null;
+  menu_status?: 'unknown' | 'found' | 'not_found' | 'unavailable' | 'manual_required' | 'blocked' | 'invalid_source' | 'failed' | 'needs_recollection' | null;
   menu_status_reason?: string | null;
   menu_last_checked_at?: string | null;
 }
@@ -101,20 +108,76 @@ export interface MenuItem {
   category_id: string;
   name: string;
   display_name?: string | null;
+  search_display_name?: string | null;
   description?: string | null;
-  price: number;
+  price?: number | null;
   display_price?: number | null;
   price_min?: number | null;
   price_max?: number | null;
   price_type?: string | null;
+  price_source?: string | null;
+  source_url?: string | null;
+  source_external_id?: string | null;
+  original_price?: number | null;
+  promotional_price?: number | null;
   commercial_type?: string | null;
   is_configurable?: boolean | null;
   search_keywords?: string | null;
+  combo_components?: Json | null;
+  combo_rules?: Json | null;
+  combo_display_mode?: string | null;
+  serves_count?: number | null;
+  raw_data?: Json | null;
+  option_groups?: MenuOptionGroup[] | null;
+  options?: MenuOptionGroup[] | null;
+  menu_option_groups?: MenuOptionGroup[] | null;
+  extraction_confidence?: number | null;
+  needs_review?: boolean | null;
+  import_notes?: string | null;
   image_url?: string | null;
   order_index?: number | null;
   is_active?: boolean | null;
   created_at?: string;
   is_illustrative?: boolean | null;
+}
+
+export interface MenuItemOption {
+  id?: string;
+  menu_item_id?: string;
+  group_id?: string | null;
+  group_name?: string | null;
+  name: string;
+  description?: string | null;
+  price?: number | null;
+  price_delta?: number | null;
+  min_quantity?: number | null;
+  max_quantity?: number | null;
+  is_required?: boolean | null;
+  is_available?: boolean | null;
+  order_index?: number | null;
+  semantic_type?: string | null;
+  price_behavior?: string | null;
+  search_label?: string | null;
+  search_aliases?: string | null;
+  image_url?: string | null;
+}
+
+export interface MenuOptionGroup {
+  id?: string;
+  menu_item_id?: string;
+  external_id?: string | null;
+  name?: string | null;
+  title?: string | null;
+  min_quantity?: number | null;
+  max_quantity?: number | null;
+  is_required?: boolean | null;
+  order_index?: number | null;
+  semantic_type?: string | null;
+  price_behavior?: string | null;
+  items?: MenuItemOption[] | null;
+  itens?: MenuItemOption[] | null;
+  options?: MenuItemOption[] | null;
+  menu_item_options?: MenuItemOption[] | null;
 }
 
 export interface GalleryImage {

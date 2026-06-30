@@ -48,7 +48,7 @@ const RestaurantInfo: React.FC<RestaurantInfoProps> = ({ id, restaurant }) => {
     });
 
   const linkItems: ContactLinkItem[] = [
-    { icon: <WhatsappIcon className="w-5 h-5 text-[#EF2A39] flex-shrink-0" />, label: 'WhatsApp', value: whatsapp_url ? 'Enviar Mensagem' : undefined, link: whatsapp_url, isExternal: true },
+    { icon: <WhatsappIcon className="w-5 h-5 text-[#df4b1c] flex-shrink-0" />, label: 'WhatsApp', value: whatsapp_url ? 'Enviar Mensagem' : undefined, link: whatsapp_url, isExternal: true },
     { icon: <img src="https://imagensfree.com.br/wp-content/uploads/2021/11/icone-ifood-sorriso-circulo-vermelho-png.png" alt="iFood" className="w-5 h-5 flex-shrink-0 object-contain" />, label: 'iFood', value: ifood_url ? 'Pedir no iFood' : undefined, link: ifood_url, isExternal: true },
     { icon: <Globe className="w-5 h-5 text-primary flex-shrink-0" />, label: other_url_label || 'Website', value: (other_url || external_url) ? (other_url || external_url)?.replace(/^https?:\/\/(www\.)?/, '') : undefined, link: other_url || external_url, isExternal: true },
     ...socialItems

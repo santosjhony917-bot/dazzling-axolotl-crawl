@@ -59,28 +59,30 @@ export default function ProfileSettingsPage() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
+      <RestaurantAreaPageLayout title="Configurações do Perfil" icon={Settings} backPath="home">
+        <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-slate-100 bg-white shadow-soft">
+          <Loader2 className="h-8 w-8 animate-spin text-[#df4b1c]" />
+        </div>
+      </RestaurantAreaPageLayout>
     );
   }
 
   if (!restaurant) {
     return (
       <RestaurantAreaPageLayout title="Configurações" icon={Settings} backPath="home">
-        <div className="p-6 text-center max-w-md mx-auto space-y-6 mt-10">
-          <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto">
-            <Settings className="w-8 h-8 text-primary" />
+        <div className="max-w-md mx-auto mt-10 space-y-6 rounded-2xl border border-slate-100 bg-white p-6 text-center shadow-soft">
+          <div className="w-16 h-16 bg-[#df4b1c]/10 rounded-2xl flex items-center justify-center mx-auto">
+            <Settings className="w-8 h-8 text-[#df4b1c]" />
           </div>
-          <h2 className="text-2xl font-bold text-primary">Restaurante não vinculado</h2>
-          <p className="text-gray-600 text-sm">
+          <h2 className="text-2xl font-bold text-[#3C2F2F]">Restaurante não vinculado</h2>
+          <p className="text-slate-500 text-sm">
             Esta conta não possui nenhum restaurante cadastrado ou vinculado. Se você possui um código de convite, faça a reivindicação do seu restaurante.
           </p>
           <div className="space-y-3">
-            <Button onClick={() => navigate('/restaurant-area/claim')} className="w-full h-12 rounded-xl">
+            <Button onClick={() => navigate('/restaurant-area/claim')} className="w-full h-12 rounded-2xl bg-[#df4b1c] hover:bg-[#bd3f17]">
               Vincular ou Reivindicar Restaurante
             </Button>
-            <Button variant="outline" onClick={() => navigate('/welcome')} className="w-full h-12 rounded-xl">
+            <Button variant="outline" onClick={() => navigate('/welcome')} className="w-full h-12 rounded-2xl border-slate-100 text-[#3C2F2F] hover:bg-slate-50">
               Voltar ao Início
             </Button>
           </div>
@@ -274,14 +276,14 @@ export default function ProfileSettingsPage() {
 
         {/* Seção: Configurações */}
         <div>
-          <p className="text-[11px] font-bold text-[#9CA3AF] uppercase tracking-widest px-1 mb-2">Configurações</p>
+          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-1 mb-2">Configurações</p>
           <Accordion type="single" collapsible defaultValue="general" className="w-full space-y-3">
 
             {/* 1. Dados do Restaurante */}
-            <AccordionItem value="general" className="soft-card px-4 overflow-hidden">
-              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+            <AccordionItem value="general" className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-4 shadow-soft">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-[#3C2F2F] py-4 [&[data-state=open]]:pb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 bg-[#df4b1c]/10 rounded-2xl flex items-center justify-center">
                     <Utensils className="w-4 h-4 text-highlight" />
                   </div>
                   <span>Dados do Restaurante</span>
@@ -303,10 +305,10 @@ export default function ProfileSettingsPage() {
             </AccordionItem>
 
             {/* 2. Localização e Horários */}
-            <AccordionItem value="location" className="soft-card px-4 overflow-hidden">
-              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+            <AccordionItem value="location" className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-4 shadow-soft">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-[#3C2F2F] py-4 [&[data-state=open]]:pb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 bg-[#df4b1c]/10 rounded-2xl flex items-center justify-center">
                     <MapPin className="w-4 h-4 text-highlight" />
                   </div>
                   <span>Localização e Horários</span>
@@ -324,10 +326,10 @@ export default function ProfileSettingsPage() {
             </AccordionItem>
 
             {/* 3. Conteúdo e Links */}
-            <AccordionItem value="content" className="soft-card px-4 overflow-hidden">
-              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+            <AccordionItem value="content" className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-4 shadow-soft">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-[#3C2F2F] py-4 [&[data-state=open]]:pb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 bg-[#df4b1c]/10 rounded-2xl flex items-center justify-center">
                     <Link2 className="w-4 h-4 text-highlight" />
                   </div>
                   <span>Conteúdo e Links</span>
@@ -347,10 +349,10 @@ export default function ProfileSettingsPage() {
             </AccordionItem>
 
             {/* 4. Social e Happy Hour (Movido para cima) */}
-            <AccordionItem value="social" className="soft-card px-4 overflow-hidden">
-              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+            <AccordionItem value="social" className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-4 shadow-soft">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-[#3C2F2F] py-4 [&[data-state=open]]:pb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 bg-[#df4b1c]/10 rounded-2xl flex items-center justify-center">
                     <Users className="w-4 h-4 text-highlight" />
                   </div>
                   <span>Social e Happy Hour</span>
@@ -375,10 +377,10 @@ export default function ProfileSettingsPage() {
             </AccordionItem>
 
             {/* 5. Plano e Suporte */}
-            <AccordionItem value="subscription" className="soft-card px-4 overflow-hidden">
-              <AccordionTrigger className="hover:no-underline font-semibold text-base text-slate-800 py-4 [&[data-state=open]]:pb-2">
+            <AccordionItem value="subscription" className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-4 shadow-soft">
+              <AccordionTrigger className="hover:no-underline font-semibold text-base text-[#3C2F2F] py-4 [&[data-state=open]]:pb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-highlight/10 rounded-xl flex items-center justify-center">
+                  <div className="w-8 h-8 bg-[#df4b1c]/10 rounded-2xl flex items-center justify-center">
                     <Crown className="w-4 h-4 text-highlight" />
                   </div>
                   <span>Plano e Suporte</span>
@@ -398,10 +400,10 @@ export default function ProfileSettingsPage() {
 
         {/* Botão Sair — separado e com área de respiro */}
         <div className="pt-2 pb-32 space-y-3">
-          <p className="text-[11px] font-bold text-[#9CA3AF] uppercase tracking-widest px-1 mb-2">Conta</p>
+          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-1 mb-2">Conta</p>
           <button
             onClick={handleLogout}
-            className="w-full h-[50px] rounded-[18px] flex items-center justify-center gap-2 border-2 border-[#EF2A39]/30 text-[#EF2A39] font-semibold text-[15px] bg-[#FFF5F5] hover:bg-[#FEE2E2] active:scale-[0.98] transition-all duration-200"
+            className="w-full h-[50px] rounded-[18px] flex items-center justify-center gap-2 border-2 border-[#df4b1c]/30 text-[#df4b1c] font-semibold text-[15px] bg-[#FFF7ED] hover:bg-[#FFEDD5] active:scale-[0.98] transition-all duration-200"
           >
             <LogOut className="w-4 h-4" />
             Sair da Conta
@@ -491,7 +493,7 @@ export default function ProfileSettingsPage() {
               <Trash2 className="h-6 w-6" />
             </div>
             <div className="space-y-2 text-left">
-              <h3 className="text-lg font-bold text-slate-800">Excluir Conta e Restaurante?</h3>
+              <h3 className="text-lg font-bold text-[#3C2F2F]">Excluir Conta e Restaurante?</h3>
               <p className="text-xs text-slate-500 leading-relaxed whitespace-normal">
                 Esta ação é irreversível. Todos os dados do seu restaurante (cardápio, fotos, métricas) e a sua conta de usuário serão apagados definitivamente.
               </p>
@@ -500,14 +502,14 @@ export default function ProfileSettingsPage() {
               <button
                 type="button"
                 onClick={() => setIsDeleteModalOpen(false)}
-                className="flex-1 h-11 rounded-xl bg-slate-100 text-slate-700 font-bold text-sm hover:bg-slate-200 transition-colors"
+                className="flex-1 h-11 rounded-2xl bg-slate-100 text-[#3C2F2F] font-bold text-sm hover:bg-slate-200 transition-colors"
               >
                 Cancelar
               </button>
               <button
                 type="button"
                 onClick={handleDeleteAccount}
-                className="flex-1 h-11 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20"
+                className="flex-1 h-11 rounded-2xl bg-red-600 text-white font-bold text-sm hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20"
               >
                 Sim, Excluir
               </button>

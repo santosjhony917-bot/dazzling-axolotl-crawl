@@ -124,7 +124,17 @@ export default function CityStrategy() {
         .update({ plan: 'free', visit_status: 'Pendente' } as any)
         .in('id', ids);
 
-      if (updateError) throw updateError;
+      if (updateError) {
+        const message = updateError.message || '';
+        if (!/visit_status|schema cache|column/i.test(message)) throw updateError;
+
+        const { error: fallbackError } = await supabase
+          .from('restaurants')
+          .update({ plan: 'free' } as any)
+          .in('id', ids);
+
+        if (fallbackError) throw fallbackError;
+      }
 
       localStorage.setItem('crm_message_template', messageTemplate);
       localStorage.setItem('crm_strategy_config', JSON.stringify({

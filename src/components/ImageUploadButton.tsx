@@ -97,7 +97,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
         onClick={() => fileInputRef.current?.click()}
         className={cn(
           "w-10 h-10 rounded-full bg-highlight text-white flex items-center justify-center shadow-none transition-colors",
-          "hover:bg-[#EF2A39]/90",
+          "hover:bg-[#df4b1c]/90",
           (!className || (!className.includes('absolute') && !className.includes('relative') && !className.includes('static'))) && "absolute bottom-0 right-0",
           className
         )}

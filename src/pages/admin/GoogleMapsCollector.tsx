@@ -206,7 +206,7 @@ const getGooglePhotoUrl = (photoName: string, apiKey: string) => {
 
 // Helper to enrich a restaurant with mock fields if they are missing
 const enrichRestaurant = (r: Omit<ScrapedRestaurant, 'id'>): Omit<ScrapedRestaurant, 'id'> => {
-  const cleanName = r.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+  const cleanName = String(r.name || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
   const defaultOpen = { isOpen: true, slots: [{ start: '11:00', end: '23:00' }] };
   
   return {
@@ -442,8 +442,8 @@ const renderTableOpeningHours = (hours: any) => {
 
 // Helper to get a stable unique key for a restaurant to detect imports across searches
 export const getRestaurantUniqueKey = (name: string, address: string) => {
-  const cleanName = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
-  const cleanAddress = address.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+  const cleanName = String(name || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
+  const cleanAddress = String(address || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
   return `${cleanName}_${cleanAddress}`;
 };
 
@@ -1131,6 +1131,9 @@ export default function GoogleMapsCollector() {
               cleanSocials.push({ platform: 'instagram', url: activeInstagramUrl, followers: instagramFollowers });
               updates.social_networks = cleanSocials;
               updates.instagram = activeInstagramUrl;
+              if (Number(instagramFollowers) > 0) {
+                updates.followers_override = Number(instagramFollowers);
+              }
               await supabase.from('restaurants').update(updates).eq('id', restaurantId);
               showSuccess(`✅ Instagram coletado! Logo e ${instagramFollowers} seguidores salvos.`);
             } else {
@@ -1258,6 +1261,9 @@ export default function GoogleMapsCollector() {
                   cleanSocials2.push({ platform: 'instagram', url: activeInstagramUrl, followers: instagramFollowers });
                   updates.social_networks = cleanSocials2;
                   updates.instagram = activeInstagramUrl;
+                  if (Number(instagramFollowers) > 0) {
+                    updates.followers_override = Number(instagramFollowers);
+                  }
                   await supabase.from('restaurants').update(updates).eq('id', restaurantId);
                   showSuccess(`✅ Instagram salvo com sucesso! Logo e ${instagramFollowers} seguidores.`);
                 } else {
@@ -1435,6 +1441,9 @@ export default function GoogleMapsCollector() {
                   const cleanSocials = newSocials.filter((s: any) => s && s.platform !== 'instagram');
                   cleanSocials.push({ platform: 'instagram', url: instagramUrl, followers: scrapeRes.followers });
                   updates.social_networks = cleanSocials;
+                  if (Number(scrapeRes.followers) > 0) {
+                    updates.followers_override = Number(scrapeRes.followers);
+                  }
                   
                   await supabase.from('restaurants').update(updates).eq('id', restaurantId);
                   showSuccess('Instagram e Logo gravados com sucesso!');
@@ -1632,6 +1641,7 @@ export default function GoogleMapsCollector() {
                   return s;
                 });
                 updates.social_networks = newSocials;
+                updates.followers_override = Number(extRes.followers);
               }
               
               if (Object.keys(updates).length > 0) {
@@ -1879,7 +1889,10 @@ export default function GoogleMapsCollector() {
 
     // Injeta Deda Lanches se João Pessoa for a cidade e ele não estiver no resultado
     const isJampa = city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes("joao pessoa");
-    const hasDeda = formatted.some(r => r.name.toLowerCase().includes("deda lanches") || r.name.toLowerCase().includes("deda"));
+    const hasDeda = formatted.some(r => {
+      const name = String(r.name || '').toLowerCase();
+      return name.includes("deda lanches") || name.includes("deda");
+    });
     
     if (false && isJampa && !hasDeda) {
       formatted.unshift({
@@ -2397,7 +2410,7 @@ export default function GoogleMapsCollector() {
           let targetId = scrapedRest.id;
           if (!completedMap[targetId]) {
             targetId = Object.keys(completedMap).find((id: string) => 
-              completedMap[id].name.toLowerCase().trim() === scrapedRest.restaurantName.toLowerCase().trim()
+              String(completedMap[id].name || '').toLowerCase().trim() === String(scrapedRest.restaurantName || '').toLowerCase().trim()
             );
           }
           
@@ -2610,9 +2623,9 @@ export default function GoogleMapsCollector() {
         const excludedTypes = ['gas_station', 'supermarket', 'convenience_store', 'grocery_or_supermarket', 'car_repair', 'car_wash', 'pharmacy', 'bank', 'atm', 'lodging', 'hospital', 'school'];
         if (types.some((t: string) => excludedTypes.includes(t))) return;
 
-        const rawName = p.displayName?.text || '';
+        const rawName = String(p.displayName?.text || '');
         if (!rawName) return;
-        const rawCat = p.primaryTypeDisplayName?.text || 'Restaurante';
+        const rawCat = String(p.primaryTypeDisplayName?.text || 'Restaurante');
 
         const cleanName = rawName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         const cleanCat = rawCat.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -2729,7 +2742,7 @@ export default function GoogleMapsCollector() {
         setTimeout(() => {
           const uniqueMap = new Map<string, Omit<ScrapedRestaurant, 'id'>>();
           gatheredResults.forEach(r => {
-            const uniqueKey = `${r.name.toLowerCase().replace(/\s/g,'')}_${r.address.toLowerCase().replace(/\s/g,'')}`;
+            const uniqueKey = `${String(r.name || '').toLowerCase().replace(/\s/g,'')}_${String(r.address || '').toLowerCase().replace(/\s/g,'')}`;
             uniqueMap.set(uniqueKey, r);
           });
           const finalUniqueList = Array.from(uniqueMap.values());
@@ -2900,7 +2913,7 @@ export default function GoogleMapsCollector() {
     const gatheredResults = activeScan.gatheredResults;
     const uniqueMap = new Map<string, Omit<ScrapedRestaurant, 'id'>>();
     gatheredResults.forEach(r => {
-      const uniqueKey = `${r.name.toLowerCase().replace(/\s/g,'')}_${r.address.toLowerCase().replace(/\s/g,'')}`;
+      const uniqueKey = `${String(r.name || '').toLowerCase().replace(/\s/g,'')}_${String(r.address || '').toLowerCase().replace(/\s/g,'')}`;
       uniqueMap.set(uniqueKey, r);
     });
     const finalUniqueList = Array.from(uniqueMap.values());
@@ -3899,9 +3912,9 @@ export default function GoogleMapsCollector() {
           if (reviewsThreshold > 0 && r.reviewsCount < reviewsThreshold) return false;
           if (filterCity !== 'all' && cleanCityName(r.city) !== filterCity) return false;
           return (
-            r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            r.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            r.category.toLowerCase().includes(searchTerm.toLowerCase())
+            String(r.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            String(r.address || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+            String(r.category || '').toLowerCase().includes(searchTerm.toLowerCase())
           );
         });
         const itemsPerPage = 15;

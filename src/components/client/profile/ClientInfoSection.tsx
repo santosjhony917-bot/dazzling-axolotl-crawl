@@ -6,7 +6,16 @@ import { Profile } from '@/types/supabase';
 
 interface ClientInfoSectionProps {
   profile: Profile | null;
-  handleEditField: (key: string, title: string, fieldName: string, icon: React.ReactNode, validationSchema: z.ZodType<string>, type?: "text" | "tel" | "email", mask?: (value: string) => string, placeholder?: string) => void;
+  handleEditField: (
+    key: keyof Profile,
+    title: string,
+    fieldName: string,
+    icon: React.ReactNode,
+    validationSchema: z.ZodType<string>,
+    type?: 'text' | 'tel' | 'email',
+    mask?: (value: string) => string,
+    placeholder?: string
+  ) => void;
   phoneMask: (value: string) => string;
   nameSchema: z.ZodType<string>;
   phoneSchema: z.ZodType<string>;
@@ -22,38 +31,48 @@ const ClientInfoSection: React.FC<ClientInfoSectionProps> = ({
   email,
 }) => {
   return (
-    <div className="w-full space-y-3">
-      <h2 className="text-lg font-extrabold text-primary px-1 mb-4">Informações Pessoais</h2>
-      
-      <InfoCardItem 
-        label="Primeiro Nome" 
-        value={profile?.first_name || "Não definido"} 
+    <section className="w-full space-y-3">
+      <h2 className="px-1 text-[17px] font-semibold tracking-tight text-[#3C2F2F]">Informações pessoais</h2>
+
+      <InfoCardItem
+        label="Primeiro nome"
+        value={profile?.first_name || 'Não definido'}
         icon={User}
-        onClick={() => handleEditField('first_name', 'Editar Primeiro Nome', 'Primeiro Nome', <User className="h-6 w-6 text-primary" />, nameSchema)}
+        onClick={() =>
+          handleEditField('first_name', 'Editar primeiro nome', 'Primeiro nome', <User className="h-5 w-5 text-highlight" />, nameSchema)
+        }
       />
-      
-      <InfoCardItem 
-        label="Sobrenome" 
-        value={profile?.last_name || "Não definido"} 
+
+      <InfoCardItem
+        label="Sobrenome"
+        value={profile?.last_name || 'Não definido'}
         icon={User}
-        onClick={() => handleEditField('last_name', 'Editar Sobrenome', 'Sobrenome', <User className="h-6 w-6 text-primary" />, nameSchema)}
+        onClick={() =>
+          handleEditField('last_name', 'Editar sobrenome', 'Sobrenome', <User className="h-5 w-5 text-highlight" />, nameSchema)
+        }
       />
-      
-      <InfoCardItem 
-        label="E-mail" 
-        value={email || "Não definido"} 
+
+      <InfoCardItem
+        label="E-mail"
+        value={email || 'Não definido'}
         icon={Mail}
-        onClick={() => { /* E-mail não editável diretamente */ }}
-        extraContent={<p className="text-xs text-gray-500 mt-1 flex items-center gap-1 font-normal"><Lock className="h-3 w-3" /> Não editável</p>}
+        onClick={() => {}}
+        extraContent={
+          <p className="mt-1 flex items-center gap-1 text-xs font-normal text-text-secondary">
+            <Lock className="h-3 w-3" /> Não editável
+          </p>
+        }
       />
-      
-      <InfoCardItem 
-        label="Telefone" 
-        value={profile?.phone || "Não definido"} 
+
+      <InfoCardItem
+        label="Telefone"
+        value={profile?.phone || 'Não definido'}
         icon={Phone}
-        onClick={() => handleEditField('phone', 'Editar Telefone', 'Telefone', <Phone className="h-6 w-6 text-primary" />, phoneSchema, "tel", phoneMask)}
+        onClick={() =>
+          handleEditField('phone', 'Editar telefone', 'Telefone', <Phone className="h-5 w-5 text-highlight" />, phoneSchema, 'tel', phoneMask)
+        }
       />
-    </div>
+    </section>
   );
 };
 

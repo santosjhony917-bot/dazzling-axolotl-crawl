@@ -14,6 +14,7 @@ import { ArrowLeft, Loader2, KeyRound } from 'lucide-react';
 import CustomAuth from '@/components/CustomAuth';
 import { useAuthData } from '@/context/AuthContext';
 import Header from '@/components/Header';
+import PhoneShell from '@/components/layout/PhoneShell';
 
 const ClaimRestaurant = () => {
   const [claimCode, setClaimCode] = useState('');
@@ -82,31 +83,31 @@ const ClaimRestaurant = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9] w-full flex flex-col">
-      <div className="relative bg-background-light font-sans antialiased flex min-h-screen w-full max-w-md mx-auto flex-col overflow-x-hidden border-x border-slate-200/60">
+    <PhoneShell shellClassName="relative font-sans antialiased flex flex-col bg-[#FAFAFA]">
       <Header 
-        title="Reivindicar Perfil" 
+        title={<span className="text-lg font-semibold tracking-tight text-[#3C2F2F]">Reivindicar perfil</span>} 
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }} 
+        sticky={false}
       />
 
-      <main className="flex-grow flex flex-col justify-center w-full px-4 py-6">
+      <main className="flex-grow flex flex-col justify-center w-full px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full"
         >
-          <div className="w-full bg-white p-6 md:p-8 rounded-2xl shadow-soft border border-slate-100/80 text-center">
-            <div className="flex items-center justify-center size-16 bg-highlight/10 rounded-2xl mx-auto mb-6">
-              <KeyRound className="w-8 h-8 text-highlight" />
+          <div className="w-full rounded-[24px] border border-slate-100/80 bg-white p-5 text-center shadow-soft">
+            <div className="flex items-center justify-center size-12 bg-highlight/10 rounded-2xl mx-auto mb-4">
+              <KeyRound className="w-6 h-6 text-highlight" />
             </div>
-            <h2 className="text-2xl font-bold text-primary mb-2">
+            <h2 className="text-[22px] font-semibold text-[#3C2F2F] mb-2 leading-tight">
               Reivindicar Restaurante
             </h2>
             
             {!isCodeVerified ? (
               <>
-                <p className="text-text-secondary mb-6 text-center">
+                <p className="text-text-secondary mb-5 text-center text-sm leading-relaxed">
                   Use o código de acesso de 8 caracteres para liberar seu perfil.
                 </p>
                 <form onSubmit={handleVerifyCode} className="space-y-4 text-left">
@@ -114,25 +115,26 @@ const ClaimRestaurant = () => {
                     <Label htmlFor="claim-code" className="font-semibold text-primary">Código de Acesso</Label>
                     <Input
                       id="claim-code"
+                      aria-describedby="claim-code-help"
                       placeholder="INSIRA O CÓDIGO"
                       value={claimCode}
                       onChange={(e) => setClaimCode(e.target.value.toUpperCase())}
                       required
                       disabled={isLoading}
                       maxLength={8}
-                      className="uppercase h-14 text-base rounded-2xl border-gray-200 focus:border-highlight focus:ring-highlight shadow-none tracking-widest text-center"
+                      className="uppercase h-12 text-[15px] rounded-2xl border-slate-200/80 focus:border-highlight focus:ring-highlight shadow-none tracking-widest text-center mt-2"
                     />
-                    <p className="text-xs text-gray-500 mt-1">O código de 8 caracteres fornecido a você.</p>
+                    <p id="claim-code-help" className="text-xs text-gray-500 mt-2">O código de 8 caracteres fornecido a você.</p>
                   </div>
                   {error && <p className="text-sm text-red-500 text-center pt-2">{error}</p>}
-                  <Button type="submit" variant="highlight" className="w-full h-12 text-base" disabled={isLoading || !claimCode}>
+                  <Button type="submit" variant="highlight" className="w-full h-12 rounded-2xl text-[15px] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2" disabled={isLoading || !claimCode}>
                     {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Verificar Código'}
                   </Button>
                 </form>
               </>
             ) : (
-              <div className="mt-6">
-                <p className="text-text-secondary mb-6 text-center">
+              <div className="mt-5">
+                <p className="text-text-secondary mb-5 text-center text-sm leading-relaxed">
                   Código verificado! Agora, crie sua conta ou faça login para continuar.
                 </p>
                 <CustomAuth />
@@ -141,8 +143,7 @@ const ClaimRestaurant = () => {
           </div>
         </motion.div>
       </main>
-      </div>
-    </div>
+    </PhoneShell>
   );
 }
 

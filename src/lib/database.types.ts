@@ -47,63 +47,105 @@ export interface Database {
       menu_items: {
         Row: {
           category_id: string
+          combo_components: Json | null
+          combo_display_mode: string | null
+          combo_rules: Json | null
           created_at: string | null
           description: string | null
           display_name: string | null
           display_price: number | null
+          extraction_confidence: number | null
           id: string
+          import_notes: string | null
           image_url: string | null
           is_active: boolean | null
           is_configurable: boolean | null
+          is_public_searchable: boolean | null
+          needs_review: boolean | null
           name: string
           order_index: number | null
-          price: number
+          original_price: number | null
+          price: number | null
           price_max: number | null
           price_min: number | null
+          price_source: string | null
           price_type: string | null
+          promotional_price: number | null
+          raw_data: Json | null
           commercial_type: string | null
           search_display_name: string | null
           search_keywords: string | null
+          serves_count: number | null
+          source_external_id: string | null
+          source_url: string | null
         }
         Insert: {
           category_id: string
+          combo_components?: Json | null
+          combo_display_mode?: string | null
+          combo_rules?: Json | null
           created_at?: string | null
           description?: string | null
           display_name?: string | null
           display_price?: number | null
+          extraction_confidence?: number | null
           id?: string
+          import_notes?: string | null
           image_url?: string | null
           is_active?: boolean | null
           is_configurable?: boolean | null
+          is_public_searchable?: boolean | null
+          needs_review?: boolean | null
           name: string
           order_index?: number | null
-          price: number
+          original_price?: number | null
+          price?: number | null
           price_max?: number | null
           price_min?: number | null
+          price_source?: string | null
           price_type?: string | null
+          promotional_price?: number | null
+          raw_data?: Json | null
           commercial_type?: string | null
           search_display_name?: string | null
           search_keywords?: string | null
+          serves_count?: number | null
+          source_external_id?: string | null
+          source_url?: string | null
         }
         Update: {
           category_id?: string
+          combo_components?: Json | null
+          combo_display_mode?: string | null
+          combo_rules?: Json | null
           created_at?: string | null
           description?: string | null
           display_name?: string | null
           display_price?: number | null
+          extraction_confidence?: number | null
           id?: string
+          import_notes?: string | null
           image_url?: string | null
           is_active?: boolean | null
           is_configurable?: boolean | null
+          is_public_searchable?: boolean | null
+          needs_review?: boolean | null
           name?: string
           order_index?: number | null
-          price?: number
+          original_price?: number | null
+          price?: number | null
           price_max?: number | null
           price_min?: number | null
+          price_source?: string | null
           price_type?: string | null
+          promotional_price?: number | null
+          raw_data?: Json | null
           commercial_type?: string | null
           search_display_name?: string | null
           search_keywords?: string | null
+          serves_count?: number | null
+          source_external_id?: string | null
+          source_url?: string | null
         }
         Relationships: [
           {
@@ -189,6 +231,8 @@ export interface Database {
           cep: string | null
           city: string | null
           cnpj: string | null
+          contact_candidates: Json | null
+          contacts_last_checked_at: string | null
           cover_image_url: string | null
           created_at: string | null
           description: string | null
@@ -202,7 +246,14 @@ export interface Database {
           ifood_url: string | null
           image_url: string | null
           latitude: number | null
+          location_confidence: number | null
+          location_issue_reason: string | null
+          location_source: string | null
+          location_verified_at: string | null
           longitude: number | null
+          menu_last_checked_at: string | null
+          menu_status: string | null
+          menu_status_reason: string | null
           name: string
           name_cleanup_notes: string | null
           neighborhood: string | null
@@ -211,6 +262,7 @@ export interface Database {
           other_url: string | null
           phone: string | null
           plan: Database["public"]["Enums"]["restaurant_plan"]
+          primary_contact_source: string | null
           state: string | null
           user_id: string | null
           whatsapp_url: string | null
@@ -221,6 +273,8 @@ export interface Database {
           cep?: string | null
           city?: string | null
           cnpj?: string | null
+          contact_candidates?: Json | null
+          contacts_last_checked_at?: string | null
           cover_image_url?: string | null
           created_at?: string | null
           description?: string | null
@@ -234,7 +288,14 @@ export interface Database {
           ifood_url?: string | null
           image_url?: string | null
           latitude?: number | null
+          location_confidence?: number | null
+          location_issue_reason?: string | null
+          location_source?: string | null
+          location_verified_at?: string | null
           longitude?: number | null
+          menu_last_checked_at?: string | null
+          menu_status?: string | null
+          menu_status_reason?: string | null
           name: string
           name_cleanup_notes?: string | null
           neighborhood?: string | null
@@ -243,6 +304,7 @@ export interface Database {
           other_url?: string | null
           phone?: string | null
           plan?: Database["public"]["Enums"]["restaurant_plan"]
+          primary_contact_source?: string | null
           state?: string | null
           user_id?: string | null
           whatsapp_url?: string | null
@@ -253,6 +315,8 @@ export interface Database {
           cep?: string | null
           city?: string | null
           cnpj?: string | null
+          contact_candidates?: Json | null
+          contacts_last_checked_at?: string | null
           cover_image_url?: string | null
           created_at?: string | null
           description?: string | null
@@ -266,7 +330,14 @@ export interface Database {
           ifood_url?: string | null
           image_url?: string | null
           latitude?: number | null
+          location_confidence?: number | null
+          location_issue_reason?: string | null
+          location_source?: string | null
+          location_verified_at?: string | null
           longitude?: number | null
+          menu_last_checked_at?: string | null
+          menu_status?: string | null
+          menu_status_reason?: string | null
           name?: string
           name_cleanup_notes?: string | null
           neighborhood?: string | null
@@ -275,6 +346,7 @@ export interface Database {
           other_url?: string | null
           phone?: string | null
           plan?: Database["public"]["Enums"]["restaurant_plan"]
+          primary_contact_source?: string | null
           state?: string | null
           user_id?: string | null
           whatsapp_url?: string | null

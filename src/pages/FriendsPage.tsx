@@ -200,7 +200,7 @@ export default function FriendsPage() {
             onClick={() => setActiveTab('friends')}
             className={cn(
               "flex-1 flex items-center justify-center h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full",
-              activeTab === 'friends' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
+              activeTab === 'friends' ? "text-[#df4b1c]" : "text-slate-500 hover:text-slate-700"
             )}
           >
             Amigos ({friends.length})
@@ -210,12 +210,12 @@ export default function FriendsPage() {
             onClick={() => setActiveTab('pending')}
             className={cn(
               "flex-1 flex items-center justify-center h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full gap-1",
-              activeTab === 'pending' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
+              activeTab === 'pending' ? "text-[#df4b1c]" : "text-slate-500 hover:text-slate-700"
             )}
           >
             Solicitações
             {pending.length > 0 && (
-              <span className="bg-[#EF2A39] text-white text-[9px] font-black h-4.5 w-4.5 rounded-full flex items-center justify-center border border-white">
+              <span className="bg-[#df4b1c] text-white text-[9px] font-black h-4.5 w-4.5 rounded-full flex items-center justify-center border border-white">
                 {pending.length}
               </span>
             )}
@@ -225,7 +225,7 @@ export default function FriendsPage() {
             onClick={() => setActiveTab('search')}
             className={cn(
               "flex-1 flex items-center justify-center h-10 text-xs font-extrabold uppercase tracking-wider transition-all duration-200 relative z-10 focus:outline-none rounded-full",
-              activeTab === 'search' ? "text-[#EF2A39]" : "text-slate-500 hover:text-slate-700"
+              activeTab === 'search' ? "text-[#df4b1c]" : "text-slate-500 hover:text-slate-700"
             )}
           >
             Buscar
@@ -275,7 +275,7 @@ export default function FriendsPage() {
                         variant="ghost"
                         onClick={() => handleRemoveFriendship(friendshipId, 'Amizade desfeita.')}
                         disabled={actionLoadingId === friendshipId}
-                        className="text-slate-450 hover:text-[#EF2A39] hover:bg-[#EF2A39]/10 rounded-full w-9 h-9 flex items-center justify-center transition-colors shrink-0"
+                        className="text-slate-450 hover:text-[#df4b1c] hover:bg-[#df4b1c]/10 rounded-full w-9 h-9 flex items-center justify-center transition-colors shrink-0"
                       >
                         {actionLoadingId === friendshipId ? (
                           <Loader2 className="w-4 h-4 animate-spin text-slate-400" />
@@ -295,7 +295,7 @@ export default function FriendsPage() {
                   </p>
                   <Button 
                     onClick={() => setActiveTab('search')}
-                    className="h-11 px-6 text-xs font-bold rounded-2xl bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white shadow-soft hover:shadow-float active:scale-[0.98] border-none"
+                    className="h-11 px-6 text-xs font-bold rounded-2xl bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white shadow-soft hover:shadow-float active:scale-[0.98] border-none"
                   >
                     Buscar Pessoas
                   </Button>
@@ -330,7 +330,7 @@ export default function FriendsPage() {
                         />
                         <div>
                           <h4 className="text-sm font-extrabold text-slate-800 leading-snug">{getProfileName(senderProfile)}</h4>
-                          <p className="text-[10px] text-[#EF2A39] font-bold mt-0.5 uppercase tracking-wide">Enviou um convite</p>
+                          <p className="text-[10px] text-[#df4b1c] font-bold mt-0.5 uppercase tracking-wide">Enviou um convite</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
@@ -349,7 +349,7 @@ export default function FriendsPage() {
                           variant="ghost"
                           onClick={() => handleRemoveFriendship(friendshipId, 'Convite recusado.')}
                           disabled={actionLoadingId === friendshipId}
-                          className="text-slate-450 hover:text-[#EF2A39] hover:bg-[#EF2A39]/10 rounded-xl text-xs h-9 px-3.5 font-bold transition-colors"
+                          className="text-slate-450 hover:text-[#df4b1c] hover:bg-[#df4b1c]/10 rounded-xl text-xs h-9 px-3.5 font-bold transition-colors"
                         >
                           Recusar
                         </Button>
@@ -380,13 +380,13 @@ export default function FriendsPage() {
                     placeholder="Buscar amigo por nome..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-3.5 h-12 text-sm rounded-[16px] border border-slate-200 bg-white focus:border-[#EF2A39]/30 focus:ring-0 focus-visible:ring-0 text-slate-800 font-medium transition-all"
+                    className="w-full pl-10 pr-3.5 h-12 text-sm rounded-[16px] border border-slate-200 bg-white focus:border-[#df4b1c]/30 focus:ring-0 focus-visible:ring-0 text-slate-800 font-medium transition-all"
                   />
                 </div>
                 <Button 
                   type="submit" 
                   disabled={searching || !searchQuery.trim()}
-                  className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white h-12 px-6 rounded-[16px] text-xs font-bold shrink-0 shadow-soft"
+                  className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white h-12 px-6 rounded-[16px] text-xs font-bold shrink-0 shadow-soft"
                 >
                   {searching ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Pesquisar'}
                 </Button>
@@ -435,7 +435,7 @@ export default function FriendsPage() {
                         {status === 'pending_received' && (
                           <Button
                             onClick={() => setActiveTab('pending')}
-                            className="bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white rounded-xl text-xs h-9 px-4 font-bold shadow-soft"
+                            className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white rounded-xl text-xs h-9 px-4 font-bold shadow-soft"
                           >
                             Ver convite
                           </Button>
@@ -445,7 +445,7 @@ export default function FriendsPage() {
                           <Button
                             onClick={() => handleSendRequest(profile.id)}
                             disabled={actionLoadingId === profile.id}
-                            className="bg-gradient-to-r from-[#EF2A39] to-[#FF7E40] hover:opacity-95 text-white rounded-xl text-xs h-9 px-4 font-bold shadow-soft flex items-center gap-1.5 active:scale-95 transition-all border-none"
+                            className="bg-gradient-to-r from-[#df4b1c] to-[#FF7E40] hover:opacity-95 text-white rounded-xl text-xs h-9 px-4 font-bold shadow-soft flex items-center gap-1.5 active:scale-95 transition-all border-none"
                           >
                             {actionLoadingId === profile.id ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+﻿import React, { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { SlidersHorizontal, Star, Heart, Users, Sparkles, Plus, Eye, MapPin, ChevronDown, X, Play, ChevronLeft, ChevronRight, ExternalLink, Map, Waves, GraduationCap, Landmark } from 'lucide-react';
@@ -39,19 +39,19 @@ const MACRO_REGIONS = [
     id: 'orla',
     label: 'Orla',
     iconName: 'Waves',
-    neighborhoods: ['tambaú', 'tambau', 'cabo branco', 'manaíra', 'manaira', 'bessa', 'jardim oceania', 'altiplano', 'aeroclube', 'ponta de campina', 'intermares']
+    neighborhoods: ['tambaÃº', 'tambau', 'cabo branco', 'manaÃ­ra', 'manaira', 'bessa', 'jardim oceania', 'altiplano', 'aeroclube', 'ponta de campina', 'intermares']
   },
   {
     id: 'zona_sul',
     label: 'Zona Sul',
     iconName: 'GraduationCap',
-    neighborhoods: ['bancários', 'bancarios', 'mangabeira', 'geisel', 'ernesto geisel', 'valentina', 'valentina de figueiredo', 'castelo branco', 'portal do sol', 'josé américo', 'jose americo', 'cidade universitária', 'cidade universitaria']
+    neighborhoods: ['bancÃ¡rios', 'bancarios', 'mangabeira', 'geisel', 'ernesto geisel', 'valentina', 'valentina de figueiredo', 'castelo branco', 'portal do sol', 'josÃ© amÃ©rico', 'jose americo', 'cidade universitÃ¡ria', 'cidade universitaria']
   },
   {
     id: 'centro_norte',
     label: 'Centro / Norte',
     iconName: 'Landmark',
-    neighborhoods: ['centro', 'torre', 'tambiá', 'tambia', 'bairro dos estados', 'estados', 'jaguaribe', 'mandacaru', 'roger', 'padre zé', 'padre ze', 'miramar', 'tambauzinho', 'expedicionários', 'expedicionarios']
+    neighborhoods: ['centro', 'torre', 'tambiÃ¡', 'tambia', 'bairro dos estados', 'estados', 'jaguaribe', 'mandacaru', 'roger', 'padre zÃ©', 'padre ze', 'miramar', 'tambauzinho', 'expedicionÃ¡rios', 'expedicionarios']
   }
 ];
 
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const visto = localStorage.getItem('tutorial_visto');
     if (!visto) {
-      // Pequeno delay para garantir que os elementos já foram renderizados no DOM
+      // Pequeno delay para garantir que os elementos jÃ¡ foram renderizados no DOM
       const timer = setTimeout(() => {
         setShowTour(true);
       }, 1200);
@@ -115,27 +115,27 @@ const Home: React.FC = () => {
       restaurantLogo: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100&h=100&fit=crop',
       type: 'photo',
       mediaUrl: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=600&fit=crop',
-      caption: 'A verdadeira pizza artesanal com borda recheada e muuuito queijo! 🍕🤤',
+      caption: 'A verdadeira pizza artesanal com borda recheada e muuuito queijo! ðŸ•ðŸ¤¤',
       likes: 124
     },
     {
       id: 'post-2',
       restaurantId: '2',
-      restaurantName: 'Lancheira do Zé',
+      restaurantName: 'Lancheira do ZÃ©',
       restaurantLogo: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=100&h=100&fit=crop',
       type: 'photo',
       mediaUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=600&fit=crop',
-      caption: 'Smash Burger duplo artesanal saindo quentinho na chapa! 🍔🔥',
+      caption: 'Smash Burger duplo artesanal saindo quentinho na chapa! ðŸ”ðŸ”¥',
       likes: 98
     },
     {
       id: 'post-3',
       restaurantId: '3',
-      restaurantName: 'Doce Sonho Caffé',
+      restaurantName: 'Doce Sonho CaffÃ©',
       restaurantLogo: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=100&h=100&fit=crop',
       type: 'photo',
       mediaUrl: 'https://images.unsplash.com/photo-1554520735-0a6b8b6ce8b7?w=400&h=600&fit=crop',
-      caption: 'Melhor forma de começar o dia: panquecas fofinhas e muito mel! 🥞☕',
+      caption: 'Melhor forma de comeÃ§ar o dia: panquecas fofinhas e muito mel! ðŸ¥žâ˜•',
       likes: 85
     },
     {
@@ -145,7 +145,7 @@ const Home: React.FC = () => {
       restaurantLogo: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop',
       type: 'photo',
       mediaUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=600&fit=crop',
-      caption: 'Ingredientes frescos e selecionados para a sua salada perfeita. 🥗💚',
+      caption: 'Ingredientes frescos e selecionados para a sua salada perfeita. ðŸ¥—ðŸ’š',
       likes: 64
     }
   ], []);
@@ -157,7 +157,7 @@ const Home: React.FC = () => {
     if (activeStoryIndex === null) return;
     
     setStoryProgress(0);
-    const duration = 6000; // 6 segundos por história
+    const duration = 6000; // 6 segundos por histÃ³ria
     const intervalTime = 100;
     const step = (intervalTime / duration) * 100;
     
@@ -199,11 +199,11 @@ const Home: React.FC = () => {
     }
   };
 
-  // Parsear amigavelmente o endereço para exibição compacta (ex: Bairro ou Rua)
+  // Parsear amigavelmente o endereÃ§o para exibiÃ§Ã£o compacta (ex: Bairro ou Rua)
   const locationDisplayName = useMemo(() => {
-    if (!location.address) return 'Definir endereço';
+    if (!location.address) return 'Definir endereÃ§o';
     
-    // Endereço de mock padrão
+    // EndereÃ§o de mock padrÃ£o
     if (location.address.includes("Cabo Branco") && location.address.includes("2000")) {
       return "Cabo Branco";
     }
@@ -213,13 +213,13 @@ const Home: React.FC = () => {
       const streetPart = parts[0].trim();
       const neighborhoodPart = parts[1].trim();
 
-      // Se a rua for só número, CEP, "unnamed", ou muito curta (ex: "070"), exibe o bairro
+      // Se a rua for sÃ³ nÃºmero, CEP, "unnamed", ou muito curta (ex: "070"), exibe o bairro
       const isNumberOrShort = /^\d+$/.test(streetPart) || streetPart.length <= 4 || streetPart.toLowerCase().includes('unnamed');
       if (isNumberOrShort && neighborhoodPart) {
         return neighborhoodPart;
       }
 
-      // Se for rua válida, formata de forma premium e encurtada (Rua -> R., Avenida -> Av.)
+      // Se for rua vÃ¡lida, formata de forma premium e encurtada (Rua -> R., Avenida -> Av.)
       let display = streetPart;
       display = display.replace(/^rua\s+/i, 'R. ');
       display = display.replace(/^avenida\s+/i, 'Av. ');
@@ -244,7 +244,7 @@ const Home: React.FC = () => {
   const handleSearchSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto obtemos sua localização.");
+      showError("Aguarde enquanto obtemos sua localizaÃ§Ã£o.");
       return;
     }
     navigate(createPageUrl('search', undefined, { searchQuery, searchType: 'dish' }));
@@ -256,11 +256,11 @@ const Home: React.FC = () => {
     return found ? found.id : fallbackId;
   };
 
-  // Filtragem local dos restaurantes baseado na categoria e macro-região selecionadas
+  // Filtragem local dos restaurantes baseado na categoria e macro-regiÃ£o selecionadas
   const filteredRestaurants = useMemo(() => {
     if (!restaurants) return [];
 
-    // 1. Filtrar por macro-região
+    // 1. Filtrar por macro-regiÃ£o
     let list = restaurants;
     if (selectedRegion !== 'all') {
       const regionData = MACRO_REGIONS.find(reg => reg.id === selectedRegion);
@@ -288,7 +288,7 @@ const Home: React.FC = () => {
     } else if (selectedCategory === 'lanches') {
       categoryFiltered = list.filter(r =>
         r.category?.toLowerCase().includes('lanche') ||
-        r.category?.toLowerCase().includes('hambúrg') ||
+        r.category?.toLowerCase().includes('hambÃºrg') ||
         r.category?.toLowerCase().includes('burg')
       );
     } else if (selectedCategory === 'sobremesas') {
@@ -296,7 +296,7 @@ const Home: React.FC = () => {
         r.category?.toLowerCase().includes('sobremesa') ||
         r.category?.toLowerCase().includes('doce') ||
         r.category?.toLowerCase().includes('sorvete') ||
-        r.category?.toLowerCase().includes('açaí') ||
+        r.category?.toLowerCase().includes('aÃ§aÃ­') ||
         r.category?.toLowerCase().includes('acai')
       );
     } else if (selectedCategory === 'pizza') {
@@ -305,7 +305,7 @@ const Home: React.FC = () => {
       );
     } else if (selectedCategory === 'saudavel') {
       categoryFiltered = list.filter(r =>
-        r.category?.toLowerCase().includes('saudável') ||
+        r.category?.toLowerCase().includes('saudÃ¡vel') ||
         r.category?.toLowerCase().includes('saudavel') ||
         r.category?.toLowerCase().includes('salada') ||
         r.category?.toLowerCase().includes('fit') ||
@@ -314,7 +314,7 @@ const Home: React.FC = () => {
       );
     }
 
-    // 3. Ordenar: Abertos primeiro, depois critério específico
+    // 3. Ordenar: Abertos primeiro, depois critÃ©rio especÃ­fico
     return [...categoryFiltered].sort((a, b) => {
       const aOpen = isRestaurantOpen(a);
       const bOpen = isRestaurantOpen(b);
@@ -325,29 +325,29 @@ const Home: React.FC = () => {
       if (selectedCategory === 'nearby') {
         return (a.distance_km || 0) - (b.distance_km || 0);
       }
-      return 0; // Mantém ordem original (RPC: plan DESC, etc.)
+      return 0; // MantÃ©m ordem original (RPC: plan DESC, etc.)
     });
   }, [restaurants, selectedCategory, selectedRegion, isFavorite]);
 
   return (
-    <div className="bg-white/80 backdrop-blur-md w-full flex-grow pt-4 font-['Poppins']">
+    <div className="w-full flex-grow bg-[#FAFAFA] pt-2 font-['Poppins']">
       
-      {/* Cabeçalho Sticky Premium */}
+      {/* CabeÃ§alho Sticky Premium */}
       <Header
         title={
           <div className="flex flex-col min-w-0 pr-2 pb-1">
-            <h1 className="font-['Lobster'] text-[38px] text-[#EF2A39] leading-tight drop-shadow-[0_2px_5px_rgba(239,42,57,0.15)]">
+            <h1 className="font-['Lobster'] text-[34px] leading-tight text-highlight">
               FilterFood
             </h1>
             <button
               onClick={() => setIsLocationModalOpen(true)}
-              className="flex items-center gap-1.5 text-[13px] text-[#6A6A6A] hover:text-[#EF2A39] transition-colors mt-0 font-semibold active:scale-[0.98] cursor-pointer"
+              className="mt-0 flex cursor-pointer items-center gap-1.5 text-[13px] font-medium text-text-secondary transition-colors hover:text-highlight active:scale-[0.98]"
             >
-              <MapPin className="w-3.5 h-3.5 text-[#EF2A39] shrink-0" />
+              <MapPin className="h-3.5 w-3.5 shrink-0 text-highlight" />
               <span className="truncate max-w-[180px]">
                 {isLocationLoading ? "Carregando..." : locationDisplayName}
               </span>
-              <ChevronDown className="w-3 h-3 text-[#6A6A6A] shrink-0" />
+              <ChevronDown className="h-3 w-3 shrink-0 text-text-secondary" />
             </button>
           </div>
         }
@@ -356,7 +356,7 @@ const Home: React.FC = () => {
             onClick={() => navigate('/profile')}
             className="shrink-0 cursor-pointer active:scale-95 transition-transform"
           >
-            <div className="w-[50px] h-[50px] rounded-full p-[2.5px] bg-gradient-to-br from-[#FF7E40] to-[#EF2A39] shadow-[0_4px_12px_rgba(239,42,57,0.25)]">
+            <div className="h-11 w-11 rounded-full border border-highlight/15 bg-highlight/5 p-1 shadow-sm">
               <img
                 src="https://api.dicebear.com/7.x/avataaars/svg?seed=FilterUser&backgroundColor=fef2f2"
                 alt="Meu perfil"
@@ -368,7 +368,7 @@ const Home: React.FC = () => {
       />
 
       {/* Barra de Busca */}
-      <div id="tour-search-bar" className="px-5 mb-8 flex gap-4">
+      <div id="tour-search-bar" className="mb-6 flex gap-3 px-5">
         <SoftSearchInput
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -377,48 +377,47 @@ const Home: React.FC = () => {
         />
         <button
           onClick={() => handleSearchSubmit()}
-          className="shrink-0 h-[60px] w-[60px] bg-white hover:bg-slate-50 text-[#EF2A39] rounded-[20px] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-slate-100 flex items-center justify-center transition-all duration-200 active:scale-95"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[18px] border border-slate-100 bg-white text-highlight shadow-soft transition-all duration-200 hover:bg-slate-50 active:scale-95"
         >
-          <SlidersHorizontal className="w-6 h-6 stroke-[2.5]" />
+          <SlidersHorizontal className="h-5 w-5 stroke-[2.2]" />
         </button>
       </div>
 
       {/* Bento Grid */}
-      <div className="grid grid-cols-3 gap-4 px-5 mb-8">
+      <div className="mb-8 grid grid-cols-3 gap-3 px-5">
         {/* Card Happy Hour Hub (2 colunas, 2 linhas) */}
         <div
           id="tour-happy-hour-card"
           onClick={() => navigate('/happy-hours')}
-          className="col-span-2 row-span-2 bg-gradient-to-tr from-[#EF2A39] to-[#FF7E40] rounded-[24px] p-5 flex flex-col justify-between text-white shadow-[0_8px_24px_rgba(239,42,57,0.20)] relative overflow-hidden active:scale-[0.98] transition-transform duration-200 cursor-pointer h-[184px]"
+          className="relative col-span-2 row-span-2 flex h-[160px] cursor-pointer flex-col justify-between overflow-hidden rounded-[24px] bg-gradient-to-tr from-[#df4b1c] to-[#F76A3A] p-5 text-white shadow-[0_8px_22px_rgba(223,75,28,0.16)] transition-transform duration-200 active:scale-[0.99]"
         >
-          {/* Círculos decorativos de fundo */}
-          <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-white/10 pointer-events-none" />
-          <div className="absolute -bottom-4 -right-4 w-20 h-20 rounded-full bg-white/8 pointer-events-none" />
+          {/* CÃ­rculos decorativos de fundo */}
+          <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-white/10" />
+          <div className="pointer-events-none absolute -bottom-4 -right-4 h-20 w-20 rounded-full bg-white/10" />
 
-          {/* Micro-animação de pulso */}
-          <div className="absolute top-4 right-4 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+          {/* Micro-animaÃ§Ã£o de pulso */}
+          <div className="absolute right-4 top-4 flex h-2.5 w-2.5">
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
           </div>
 
           <div>
-            <span className="text-[10px] uppercase tracking-wider font-bold text-white/80 bg-white/20 px-2 py-0.5 rounded-full">Social Hub</span>
-            <h3 className="font-['Poppins'] font-bold text-xl mt-2 leading-tight">Happy Hour</h3>
-            <p className="text-xs text-white/90 mt-1">Amigos ativos no momento</p>
+            <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/90">Social Hub</span>
+            <h3 className="mt-2 font-['Poppins'] text-[20px] font-semibold leading-tight">Happy Hour</h3>
+            <p className="mt-1 text-xs text-white/90">Convide amigos para sair</p>
           </div>
 
-          <div className="flex items-center mt-auto justify-between w-full gap-2">
+          <div className="mt-auto flex w-full items-center justify-between gap-2">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 navigate('/happy-hours');
               }}
-              className="flex items-center gap-2 bg-white/15 hover:bg-white/25 px-3 py-1.5 rounded-full backdrop-blur-md transition-all duration-200 active:scale-95 border-none text-white cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+              className="flex cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/15 px-3 py-1.5 text-white transition-all duration-200 active:scale-95"
             >
               <div className="flex -space-x-2">
-                <img className="w-6 h-6 rounded-full border border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="Friend 1" />
-                <img className="w-6 h-6 rounded-full border border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="Friend 2" />
-                <img className="w-6 h-6 rounded-full border border-[#EF2A39]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Charlie" alt="Friend 3" />
+                <img className="w-6 h-6 rounded-full border border-[#df4b1c]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="Friend 1" />
+                <img className="w-6 h-6 rounded-full border border-[#df4b1c]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="Friend 2" />
+                <img className="w-6 h-6 rounded-full border border-[#df4b1c]" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Charlie" alt="Friend 3" />
               </div>
               <span className="text-xs font-semibold">Entrar</span>
             </button>
@@ -428,10 +427,10 @@ const Home: React.FC = () => {
                 e.stopPropagation();
                 navigate('/happy-hours?create=true');
               }}
-              className="flex items-center gap-1.5 bg-white text-[#EF2A39] hover:bg-slate-50 px-3 py-1.5 rounded-full transition-all duration-200 active:scale-95 font-semibold text-xs border-none shadow-[0_4px_12px_rgba(239,42,57,0.15)] cursor-pointer"
+              className="flex cursor-pointer items-center gap-1.5 rounded-full border-none bg-white px-3 py-1.5 text-xs font-semibold text-highlight shadow-none transition-all duration-200 active:scale-95"
             >
               <Plus className="w-3.5 h-3.5 stroke-[3.5]" />
-              <span>Novo Rolê</span>
+              <span>Novo RolÃª</span>
             </button>
           </div>
         </div>
@@ -439,66 +438,66 @@ const Home: React.FC = () => {
         {/* Card Atalho: Amigos */}
         <div
           onClick={() => navigate('/friends')}
-          className="rounded-[24px] p-4 flex flex-col justify-between items-start transition-all duration-200 cursor-pointer h-[84px] active:scale-95 bg-white text-[#3C2F2F] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5"
+          className="flex h-[74px] cursor-pointer flex-col items-start justify-between rounded-[22px] border border-slate-100 bg-white p-4 text-[#3C2F2F] shadow-soft transition-all duration-200 active:scale-95"
         >
-          <div className="p-2 rounded-xl bg-[#EF2A39]/10 text-[#EF2A39]">
+          <div className="p-2 rounded-xl bg-[#df4b1c]/10 text-[#df4b1c]">
             <Users className="w-4 h-4 stroke-[2.5]" />
           </div>
-          <h4 className="font-bold text-xs leading-none">Amigos</h4>
+          <h4 className="text-xs font-semibold leading-none">Amigos</h4>
         </div>
 
         {/* Card Categoria: Favoritos ou Meu Perfil */}
         {isRestaurantOwner ? (
           <div
             onClick={() => navigate(`/restaurant/${restaurant.id}`)}
-            className="rounded-[24px] p-4 flex flex-col justify-between items-start transition-all duration-200 cursor-pointer h-[84px] active:scale-95 bg-white text-[#3C2F2F] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5"
+            className="flex h-[74px] cursor-pointer flex-col items-start justify-between rounded-[22px] border border-slate-100 bg-white p-4 text-[#3C2F2F] shadow-soft transition-all duration-200 active:scale-95"
           >
-            <div className="p-2 rounded-xl bg-[#EF2A39]/10 text-[#EF2A39]">
+            <div className="p-2 rounded-xl bg-[#df4b1c]/10 text-[#df4b1c]">
               <Eye className="w-4 h-4 stroke-[2.5]" />
             </div>
-            <h4 className="font-bold text-xs leading-none">Meu Perfil</h4>
+            <h4 className="text-xs font-semibold leading-none">Meu Perfil</h4>
           </div>
         ) : (
           <div
             onClick={() => setSelectedCategory('favorites')}
-            className={`rounded-[24px] p-4 flex flex-col justify-between items-start transition-all duration-200 cursor-pointer h-[84px] active:scale-95 ${
+            className={`flex h-[74px] cursor-pointer flex-col items-start justify-between rounded-[22px] border p-4 transition-all duration-200 active:scale-95 ${
               selectedCategory === 'favorites'
-                ? 'bg-gradient-to-br from-[#EF2A39] to-[#D62230] text-white shadow-[0_6px_20px_rgba(239,42,57,0.25)]'
-                : 'bg-white text-[#3C2F2F] shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5'
+                ? 'border-highlight/20 bg-highlight text-white shadow-sm'
+                : 'border-slate-100 bg-white text-[#3C2F2F] shadow-soft'
             }`}
           >
-            <div className={`p-2 rounded-xl ${selectedCategory === 'favorites' ? 'bg-white/20 text-white' : 'bg-[#EF2A39]/10 text-[#EF2A39]'}`}>
+            <div className={`p-2 rounded-xl ${selectedCategory === 'favorites' ? 'bg-white/20 text-white' : 'bg-[#df4b1c]/10 text-[#df4b1c]'}`}>
               <Heart className="w-4 h-4 stroke-[2.5]" />
             </div>
-            <h4 className="font-bold text-xs leading-none">Favoritos</h4>
+            <h4 className="text-xs font-semibold leading-none">Favoritos</h4>
           </div>
         )}
       </div>
 
-      {/* Sessão Recomendados (Destaques dos Restaurantes) */}
-      <div className="mb-8 pl-5">
-        <div className="flex justify-between items-center pr-5 mb-4">
-          <h2 className="font-['Poppins'] font-bold text-[18px] text-[#3C2F2F] flex items-center gap-1.5">
-            Recomendados <span className="inline-block w-2 h-2 rounded-full bg-[#EF2A39] animate-pulse" />
+      {/* SessÃ£o Recomendados (Destaques dos Restaurantes) */}
+      <div className="mb-7 pl-5 pt-1">
+        <div className="mb-4 flex items-center justify-between pr-5">
+          <h2 className="flex items-center gap-1.5 font-['Poppins'] text-[18px] font-semibold text-[#3C2F2F]">
+            Recomendados
           </h2>
-          <span className="text-[11px] font-bold text-[#EF2A39] bg-[#EF2A39]/10 px-2.5 py-1 rounded-full uppercase tracking-wider">
+          <span className="rounded-full bg-highlight/10 px-2.5 py-1 text-[11px] font-semibold normal-case tracking-normal text-highlight">
             Destaques
           </span>
         </div>
 
         <ScrollArea className="w-full whitespace-nowrap">
-          <div className="flex gap-4 pr-5 pb-2">
+          <div className="flex gap-3 pr-5 pb-2">
             {recommendedPosts.map((post, idx) => (
               <div
                 key={post.id}
                 onClick={() => setActiveStoryIndex(idx)}
-                className="inline-block w-[160px] h-[240px] rounded-[24px] overflow-hidden relative shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-slate-100 bg-slate-100 cursor-pointer active:scale-[0.97] transition-all duration-200 group"
+                className="group relative inline-block h-[218px] w-[150px] cursor-pointer overflow-hidden rounded-[22px] border border-slate-100 bg-slate-100 shadow-soft transition-all duration-200 active:scale-[0.98]"
               >
                 {/* Media */}
                 {post.type === 'video' ? (
                   <video
                     src={post.mediaUrl}
-                    className="w-full h-full object-cover pointer-events-none"
+                    className="h-full w-full object-contain pointer-events-none"
                     loop
                     muted
                     autoPlay
@@ -508,15 +507,15 @@ const Home: React.FC = () => {
                   <img
                     src={post.mediaUrl}
                     alt={post.caption}
-                    className="w-full h-full object-cover pointer-events-none"
+                    className="h-full w-full object-contain pointer-events-none"
                   />
                 )}
 
                 {/* Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/48 via-black/10 to-transparent" />
 
                 {/* Top header with restaurant name & logo */}
-                <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center gap-1.5 z-10 max-w-full">
+                <div className="absolute left-2.5 right-2.5 top-2.5 z-10 flex max-w-full items-center gap-1.5 rounded-full bg-black/22 py-1 pl-1 pr-2 backdrop-blur-[2px]">
                   <div className="w-6 h-6 rounded-full border border-white/60 p-[1px] bg-white overflow-hidden shrink-0">
                     <img
                       src={post.restaurantLogo}
@@ -524,7 +523,7 @@ const Home: React.FC = () => {
                       className="w-full h-full rounded-full object-cover"
                     />
                   </div>
-                  <span className="text-[10px] font-bold text-white truncate drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                  <span className="truncate text-[10px] font-semibold text-white">
                     {post.restaurantName}
                   </span>
                 </div>
@@ -546,17 +545,17 @@ const Home: React.FC = () => {
         </ScrollArea>
       </div>
 
-      {/* Categorias — estilo círculo com foto + label */}
-      <div className="mb-8 pl-5">
+      {/* Categorias â€” estilo cÃ­rculo com foto + label */}
+      <div className="mb-7 pl-5">
         <ScrollArea className="w-full whitespace-nowrap">
-          <div className="flex gap-5 pr-5 pb-2 pt-1">
+          <div className="flex gap-4 pr-5 pb-2 pt-1">
             {[
               { id: 'all', label: 'Tudo', icon: ChefPlatterIllustration },
               { id: 'combos', label: 'Combos', icon: ComboIllustration },
               { id: 'lanches', label: 'Lanches', icon: BurgerIllustration },
               { id: 'sobremesas', label: 'Sobremesas', icon: CupcakeIllustration },
               { id: 'pizza', label: 'Pizza', icon: PizzaIllustration },
-              { id: 'saudavel', label: 'Saudável', icon: SaladIllustration },
+              { id: 'saudavel', label: 'SaudÃ¡vel', icon: SaladIllustration },
             ].map((cat) => {
               const isSelected = selectedCategory === cat.id;
               const IconComponent = cat.icon;
@@ -566,22 +565,22 @@ const Home: React.FC = () => {
                   onClick={() => setSelectedCategory(cat.id)}
                   className="flex flex-col items-center gap-2 active:scale-95 transition-transform duration-150"
                 >
-                  {/* Círculo com ilustração vetorial */}
+                  {/* CÃ­rculo com ilustraÃ§Ã£o vetorial */}
                   <div
-                    className={`w-[68px] h-[68px] rounded-full transition-all duration-200 ${
+                    className={`h-16 w-16 rounded-full transition-all duration-200 ${
                       isSelected
-                        ? 'bg-[#EF2A39]/10 shadow-[0_2px_8px_rgba(239,42,57,0.15)]'
-                        : 'bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/80'
+                        ? 'border border-highlight/15 bg-highlight/[0.08] shadow-none'
+                        : 'border border-slate-100 bg-white shadow-soft'
                     }`}
                   >
-                    <div className="w-full h-full rounded-full flex items-center justify-center transition-colors duration-200">
-                      <IconComponent className="w-11 h-11" />
+                    <div className="flex h-full w-full items-center justify-center rounded-full transition-colors duration-200">
+                      <IconComponent className="h-10 w-10" />
                     </div>
                   </div>
                   {/* Label */}
                   <span
-                    className={`text-[12px] font-semibold leading-none transition-colors duration-200 ${
-                      isSelected ? 'text-[#EF2A39]' : 'text-[#6A6A6A]'
+                    className={`text-[12px] font-medium leading-none transition-colors duration-200 ${
+                      isSelected ? 'text-highlight' : 'text-text-secondary'
                     }`}
                   >
                     {cat.label}
@@ -594,9 +593,9 @@ const Home: React.FC = () => {
         </ScrollArea>
       </div>
 
-      {/* Barra de Macro-Regiões */}
-      <div className="px-5 mb-8 overflow-hidden">
-        <div className="flex gap-2 overflow-x-auto pb-1 hide-scrollbar -mx-5 px-5">
+      {/* Barra de Macro-RegiÃµes */}
+      <div className="mb-6 overflow-hidden px-5">
+        <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 hide-scrollbar">
           {MACRO_REGIONS.map((region) => {
             const isActive = selectedRegion === region.id;
             return (
@@ -604,10 +603,10 @@ const Home: React.FC = () => {
                 key={region.id}
                 onClick={() => setSelectedRegion(region.id)}
                 className={cn(
-                  "shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5",
+                  "flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-xs font-semibold transition-all duration-200",
                   isActive
-                    ? "bg-[#EF2A39] text-white shadow-[0_6px_16px_rgba(239,42,57,0.3)] scale-[1.03]"
-                    : "bg-[#F3F4F6] text-[#374151] border border-slate-200/60 hover:bg-slate-200/70"
+                    ? "bg-highlight text-white shadow-[0_4px_12px_rgba(223,75,28,0.14)]"
+                    : "border border-slate-100 bg-white text-text-secondary shadow-sm hover:bg-slate-50"
                 )}
               >
                 {getRegionIcon(region.iconName)}
@@ -619,19 +618,19 @@ const Home: React.FC = () => {
       </div>
 
       {/* Lista de Restaurantes (Cards Horizontais) */}
-      <div id="tour-restaurants-list" className="px-5 flex flex-col gap-4 pb-32">
+      <div id="tour-restaurants-list" className="flex flex-col gap-3 px-5 pb-32">
         {isRestaurantsLoading ? (
           <>
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-28 rounded-[20px] bg-white shadow-[0_4px_16px_rgba(0,0,0,0.08)] border border-slate-100/50 p-4 flex gap-4 overflow-hidden items-center">
-                {/* Shimmer animado — área da imagem */}
-                <div className="relative w-[84px] h-[84px] rounded-2xl overflow-hidden bg-slate-100 shrink-0">
+              <div key={i} className="flex h-[100px] items-center gap-3 overflow-hidden rounded-[20px] border border-slate-100 bg-white p-3.5 shadow-soft">
+                {/* Shimmer animado â€” Ã¡rea da imagem */}
+                <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-2xl bg-slate-100">
                   <div
                     className="absolute inset-0 bg-gradient-to-r from-slate-100 via-white to-slate-100"
                     style={{ animation: 'shimmer 1.6s ease-in-out infinite', backgroundSize: '200% 100%' }}
                   />
                 </div>
-                {/* Shimmer — detalhes */}
+                {/* Shimmer â€” detalhes */}
                 <div className="flex-grow space-y-2">
                   <div className="relative h-4 rounded-lg w-1/3 overflow-hidden bg-slate-100">
                     <div
@@ -664,46 +663,47 @@ const Home: React.FC = () => {
               <div 
                 key={restaurant.id} 
                 onClick={() => navigate(createPageUrl('restaurantProfile', { restaurantId: restaurant.id }))}
-                className="flex items-center gap-4 p-4 rounded-[20px] bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-slate-100/50 cursor-pointer hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-200"
+                className="flex min-h-[100px] cursor-pointer items-center gap-3 rounded-[20px] border border-slate-100 bg-white p-3.5 shadow-soft transition-all duration-200 hover:translate-y-[-1px]"
               >
                 {/* Imagem do Restaurante */}
-                <div className="w-[84px] h-[84px] rounded-2xl overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
+                <div className="h-[72px] w-[72px] shrink-0 overflow-hidden rounded-2xl border border-slate-100 bg-slate-50">
                   <img 
                     src={getBustedUrl(restaurant.image_url) || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop'} 
                     alt={restaurant.name}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-contain"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=400&fit=crop';
                     }}
                   />
                 </div>
 
-                {/* Conteúdo */}
-                <div className="flex-grow min-w-0 pr-2 flex flex-col justify-center">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[10px] uppercase tracking-wider font-extrabold text-[#EF2A39]">
+                {/* ConteÃºdo */}
+                <div className="flex min-w-0 flex-grow flex-col justify-center pr-1">
+                  <div className="mb-0.5 flex items-center gap-1.5">
+                    <span className="truncate text-[9.5px] font-semibold uppercase tracking-wide text-highlight/85">
                       {restaurant.category || 'Geral'}
                     </span>
                     <span className={cn(
-                      "text-[9px] px-1.5 py-0.5 rounded-md font-bold uppercase tracking-wide",
+                      "inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[8.5px] font-semibold uppercase tracking-wide",
                       isOpen 
-                        ? "bg-emerald-50 text-emerald-600 border border-emerald-100" 
-                        : "bg-rose-50 text-rose-600 border border-rose-100"
+                        ? "bg-emerald-50 text-emerald-600" 
+                        : "bg-slate-50 text-slate-400"
                     )}>
+                      <span className={cn("h-1.5 w-1.5 rounded-full", isOpen ? "bg-emerald-400" : "bg-slate-300")} />
                       {isOpen ? 'Aberto' : 'Fechado'}
                     </span>
                   </div>
-                  <h3 className="font-bold text-base text-[#3C2F2F] truncate leading-tight">
+                  <h3 className="truncate text-[15px] font-semibold leading-tight text-[#3C2F2F]">
                     {restaurant.name}
                   </h3>
                   
-                  <div className="flex items-center gap-2.5 mt-1.5 text-xs text-slate-500 font-semibold">
+                  <div className="mt-1.5 flex items-center gap-2 text-xs font-normal text-text-secondary">
                     <div className="flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 fill-[#FF9633] text-[#FF9633]" />
-                      <span className="text-[#3C2F2F] font-bold">{mockRating}</span>
+                      <Star className="h-3.5 w-3.5 fill-[#FF9633] text-[#FF9633]" />
+                      <span className="font-semibold text-[#3C2F2F]">{mockRating}</span>
                     </div>
-                    <span>•</span>
-                    <span className="text-slate-400 font-medium">a {restaurant.distance_km?.toFixed(1) || '1.2'} km</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="font-medium text-slate-400">a {restaurant.distance_km?.toFixed(1) || '1.2'} km</span>
                   </div>
                 </div>
 
@@ -713,13 +713,13 @@ const Home: React.FC = () => {
                     e.stopPropagation();
                     toggleFavorite(restaurant.id, isFavorite(restaurant.id));
                   }}
-                  className={`shrink-0 transition-colors p-1 ${
+                  className={`shrink-0 rounded-full p-1.5 transition-colors ${
                     isFavorite(restaurant.id) 
-                      ? 'text-[#EF2A39] hover:text-[#EF2A39]/80' 
-                      : 'text-[#3C2F2F] hover:text-[#EF2A39]'
+                      ? 'text-highlight hover:text-highlight/80' 
+                      : 'text-slate-400 hover:text-highlight'
                   }`}
                 >
-                  <Heart className={`w-6 h-6 stroke-[2] ${isFavorite(restaurant.id) ? 'fill-[#EF2A39]' : ''}`} />
+                  <Heart className={`h-5 w-5 stroke-[2] ${isFavorite(restaurant.id) ? 'fill-highlight' : ''}`} />
                 </button>
               </div>
             );
@@ -851,10 +851,10 @@ const Home: React.FC = () => {
                 setActiveStoryIndex(null);
                 navigate(createPageUrl('restaurantProfile', { restaurantId: targetId }));
               }}
-              className="w-full bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white font-bold h-12 rounded-[18px] flex items-center justify-center gap-2 active:scale-98 transition-transform border-none cursor-pointer"
+              className="w-full bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-bold h-12 rounded-[18px] flex items-center justify-center gap-2 active:scale-98 transition-transform border-none cursor-pointer"
             >
               <ExternalLink className="w-4 h-4" />
-              Ver Restaurante e Cardápio
+              Ver Restaurante e CardÃ¡pio
             </Button>
           </div>
         </div>,

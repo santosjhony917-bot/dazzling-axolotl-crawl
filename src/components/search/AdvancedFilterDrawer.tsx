@@ -164,7 +164,7 @@ export default function AdvancedFilterDrawer({
           variant="ghost"
           className={`h-11 w-11 p-0 rounded-full flex items-center justify-center transition-all duration-200 ${
             hasAnyFilterActive
-              ? "bg-[#EF2A39] text-white shadow-[0_4px_12px_rgba(239,42,57,0.3)] hover:bg-[#EF2A39]/90"
+              ? "bg-[#df4b1c] text-white shadow-[0_4px_12px_rgba(223,75,28,0.3)] hover:bg-[#df4b1c]/90"
               : "bg-white text-[#6A6A6A] border border-slate-100 hover:bg-slate-50"
           }`}
         >
@@ -203,7 +203,7 @@ export default function AdvancedFilterDrawer({
                   value={category.normalizedName}
                   className={`rounded-full px-4 py-1.5 h-auto text-xs font-semibold transition-all duration-150 border ${
                     localSelectedNormalizedNames.includes(category.normalizedName)
-                      ? "bg-[#EF2A39] text-white border-[#EF2A39] shadow-[0_3px_8px_rgba(239,42,57,0.25)]"
+                      ? "bg-[#df4b1c] text-white border-[#df4b1c] shadow-[0_3px_8px_rgba(223,75,28,0.25)]"
                       : "bg-[#F9FAFB] text-[#6A6A6A] border-slate-100 hover:bg-slate-50"
                   }`}
                 >
@@ -226,7 +226,7 @@ export default function AdvancedFilterDrawer({
                     onClick={() => setLocalNeighborhood(isSelected ? null : neighborhood)}
                     className={`flex items-center gap-1 rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-150 border ${
                       isSelected
-                        ? "bg-[#EF2A39] text-white border-[#EF2A39] shadow-[0_3px_8px_rgba(239,42,57,0.25)]"
+                        ? "bg-[#df4b1c] text-white border-[#df4b1c] shadow-[0_3px_8px_rgba(223,75,28,0.25)]"
                         : "bg-[#F9FAFB] text-[#6A6A6A] border-slate-100 hover:bg-slate-50"
                     }`}
                   >
@@ -256,7 +256,7 @@ export default function AdvancedFilterDrawer({
                     onClick={() => setLocalPriceRange(range.id)}
                     className={`rounded-xl py-2 px-1 text-[11px] font-bold text-center transition-all duration-150 border ${
                       isSelected
-                        ? "bg-[#EF2A39] text-white border-[#EF2A39] shadow-[0_3px_8px_rgba(239,42,57,0.25)]"
+                        ? "bg-[#df4b1c] text-white border-[#df4b1c] shadow-[0_3px_8px_rgba(223,75,28,0.25)]"
                         : "bg-[#F9FAFB] text-[#6A6A6A] border-slate-100 hover:bg-slate-50"
                     }`}
                   >
@@ -278,7 +278,7 @@ export default function AdvancedFilterDrawer({
           </Button>
           <Button 
             onClick={handleApplyFilter}
-            className="flex-1 h-12 rounded-[16px] text-xs font-bold bg-[#EF2A39] hover:bg-[#EF2A39]/90 text-white shadow-[0_6px_16px_rgba(239,42,57,0.3)] border-none"
+            className="flex-1 h-12 rounded-[16px] text-xs font-bold bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white shadow-[0_6px_16px_rgba(223,75,28,0.3)] border-none"
           >
             Aplicar Filtros
           </Button>
