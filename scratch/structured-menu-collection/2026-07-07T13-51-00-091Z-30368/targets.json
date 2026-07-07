@@ -1,0 +1,39 @@
+[
+  {
+    "restaurantId": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+    "restaurantName": "Pastelaria Litorânea",
+    "sourceUrl": "https://whatsmenu.com.br/pastelarialitoranea",
+    "platform": "whatsmenu",
+    "reviewsCount": 280,
+    "address": "R. Sólon de Lucena",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98807-9929",
+    "queueEntry": {
+      "restaurant_id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "restaurantId": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "restaurantName": "Pastelaria Litorânea",
+      "platform": "whatsmenu",
+      "tier": "green",
+      "source_url": "https://whatsmenu.com.br/pastelarialitoranea",
+      "sourceUrl": "https://whatsmenu.com.br/pastelarialitoranea",
+      "raw_source_url": "https://whatsmenu.com.br/pastelarialitoranea",
+      "source_field": "user_safe_batch",
+      "other_url": "https://whatsmenu.com.br/pastelarialitoranea",
+      "external_url": "",
+      "category": "Pastelaria brasileira",
+      "address": "R. Sólon de Lucena",
+      "neighborhood": "Vila Sao Joao",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98807-9929",
+      "rating": 4.3,
+      "reviews_count": 280,
+      "menu_status": "found",
+      "menu_status_reason": "108 itens estruturados via whatsmenu_native_api; mídia mínima completa.",
+      "is_published": false,
+      "ai_validated": true
+    }
+  }
+]

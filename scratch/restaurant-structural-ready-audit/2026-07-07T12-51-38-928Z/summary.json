@@ -1,0 +1,72 @@
+{
+  "runId": "2026-07-07T12-51-38-928Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T12-51-38-928Z",
+  "scope": {
+    "ids": [
+      "a84400f3-afea-406e-a1ec-93c1b6e8d34f"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+      "name": "Pizzaria Bom Sabor",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 2,
+      "itemCount": 12,
+      "optionCount": 92,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "12 itens estruturados via restaurantlogin_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://pizzariabomsaborpb.com.br/",
+        "instagram": "https://www.instagram.com/pizzariabomsaborpb2/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:18.750Z",
+          "status": "enriched",
+          "username": "pizzariabomsaborpb2",
+          "followers": 548,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pizzariabomsaborpb.com.br/",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Jair Cunha Cavalcanti",
+        "number": "248",
+        "neighborhood": "Lot. Oceania",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58105-700",
+        "phone": "(83) 98762-6366",
+        "latitude": -7.0308525,
+        "longitude": -34.8483941,
+        "followers": 548
+      },
+      "issues": []
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "apply": false,
+  "city": "Cabedelo",
+  "state": "PB",
+  "activeRows": 211,
+  "plannedRemovals": 5,
+  "updated": 0,
+  "failed": [],
+  "planned": [
+    {
+      "id": "dcfb81cb-40ef-4a02-9e77-ef4c37a1f84f",
+      "name": "Marmitaria Jacaré",
+      "category": "Restaurante",
+      "reason": "permanently_closed",
+      "evidenceText": "Permanently closed | Permanently closed | Permanently closed",
+      "rawRunId": "2026-07-06T19-42-57-721Z",
+      "rawFile": "raw-071.json"
+    },
+    {
+      "id": "b445cc86-f4d5-43eb-84eb-d204898121d9",
+      "name": "Churrascaria do Pernambucano",
+      "category": "Restaurante familiar",
+      "reason": "temporarily_closed",
+      "evidenceText": "Temporarily closed | Temporarily closed | Temporarily closed",
+      "rawRunId": "2026-07-06T19-42-57-721Z",
+      "rawFile": "raw-002.json"
+    },
+    {
+      "id": "38a4f9a5-b40f-4f79-b124-3dffd9f2c0c5",
+      "name": "Sarau Pizza Bar",
+      "category": "Delivery de Pizza",
+      "reason": "temporarily_closed",
+      "evidenceText": "Temporarily closed | Temporarily closed | Temporarily closed",
+      "rawRunId": "2026-07-06T19-42-57-721Z",
+      "rawFile": "raw-068.json"
+    },
+    {
+      "id": "36ef5eca-78a6-42d3-9571-3d71148f5b13",
+      "name": "Laila Comida Oriente Médio",
+      "category": "Restaurante árabe",
+      "reason": "permanently_closed",
+      "evidenceText": "Permanently closed | Permanently closed | Permanently closed",
+      "rawRunId": "2026-07-06T19-42-57-721Z",
+      "rawFile": "raw-046.json"
+    },
+    {
+      "id": "e6406971-6d1b-4cfa-b3ea-c056097219b8",
+      "name": "LeFit - Comida Saudável",
+      "category": "Delivery",
+      "reason": "temporarily_closed",
+      "evidenceText": "Temporarily closed | Temporarily closed | Temporarily closed",
+      "rawRunId": "2026-07-06T19-42-57-721Z",
+      "rawFile": "raw-031.json"
+    }
+  ],
+  "updatedRows": []
+}

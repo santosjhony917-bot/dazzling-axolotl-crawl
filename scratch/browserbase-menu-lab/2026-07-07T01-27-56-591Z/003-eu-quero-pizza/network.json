@@ -1,0 +1,666 @@
+{
+  "network": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8",
+      "resourceType": "stylesheet",
+      "method": "GET",
+      "textLength": 7548,
+      "textSample": "/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');\n  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');\n  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');\n  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');\n  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/device",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://pedido.anota.ai/assets/item_no_image-DJEgmuUL.png",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://flag.lab.amplitude.com/sdk/v2/flags",
+      "status": 200,
+      "contentType": "application/json;charset=utf-8",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 32340,
+      "textSample": "[{\"key\":\"payment_visual_for_take_selection\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":4,\"testInstrumentation\":true},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-n5yguhpe\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":1},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"441303\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"441305\"]},\"value\":\"slot-2\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-n5yguhpe\"],\"key\":\"remove-offline-header-subtitle\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"cta_pix_to_offline_card_payment\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"world_cup_menu_mode\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":6},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"disable_offline_payment_method_autofill_renewed\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":11},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-muazdlhr\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"540872\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"531985\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"531984\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-muazdlhr\"],\"key\":\"extra_padding_online_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-2\",\"flagType\":\"experiment\",\"flagVersion\":27},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mandatory_field_feedbacks\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"ab_test_clone_collapse_payment_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":15},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"remove_back_button_to_pol\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":32},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-jgxqaury\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"616735\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"614006\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"616734\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-jgxqaury\"],\"key\":\"nupay_clock_variation\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":16},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"offline_payment_friction_modal\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-5\",\"flagType\":\"experiment\",\"flagVersion\":38},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-mqkt6wvs\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"429700\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"429703\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"429762\"]},\"value\":\"slot-4\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-mqkt6wvs\"],\"key\":\"checkout_pol_badge_copies\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":24},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"mandatory_addons_counter\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-8\",\"flagType\":\"experiment\",\"flagVersion\":43},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"}}},{\"key\":\"mutex-tqk5fw03\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"1208588\"]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1259639\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1203314\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"1145631\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1176139\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[\"1091418\"]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[\"1120152\"]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-tqk5fw03\"],\"key\":\"change-the-copy-of-the-finalize-order-button-ifp\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":34},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"digital_wallet_separated_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"online_payment_coupon_v2\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-xmphq1fi\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":10},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-11\":{\"key\":\"slot-11\",\"payload\":{\"flagIds\":[\"1120316\"]},\"value\":\"slot-11\"},\"slot-12\":{\"key\":\"slot-12\",\"payload\":{\"flagIds\":[\"816463\"]},\"value\":\"slot-12\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1174404\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1120405\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"913034\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1124378\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[\"1130151\"]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-xmphq1fi\"],\"key\":\"suitability-of-the-delivery-method-selection-standard\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-3\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-8ezdc7vz\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"",
+      "jsonKeys": [
+        "array",
+        "66"
+      ],
+      "savedJsonFile": "network-005.json"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/ntp/localtime",
+      "status": 200,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "HEAD",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/event",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/ntp/localtime",
+      "status": 200,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "HEAD",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/ntp/localtime",
+      "status": 200,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "HEAD",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/device",
+      "status": 201,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/session/00763ae7-294a-41e2-be1e-15077592d523",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/event",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 78,
+      "textSample": "{\"successfulTrackingCount\":1,\"errors\":[],\"failureCount\":0,\"hasFailures\":false}",
+      "jsonKeys": [
+        "successfulTrackingCount",
+        "errors",
+        "failureCount",
+        "hasFailures"
+      ],
+      "savedJsonFile": "network-012.json"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 153,
+      "textSample": "{\"configs\":{\"diagnostics\":{\"browserSDK\":{\"sampleRate\":0.02}},\"sessionReplay\":{\"sr_interaction_config\":{\"batch\":false,\"enabled\":true}},\"analyticsSDK\":{}}}",
+      "jsonKeys": [
+        "configs"
+      ],
+      "savedJsonFile": "network-013.json"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 153,
+      "textSample": "{\"configs\":{\"diagnostics\":{\"browserSDK\":{\"sampleRate\":0.02}},\"sessionReplay\":{\"sr_interaction_config\":{\"batch\":false,\"enabled\":true}},\"analyticsSDK\":{}}}",
+      "jsonKeys": [
+        "configs"
+      ],
+      "savedJsonFile": "network-014.json"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 153,
+      "textSample": "{\"configs\":{\"diagnostics\":{\"browserSDK\":{\"sampleRate\":0.02}},\"sessionReplay\":{\"sr_interaction_config\":{\"batch\":false,\"enabled\":true}},\"analyticsSDK\":{}}}",
+      "jsonKeys": [
+        "configs"
+      ],
+      "savedJsonFile": "network-015.json"
+    },
+    {
+      "url": "https://api.lab.amplitude.com/sdk/v2/vardata?v=0",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/coupon/active-coupons?skipdelivery=true",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/banner-combo?slug=anotaai-banner-home-combo&latitude=-7.052025899999999&longitude=-34.84330540000001",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/carousel?slug=anotaai-item-patrocinado-homedestaque&latitude=-7.052025899999999&longitude=-34.84330540000001",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 132232,
+      "textSample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"682e6d00001ddb0012bddde4\",\"webview\":{\"accept_multiple_payments\":false,\"multiple_payments_quantity\":2,\"waiter_accept_tip\":true,\"waiter_tip_percent\":10,\"waiter_order_delivery\":true,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"waiter_can_link_ticket_to_table\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"address_manual\":false,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"false\",\"repeat_order_enabled\":true,\"edit_manual_city\":false,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"table_seats\":false,\"waiter_can_change_table_and_ticket\":false,\"hide_google_search\":false,\"add_disposable\":false,\"color_primary\":\"#000000\",\"description\":\"\",\"footer_description\":\"\",\"header_image_url\":\"\",\"items_carousel\":\"promo_items\",\"edit_manual_region\":false},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":true},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":true,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"deactivate_establishment_closed_salutation_message\":false,\"deactivate_flow_new_salutation_message\":false,\"images\":[]},\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"sound_1\",\"anota_ai_notification_song\":\"high\",\"anota_ai_notification_song_local_table\":\"none\",\"ifood_integration_notification_song\":\"high\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":false},\"cashback\":{\"cashback_by_weekday\":[]},\"page_is_online\":false,\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"682e6d006749db0012ad9b51\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"state\":\"PB\",\"city\":\"João Pessoa\",\"complement\":\"casamar belo flat\",\"addressFormated\":\"av djalma vilar de gusmao, 102 - intermares, João Pessoa - PB, 58.035-240, Brasil\",\"location\":{\"coordinates\":[-34.84330540000001,-7.052025899999999]},\"postal_code\":\"58.035-240\",\"name\":\"av djalma vilar de gusmao\",\"num\":\"102\",\"reference\":\"sala 10\",\"neighborhood\":\"intermares\",\"hided\":false},\"payment_method\":{\"money\":true,\"creditcard\":true,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":true,\"ifood_payin_credit\":true,\"tuna_digital_wallets\":false,\"ifood_payin_debit\":true},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":false},\"timezone\":\"America/Sao_Paulo\",\"exproductiontime\":0,\"time_delivery_min\":39,\"time_delivery_max\":49,\"time_take_min\":0,\"time_take_max\":0,\"order_automatic_on_production\":true,\"totem_order_automatic_on_production\":false,\"cpf_cnpj_on_order\":false,\"published\":true,\"acceptDelivery\":true,\"acceptTake\":true,\"acceptLocal\":true,\"name\":\"Eu Quero Pizza\",\"page\":\"682e6d00001ddb0012bddddc\",\"phones\":[{\"_id\":\"683919b671a1cb7af9b37466\",\"number\":\"(83) 9 9857-3813\",\"type\":\"cell\"}],\"regions\":[{\"name\":\"1\",\"price\":3,\"active\":true,\"_id\":\"68ab97414dbb794947900025\"},{\"name\":\"2\",\"price\":4,\"active\":true,\"_id\":\"68ab97634dbb7949479001bc\"},{\"name\":\"3\",\"price\":5,\"active\":true,\"_id\":\"68ab97744dbb7949479002e1\"},{\"name\":\"4\",\"price\":5,\"active\":true,\"_id\":\"68ab978664d53682e94262d1\"},{\"name\":\"5\",\"price\":6,\"active\":true,\"_id\":\"68ab979364d53682e94262e6\"},{\"name\":\"6\",\"price\":7,\"active\":true,\"_id\":\"68ab979e64d53682e9426368\"},{\"name\":\"7\",\"price\":8,\"active\":true,\"_id\":\"68ab97eb4dbb79494790076c\"},{\"name\":\"8\",\"price\":9,\"active\":true,\"_id\":\"68ab980164d53682e9426701\"},{\"name\":\"9\",\"price\":10,\"active\":true,\"_id\":\"68ab981964d53682e9426808\"}],\"week\":[{\"short_name\":\"sun\",\"schedules\":[{\"start\":\"17:30\",\"end\":\"23:00\",\"_id\":\"69f6a159da80e89ee985e65b\"}]},{\"short_name\":\"mon\",\"schedules\":[{\"start\":\"17:00\",\"end\":\"23:00\",\"_id\":\"69f6a159da80e89ee985e65d\"}]},{\"short_name\":\"tue\",\"schedules\":[{\"start\":\"17:30\",\"end\":\"23:00\",\"_id\":\"69f6a159da80e89ee985e65f\"}]},{\"short_name\":\"wed\",\"schedules\":[{\"start\":\"17:30\",\"end\":\"23:00\",\"_id\":\"69f6a159da80e89ee985e661\"}]},{\"short_name\":\"thu\",\"schedules\":[{\"start\":\"09:00\",\"end\":\"17:00\",\"_id\":\"69f6a159da80e89ee985e663\"}]},{\"short_name\":\"fri\",\"schedules\":[{\"start\":\"17:30\",\"end\":\"23:59\",\"_id\":\"69f6a159da80e89ee985e665\"}]},{\"short_name\":\"sat\",\"schedules\":[]}],\"payment_methods\":[],\"credit_cards\":[],\"activation_events\":[{\"_id\":\"68308dc10ae4b665ccb956ce\",\"type\":\"activation_pol_tuna_by_coupon\",\"expiration\":\"2085-05-23T15:01:21.944Z\",\"timestamp\":\"2025-05-23T15:01:21.944Z\"},{\"timestamp\":\"2025-12-26T17:34:52.959Z\",\"mandatory_methods\":[],\"registration_methods\":[],\"expiration\":\"2125-12-26T17:34:52.982Z\",\"type\":\"activation_pol_ifood_by_coupon\",\"_id\":\"694ec73cfe847d1a7cdadde3\"}],\"createdAt\":\"2025-05-22T00:17:04.503Z\",\"updatedAt\":\"2026-05-03T01:14:01.624Z\",\"__v\":0,\"is_always_open\":false,\"is_permanently_closed\":false,\"only_schedule\":false,\"isOpenNow\":true}],\"is_new_menu\":true,\"ifood_fraud_detected\":false,\"already_accessed_menu_config\":false,\"page\":{\"_id\":\"682e6d00001ddb0012bddddc\",\"isOnline\":false,\"name\":\"Eu Quero Pizza\",\"image\":\"https://staginganotaai.s3.us-west-2.amazonaws.com/produtos/682e6d00001ddb0012bddddc1748572598148blob\"},\"page_name_id\":\"eu-quero-pizza-3\",\"page_segments\":[{\"_id\":\"683919b671a1cb0185b3747b\",\"segment_id\":\"5f35b6c769037ec2e2906cd6\",\"name\":\"Pizzaria\"}],\"liberation_features\":[{\"liberation_feature_flag\":\"new_admin\",\"liberation_feature_title\":\"Novo gerenciador padrão\",\"liberation_feature_id\":\"62f158decd7ba259c621c266\",\"_id\":\"682e6d00ef056d00122ffbb2\"},{\"liberation_feature_flag\":\"pdv_redesign\",\"liberation_feature_title\":\"PDV Redesign\",\"liberation_feature_id\":\"637bc0bcb675030019604f36\",\"_id\":\"682e6d00ef056d00122ffbb3\"},{\"liberation_feature_flag\":\"pol_ifood_optin\",\"liberation_feature_title\":\"Pagamento Online iFood / Opt in\",\"liberation_feature_id\":\"6682ae5634d0a90012688a65\",\"_id\":\"68308dc2f90d9f3161108c8d\"},{\"liberation_feature_flag\":\"pol_pix_validation_ifp\",\"liberation_feature_title\":\"POL - validação chave IFP\",\"liberation_feature_id\":\"67f42d28537b78d12e9677d4\",\"_id\":\"68308dc3f90d9f03ad108c95\"},{\"liberation_feature_flag\":\"orderv4_integration\",\"liberation_feature_title\":\"iFood integração orderV4\",\"liberation_feature_id\":\"6626632f3b001e0012190775\",\"_id\":\"6831e3743e25e5af8551e63b\"},{\"liberation_feature_flag\":\"pol_ifood_optin\",\"liberation_feature_title\":\"Pagamento Online iFood / Opt in\",\"liberation_feature_id\":\"6682ae5634d0a90012688a65\",\"_id\":\"6831e3743e25e5af8551e63c\"},{\"liberation_feature_flag\":\"pol_fee_ifood_pago\",\"liberation_feature_title\":\"Teste - POL Taxa de serviço 0.99 iFood Pago\",\"liberation_feature_id\":\"6814c6ddb5f1310012eec630\",\"_id\":\"6831e3743e25e5af8551e63d\"},{\"liberation_feature_flag\":\"put_pdv_order_receiver\",\"liberation_feature_title\":\"Put pdv order em order-receiver-api\",\"liberation_feature_id\":\"67dac29817e29879ead67a23\",\"_id\":\"68594d7f766662a96ee99950\"},{\"liberation_feature_flag\":\"post_cd_order_receiver\",\"liberation_feature_title\":\"Post CD order em order-receiver-api\",\"liberation_feature_id\":\"67dac2f6a7b853182ba04614\",\"_id\":\"685aa502d31e543c46a8847b\"},{\"liberation_feature_flag\":\"pol_nupay_ifood\",\"liberation_feature_title\":\"Teste - NuPay POL iFood\",\"liberation_feature_id\":\"684b0bd7695d18001255ed1a\",\"_id\":\"6882458dc976cd0abee6cbd0\"},{\"liberation_feature_flag\":\"new_card_config_payment\",\"liberation_feature_title\":\"Nova configuração de bandeira de cartão de crédito\",\"liberation_feature_id\":\"64887c5fb740b10012e2ae2c\",\"_id\":\"68d1810bad7a90db1ad79b79\"},{\"liberation_feature_flag\":\"apple_pay_ifp\",\"liberation_feature_title\":\"CD - Apple Pay iFood Pago\",\"liberation_feature_id\":\"68dec00cc6f4c600124f1bad\",\"_id\":\"69051a2ba96c8d559daca84a\"},{\"liberation_feature_flag\":\"kevel_combo_banner_ads\",\"liberation_feature_title\":\"Kevel Combo Banner Ads\",\"liberation_feature_id\":\"68c4669221417000124d2e35\",\"_id\":\"690e51a418672c2af4aa9c22\"},{\"liberation_feature_flag\":\"audio_transcription\",\"liberation_feature_title\":\"Bot Anota com transcrição de áudio\",\"liberation_feature_id\":\"663e20ef34d6230012bcca27\",\"_id\":\"694ec73eabf8075886d29256\"},{\"liberation_feature_flag\":\"google_pay_ifp\",\"liberation_feature_title\":\"CD - Google Pay iFood Pago\",\"liberation_feature_id\":\"692dee5a30f5750012d2f94e\",\"_id\":\"697220a09f3c445ecad5182f\"},{\"liberation_feature_flag\":\"qr_code_payment\",\"liberation_feature_title\":\"Pagamento QR Code Mesa e Comanda\",\"liberation_feature_id\":\"683dbe69db1c780012956476\",\"_id\":\"6980ad4efe019b928f5099ea\"},{\"liberation_feature_flag\":\"kevel_upsell_cart_ads\",\"liberation_feature_title\":\"Kevel Upsell Cart Ads\",\"liberation_feature_id\":\"680a6ae102641a001228e453\",\"_id\":\"69849f62b677c87d481b60bc\"},{\"liberation_feature_flag\":\"kevel_item_highlights_ads\",\"liberation_feature_title\":\"Kevel Item Highlights Ads\",\"liberation_feature_id\":\"680a6af96f809700128b9aa3\",\"_id\":\"69849f62b677c87d481b60bd\"},{\"liberation_feature_flag\":\"display_ad_banner_on_order_details\",\"liberation_feature_title\":\"Banner de Ads na Tela de Detalhes do Pedido\",\"liberation_feature_id\":\"6909f7d2cf98580012fc8c5d\",\"_id\":\"698e523d4c21a571c8ca9ea6\"},{\"liberation_feature_flag\":\"pol_ifood_pay\",\"liberation_feature_title\":\"Teste - pagar com POL iFood\",\"liberation_feature_id\":\"682b41799bf8f80012f8ec49\",\"_id\":\"69a9c6b7e161610584568385\"},{\"liberation_feature_flag\":\"new_pix_logic\",\"liberation_feature_title\":\"TECH - Refactor Pix CD\",\"liberation_feature_id\":\"696a6bffb6c527e4378be73d\",\"_id\":\"69b01c384c06759a97daab30\"},{\"liberation_feature_flag\":\"otp_credit_card\",\"liberation_feature_title\":\"Cardápio - OTP para c.c.\",\"liberation_feature_id\":\"69d511ebe7d77b4cdffda8b2\",\"_id\":\"6a0f4ccb5391bb24a3020a5d\"},{\"liberation_feature_flag\":\"address_flux_logic_refactor_cd\",\"liberation_feature_title\":\"TECH - Refactor Lógica Address Form\",\"liberation_feature_id\":\"69b84d9cbf966160a2ecf7f0\",\"_id\":\"6a440451b25a2132dcc6135f\"}],\"createdAt\":\"2025-05-22T00:17:04.168Z\",\"minimum_order_amount\":0,\"ifood_order_integration\":{\"merchant_status\":\"approved\",\"status_message\":\"Cadastro aprovado, você já pode utilizar sua conta.\",\"anota_business_merchant_id\":\"1e5c2a65-b8d2-42be-a4d2-a15090546f8e\"},\"whatsapp\":\"558398573813\",\"targetsPage\":[],\"establishmentUnavailability\":[],\"pagemodule\":[{\"_id\":\"6a0a72d6491cf048365a45b8\",\"status\":true,\"should_not_charge\":false,\"page\":\"682e6d00001ddb0012bddddc\",\"module\":{\"_id\":\"602ea7134476085e5aa7be2c\",\"tag\":\"MENSAL\",\"title\":\"Mensalidade\",\"description\":\"Mensalidade\"},\"signed_date\":\"2026-05-18T02:00:54.713Z\",\"price\":0,\"__v\":0,\"createdAt\":\"2026-05-18T02:00:54.726Z\",\"updatedAt\":\"2026-05-18T02:00:54.726Z\"},{\"_id\":\"6a0a72d6491cf081015a45c3\",\"status\":true,\"should_not_charge\":false,\"page\":\"682e6d00001ddb0012bddddc\",\"module\":{\"_id\":\"670d0feec307a4cd7c17f394\",\"tag\":\"PROMO\",\"title\":\"Pacote Fidelidade\",\"description\":\"Aumente seu número de clientes e eleve o ticket médio do seu estabelecimento com o Cashback, Cupom e Fidelidade.\"},\"signed_date\":\"2026-05-18T02:00:54.713Z\",\"price\":0,\"__v\":0,\"createdAt\":\"2026-05-18T02:00:54.727Z\",\"updatedAt\":\"2026-05-18T02:00:54.727Z\"},{\"_id\":\"6a0a72d6491cf029845a45c1\",\"status\":true,\"should_not_charge\":false,\"page\":\"682e6d00001ddb0012bddddc\",\"module\":{\"_id\":\"66ccd14d7cf964cb5ea7406d\",\"tag\":\"CLAUDIA\",\"title\":\"Anota Nuve",
+      "jsonKeys": [
+        "success",
+        "data"
+      ],
+      "savedJsonFile": "network-020.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/most-ordered-by-category?type=pizza",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/client/v2",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/session/00763ae7-294a-41e2-be1e-15077592d523",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "PUT",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/most-ordered-by-category?type=pizza",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 65,
+      "textSample": "{\"success\":true,\"message\":\"Itens listados com sucesso\",\"data\":[]}",
+      "jsonKeys": [
+        "success",
+        "message",
+        "data"
+      ],
+      "savedJsonFile": "network-024.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/client-orders/",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/client/v2",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 1753,
+      "textSample": "{\"_id\":\"6838f4abf5b2a10011bce109\",\"idwhats\":\"558398504733@c.us\",\"page\":\"682e6d00001ddb0012bddddc\",\"__v\":0,\"accepted_user_terms\":true,\"accepted_user_terms_data\":null,\"address\":[{\"region_name\":\"\",\"reference_point\":\"Praca das corujas é Naia\",\"name\":\"Av. Oceano Atlântico\",\"num\":\"899\",\"neighborhood\":\"Intermares\",\"complement\":\"Treiler de hamburguer\",\"location\":{\"coordinates\":[-34.8382085,-7.038227200000001],\"type\":\"Point\"},\"postal_code\":\"58310-000\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"country\":\"br\",\"deliveryprice\":0,\"alias\":\"\",\"_id\":\"69f7cef81b1e33eb62e38739\"}],\"advice\":false,\"agerange\":null,\"birthday\":null,\"broadcastChat\":true,\"cashback_wallet\":0,\"coordinates_not_supported\":[],\"createdAt\":\"2025-05-29T23:58:35.933Z\",\"credit_card\":[],\"delivery_mode_order\":{\"delivery\":true,\"take\":false,\"local\":false},\"dumbBotNextInteraction\":{\"expires\":null},\"gender\":null,\"idfb\":null,\"idinsta\":null,\"indication_points\":{\"indicated_clients\":[],\"total\":0},\"lastAction\":{\"expires\":null},\"lastRequest\":{\"data\":null,\"time\":null},\"lastSendHelp\":null,\"last_ordered_items\":[\"6831d2b5dd1ce937260d517b\"],\"link_accessed\":false,\"liveChat\":{\"active\":false,\"expires\":null},\"marketplaces_ref\":[],\"name\":\"Eu Quero Burguer\",\"orders_intervals\":[],\"phone\":\"83998504733\",\"phone_whats\":\"558398504733\",\"picture\":\"\",\"shortId\":\"MeIU-tix\",\"sorrySended\":{\"count\":0,\"expires\":null},\"status_payment_online\":true,\"temp\":false,\"total_orders\":1,\"total_orders_net\":110.8,\"unsubscribe_trigger_whats\":false,\"updatedAt\":\"2026-05-03T22:45:07.909Z\",\"last_reactive_trigger_received\":\"2026-02-07T01:47:11.794Z\",\"last_notification_received\":\"2025-05-30T01:59:17.070Z\",\"last_nps_sent\":\"2025-05-30T01:59:17.070Z\",\"ifood_id\":\"113b9b5e-05f3-4997-8ae0-c155595b6711\",\"last_order_realized\":\"2026-05-03T22:45:06.848Z\"}",
+      "jsonKeys": [
+        "_id",
+        "idwhats",
+        "page",
+        "__v",
+        "accepted_user_terms",
+        "accepted_user_terms_data",
+        "address",
+        "advice",
+        "agerange",
+        "birthday",
+        "broadcastChat",
+        "cashback_wallet",
+        "coordinates_not_supported",
+        "createdAt",
+        "credit_card",
+        "delivery_mode_order",
+        "dumbBotNextInteraction",
+        "gender",
+        "idfb",
+        "idinsta",
+        "indication_points",
+        "lastAction",
+        "lastRequest",
+        "lastSendHelp",
+        "last_ordered_items",
+        "link_accessed",
+        "liveChat",
+        "marketplaces_ref",
+        "name",
+        "orders_intervals",
+        "phone",
+        "phone_whats",
+        "picture",
+        "shortId",
+        "sorrySended",
+        "status_payment_online",
+        "temp",
+        "total_orders",
+        "total_orders_net",
+        "unsubscribe_trigger_whats"
+      ],
+      "savedJsonFile": "network-026.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/coupon/active-coupons?skipdelivery=true",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 70,
+      "textSample": "{\"success\":true,\"message\":\"Cupons listados com sucesso.\",\"coupons\":[]}",
+      "jsonKeys": [
+        "success",
+        "message",
+        "coupons"
+      ],
+      "savedJsonFile": "network-027.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/banner-combo?slug=anotaai-banner-home-combo&latitude=-7.052025899999999&longitude=-34.84330540000001",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 81,
+      "textSample": "{\"success\":true,\"message\":\"Anúncios patrocinados listados com sucesso\",\"data\":[]}",
+      "jsonKeys": [
+        "success",
+        "message",
+        "data"
+      ],
+      "savedJsonFile": "network-028.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/carousel?slug=anotaai-item-patrocinado-homedestaque&latitude=-7.052025899999999&longitude=-34.84330540000001",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 151,
+      "textSample": "{\"success\":true,\"message\":\"Itens listados com sucesso\",\"promoItems\":{\"items\":[],\"type\":\"promo_items\"},\"mostOrdered\":{\"items\":[],\"type\":\"most_ordered\"}}",
+      "jsonKeys": [
+        "success",
+        "message",
+        "promoItems",
+        "mostOrdered"
+      ],
+      "savedJsonFile": "network-029.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/client-orders/",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 10766,
+      "textSample": "{\"docs\":[{\"_id\":\"69f7cff2f341bc2acfb372d2\",\"__v\":0,\"add_disposable\":false,\"address\":{\"region_name\":\"\",\"reference_point\":\"Praca das corujas é Naia\",\"name\":\"Av. Oceano Atlântico\",\"num\":\"899\",\"neighborhood\":\"Intermares\",\"complement\":\"Treiler de hamburguer\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.8382085,-7.038227200000001]},\"postal_code\":\"58310-000\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"country\":\"br\"},\"benefits\":[],\"check\":3,\"client\":\"6838f4abf5b2a10011bce109\",\"createdAt\":\"2026-05-03T22:45:06.848Z\",\"deliverymode\":\"delivery\",\"deliveryprice\":5,\"early_order\":false,\"from\":\"whats\",\"ifood_order_integration\":{\"order_v4\":true,\"merchant_id\":\"1e5c2a65-b8d2-42be-a4d2-a15090546f8e\"},\"log\":[{\"user_id\":null,\"date\":\"2026-05-03T22:45:06.000Z\",\"content\":\"check -3\",\"_id\":\"69f7cff2f341bc2acfb372e0\"},{\"date\":\"2026-05-03T22:45:07.719Z\",\"content\":\"check: undefined\",\"app_name\":\"order-ifood-v4-worker\",\"_id\":\"69f7cff337532f92f7066b32\"},{\"date\":\"2026-05-03T22:45:07.795Z\",\"content\":\"check: 1\",\"app_name\":\"order-ifood-v4-worker\",\"_id\":\"69f7cff337532f92f7066b35\"},{\"user_id\":\"66733bc585a695001263d478\",\"date\":\"2026-05-03T23:10:13.080Z\",\"content\":\"check 2\",\"app_name\":\"order-admin-auth-api\",\"_id\":\"69f7d5d5bbae8fa64802a76b\"},{\"user_id\":\"66733bc585a695001263d478\",\"date\":\"2026-05-03T23:10:17.695Z\",\"content\":\"check 3\",\"app_name\":\"order-admin-auth-api\",\"_id\":\"69f7d5d999c3b2f91490db81\"}],\"nm_itens\":[{\"title\":\"GRANDE\",\"ready\":false,\"amount\":1,\"total\":52.9,\"image\":\"https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza\",\"off\":0,\"external_id\":\"\",\"subItems\":[{\"category_item\":\"6831d2b5dd1ce937260d517b\",\"item\":\"6831d2b4dd1ce937260d4a3d\",\"price\":\"6831d2b4dd1ce937260d4b11\",\"category\":\"6831d2b4dd1ce937260d4a20\",\"title\":\"GRANDE\",\"title_category\":\"Pizzas Salgadas Grande\",\"title_category_concat\":\"Pizzas Salgadas Grande\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":0,\"id_parent\":-1,\"external_id\":\"\",\"next_steps\":[{\"category\":\"6831d2b4dd1ce937260d4a2c\",\"max\":2,\"min\":1,\"price_model\":1,\"_id\":\"6997a01d2534b6c8bebd2a57\"},{\"category\":\"6831d2b4dd1ce937260d4a2a\",\"max\":1,\"min\":1,\"price_model\":0,\"_id\":\"6831d2b5dd1ce937260d517d\"}],\"_id\":\"6831d2b5dd1ce937260d517b\"},{\"category_item\":\"6831d2b5dd1ce937260d51e2\",\"item\":\"6831d2b4dd1ce937260d4a68\",\"price\":\"6831d2b5dd1ce937260d4d89\",\"category\":\"6831d2b4dd1ce937260d4a2c\",\"title\":\"Calabresa\",\"title_category\":\"sabor GRANDE\",\"title_category_concat\":\"sabor GRANDE\",\"amount\":1,\"price_unit\":52.9,\"total\":52.9,\"off\":0,\"id\":1,\"id_parent\":0,\"external_id\":\"|1753b78c-a4a7-36b2-9282-e91b38520e79|\",\"details_fraction\":\"1/1 Calabresa\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51e2\"},{\"category_item\":\"6831d2b5dd1ce937260d51d1\",\"item\":\"6831d2b4dd1ce937260d4a76\",\"price\":\"6831d2b5dd1ce937260d4cd9\",\"category\":\"6831d2b4dd1ce937260d4a2a\",\"title\":\"Massa Tradicional\",\"title_category\":\"Escolha a sua Preferência\",\"title_category_concat\":\"Escolha a sua Preferência\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":2,\"id_parent\":0,\"external_id\":\"\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51d1\"}],\"_id\":\"69f7cff2f341bc2acfb372d3\"},{\"title\":\"GRANDE\",\"ready\":false,\"amount\":1,\"total\":52.9,\"image\":\"https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza\",\"off\":0,\"external_id\":\"\",\"subItems\":[{\"category_item\":\"6831d2b5dd1ce937260d517b\",\"item\":\"6831d2b4dd1ce937260d4a3d\",\"price\":\"6831d2b4dd1ce937260d4b11\",\"category\":\"6831d2b4dd1ce937260d4a20\",\"title\":\"GRANDE\",\"title_category\":\"Pizzas Salgadas Grande\",\"title_category_concat\":\"Pizzas Salgadas Grande\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":0,\"id_parent\":-1,\"external_id\":\"\",\"next_steps\":[{\"category\":\"6831d2b4dd1ce937260d4a2c\",\"max\":2,\"min\":1,\"price_model\":1,\"_id\":\"6997a01d2534b6c8bebd2a57\"},{\"category\":\"6831d2b4dd1ce937260d4a2a\",\"max\":1,\"min\":1,\"price_model\":0,\"_id\":\"6831d2b5dd1ce937260d517d\"}],\"_id\":\"6831d2b5dd1ce937260d517b\"},{\"category_item\":\"6831d2b5dd1ce937260d51dc\",\"item\":\"6831d2b4dd1ce937260d4a63\",\"price\":\"6831d2b5dd1ce937260d4c69\",\"category\":\"6831d2b4dd1ce937260d4a2c\",\"title\":\"Marguerita\",\"title_category\":\"sabor GRANDE\",\"title_category_concat\":\"sabor GRANDE\",\"amount\":1,\"price_unit\":52.9,\"total\":52.9,\"off\":0,\"id\":1,\"id_parent\":0,\"external_id\":\"|95baa96b-8464-3ee6-bd5b-8b4c22e270fd|\",\"details_fraction\":\"1/1 Marguerita\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51dc\"},{\"category_item\":\"6831d2b5dd1ce937260d51d1\",\"item\":\"6831d2b4dd1ce937260d4a76\",\"price\":\"6831d2b5dd1ce937260d4cd9\",\"category\":\"6831d2b4dd1ce937260d4a2a\",\"title\":\"Massa Tradicional\",\"title_category\":\"Escolha a sua Preferência\",\"title_category_concat\":\"Escolha a sua Preferência\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":2,\"id_parent\":0,\"external_id\":\"\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51d1\"}],\"_id\":\"69f7cff2f341bc2acfb372d9\"}],\"numorder\":6,\"off\":0,\"order_automatic_on_production\":true,\"page\":\"682e6d00001ddb0012bddddc\",\"payment_method\":\"money\",\"payment_methods\":[{\"payment_method\":\"money\",\"questionChange\":\"Não precisa\",\"value\":\"110.8\",\"_id\":\"69f7cff2f341bc2acfb372df\"}],\"replication_lag\":0.024,\"target_add\":false,\"total\":110.8,\"unit_time_delivery_max\":49,\"unit_time_delivery_min\":39,\"unit_time_take_max\":0,\"unit_time_take_min\":0,\"updatedAt\":\"2026-05-03T23:10:17.701Z\",\"ifood_id\":\"47be63ee-48cc-4fd9-9d0d-dd8a112eef8e\"},{\"_id\":\"69f7cf03e4a415933e029996\",\"__v\":0,\"add_disposable\":false,\"address\":{\"region_name\":\"\",\"reference_point\":\"Praca das corujas é Naia\",\"name\":\"Av. Oceano Atlântico\",\"num\":\"899\",\"neighborhood\":\"Intermares\",\"complement\":\"Treiler de hamburguer\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.8382085,-7.038227200000001]},\"postal_code\":\"58310-000\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"country\":\"br\"},\"benefits\":[],\"check\":42,\"client\":\"6838f4abf5b2a10011bce109\",\"convenience_fee\":0.99,\"createdAt\":\"2026-05-03T22:41:07.822Z\",\"deliverymode\":\"delivery\",\"deliveryprice\":5,\"early_order\":false,\"from\":\"whats\",\"ifood_id\":\"95551121-1d9c-4bec-9d81-de0abbacd8e3\",\"ifood_order_integration\":{\"order_v4\":true,\"merchant_id\":\"1e5c2a65-b8d2-42be-a4d2-a15090546f8e\",\"merchant_name\":\"Eu Quero Pizza\",\"merchant_address\":{\"country\":\"BR\",\"state\":\"PB\",\"city\":\"Cabedelo\",\"neighborhood\":\"Ponta de Campina\",\"street\":\"Via Litorânea, 1215, Ponta de Campina, Cabedelo - PB, CEP 58.101-650\",\"address_number\":\"1215\",\"zip_code\":\"58.101-650\"},\"merchant_phone\":\"5583998573813\",\"merchant_mcc\":\"\",\"pix\":{\"qr_code\":\"00020101021226850014br.gov.bcb.pix2563qrcode.zoop.com.br/dynamic/aed583ff-f130-40d8-a976-499d06cc22285204000053039865802BR5925IFOOD PAGO INSTITUICAO DE6009Sao Paulo610901227-20062070503***6304F4B7\"},\"error\":{\"code\":\"130000\",\"message\":\"Não conseguimos processar seu pagamento pelo ifood. Escolha outra forma de pagamento ou tente novamente mais tarde.\",\"expected_action\":\"REVIEW_PAYMENT_METHOD\"}},\"log\":[{\"user_id\":null,\"date\":\"2026-05-03T22:41:07.000Z\",\"content\":\"check -3\",\"_id\":\"69f7cf03e4a415933e0299a4\"},{\"date\":\"2026-05-03T22:41:10.177Z\",\"content\":\"check: -1\",\"app_name\":\"order-ifood-v4-worker\",\"_id\":\"69f7cf0692be23deda2c54f0\"},{\"date\":\"2026-05-03T22:48:38.750Z\",\"content\":\"check: 42\",\"_id\":\"69f7d0c6d130f29ac44563f4\"}],\"nm_itens\":[{\"title\":\"GRANDE\",\"ready\":false,\"amount\":1,\"total\":52.9,\"image\":\"https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza\",\"off\":0,\"external_id\":\"\",\"subItems\":[{\"category_item\":\"6831d2b5dd1ce937260d517b\",\"item\":\"6831d2b4dd1ce937260d4a3d\",\"price\":\"6831d2b4dd1ce937260d4b11\",\"category\":\"6831d2b4dd1ce937260d4a20\",\"title\":\"GRANDE\",\"title_category\":\"Pizzas Salgadas Grande\",\"title_category_concat\":\"Pizzas Salgadas Grande\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":0,\"id_parent\":-1,\"external_id\":\"\",\"next_steps\":[{\"category\":\"6831d2b4dd1ce937260d4a2c\",\"max\":2,\"min\":1,\"price_model\":1,\"_id\":\"6997a01d2534b6c8bebd2a57\"},{\"category\":\"6831d2b4dd1ce937260d4a2a\",\"max\":1,\"min\":1,\"price_model\":0,\"_id\":\"6831d2b5dd1ce937260d517d\"}],\"_id\":\"6831d2b5dd1ce937260d517b\"},{\"category_item\":\"6831d2b5dd1ce937260d51e2\",\"item\":\"6831d2b4dd1ce937260d4a68\",\"price\":\"6831d2b5dd1ce937260d4d89\",\"category\":\"6831d2b4dd1ce937260d4a2c\",\"title\":\"Calabresa\",\"title_category\":\"sabor GRANDE\",\"title_category_concat\":\"sabor GRANDE\",\"amount\":1,\"price_unit\":52.9,\"total\":52.9,\"off\":0,\"id\":1,\"id_parent\":0,\"external_id\":\"|1753b78c-a4a7-36b2-9282-e91b38520e79|\",\"details_fraction\":\"1/1 Calabresa\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51e2\"},{\"category_item\":\"6831d2b5dd1ce937260d51d1\",\"item\":\"6831d2b4dd1ce937260d4a76\",\"price\":\"6831d2b5dd1ce937260d4cd9\",\"category\":\"6831d2b4dd1ce937260d4a2a\",\"title\":\"Massa Tradicional\",\"title_category\":\"Escolha a sua Preferência\",\"title_category_concat\":\"Escolha a sua Preferência\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":2,\"id_parent\":0,\"external_id\":\"\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51d1\"}],\"_id\":\"69f7cf03e4a415933e029997\"},{\"title\":\"GRANDE\",\"ready\":false,\"amount\":1,\"total\":52.9,\"image\":\"https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza\",\"off\":0,\"external_id\":\"\",\"subItems\":[{\"category_item\":\"6831d2b5dd1ce937260d517b\",\"item\":\"6831d2b4dd1ce937260d4a3d\",\"price\":\"6831d2b4dd1ce937260d4b11\",\"category\":\"6831d2b4dd1ce937260d4a20\",\"title\":\"GRANDE\",\"title_category\":\"Pizzas Salgadas Grande\",\"title_category_concat\":\"Pizzas Salgadas Grande\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":0,\"id_parent\":-1,\"external_id\":\"\",\"next_steps\":[{\"category\":\"6831d2b4dd1ce937260d4a2c\",\"max\":2,\"min\":1,\"price_model\":1,\"_id\":\"6997a01d2534b6c8bebd2a57\"},{\"category\":\"6831d2b4dd1ce937260d4a2a\",\"max\":1,\"min\":1,\"price_model\":0,\"_id\":\"6831d2b5dd1ce937260d517d\"}],\"_id\":\"6831d2b5dd1ce937260d517b\"},{\"category_item\":\"6831d2b5dd1ce937260d51dc\",\"item\":\"6831d2b4dd1ce937260d4a63\",\"price\":\"6831d2b5dd1ce937260d4c69\",\"category\":\"6831d2b4dd1ce937260d4a2c\",\"title\":\"Marguerita\",\"title_category\":\"sabor GRANDE\",\"title_category_concat\":\"sabor GRANDE\",\"amount\":1,\"price_unit\":52.9,\"total\":52.9,\"off\":0,\"id\":1,\"id_parent\":0,\"external_id\":\"|95baa96b-8464-3ee6-bd5b-8b4c22e270fd|\",\"details_fraction\":\"1/1 Marguerita\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51dc\"},{\"category_item\":\"6831d2b5dd1ce937260d51d1\",\"item\":\"6831d2b4dd1ce937260d4a76\",\"price\":\"6831d2b5dd1ce937260d4cd9\",\"category\":\"6831d2b4dd1ce937260d4a2a\",\"title\":\"Massa Tradicional\",\"title_category\":\"Escolha a sua Preferência\",\"title_category_concat\":\"Escolha a sua Preferência\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":2,\"id_parent\":0,\"external_id\":\"\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51d1\"}],\"_id\":\"69f7cf03e4a415933e02999d\"}],\"numorder\":5,\"off\":0,\"order_automatic_on_production\":true,\"page\":\"682e6d00001ddb0012bddddc\",\"payment_method\":\"ifood-online-pix-payin\",\"payment_methods\":[{\"payment_method\":\"ifood-online-pix-payin\",\"value\":\"111.79\",\"_id\":\"69f7cf03e4a415933e0299a3\"}],\"replication_lag\":0.019,\"target_add\":false,\"total\":111.79,\"unit_time_delivery_max\":49,\"unit_time_delivery_min\":39,\"unit_time_take_max\":0,\"unit_time_take_min\":0,\"updatedAt\":\"2026-05-03T22:48:38.763Z\"}]}",
+      "jsonKeys": [
+        "docs"
+      ],
+      "savedJsonFile": "network-030.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/coupon/active-coupons?skipdelivery=true",
+      "status": 304,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 70,
+      "textSample": "{\"success\":true,\"message\":\"Cupons listados com sucesso.\",\"coupons\":[]}",
+      "jsonKeys": [
+        "success",
+        "message",
+        "coupons"
+      ],
+      "savedJsonFile": "network-031.json"
+    },
+    {
+      "url": "https://staginganotaai.s3.us-west-2.amazonaws.com/produtos/682e6d00001ddb0012bddddc1748572598148blob",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://api.ipify.org/?format=json",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 21,
+      "textSample": "{\"ip\":\"52.27.44.164\"}",
+      "jsonKeys": [
+        "ip"
+      ],
+      "savedJsonFile": "network-033.json"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-TYVMJ602TQ&gtm=45je6711v870253187za200zb898880238zd898880238&_p=1783387732301&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1184587695.1783387733&frm=0&pscdl=noapi&rcb=4&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115616985~115938466~115938469~119027224~119576881~119576885~119576891~119576895&sid=1783387732&sct=1&seg=0&dl=https%3A%2F%2Fpedido.anota.ai%2Floja%2Feu-quero-pizza-3&dt=Eu%20Quero%20Pizza%20-%20Anota%20AI&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=2325",
+      "status": 204,
+      "contentType": "text/plain",
+      "resourceType": "fetch",
+      "method": "POST",
+      "readError": "Protocol error (Network.getResponseBody): No data found for resource with given identifier"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/event",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 78,
+      "textSample": "{\"successfulTrackingCount\":1,\"errors\":[],\"failureCount\":0,\"hasFailures\":false}",
+      "jsonKeys": [
+        "successfulTrackingCount",
+        "errors",
+        "failureCount",
+        "hasFailures"
+      ],
+      "savedJsonFile": "network-035.json"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/event",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 78,
+      "textSample": "{\"successfulTrackingCount\":2,\"errors\":[],\"failureCount\":0,\"hasFailures\":false}",
+      "jsonKeys": [
+        "successfulTrackingCount",
+        "errors",
+        "failureCount",
+        "hasFailures"
+      ],
+      "savedJsonFile": "network-036.json"
+    },
+    {
+      "url": "https://api2.amplitude.com/2/httpapi",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/672baa35533731001959a116/-1744148684380blob.webp",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/672baa35533731001959a116/-1744147064493blob.webp",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/672baa35533731001959a116/-1744146830533blob.webp",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/672baa35533731001959a116/-1744148745777blob.webp",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202208172110_A43T_i.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202208131746_7YS7_i.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202202032112_3KT5_i.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202312051703_i9mf59ukfbl.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202102261729_JkOZ_.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202102261727_AktD_.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202102261730_tcT0_.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202102261732_Ps1N_.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202103171435_xzq9jc9ixq.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://api2.amplitude.com/2/httpapi",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "POST",
+      "textLength": 93,
+      "textSample": "{\"code\":200,\"server_upload_time\":1783387733440,\"payload_size_bytes\":8957,\"events_ingested\":6}",
+      "jsonKeys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ],
+      "savedJsonFile": "network-051.json"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/66733bc5b84f620012176301/202102261731_qmi0_.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://api.lab.amplitude.com/sdk/v2/vardata?v=0",
+      "status": 200,
+      "contentType": "application/json;charset=utf-8",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 9480,
+      "textSample": "{\"ab_change_placeholder_title_comments_check_out\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"ab_test_clone_collapse_payment_methods\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"ab_test_copy_of_take_and_local_delivery_methods\":{\"key\":\"variant_c\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"variant_c\"},\"ab_test_copy_time_expired_nupay_ifp\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"change-the-copy-of-the-finalize-order-button-ifp\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"change-to-the-delivery-method-listing\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-3\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_a\"},\"change_button_hierarchy\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"checkout_pol_badge_copies\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"copy-the-delivery-option-in-the-delivery-format\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_a\"},\"copy_multiple_payments\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"copy_to_pix_payment\":{\"key\":\"variant2\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"variant2\"},\"cta_pix_to_offline_card_payment\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"digital_wallet_separated_methods\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"disable_offline_payment_method_autofill_renewed\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"equivalent_checkouts\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"expand-item-additional-clickable-area\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"extra_padding_online_methods\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"improved-signage-for-delivery-and-pickup-times\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"improvements_to_coupon_and_observation\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"increase-order-status-button\":{\"key\":\"variant_c\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-4\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_c\"},\"mandatory_addons_counter\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-8\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_a\"},\"mandatory_field_feedbacks\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"manual_address_registration_modal\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"modification-of-titles-and-placeholders-in-the-product-note\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"nupay_clock_variation\":{\"key\":\"variant_c\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"variant_c\"},\"nupay_cpf_autofill\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-4\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"nupay_order_details_collapse\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"offline_payment_friction_modal\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-5\",\"segmentName\":\"Segment 2\"},\"value\":\"treatment\"},\"offline_payment_icons_remove\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"online_method_suggestion_card_brand\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"online_payment_coupon_v2\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"ordering_of_payment_methods_at_checkout\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"ordering_of_payment_methods_ifood\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"variant_a\"},\"ordering_of_payment_methods_tuna\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"pay_with_pix_and_wallets_alerts\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"payment_visual_for_take_selection\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"default\",\"testInstrumentation\":true}},\"pix_fast_delivery_badge\":{\"key\":\"variant_b\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"variant_b\"},\"pol-safety-information-modal-click-logo\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"pol_ifp_credit_page_allowlist\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"payload\":{\"allowed_page_ids\":[]},\"value\":\"treatment\"},\"pol_security_badge\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"remove-offline-header-subtitle\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"remove_back_button_to_pol\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-4\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"removing_pol_checkout_suppliers\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"review_user_experience_pix_expiration_page\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"review_user_experience_pix_expiration_page_renewed\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"save_ifp_card\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-3\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"suitability-of-the-delivery-method-selection-standard\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"texts-and-presentation-of-client-identification\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"default\",\"testInstrumentation\":true}},\"the-change-in-the-name-to-nupay-occurred-throughout-the-journey\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"view_checkout_coupon_carousel\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"weekly_autofill_model\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"world_cup_menu_mode\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}}}",
+      "jsonKeys": [
+        "ab_change_placeholder_title_comments_check_out",
+        "ab_test_clone_collapse_payment_methods",
+        "ab_test_copy_of_take_and_local_delivery_methods",
+        "ab_test_copy_time_expired_nupay_ifp",
+        "change-the-copy-of-the-finalize-order-button-ifp",
+        "change-to-the-delivery-method-listing",
+        "change_button_hierarchy",
+        "checkout_pol_badge_copies",
+        "copy-the-delivery-option-in-the-delivery-format",
+        "copy_multiple_payments",
+        "copy_to_pix_payment",
+        "cta_pix_to_offline_card_payment",
+        "digital_wallet_separated_methods",
+        "disable_offline_payment_method_autofill_renewed",
+        "equivalent_checkouts",
+        "expand-item-additional-clickable-area",
+        "extra_padding_online_methods",
+        "improved-signage-for-delivery-and-pickup-times",
+        "improvements_to_coupon_and_observation",
+        "increase-order-status-button",
+        "mandatory_addons_counter",
+        "mandatory_field_feedbacks",
+        "manual_address_registration_modal",
+        "modification-of-titles-and-placeholders-in-the-product-note",
+        "nupay_clock_variation",
+        "nupay_cpf_autofill",
+        "nupay_order_details_collapse",
+        "offline_payment_friction_modal",
+        "offline_payment_icons_remove",
+        "online_method_suggestion_card_brand",
+        "online_payment_coupon_v2",
+        "ordering_of_payment_methods_at_checkout",
+        "ordering_of_payment_methods_ifood",
+        "ordering_of_payment_methods_tuna",
+        "pay_with_pix_and_wallets_alerts",
+        "payment_visual_for_take_selection",
+        "pix_fast_delivery_badge",
+        "pol-safety-information-modal-click-logo",
+        "pol_ifp_credit_page_allowlist",
+        "pol_security_badge"
+      ],
+      "savedJsonFile": "network-053.json"
+    },
+    {
+      "url": "https://flag.lab.amplitude.com/sdk/v2/flags",
+      "status": 200,
+      "contentType": "application/json;charset=utf-8",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 32340,
+      "textSample": "[{\"key\":\"payment_visual_for_take_selection\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":4,\"testInstrumentation\":true},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-n5yguhpe\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":1},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"441303\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"441305\"]},\"value\":\"slot-2\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-n5yguhpe\"],\"key\":\"remove-offline-header-subtitle\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"cta_pix_to_offline_card_payment\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"world_cup_menu_mode\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":6},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"disable_offline_payment_method_autofill_renewed\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":11},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-muazdlhr\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"540872\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"531985\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"531984\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-muazdlhr\"],\"key\":\"extra_padding_online_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-2\",\"flagType\":\"experiment\",\"flagVersion\":27},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mandatory_field_feedbacks\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"ab_test_clone_collapse_payment_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":15},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"remove_back_button_to_pol\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":32},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-jgxqaury\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"616735\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"614006\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"616734\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-jgxqaury\"],\"key\":\"nupay_clock_variation\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":16},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"offline_payment_friction_modal\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-5\",\"flagType\":\"experiment\",\"flagVersion\":38},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-mqkt6wvs\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"429700\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"429703\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"429762\"]},\"value\":\"slot-4\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-mqkt6wvs\"],\"key\":\"checkout_pol_badge_copies\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":24},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"mandatory_addons_counter\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-8\",\"flagType\":\"experiment\",\"flagVersion\":43},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"}}},{\"key\":\"mutex-tqk5fw03\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"1208588\"]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1259639\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1203314\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"1145631\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1176139\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[\"1091418\"]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[\"1120152\"]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-tqk5fw03\"],\"key\":\"change-the-copy-of-the-finalize-order-button-ifp\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":34},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"digital_wallet_separated_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"online_payment_coupon_v2\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-xmphq1fi\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":10},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-11\":{\"key\":\"slot-11\",\"payload\":{\"flagIds\":[\"1120316\"]},\"value\":\"slot-11\"},\"slot-12\":{\"key\":\"slot-12\",\"payload\":{\"flagIds\":[\"816463\"]},\"value\":\"slot-12\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1174404\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1120405\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"913034\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1124378\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[\"1130151\"]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-xmphq1fi\"],\"key\":\"suitability-of-the-delivery-method-selection-standard\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-3\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-8ezdc7vz\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"",
+      "jsonKeys": [
+        "array",
+        "66"
+      ],
+      "savedJsonFile": "network-054.json"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-TYVMJ602TQ&gtm=45je6711v870253187za200zb898880238zd898880238&_p=1783387732301&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=1184587695.1783387733&frm=0&pscdl=noapi&rcb=4&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&tag_exp=115616985~115938466~115938469~119027224~119576881~119576885~119576891~119576895&sid=1783387732&sct=1&seg=0&dl=https%3A%2F%2Fpedido.anota.ai%2Floja%2Feu-quero-pizza-3&dt=Eu%20Quero%20Pizza%20-%20Anota%20AI&_s=2&tfd=7367",
+      "status": 204,
+      "contentType": "text/plain",
+      "resourceType": "fetch",
+      "method": "POST",
+      "readError": "Protocol error (Network.getResponseBody): No data found for resource with given identifier"
+    }
+  ],
+  "failedRequests": [
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-TYVMJ602TQ&gtm=45je6711v870253187za200zb898880238zd898880238&_p=1783387732301&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1184587695.1783387733&frm=0&pscdl=noapi&rcb=4&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115616985~115938466~115938469~119027224~119576881~119576885~119576891~119576895&sid=1783387732&sct=1&seg=0&dl=https%3A%2F%2Fpedido.anota.ai%2Floja%2Feu-quero-pizza-3&dt=Eu%20Quero%20Pizza%20-%20Anota%20AI&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=2325",
+      "resourceType": "fetch",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://.icg-in.com/favicon.ico",
+      "resourceType": "image",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-TYVMJ602TQ&gtm=45je6711v870253187za200zb898880238zd898880238&_p=1783387732301&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=1184587695.1783387733&frm=0&pscdl=noapi&rcb=4&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&tag_exp=115616985~115938466~115938469~119027224~119576881~119576885~119576891~119576895&sid=1783387732&sct=1&seg=0&dl=https%3A%2F%2Fpedido.anota.ai%2Floja%2Feu-quero-pizza-3&dt=Eu%20Quero%20Pizza%20-%20Anota%20AI&_s=2&tfd=7367",
+      "resourceType": "fetch",
+      "failure": "net::ERR_ABORTED"
+    }
+  ]
+}

@@ -1,0 +1,3825 @@
+{
+  "success": true,
+  "sourceUrl": "https://delivery.yooga.app/espacosushi.house",
+  "finalUrl": "https://delivery.yooga.app/espacosushi.house/tabs/home",
+  "platform": "yooga_native_api",
+  "extractionLevel": 0,
+  "confidence": 0.98,
+  "categories": [
+    {
+      "external_id": "596517",
+      "name": "Promoções",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": "4814143",
+          "name": "2 Temaki de Kani",
+          "description": "(Obs: Combo promocional será enviado 2 molhos de cada)",
+          "image_url": "https://cdn-production.yooga.com.br/07edc00a51d578fb589f45f5f90fabe4.jpeg",
+          "price": 24.99,
+          "price_min": 24.99,
+          "price_max": 24.99,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "26184970",
+              "group_name": "Hot",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 26184970,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 4814143,
+            "idi": 2063,
+            "name": "2 Temaki de Kani",
+            "description": "(Obs: Combo promocional será enviado 2 molhos de cada)",
+            "price": 24.99,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/07edc00a51d578fb589f45f5f90fabe4.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 24.99,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 3616938,
+                "name": "Hot",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 26184970,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "4845462",
+          "name": "1 Temaki Skin",
+          "description": "(Obs: temaki promocional será enviado 1 molho de cada)",
+          "image_url": "https://cdn-production.yooga.com.br/c0a28a04273df3e5e8428b5c36d09af5.jpeg",
+          "price": 12.9,
+          "price_min": 12.9,
+          "price_max": 12.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "25252680",
+              "group_name": "Hot",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 25252680,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 4845462,
+            "idi": 2063,
+            "name": "1 Temaki Skin ",
+            "description": "(Obs: temaki promocional será enviado 1 molho de cada)",
+            "price": 12.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/c0a28a04273df3e5e8428b5c36d09af5.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 12.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 3476536,
+                "name": "Hot",
+                "required": 0,
+                "min": 0,
+                "max": 1,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 25252680,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "5075259",
+          "name": "2 Temaki Skin",
+          "description": "(Obs: Combo promocional será enviado 2 molhos de cada)",
+          "image_url": "https://cdn-production.yooga.com.br/c0a28a04273df3e5e8428b5c36d09af5.jpeg",
+          "price": 19.9,
+          "price_min": 19.9,
+          "price_max": 19.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "25252681",
+              "group_name": "Hot",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 2,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 25252681,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 5075259,
+            "idi": 2063,
+            "name": "2 Temaki Skin",
+            "description": "(Obs: Combo promocional será enviado 2 molhos de cada)",
+            "price": 19.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/c0a28a04273df3e5e8428b5c36d09af5.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 19.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 3476537,
+                "name": "Hot",
+                "required": 0,
+                "min": 0,
+                "max": 2,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 25252681,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "7089542",
+          "name": "Temaki Camarão Empanado",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/f73ee56135ce33cf120567ca88191744.jpeg",
+          "price": 28.9,
+          "price_min": 28.9,
+          "price_max": 28.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "31913561",
+              "group_name": "Hot",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 31913561,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 7089542,
+            "idi": 2063,
+            "name": "Temaki Camarão Empanado",
+            "description": null,
+            "price": 28.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/f73ee56135ce33cf120567ca88191744.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 28.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 4422622,
+                "name": "Hot",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 31913561,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7183",
+      "name": "Hossomaki",
+      "order_index": 1,
+      "items": [
+        {
+          "external_id": "44696",
+          "name": "Hossomaki Salmão Cru (5 ou 10 Uni)",
+          "description": "Nori, arroz, salmão cru e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220419212906D5gDHYLIc.jpeg",
+          "price": 0,
+          "price_min": 25,
+          "price_max": 39.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "11984140",
+              "group_name": "Escolha quantas unidades:",
+              "name": "5 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 25,
+              "price_delta": 25,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 1,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "id": 11984140,
+                "name": "5 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 25,
+                "img": null
+              }
+            },
+            {
+              "external_id": "11984141",
+              "group_name": "Escolha quantas unidades:",
+              "name": "10 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 39.9,
+              "price_delta": 39.9,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 1,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "id": 11984141,
+                "name": "10 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 39.9,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44696,
+            "idi": 2063,
+            "name": "Hossomaki Salmão Cru (5 ou 10 Uni)",
+            "description": "Nori, arroz, salmão cru e cream cheese.",
+            "price": 0,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220419212906D5gDHYLIc.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 25,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1517698,
+                "name": "Escolha quantas unidades:",
+                "required": 1,
+                "min": 1,
+                "max": 1,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 11984140,
+                    "name": "5 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 25,
+                    "img": null
+                  },
+                  {
+                    "id": 11984141,
+                    "name": "10 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 39.9,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "44697",
+          "name": "Hossomaki Kani",
+          "description": "Nori, arroz, kani e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220419223029Gpy4hk8DG.png",
+          "price": 2.85,
+          "price_min": 2.85,
+          "price_max": 2.85,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44697,
+            "idi": 2063,
+            "name": "Hossomaki Kani",
+            "description": "Nori, arroz, kani e cream cheese.",
+            "price": 2.85,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220419223029Gpy4hk8DG.png",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 2.85,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1312965",
+          "name": "Hossomaki Ebiten (5 Unidades)",
+          "description": "Nori, arroz, camarão empanado e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220906194422XzAHeMsam.jpeg",
+          "price": 14.5,
+          "price_min": 14.5,
+          "price_max": 14.5,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1312965,
+            "idi": 2063,
+            "name": "Hossomaki Ebiten (5 Unidades) ",
+            "description": "Nori, arroz, camarão empanado e cream cheese.",
+            "price": 14.5,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220906194422XzAHeMsam.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 14.5,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "118274",
+          "name": "Kanapé Kani Frito ( 5 Unidades )",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320210516224451pI6db2ypp.jpeg",
+          "price": 14.5,
+          "price_min": 14.5,
+          "price_max": 14.5,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 118274,
+            "idi": 2063,
+            "name": "Kanapé Kani Frito ( 5 Unidades )",
+            "description": null,
+            "price": 14.5,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210516224451pI6db2ypp.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 14.5,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1615877",
+          "name": "Hossomaki Salmão Empanado (5 Unidades)",
+          "description": "Nori, arroz, salmão empanado e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320221207192059R9uRHU8hd.jpeg",
+          "price": 27.5,
+          "price_min": 27.5,
+          "price_max": 27.5,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1615877,
+            "idi": 2063,
+            "name": "Hossomaki Salmão Empanado (5 Unidades)",
+            "description": "Nori, arroz, salmão empanado e cream cheese.",
+            "price": 27.5,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221207192059R9uRHU8hd.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 27.5,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "2042644",
+          "name": "Hossomaki Camarão Natural (5 ou 10 Uni)",
+          "description": "Arroz, camarão cozido e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/096deae720d224a13b3d411c50898025.jpeg",
+          "price": 0,
+          "price_min": 20,
+          "price_max": 35.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "13986416",
+              "group_name": "Escolha quantas unidades:",
+              "name": "5 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 20,
+              "price_delta": 20,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "id": 13986416,
+                "name": "5 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 20,
+                "img": null
+              }
+            },
+            {
+              "external_id": "13986417",
+              "group_name": "Escolha quantas unidades:",
+              "name": "10 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 35.9,
+              "price_delta": 35.9,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "id": 13986417,
+                "name": "10 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 35.9,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 2042644,
+            "idi": 2063,
+            "name": "Hossomaki Camarão Natural (5 ou 10 Uni)",
+            "description": "Arroz, camarão cozido e cream cheese.\n\n",
+            "price": 0,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/096deae720d224a13b3d411c50898025.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 20,
+            "min_value_promotional": 20,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1842260,
+                "name": "Escolha quantas unidades:",
+                "required": 1,
+                "min": 1,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 13986416,
+                    "name": "5 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 20,
+                    "img": null
+                  },
+                  {
+                    "id": 13986417,
+                    "name": "10 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 35.9,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7182",
+      "name": "Uramaki",
+      "order_index": 2,
+      "items": [
+        {
+          "external_id": "44690",
+          "name": "Uramaki Salmão (5 ou 10 Uni)",
+          "description": "Arroz, nori, salmão cru e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/2063202204192130157UZDKUKxR.jpeg",
+          "price": 0,
+          "price_min": 25,
+          "price_max": 39.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "11984148",
+              "group_name": "Escolha quantas unidades:",
+              "name": "5 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 25,
+              "price_delta": 25,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 1,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "id": 11984148,
+                "name": "5 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 25,
+                "img": null
+              }
+            },
+            {
+              "external_id": "11984149",
+              "group_name": "Escolha quantas unidades:",
+              "name": "10 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 39.9,
+              "price_delta": 39.9,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 1,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "id": 11984149,
+                "name": "10 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 39.9,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44690,
+            "idi": 2063,
+            "name": "Uramaki  Salmão (5 ou 10 Uni)",
+            "description": "Arroz, nori, salmão cru e cream cheese.",
+            "price": 0,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202204192130157UZDKUKxR.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 25,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1517700,
+                "name": "Escolha quantas unidades:",
+                "required": 1,
+                "min": 1,
+                "max": 1,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 11984148,
+                    "name": "5 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 25,
+                    "img": null
+                  },
+                  {
+                    "id": 11984149,
+                    "name": "10 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 39.9,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "44691",
+          "name": "Uramaki Kani",
+          "description": "Arroz, nori, kani e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320210111152758PXTUvwZxn.jpeg",
+          "price": 2.85,
+          "price_min": 2.85,
+          "price_max": 2.85,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44691,
+            "idi": 2063,
+            "name": "Uramaki  Kani",
+            "description": "Arroz, nori, kani e cream cheese.",
+            "price": 2.85,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210111152758PXTUvwZxn.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 2.85,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "44694",
+          "name": "Uramaki Skin",
+          "description": "Arroz, nori, lascas de salmão frito e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220419213027u1sHbxfTH.jpeg",
+          "price": 2.85,
+          "price_min": 2.85,
+          "price_max": 2.85,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44694,
+            "idi": 2063,
+            "name": "Uramaki Skin",
+            "description": "Arroz, nori, lascas de salmão frito e cream cheese.",
+            "price": 2.85,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220419213027u1sHbxfTH.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 2.85,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "525940",
+          "name": "Uramaki Camarão",
+          "description": "Arroz, nori, camarão cozido e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/2063202111302204489dJTRgbsl.png",
+          "price": 3,
+          "price_min": 3,
+          "price_max": 3,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 525940,
+            "idi": 2063,
+            "name": "Uramaki Camarão",
+            "description": "Arroz, nori, camarão cozido e cream cheese.",
+            "price": 3,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202111302204489dJTRgbsl.png",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 3,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1312966",
+          "name": "Uramaki Ebiten (5 Unidades)",
+          "description": "Arroz, nori, camarão empanado e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220906194533PkOVU22oi.jpeg",
+          "price": 15,
+          "price_min": 15,
+          "price_max": 15,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1312966,
+            "idi": 2063,
+            "name": "Uramaki Ebiten (5 Unidades)",
+            "description": "Arroz, nori, camarão empanado e cream cheese.",
+            "price": 15,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220906194533PkOVU22oi.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 15,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1615878",
+          "name": "Uramaki Salmão Empanado (5 Unidades)",
+          "description": "Arroz, nori, salmão empanado e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320221207191930ovJrr86H2.jpeg",
+          "price": 20,
+          "price_min": 20,
+          "price_max": 20,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1615878,
+            "idi": 2063,
+            "name": "Uramaki Salmão Empanado (5 Unidades)",
+            "description": "Arroz, nori, salmão empanado e cream cheese.",
+            "price": 20,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221207191930ovJrr86H2.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 20,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7184",
+      "name": "Sushi Hot",
+      "order_index": 3,
+      "items": [
+        {
+          "external_id": "44700",
+          "name": "Hot",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320211219234512XIGAAh3s9.jpeg",
+          "price": 2.85,
+          "price_min": 2.85,
+          "price_max": 2.85,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44700,
+            "idi": 2063,
+            "name": "Hot ",
+            "description": "",
+            "price": 2.85,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320211219234512XIGAAh3s9.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 2.85,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "84288",
+          "name": "Kani Frito",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/2063202103262122195tcbxO7Cg.jpeg",
+          "price": 3.5,
+          "price_min": 3.5,
+          "price_max": 3.5,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 84288,
+            "idi": 2063,
+            "name": "Kani Frito",
+            "description": "",
+            "price": 3.5,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202103262122195tcbxO7Cg.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 3.5,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "422047",
+          "name": "Hot Roll (5 ou 10 Unidades)",
+          "description": "Nori, salmão cru, kani e cream cheese. (SEM ARROZ)",
+          "image_url": "https://cdn-production.yooga.com.br/206320211021011254sjyR3eaZy.jpeg",
+          "price": 0,
+          "price_min": 28.9,
+          "price_max": 47.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "10407003",
+              "group_name": "Escolha quantas unidades:",
+              "name": "5 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 28.9,
+              "price_delta": 28.9,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "id": 10407003,
+                "name": "5 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 28.9,
+                "img": null
+              }
+            },
+            {
+              "external_id": "13985616",
+              "group_name": "Escolha quantas unidades:",
+              "name": "10 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 47.9,
+              "price_delta": 47.9,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "id": 13985616,
+                "name": "10 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 47.9,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 422047,
+            "idi": 2063,
+            "name": "Hot Roll (5 ou 10 Unidades)",
+            "description": "Nori, salmão cru, kani e cream cheese. (SEM ARROZ)",
+            "price": 0,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320211021011254sjyR3eaZy.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 28.9,
+            "min_value_promotional": 28.9,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1268083,
+                "name": "Escolha quantas unidades:",
+                "required": 1,
+                "min": 1,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 10407003,
+                    "name": "5 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 28.9,
+                    "img": null
+                  },
+                  {
+                    "id": 13985616,
+                    "name": "10 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 47.9,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1265712",
+          "name": "Hot Roll Especial (5 ou 10 Unidades)",
+          "description": "Nori, salmão, kani, camarão, e cream cheese. (SEM ARROZ)",
+          "image_url": "https://cdn-production.yooga.com.br/206320220824160409MMbKvxSwk.jpeg",
+          "price": 0,
+          "price_min": 28.9,
+          "price_max": 47.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "13985783",
+              "group_name": "Escolha quantas unidades:",
+              "name": "5 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 28.9,
+              "price_delta": 28.9,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "id": 13985783,
+                "name": "5 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 28.9,
+                "img": null
+              }
+            },
+            {
+              "external_id": "13985784",
+              "group_name": "Escolha quantas unidades:",
+              "name": "10 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 47.9,
+              "price_delta": 47.9,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "id": 13985784,
+                "name": "10 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 47.9,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1265712,
+            "idi": 2063,
+            "name": "Hot Roll Especial (5 ou 10 Unidades)",
+            "description": "Nori, salmão, kani, camarão, e cream cheese. (SEM ARROZ)",
+            "price": 0,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220824160409MMbKvxSwk.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 28.9,
+            "min_value_promotional": 28.9,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1842165,
+                "name": "Escolha quantas unidades:",
+                "required": 1,
+                "min": 1,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 13985783,
+                    "name": "5 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 28.9,
+                    "img": null
+                  },
+                  {
+                    "id": 13985784,
+                    "name": "10 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 47.9,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "532477",
+          "name": "Camarão Empanado (5 Unidades)",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320211205003518Xt6nWj2T7.jpeg",
+          "price": 20,
+          "price_min": 20,
+          "price_max": 20,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 532477,
+            "idi": 2063,
+            "name": "Camarão Empanado (5 Unidades)",
+            "description": null,
+            "price": 20,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320211205003518Xt6nWj2T7.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 20,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1303183",
+          "name": "Hot Salmão (5 Unidades)",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320220902230426tvrk14R8Z.jpeg",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1303183,
+            "idi": 2063,
+            "name": "Hot Salmão  (5 Unidades)",
+            "description": null,
+            "price": 25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220902230426tvrk14R8Z.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1563375",
+          "name": "Hot Ebi (5 Unidades)",
+          "description": "Roll de camarão natural, arroz e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/2063202211241544381A4mqdKNw.jpeg",
+          "price": 23.9,
+          "price_min": 23.9,
+          "price_max": 23.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1563375,
+            "idi": 2063,
+            "name": "Hot Ebi (5 Unidades)",
+            "description": "Roll de camarão natural, arroz e cream cheese.",
+            "price": 23.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202211241544381A4mqdKNw.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 23.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7280",
+      "name": "Kani Queijo",
+      "order_index": 4,
+      "items": [
+        {
+          "external_id": "45309",
+          "name": "Kani Queijo",
+          "description": "Kani com Cream Cheese",
+          "image_url": "https://cdn-production.yooga.com.br/206320220419215144nCNURv3LN.jpeg",
+          "price": 4,
+          "price_min": 4,
+          "price_max": 4,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 45309,
+            "idi": 2063,
+            "name": "Kani Queijo",
+            "description": "Kani com Cream Cheese ",
+            "price": 4,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220419215144nCNURv3LN.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 4,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "58356",
+          "name": "Kani Queijo Hot ( 5 Unidades)",
+          "description": "Kani queijo empanado.",
+          "image_url": "https://cdn-production.yooga.com.br/206320210524221954XMAAS4h7s.jpeg",
+          "price": 20,
+          "price_min": 20,
+          "price_max": 20,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 58356,
+            "idi": 2063,
+            "name": "Kani Queijo Hot ( 5 Unidades)",
+            "description": "Kani queijo empanado.\n\n",
+            "price": 20,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210524221954XMAAS4h7s.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 20,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "69029",
+          "name": "Kani Salmao ( 5 Unidades )",
+          "description": "5 Unidades de salmão e cream cheese envolto no Kani. *3 sabores em 1 *",
+          "image_url": "https://cdn-production.yooga.com.br/2063202103092211264RjeZSxPe.jpeg",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "11097253",
+              "group_name": "Hot",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 3.5,
+              "price_delta": 3.5,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 11097253,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 3.5,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 69029,
+            "idi": 2063,
+            "name": "Kani Salmao ( 5 Unidades )",
+            "description": "5 Unidades de salmão e cream cheese envolto no Kani.\n\n   *3 sabores em 1 *",
+            "price": 25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202103092211264RjeZSxPe.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1376588,
+                "name": "Hot",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 11097253,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 3.5,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7186",
+      "name": "Temaki",
+      "order_index": 5,
+      "items": [
+        {
+          "external_id": "44836",
+          "name": "Temaki Salmão",
+          "description": "Arroz, nori, salmão em cubos com cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220701002242o0UQktdkb.jpeg",
+          "price": 42.9,
+          "price_min": 42.9,
+          "price_max": 42.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "212417",
+              "group_name": "Deseja que seja Hot?",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 212417,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44836,
+            "idi": 2063,
+            "name": "Temaki Salmão",
+            "description": "Arroz, nori, salmão em cubos com cream cheese.",
+            "price": 42.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220701002242o0UQktdkb.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 42.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 27090,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 212417,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "44838",
+          "name": "Temaki Kani",
+          "description": "Nori, arroz, kani em cubos e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320210111153737BXNrmmjYK.jpeg",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "212419",
+              "group_name": "Deseja que seja Hot?",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 10,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 212419,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44838,
+            "idi": 2063,
+            "name": "Temaki Kani",
+            "description": "Nori, arroz, kani em cubos e cream cheese.",
+            "price": 25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210111153737BXNrmmjYK.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 27092,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 10,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 212419,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "70251",
+          "name": "Temaki Salmão Maçaricado",
+          "description": "Arroz, cream cheese, e salmão em cubos maçaricado.",
+          "image_url": "https://cdn-production.yooga.com.br/206320210311182406hhpotaZnb.jpeg",
+          "price": 42.9,
+          "price_min": 42.9,
+          "price_max": 42.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "13525544",
+              "group_name": "Deseja que seja Hot?",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 13525544,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 70251,
+            "idi": 2063,
+            "name": "Temaki Salmão Maçaricado ",
+            "description": "Arroz, cream cheese, e salmão em cubos maçaricado.",
+            "price": 42.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210311182406hhpotaZnb.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 42.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1767363,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 13525544,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "70322",
+          "name": "Temaki Kani Frito",
+          "description": "Nori, arroz, kani frito e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/2063202103112200527e6ybbjTD.jpeg",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "10679405",
+              "group_name": "Deseja que seja Hot?",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 10679405,
+                "name": "Hot ",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 70322,
+            "idi": 2063,
+            "name": "Temaki Kani Frito",
+            "description": "Nori, arroz, kani frito e cream cheese.",
+            "price": 25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202103112200527e6ybbjTD.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1313575,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 10679405,
+                    "name": "Hot ",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "131314",
+          "name": "Temaki Hot Roll",
+          "description": "Arroz, salmão, kani e cream cheese. Empanado",
+          "image_url": "https://cdn-production.yooga.com.br/206320210531225057LlfLPXDVP.jpeg",
+          "price": 38.9,
+          "price_min": 38.9,
+          "price_max": 38.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 131314,
+            "idi": 2063,
+            "name": "Temaki Hot Roll ",
+            "description": "Arroz, salmão, kani e cream cheese. Empanado\n",
+            "price": 38.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210531225057LlfLPXDVP.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 38.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "525941",
+          "name": "Temaki de Camarão",
+          "description": "Nori, arroz, camarão cozido e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320211130220247TNk5qDExY.jpeg",
+          "price": 38.9,
+          "price_min": 38.9,
+          "price_max": 38.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "10764510",
+              "group_name": "Deseja que seja Hot?",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 10764510,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 525941,
+            "idi": 2063,
+            "name": "Temaki de Camarão ",
+            "description": "Nori, arroz, camarão cozido e cream cheese.",
+            "price": 38.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320211130220247TNk5qDExY.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 38.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1327819,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 10764510,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "806138",
+          "name": "Temaki Kani Sakê",
+          "description": "Nori, arroz, salmão, kani e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220419215851t1vTHXOoq.jpeg",
+          "price": 38.9,
+          "price_min": 38.9,
+          "price_max": 38.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "10764511",
+              "group_name": "Deseja que seja Hot?",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 10764511,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 806138,
+            "idi": 2063,
+            "name": "Temaki Kani Sakê",
+            "description": "Nori, arroz, salmão, kani e cream cheese.",
+            "price": 38.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220419215851t1vTHXOoq.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 38.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1327820,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 10764511,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "814134",
+          "name": "Temaki Salmão Empanado",
+          "description": "Nori, arroz, salmão empanado na panko crocante e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220426000901m5wWFDpOt.png",
+          "price": 39.9,
+          "price_min": 39.9,
+          "price_max": 39.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "10764512",
+              "group_name": "Deseja que seja Hot?",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 3,
+              "price_delta": 3,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 10764512,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 3,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 814134,
+            "idi": 2063,
+            "name": "Temaki Salmão Empanado",
+            "description": "Nori, arroz, salmão empanado na panko crocante e cream cheese.",
+            "price": 39.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220426000901m5wWFDpOt.png",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 39.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1327821,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 10764512,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 3,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "858397",
+          "name": "Temaki Mix",
+          "description": "Arroz, salmão, kani, camarão e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220512003209TLSPR3SMX.jpeg",
+          "price": 38.9,
+          "price_min": 38.9,
+          "price_max": 38.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "10764513",
+              "group_name": "Deseja que seja Hot?",
+              "name": "HOT",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 10764513,
+                "name": "HOT",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 858397,
+            "idi": 2063,
+            "name": "Temaki Mix",
+            "description": "Arroz, salmão, kani, camarão e cream cheese.",
+            "price": 38.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220512003209TLSPR3SMX.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 38.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1327822,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 10764513,
+                    "name": "HOT",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1378103",
+          "name": "Temaki EbiSake",
+          "description": "Nori, arroz, salmão, camarão e cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220926215913HBJsJsNVr.jpeg",
+          "price": 38.9,
+          "price_min": 38.9,
+          "price_max": 38.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "11097530",
+              "group_name": "Deseja que seja Hot?",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 11097530,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1378103,
+            "idi": 2063,
+            "name": "Temaki EbiSake",
+            "description": "Nori, arroz, salmão, camarão e cream cheese.",
+            "price": 38.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220926215913HBJsJsNVr.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 38.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1376619,
+                "name": "Deseja que seja Hot?",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 11097530,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "5568407",
+          "name": "Temaki Ebiten",
+          "description": "Temaki de camarão Empanado",
+          "image_url": "https://cdn-production.yooga.com.br/7329b617226d28b28adf8dd1634453ee.jpeg",
+          "price": 28.9,
+          "price_min": 28.9,
+          "price_max": 28.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "31913562",
+              "group_name": "Hot",
+              "name": "Hot",
+              "description": "",
+              "image_url": null,
+              "price": 4,
+              "price_delta": 4,
+              "price_behavior": "price_delta",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 31913562,
+                "name": "Hot",
+                "description": null,
+                "max": 5,
+                "price": 4,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 5568407,
+            "idi": 2063,
+            "name": "Temaki Ebiten",
+            "description": "Temaki de camarão Empanado",
+            "price": 28.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/7329b617226d28b28adf8dd1634453ee.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 28.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 4422623,
+                "name": "Hot",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 31913562,
+                    "name": "Hot",
+                    "description": null,
+                    "max": 5,
+                    "price": 4,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7185",
+      "name": "Sushi Burguer",
+      "order_index": 6,
+      "items": [
+        {
+          "external_id": "44833",
+          "name": "Sushi Burguer de Salmão",
+          "description": "Sushi em formato de hamburguer, com recheio de salmão em cubos com cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320211031181130LLcHhZ1o9.jpeg",
+          "price": 48.9,
+          "price_min": 48.9,
+          "price_max": 48.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44833,
+            "idi": 2063,
+            "name": "Sushi Burguer de Salmão",
+            "description": "Sushi em formato de hamburguer, com recheio de salmão em cubos com cream cheese.",
+            "price": 48.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320211031181130LLcHhZ1o9.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 48.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "44835",
+          "name": "Sushi Burguer de Kani",
+          "description": "Sushi em formato de hamburguer com recheio de kani com cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320210601182707aqOHqCNhH.jpeg",
+          "price": 28.9,
+          "price_min": 28.9,
+          "price_max": 28.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44835,
+            "idi": 2063,
+            "name": "Sushi Burguer de Kani",
+            "description": "Sushi em formato de hamburguer com recheio de kani com cream cheese.",
+            "price": 28.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210601182707aqOHqCNhH.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 28.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "128148",
+          "name": "Sushi Burger de Salmão Cru C/ Salmão Maçaricado",
+          "description": "Uma MARCA em nosso restaurante, quem PROVA desse sushi burguer, jamais ESQUECE.",
+          "image_url": "https://cdn-production.yooga.com.br/206320210527225504n4TWsQivj.jpeg",
+          "price": 45,
+          "price_min": 45,
+          "price_max": 45,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 128148,
+            "idi": 2063,
+            "name": "Sushi Burger de Salmão Cru C/ Salmão Maçaricado",
+            "description": "Uma MARCA em nosso restaurante, quem PROVA desse sushi burguer, jamais ESQUECE. ",
+            "price": 45,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210527225504n4TWsQivj.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 45,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "525944",
+          "name": "Sushi Burguer de Camarão",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320221121222532gMVc9YwAw.jpeg",
+          "price": 42.9,
+          "price_min": 42.9,
+          "price_max": 42.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 525944,
+            "idi": 2063,
+            "name": "Sushi Burguer de Camarão",
+            "description": null,
+            "price": 42.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221121222532gMVc9YwAw.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 42.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "8412",
+      "name": "Sushi Dragon",
+      "order_index": 7,
+      "items": [
+        {
+          "external_id": "51359",
+          "name": "Drangon de Kani com Pasta de Salmao (5 Unidades)",
+          "description": "Arroz, kani, cream Cheese e pasta de salmão. Um dos melhores em nosso buffet!",
+          "image_url": "https://cdn-production.yooga.com.br/206320221121222807FqvGsmPIY.jpeg",
+          "price": 17.5,
+          "price_min": 17.5,
+          "price_max": 17.5,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 51359,
+            "idi": 2063,
+            "name": "Drangon de Kani com Pasta de Salmao (5 Unidades)",
+            "description": "Arroz, kani, cream Cheese e pasta de salmão. \n\nUm dos melhores em nosso buffet!",
+            "price": 17.5,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221121222807FqvGsmPIY.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 17.5,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "51360",
+          "name": "Drangon de Kani",
+          "description": "Arroz, Kani e Cream Cheese",
+          "image_url": "https://cdn-production.yooga.com.br/206320210201231158YGeAnSs5F.jpeg",
+          "price": 3.25,
+          "price_min": 3.25,
+          "price_max": 3.25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 51360,
+            "idi": 2063,
+            "name": "Drangon de Kani",
+            "description": "Arroz, Kani e Cream Cheese",
+            "price": 3.25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210201231158YGeAnSs5F.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 3.25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1504402",
+          "name": "Dragon Skin C/ Salmão Maçaricado (5 Unidades)",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320221104001836FlCCjI8PK.jpeg",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1504402,
+            "idi": 2063,
+            "name": " Dragon Skin C/ Salmão Maçaricado (5 Unidades)",
+            "description": null,
+            "price": 25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221104001836FlCCjI8PK.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1504408",
+          "name": "Dragon Ebiten C/ Salmão Maçaricado (5 Unidades)",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320221104002337mTtCePe2Y.jpeg",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1504408,
+            "idi": 2063,
+            "name": "Dragon Ebiten C/ Salmão Maçaricado (5 Unidades)",
+            "description": null,
+            "price": 25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221104002337mTtCePe2Y.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1553790",
+          "name": "Dragon Ebi (5 Unidades)",
+          "description": "Roll de camarão e cream cheese, finalizado com camarão em cada unidade.",
+          "image_url": "https://cdn-production.yooga.com.br/206320221121222841K6bmEowZq.jpeg",
+          "price": 20,
+          "price_min": 20,
+          "price_max": 20,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1553790,
+            "idi": 2063,
+            "name": "Dragon Ebi (5 Unidades)",
+            "description": "Roll de camarão e cream cheese, finalizado com camarão em cada unidade.",
+            "price": 20,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221121222841K6bmEowZq.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 20,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7281",
+      "name": "Sashimi",
+      "order_index": 8,
+      "items": [
+        {
+          "external_id": "114243",
+          "name": "Sashimi de Kani",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/2063202105100109183vRUpRIXX.jpeg",
+          "price": 3,
+          "price_min": 3,
+          "price_max": 3,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 114243,
+            "idi": 2063,
+            "name": "Sashimi de Kani",
+            "description": null,
+            "price": 3,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202105100109183vRUpRIXX.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 3,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7282",
+      "name": "Joy Joy",
+      "order_index": 9,
+      "items": [
+        {
+          "external_id": "45312",
+          "name": "Joy de Salmao",
+          "description": "Lâmina de salmão com cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/206320210601183117j0dg8Gjbf.jpeg",
+          "price": 0,
+          "price_min": 40,
+          "price_max": 60,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "227987",
+              "group_name": "Escolha quantas unidades:",
+              "name": "5 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 40,
+              "price_delta": 40,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "id": 227987,
+                "name": "5 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 40,
+                "img": null
+              }
+            },
+            {
+              "external_id": "16820226",
+              "group_name": "Escolha quantas unidades:",
+              "name": "8 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 60,
+              "price_delta": 60,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "id": 16820226,
+                "name": "8 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 60,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 45312,
+            "idi": 2063,
+            "name": "Joy de Salmao",
+            "description": "Lâmina de salmão com cream cheese.",
+            "price": 0,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210601183117j0dg8Gjbf.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 40,
+            "min_value_promotional": 40,
+            "featured": [],
+            "choices": [
+              {
+                "id": 29108,
+                "name": "Escolha quantas unidades:",
+                "required": 1,
+                "min": 1,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 227987,
+                    "name": "5 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 40,
+                    "img": null
+                  },
+                  {
+                    "id": 16820226,
+                    "name": "8 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 60,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "525942",
+          "name": "Ebi Joy",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320211130220322FTRy5oynI.jpeg",
+          "price": 0,
+          "price_min": 40,
+          "price_max": 60,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "11711434",
+              "group_name": "Escolha quantas unidades:",
+              "name": "5 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 40,
+              "price_delta": 40,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "id": 11711434,
+                "name": "5 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 40,
+                "img": null
+              }
+            },
+            {
+              "external_id": "16820228",
+              "group_name": "Escolha quantas unidades:",
+              "name": "8 Unidades",
+              "description": "",
+              "image_url": null,
+              "price": 60,
+              "price_delta": 60,
+              "price_behavior": "price_delta",
+              "min_quantity": 1,
+              "max_quantity": 5,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "id": 16820228,
+                "name": "8 Unidades",
+                "description": null,
+                "max": 5,
+                "price": 60,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 525942,
+            "idi": 2063,
+            "name": "Ebi Joy ",
+            "description": null,
+            "price": 0,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320211130220322FTRy5oynI.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 40,
+            "min_value_promotional": 40,
+            "featured": [],
+            "choices": [
+              {
+                "id": 1470120,
+                "name": "Escolha quantas unidades:",
+                "required": 1,
+                "min": 1,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 11711434,
+                    "name": "5 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 40,
+                    "img": null
+                  },
+                  {
+                    "id": 16820228,
+                    "name": "8 Unidades",
+                    "description": null,
+                    "max": 5,
+                    "price": 60,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "820854",
+          "name": "Ebi Joy Especial (5 Unidades)",
+          "description": "Camarão empanado, envolto na lâmina de salmão maçaricada com cream cheese.",
+          "image_url": "https://cdn-production.yooga.com.br/2063202204280042139iTk0F69B.jpeg",
+          "price": 42.9,
+          "price_min": 42.9,
+          "price_max": 42.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 820854,
+            "idi": 2063,
+            "name": "Ebi Joy Especial (5 Unidades)",
+            "description": "Camarão empanado, envolto na lâmina de salmão maçaricada com cream cheese.",
+            "price": 42.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202204280042139iTk0F69B.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 42.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1294334",
+          "name": "Joy Maçaricado com Kani (5 Unidades)",
+          "description": "Lâmina de salmão maçaricada, recheada com kani e cream cheese. Finalizada com molho tarê e gergelim.",
+          "image_url": "https://cdn-production.yooga.com.br/206320220831221931MqRRZtpMx.jpeg",
+          "price": 40,
+          "price_min": 40,
+          "price_max": 40,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1294334,
+            "idi": 2063,
+            "name": "Joy Maçaricado com Kani (5 Unidades)",
+            "description": "Lâmina de salmão maçaricada, recheada com kani e cream cheese. Finalizada com molho tarê e gergelim.",
+            "price": 40,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320220831221931MqRRZtpMx.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 40,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "9537",
+      "name": "Niguiri",
+      "order_index": 10,
+      "items": [
+        {
+          "external_id": "57681",
+          "name": "Niguiri de Salmão (2 Unidades)",
+          "description": "Arroz, com sashimi de salmão",
+          "image_url": "https://cdn-production.yooga.com.br/206320210601182809961PEvXvc.jpeg",
+          "price": 14,
+          "price_min": 14,
+          "price_max": 14,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [
+            {
+              "external_id": "4435102",
+              "group_name": "Categoria",
+              "name": "Maçaricado",
+              "description": "",
+              "image_url": null,
+              "price": null,
+              "price_delta": null,
+              "price_behavior": "included",
+              "min_quantity": 0,
+              "max_quantity": 5,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "id": 4435102,
+                "name": "Maçaricado",
+                "description": null,
+                "max": 5,
+                "price": 0,
+                "img": null
+              }
+            }
+          ],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 57681,
+            "idi": 2063,
+            "name": "Niguiri de Salmão (2 Unidades)",
+            "description": "Arroz, com sashimi de salmão",
+            "price": 14,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210601182809961PEvXvc.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 14,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": [
+              {
+                "id": 515244,
+                "name": "Categoria",
+                "required": 0,
+                "min": 0,
+                "max": 5,
+                "use_greater_option_price": 0,
+                "options": [
+                  {
+                    "id": 4435102,
+                    "name": "Maçaricado",
+                    "description": null,
+                    "max": 5,
+                    "price": 0,
+                    "img": null
+                  }
+                ]
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "57682",
+          "name": "Niguiri de Kani (2 Unidades)",
+          "description": "Arroz, com Kani",
+          "image_url": "https://cdn-production.yooga.com.br/206320210601182831KHTVD4Opy.jpeg",
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 57682,
+            "idi": 2063,
+            "name": "Niguiri de Kani (2 Unidades)",
+            "description": "Arroz, com Kani",
+            "price": 8,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210601182831KHTVD4Opy.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 8,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "124385",
+          "name": "Niguiri Skin (2 Unidades)",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320210601182844gsvmDb6SO.jpeg",
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 124385,
+            "idi": 2063,
+            "name": "Niguiri Skin (2 Unidades)",
+            "description": null,
+            "price": 10,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210601182844gsvmDb6SO.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 10,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "7187",
+      "name": "Bebidas",
+      "order_index": 11,
+      "items": [
+        {
+          "external_id": "44840",
+          "name": "Coca 350ml",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320210111153820AGZa0OjyS.jpeg",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 44840,
+            "idi": 2063,
+            "name": "Coca 350ml",
+            "description": null,
+            "price": 6,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210111153820AGZa0OjyS.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 6,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1615881",
+          "name": "Coca Zero 350 ml",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320221207192603we0W9LRvG.jpeg",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1615881,
+            "idi": 2063,
+            "name": "Coca Zero 350 ml",
+            "description": "",
+            "price": 6,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221207192603we0W9LRvG.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 6,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "100294",
+          "name": "Guarana LT 350ml",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/2063202104280249400FKGnIOJi.jpeg",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 100294,
+            "idi": 2063,
+            "name": "Guarana LT 350ml",
+            "description": null,
+            "price": 6,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/2063202104280249400FKGnIOJi.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 6,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1553791",
+          "name": "Fanta Lata",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320221121223034EjJ01t7Fs.jpeg",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1553791,
+            "idi": 2063,
+            "name": "Fanta Lata",
+            "description": null,
+            "price": 6,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221121223034EjJ01t7Fs.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 6,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1394645",
+          "name": "Guaraná 1L",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320221003233837E5YtEV8w8.jpeg",
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 1394645,
+            "idi": 2063,
+            "name": "Guaraná 1L",
+            "description": null,
+            "price": 9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320221003233837E5YtEV8w8.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "14157",
+      "name": "Itens adicionais",
+      "order_index": 12,
+      "items": [
+        {
+          "external_id": "124394",
+          "name": "Hashi C/ Adaptador",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/206320210524223406nlHEenfYj.jpeg",
+          "price": 2,
+          "price_min": 2,
+          "price_max": 2,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/espacosushi.house",
+          "raw_data": {
+            "id": 124394,
+            "idi": 2063,
+            "name": "Hashi C/ Adaptador",
+            "description": null,
+            "price": 2,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/206320210524223406nlHEenfYj.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 2,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "browserbase_structured_probe",
+    "browserbaseFullPagePath": "scratch\\structured-menu-collection\\2026-07-07T07-26-44-792Z-25884\\003-espaco-do-sushi\\browserbase-full-page.jpg",
+    "fullPage": true,
+    "truncated": false,
+    "domMetrics": {
+      "scrollHeight": 1100,
+      "bodyLength": 61874,
+      "imageCount": 61
+    }
+  },
+  "structuredProbe": {
+    "source": "browserbase_plus_yooga_native_api",
+    "endpoint": "https://delivery2.yooga.com.br/v2/stores/espacosushi.house/menu?type_query=null",
+    "yoogaStats": {
+      "categoryCount": 13,
+      "itemCount": 60,
+      "optionCount": 30,
+      "operationalCategoryCount": 0,
+      "operationalItemCount": 0,
+      "operationalOptionCount": 0,
+      "samples": [
+        {
+          "name": "Promoções",
+          "items": [
+            {
+              "name": "2 Temaki de Kani",
+              "price": 24.99,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "1 Temaki Skin",
+              "price": 12.9,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 1,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "2 Temaki Skin",
+              "price": 19.9,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 2,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Camarão Empanado",
+              "price": 28.9,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Hossomaki",
+          "items": [
+            {
+              "name": "Hossomaki Salmão Cru (5 ou 10 Uni)",
+              "price": 0,
+              "options": [
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "5 Unidades",
+                  "price": 25,
+                  "min": 1,
+                  "max": 1,
+                  "required": true
+                },
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "10 Unidades",
+                  "price": 39.9,
+                  "min": 1,
+                  "max": 1,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Hossomaki Kani",
+              "price": 2.85,
+              "options": []
+            },
+            {
+              "name": "Hossomaki Ebiten (5 Unidades)",
+              "price": 14.5,
+              "options": []
+            },
+            {
+              "name": "Kanapé Kani Frito ( 5 Unidades )",
+              "price": 14.5,
+              "options": []
+            },
+            {
+              "name": "Hossomaki Salmão Empanado (5 Unidades)",
+              "price": 27.5,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Uramaki",
+          "items": [
+            {
+              "name": "Uramaki Salmão (5 ou 10 Uni)",
+              "price": 0,
+              "options": [
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "5 Unidades",
+                  "price": 25,
+                  "min": 1,
+                  "max": 1,
+                  "required": true
+                },
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "10 Unidades",
+                  "price": 39.9,
+                  "min": 1,
+                  "max": 1,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Uramaki Kani",
+              "price": 2.85,
+              "options": []
+            },
+            {
+              "name": "Uramaki Skin",
+              "price": 2.85,
+              "options": []
+            },
+            {
+              "name": "Uramaki Camarão",
+              "price": 3,
+              "options": []
+            },
+            {
+              "name": "Uramaki Ebiten (5 Unidades)",
+              "price": 15,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Sushi Hot",
+          "items": [
+            {
+              "name": "Hot",
+              "price": 2.85,
+              "options": []
+            },
+            {
+              "name": "Kani Frito",
+              "price": 3.5,
+              "options": []
+            },
+            {
+              "name": "Hot Roll (5 ou 10 Unidades)",
+              "price": 0,
+              "options": [
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "5 Unidades",
+                  "price": 28.9,
+                  "min": 1,
+                  "max": 5,
+                  "required": true
+                },
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "10 Unidades",
+                  "price": 47.9,
+                  "min": 1,
+                  "max": 5,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Hot Roll Especial (5 ou 10 Unidades)",
+              "price": 0,
+              "options": [
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "5 Unidades",
+                  "price": 28.9,
+                  "min": 1,
+                  "max": 5,
+                  "required": true
+                },
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "10 Unidades",
+                  "price": 47.9,
+                  "min": 1,
+                  "max": 5,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Camarão Empanado (5 Unidades)",
+              "price": 20,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Kani Queijo",
+          "items": [
+            {
+              "name": "Kani Queijo",
+              "price": 4,
+              "options": []
+            },
+            {
+              "name": "Kani Queijo Hot ( 5 Unidades)",
+              "price": 20,
+              "options": []
+            },
+            {
+              "name": "Kani Salmao ( 5 Unidades )",
+              "price": 25,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 3.5,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Temaki",
+          "items": [
+            {
+              "name": "Temaki Salmão",
+              "price": 42.9,
+              "options": [
+                {
+                  "group": "Deseja que seja Hot?",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Kani",
+              "price": 25,
+              "options": [
+                {
+                  "group": "Deseja que seja Hot?",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 10,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Salmão Maçaricado",
+              "price": 42.9,
+              "options": [
+                {
+                  "group": "Deseja que seja Hot?",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Kani Frito",
+              "price": 25,
+              "options": [
+                {
+                  "group": "Deseja que seja Hot?",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Hot Roll",
+              "price": 38.9,
+              "options": []
+            }
+          ]
+        }
+      ]
+    },
+    "yoogaSlug": "espacosushi.house",
+    "rawSummary": {
+      "categoryCount": 13,
+      "itemCount": 60,
+      "optionCount": 30,
+      "operationalCategoryCount": 0,
+      "operationalItemCount": 0,
+      "operationalOptionCount": 0,
+      "samples": [
+        {
+          "name": "Promoções",
+          "items": [
+            {
+              "name": "2 Temaki de Kani",
+              "price": 24.99,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "1 Temaki Skin",
+              "price": 12.9,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 1,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "2 Temaki Skin",
+              "price": 19.9,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 2,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Camarão Empanado",
+              "price": 28.9,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Hossomaki",
+          "items": [
+            {
+              "name": "Hossomaki Salmão Cru (5 ou 10 Uni)",
+              "price": 0,
+              "options": [
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "5 Unidades",
+                  "price": 25,
+                  "min": 1,
+                  "max": 1,
+                  "required": true
+                },
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "10 Unidades",
+                  "price": 39.9,
+                  "min": 1,
+                  "max": 1,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Hossomaki Kani",
+              "price": 2.85,
+              "options": []
+            },
+            {
+              "name": "Hossomaki Ebiten (5 Unidades)",
+              "price": 14.5,
+              "options": []
+            },
+            {
+              "name": "Kanapé Kani Frito ( 5 Unidades )",
+              "price": 14.5,
+              "options": []
+            },
+            {
+              "name": "Hossomaki Salmão Empanado (5 Unidades)",
+              "price": 27.5,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Uramaki",
+          "items": [
+            {
+              "name": "Uramaki Salmão (5 ou 10 Uni)",
+              "price": 0,
+              "options": [
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "5 Unidades",
+                  "price": 25,
+                  "min": 1,
+                  "max": 1,
+                  "required": true
+                },
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "10 Unidades",
+                  "price": 39.9,
+                  "min": 1,
+                  "max": 1,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Uramaki Kani",
+              "price": 2.85,
+              "options": []
+            },
+            {
+              "name": "Uramaki Skin",
+              "price": 2.85,
+              "options": []
+            },
+            {
+              "name": "Uramaki Camarão",
+              "price": 3,
+              "options": []
+            },
+            {
+              "name": "Uramaki Ebiten (5 Unidades)",
+              "price": 15,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Sushi Hot",
+          "items": [
+            {
+              "name": "Hot",
+              "price": 2.85,
+              "options": []
+            },
+            {
+              "name": "Kani Frito",
+              "price": 3.5,
+              "options": []
+            },
+            {
+              "name": "Hot Roll (5 ou 10 Unidades)",
+              "price": 0,
+              "options": [
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "5 Unidades",
+                  "price": 28.9,
+                  "min": 1,
+                  "max": 5,
+                  "required": true
+                },
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "10 Unidades",
+                  "price": 47.9,
+                  "min": 1,
+                  "max": 5,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Hot Roll Especial (5 ou 10 Unidades)",
+              "price": 0,
+              "options": [
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "5 Unidades",
+                  "price": 28.9,
+                  "min": 1,
+                  "max": 5,
+                  "required": true
+                },
+                {
+                  "group": "Escolha quantas unidades:",
+                  "name": "10 Unidades",
+                  "price": 47.9,
+                  "min": 1,
+                  "max": 5,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Camarão Empanado (5 Unidades)",
+              "price": 20,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Kani Queijo",
+          "items": [
+            {
+              "name": "Kani Queijo",
+              "price": 4,
+              "options": []
+            },
+            {
+              "name": "Kani Queijo Hot ( 5 Unidades)",
+              "price": 20,
+              "options": []
+            },
+            {
+              "name": "Kani Salmao ( 5 Unidades )",
+              "price": 25,
+              "options": [
+                {
+                  "group": "Hot",
+                  "name": "Hot",
+                  "price": 3.5,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Temaki",
+          "items": [
+            {
+              "name": "Temaki Salmão",
+              "price": 42.9,
+              "options": [
+                {
+                  "group": "Deseja que seja Hot?",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Kani",
+              "price": 25,
+              "options": [
+                {
+                  "group": "Deseja que seja Hot?",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 10,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Salmão Maçaricado",
+              "price": 42.9,
+              "options": [
+                {
+                  "group": "Deseja que seja Hot?",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Kani Frito",
+              "price": 25,
+              "options": [
+                {
+                  "group": "Deseja que seja Hot?",
+                  "name": "Hot",
+                  "price": 4,
+                  "min": 0,
+                  "max": 5,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "name": "Temaki Hot Roll",
+              "price": 38.9,
+              "options": []
+            }
+          ]
+        }
+      ]
+    },
+    "sourceIdentity": {
+      "confirmed": true,
+      "pageHasName": true,
+      "urlHasName": true,
+      "pageHasPhone": false,
+      "pageHasAddress": true,
+      "pageHasCity": true,
+      "pageHasState": true,
+      "evidence": {
+        "targetName": "Espaço Do Sushi",
+        "targetAddress": "R. Juarez Távora - Camalaú",
+        "targetPhoneLast8": null,
+        "targetCity": "Cabedelo",
+        "targetState": "PB"
+      }
+    }
+  },
+  "restaurant": {
+    "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+    "name": "Espaço Do Sushi",
+    "address": "R. Juarez Távora - Camalaú",
+    "phone": null,
+    "city": "Cabedelo",
+    "state": "PB"
+  }
+}

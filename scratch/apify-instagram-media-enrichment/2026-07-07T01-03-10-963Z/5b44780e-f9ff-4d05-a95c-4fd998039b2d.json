@@ -1,0 +1,89 @@
+{
+  "id": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+  "name": "Empadinhas Barnabé - Intermares",
+  "instagram": "https://www.instagram.com/empbarnabe/",
+  "followers": 46497,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://linktr.ee/empabarnabe"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "0a72fa85-a03e-4f68-93df-2ec166c41db0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384453098_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "860062d0-9c6d-4377-b4fe-c5d62ac8eb48",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384454231_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "a091bba8-be31-4873-a52a-d42311f1a7c1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384454933_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "84d87502-e5f4-4413-95c9-65c24bcba36e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384455686_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "7119a6f2-4748-4d2e-8e5d-48f4d408cf40",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384456469_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "a24cc0fe-ae37-49b0-8ddd-4403315a5797",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384457359_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "3a4c3d9c-e294-4463-93a7-2c901728aecf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384458540_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "2cb4f7e4-04b7-4a56-8ffb-70d7818866d7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384459387_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

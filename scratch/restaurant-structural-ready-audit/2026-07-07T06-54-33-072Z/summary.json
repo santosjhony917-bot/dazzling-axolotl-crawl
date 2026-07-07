@@ -1,0 +1,71 @@
+{
+  "runId": "2026-07-07T06-54-33-072Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T06-54-33-072Z",
+  "scope": {
+    "ids": [
+      "ecac91e3-52c0-4780-9867-6b3b1d096089"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 10,
+      "itemCount": 112,
+      "optionCount": 791,
+      "galleryCount": 3,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "112 itens estruturados via cardapio_web; mídia mínima completa.",
+      "source": {
+        "menu": "https://app.cardapioweb.com/i_loveburguer",
+        "instagram": "https://www.instagram.com/iloveburguerpb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:30.844Z",
+          "status": "enriched",
+          "username": "iloveburguerpb",
+          "followers": 9915,
+          "match": {
+            "score": 140,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/i_loveburguer",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Praça Getúlio Vargas",
+        "number": "107",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-305",
+        "phone": "(83) 99311-5016",
+        "latitude": -6.9706589,
+        "longitude": -34.8371018,
+        "followers": 9915
+      },
+      "issues": []
+    }
+  ]
+}

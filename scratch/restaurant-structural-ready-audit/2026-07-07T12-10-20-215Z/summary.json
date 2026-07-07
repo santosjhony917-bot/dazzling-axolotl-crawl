@@ -1,0 +1,1556 @@
+{
+  "runId": "2026-07-07T12-10-20-215Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T12-10-20-215Z",
+  "scope": {
+    "ids": [
+      "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "c23b0422-4e34-43be-b07e-6a494804f6fc"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": true
+  },
+  "restaurants": 2,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 2,
+  "issueCounts": {
+    "opcao_price_delta_sem_delta_positivo": 179
+  },
+  "audits": [
+    {
+      "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "name": "Center Pizza Cabedelo",
+      "readiness": "blocked",
+      "redCount": 42,
+      "yellowCount": 0,
+      "issueCount": 42,
+      "categoryCount": 2,
+      "itemCount": 12,
+      "optionCount": 101,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "12 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+        "instagram": "https://www.instagram.com/centerpizza_cabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:11.540Z",
+          "status": "enriched",
+          "username": "centerpizza_cabedelo",
+          "followers": 3390,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": "189",
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98629-0531",
+        "latitude": -6.9721724,
+        "longitude": -34.8343388,
+        "followers": 3390
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Mussarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Marguerita",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Quarto queijos",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Frango",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Caipira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Milho ao Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Creme de avelã",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Chocolate ao leite",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Chocolate branco",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Banana com canela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande",
+          "group": "Sabor Grande",
+          "option": "Ganache",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Mussarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Marguerita",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Quarto queijos",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Frango",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Caipira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Milho ao Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Chocolate ao leite",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Chocolate branco",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Creme de avelã",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Banana com canela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Media",
+          "group": "Sabor Media",
+          "option": "Ganache",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Mussarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Marguerita",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Quarto queijos",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Frango",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Caipira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Milho ao Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Chocolate ao leite",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Chocolate branco",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Creme de avelã",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Banana com canela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena",
+          "group": "Sabor Pequena",
+          "option": "Ganache",
+          "priceDelta": 0
+        }
+      ]
+    },
+    {
+      "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+      "name": "Lary's pizzaria e lanchonete",
+      "readiness": "blocked",
+      "redCount": 137,
+      "yellowCount": 0,
+      "issueCount": 137,
+      "categoryCount": 6,
+      "itemCount": 79,
+      "optionCount": 350,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "79 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+        "instagram": "https://www.instagram.com/laryspizzariaoficial/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:24.228Z",
+          "status": "enriched",
+          "username": "laryspizzariaoficial",
+          "followers": 2234,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Antônia Fernandes Oliveira",
+        "number": "810",
+        "neighborhood": "Jardim Camboinha",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58103-706",
+        "phone": "(83) 98877-2470",
+        "latitude": -7.005608199999999,
+        "longitude": -34.8309231,
+        "followers": 2234
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Americana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Baiana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Basca",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Brasileira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Calabresa Especial",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Carne de Sol Com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Cartola",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Charge",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Chilena",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Choquito",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frampiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango Com Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango Especial",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango Português",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango Com Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Lombinho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Lombinho Com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Moda Lary's",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Muçarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Napolitana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Quatro Queijos",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Quatro Sabores",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Siciliana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Vegetariana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Chocolate",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Chocolate com ninho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Prestigio",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Banana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Brigadeiro",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Choco ball",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Americana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Baiana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Basca",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Brasileira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Calabresa Especial",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Carne de Sol Com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Cartola",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Charge",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Chilena",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Choquito",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frampiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango Com Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango Especial",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango Português",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango Com Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Lombinho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Lombinho Com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Moda Lary's",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Muçarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Napolitana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Quatro Queijos",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Quatro Sabores",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Siciliana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Vegetariana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Chocolate",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Chocolate com ninho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Prestigio",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Banana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Brigadeiro",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Choco ball",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Americana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Baiana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Basca",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Brasileira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Calabresa Especial",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Carne de Sol Com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Cartola",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Charge",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Chilena",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Choquito",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frampiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango Com Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango Especial",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango Português",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango Com Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Lombinho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Lombinho Com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Moda Lary's",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Muçarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Napolitana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Quatro Queijos",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Quatro Sabores",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Siciliana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Vegetariana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Chocolate",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Chocolate com ninho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Prestigio",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Banana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Brigadeiro",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Choco ball",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Americana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Baiana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Basca",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Brasileira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Calabresa Especial",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Carne de Sol Com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Cartola",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Charge",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Chilena",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Choquito",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frampiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango Com Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango Especial",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango Português",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango Com Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Lombinho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Lombinho Com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Moda Lary's",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Muçarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Napolitana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Quatro Queijos",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Quatro Sabores",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Siciliana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Vegetariana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Chocolate",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Chocolate com ninho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Prestigio",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Banana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Brigadeiro",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Choco ball",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Frango",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Muçarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Presunto",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Napolitana",
+          "priceDelta": 0
+        }
+      ]
+    }
+  ]
+}

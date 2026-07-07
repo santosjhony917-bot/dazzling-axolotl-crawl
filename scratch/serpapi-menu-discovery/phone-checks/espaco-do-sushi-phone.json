@@ -1,0 +1,89 @@
+{
+  "search_metadata": {
+    "status": "Success",
+    "id": "6a4cab839b762d6d71bd27fd"
+  },
+  "answer_box": null,
+  "knowledge_graph": {
+    "title": "Espaço Do Sushi",
+    "type": "Restaurante",
+    "entity_type": "local_nav",
+    "kgmid": "/g/11spp4nvnp",
+    "knowledge_graph_search_link": "https://www.google.com/search?kgmid=/g/11spp4nvnp&hl=pt-BR&q=Espa%C3%A7o+Do+Sushi",
+    "serpapi_knowledge_graph_search_link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=br&google_domain=google.com&hl=pt-BR&kgmid=%2Fg%2F11spp4nvnp&location=Cabedelo%2C+Paraiba%2C+Brazil&q=Espa%C3%A7o+Do+Sushi",
+    "place_id": "ChIJLZuM-3YgrQcRxc7_zhcQ3Y0",
+    "avaliar": "https://www.google.com/search?sca_esv=d9f40adba4e5763b&gl=br&hl=pt&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_9flXMpaudlQYUMvaTjfvOWFIohD9sfng0OZ0xdWZx9wQ5w1D8K7aAN7yjmEfDW_FN4825-iJAsiM9Jzt5CanK0E5pgJerFY9xy30NX5K9-SepRR_Q%3D%3D&q=Espa%C3%A7o+Do+Sushi+Coment%C3%A1rios&sa=X&ved=2ahUKEwi53NejhsCVAxVRiSsGHSqCFv8Q0bkNegQILBAF",
+    "local_map": {
+      "image": "https://serpapi.com/searches/6a4cab839b762d6d71bd27fd/images/r9oT46FSHmonkB8ZxIumv7cRnT98R3nayWmGCFSjtzY.webp",
+      "link": "https://www.google.com/maps/place/Espa%C3%A7o+Do+Sushi/data=!4m2!3m1!1s0x0:0x8ddd1017ceffcec5?sa=X&ved=2ahUKEwi53NejhsCVAxVRiSsGHSqCFv8Q_BJ6BAgmEAA&hl=pt&gl=br"
+    },
+    "rating": 4.2,
+    "review_count": 33,
+    "price": "R$ 20–40",
+    "price_details": {
+      "distribution": [
+        {
+          "price": "R$ 1–20",
+          "percentage": 25
+        },
+        {
+          "price": "R$ 20–40",
+          "percentage": 75
+        },
+        {
+          "price": "R$ 40–60",
+          "percentage": 0
+        }
+      ],
+      "total_reported": 8
+    },
+    "endereço": "R. Juarez Távora - Camalaú, Cabedelo - PB, 58310-000",
+    "endereço_links": [
+      {
+        "text": "Endereço",
+        "link": "https://www.google.com/search?sca_esv=d9f40adba4e5763b&gl=br&hl=pt&q=espa%C3%A7o+do+sushi+cabedelo+endere%C3%A7o&ludocid=10222344423644057285&sa=X&ved=2ahUKEwi53NejhsCVAxVRiSsGHSqCFv8Q6BN6BAgpEAI"
+      }
+    ],
+    "unclaimed_listing": true,
+    "perfis": [
+      {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/espacodosushi/?next=%2Fexplore%2Flocations%2F1031301899%2F&hl=am-et",
+        "image": "https://ssl.gstatic.com/kpui/social/instagram_32x32.png"
+      }
+    ]
+  },
+  "local_results": null,
+  "organic_results": [
+    {
+      "title": "Espaço do Sushi (@espacodosushi)",
+      "link": "https://www.instagram.com/espacodosushi/",
+      "snippet": "Rua Juarez Távora, 227 - Camalaú Sushis a partir de R$2,85. ABERTO TODOS OS DIAS, a partir das 18h00. PEDIDOS ATRAVÉS DO NOSSO LINK. Follow. Message ..."
+    },
+    {
+      "title": "Espaço do Sushi (sushi 2.50) | CABEDELO",
+      "link": "https://www.ifood.com.br/delivery/cabedelo-pb/espaco-do-sushi-sushi-250-centro/b72eff90-23bd-42c4-a98d-552851d69939?prato=67c262c7-ad87-4079-8f94-a8c0a9149f6d",
+      "snippet": "Sejam bem vindos!Sushi a partir de 2.50TemakiSushi Burguer Camarão Qualidade em 1° lugar."
+    },
+    {
+      "title": "Viciados Em Sushi - Restaurantes: Cabedelo",
+      "link": "https://www.tripadvisor.com.br/Restaurant_Review-g793398-d25183179-Reviews-Viciados_Em_Sushi-Cabedelo_State_of_Paraiba.html",
+      "snippet": "Praça Getúlio Vargas 68 Centro, Cabedelo, Paraíba 58100-261 Brasil. Ligar. Mapa. Avaliar. Sobre. Recursos. COZINHAS. Japonesa, Sushi, Asiática, Culinária de ..."
+    },
+    {
+      "title": "Sakê - Restaurante Japonês em João Pessoa e Cabedelo",
+      "link": "https://saketemaki.com/",
+      "snippet": "... Telefone: (83) 99305-3234 · Ponta de Campina. Av. Oceano Atlântico ... O melhor sushi e aquele ambiente aconchegante para você hoje à noite.Todas as unidades."
+    },
+    {
+      "title": "Viciados em Sushi | Prefeitura de Cabedelo",
+      "link": "https://cabedelo.pb.gov.br/ondecomer/viciados-em-sushi/",
+      "snippet": "Contato. (83) 98704-2458; higormarquesvilela@hotmail.com. Número do cadastur. 0 ... Serviços. O restaurante Viciados em Sushi oferece um ambiente climatizado, ..."
+    },
+    {
+      "title": "ESPACO DO SUSHI em Cabedelo - PB - Restaurante Japones",
+      "link": "https://restaurantejapones.net.br/sobre/espaco-do-sushi-cabedelo-pb-26585439",
+      "snippet": "Endereço copiado! Bairro: Camalau. Cidade: Cabedelo. Estado: PB. Telefone (83) 8665-6678. ver telefone."
+    }
+  ]
+}

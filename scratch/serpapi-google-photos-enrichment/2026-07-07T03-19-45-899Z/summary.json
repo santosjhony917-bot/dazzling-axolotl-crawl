@@ -1,0 +1,43 @@
+{
+  "runId": "2026-07-07T03-19-45-899Z",
+  "applied": true,
+  "outDir": "scratch\\serpapi-google-photos-enrichment\\2026-07-07T03-19-45-899Z",
+  "results": [
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "status": "ok",
+      "photoCount": 4,
+      "approved": 1,
+      "uploads": 2,
+      "after": {
+        "hasLogo": true,
+        "hasCover": true,
+        "galleryCount": 1,
+        "galleryRows": [
+          {
+            "id": "f5e81b8a-b005-496d-bdb5-8a5702503d43",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/serpapi_google_1783394422502_1.jpg",
+            "order_index": 0
+          }
+        ]
+      },
+      "promotion": {
+        "promoted": false,
+        "status": {
+          "hasLogo": true,
+          "hasCover": true,
+          "galleryCount": 1,
+          "galleryRows": [
+            {
+              "id": "f5e81b8a-b005-496d-bdb5-8a5702503d43",
+              "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/serpapi_google_1783394422502_1.jpg",
+              "order_index": 0
+            }
+          ]
+        },
+        "menuReady": true
+      }
+    }
+  ]
+}

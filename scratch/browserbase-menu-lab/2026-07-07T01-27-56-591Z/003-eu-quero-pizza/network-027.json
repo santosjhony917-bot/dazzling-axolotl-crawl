@@ -1,0 +1,19 @@
+{
+  "url": "https://api.anota.ai/clientauth/coupon/active-coupons?skipdelivery=true",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 70,
+  "textSample": "{\"success\":true,\"message\":\"Cupons listados com sucesso.\",\"coupons\":[]}",
+  "jsonKeys": [
+    "success",
+    "message",
+    "coupons"
+  ],
+  "json": {
+    "success": true,
+    "message": "Cupons listados com sucesso.",
+    "coupons": []
+  }
+}

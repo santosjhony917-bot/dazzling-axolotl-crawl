@@ -1,0 +1,271 @@
+{
+  "runId": "2026-07-06T14-46-41-024Z",
+  "outDir": "scratch\\instagram-highlight-discovery\\2026-07-06T14-46-41-024Z",
+  "summary": {
+    "processed": 10,
+    "bioFound": 0,
+    "highlightLinkFound": 0,
+    "hardImage": 0,
+    "noAllowedHighlights": 4,
+    "checkedNoLink": 6,
+    "errors": 0
+  },
+  "results": [
+    {
+      "id": "2eec92cd-ffd6-4c9a-a5d7-8937aee59275",
+      "name": "Barraca do viga",
+      "instagram": "https://www.instagram.com/barracadovigaof/",
+      "sourceChecked": [
+        "bio",
+        "highlight:Localização!"
+      ],
+      "status": "allowed_highlights_checked_no_menu_link",
+      "cityConfirmed": true,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [
+        {
+          "href": "https://www.instagram.com/stories/highlights/18042576913181764/",
+          "label": "Localização!"
+        }
+      ],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "barracadovigaof Barraca Do Viga 4 posts 50 seguidores 149 seguindo 📍 Campina grande 📍Parque do Povo 📲 (83) 98897-1241 👉 Garantia de melhor atendimento! 👇 Localização da barraca! maps.app.goo.gl/uNEGrZeuNVg4ekoT6 Seguir Localização! Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) ব",
+        "bioCandidates": [],
+        "highlightInspections": [
+          {
+            "label": "Localização!",
+            "url": "https://www.instagram.com/stories/highlights/18042576913181764/",
+            "candidates": [],
+            "hasPriceText": false,
+            "textExcerpt": "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+            "buttons": [
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem Ver como lion.1790009? barracadovigaof poderá ver que você viu o story dele(a). Ver story",
+              "Localização! 369 sem",
+              "Localização! 369 sem",
+              "Localização! 369 sem",
+              "Localização! 369 sem",
+              "Localização! 369 sem",
+              "Localização! 369 sem",
+              "Localização! 369 sem"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ece44404-4d7a-4981-a886-ba0ea26cc128",
+      "name": "Ze Iran Restaurante",
+      "instagram": "https://www.instagram.com/ze_iran_restaurante/",
+      "sourceChecked": [
+        "bio"
+      ],
+      "status": "rejected_city_or_unit_not_confirmed",
+      "cityConfirmed": false,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "ze_iran_restaurante Zé Iran Restaurante 33 posts 2.179 seguidores 273 seguindo 🍽️ Descubra o melhor da comida regional ⏰ DE QUARTA A SEGUNDA, DAS 11H ÁS 16H. 📍 R. Fernandes Viêira, 144 - José... mais Seguir Enviar mensagem PRATOS FUNCIONÁRIOS CLIENTES ! BEBIDAS LOCALIZAÇÃO Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ",
+        "bioCandidates": []
+      }
+    },
+    {
+      "id": "1277b0d7-b070-4609-8fdc-05ced9ec83bf",
+      "name": "The Pub Rock Beer",
+      "instagram": "https://www.instagram.com/pubbeerrock/",
+      "sourceChecked": [
+        "bio"
+      ],
+      "status": "rejected_city_or_unit_not_confirmed",
+      "cityConfirmed": false,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "pubbeerrock Pub Beer Rock 2.589 posts 17,1 mil seguidores 788 seguindo Pub Instagram do Pub mais charmoso de Santa Catarina 🎸 Acesse o site da nossa marca, confira nossas camisetas e vista o seu ... mais www.pbrock.com.br Seguir Enviar mensagem Camisetas Masc. Bonés Shows O Pub Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Sven",
+        "bioCandidates": []
+      }
+    },
+    {
+      "id": "d5469bea-2d17-47f4-9851-44da924cc861",
+      "name": "Marmitaria Express",
+      "instagram": "https://www.instagram.com/marmitariaexpresscg/",
+      "sourceChecked": [
+        "bio"
+      ],
+      "status": "no_allowed_highlight_after_bio",
+      "cityConfirmed": true,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "marmitariaexpresscg marmitaria express 8 posts 137 seguidores 268 seguindo 🌵🍀Campina Grande - PB Somos em Bodocongó - cg proximo ao residencial dona lindu ll whatsapp 9 8624-9162 Seguir marmita G/ $12 Destaques Destaques Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી ह",
+        "bioCandidates": []
+      }
+    },
+    {
+      "id": "e9598cea-d765-4c49-88f9-58cc25268083",
+      "name": "Sorveteria do paredão",
+      "instagram": "https://www.instagram.com/sorveteriadoparedao/",
+      "sourceChecked": [
+        "bio"
+      ],
+      "status": "rejected_city_or_unit_not_confirmed",
+      "cityConfirmed": false,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "sorveteriadoparedao 🍦Sorveteria do Paredão 🔊 344 posts 1.693 seguidores 1.470 seguindo 💳 Aceitamos todos os Cartões 💳 🏠 Rua São Vicente 856 pedregal Seguir Produção 😁 Destaques SORVETE 🍨🍦🍧 Casquinhas 🍦 Feedback 🥰 😋😋😋 Açaí 😋 Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣)",
+        "bioCandidates": []
+      }
+    },
+    {
+      "id": "1b4dca91-9029-4eac-b9e1-078ce771f4f2",
+      "name": "Sabor da Lú Restaurante",
+      "instagram": "https://www.instagram.com/sabor_dalu_restaurante/",
+      "sourceChecked": [
+        "bio"
+      ],
+      "status": "no_allowed_highlight_after_bio",
+      "cityConfirmed": true,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "sabor_dalu_restaurante Sabor da Lú 81 posts 1.075 seguidores 1.995 seguindo Restaurant Sabor da comida caseira brasileira Av Floriano Peixoto,3820, Campina Grande 58428-130 sabor_dalu_restaurante Seguir Enviar mensagem sobremesas Destaques Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣",
+        "bioCandidates": []
+      }
+    },
+    {
+      "id": "62359565-84b3-47d4-9501-36b6b2aebda7",
+      "name": "Manus bar e restaurante campina grande",
+      "instagram": "https://www.instagram.com/manus_barcg/",
+      "sourceChecked": [
+        "bio",
+        "highlight:localização"
+      ],
+      "status": "allowed_highlights_checked_no_menu_link",
+      "cityConfirmed": true,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [
+        {
+          "href": "https://www.instagram.com/stories/highlights/18302750497204950/",
+          "label": "localização"
+        }
+      ],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "manus_barcg MANUS BAR E RESTAURANTE -CG 128 posts 5.402 seguidores 1.286 seguindo Bar 𝑪𝒉𝒆𝒈𝒖𝒆! 𝑨𝒒𝒖𝒊 𝒂 𝒇𝒂𝒗𝒂 é 𝒒𝒖𝒆𝒏𝒕𝒆 𝒆 𝒂 𝒄𝒆𝒓𝒗𝒆𝒋𝒂 é 𝒕𝒓𝒊𝒏𝒄𝒂𝒏𝒅𝒐, 𝒗𝒊𝒔𝒔𝒆? 🍻 É 𝗕𝗮𝗿, é 𝗿𝗮𝗶𝘇, é 𝗱𝗼𝘀 𝗠𝗮𝗻𝘂𝘀! 📍𝘙.𝘑𝘰𝘴é 𝘌𝘭𝘱í𝘥𝘪𝘰 𝘥𝘢 𝘊. 𝘔𝘰𝘯𝘵𝘦... mais wa.me/message/UVQZ5BDI45LUO1 Seguir Enviar mensagem Pratos da Casa Eu no Mannus Drinks/Bebidas localização Pratos da Casa Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Franç",
+        "bioCandidates": [],
+        "highlightInspections": [
+          {
+            "label": "localização",
+            "url": "https://www.instagram.com/stories/highlights/18302750497204950/",
+            "candidates": [],
+            "hasPriceText": false,
+            "textExcerpt": "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+            "buttons": [
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem Ver como lion.1790009? manus_barcg poderá ver que você viu o story dele(a). Ver story",
+              "localização 89 sem",
+              "localização 89 sem",
+              "localização 89 sem",
+              "localização 89 sem",
+              "localização 89 sem",
+              "localização 89 sem",
+              "localização 89 sem"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "795e5189-4621-462d-b388-7be4a23098a9",
+      "name": "Black White Bar",
+      "instagram": "https://www.instagram.com/blackwhitecg/",
+      "sourceChecked": [
+        "bio"
+      ],
+      "status": "no_allowed_highlight_after_bio",
+      "cityConfirmed": true,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [],
+      "ignoredHighlights": [
+        "Promoção"
+      ],
+      "evidence": {
+        "profileTextExcerpt": "blackwhitecg Black White Bar 38 posts 19,3 mil seguidores 69 seguindo Restaurant 🎤 | Música ao Vivo⁣ 📅 | Sex-Sáb-Dom-Seg⁣ 🎂 | Faça seu niver conosco 👇🏽 | Reservas e dúvidas wa.me/5583986739783 Seguir Enviar mensagem Aniversário Agenda Promoção Horários Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino T",
+        "bioCandidates": []
+      }
+    },
+    {
+      "id": "7f343737-259c-445c-bf48-eb4844b03609",
+      "name": "Queiroz Restaurante",
+      "instagram": "https://www.instagram.com/queiroz_restaurante/",
+      "sourceChecked": [
+        "bio"
+      ],
+      "status": "no_allowed_highlight_after_bio",
+      "cityConfirmed": true,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "queiroz_restaurante Queiroz Restaurante 16 posts 702 seguidores 867 seguindo SELF SERVICE SEM BALANÇA ,avenida vigario calixto n 2134 no catolé,Campina Grande pb Seguir Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ",
+        "bioCandidates": []
+      }
+    },
+    {
+      "id": "bb14699a-40e8-41e7-b8c9-623e04f4606f",
+      "name": "Bistrô 117",
+      "instagram": "https://www.instagram.com/bistro117_/",
+      "sourceChecked": [
+        "bio"
+      ],
+      "status": "rejected_broken_instagram_page",
+      "cityConfirmed": false,
+      "selectedUrl": null,
+      "selectedSource": null,
+      "allowedHighlights": [],
+      "ignoredHighlights": [],
+      "evidence": {
+        "profileTextExcerpt": "Esta página não está disponível. O link em que você clicou pode não estar funcionando, ou a página pode ter sido removida. Voltar para o Instagram. Meta Sobre Blog Carreiras Ajuda API Privacidade Termos Localizações Popular Instagram Lite Meta AI Threads Upload de contatos e não usuários Meta Verified Português (Brasil) Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமி",
+        "bioCandidates": []
+      }
+    }
+  ]
+}

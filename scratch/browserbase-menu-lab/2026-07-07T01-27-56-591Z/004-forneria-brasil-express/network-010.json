@@ -1,0 +1,14 @@
+{
+  "url": "https://app.instadelivery.com.br/api/client/cart/FornoBrasilExpress/41209300-79a3-11f1-9e17-6bddf556fb8c",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 2,
+  "textSample": "[]",
+  "jsonKeys": [
+    "array",
+    "0"
+  ],
+  "json": []
+}

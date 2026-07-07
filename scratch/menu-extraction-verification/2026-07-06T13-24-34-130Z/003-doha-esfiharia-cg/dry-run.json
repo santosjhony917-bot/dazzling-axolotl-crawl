@@ -1,0 +1,1303 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": true,
+      "confidence": 0.97,
+      "categoryCount": 4,
+      "itemCount": 22,
+      "resolvedPriceCount": 22,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    "preview": [
+      {
+        "name": "Pratos Principais",
+        "count": 5,
+        "samples": [
+          {
+            "name": "Camarão ao Quatro Queijo",
+            "price": 9,
+            "kind": "simple_with_addons",
+            "description": "Mussarela, gorgonzola, provolone, requeijão e camarão"
+          },
+          {
+            "name": "Camarão Oriental",
+            "price": 9,
+            "kind": "simple_with_addons",
+            "description": "Camarão, mussarela, cheese, molho tare e cebolinha"
+          },
+          {
+            "name": "Frango Requeijão",
+            "price": 8,
+            "kind": "simple_with_addons",
+            "description": "Frango, requeijão e mussarela"
+          },
+          {
+            "name": "Sol na nata",
+            "price": 9,
+            "kind": "simple_with_addons",
+            "description": "Carne de sol desfiada, nata e queijo coalho"
+          },
+          {
+            "name": "Sol Cheese",
+            "price": 9,
+            "kind": "simple_with_addons",
+            "description": "Carne de Sol, Cheese e Mussarela"
+          }
+        ]
+      },
+      {
+        "name": "Salgadas",
+        "count": 3,
+        "samples": [
+          {
+            "name": "Calabresa",
+            "price": 8,
+            "kind": "simple_with_addons",
+            "description": "Mussarela e calabresa"
+          },
+          {
+            "name": "Calabresa Cheese",
+            "price": 8,
+            "kind": "simple_with_addons",
+            "description": "Calabresa, cheese e mussarela"
+          },
+          {
+            "name": "Quatro Queijos",
+            "price": 8,
+            "kind": "simple_with_addons",
+            "description": "Requeijão, provolone, gorgonzola e mussarela"
+          }
+        ]
+      },
+      {
+        "name": "Sobremesas",
+        "count": 8,
+        "samples": [
+          {
+            "name": "Nutella com Morango",
+            "price": 10,
+            "kind": "simple_item",
+            "description": "Nutella e Morango"
+          },
+          {
+            "name": "Brigadeiro",
+            "price": 9,
+            "kind": "simple_with_addons",
+            "description": "Chocolate e granulado"
+          },
+          {
+            "name": "M&M's",
+            "price": 9,
+            "kind": "simple_with_addons",
+            "description": "Chocolate e M&M's"
+          },
+          {
+            "name": "Nutella",
+            "price": 10,
+            "kind": "simple_with_addons",
+            "description": "Nutella"
+          },
+          {
+            "name": "Nutella Ninho",
+            "price": 10,
+            "kind": "simple_item",
+            "description": "Nutella e Ninho"
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "count": 6,
+        "samples": [
+          {
+            "name": "Coca-Cola Litro",
+            "price": 14,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Guaraná Litro",
+            "price": 14,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Guaraná Antártica",
+            "price": 7,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Água",
+            "price": 3,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Água com gás",
+            "price": 4,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Pratos Principais",
+        "items": [
+          {
+            "name": "Camarão ao Quatro Queijo",
+            "description": "Mussarela, gorgonzola, provolone, requeijão e camarão",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141605/5a4c916dIMG_8251(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Camarão Oriental",
+            "description": "Camarão, mussarela, cheese, molho tare e cebolinha",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141576/e90796a9IMG_8296-min__2_(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Frango Requeijão",
+            "description": "Frango, requeijão e mussarela",
+            "price": 8,
+            "display_price": 8,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141599/48908c99IMG_8298-min(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Sol na nata",
+            "description": "Carne de sol desfiada, nata e queijo coalho",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141590/ad5a1108IMG_8323(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Sol Cheese",
+            "description": "Carne de Sol, Cheese e Mussarela",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141601/015c757cIMG_8313(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Salgadas",
+        "items": [
+          {
+            "name": "Calabresa",
+            "description": "Mussarela e calabresa",
+            "price": 8,
+            "display_price": 8,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141580/a096e4c3IMG_8272(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Calabresa Cheese",
+            "description": "Calabresa, cheese e mussarela",
+            "price": 8,
+            "display_price": 8,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141583/9fab6a70IMG_8310(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Quatro Queijos",
+            "description": "Requeijão, provolone, gorgonzola e mussarela",
+            "price": 8,
+            "display_price": 8,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141593/05bc207fIMG_8221(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Sobremesas",
+        "items": [
+          {
+            "name": "Nutella com Morango",
+            "description": "Nutella e Morango",
+            "price": 10,
+            "display_price": 10,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141608/c3f74b0bIMG_8336(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Brigadeiro",
+            "description": "Chocolate e granulado",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141610/42c56504IMG_8342(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "M&M's",
+            "description": "Chocolate e M&M's",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3141617/f0cb73e5IMG_8335(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Nutella",
+            "description": "Nutella",
+            "price": 10,
+            "display_price": 10,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3182359/67f62f1bIMG_8364_2_(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicionais",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "3018300",
+                    "group_name": "Adicionais",
+                    "name": "Requeijão",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3018302",
+                    "group_name": "Adicionais",
+                    "name": "Cheese",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3018300",
+                "group_name": "Adicionais",
+                "name": "Requeijão",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3018302",
+                "group_name": "Adicionais",
+                "name": "Cheese",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Nutella Ninho",
+            "description": "Nutella e Ninho",
+            "price": 10,
+            "display_price": 10,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3340342/3c098985IMG_8360(2).jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Oreo",
+            "description": "Chocolate branco e Oreo",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3516699/73b02d8bIMG_8344-min.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Sonho de valsa",
+            "description": "Chocolate e sonho de valsa",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3522792/24127164WhatsApp_Image_2026-01-23_at_18.01.40.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Chocolate Quente",
+            "description": "Mussarela e chocolate ao leite direto no forno",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3747302/a065be6dIMG_8374.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Coca-Cola Litro",
+            "description": "",
+            "price": 14,
+            "display_price": 14,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3022724/6937a04eIMG_8407.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná Litro",
+            "description": "",
+            "price": 14,
+            "display_price": 14,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3022725/e3088c70IMG_8411.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná Antártica",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Água",
+            "description": "",
+            "price": 3,
+            "display_price": 3,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3022731/7343ef10IMG_8424.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Água com gás",
+            "description": "",
+            "price": 4,
+            "display_price": 4,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca Lata Zero",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 22 itens via cardapio_web."
+  },
+  "stdoutTail": "e_behavior\":\"price_delta\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"3018302\",\"group_name\":\"Adicionais\",\"name\":\"Cheese\",\"description\":null,\"image_url\":null,\"price\":2,\"price_delta\":2,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"addon\",\"price_behavior\":\"price_delta\",\"is_searchable_variant\":false,\"search_label\":null}]}],\"options\":[{\"external_id\":\"3018300\",\"group_name\":\"Adicionais\",\"name\":\"Requeijão\",\"description\":null,\"image_url\":null,\"price\":2,\"price_delta\":2,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"addon\",\"price_behavior\":\"price_delta\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"3018302\",\"group_name\":\"Adicionais\",\"name\":\"Cheese\",\"description\":null,\"image_url\":null,\"price\":2,\"price_delta\":2,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"addon\",\"price_behavior\":\"price_delta\",\"is_searchable_variant\":false,\"search_label\":null}]},{\"name\":\"Nutella Ninho\",\"description\":\"Nutella e Ninho\",\"price\":10,\"display_price\":10,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3340342/3c098985IMG_8360(2).jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Oreo\",\"description\":\"Chocolate branco e Oreo\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3516699/73b02d8bIMG_8344-min.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Sonho de valsa\",\"description\":\"Chocolate e sonho de valsa\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3522792/24127164WhatsApp_Image_2026-01-23_at_18.01.40.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Chocolate Quente\",\"description\":\"Mussarela e chocolate ao leite direto no forno\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3747302/a065be6dIMG_8374.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Bebidas\",\"items\":[{\"name\":\"Coca-Cola Litro\",\"description\":\"\",\"price\":14,\"display_price\":14,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3022724/6937a04eIMG_8407.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Guaraná Litro\",\"description\":\"\",\"price\":14,\"display_price\":14,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3022725/e3088c70IMG_8411.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Guaraná Antártica\",\"description\":\"\",\"price\":7,\"display_price\":7,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Água\",\"description\":\"\",\"price\":3,\"display_price\":3,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3022731/7343ef10IMG_8424.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Água com gás\",\"description\":\"\",\"price\":4,\"display_price\":4,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca Lata Zero\",\"description\":\"\",\"price\":7,\"display_price\":7,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 22 itens via cardapio_web.\"}\n",
+  "stderrTail": "[Menu V2] IA de semântica falhou; mantendo heurística: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.\n"
+}

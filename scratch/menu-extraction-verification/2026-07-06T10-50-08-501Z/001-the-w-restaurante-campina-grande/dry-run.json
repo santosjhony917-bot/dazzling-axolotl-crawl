@@ -1,0 +1,176 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": false,
+      "confidence": 0.74,
+      "categoryCount": 3,
+      "itemCount": 6,
+      "resolvedPriceCount": 6,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "no_groups"
+      }
+    },
+    "preview": [
+      {
+        "name": "Bebidas",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Risotos",
+            "price": 217,
+            "kind": "simple_item",
+            "description": "Kids Menu Comfort Trufados Família 2-3... CG Exclusive Bebidas Vinhos Tintos Vinhos Brancos Vinho 375ml Vodka Whisky Drinks Espumantes Champagnes Cervejas Destilados PRODUTOS EM DESTAQUE Sinfony Família (Serve 2 A... Preço"
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "count": 1,
+        "samples": [
+          {
+            "name": " Visualização rápida",
+            "price": 53,
+            "kind": "simple_item",
+            "description": "Duo Formaggio Camarão Preço"
+          }
+        ]
+      },
+      {
+        "name": "Massas",
+        "count": 4,
+        "samples": [
+          {
+            "name": " Visualização rápida",
+            "price": 98,
+            "kind": "simple_item",
+            "description": "SEXY FISH CABERNET Preço"
+          },
+          {
+            "name": " Visualização rápida",
+            "price": 32,
+            "kind": "simple_item",
+            "description": "Tiquen - Prato Kids Preço"
+          },
+          {
+            "name": " Visualização rápida",
+            "price": 36,
+            "kind": "simple_item",
+            "description": "CAIPIROSCA PREMIUM - GREY... Preço"
+          },
+          {
+            "name": " Visualização rápida",
+            "price": 14,
+            "kind": "simple_item",
+            "description": "PRECIOSA DO VALE FAVO DE MEL Preço"
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Risotos",
+            "description": "Kids Menu Comfort Trufados Família 2-3... CG Exclusive Bebidas Vinhos Tintos Vinhos Brancos Vinho 375ml Vodka Whisky Drinks Espumantes Champagnes Cervejas Destilados PRODUTOS EM DESTAQUE Sinfony Família (Serve 2 A... Preço",
+            "price": 217,
+            "display_price": 217,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "items": [
+          {
+            "name": " Visualização rápida",
+            "description": "Duo Formaggio Camarão Preço",
+            "price": 53,
+            "display_price": 53,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Massas",
+        "items": [
+          {
+            "name": " Visualização rápida",
+            "description": "SEXY FISH CABERNET Preço",
+            "price": 98,
+            "display_price": 98,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": " Visualização rápida",
+            "description": "Tiquen - Prato Kids Preço",
+            "price": 32,
+            "display_price": 32,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": " Visualização rápida",
+            "description": "CAIPIROSCA PREMIUM - GREY... Preço",
+            "price": 36,
+            "display_price": 36,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": " Visualização rápida",
+            "description": "PRECIOSA DO VALE FAVO DE MEL Preço",
+            "price": 14,
+            "display_price": 14,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 6 itens via visible_text."
+  },
+  "stdoutTail": "[Menu V2] Semântica de opções via heurística (no_groups).\n[Menu V2] Auditoria estrutural: {\"approved\":false,\"confidence\":0.74,\"categoryCount\":3,\"itemCount\":6,\"resolvedPriceCount\":6,\"unresolvedPriceCount\":0,\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\"}}\nRESULT:{\"success\":true,\"dryRun\":true,\"audit\":{\"approved\":false,\"confidence\":0.74,\"categoryCount\":3,\"itemCount\":6,\"resolvedPriceCount\":6,\"unresolvedPriceCount\":0,\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\"}},\"preview\":[{\"name\":\"Bebidas\",\"count\":1,\"samples\":[{\"name\":\"Risotos\",\"price\":217,\"kind\":\"simple_item\",\"description\":\"Kids Menu Comfort Trufados Família 2-3... CG Exclusive Bebidas Vinhos Tintos Vinhos Brancos Vinho 375ml Vodka Whisky Drinks Espumantes Champagnes Cervejas Destilados PRODUTOS EM DESTAQUE Sinfony Família (Serve 2 A... Preço\"}]},{\"name\":\"Pratos Principais\",\"count\":1,\"samples\":[{\"name\":\" Visualização rápida\",\"price\":53,\"kind\":\"simple_item\",\"description\":\"Duo Formaggio Camarão Preço\"}]},{\"name\":\"Massas\",\"count\":4,\"samples\":[{\"name\":\" Visualização rápida\",\"price\":98,\"kind\":\"simple_item\",\"description\":\"SEXY FISH CABERNET Preço\"},{\"name\":\" Visualização rápida\",\"price\":32,\"kind\":\"simple_item\",\"description\":\"Tiquen - Prato Kids Preço\"},{\"name\":\" Visualização rápida\",\"price\":36,\"kind\":\"simple_item\",\"description\":\"CAIPIROSCA PREMIUM - GREY... Preço\"},{\"name\":\" Visualização rápida\",\"price\":14,\"kind\":\"simple_item\",\"description\":\"PRECIOSA DO VALE FAVO DE MEL Preço\"}]}],\"categories\":[{\"name\":\"Bebidas\",\"items\":[{\"name\":\"Risotos\",\"description\":\"Kids Menu Comfort Trufados Família 2-3... CG Exclusive Bebidas Vinhos Tintos Vinhos Brancos Vinho 375ml Vodka Whisky Drinks Espumantes Champagnes Cervejas Destilados PRODUTOS EM DESTAQUE Sinfony Família (Serve 2 A... Preço\",\"price\":217,\"display_price\":217,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Pratos Principais\",\"items\":[{\"name\":\" Visualização rápida\",\"description\":\"Duo Formaggio Camarão Preço\",\"price\":53,\"display_price\":53,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Massas\",\"items\":[{\"name\":\" Visualização rápida\",\"description\":\"SEXY FISH CABERNET Preço\",\"price\":98,\"display_price\":98,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\" Visualização rápida\",\"description\":\"Tiquen - Prato Kids Preço\",\"price\":32,\"display_price\":32,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\" Visualização rápida\",\"description\":\"CAIPIROSCA PREMIUM - GREY... Preço\",\"price\":36,\"display_price\":36,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\" Visualização rápida\",\"description\":\"PRECIOSA DO VALE FAVO DE MEL Preço\",\"price\":14,\"display_price\":14,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 6 itens via visible_text.\"}\n",
+  "stderrTail": ""
+}

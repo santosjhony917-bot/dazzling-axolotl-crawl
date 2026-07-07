@@ -1,0 +1,224 @@
+{
+  "success": true,
+  "sourceUrl": "https://app.cardapiodigital.net/thewrestaurante/",
+  "finalUrl": "https://app.cardapiodigital.net/thewrestaurante/",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.74,
+  "categories": [
+    {
+      "name": "Massas",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": null,
+          "name": "Risotos",
+          "description": "Kids Menu Comfort Trufados Família 2-3... CG Exclusive Bebidas Vinhos Tintos Vinhos Brancos Vinho 375ml Vodka Whisky Drinks Espumantes Champagnes Cervejas Destilados PRODUTOS EM DESTAQUE Sinfony Família (Serve 2 A... Preço",
+          "image_url": null,
+          "price": 217,
+          "price_min": 217,
+          "price_max": 217,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://app.cardapiodigital.net/thewrestaurante/",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Risotos",
+            "price": 217,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": " Visualização rápida",
+          "description": "Duo Formaggio Camarão Preço",
+          "image_url": null,
+          "price": 53,
+          "price_min": 53,
+          "price_max": 53,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 1,
+          "source_url": "https://app.cardapiodigital.net/thewrestaurante/",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": " Visualização rápida",
+            "price": 53,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": " Visualização rápida",
+          "description": "SEXY FISH CABERNET Preço",
+          "image_url": null,
+          "price": 98,
+          "price_min": 98,
+          "price_max": 98,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 2,
+          "source_url": "https://app.cardapiodigital.net/thewrestaurante/",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": " Visualização rápida",
+            "price": 98,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": " Visualização rápida",
+          "description": "Tiquen - Prato Kids Preço",
+          "image_url": null,
+          "price": 32,
+          "price_min": 32,
+          "price_max": 32,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 3,
+          "source_url": "https://app.cardapiodigital.net/thewrestaurante/",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": " Visualização rápida",
+            "price": 32,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": " Visualização rápida",
+          "description": "CAIPIROSCA PREMIUM - GREY... Preço",
+          "image_url": null,
+          "price": 36,
+          "price_min": 36,
+          "price_max": 36,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 4,
+          "source_url": "https://app.cardapiodigital.net/thewrestaurante/",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": " Visualização rápida",
+            "price": 36,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": " Visualização rápida",
+          "description": "PRECIOSA DO VALE FAVO DE MEL Preço",
+          "image_url": null,
+          "price": 14,
+          "price_min": 14,
+          "price_max": 14,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 5,
+          "source_url": "https://app.cardapiodigital.net/thewrestaurante/",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": " Visualização rápida",
+            "price": 14,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335047339_urbx9mzq.jpg",
+    "snapshotFile": "cmd_1783335047339_urbx9mzq.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 3416,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335061711_5qkvxbtx.jpg",
+        "snapshotFile": "cmd_1783335061711_5qkvxbtx.jpg"
+      },
+      {
+        "ratio": 0.22,
+        "target": "document",
+        "scrollTop": 752,
+        "maxScrollTop": 3416,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335085716_nvpkuogq.jpg",
+        "snapshotFile": "cmd_1783335085716_nvpkuogq.jpg"
+      },
+      {
+        "ratio": 0.45,
+        "target": "document",
+        "scrollTop": 1537,
+        "maxScrollTop": 3416,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335092923_qa2kpga0.jpg",
+        "snapshotFile": "cmd_1783335092923_qa2kpga0.jpg"
+      },
+      {
+        "ratio": 0.68,
+        "target": "document",
+        "scrollTop": 2323,
+        "maxScrollTop": 3416,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335099153_6kxlammc.jpg",
+        "snapshotFile": "cmd_1783335099153_6kxlammc.jpg"
+      },
+      {
+        "ratio": 0.9,
+        "target": "document",
+        "scrollTop": 3074,
+        "maxScrollTop": 3416,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335105505_kawq445f.jpg",
+        "snapshotFile": "cmd_1783335105505_kawq445f.jpg"
+      },
+      {
+        "ratio": 1,
+        "target": "document",
+        "scrollTop": 3416,
+        "maxScrollTop": 3416,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335112739_7d2t7bd8.jpg",
+        "snapshotFile": "cmd_1783335112739_7d2t7bd8.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 7,
+    "capturedHeight": 4090,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "e9940545-476f-4cce-94e4-c04d5fe191a2",
+    "name": "The W Restaurante Campina Grande",
+    "category": "Restaurante·",
+    "address": "Av. Manoel Tavares",
+    "phone": null,
+    "instagram": "https://www.instagram.com/thewrestaurantecg/"
+  }
+}

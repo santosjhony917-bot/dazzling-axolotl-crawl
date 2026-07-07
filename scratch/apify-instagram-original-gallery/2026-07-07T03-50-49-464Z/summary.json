@@ -1,0 +1,62 @@
+{
+  "runId": "2026-07-07T03-50-49-464Z",
+  "outDir": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-50-49-464Z",
+  "apply": true,
+  "forceMedia": true,
+  "promote": false,
+  "processed": 1,
+  "mediaComplete": 1,
+  "mediaIncomplete": 0,
+  "failed": 0,
+  "promoted": 0,
+  "results": [
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "status": "media_complete",
+      "posts": 31,
+      "approved": 6,
+      "uploads": 7,
+      "after": {
+        "hasLogo": true,
+        "hasCover": true,
+        "galleryCount": 6,
+        "galleryRows": [
+          {
+            "id": "ed54032a-5d4d-4cd7-abc2-9a72ffc2c071",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396413170_1.jpg",
+            "order_index": 0
+          },
+          {
+            "id": "f059e386-81ce-4fe5-8afa-422b97944d2c",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396413928_2.jpg",
+            "order_index": 1
+          },
+          {
+            "id": "a5e1ac8b-5592-42e1-a1ba-43785cceadfc",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396414618_3.jpg",
+            "order_index": 2
+          },
+          {
+            "id": "cfd1f210-6baf-498b-8aef-b0ad78f335ea",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396414951_4.jpg",
+            "order_index": 3
+          },
+          {
+            "id": "24131759-bc4b-4dd5-b92c-a58e9381ab7f",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396415289_5.jpg",
+            "order_index": 4
+          },
+          {
+            "id": "19913de3-7aa5-4238-93ac-aa1df25fca1d",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396415617_6.jpg",
+            "order_index": 5
+          }
+        ],
+        "complete": true,
+        "missing": []
+      },
+      "reason": null
+    }
+  ]
+}

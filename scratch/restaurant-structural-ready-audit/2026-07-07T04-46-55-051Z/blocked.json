@@ -1,0 +1,102 @@
+[
+  {
+    "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+    "name": "Eu Quero Pizza",
+    "redCount": 2,
+    "issueCodes": [
+      "grupo_placeholder_ou_instrucao"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "37d72e1c-e94c-46aa-a0ef-f3cafddba9ca",
+        "item": "Combo 3",
+        "group": "Escolha o sabor da sua pizza"
+      },
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "a46c7527-3024-4bbc-86e8-5091aa426d1b",
+        "item": "Combo 4",
+        "group": "Escolha o sabor da outra pizza"
+      }
+    ]
+  },
+  {
+    "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+    "name": "I love burguer",
+    "redCount": 7,
+    "issueCodes": [
+      "grupo_placeholder_ou_instrucao"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "6a6dd5d4-2794-4769-baf6-1f67de84de5a",
+        "item": "100 Coxinhas",
+        "group": "Escolha o sabor"
+      },
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "488f8f9f-2ca1-4e9a-8c6d-736fa891e47e",
+        "item": "10 Coxinhas",
+        "group": "Escolha o sabor"
+      },
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "63878a1b-6267-435d-b924-57bff8dab224",
+        "item": "50 Coxinhas",
+        "group": "Escolha o sabor"
+      },
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "c2c29724-bbac-4fa6-ad49-3cfc0ed5658c",
+        "item": "30 Coxinhas",
+        "group": "Escolha o sabor"
+      },
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "9a2333e9-bb81-400e-815b-aefef8ec8ea2",
+        "item": "Milkshake P",
+        "group": "Escolha o sabor"
+      },
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "d2883629-7942-4754-a00b-e17814b84b4b",
+        "item": "Milkshake M",
+        "group": "Escolha o sabor"
+      },
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "69135641-6f63-471b-98dc-a517e40af748",
+        "item": "Milkshake G",
+        "group": "Escolha o sabor"
+      }
+    ]
+  },
+  {
+    "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+    "name": "Ilovepizzapb",
+    "redCount": 1,
+    "issueCodes": [
+      "grupo_placeholder_ou_instrucao"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "grupo_placeholder_ou_instrucao",
+        "itemId": "e9eff175-d4ac-48d6-8880-71b58ee1db0d",
+        "item": "Suco",
+        "group": "Escolha o sabor"
+      }
+    ]
+  }
+]

@@ -1,0 +1,90 @@
+{
+  "id": "0ea2219a-fb1e-47e2-9e40-7da6a335dbd6",
+  "name": "Pastelle (Pastelaria artesanal)",
+  "instagram": "https://www.instagram.com/pastelleofc/",
+  "followers": 1441,
+  "match": {
+    "score": 140,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "http://wa.me/5583986905043"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "ac2e15b6-0f79-4c64-be30-bc2f609588e8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ea2219a-fb1e-47e2-9e40-7da6a335dbd6/instagram_1783385739668_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "8d246af3-cb57-407f-86c7-bae5d5ab42fc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ea2219a-fb1e-47e2-9e40-7da6a335dbd6/instagram_1783385741187_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "0d07d01c-a7da-4cb5-95d9-3af959614b24",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ea2219a-fb1e-47e2-9e40-7da6a335dbd6/instagram_1783385741846_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "a2c5d161-5d7f-4d33-af90-dc03fa3d3af0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ea2219a-fb1e-47e2-9e40-7da6a335dbd6/instagram_1783385742599_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "26ad4d85-d257-433a-8be8-638f15e14573",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ea2219a-fb1e-47e2-9e40-7da6a335dbd6/instagram_1783385743702_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "0a05fef5-1896-4418-98f1-aeb3f70d0030",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ea2219a-fb1e-47e2-9e40-7da6a335dbd6/instagram_1783385744380_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "50139030-225d-4aeb-9c49-e5d42ff472f2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ea2219a-fb1e-47e2-9e40-7da6a335dbd6/instagram_1783385745106_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "4f3553ba-f25c-4553-8a38-e6a39f416a5a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ea2219a-fb1e-47e2-9e40-7da6a335dbd6/instagram_1783385745875_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

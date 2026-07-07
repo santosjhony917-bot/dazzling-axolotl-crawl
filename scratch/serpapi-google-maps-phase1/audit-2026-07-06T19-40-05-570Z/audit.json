@@ -1,0 +1,87 @@
+{
+  "apply": true,
+  "city": "Cabedelo",
+  "state": "PB",
+  "activeRows": 178,
+  "suspectCount": 5,
+  "suspects": [
+    {
+      "id": "4c1d29a3-c1f5-49a9-989e-e355727b1c0d",
+      "name": "Medellín Café(São Braz Expresso)",
+      "source_category": null,
+      "source_address": null,
+      "latitude": -7.087185,
+      "longitude": -34.8468733,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJmYckIO3drAcRHY1JjnbhsP0",
+      "reason": "outside_cabedelo_or_non_food_chain_unit"
+    },
+    {
+      "id": "26a7afa5-c616-42d9-9ec1-1c6783c59832",
+      "name": "Ponta De Campina",
+      "source_category": null,
+      "source_address": null,
+      "latitude": -7.0307987999999995,
+      "longitude": -34.829891499999995,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJr75kQ0PerAcRVbC2hxszRNo",
+      "reason": "place_is_beach_or_area_not_establishment"
+    },
+    {
+      "id": "96470002-e402-4b16-aa38-565e946cd0cc",
+      "name": "Intermares",
+      "source_category": null,
+      "source_address": null,
+      "latitude": -7.0468166,
+      "longitude": -34.8424011,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJS_1_YAverAcR-yk3spzQr0E",
+      "reason": "place_is_beach_or_area_not_establishment"
+    },
+    {
+      "id": "b8af185f-1f89-48cd-87b1-21adff9bc2cd",
+      "name": "São Braz S/A",
+      "source_category": null,
+      "source_address": null,
+      "latitude": -7.0859134,
+      "longitude": -34.849026699999996,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJQ7IO0EHdrAcRPBMpxRsEYgU",
+      "reason": "outside_cabedelo_or_non_food_chain_unit"
+    },
+    {
+      "id": "a5b3b91b-c725-4b83-8153-f16e63c9d4c4",
+      "name": "Coffee Shop São Braz",
+      "source_category": null,
+      "source_address": null,
+      "latitude": -7.098949299999999,
+      "longitude": -34.8456153,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJDYRjwm3drAcR4MQYZneW3z0",
+      "reason": "outside_cabedelo_or_non_food_chain_unit"
+    }
+  ],
+  "deleted": [],
+  "failed": [
+    {
+      "id": "4c1d29a3-c1f5-49a9-989e-e355727b1c0d",
+      "name": "Medellín Café(São Braz Expresso)",
+      "error": "new row for relation \"restaurants\" violates check constraint \"restaurants_menu_status_check\""
+    },
+    {
+      "id": "26a7afa5-c616-42d9-9ec1-1c6783c59832",
+      "name": "Ponta De Campina",
+      "error": "new row for relation \"restaurants\" violates check constraint \"restaurants_menu_status_check\""
+    },
+    {
+      "id": "96470002-e402-4b16-aa38-565e946cd0cc",
+      "name": "Intermares",
+      "error": "new row for relation \"restaurants\" violates check constraint \"restaurants_menu_status_check\""
+    },
+    {
+      "id": "b8af185f-1f89-48cd-87b1-21adff9bc2cd",
+      "name": "São Braz S/A",
+      "error": "new row for relation \"restaurants\" violates check constraint \"restaurants_menu_status_check\""
+    },
+    {
+      "id": "a5b3b91b-c725-4b83-8153-f16e63c9d4c4",
+      "name": "Coffee Shop São Braz",
+      "error": "new row for relation \"restaurants\" violates check constraint \"restaurants_menu_status_check\""
+    }
+  ]
+}

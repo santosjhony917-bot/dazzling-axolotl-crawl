@@ -1,0 +1,2183 @@
+{
+  "search": {
+    "query": "cafeteria Cabedelo PB",
+    "term": "cafeteria",
+    "area": "Bessa/Intermares limite",
+    "lat": -7.0606,
+    "lng": -34.8494,
+    "ll": "@-7.0606,-34.8494,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c02f48976f71c9bee822b",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/hB7SI2lief_IKszfCxZN2Q/6a4c02f48976f71c9bee822b.json",
+    "created_at": "2026-07-06 19:33:08 UTC",
+    "processed_at": "2026-07-06 19:33:08 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/cafeteria+Cabedelo+PB/@-7.0606,-34.8494,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/hB7SI2lief_IKszfCxZN2Q/6a4c02f48976f71c9bee822b.html",
+    "prettify_html_file": "https://serpapi.com/searches/hB7SI2lief_IKszfCxZN2Q/6a4c02f48976f71c9bee822b.prettify",
+    "total_time_taken": 0.86
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "cafeteria Cabedelo PB",
+    "ll": "@-7.0606,-34.8494,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "Tia Graça Cafeteria e Doceria",
+      "place_id": "ChIJV8XbnLXfrAcRTzFbB-0OVFg",
+      "data_id": "0x7acdfb59cdbc557:0x58540eed075b314f",
+      "data_cid": "6364728584574808399",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfb59cdbc557%3A0x58540eed075b314f&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfb59cdbc557%3A0x58540eed075b314f&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.048125499999999,
+        "longitude": -34.847117499999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJV8XbnLXfrAcRTzFbB-0OVFg",
+      "provider_id": "/g/11zkg5wg7b",
+      "rating": 4.5,
+      "reviews": 67,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "R. Golfo da China, 326 - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–20:00",
+        "terça-feira": "11:00–20:00",
+        "quarta-feira": "11:00–20:00",
+        "quinta-feira": "11:00–20:00",
+        "sexta-feira": "11:00–20:00",
+        "sábado": "11:00–20:00",
+        "domingo": "Fechado"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós",
+            "Bom para trabalhar com o laptop"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Espaço privativo para eventos",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Romântico",
+            "Sofisticado",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Excelente lugar para tomar um café expresso e comer um doce ou salgado\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGluIEyqDsqXwQYfV-Ihh8LtjBAMz8BrnNN4wSNWJTf7WlBU-TsItXzrbRfH-b4xau56UgLPZqHDdkhiPDETCugw1iHx6HNTZyEk7mgKHXoFcVOqP0wg5IeBDbuQ8Y55bL2fC0qNoe4yFFl=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/sb9zrXicHcTBboIwAADQL6pUB0pMdgCBlQ0rbKjobXSldVRqaZuKP7nz_mbJ3uH9_nBjbnrteYI_zZiUTFCr6UjkYOhgZkRePXbTgGigvajEVR-9CJunk0q0alx16g4g5zwszHccbR9hPA4Y--4DH1_rbnUU8R7UOjfNY2zfOwRa__5pg-WeFeVZoeSr55cySeuNZW5-QfclwvV5SvvVlb2hRmbksFMldCzIaZy0tgpPQdAWi24DFZbUn7JMPLs5hBDw_wkY_gDZpUdo"
+    },
+    {
+      "position": 2,
+      "title": "Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB",
+      "place_id": "ChIJ42uw2z3frAcRpvqGhKXp_LM",
+      "data_id": "0x7acdf3ddbb06be3:0xb3fce9a58486faa6",
+      "data_cid": "12969497924022500006",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf3ddbb06be3%3A0xb3fce9a58486faa6&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf3ddbb06be3%3A0xb3fce9a58486faa6&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0406189999999995,
+        "longitude": -34.855243099999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ42uw2z3frAcRpvqGhKXp_LM",
+      "provider_id": "/g/11g1kkqgnj",
+      "rating": 4.5,
+      "reviews": 102,
+      "price": "R$ 1–60",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Pôr do Sol, R. Praia do Jacaré, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "14:30–20:00",
+        "terça-feira": "14:30–20:00",
+        "quarta-feira": "14:30–20:00",
+        "quinta-feira": "14:30–20:00",
+        "sexta-feira": "14:30–20:00",
+        "sábado": "14:30–20:00",
+        "domingo": "14:30–20:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Café da manhã",
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Café",
+            "Cerveja",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã",
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento pago na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Excelente lugar para tomar um bom café e curtir o pôr do sol.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH-1bXCM46jQBFBmoO3Oit6Giv0F_mwWr4GBwLb8n7u7EC0HyHbhSnLRRj-uNwlhMAXV4MMhrP74B3kGdYFcfbj3Rwe0fuo_KDYgffPNsvmcuDjc_6zsFKSOv6Y25v6xxkptB_W=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/bR1qX3icHcTbCoIwAADQL5qutBlBD65SobxkUPkkuNR528RtrvrBvqG_CToP5_uhUo5iY5o9tYya87ovlSgnwpksmTQIH8x6FIAIIEw3ic6dG4BFcd-FNmrP2MMDj624kchvZujlg75Nto_1qVgzRzmHHQxeQUEv7JSmLVCR7mno3q92GNIpcWxsdf4j80hVtFaqS1gpnh_3WV1VSSTmgah9S3L0Ft7xEs8oW65m9Hx2o8T5basXEEJA_xPAfvocRIk"
+    },
+    {
+      "position": 3,
+      "title": "Coffee Cake Açaiteria",
+      "place_id": "ChIJJVjoiEDfrAcRFTg4AQg1nHw",
+      "data_id": "0x7acdf4088e85825:0x7c9c350801383815",
+      "data_cid": "8979110065566398485",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf4088e85825%3A0x7c9c350801383815&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf4088e85825%3A0x7c9c350801383815&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.040055199999999,
+        "longitude": -34.839314699999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJJVjoiEDfrAcRFTg4AQg1nHw",
+      "provider_id": "/g/11fl7pnmy_",
+      "rating": 4.7,
+      "reviews": 24,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Oceano Atlântico, 422 - Sala, 04 - Intermares, Cabedelo - PB, 58102-252",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–22:00",
+        "terça-feira": "14:00–22:00",
+        "quarta-feira": "14:00–22:00",
+        "quinta-feira": "14:00–22:00",
+        "sexta-feira": "14:00–22:00",
+        "sábado": "14:00–22:00",
+        "domingo": "14:00–22:00"
+      },
+      "phone": "(83) 99961-5054",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Banheiro de gênero neutro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Grupos",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"A área externa, com mesas, é bastante agradável.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAENgxGJHxCiN025jUjerzwUw_5W543G7V53_oDskkeY6XGfz83YLcg7ZDq-NGp01lrjWGGMxIxR_m6maKx4JypoAWS16K5xVkx4NI36nntBYdvghLUQ_MI8WbrXeiPVPqzD6meb=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/AqcWTnicHcTbboIwAADQL6qUlVZj4gOOpeKlwS2A7IXMWotcWqTd6PjBfYN_s8TzcB5_lbW9WXpeW6GZ1Fq24tuIgWtlhbIzrjtP9gZwA4wXJuzYhG9MOrrduNcbgy-4TmsxTGM6ljjHAaLzDKNSR6ZpREFO9DotULHncv4Z3QGjPfTboc4pPbjYvZcd6b52Ltj-9jrMP3yywy5rXMBiRJSy6-LyI6t9eiwP8SI_DydxS7LkPkWkE-fV6EMIQfWcA_UPJEtEbw"
+    },
+    {
+      "position": 4,
+      "title": "Padaria Pandine",
+      "place_id": "ChIJP6gJ7w3erAcREADxKhazvuY",
+      "data_id": "0x7acde0def09a83f:0xe6beb3162af10010",
+      "data_cid": "16626923782089539600",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde0def09a83f%3A0xe6beb3162af10010&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde0def09a83f%3A0xe6beb3162af10010&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.043929599999999,
+        "longitude": -34.845576699999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJP6gJ7w3erAcREADxKhazvuY",
+      "provider_id": "/g/1tdqnw6s",
+      "rating": 4.4,
+      "reviews": 1096,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Padaria",
+      "types": [
+        "Padaria"
+      ],
+      "type_id": "bakery",
+      "type_ids": [
+        "bakery"
+      ],
+      "address": "Av. Mar Vermelho, 357 - Intermares, Cabedelo - PB, 58102-120",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "06:00–20:00",
+        "terça-feira": "06:00–20:00",
+        "quarta-feira": "06:00–20:00",
+        "quinta-feira": "06:00–20:00",
+        "sexta-feira": "06:00–20:00",
+        "sábado": "06:00–20:00",
+        "domingo": "06:00–11:30, 15:30–19:00"
+      },
+      "phone": "(83) 3248-1069",
+      "website": "https://www.instagram.com/padariapandine/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGFdi2E0ow3ulRwuYsr9G19MzRWwG9-ch5g3kTt_pgGzZgP5wO5VqRWZqIKtqtogbiwRM8zbGPbsqDgW2DBdnsoDzBQdaGKzGmz18Cv3XjZVo75wgc4SxkHhQK5Gz9M0RmQ-xA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/mpjlqHicHcTdToMwGADQJyqUYSOY7IKJdgthQl3G5MZIIV8ZPwVa7NIH9B18myU7F-f_T2g9qRfX7YXvgJTQN6tqFi5H3Yza4XJwYVKIK6TcKDvmXUTf63bzhqXx156Z9UstIfXC1LLC0BBxQcDvTvp7AmpLyIj5IOeZFeV8SPSsJVStYWlgK5pVao6h2MS7elQytru8_qGJpYP1gtdf_3Itz_KZGOBPn7duL_KEUBummA05ukVb42GMkXjM0XgHeFlFJA"
+    },
+    {
+      "position": 5,
+      "title": "Messe Cafeteria",
+      "place_id": "ChIJi1DNHwDfrAcRKRUXOkoukjQ",
+      "data_id": "0x7acdf001fcd508b:0x34922e4a3a171529",
+      "data_cid": "3788141132909057321",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf001fcd508b%3A0x34922e4a3a171529&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf001fcd508b%3A0x34922e4a3a171529&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.039220599999999,
+        "longitude": -34.8551542
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJi1DNHwDfrAcRKRUXOkoukjQ",
+      "provider_id": "/g/11yv7pr7v2",
+      "rating": 5,
+      "reviews": 2,
+      "unclaimed_listing": true,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "R. Praia do Jacaré - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Ambiente agradável,um bom atendimento,lanchinho para fim de tarde!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFDIIZgd8OZpWf73cLZ3CxXMde2OrjIr2q6HUNmgX9ENTgnrFAtkAyzXW0GKduRqSVtt-r0JDxCQ1PIhz6Vn0J7XhmfXRggr3QSMcH4c7n1VT5TJ3aq_TrtEkG8yqtuPmqZAgFAO8Cw2Bas=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/PpGjm3icHcTbboIwGADgJ6oU6oQt2UWHorDJQREbbhZTsM2QQtufeHhJr_c2S_ZdfL9PCTDaN8e5SDITwyAu7WRbwwcFrYIZH3pHjBZxi6xD87ToaLSM41o0QVaPx7NP-FdNwhvbNq2XmZ_YeHqxOaS9YK-rtBTKRBQ6en-wI15_NtNO7ysAZHCyvIWFm8fysagUTnwm-zPbCWFIsd_yzZz7yq3KlzIhJ_1dGlh16-CuYcp7XVMR0SwIr97Hyb5fXYwxkv9zpP4AcL1HBQ"
+    },
+    {
+      "position": 6,
+      "title": "DM Caffe",
+      "place_id": "ChIJRVlJzNnDrAcRa808gqR2TmU",
+      "data_id": "0x7acc3d9cc495945:0x654e76a4823ccd6b",
+      "data_cid": "7299902494945889643",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acc3d9cc495945%3A0x654e76a4823ccd6b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acc3d9cc495945%3A0x654e76a4823ccd6b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0859649,
+        "longitude": -34.8333809
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJRVlJzNnDrAcRa808gqR2TmU",
+      "provider_id": "/g/11l0qsz2w7",
+      "rating": 4.8,
+      "reviews": 247,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria",
+        "Padaria",
+        "Café",
+        "Confeitaria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop",
+        "bakery",
+        "cafe",
+        "pastry_shop"
+      ],
+      "address": "Av. Gov. Argemiro de Figueiredo, 3197a - Jardim Oceania, João Pessoa - PB, 58037-030",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 21:00",
+      "hours": "Aberto · Fecha 21:00",
+      "operating_hours": {
+        "segunda-feira": "11:30–21:00",
+        "terça-feira": "11:30–21:00",
+        "quarta-feira": "11:30–21:00",
+        "quinta-feira": "11:30–21:00",
+        "sexta-feira": "11:30–21:00",
+        "sábado": "11:30–21:00",
+        "domingo": "15:00–20:00"
+      },
+      "phone": "(83) 3204-0106",
+      "website": "https://www.instagram.com/dm.caffe/",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós",
+            "Bom para trabalhar com o laptop"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Brunch",
+            "Sobremesa",
+            "Lugar para sentar"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Alelo",
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Vale refeição"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Pedi um motcha Latte e uma quiche.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF9L98bCKBVcVp1KkT78hVGKfEKdPQeh8LOduTXb9f0fkb-93i38B6AOeqYP1Nq4pu2CiNZinJ7HcHbKMasK0wnXPopF4sEOTpPDAkCoPpFWiDtU4OOzO8JiSRJz6EEfxUaF0dhN75YPmVP=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/jRs4nXicHcTNboIwAADgJ6qUgVKWeEAEDXW0OsSfm5RCG7Sta4nGl9x5b2Oy7_D9_QrnjP30vKsIJr3W_ZWPlv8wrRxXbsL0zeuNBcwC6yW03A5JHm9i1KR4UbPa-HioIiTqFe4y3NItF2hD2rE6NnEHu6EBcSADtJglhN9P1C_voRk_UlmepSqiNVs3-OtiMXyoI9UmD21GKkOXyZBqavKDXLp9SMiLoEJ-74rXLMu65_6Sw1aU0fREbzWdP3wIIRD_M6Dew1lFXQ"
+    },
+    {
+      "position": 7,
+      "title": "Abô Botânica e Café",
+      "place_id": "ChIJ655rheXdrAcRF_IqOMoALOI",
+      "data_id": "0x7acdde5856b9eeb:0xe22c00ca382af217",
+      "data_cid": "16297402020072714775",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdde5856b9eeb%3A0xe22c00ca382af217&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdde5856b9eeb%3A0xe22c00ca382af217&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0757517,
+        "longitude": -34.8326783
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ655rheXdrAcRF_IqOMoALOI",
+      "provider_id": "/g/11szff4y68",
+      "rating": 4.5,
+      "reviews": 971,
+      "price": "R$ 40–60",
+      "extracted_price": 40,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "Rua Prefeito Joaquim Gonçalves de Assis, 50 - Loja 10 - Jardim Oceania, João Pessoa - PB, 58037-645",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "07:30–22:00",
+        "terça-feira": "07:30–22:00",
+        "quarta-feira": "07:30–22:00",
+        "quinta-feira": "07:30–22:00",
+        "sexta-feira": "07:30–22:00",
+        "sábado": "07:30–22:00",
+        "domingo": "07:30–22:00"
+      },
+      "website": "https://abobotanica.com.br/",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Serviços no local",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de chás",
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Café da manhã",
+            "Almoço",
+            "Jantar",
+            "Comer a sós",
+            "Bom para trabalhar com o laptop"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Bebidas para happy hour",
+            "Café",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Coquetéis",
+            "Espaço privativo para eventos",
+            "Opções veganas",
+            "Opções vegetarianas",
+            "Porções pequenas",
+            "Refeição rápida",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã",
+            "Brunch",
+            "Almoço",
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Romântico",
+            "Sofisticado",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Recomendação de reserva para brunch",
+            "Recomendação de reserva para jantar",
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Preço ok pra uma cafeteria, tem opções mais caras e mais baratas tbm.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHidrzRiQ3Q84pA_lR7ys-fckHPd9YYj_M_bcDS2JfLK9fXUttswBKfKdzCVEhBHT8r3bVoW23fRG2qc7MK7g2Xjo23n-BnXuIa4I2BRWYEBwWsSiGZZSv_vQmx6KATPaQpEGu8Izmx9JrS=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/I5TDUHicHcTBboIwAADQL6qw1gxYsgNVAti5UHACXogWCii0jBZRfnLn_c2SvcP7_Wm0HtSbYXQNWtVS1l01qWpkUuhK6BWTvVEPCjAFlOFGn_TmBm05LnFLEbXXg1t0sfVUgLNbEJVOnl-LfXFh2wTu-AdxePaltZox4aRcNkevwcHBHtHlKFOIeOzDb2btiVXD7CohEgCLbArP6xDiOM09PKcqaf3TKbkXd9o_Xol7iM508PzJDpf-4ezG5H1-MU0TNP8zIP4AhF9G-w"
+    },
+    {
+      "position": 8,
+      "title": "Chié artesanato e comedoria",
+      "place_id": "ChIJTwa4MA_frAcR4t0Vizs3ozY",
+      "data_id": "0x7acdf0f30b8064f:0x36a3373b8b15dde2",
+      "data_cid": "3937051228128009698",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0f30b8064f%3A0x36a3373b8b15dde2&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0f30b8064f%3A0x36a3373b8b15dde2&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.040131199999999,
+        "longitude": -34.8552082
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJTwa4MA_frAcR4t0Vizs3ozY",
+      "provider_id": "/g/11j1kkyn2s",
+      "rating": 4,
+      "reviews": 40,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Café",
+      "types": [
+        "Café"
+      ],
+      "type_id": "cafe",
+      "type_ids": [
+        "cafe"
+      ],
+      "address": "R. Praia do Jacaré - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "15:00–19:00",
+        "terça-feira": "15:00–19:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "15:00–19:00",
+        "sexta-feira": "15:00–19:00",
+        "sábado": "15:00–19:00",
+        "domingo": "15:00–19:00"
+      },
+      "phone": "(83) 98885-0093",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Uma cafeteria charmosa.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHKvRQhdpg15A2tFgfH6DQDEwXtvX65WIYtE57xjjVRtqs6nyD6JvGyQyh0k8L71MaIbBGjuUZeulpYUWw5RC8sA6kURcKWHN_XprvNRfWPok-t7ZZyd0yQusP8_ix_6eEuuDRCOjoTas4=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/RCMzX3icHcTBToMwAADQL-ooKoWYeMCBY25jtBnCuJDZda2AtFtbWH_Su39j4ju83x9hjNLPnjeIxwWXkg_ManajcjRsNAsqvz2uNKAaaC8uctzH2WYiWJwV94P4wbzxS4YSnKRzbaYaBdX6aNIgvHfdBzFXjUaXoPdp5bATsI-2ob87rT9fV50tG2YHdSyrOSDLSMeoLwndVFne1uo25eRSFbIHJmwad4YOW11E7de9RSy1NiHLfScPJ_30MvsQQiD-p2D8A2_DR9Q"
+    },
+    {
+      "position": 9,
+      "title": "Juci",
+      "place_id": "ChIJo7CaIwDfrAcRImsAHe1osU4",
+      "data_id": "0x7acdf00239ab0a3:0x4eb168ed1d006b22",
+      "data_cid": "5670428773439269666",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf00239ab0a3%3A0x4eb168ed1d006b22&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf00239ab0a3%3A0x4eb168ed1d006b22&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0409909,
+        "longitude": -34.841844099999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJo7CaIwDfrAcRImsAHe1osU4",
+      "provider_id": "/g/11nk1xpsrl",
+      "rating": 1,
+      "reviews": 1,
+      "unclaimed_listing": true,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "R. Golfo de Cadis, 470 - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito"
+          ]
+        }
+      ],
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Z_6r2mPcoSCl4zuy5hKH7w&cb_client=search.gws-prod.gps&w=80&h=92&yaw=209.12184&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/dxdzl3icHc09DsIgGADQ27DJX6q2Jl8cXExcTNxcGkoRSCgQoMV6Gq_lbTRe4L3P25QS84GQXJJSZbGqRvtULm-iwDoE7ZSINmMZJrIwUsw8DV5Yd4zCBzvCvd8lPl1luJ1c85rXrbmc9xXJoZfOKl8gK5Gkwbr-xBRGrGNGFVqKDHQcraICpx1mnLUNirZIAxT9l0dYgFH6BYL2OaE"
+    },
+    {
+      "position": 10,
+      "title": "Henriqueta Café",
+      "place_id": "ChIJAS55PQDdrAcRwU0mxxKWZsk",
+      "data_id": "0x7acdd003d792e01:0xc9669612c7264dc1",
+      "data_cid": "14512451856642756033",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd003d792e01%3A0xc9669612c7264dc1&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd003d792e01%3A0xc9669612c7264dc1&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0778212,
+        "longitude": -34.8309128
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJAS55PQDdrAcRwU0mxxKWZsk",
+      "provider_id": "/g/11z5gjmkls",
+      "rating": 5,
+      "reviews": 9,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "unclaimed_listing": true,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "Condomínio Res Vivi Costa Oliveira II, Av. Gov. Argemiro de Figueiredo, 2197 - Bessa, João Pessoa - PB, 58037-030",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "07:00–22:00",
+        "terça-feira": "07:00–22:00",
+        "quarta-feira": "07:00–22:00",
+        "quinta-feira": "07:00–22:00",
+        "sexta-feira": "07:00–22:00",
+        "sábado": "07:00–23:00",
+        "domingo": "07:00–23:00"
+      },
+      "phone": "(83) 98840-0181",
+      "extensions": [
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "user_review": "\"Conveniente já que fica no prédio.🤗\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEpCvy0BMpUal6ER0r7IFm4Vpt3kfMn1JuFRAjuW0LoCYSDig9Snpwy0zEFomYvY3BCHMht-_siYqPyGfqgizKYfvz32IIGkEtcV7Xa6_w9YdakiXgrqH--mJgz_PnY8eX1MA2fQlo0KPQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/IGzsJ3icHcRJDoIwAADAFxWKGLfEAyLIIgY0Kj0RUqEg0BZaIPBI7_7GxDnM91NIycVOVetCVwhjpM56kXWYUZlRqWDWqIQLgAUQqhFeosqwuDlM8BDwe1qvrCvs1q7dLB9c6lUeUM3r7avx7p_wzEx0O5Zke6N8nOBs2axBA9IPphMUEiSiRG04nfKWlLOP8mHWF657qiyJH-s4XSXjFr3SqoxJ1zoANB6Zk5CiTRZrgbHIo5pBP4z2owYhBMV_DOgPi0NHng"
+    },
+    {
+      "position": 11,
+      "title": "Medellín Café(São Braz Expresso)",
+      "place_id": "ChIJmYckIO3drAcRHY1JjnbhsP0",
+      "data_id": "0x7acdded20248799:0xfdb0e1768e498d1d",
+      "data_cid": "18280358786806418717",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdded20248799%3A0xfdb0e1768e498d1d&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdded20248799%3A0xfdb0e1768e498d1d&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.087185,
+        "longitude": -34.8468733
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJmYckIO3drAcRHY1JjnbhsP0",
+      "provider_id": "/g/11lgd00d2b",
+      "rating": 3.4,
+      "reviews": 41,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "Estrada de Cabedelo, KM13,5, R. Praia do Bessa, João Pessoa - PB, 58037-325",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 21:00",
+      "hours": "Aberto · Fecha 21:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–21:00",
+        "terça-feira": "08:00–21:00",
+        "quarta-feira": "08:00–21:00",
+        "quinta-feira": "08:00–21:00",
+        "sexta-feira": "08:00–21:00",
+        "sábado": "08:00–21:00",
+        "domingo": "09:00–19:00"
+      },
+      "phone": "(83) 98150-5022",
+      "website": "http://instagram.com/cafemedellinbr",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de chás",
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Café da manhã",
+            "Comer a sós",
+            "Bom para trabalhar com o laptop"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee",
+            "Vale refeição"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Pra quem gosta de café aqui é uma excelente opção pra você.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEJ6WglO7tOiq_pYepo66pPCUOW1wWcZDNBXm12g7gcWV42XUMH9NajS9jIJuHAHLABjNlOuhSjEMzKQd2PfgWPYEGu2S86jROf_hdYgisy68-eR4JEmkBYSMMN-tbBF2Is0_T2=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/i9FyQXicHcRRboIwAADQE1WgM1WW7AM2FFFalLmKP2TW2lKBdmsbs11wZ_A2S3wf7_4nnTP2OQh6-TQRWouee8u_mR4dH92E6SEQxgJmgQ2SCm-vSVYgKnoyc6T7ak3DjUbIVK97QqMbZcc3nB6GCIqZYPRjCg_7Mo_xp6pjtSp8nuSbJFW4J17WKit_19szrC6CVk229LCeI7Ujl1aeG9HZHzQHfDctsuGaNnVZYuBO6QKubNi-w5dbFIYhkI8ZGP8B_NxDDQ"
+    },
+    {
+      "position": 12,
+      "title": "Brie To Me João Pessoa",
+      "place_id": "ChIJuQhLPCPDrAcRpZI7HSbIAlY",
+      "data_id": "0x7acc3233c4b08b9:0x5602c8261d3b92a5",
+      "data_cid": "6197736103239979685",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acc3233c4b08b9%3A0x5602c8261d3b92a5&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acc3233c4b08b9%3A0x5602c8261d3b92a5&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.075658799999999,
+        "longitude": -34.8345043
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJuQhLPCPDrAcRpZI7HSbIAlY",
+      "provider_id": "/g/11k3h2hl77",
+      "rating": 5,
+      "reviews": 72,
+      "type": "Loja de cestas de presente",
+      "types": [
+        "Loja de cestas de presente",
+        "Espresso bar",
+        "Loja de frios"
+      ],
+      "type_id": "gift_basket_store",
+      "type_ids": [
+        "gift_basket_store",
+        "espresso_bar",
+        "ham_shop"
+      ],
+      "address": "R. Severino Nicolau de Melo - Jardim Oceania, João Pessoa - PB, 58037-700",
+      "country": "Brasil",
+      "open_state": "Aberto 24 horas",
+      "hours": "Aberto 24 horas",
+      "operating_hours": {
+        "segunda-feira": "Atendimento 24 horas",
+        "terça-feira": "Atendimento 24 horas",
+        "quarta-feira": "Atendimento 24 horas",
+        "quinta-feira": "Atendimento 24 horas",
+        "sexta-feira": "Atendimento 24 horas",
+        "sábado": "Atendimento 24 horas",
+        "domingo": "Atendimento 24 horas"
+      },
+      "phone": "(83) 99164-4114",
+      "website": "https://www.brietomejp.com.br/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega": true
+      },
+      "user_review": "\"Produtos de qualidade, organização, capricho e um atendimento excelente.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHRz2lsD6L0HYXJQDw47L65GDlt92Ehzvgy2_qmGS_bnQXf7gH_eARk47w-XJPZJ6h8UlETKYqg_4CHwT86-AtxjIBCiUk6oYkZPA_CP--ckHcUp5BcIdFMV8PZS-LSU9_VG2uS=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/vkDPU3icHcRRboIwGADgE_2CDAsu2UMFR2VsKSIGeGmyjrWuleJax_SCnsHbLNn38N1v0rnRPnqelg8zYYzQ_dn239wMrh_cjJujJ0YL3IL1MH0rFSbba6BtigqftE1eplMYFWiRpdotg7W8_ohLwE7HrGLvQ9l8RoKwHm9VGE3Q5LTLkYxrvd69tCfBwoRMuxgBdr9fm1VyqBUyreooZgkF4Irwelys-Obj-XUf066CoqqXbJ8F5-ppmvu-D_J_DsMftbxCZg"
+    },
+    {
+      "position": 13,
+      "title": "Herbalife Intermares Cabedelo.",
+      "place_id": "ChIJe0vpX2verAcRw7t0W-KuzRA",
+      "data_id": "0x7acde6b5fe94b7b:0x10cdaee25b74bbc3",
+      "data_cid": "1210816162052750275",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde6b5fe94b7b%3A0x10cdaee25b74bbc3&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde6b5fe94b7b%3A0x10cdaee25b74bbc3&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0390919,
+        "longitude": -34.8390214
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJe0vpX2verAcRw7t0W-KuzRA",
+      "provider_id": "/g/11c61j6h_6",
+      "rating": 5,
+      "reviews": 19,
+      "unclaimed_listing": true,
+      "type": "Casa de chá",
+      "types": [
+        "Casa de chá"
+      ],
+      "type_id": "tea_house",
+      "type_ids": [
+        "tea_house"
+      ],
+      "address": "Av. Oceano Atlântico, 328 - Sl 06 - Intermares, Cabedelo - PB, 58102-252",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 11:00",
+      "hours": "Fechado · Abre ter. às 11:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–15:15",
+        "terça-feira": "11:00–15:00, 18:00–20:00",
+        "quarta-feira": "11:00–15:00, 18:00–20:00",
+        "quinta-feira": "11:00–15:00, 18:00–20:00",
+        "sexta-feira": "11:00–15:00, 17:00–20:00",
+        "sábado": "11:00–15:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 99610-0310",
+      "website": "https://instagram.com/herbalife_orla_intermares?r=nametag",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de chás"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Espaço aconchegante, shake com um grande diferencial.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHJkTHXyaOGNELNQ7iUEhhi9EqRS71EZ-R3p6nChfavaWSGODUUXWx1OEGHd11oMrVkyvuizsSptvaqQOkf_cPYoBuHBGbaBt4ys1eqy_1P-72YMD48EONkNractcWKBYEJYVwZ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/8ML90XicHcRdDoIgAADgE5FSLauth0ym6wc0M9OXRmTiKFFByy7YGbpNW9_D9_1wrSs1N4w7Hw1yKfN71qqsYbLUWakHTD6MvFKAKaCMpY8DsfTW4uCdekpcjLY4sIoIcV7MUL0PLYhSsB9Vk3LFb7SjcegSJ4pO8QsS5HpXCOWuOYq-a4u3Civd0Tog4nZmfiLt1rPdC7X1uFcwq_sz9IE1THbOeIoIFrihTLN4YydonRyf6eIJTdME_D8D5Q9Hc0Sh"
+    },
+    {
+      "position": 14,
+      "title": "The Coffee",
+      "place_id": "ChIJmQeTLSrdrAcRGO2iVYg2k30",
+      "data_id": "0x7acdd2a2d930799:0x7d93368855a2ed18",
+      "data_cid": "9048636035497651480",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd2a2d930799%3A0x7d93368855a2ed18&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd2a2d930799%3A0x7d93368855a2ed18&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0812224,
+        "longitude": -34.839124399999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJmQeTLSrdrAcRGO2iVYg2k30",
+      "provider_id": "/g/11lcbgx_vq",
+      "rating": 4.1,
+      "reviews": 55,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "R. Bacharel José de Oliveira Curchatuz, 850 - Jardim Oceania, João Pessoa - PB, 58037-432",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 21:30",
+      "hours": "Aberto · Fecha 21:30",
+      "operating_hours": {
+        "segunda-feira": "08:00–21:30",
+        "terça-feira": "08:00–21:30",
+        "quarta-feira": "08:00–21:30",
+        "quinta-feira": "08:00–21:30",
+        "sexta-feira": "08:00–21:30",
+        "sábado": "08:00–21:30",
+        "domingo": "08:00–21:30"
+      },
+      "phone": "(41) 99279-7895",
+      "website": "https://thecoffee.jp/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós",
+            "Bom para trabalhar com o laptop"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Excelente café, ambiente ótimo pra trabalhar, atendimento ok.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEExUGHEaslI8iTZxCKIVO277zj8iF1ynzkEDKlexfTUKoeexhSy-34gQoAunVjctwe4VLon2MNGobL1p8E7GWzwNeUXx34j2xWnWGQAbpJZRui26L1Grx1KqGJQQ0blWN4t-qvAw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/2eWYXHicHcTbToMwAADQLypQIIOY-NBoVweIVrksextN5VZboEU6_tBP8G-WeB7O329nzKQfXFd0gdMq1Qq-ar4wJQ2XxmHq220nDZgG2kXvOR0RxrYkL_iqxSnui4t9Sk_Vmx9F-xD3R3iT-4ifU8HtV1GminPbfd5AELZUoVVWAzMbD6tMSf81J6rJ4BTjiNT7lvPybINw8G0ta0JRMyWXj7X3Dxkki4XpTBJKvUbUeWjA_IO2xw16nge6_xmQdwpQRXQ"
+    },
+    {
+      "position": 15,
+      "title": "Shakeria Intermares",
+      "place_id": "ChIJ4zS9hhTfrAcR7vsT_e3WXBQ",
+      "data_id": "0x7acdf1486bd34e3:0x145cd6edfd13fbee",
+      "data_cid": "1467283896257477614",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1486bd34e3%3A0x145cd6edfd13fbee&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1486bd34e3%3A0x145cd6edfd13fbee&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.042103999999999,
+        "longitude": -34.844162
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ4zS9hhTfrAcR7vsT_e3WXBQ",
+      "provider_id": "/g/11f5vdx2_6",
+      "rating": 5,
+      "reviews": 2,
+      "type": "Casa de chá",
+      "types": [
+        "Casa de chá"
+      ],
+      "type_id": "tea_house",
+      "type_ids": [
+        "tea_house"
+      ],
+      "address": "Empresarial Yeshua, Av. Mar das Antilhas, Sl 104 - Intermares, Cabedelo - PB, 58102-212",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 17:30",
+      "hours": "Fechado · Abre às 17:30",
+      "operating_hours": {
+        "segunda-feira": "07:30–09:30, 11:30–14:30, 17:30–19:30",
+        "terça-feira": "07:30–09:30, 11:30–14:30, 17:30–19:30",
+        "quarta-feira": "07:30–09:30, 11:30–14:30, 17:30–19:30",
+        "quinta-feira": "07:30–09:30, 11:30–14:30, 17:30–19:30",
+        "sexta-feira": "07:30–09:30, 11:30–14:30, 17:30–19:30",
+        "sábado": "Fechado",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98730-6586",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de chás"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEptIgBbbaCHZZWTLKquzHL6KRfU2BHRWlLmTR49IfuqvpxqUKoEEqSXdyFKxQX72T5IyGtxcfkOCR9KTpf4D8VTeo3AvuBLZpa71jBfwxU7ETAheu85zynJXSwRCtM4du_DbvFpw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/D8incXicHcTbEoFAAADQL0ohwoyHSpTNbW00vRit3RrSbna3iz_0Cf7GjPNwvp9cSi5mul7kw17GWFYQJcgLs1KSUvYwe-oZFxoWmtDt_fbwsD0ug8xJ06vrJ8kZhaBSbz8cA0ijgePDcxE-ETSnAVVVzdsqAszzqmN865agPcTWAI2CbiVbTB87F04B4tRcTE6IsKFdKydM-NXq3x3atJHlITsnajJ6d-U6PjbQlRvzpi6LtF7yZt70DcPQ8v9YK38j3UY1"
+    },
+    {
+      "position": 16,
+      "title": "São Braz S/A",
+      "place_id": "ChIJQ7IO0EHdrAcRPBMpxRsEYgU",
+      "data_id": "0x7acdd41d00eb243:0x562041bc529133c",
+      "data_cid": "387877035225715516",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd41d00eb243%3A0x562041bc529133c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd41d00eb243%3A0x562041bc529133c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0859134,
+        "longitude": -34.849026699999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJQ7IO0EHdrAcRPBMpxRsEYgU",
+      "provider_id": "/g/1trsy6bz",
+      "rating": 4.6,
+      "reviews": 746,
+      "unclaimed_listing": true,
+      "type": "Torrefação de café",
+      "types": [
+        "Torrefação de café",
+        "Fabricante de alimentos"
+      ],
+      "type_id": "coffee_roasters",
+      "type_ids": [
+        "coffee_roasters",
+        "food_manufacturer"
+      ],
+      "address": "BR-230, Km 13 - 1211 - Lot. Morada Nova, Cabedelo - PB, 58109-303",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre ter. às 08:00",
+      "hours": "Fecha em breve · 17:00 · Abre ter. às 08:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–17:00",
+        "terça-feira": "08:00–17:00",
+        "quarta-feira": "08:00–17:00",
+        "quinta-feira": "08:00–17:00",
+        "sexta-feira": "08:00–17:00",
+        "sábado": "Fechado",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 3216-4700",
+      "website": "http://www.saobraz.com.br/",
+      "extensions": [
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "service_options": [
+            "Para viagem"
+          ]
+        }
+      ],
+      "service_options": {
+        "para_viagem": false
+      },
+      "user_review": "\"Empresa especializada em alimentos de ótima qualidade!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH6FYh_BG2DpTqBpNxYK16vEQlbXsY6p_2-kbPFj-ku8jxBcU5pqo--j9gTOkoftZncFSHyFLeTFLKvXtjsRaPVgvYXlYCwoV7NdNIQDtdJ9kqTC4MSP8aA-9fb-RzPmQMV1jg0OQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/y2o_5nicHcRRboIwGADgE_0C6lCW-AC6Tqdiq0joXoxULGmRlrUiekOPsNuY-D18_8_SWm0-HacqBz2uFK-Kqyn-mKptUdseUxeHawPMgHFCHBMZzn1Ey0P03Z_ppIl03NGl57dfpMozQ3196IPMMRIgr2PRRWz_oRsFIAKebKQ629-aod38jlZFglbLNrPCbI845S3NKjq9qXQUn-IFmdnTTyCbZDpc7_D4GEJwzmH7wBeyTj3B3Q2Z3DzXdaF8z6B-AeaARRE"
+    },
+    {
+      "position": 17,
+      "title": "Cafeteria Deus Seja Louvado",
+      "place_id": "ChIJywRbNQDdrAcRSj-Xe9tEhB0",
+      "data_id": "0x7acdd00355b04cb:0x1d8444db7b973f4a",
+      "data_cid": "2126900633487753034",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd00355b04cb%3A0x1d8444db7b973f4a&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd00355b04cb%3A0x1d8444db7b973f4a&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.076985199999999,
+        "longitude": -34.8501161
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJywRbNQDdrAcRSj-Xe9tEhB0",
+      "provider_id": "/g/11w4cq19mg",
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "R. São José - Renascer, Cabedelo - PB, 58108-212",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "05:30–13:00, 16:30–19:00",
+        "terça-feira": "05:30–13:00, 16:30–19:00",
+        "quarta-feira": "05:30–13:00, 16:30–19:00",
+        "quinta-feira": "05:30–13:00, 16:30–19:00",
+        "sexta-feira": "05:30–13:00, 16:30–19:00",
+        "sábado": "06:00–10:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98618-3414",
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Café da manhã",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Alimentos preparados",
+            "Café",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã",
+            "Almoço",
+            "Jantar"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": false
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHdD-ZknNMMZTSg1ZziMrrnLqnu65draBRkW8bSQYirApFMYbhBuB1zuTqrn3niwfB1E-v9MP6duwh3XuJ6E5WW-yelgf5alqC8zIgdo4MWXLPl2ksTRkEjh4Hy61QmlyON8eik4g=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/JPpQeHicHcRLjoIwAADQE1WofIImswDFqLEISgKyU6gttrbQ0iFwwznC3MbEt3j_f3QYOr22LE6dBZGScGw0VrUUAxbDopZvi3Qa1BpoK0yTjIX7ZgsqJhKEqvxKYDW3SClx6oXxvUbdowsrgsc1u7Uq7Hbo9qCRieBs8l4JR7TjM4Ix-F2h1G_MSJ3SHP3YKwowYU6e3p33m2A-kEa6qChPKV8ynV9Y_KLufvJh9ubTOQlwy1zyM0LbtgH9XgPxAUjzRjU"
+    },
+    {
+      "position": 18,
+      "title": "Medellín Café Parahyba Mall",
+      "place_id": "ChIJOcPDOgDdrAcRLDUgesjzcaA",
+      "data_id": "0x7acdd003ac3c339:0xa071f3c87a20352c",
+      "data_cid": "11561289760804713772",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd003ac3c339%3A0xa071f3c87a20352c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd003ac3c339%3A0xa071f3c87a20352c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.080790899999999,
+        "longitude": -34.8392622
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJOcPDOgDdrAcRLDUgesjzcaA",
+      "provider_id": "/g/11y2hbc4l9",
+      "rating": 4,
+      "reviews": 23,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Espresso bar",
+      "types": [
+        "Espresso bar",
+        "Cafeteria"
+      ],
+      "type_id": "espresso_bar",
+      "type_ids": [
+        "espresso_bar",
+        "coffee_shop"
+      ],
+      "address": "R. Bacharel José de Oliveira Curchatuz, 850 - Loja 55 - Jardim Oceania, João Pessoa - PB, 58037-432",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–22:00",
+        "terça-feira": "08:00–22:00",
+        "quarta-feira": "08:00–22:00",
+        "quinta-feira": "08:00–22:00",
+        "sexta-feira": "08:00–22:00",
+        "sábado": "08:00–22:00",
+        "domingo": "12:00–22:00"
+      },
+      "phone": "(83) 98150-5022",
+      "website": "https://www.instagram.com/cafemedellinbr/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de chás",
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Café da manhã",
+            "Comer a sós",
+            "Bom para trabalhar com o laptop"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"O atendimento dos meninos foi excelente, super atenciosos.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHeiuikjFaV67bR5ndMfgSwzI4yJqPr9Ucr8JLgEsEGnks_KOrxhGN-Yan-xmy7jIbkN-bE7Lz7AwbBemBM8tey4xFOxU1KVHOEe0fyE4gdMfyS1tmSpZNojyxawtl-DbKa8ZiP=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/3FSGrnicHcxJDoIwAADAF1UgoqCJB4zFBQWUSCIXQ2sta4u0htYP-gZ_o_Eyx_m8Cyk7MTeMphiPKOe0IU9BesyZJEyOMG8N2gmABRCGF4fH2tuQ8lnWlZ-nUwedJux2uNNkeG1tvXvE_eyMe3e3p1DANavFNYh6VaxDcMkZUK12qi2qQ4Cgs3853oCWpF0eXEm0rfxIna0g3USQmHcNbfqLdWLJNumykFda5YNswAoFuZuV8WKwTNMExV8M2Bfa8EYZ"
+    },
+    {
+      "position": 19,
+      "title": "Coffee Shop São Braz",
+      "place_id": "ChIJDYRjwm3drAcR4MQYZneW3z0",
+      "data_id": "0x7acdd6dc263840d:0x3ddf96776618c4e0",
+      "data_cid": "4458447595678254304",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd6dc263840d%3A0x3ddf96776618c4e0&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd6dc263840d%3A0x3ddf96776618c4e0&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.098949299999999,
+        "longitude": -34.8456153
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJDYRjwm3drAcR4MQYZneW3z0",
+      "provider_id": "/g/11b88qns2n",
+      "rating": 4.4,
+      "reviews": 1408,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "Av. Gov. Flávio Ribeiro Coutinho, 805 - Manaíra, Cabedelo - PB, 58037-900",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "10:00–22:00",
+        "terça-feira": "10:00–22:00",
+        "quarta-feira": "10:00–22:00",
+        "quinta-feira": "10:00–22:00",
+        "sexta-feira": "10:00–22:00",
+        "sábado": "10:00–22:00",
+        "domingo": "13:00–22:00"
+      },
+      "phone": "(83) 2106-6491",
+      "website": "http://manairashopping.com/",
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de chás",
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós",
+            "Bom para trabalhar com o laptop"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Café",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Brunch",
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Sofisticado",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Alelo",
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Vale refeição"
+          ]
+        },
+        {
+          "children": [
+            "Cadeirinhas altas"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento coberto pago",
+            "Estacionamento descoberto pago"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": false
+      },
+      "user_review": "\"Pedi pão de queijo e café, veio só o café.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAE44rriI2JG897g34e1DnHXKd1z1FvNL8sUyuQFsNRNis6h1zRduRSJW5V4xBmyTD6rhctS5CSuuFtXMb_98D17fQBizhOP4pfkAHVCZPfOI0X36Xq5EurzVG0M3HMWtW2EuMA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/t4VejnicHcRJDoIwAADAFyGtFEQTDyggoiCLAvFiYgVKWO3iwgP9g78xcQ7z_RDOB7aQ5YYok7LvyyYXLKe473je8QnuW7kcmISZxGQj8MPasBCitNpO3Y0-n5UKyqHZOdnuBkdoP_y9zk5vEdrMj_yKaQSO0U1EsZuqCXqt2vfR1CjBPFbXsRA2z7zrZa6bcFaEq2okhwANRW04yfocFIctyBQtu6uWoGOyAZ7ieClPp5bwjOUTAgAk8h9L3Q94p0J6"
+    },
+    {
+      "position": 20,
+      "title": "Paula Cakes",
+      "place_id": "ChIJyQ2DAuLfrAcRcVq6aOH3IMA",
+      "data_id": "0x7acdfe202830dc9:0xc020f7e168ba5a71",
+      "data_cid": "13844337802033650289",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfe202830dc9%3A0xc020f7e168ba5a71&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfe202830dc9%3A0xc020f7e168ba5a71&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0315962,
+        "longitude": -34.8482017
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJyQ2DAuLfrAcRcVq6aOH3IMA",
+      "provider_id": "/g/11xzpz1s1l",
+      "rating": 5,
+      "reviews": 9,
+      "type": "Doceria",
+      "types": [
+        "Doceria",
+        "Espresso bar",
+        "Confeitaria"
+      ],
+      "type_id": "dessert_shop",
+      "type_ids": [
+        "dessert_shop",
+        "espresso_bar",
+        "pastry_shop"
+      ],
+      "address": "Rua Rio Botafogo - Portal do Poço, Cabedelo - PB, 58106-136",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–19:00",
+        "terça-feira": "08:00–19:00",
+        "quarta-feira": "08:00–19:00",
+        "quinta-feira": "08:00–19:00",
+        "sexta-feira": "08:00–19:00",
+        "sábado": "08:00–19:00",
+        "domingo": "08:00–19:00"
+      },
+      "phone": "(83) 98733-6464",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Entrega",
+            "Retirada na loja",
+            "Compras na loja",
+            "Serviços no local",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Banheiro de gênero neutro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "crowd": [
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Ótimo atendimento.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGwI_CMLRgWnxWe2A-szGS6tgXkqQ0rvgQTuG8YnuFROxUesH8NSKD1ededbonTI_LrFuS9GaI06Uhr5UEwN6a9GwrO0mhpqvBTi3v1NkkZWQBvRGNyIgl1-l73BSSabKr_oX0oi-FubVQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Q2CehXicHcTNboIwAADgJ6qUEZmaeAAdHVHrSkHcLgSwaQ3YYn9A95C7722W7Dt8vz_C2sGsPK8XwYwrxXvmDNOtkpZJO2vVzeODAa0Bxos-MOkiNKXV5rDPeCkfJXuJgPlGNLT83N0J1CMnuUOLT-mS7PgomHlfYLrb-uzCLo2SeVrtdeLoEtUpDAuh58XbhMN6iSZ9hDcx3Mc4vwajj7vuqyTxmCH8THnvg_41iCmtm52u1BmqK0hccyLryYcQAvF_C-QfkSRHYA"
+    }
+  ]
+}

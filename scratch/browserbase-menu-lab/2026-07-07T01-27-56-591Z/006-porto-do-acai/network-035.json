@@ -1,0 +1,270 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 4882,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4\",\"id\":\"963eae4f-6efb-49b8-b721-33dd18edb02a\",\"code\":\"41\",\"ean\":null,\"priority\":1,\"name\":\"Coca-Cola Lata 350ml\",\"description\":\"O classico refrigerante de cola gelado\",\"price\":6,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"2051bace-d8ee-446a-88f6-98227d90465b\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Coca-Cola Lata 350ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4\",\"id\":\"f2dcffec-adb7-40ff-bd0f-e41a99bbc3e1\",\"code\":\"61\",\"ean\":null,\"priority\":2,\"name\":\"COCA COLA ORIG KS 1L\",\"description\":\"\",\"price\":12,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"7939dc20-d911-4ca0-b923-00f396694fde\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"COCA COLA ORIG KS 1L\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4\",\"id\":\"26f51d99-3015-4f5a-896f-00f4e324466c\",\"code\":\"60\",\"ean\":null,\"priority\":3,\"name\":\"COCA COLA ZERO KS 290ML\",\"description\":\"\",\"price\":5,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"c3394fc8-7c62-46e5-b3a7-cd27e1d75200\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"COCA COLA ZERO KS 290ML\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4\",\"id\":\"3de2b9a6-ca2f-4180-8512-01f46bba9b8d\",\"code\":\"39\",\"ean\":null,\"priority\":4,\"name\":\"H2O Limao 500ml\",\"description\":\"Agua saborizada com limao natural\",\"price\":8,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"3d613614-7876-4204-8db1-abdb37e3e968\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"H2O Limao 500ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4\",\"id\":\"dcd6ebbc-e558-40bb-8e74-66135cfaefdc\",\"code\":\"40\",\"ean\":null,\"priority\":5,\"name\":\"Coca-Cola Zero Lata 350ml\",\"description\":\"Coca-Cola zero acucar, mesmo sabor original\",\"price\":6,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"f5526cf0-6cbd-4178-974c-86084123737a\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Coca-Cola Zero Lata 350ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "5"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "id": "963eae4f-6efb-49b8-b721-33dd18edb02a",
+      "code": "41",
+      "ean": null,
+      "priority": 1,
+      "name": "Coca-Cola Lata 350ml",
+      "description": "O classico refrigerante de cola gelado",
+      "price": 6,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "2051bace-d8ee-446a-88f6-98227d90465b",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Coca-Cola Lata 350ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "id": "f2dcffec-adb7-40ff-bd0f-e41a99bbc3e1",
+      "code": "61",
+      "ean": null,
+      "priority": 2,
+      "name": "COCA COLA ORIG KS 1L",
+      "description": "",
+      "price": 12,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "7939dc20-d911-4ca0-b923-00f396694fde",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "COCA COLA ORIG KS 1L",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "id": "26f51d99-3015-4f5a-896f-00f4e324466c",
+      "code": "60",
+      "ean": null,
+      "priority": 3,
+      "name": "COCA COLA ZERO KS 290ML",
+      "description": "",
+      "price": 5,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "c3394fc8-7c62-46e5-b3a7-cd27e1d75200",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "COCA COLA ZERO KS 290ML",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "id": "3de2b9a6-ca2f-4180-8512-01f46bba9b8d",
+      "code": "39",
+      "ean": null,
+      "priority": 4,
+      "name": "H2O Limao 500ml",
+      "description": "Agua saborizada com limao natural",
+      "price": 8,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "3d613614-7876-4204-8db1-abdb37e3e968",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "H2O Limao 500ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "id": "dcd6ebbc-e558-40bb-8e74-66135cfaefdc",
+      "code": "40",
+      "ean": null,
+      "priority": 5,
+      "name": "Coca-Cola Zero Lata 350ml",
+      "description": "Coca-Cola zero acucar, mesmo sabor original",
+      "price": 6,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "f5526cf0-6cbd-4178-974c-86084123737a",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Coca-Cola Zero Lata 350ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "id": "133ad582-46f6-4334-a2b7-34ecd3c5287b",
+  "name": "Kikão Cachorro Quente",
+  "instagram": "https://www.instagram.com/kikaofood/",
+  "followers": 1967,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://linktr.ee/kikaofood"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "dc9d7a7f-3b43-404d-8f1c-b8065ac6484c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/133ad582-46f6-4334-a2b7-34ecd3c5287b/instagram_1783385155399_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "6c0a94c6-20b9-437c-82ca-34e6965ccd11",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/133ad582-46f6-4334-a2b7-34ecd3c5287b/instagram_1783385156716_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "cb03b9de-29ed-49ac-a320-b0a51a1c1145",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/133ad582-46f6-4334-a2b7-34ecd3c5287b/instagram_1783385157416_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "b21a97c8-e6f4-4335-a8d8-124a049708a6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/133ad582-46f6-4334-a2b7-34ecd3c5287b/instagram_1783385158112_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "6b463cb9-dac9-47fc-bb21-c8abc5745f9a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/133ad582-46f6-4334-a2b7-34ecd3c5287b/instagram_1783385158963_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "d6208819-7cee-42fe-a65c-49b1153f6fa5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/133ad582-46f6-4334-a2b7-34ecd3c5287b/instagram_1783385159643_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "b3252200-6555-4c34-ac37-2ac9c30eccd2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/133ad582-46f6-4334-a2b7-34ecd3c5287b/instagram_1783385160276_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "d5cfaff4-8964-4ddf-9b93-1fe7f67eea99",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/133ad582-46f6-4334-a2b7-34ecd3c5287b/instagram_1783385160930_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

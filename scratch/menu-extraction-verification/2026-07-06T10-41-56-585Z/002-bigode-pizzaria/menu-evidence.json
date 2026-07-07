@@ -1,0 +1,37 @@
+{
+  "success": false,
+  "sourceUrl": "https://cardapio.ai/pizzaria-do-bigode",
+  "finalUrl": "https://cardapio.ai/pizzaria-do-bigode",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.45,
+  "categories": [],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783334575408_5ri20s50.jpg",
+    "snapshotFile": "cmd_1783334575408_5ri20s50.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 0,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783334583705_61frh99e.jpg",
+        "snapshotFile": "cmd_1783334583705_61frh99e.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 1,
+    "capturedHeight": 674,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "a5689dfa-47c7-463f-9a54-2c5802852107",
+    "name": "Bigode Pizzaria",
+    "category": "Pizzaria",
+    "address": "R. Giocondo Dias",
+    "phone": null,
+    "instagram": "https://www.instagram.com/dobigodepizzaria/"
+  }
+}

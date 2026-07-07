@@ -1,0 +1,17 @@
+{
+  "restaurantId": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+  "restaurantName": "Pizzaria Bom Sabor",
+  "platform": "restaurantlogin",
+  "sourceUrl": "https://pizzariabomsaborpb.com.br",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T12-36-09-569Z-2808\\001-pizzaria-bom-sabor",
+  "startedAt": "2026-07-07T12:36:12.679Z",
+  "details": null,
+  "rawSummary": null,
+  "evidencePath": null,
+  "dryRun": null,
+  "review": null,
+  "committed": false,
+  "commit": null,
+  "error": "RestaurantLogin nao encontrado em https://pizzariabomsaborpb.com.br",
+  "finishedAt": "2026-07-07T12:36:15.542Z"
+}

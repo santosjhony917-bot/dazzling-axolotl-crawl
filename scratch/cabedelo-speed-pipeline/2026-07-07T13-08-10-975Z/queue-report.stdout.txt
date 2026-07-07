@@ -1,0 +1,779 @@
+{
+  "success": true,
+  "outputDir": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T13-08-12-163Z",
+  "jsonPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T13-08-12-163Z\\queue.json",
+  "csvPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T13-08-12-163Z\\queue.csv",
+  "summary": {
+    "all_active_needs_recollection": 206,
+    "queue_count": 69,
+    "excluded_count": 137,
+    "by_tier": {
+      "green": 13,
+      "yellow": 56
+    },
+    "by_platform": {
+      "cardapioweb": 2,
+      "anota_ai": 7,
+      "restaurantlogin": 1,
+      "whatsmenu": 2,
+      "instadelivery": 1,
+      "brendi": 1,
+      "meucarrinho": 1,
+      "yooga": 4,
+      "cardapiodigital": 1,
+      "unknown": 49
+    },
+    "by_tier_platform": {
+      "green": {
+        "cardapioweb": 2,
+        "anota_ai": 1,
+        "restaurantlogin": 1,
+        "whatsmenu": 2,
+        "instadelivery": 1,
+        "brendi": 1,
+        "meucarrinho": 1,
+        "yooga": 4
+      },
+      "yellow": {
+        "anota_ai": 6,
+        "cardapiodigital": 1,
+        "unknown": 49
+      }
+    },
+    "excluded_by_tier": {
+      "red": 137
+    },
+    "excluded_by_platform": {
+      "unknown": 137
+    },
+    "excluded_by_reason": {
+      "source_absent": 137
+    }
+  },
+  "top50": [
+    {
+      "rank": 1,
+      "restaurant_id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "platform": "cardapioweb",
+      "tier": "green",
+      "priority_score": 0,
+      "reviews_count": 18,
+      "rating": 4.1,
+      "source_url": "https://app.cardapioweb.com/i_loveburguer",
+      "risk_flags": [],
+      "collection_hint": "cardapioweb_fast_path"
+    },
+    {
+      "rank": 2,
+      "restaurant_id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "platform": "cardapioweb",
+      "tier": "green",
+      "priority_score": 0,
+      "reviews_count": null,
+      "rating": null,
+      "source_url": "https://app.cardapioweb.com/ilove_pizza",
+      "risk_flags": [],
+      "collection_hint": "cardapioweb_fast_path"
+    },
+    {
+      "rank": 3,
+      "restaurant_id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "platform": "anota_ai",
+      "tier": "green",
+      "priority_score": 1,
+      "reviews_count": 24,
+      "rating": 3.8,
+      "source_url": "https://app.anota.ai/m/MeIU-tixw",
+      "risk_flags": [],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 4,
+      "restaurant_id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+      "name": "Pizzaria Bom Sabor",
+      "platform": "restaurantlogin",
+      "tier": "green",
+      "priority_score": 2,
+      "reviews_count": 134,
+      "rating": 4,
+      "source_url": "https://pizzariabomsaborpb.com.br",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 5,
+      "restaurant_id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "platform": "whatsmenu",
+      "tier": "green",
+      "priority_score": 3,
+      "reviews_count": 280,
+      "rating": 4.3,
+      "source_url": "https://whatsmenu.com.br/pastelarialitoranea",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 6,
+      "restaurant_id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+      "name": "Sorveteria Frutos de Goiás - Cabedelo",
+      "platform": "whatsmenu",
+      "tier": "green",
+      "priority_score": 3,
+      "reviews_count": 40,
+      "rating": 4.9,
+      "source_url": "https://whatsmenu.com.br/frutoscabedelo",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 7,
+      "restaurant_id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+      "name": "PARCEIRO Rosa Lanches",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 120,
+      "rating": 4.5,
+      "source_url": "https://pedido.anota.ai/loja/rosalanches",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 8,
+      "restaurant_id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+      "name": "Restaurante Pôr do Sol",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 105,
+      "rating": 4.6,
+      "source_url": "https://pedido.anota.ai/loja/restaurante-por-do-sol-5?f=msa",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 9,
+      "restaurant_id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+      "name": "Lary's pizzaria e lanchonete",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 88,
+      "rating": 4.3,
+      "source_url": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 10,
+      "restaurant_id": "ec6b2565-934c-4278-9a8a-63168eb819f2",
+      "name": "DAWN BURGUER",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 45,
+      "rating": 4.2,
+      "source_url": "https://pedido.anota.ai/loja/dawn-burguer?f=msa",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 11,
+      "restaurant_id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "name": "Center Pizza Cabedelo",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 18,
+      "rating": 5,
+      "source_url": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 12,
+      "restaurant_id": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+      "name": "Manguinhos Burguer",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 1,
+      "rating": 5,
+      "source_url": "https://pedido.anota.ai/loja/manguinhos-burguer",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 13,
+      "restaurant_id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "platform": "instadelivery",
+      "tier": "green",
+      "priority_score": 40,
+      "reviews_count": 2,
+      "rating": 3,
+      "source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 14,
+      "restaurant_id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "platform": "brendi",
+      "tier": "green",
+      "priority_score": 41,
+      "reviews_count": 31,
+      "rating": 5,
+      "source_url": "https://menu.brendi.com.br/oxiburguercabedelo",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 15,
+      "restaurant_id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "platform": "meucarrinho",
+      "tier": "green",
+      "priority_score": 50,
+      "reviews_count": 1,
+      "rating": 5,
+      "source_url": "https://meucarrinho.delivery/portodoacai",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 16,
+      "restaurant_id": "1653a7ff-cb75-4303-b780-0580642c5974",
+      "name": "Primo Rico",
+      "platform": "yooga",
+      "tier": "green",
+      "priority_score": 51,
+      "reviews_count": 903,
+      "rating": 4.3,
+      "source_url": "https://delivery.yooga.app/restaurante-primo-rico",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 17,
+      "restaurant_id": "49423823-d994-4263-9597-cb829e208129",
+      "name": "Home Smash Burger",
+      "platform": "yooga",
+      "tier": "green",
+      "priority_score": 51,
+      "reviews_count": 48,
+      "rating": 4.4,
+      "source_url": "https://delivery.yooga.app/home-smash-burger",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 18,
+      "restaurant_id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "name": "Espaço Do Sushi",
+      "platform": "yooga",
+      "tier": "green",
+      "priority_score": 51,
+      "reviews_count": 33,
+      "rating": 4.2,
+      "source_url": "https://delivery.yooga.app/espacosushi.house",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 19,
+      "restaurant_id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "platform": "yooga",
+      "tier": "green",
+      "priority_score": 51,
+      "reviews_count": 10,
+      "rating": 4.7,
+      "source_url": "https://delivery.yooga.app/sushiyaki",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 20,
+      "restaurant_id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+      "name": "VITAMINA DE AÇAÍ",
+      "platform": "cardapiodigital",
+      "tier": "yellow",
+      "priority_score": 212,
+      "reviews_count": null,
+      "rating": null,
+      "source_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+      "risk_flags": [
+        "hard_platform:cardapiodigital"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 21,
+      "restaurant_id": "9488d27a-7737-4c86-b059-0e16a6fb049d",
+      "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 10742,
+      "rating": 4.4,
+      "source_url": "https://grupolovina.github.io/lovinapontadecampina",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 22,
+      "restaurant_id": "acb457db-a5d7-408e-a3b5-c9cfb3caff7b",
+      "name": "Cibelly Bar & Restaurante",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 4295,
+      "rating": 4.1,
+      "source_url": "https://linktr.ee/cibellybareturismo",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 23,
+      "restaurant_id": "0076b4c5-2d07-416e-a1ac-3ed9e83e02e5",
+      "name": "Gigante Do Mar Beach",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 3378,
+      "rating": 4.2,
+      "source_url": "https://wa.me/5583999952504?countryName=BR&countryCode=55&phoneNumber=83999952504",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 24,
+      "restaurant_id": "8162456c-2817-4a8a-bbab-aa875c29419e",
+      "name": "Bar das Meninas Restaurante",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 3174,
+      "rating": 4.2,
+      "source_url": "https://wa.me/5583987155110",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 25,
+      "restaurant_id": "d7d014d6-8d90-440c-a2ab-caee3b86bb0d",
+      "name": "Tenda Formosa Bar & Restaurante",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 1507,
+      "rating": 4.1,
+      "source_url": "https://wa.me/5583988501112",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 26,
+      "restaurant_id": "5824ab85-d0ca-4987-aa50-aa45faa631ad",
+      "name": "Restaurante Recanto do Picuí Intermares",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 1267,
+      "rating": 4.5,
+      "source_url": "https://recantodopicuiintermares.com.br",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 27,
+      "restaurant_id": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+      "name": "Empadinhas Barnabé - Intermares",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 1029,
+      "rating": 4.5,
+      "source_url": "https://linktr.ee/empabarnabe",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 28,
+      "restaurant_id": "4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2",
+      "name": "Skama Bar e Restaurante",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 397,
+      "rating": 4.2,
+      "source_url": "http://skamabarerestaurante.com.br",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 29,
+      "restaurant_id": "662a40d4-3612-4ca1-ad28-615646294ea8",
+      "name": "Big Jack comida de rua com INSPIRAÇÃO texana",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 353,
+      "rating": 4.8,
+      "source_url": "http://bigjackstreetfood.com.br",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 30,
+      "restaurant_id": "a0f83830-77b8-4f8f-850d-be06b6658efb",
+      "name": "Praçaí - Intermares",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 238,
+      "rating": 4.5,
+      "source_url": "https://wa.me/558382321984?countryCode=55&countryName=BR&phoneNumber=8382321984",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 31,
+      "restaurant_id": "59147bb0-0a1d-4493-a05a-ba54bd8cd26c",
+      "name": "Restaurante Ondas",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 164,
+      "rating": 4.3,
+      "source_url": "https://abre.bio/ondasdomar",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 32,
+      "restaurant_id": "fbf76b65-220f-4ae7-89fc-fec690985eda",
+      "name": "Tapiocaria do Dinho",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 154,
+      "rating": 4.6,
+      "source_url": "https://api.whatsapp.com/send?phone=5583986457353",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 33,
+      "restaurant_id": "cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487",
+      "name": "Residência do Mário",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 153,
+      "rating": 4.7,
+      "source_url": "https://linkme.bio/residenciadomario",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 34,
+      "restaurant_id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+      "name": "A Casa do Temakinho",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 150,
+      "rating": 4.9,
+      "source_url": "https://api.whatsapp.com/send?phone=5583999449296",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 35,
+      "restaurant_id": "55d451bc-f6ee-40f5-b611-7ef6158392d5",
+      "name": "Kubanacan Bar e Restaurante",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 108,
+      "rating": 4.8,
+      "source_url": "https://canva.link/cpnbydcqik5wim6",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 36,
+      "restaurant_id": "90398f02-4ae4-44a1-bd64-3f008fdca37c",
+      "name": "Bar e Restaurante Solânense",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 77,
+      "rating": 4.6,
+      "source_url": "https://wa.me/message/RBLO33SUVCVWH1",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 37,
+      "restaurant_id": "3549abc7-3261-4ec3-af59-820112bd2358",
+      "name": "Cibelly Mar - Restaurante no Por do Sol do Jacaré",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 77,
+      "rating": 3.8,
+      "source_url": "https://linktr.ee/cibellymar",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 38,
+      "restaurant_id": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+      "name": "Tia Graça Cafeteria e Doceria",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 67,
+      "rating": 4.5,
+      "source_url": "http://wa.me/5583988715492",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 39,
+      "restaurant_id": "63e642dd-ed66-42a7-ae08-d395f8110b6d",
+      "name": "Tempero De Casa",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 65,
+      "rating": 4.5,
+      "source_url": "https://api.whatsapp.com/send?phone=5583998403817&text=Ol%C3%A1%21+Gostaria+de+fazer+meu+pedido.++",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 40,
+      "restaurant_id": "17a6f6c2-9f28-453f-a22d-71e7abd3dcfd",
+      "name": "Oliver Grill e Espetos",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 54,
+      "rating": 4.9,
+      "source_url": "https://wa.me/5583981891242?countryName=BR&countryCode=55&phoneNumber=83981891242",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 41,
+      "restaurant_id": "0a91fc09-ad7d-4141-8d4d-82a732b61565",
+      "name": "Ethic Alimentos",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 49,
+      "rating": 4.4,
+      "source_url": "http://ethicalimentos.com.br",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 42,
+      "restaurant_id": "133ad582-46f6-4334-a2b7-34ecd3c5287b",
+      "name": "Kikão Cachorro Quente",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 46,
+      "rating": 4.5,
+      "source_url": "https://linktr.ee/kikaofood",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 43,
+      "restaurant_id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+      "name": "Route Hot Dogs",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 45,
+      "rating": 5,
+      "source_url": "https://wa.me/message/S2WMQFVFVE2RB1",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 44,
+      "restaurant_id": "6b65edcc-4d44-4dd4-82c8-36291fdef22b",
+      "name": "Caiçara Bar e Restaurante",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 39,
+      "rating": 4.7,
+      "source_url": "https://xmenu.com.br/pedidos/?loja=20394",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 45,
+      "restaurant_id": "5ba77eda-968b-407b-aaa9-4c6d641e66cb",
+      "name": "Tropical Burgz",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 30,
+      "rating": 5,
+      "source_url": "https://abre.ai/contatotropicalburgz",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 46,
+      "restaurant_id": "9c83d3fb-60df-4b9a-8687-05e889cfef48",
+      "name": "Nena Doceria & Salgaderia",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 29,
+      "rating": 4.2,
+      "source_url": "https://instabio.cc/NenaDoceria",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 47,
+      "restaurant_id": "bd7494af-1c04-49da-973a-f9de6dafe780",
+      "name": "NutriFit Marmita Fitness Congeladas",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 18,
+      "rating": 5,
+      "source_url": "https://wa.me/5583987216120?text=Ol%C3%A1%2C+gostaria+de+informa%C3%A7%C3%B5es+sobre+as+mamitas+fitness%21",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 48,
+      "restaurant_id": "ea0bb6d3-17df-4665-b715-32054f497d99",
+      "name": "Na brasa hambúrgueria",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 15,
+      "rating": 4.5,
+      "source_url": "https://wa.me/5583986556103",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 49,
+      "restaurant_id": "67b9591e-9ba2-4db0-b81f-4cd2d45d03ad",
+      "name": "Hora Da Pizza",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 13,
+      "rating": 5,
+      "source_url": "https://wa.me/5583993558904",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    },
+    {
+      "rank": 50,
+      "restaurant_id": "35c95d02-3a7b-480d-8061-b276ee281fca",
+      "name": "Pizza Família Cipriano",
+      "platform": "unknown",
+      "tier": "yellow",
+      "priority_score": 260,
+      "reviews_count": 13,
+      "rating": 5,
+      "source_url": "https://wa.me/5583981535458",
+      "risk_flags": [
+        "hard_platform:unknown"
+      ],
+      "collection_hint": "hard_strategy_or_manual_probe"
+    }
+  ]
+}

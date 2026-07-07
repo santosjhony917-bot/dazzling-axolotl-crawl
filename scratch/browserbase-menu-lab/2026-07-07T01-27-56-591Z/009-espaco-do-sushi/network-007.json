@@ -1,0 +1,1609 @@
+{
+  "url": "https://delivery2.yooga.com.br/v2/stores/espacosushi.house/menu?type_query=null",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 29178,
+  "textSample": "[{\"id\":566122,\"name\":\"Caldo de Cana e Salgados\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":null,\"items\":[]},{\"id\":825086,\"name\":\"Festival Skin\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":0,\"items\":[]},{\"id\":596517,\"name\":\"Promoções\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":null,\"items\":[{\"id\":4814143,\"idi\":2063,\"name\":\"2 Temaki de Kani\",\"description\":\"(Obs: Combo promocional será enviado 2 molhos de cada)\",\"price\":24.99,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/07edc00a51d578fb589f45f5f90fabe4.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":24.99,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":3616938,\"name\":\"Hot\",\"required\":0,\"min\":0,\"max\":5,\"use_greater_option_price\":0,\"options\":[{\"id\":26184970,\"name\":\"Hot\",\"description\":null,\"max\":5,\"price\":4,\"img\":null}]}]},{\"id\":4845462,\"idi\":2063,\"name\":\"1 Temaki Skin \",\"description\":\"(Obs: temaki promocional será enviado 1 molho de cada)\",\"price\":12.9,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/c0a28a04273df3e5e8428b5c36d09af5.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":12.9,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":3476536,\"name\":\"Hot\",\"required\":0,\"min\":0,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":25252680,\"name\":\"Hot\",\"description\":null,\"max\":5,\"price\":4,\"img\":null}]}]},{\"id\":5075259,\"idi\":2063,\"name\":\"2 Temaki Skin\",\"description\":\"(Obs: Combo promocional será enviado 2 molhos de cada)\",\"price\":19.9,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/c0a28a04273df3e5e8428b5c36d09af5.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":19.9,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":3476537,\"name\":\"Hot\",\"required\":0,\"min\":0,\"max\":2,\"use_greater_option_price\":0,\"options\":[{\"id\":25252681,\"name\":\"Hot\",\"description\":null,\"max\":5,\"price\":4,\"img\":null}]}]},{\"id\":7089542,\"idi\":2063,\"name\":\"Temaki Camarão Empanado\",\"description\":null,\"price\":28.9,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/f73ee56135ce33cf120567ca88191744.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":28.9,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":4422622,\"name\":\"Hot\",\"required\":0,\"min\":0,\"max\":5,\"use_greater_option_price\":0,\"options\":[{\"id\":31913561,\"name\":\"Hot\",\"description\":null,\"max\":5,\"price\":4,\"img\":null}]}]}]},{\"id\":7183,\"name\":\"Hossomaki\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":null,\"items\":[{\"id\":44696,\"idi\":2063,\"name\":\"Hossomaki Salmão Cru (5 ou 10 Uni)\",\"description\":\"Nori, arroz, salmão cru e cream cheese.\",\"price\":0,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320220419212906D5gDHYLIc.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":25,\"min_value_promotional\":25,\"featured\":[],\"choices\":[{\"id\":1517698,\"name\":\"Escolha quantas unidades:\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":11984140,\"name\":\"5 Unidades\",\"description\":null,\"max\":5,\"price\":25,\"img\":null},{\"id\":11984141,\"name\":\"10 Unidades\",\"description\":null,\"max\":5,\"price\":39.9,\"img\":null}]}]},{\"id\":44697,\"idi\":2063,\"name\":\"Hossomaki Kani\",\"description\":\"Nori, arroz, kani e cream cheese.\",\"price\":2.85,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320220419223029Gpy4hk8DG.png\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":2.85,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":1312965,\"idi\":2063,\"name\":\"Hossomaki Ebiten (5 Unidades) \",\"description\":\"Nori, arroz, camarão empanado e cream cheese.\",\"price\":14.5,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320220906194422XzAHeMsam.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":14.5,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":118274,\"idi\":2063,\"name\":\"Kanapé Kani Frito ( 5 Unidades )\",\"description\":null,\"price\":14.5,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320210516224451pI6db2ypp.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":14.5,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":1615877,\"idi\":2063,\"name\":\"Hossomaki Salmão Empanado (5 Unidades)\",\"description\":\"Nori, arroz, salmão empanado e cream cheese.\",\"price\":27.5,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320221207192059R9uRHU8hd.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":27.5,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":2042644,\"idi\":2063,\"name\":\"Hossomaki Camarão Natural (5 ou 10 Uni)\",\"description\":\"Arroz, camarão cozido e cream cheese.\\n\\n\",\"price\":0,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/096deae720d224a13b3d411c50898025.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":20,\"min_value_promotional\":20,\"featured\":[],\"choices\":[{\"id\":1842260,\"name\":\"Escolha quantas unidades:\",\"required\":1,\"min\":1,\"max\":5,\"use_greater_option_price\":0,\"options\":[{\"id\":13986416,\"name\":\"5 Unidades\",\"description\":null,\"max\":5,\"price\":20,\"img\":null},{\"id\":13986417,\"name\":\"10 Unidades\",\"description\":null,\"max\":5,\"price\":35.9,\"img\":null}]}]}]},{\"id\":7182,\"name\":\"Uramaki\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":null,\"items\":[{\"id\":44690,\"idi\":2063,\"name\":\"Uramaki  Salmão (5 ou 10 Uni)\",\"description\":\"Arroz, nori, salmão cru e cream cheese.\",\"price\":0,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/2063202204192130157UZDKUKxR.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":25,\"min_value_promotional\":25,\"featured\":[],\"choices\":[{\"id\":1517700,\"name\":\"Escolha quantas unidades:\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":11984148,\"name\":\"5 Unidades\",\"description\":null,\"max\":5,\"price\":25,\"img\":null},{\"id\":11984149,\"name\":\"10 Unidades\",\"description\":null,\"max\":5,\"price\":39.9,\"img\":null}]}]},{\"id\":44691,\"idi\":2063,\"name\":\"Uramaki  Kani\",\"description\":\"Arroz, nori, kani e cream cheese.\",\"price\":2.85,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320210111152758PXTUvwZxn.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":2.85,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":44694,\"idi\":2063,\"name\":\"Uramaki Skin\",\"description\":\"Arroz, nori, lascas de salmão frito e cream cheese.\",\"price\":2.85,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320220419213027u1sHbxfTH.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":2.85,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":525940,\"idi\":2063,\"name\":\"Uramaki Camarão\",\"description\":\"Arroz, nori, camarão cozido e cream cheese.\",\"price\":3,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/2063202111302204489dJTRgbsl.png\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":3,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":1312966,\"idi\":2063,\"name\":\"Uramaki Ebiten (5 Unidades)\",\"description\":\"Arroz, nori, camarão empanado e cream cheese.\",\"price\":15,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320220906194533PkOVU22oi.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":15,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":1615878,\"idi\":2063,\"name\":\"Uramaki Salmão Empanado (5 Unidades)\",\"description\":\"Arroz, nori, salmão empanado e cream cheese.\",\"price\":20,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320221207191930ovJrr86H2.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":20,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]}]},{\"id\":7184,\"name\":\"Sushi Hot\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":null,\"items\":[{\"id\":44700,\"idi\":2063,\"name\":\"Hot \",\"description\":\"\",\"price\":2.85,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320211219234512XIGAAh3s9.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":2.85,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":84288,\"idi\":2063,\"name\":\"Kani Frito\",\"description\":\"\",\"price\":3.5,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/2063202103262122195tcbxO7Cg.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":3.5,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":422047,\"idi\":2063,\"name\":\"Hot Roll (5 ou 10 Unidades)\",\"description\":\"Nori, salmão cru, kani e cream cheese. (SEM ARROZ)\",\"price\":0,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320211021011254sjyR3eaZy.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":28.9,\"min_value_promotional\":28.9,\"featured\":[],\"choices\":[{\"id\":1268083,\"name\":\"Escolha quantas unidades:\",\"required\":1,\"min\":1,\"max\":5,\"use_greater_option_price\":0,\"options\":[{\"id\":10407003,\"name\":\"5 Unidades\",\"description\":null,\"max\":5,\"price\":28.9,\"img\":null},{\"id\":13985616,\"name\":\"10 Unidades\",\"description\":null,\"max\":5,\"price\":47.9,\"img\":null}]}]},{\"id\":1265712,\"idi\":2063,\"name\":\"Hot Roll Especial (5 ou 10 Unidades)\",\"description\":\"Nori, salmão, kani, camarão, e cream cheese. (SEM ARROZ)\",\"price\":0,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320220824160409MMbKvxSwk.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":28.9,\"min_value_promotional\":28.9,\"featured\":[],\"choices\":[{\"id\":1842165,\"name\":\"Escolha quantas unidades:\",\"required\":1,\"min\":1,\"max\":5,\"use_greater_option_price\":0,\"options\":[{\"id\":13985783,\"name\":\"5 Unidades\",\"description\":null,\"max\":5,\"price\":28.9,\"img\":null},{\"id\":13985784,\"name\":\"10 Unidades\",\"description\":null,\"max\":5,\"price\":47.9,\"img\":null}]}]},{\"id\":532477,\"idi\":2063,\"name\":\"Camarão Empanado (5 Unidades)\",\"description\":null,\"price\":20,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320211205003518Xt6nWj2T7.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":20,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":1303183,\"idi\":2063,\"name\":\"Hot Salmão  (5 Unidades)\",\"description\":null,\"price\":25,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320220902230426tvrk14R8Z.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":25,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":1563375,\"idi\":2063,\"name\":\"Hot Ebi (5 Unidades)\",\"description\":\"Roll de camarão natural, arroz e cream cheese.\",\"price\":23.9,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/2063202211241544381A4mqdKNw.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":23.9,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]}]},{\"id\":7280,\"name\":\"Kani Queijo\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":null,\"items\":[{\"id\":45309,\"idi\":2063,\"name\":\"Kani Queijo\",\"description\":\"Kani com Cream Cheese \",\"price\":4,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/206320220419215144nCNURv3LN.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":4,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":58356,\"idi\":2063,\"name\":\"Kani Queijo Hot ( 5 Unidades",
+  "jsonKeys": [
+    "array",
+    "16"
+  ],
+  "json": [
+    {
+      "id": 566122,
+      "name": "Caldo de Cana e Salgados",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": []
+    },
+    {
+      "id": 825086,
+      "name": "Festival Skin",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": 0,
+      "items": []
+    },
+    {
+      "id": 596517,
+      "name": "Promoções",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 4814143,
+          "idi": 2063,
+          "name": "2 Temaki de Kani",
+          "description": "(Obs: Combo promocional será enviado 2 molhos de cada)",
+          "price": 24.99,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/07edc00a51d578fb589f45f5f90fabe4.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 24.99,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 3616938,
+              "name": "Hot",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 26184970,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4845462,
+          "idi": 2063,
+          "name": "1 Temaki Skin ",
+          "description": "(Obs: temaki promocional será enviado 1 molho de cada)",
+          "price": 12.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/c0a28a04273df3e5e8428b5c36d09af5.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 12.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 3476536,
+              "name": "Hot",
+              "required": 0,
+              "min": 0,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 25252680,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5075259,
+          "idi": 2063,
+          "name": "2 Temaki Skin",
+          "description": "(Obs: Combo promocional será enviado 2 molhos de cada)",
+          "price": 19.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/c0a28a04273df3e5e8428b5c36d09af5.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 19.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 3476537,
+              "name": "Hot",
+              "required": 0,
+              "min": 0,
+              "max": 2,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 25252681,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7089542,
+          "idi": 2063,
+          "name": "Temaki Camarão Empanado",
+          "description": null,
+          "price": 28.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/f73ee56135ce33cf120567ca88191744.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 28.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4422622,
+              "name": "Hot",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31913561,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7183,
+      "name": "Hossomaki",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 44696,
+          "idi": 2063,
+          "name": "Hossomaki Salmão Cru (5 ou 10 Uni)",
+          "description": "Nori, arroz, salmão cru e cream cheese.",
+          "price": 0,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220419212906D5gDHYLIc.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 25,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1517698,
+              "name": "Escolha quantas unidades:",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 11984140,
+                  "name": "5 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 25,
+                  "img": null
+                },
+                {
+                  "id": 11984141,
+                  "name": "10 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 39.9,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 44697,
+          "idi": 2063,
+          "name": "Hossomaki Kani",
+          "description": "Nori, arroz, kani e cream cheese.",
+          "price": 2.85,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220419223029Gpy4hk8DG.png",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 2.85,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1312965,
+          "idi": 2063,
+          "name": "Hossomaki Ebiten (5 Unidades) ",
+          "description": "Nori, arroz, camarão empanado e cream cheese.",
+          "price": 14.5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220906194422XzAHeMsam.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 14.5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 118274,
+          "idi": 2063,
+          "name": "Kanapé Kani Frito ( 5 Unidades )",
+          "description": null,
+          "price": 14.5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210516224451pI6db2ypp.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 14.5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1615877,
+          "idi": 2063,
+          "name": "Hossomaki Salmão Empanado (5 Unidades)",
+          "description": "Nori, arroz, salmão empanado e cream cheese.",
+          "price": 27.5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221207192059R9uRHU8hd.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 27.5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 2042644,
+          "idi": 2063,
+          "name": "Hossomaki Camarão Natural (5 ou 10 Uni)",
+          "description": "Arroz, camarão cozido e cream cheese.\n\n",
+          "price": 0,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/096deae720d224a13b3d411c50898025.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 20,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1842260,
+              "name": "Escolha quantas unidades:",
+              "required": 1,
+              "min": 1,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 13986416,
+                  "name": "5 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 20,
+                  "img": null
+                },
+                {
+                  "id": 13986417,
+                  "name": "10 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 35.9,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7182,
+      "name": "Uramaki",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 44690,
+          "idi": 2063,
+          "name": "Uramaki  Salmão (5 ou 10 Uni)",
+          "description": "Arroz, nori, salmão cru e cream cheese.",
+          "price": 0,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202204192130157UZDKUKxR.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 25,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1517700,
+              "name": "Escolha quantas unidades:",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 11984148,
+                  "name": "5 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 25,
+                  "img": null
+                },
+                {
+                  "id": 11984149,
+                  "name": "10 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 39.9,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 44691,
+          "idi": 2063,
+          "name": "Uramaki  Kani",
+          "description": "Arroz, nori, kani e cream cheese.",
+          "price": 2.85,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210111152758PXTUvwZxn.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 2.85,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 44694,
+          "idi": 2063,
+          "name": "Uramaki Skin",
+          "description": "Arroz, nori, lascas de salmão frito e cream cheese.",
+          "price": 2.85,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220419213027u1sHbxfTH.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 2.85,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 525940,
+          "idi": 2063,
+          "name": "Uramaki Camarão",
+          "description": "Arroz, nori, camarão cozido e cream cheese.",
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202111302204489dJTRgbsl.png",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1312966,
+          "idi": 2063,
+          "name": "Uramaki Ebiten (5 Unidades)",
+          "description": "Arroz, nori, camarão empanado e cream cheese.",
+          "price": 15,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220906194533PkOVU22oi.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 15,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1615878,
+          "idi": 2063,
+          "name": "Uramaki Salmão Empanado (5 Unidades)",
+          "description": "Arroz, nori, salmão empanado e cream cheese.",
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221207191930ovJrr86H2.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 7184,
+      "name": "Sushi Hot",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 44700,
+          "idi": 2063,
+          "name": "Hot ",
+          "description": "",
+          "price": 2.85,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320211219234512XIGAAh3s9.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 2.85,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 84288,
+          "idi": 2063,
+          "name": "Kani Frito",
+          "description": "",
+          "price": 3.5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202103262122195tcbxO7Cg.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3.5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 422047,
+          "idi": 2063,
+          "name": "Hot Roll (5 ou 10 Unidades)",
+          "description": "Nori, salmão cru, kani e cream cheese. (SEM ARROZ)",
+          "price": 0,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320211021011254sjyR3eaZy.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 28.9,
+          "min_value_promotional": 28.9,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1268083,
+              "name": "Escolha quantas unidades:",
+              "required": 1,
+              "min": 1,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10407003,
+                  "name": "5 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 28.9,
+                  "img": null
+                },
+                {
+                  "id": 13985616,
+                  "name": "10 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 47.9,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1265712,
+          "idi": 2063,
+          "name": "Hot Roll Especial (5 ou 10 Unidades)",
+          "description": "Nori, salmão, kani, camarão, e cream cheese. (SEM ARROZ)",
+          "price": 0,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220824160409MMbKvxSwk.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 28.9,
+          "min_value_promotional": 28.9,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1842165,
+              "name": "Escolha quantas unidades:",
+              "required": 1,
+              "min": 1,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 13985783,
+                  "name": "5 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 28.9,
+                  "img": null
+                },
+                {
+                  "id": 13985784,
+                  "name": "10 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 47.9,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 532477,
+          "idi": 2063,
+          "name": "Camarão Empanado (5 Unidades)",
+          "description": null,
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320211205003518Xt6nWj2T7.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1303183,
+          "idi": 2063,
+          "name": "Hot Salmão  (5 Unidades)",
+          "description": null,
+          "price": 25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220902230426tvrk14R8Z.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1563375,
+          "idi": 2063,
+          "name": "Hot Ebi (5 Unidades)",
+          "description": "Roll de camarão natural, arroz e cream cheese.",
+          "price": 23.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202211241544381A4mqdKNw.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 23.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 7280,
+      "name": "Kani Queijo",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 45309,
+          "idi": 2063,
+          "name": "Kani Queijo",
+          "description": "Kani com Cream Cheese ",
+          "price": 4,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220419215144nCNURv3LN.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 4,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 58356,
+          "idi": 2063,
+          "name": "Kani Queijo Hot ( 5 Unidades)",
+          "description": "Kani queijo empanado.\n\n",
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210524221954XMAAS4h7s.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 69029,
+          "idi": 2063,
+          "name": "Kani Salmao ( 5 Unidades )",
+          "description": "5 Unidades de salmão e cream cheese envolto no Kani.\n\n   *3 sabores em 1 *",
+          "price": 25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202103092211264RjeZSxPe.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1376588,
+              "name": "Hot",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 11097253,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 3.5,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7186,
+      "name": "Temaki",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 44836,
+          "idi": 2063,
+          "name": "Temaki Salmão",
+          "description": "Arroz, nori, salmão em cubos com cream cheese.",
+          "price": 42.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220701002242o0UQktdkb.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 42.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 27090,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 212417,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 44838,
+          "idi": 2063,
+          "name": "Temaki Kani",
+          "description": "Nori, arroz, kani em cubos e cream cheese.",
+          "price": 25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210111153737BXNrmmjYK.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 27092,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 10,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 212419,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 70251,
+          "idi": 2063,
+          "name": "Temaki Salmão Maçaricado ",
+          "description": "Arroz, cream cheese, e salmão em cubos maçaricado.",
+          "price": 42.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210311182406hhpotaZnb.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 42.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1767363,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 13525544,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 70322,
+          "idi": 2063,
+          "name": "Temaki Kani Frito",
+          "description": "Nori, arroz, kani frito e cream cheese.",
+          "price": 25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202103112200527e6ybbjTD.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1313575,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10679405,
+                  "name": "Hot ",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 131314,
+          "idi": 2063,
+          "name": "Temaki Hot Roll ",
+          "description": "Arroz, salmão, kani e cream cheese. Empanado\n",
+          "price": 38.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210531225057LlfLPXDVP.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 38.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 525941,
+          "idi": 2063,
+          "name": "Temaki de Camarão ",
+          "description": "Nori, arroz, camarão cozido e cream cheese.",
+          "price": 38.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320211130220247TNk5qDExY.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 38.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1327819,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10764510,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 806138,
+          "idi": 2063,
+          "name": "Temaki Kani Sakê",
+          "description": "Nori, arroz, salmão, kani e cream cheese.",
+          "price": 38.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220419215851t1vTHXOoq.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 38.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1327820,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10764511,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 814134,
+          "idi": 2063,
+          "name": "Temaki Salmão Empanado",
+          "description": "Nori, arroz, salmão empanado na panko crocante e cream cheese.",
+          "price": 39.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220426000901m5wWFDpOt.png",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 39.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1327821,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10764512,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 858397,
+          "idi": 2063,
+          "name": "Temaki Mix",
+          "description": "Arroz, salmão, kani, camarão e cream cheese.",
+          "price": 38.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220512003209TLSPR3SMX.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 38.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1327822,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10764513,
+                  "name": "HOT",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1378103,
+          "idi": 2063,
+          "name": "Temaki EbiSake",
+          "description": "Nori, arroz, salmão, camarão e cream cheese.",
+          "price": 38.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220926215913HBJsJsNVr.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 38.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1376619,
+              "name": "Deseja que seja Hot?",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 11097530,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5568407,
+          "idi": 2063,
+          "name": "Temaki Ebiten",
+          "description": "Temaki de camarão Empanado",
+          "price": 28.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/7329b617226d28b28adf8dd1634453ee.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 28.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4422623,
+              "name": "Hot",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31913562,
+                  "name": "Hot",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7185,
+      "name": "Sushi Burguer",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 44833,
+          "idi": 2063,
+          "name": "Sushi Burguer de Salmão",
+          "description": "Sushi em formato de hamburguer, com recheio de salmão em cubos com cream cheese.",
+          "price": 48.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320211031181130LLcHhZ1o9.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 48.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 44835,
+          "idi": 2063,
+          "name": "Sushi Burguer de Kani",
+          "description": "Sushi em formato de hamburguer com recheio de kani com cream cheese.",
+          "price": 28.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210601182707aqOHqCNhH.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 28.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 128148,
+          "idi": 2063,
+          "name": "Sushi Burger de Salmão Cru C/ Salmão Maçaricado",
+          "description": "Uma MARCA em nosso restaurante, quem PROVA desse sushi burguer, jamais ESQUECE. ",
+          "price": 45,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210527225504n4TWsQivj.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 45,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 525944,
+          "idi": 2063,
+          "name": "Sushi Burguer de Camarão",
+          "description": null,
+          "price": 42.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221121222532gMVc9YwAw.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 42.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 8412,
+      "name": "Sushi Dragon",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 51359,
+          "idi": 2063,
+          "name": "Drangon de Kani com Pasta de Salmao (5 Unidades)",
+          "description": "Arroz, kani, cream Cheese e pasta de salmão. \n\nUm dos melhores em nosso buffet!",
+          "price": 17.5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221121222807FqvGsmPIY.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 17.5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 51360,
+          "idi": 2063,
+          "name": "Drangon de Kani",
+          "description": "Arroz, Kani e Cream Cheese",
+          "price": 3.25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210201231158YGeAnSs5F.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3.25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1504402,
+          "idi": 2063,
+          "name": " Dragon Skin C/ Salmão Maçaricado (5 Unidades)",
+          "description": null,
+          "price": 25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221104001836FlCCjI8PK.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1504408,
+          "idi": 2063,
+          "name": "Dragon Ebiten C/ Salmão Maçaricado (5 Unidades)",
+          "description": null,
+          "price": 25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221104002337mTtCePe2Y.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1553790,
+          "idi": 2063,
+          "name": "Dragon Ebi (5 Unidades)",
+          "description": "Roll de camarão e cream cheese, finalizado com camarão em cada unidade.",
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221121222841K6bmEowZq.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 7281,
+      "name": "Sashimi ",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 114243,
+          "idi": 2063,
+          "name": "Sashimi de Kani",
+          "description": null,
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202105100109183vRUpRIXX.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 7282,
+      "name": "Joy Joy",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 45312,
+          "idi": 2063,
+          "name": "Joy de Salmao",
+          "description": "Lâmina de salmão com cream cheese.",
+          "price": 0,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210601183117j0dg8Gjbf.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 40,
+          "min_value_promotional": 40,
+          "featured": [],
+          "choices": [
+            {
+              "id": 29108,
+              "name": "Escolha quantas unidades:",
+              "required": 1,
+              "min": 1,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 227987,
+                  "name": "5 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 40,
+                  "img": null
+                },
+                {
+                  "id": 16820226,
+                  "name": "8 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 60,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 525942,
+          "idi": 2063,
+          "name": "Ebi Joy ",
+          "description": null,
+          "price": 0,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320211130220322FTRy5oynI.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 40,
+          "min_value_promotional": 40,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1470120,
+              "name": "Escolha quantas unidades:",
+              "required": 1,
+              "min": 1,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 11711434,
+                  "name": "5 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 40,
+                  "img": null
+                },
+                {
+                  "id": 16820228,
+                  "name": "8 Unidades",
+                  "description": null,
+                  "max": 5,
+                  "price": 60,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 820854,
+          "idi": 2063,
+          "name": "Ebi Joy Especial (5 Unidades)",
+          "description": "Camarão empanado, envolto na lâmina de salmão maçaricada com cream cheese.",
+          "price": 42.9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202204280042139iTk0F69B.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 42.9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1294334,
+          "idi": 2063,
+          "name": "Joy Maçaricado com Kani (5 Unidades)",
+          "description": "Lâmina de salmão maçaricada, recheada com kani e cream cheese. Finalizada com molho tarê e gergelim.",
+          "price": 40,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320220831221931MqRRZtpMx.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 40,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 9537,
+      "name": "Niguiri",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 57681,
+          "idi": 2063,
+          "name": "Niguiri de Salmão (2 Unidades)",
+          "description": "Arroz, com sashimi de salmão",
+          "price": 14,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210601182809961PEvXvc.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 14,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 515244,
+              "name": "Categoria",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 4435102,
+                  "name": "Maçaricado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 57682,
+          "idi": 2063,
+          "name": "Niguiri de Kani (2 Unidades)",
+          "description": "Arroz, com Kani",
+          "price": 8,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210601182831KHTVD4Opy.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 8,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 124385,
+          "idi": 2063,
+          "name": "Niguiri Skin (2 Unidades)",
+          "description": null,
+          "price": 10,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210601182844gsvmDb6SO.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 10,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 17698,
+      "name": "Sobremesa",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": []
+    },
+    {
+      "id": 7187,
+      "name": "Bebidas",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 44840,
+          "idi": 2063,
+          "name": "Coca 350ml",
+          "description": null,
+          "price": 6,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210111153820AGZa0OjyS.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 6,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1615881,
+          "idi": 2063,
+          "name": "Coca Zero 350 ml",
+          "description": "",
+          "price": 6,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221207192603we0W9LRvG.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 6,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 100294,
+          "idi": 2063,
+          "name": "Guarana LT 350ml",
+          "description": null,
+          "price": 6,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2063202104280249400FKGnIOJi.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 6,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1553791,
+          "idi": 2063,
+          "name": "Fanta Lata",
+          "description": null,
+          "price": 6,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221121223034EjJ01t7Fs.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 6,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1394645,
+          "idi": 2063,
+          "name": "Guaraná 1L",
+          "description": null,
+          "price": 9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320221003233837E5YtEV8w8.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 14157,
+      "name": "Itens adicionais",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 124394,
+          "idi": 2063,
+          "name": "Hashi C/ Adaptador",
+          "description": null,
+          "price": 2,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/206320210524223406nlHEenfYj.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 2,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    }
+  ]
+}

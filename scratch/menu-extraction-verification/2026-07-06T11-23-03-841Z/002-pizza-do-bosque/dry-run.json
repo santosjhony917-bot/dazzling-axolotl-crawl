@@ -1,0 +1,430 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": false,
+      "confidence": 0.692,
+      "categoryCount": 3,
+      "itemCount": 21,
+      "resolvedPriceCount": 21,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [
+        "itens_duplicados"
+      ],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "no_groups"
+      }
+    },
+    "preview": [
+      {
+        "name": "Pizzas",
+        "count": 10,
+        "samples": [
+          {
+            "name": "A partir de",
+            "price": 51.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "-29%",
+            "price": 10,
+            "kind": "combo_builder",
+            "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha."
+          },
+          {
+            "name": "2 Pizzas grandes + Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+            "price": 99.99,
+            "kind": "combo_builder",
+            "description": ""
+          },
+          {
+            "name": "A partir de",
+            "price": 31.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "ESFIHAS",
+            "price": 10,
+            "kind": "simple_item",
+            "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha."
+          }
+        ]
+      },
+      {
+        "name": "Sobremesas",
+        "count": 1,
+        "samples": [
+          {
+            "name": "ESFIHA DOCE",
+            "price": 10,
+            "kind": "combo_builder",
+            "description": "Descubra o verdadeiro sabor em cada esfiha."
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "count": 10,
+        "samples": [
+          {
+            "name": "Bebidas",
+            "price": 5,
+            "kind": "simple_item",
+            "description": "Coca-Cola Lata"
+          },
+          {
+            "name": "Coca Zero Lata",
+            "price": 5,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "GUARANÁ LATA ZERO",
+            "price": 5,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "GUARANÁ LATA",
+            "price": 5,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Coca-Cola 1L",
+            "price": 9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Pizzas",
+        "items": [
+          {
+            "name": "A partir de",
+            "description": "",
+            "price": 51.9,
+            "display_price": 51.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "-29%",
+            "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha.",
+            "price": 10,
+            "display_price": 10,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "2 Pizzas grandes + Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+            "description": "",
+            "price": 99.99,
+            "display_price": 99.99,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": null,
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "2 Pizzas grandes",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "A partir de",
+            "description": "",
+            "price": 31.9,
+            "display_price": 31.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "ESFIHAS",
+            "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha.",
+            "price": 10,
+            "display_price": 10,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Calzones",
+            "description": "CALZONE Carnepiry Mussarela, molho de tomate, carne de sol desfiada, catupiry e orégano.",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "CALZONE Franpiry",
+            "description": "Mussarela, molho de tomate, frango desfiado, catupiry e orégano.",
+            "price": 31.9,
+            "display_price": 31.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "CALZONE 4 Queijos",
+            "description": "Mussarela, molho de tomate, provolone, cream cheese, parmesão e orégano.",
+            "price": 35.9,
+            "display_price": 35.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Pepsi 1L",
+            "description": "",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "A cada",
+            "description": "em compras você ganha 1 ponto que pode ser trocado por recompensas.",
+            "price": 1,
+            "display_price": 1,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Sobremesas",
+        "items": [
+          {
+            "name": "ESFIHA DOCE",
+            "description": "Descubra o verdadeiro sabor em cada esfiha.",
+            "price": 10,
+            "display_price": 10,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Bebidas",
+            "description": "Coca-Cola Lata",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca Zero Lata",
+            "description": "",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "GUARANÁ LATA ZERO",
+            "description": "",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "GUARANÁ LATA",
+            "description": "",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca-Cola 1L",
+            "description": "",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca-cola sem açúcar 1L",
+            "description": "",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca-cola original 2L",
+            "description": "COCA-COLA 2 LITROS",
+            "price": 12.9,
+            "display_price": 12.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná 1L",
+            "description": "",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "GUARANA 1 LITRO ZERO",
+            "description": "",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná Antarctica 2L",
+            "description": "",
+            "price": 11.9,
+            "display_price": 11.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 21 itens via visible_text."
+  },
+  "stdoutTail": "ombo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Calzones\",\"description\":\"CALZONE Carnepiry Mussarela, molho de tomate, carne de sol desfiada, catupiry e orégano.\",\"price\":39.9,\"display_price\":39.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"CALZONE Franpiry\",\"description\":\"Mussarela, molho de tomate, frango desfiado, catupiry e orégano.\",\"price\":31.9,\"display_price\":31.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"CALZONE 4 Queijos\",\"description\":\"Mussarela, molho de tomate, provolone, cream cheese, parmesão e orégano.\",\"price\":35.9,\"display_price\":35.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Pepsi 1L\",\"description\":\"\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"A cada\",\"description\":\"em compras você ganha 1 ponto que pode ser trocado por recompensas.\",\"price\":1,\"display_price\":1,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Sobremesas\",\"items\":[{\"name\":\"ESFIHA DOCE\",\"description\":\"Descubra o verdadeiro sabor em cada esfiha.\",\"price\":10,\"display_price\":10,\"price_type\":\"fixed\",\"commercial_type\":\"combo_builder\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Bebidas\",\"items\":[{\"name\":\"Bebidas\",\"description\":\"Coca-Cola Lata\",\"price\":5,\"display_price\":5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca Zero Lata\",\"description\":\"\",\"price\":5,\"display_price\":5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"GUARANÁ LATA ZERO\",\"description\":\"\",\"price\":5,\"display_price\":5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"GUARANÁ LATA\",\"description\":\"\",\"price\":5,\"display_price\":5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca-Cola 1L\",\"description\":\"\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca-cola sem açúcar 1L\",\"description\":\"\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca-cola original 2L\",\"description\":\"COCA-COLA 2 LITROS\",\"price\":12.9,\"display_price\":12.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Guaraná 1L\",\"description\":\"\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"GUARANA 1 LITRO ZERO\",\"description\":\"\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Guaraná Antarctica 2L\",\"description\":\"\",\"price\":11.9,\"display_price\":11.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 21 itens via visible_text.\"}\n",
+  "stderrTail": ""
+}

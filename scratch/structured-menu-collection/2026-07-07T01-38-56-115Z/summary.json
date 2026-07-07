@@ -1,0 +1,107 @@
+{
+  "runId": "2026-07-07T01-38-56-115Z",
+  "outDir": "scratch\\structured-menu-collection\\2026-07-07T01-38-56-115Z",
+  "queuePath": "scratch\\menu-collection-queue\\2026-07-07T01-08-17-560Z\\queue.json",
+  "platform": "anota_ai",
+  "apply": true,
+  "concurrency": 1,
+  "targetCount": 1,
+  "browserbase": {
+    "sessionId": "7d9f03d7-d419-4f9c-a331-61248725b98f",
+    "keepSession": false
+  },
+  "targets": [
+    {
+      "restaurantId": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "restaurantName": "Eu Quero Pizza",
+      "sourceUrl": "https://app.anota.ai/m/MeIU-tixw",
+      "platform": "anota_ai",
+      "reviewsCount": 24,
+      "address": "R. da Enseada - Ponta de Campina",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99857-3813",
+      "queueEntry": {
+        "restaurant_id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+        "name": "Eu Quero Pizza",
+        "platform": "anota_ai",
+        "tier": "green",
+        "priority_score": 1,
+        "risk_flags": [],
+        "source_field": "other_url",
+        "source_url": "https://app.anota.ai/m/MeIU-tixw",
+        "raw_source_url": "https://app.anota.ai/m/MeIU-tixw",
+        "other_url": "https://app.anota.ai/m/MeIU-tixw",
+        "external_url": "",
+        "other_url_label": "Link da bio do Instagram",
+        "category": "Pizzaria",
+        "address": "R. da Enseada - Ponta de Campina",
+        "neighborhood": "Cabedelo",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 99857-3813",
+        "rating": 3.8,
+        "reviews_count": 24,
+        "menu_status": "unknown",
+        "menu_status_reason": "",
+        "menu_last_checked_at": null,
+        "is_published": false,
+        "ai_validated": false,
+        "source_candidates": [
+          {
+            "field": "other_url",
+            "raw": "https://app.anota.ai/m/MeIU-tixw",
+            "canonical_url": "https://app.anota.ai/m/MeIU-tixw",
+            "platform": "anota_ai",
+            "is_ifood": false,
+            "parse_error": false,
+            "canonical_flags": []
+          }
+        ],
+        "eligible_for_queue": true,
+        "collection_hint": "anota_ai_fast_path",
+        "rank": 3
+      }
+    }
+  ],
+  "processed": [
+    {
+      "restaurantId": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "restaurantName": "Eu Quero Pizza",
+      "platform": "anota_ai",
+      "sourceUrl": "https://app.anota.ai/m/MeIU-tixw",
+      "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T01-38-56-115Z\\001-eu-quero-pizza",
+      "startedAt": "2026-07-07T01:39:00.613Z",
+      "details": null,
+      "rawSummary": null,
+      "evidencePath": null,
+      "dryRun": null,
+      "review": null,
+      "committed": false,
+      "commit": null,
+      "error": "PlatformAdapters.normalizeAnotaNetworkMenu is not a function",
+      "finishedAt": "2026-07-07T01:42:06.959Z"
+    }
+  ],
+  "release": {
+    "id": "7d9f03d7-d419-4f9c-a331-61248725b98f",
+    "createdAt": "2026-07-07T01:39:00.436524+00:00",
+    "updatedAt": "2026-07-07T01:42:10.5+00:00",
+    "projectId": "75e35b22-44ad-42b6-b7d7-4509fa0bbfc5",
+    "status": "COMPLETED",
+    "proxyBytes": 0,
+    "keepAlive": false,
+    "region": "us-west-2",
+    "startedAt": "2026-07-07T01:39:00.437+00:00",
+    "endedAt": "2026-07-07T01:42:10.5+00:00",
+    "expiresAt": "2026-07-07T01:44:00.437+00:00"
+  },
+  "counts": {
+    "processed": 1,
+    "committed": 0,
+    "errors": 1,
+    "green": 0,
+    "yellow": 0,
+    "red": 0
+  }
+}

@@ -1,0 +1,2171 @@
+{
+  "search": {
+    "query": "marmitaria Cabedelo PB",
+    "term": "marmitaria",
+    "area": "Porto/Cabedelo",
+    "lat": -6.9665,
+    "lng": -34.8405,
+    "ll": "@-6.9665,-34.8405,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c05593882c51abc56c9fe",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/qyht8lbO2E_kesKiEo7W1w/6a4c05593882c51abc56c9fe.json",
+    "created_at": "2026-07-06 19:43:21 UTC",
+    "processed_at": "2026-07-06 19:43:21 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/marmitaria+Cabedelo+PB/@-6.9665,-34.8405,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/qyht8lbO2E_kesKiEo7W1w/6a4c05593882c51abc56c9fe.html",
+    "prettify_html_file": "https://serpapi.com/searches/qyht8lbO2E_kesKiEo7W1w/6a4c05593882c51abc56c9fe.prettify",
+    "total_time_taken": 1.61
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "marmitaria Cabedelo PB",
+    "ll": "@-6.9665,-34.8405,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "Comida Caseira da Elly",
+      "place_id": "ChIJBfEE9CwhrQcR2xtfopCJ34w",
+      "data_id": "0x7ad212cf404f105:0x8cdf8990a25f1bdb",
+      "data_cid": "10150983339408825307",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad212cf404f105%3A0x8cdf8990a25f1bdb&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad212cf404f105%3A0x8cdf8990a25f1bdb&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9729117,
+        "longitude": -34.836436299999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJBfEE9CwhrQcR2xtfopCJ34w",
+      "provider_id": "/g/11rxvjh5s4",
+      "rating": 5,
+      "reviews": 19,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Mercado Público de Cabedelo, BOX 138, Centro, Cabedelo - PB, 58100-140",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 07:00",
+      "hours": "Fechado · Abre ter. às 07:00",
+      "operating_hours": {
+        "segunda-feira": "07:00–14:00",
+        "terça-feira": "07:00–14:00",
+        "quarta-feira": "07:00–14:00",
+        "quinta-feira": "07:00–14:00",
+        "sexta-feira": "07:00–14:00",
+        "sábado": "07:00–14:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98682-0766",
+      "website": "https://instagram.com/comidacaseiradaelly?utm_medium=copy_link",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG-k9OYIxQpxIr_z8xcZZpmcqRWzeyvDPWwkBQrjxYJX_EgepaVRqw-j4oqatgS3450kzYTVqq-7F-CQIIB5iFBFe-d8L86b0w7XYISLS4K8y66XoTQcIr1RFuW_YhMq60iT7h0EQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/qL9ifnicHcRRboIwGADgE_1QIwJb4oNssnRTZ4EI9YWwrmkVpS2tgtxwR9htlux7-H5_pHPaPvv-Rc49oZS48JvlPVOd453zmLr6QltgFqy_2u9Iu3qD9umT4pHoEff1FI_seNRXZrJy4o_7674c2oT055G-V_VacN0cMjPAOVCmcSKfBwvUTrQ4GANRCi8E42RxSpOUw3e8icMvNEQVxfkmDz7iRxhWqiAM97MsvZU1lVsTolMRSbQmy2GGEAL5P4PuD0SaRNE"
+    },
+    {
+      "position": 2,
+      "title": "Self-service da nany",
+      "place_id": "ChIJwauUWwAhrQcRq05-xtkVPo8",
+      "data_id": "0x7ad21005b94abc1:0x8f3e15d9c67e4eab",
+      "data_cid": "10321711421062008491",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21005b94abc1%3A0x8f3e15d9c67e4eab&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21005b94abc1%3A0x8f3e15d9c67e4eab&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.971718699999999,
+        "longitude": -34.8374289
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJwauUWwAhrQcRq05-xtkVPo8",
+      "provider_id": "/g/11vqp66q3m",
+      "rating": 4.8,
+      "reviews": 6,
+      "unclaimed_listing": true,
+      "type": "Restaurante self-service",
+      "types": [
+        "Restaurante self-service"
+      ],
+      "type_id": "buffet_restaurant",
+      "type_ids": [
+        "buffet_restaurant"
+      ],
+      "address": "R. Monsenhor Valfredo Leal - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 10:30",
+      "hours": "Fechado · Abre ter. às 10:30",
+      "operating_hours": {
+        "segunda-feira": "10:30–14:00",
+        "terça-feira": "10:30–14:00",
+        "quarta-feira": "10:30–14:00",
+        "quinta-feira": "10:30–14:00",
+        "sexta-feira": "10:30–14:00",
+        "sábado": "Fechado",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 99101-1680",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Melhor self-service de CABEDELO👏👏👏\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFMGe5dLYLdMbr8nHu5d1xq5YbeX5z_Yx13k3kfsSD0uaUMJNFFX__OFxlEdfNI3FxwmacM1iRhoFtJk0HR8-_0aIVNZJKAf5d31iinBTZfS5DIJAe4I1DjDo7-GdLLhzelRRlIzckZD1tC=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/IzOsMnicHcTBTsMgAADQL2KFIHFZ4qGKbHRt1U7N2kvTAS0VBnPQrOlPevZvTHyH9_ujY7yETZJYjVeD94NVU1BX4V1ULq6EPyfDJQARQEjS1_LNpKzYKiLzOpfF6bp2u4lINH-T-qSOZGnrGWGDTR8OFE7dR5GVjB3b9oXN9ln2Jcdsvp07UaCx0p7FzMBdtQYt7Phn2WT7tCcSo3F0j-9NfyCUZ6m644h-UX8PtjLP9aJsVVm-CNNQFJ8ebghCCPT_Arg_TEFGGg"
+    },
+    {
+      "position": 3,
+      "title": "Churrascaria do Caicó",
+      "place_id": "ChIJVaKROncgrQcR5lpnht-FotI",
+      "data_id": "0x7ad20773a91a255:0xd2a285df86675ae6",
+      "data_cid": "15177840889271114470",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad20773a91a255%3A0xd2a285df86675ae6&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad20773a91a255%3A0xd2a285df86675ae6&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.976379499999999,
+        "longitude": -34.8312263
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJVaKROncgrQcR5lpnht-FotI",
+      "provider_id": "/g/11b6d5ccvq",
+      "rating": 4.3,
+      "reviews": 753,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "R, Av. Pastor José Alves de Oliveira, 365 - Centro, Cabedelo - PB, 58100-222",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 11:00",
+      "hours": "Fechado · Abre ter. às 11:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–15:00",
+        "terça-feira": "11:00–15:00",
+        "quarta-feira": "11:00–15:00",
+        "quinta-feira": "11:00–15:00",
+        "sexta-feira": "11:00–15:00",
+        "sábado": "11:00–15:00",
+        "domingo": "11:00–15:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Serviços no local",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Esportes"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Buffet à vontade",
+            "Buffet de saladas"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Serviço de buffet",
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Banheiro de gênero neutro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas"
+          ]
+        },
+        {
+          "parking": [
+            "É um pouco difícil encontrar uma vaga",
+            "Estacionamento gratuito na rua",
+            "Estacionamento no local"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": false
+      },
+      "user_review": "\"Em cabedelo PB.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF0nNncdBDlrLB5YnMzPFbZt8C7xEghL3-ybZ8zhzKwQffOHcKzMuFH2wSSDmKQSdcNbPK8ZX9Fp6Ne2oKK7OPBWIszhdYjEzzQrXhASt4Z4RGJvJ_IXYNW5JFt8aFDFfrxdYE=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/GFU78HicHcRJDoIwAADAF1VwRxMPIFSlWMEeWC5GytIotIRW0T7QP_gbE-cw3w9TqpNrw2jYdFQLUTflQ5Y9FVyVXI2oaI26k4BKIA07xNHdhibHnBaO2_SBM0_5UYcwz5S1Xb68mgVT8M4zSzONhqiqTnuK9PEB95OBELdFESkozkNkZckKdgtcTgRCy1PoxAepWZHePK2jPmE2UbNsdt75T_9ySFIcz32orCt0YdW_itTbDGPTNAH7TwH_ARbzRC0"
+    },
+    {
+      "position": 4,
+      "title": "Meio Quilo",
+      "place_id": "ChIJhzOrgHIgrQcRTCBeQ_9JM-8",
+      "data_id": "0x7ad207280ab3387:0xef3349ff435e204c",
+      "data_cid": "17236201559572750412",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad207280ab3387%3A0xef3349ff435e204c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad207280ab3387%3A0xef3349ff435e204c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.971458999999999,
+        "longitude": -34.83754
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJhzOrgHIgrQcRTCBeQ_9JM-8",
+      "provider_id": "/g/1v_snfv5",
+      "rating": 4.4,
+      "reviews": 160,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "type": "Restaurante self-service",
+      "types": [
+        "Restaurante self-service",
+        "Restaurante fast-food",
+        "Restaurante especializado em sopas"
+      ],
+      "type_id": "buffet_restaurant",
+      "type_ids": [
+        "buffet_restaurant",
+        "fast_food_restaurant",
+        "soup_restaurant"
+      ],
+      "address": "R. Aderbal Piragibe, 13 - Centro, Cabedelo - PB, 58100-110",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 11:00",
+      "hours": "Fechado · Abre ter. às 11:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–15:00",
+        "terça-feira": "11:00–15:00",
+        "quarta-feira": "11:00–15:00",
+        "quinta-feira": "11:00–15:00",
+        "sexta-feira": "11:00–15:00",
+        "sábado": "11:00–15:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 3228-8464",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Serviço de buffet",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Alelo",
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee",
+            "Vale refeição"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"É simples, mas tem ótimo custo benefício.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF5UChR9lfmV8twokTx1Z3fWmB607lmlR87JCy3pMwuttjiXFgj2ll5x0e1IF6Y_-N6UuO720_u27RJjAHG7_LNimLL_N2pZFZVqJExlSBiSaACaQ446tF4FbH3fcx_PvhRsVixYw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/CFA8yHicHcRdToMwAADgExXKz-hc4gMQ6yTIgAk6XhpsgMJairZIPeKO4G2W-D18fzem9aIOts2ZZw1SDrxbVfdN5ay7WVtUCntYFKAKKDvMs-Ia4l0Vs_KB96Le601e34zTeP27iAKIuODlHiXxr7e8bqvW0_iBh8nlfGdg57zg4EJAFlTrCbmQrC4qkyk8PiOSZqNIU5K5S4Ob-it5Mvwcjec2jNvC9wONffx59HpqSP7DSlWP5rI9bg6EELD_KZjvkU1EYw"
+    },
+    {
+      "position": 5,
+      "title": "NutriFit Marmita Fitness Congeladas",
+      "place_id": "ChIJN2Qo5azfrAcR6duVymUfuQ0",
+      "data_id": "0x7acdface5286437:0xdb91f65ca95dbe9",
+      "data_cid": "988856115235511273",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdface5286437%3A0xdb91f65ca95dbe9&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdface5286437%3A0xdb91f65ca95dbe9&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.036529799999999,
+        "longitude": -34.8431006
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJN2Qo5azfrAcR6duVymUfuQ0",
+      "provider_id": "/g/11q9hrhj4l",
+      "rating": 5,
+      "reviews": 18,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "type": "Restaurante de comida natural",
+      "types": [
+        "Restaurante de comida natural"
+      ],
+      "type_id": "health_food_restaurant",
+      "type_ids": [
+        "health_food_restaurant"
+      ],
+      "address": "Intermares, Cabedelo - PB, 58102-032",
+      "country": "Brasil",
+      "open_state": "Aberto 24 horas",
+      "hours": "Aberto 24 horas",
+      "operating_hours": {
+        "segunda-feira": "Atendimento 24 horas",
+        "terça-feira": "Atendimento 24 horas",
+        "quarta-feira": "Atendimento 24 horas",
+        "quinta-feira": "Atendimento 24 horas",
+        "sexta-feira": "Atendimento 24 horas",
+        "sábado": "Atendimento 24 horas",
+        "domingo": "Atendimento 24 horas"
+      },
+      "phone": "(83) 98721-6120",
+      "website": "https://www.instagram.com/marmita_nutrifit",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Ela segue o que seu nutricionista fala e uma excelente profissional!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH6C7v7uoQZTjXbFCVbOylpfkablbD6nQTq8meYQglgkPMRw9KEzkx8YFVpYUge297mxZLKdpmgvCvQ6NMg-vqmjV-T8eiIyjD3PhDhkrdPLn0v3H3VS7rCk9ypLSmr1Aqb-bPTJw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/A4aGC3icHcTbboIwAADQL6rgSLgs8YHAjE7UVpEM3yx27egVikX8Qz9hf2PieTj_TzYMxn56nmDBjGpNBblZ0jdaDUQNs0ZLjxoLGgusl8Id4ukqzCIX3TQ6l-0PXmYV3k_C_PILFjgPFSq7WJIaUUE53B7GZPP14Pe4XlamPlHykUTyfi42VyOpyxwKd1sKXCfbCpQx-VtPbR5AljPeX2GhfBesguoY9RlPJlMcZT9POwwwLL_HxTj3fR-w9w1QL2b3RnA"
+    },
+    {
+      "position": 6,
+      "title": "Ilha Dourada Restaurante",
+      "place_id": "ChIJ19PDcIXfrAcRzBwfL7gvIIs",
+      "data_id": "0x7acdf8570c3d3d7:0x8b202fb82f1f1ccc",
+      "data_cid": "10025065238637780172",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf8570c3d3d7%3A0x8b202fb82f1f1ccc&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf8570c3d3d7%3A0x8b202fb82f1f1ccc&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9872387,
+        "longitude": -34.8284643
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ19PDcIXfrAcRzBwfL7gvIIs",
+      "provider_id": "/g/11b7lnh4g2",
+      "rating": 4.2,
+      "reviews": 3161,
+      "price": "R$ 60–180",
+      "extracted_price": 60,
+      "type": "Restaurante de frutos do mar",
+      "types": [
+        "Restaurante de frutos do mar",
+        "Bar"
+      ],
+      "type_id": "seafood_restaurant",
+      "type_ids": [
+        "seafood_restaurant",
+        "bar"
+      ],
+      "address": "BR -230, R. José Américo de Almeida Filho, s/n - Areia Dourada, Cabedelo - PB, 58101-212",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre ter. às 08:00",
+      "hours": "Fecha em breve · 17:00 · Abre ter. às 08:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–17:00",
+        "terça-feira": "08:00–17:00",
+        "quarta-feira": "08:00–17:00",
+        "quinta-feira": "08:00–17:00",
+        "sexta-feira": "08:00–17:00",
+        "sábado": "08:00–17:00",
+        "domingo": "08:00–17:00"
+      },
+      "phone": "(83) 3228-1826",
+      "website": "https://instagram.com/ilhadouradarestaurante?igshid=YmMyMTA2M2Y=",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Música ao vivo",
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Bebidas para happy hour",
+            "Café",
+            "Cerveja",
+            "Coquetéis",
+            "Pratos para happy hour",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil",
+            "Tem fraldários"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento descoberto pago",
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "Cães podem ficar na área externa"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Super recomendo, estrutura maravilhosa!!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEpIoFio-Kxtrnc2ychf9HmlOgkA8CYml5hop76_sEH0tPPebFjj1awpJmh5iUza9MRyga4YEGsOSZDw3re1NRe-Mg2m2ocG7u6SZBJyErKEEvP5UA9FaG4ptW2cPE08c5WS9KJ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/JQ1HAHicHcRRDsEwGADgE9W6MUziYejGFlMWEV5k_lSLdW3WzswFncFtJL6H7_sR1mozcZxS9HtcKV6yxrAaVGVZZXugpMO1QWCQcUKabR8h0SsV3RRKX7auwOtAXIOlLDf8EY7nR1n6QunR8GzIEltK2SW6392i1YkU_m3_LoL1ruPF4Ehis8lPi7ZfMzfbMbTmnvQUxKNmmJ9mSUfqlJAn9fdhEBXxQNuDB5TgMfiHPEiTaetijJH4D6j6AZYQQ_w"
+    },
+    {
+      "position": 7,
+      "title": "PARCEIRO Rosa Lanches",
+      "place_id": "ChIJKfbziSchrQcRUM5eTvB19FU",
+      "data_id": "0x7ad212789f3f629:0x55f475f04e5ece50",
+      "data_cid": "6193705062508711504",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad212789f3f629%3A0x55f475f04e5ece50&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad212789f3f629%3A0x55f475f04e5ece50&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9708638999999994,
+        "longitude": -34.833857699999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJKfbziSchrQcRUM5eTvB19FU",
+      "provider_id": "/g/11fsz11gyh",
+      "rating": 4.5,
+      "reviews": 120,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "R. Ten. Antônio Pontes, 139 - Ponta de Matos, Cabedelo - PB, 58100-645",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–01:00",
+        "terça-feira": "18:00–01:00",
+        "quarta-feira": "18:00–01:00",
+        "quinta-feira": "18:00–01:00",
+        "sexta-feira": "18:00–01:00",
+        "sábado": "18:00–01:00",
+        "domingo": "18:00–01:00"
+      },
+      "phone": "(83) 98836-3792",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFmc3oxMWd5aBgAOgMI8A0%3D&g2lbs=AEzIGDsj5oN-MH-XT_63n-OjL3w5h95RvsHdr8XJk-IyXdWHayotnlj0xEjL1UCGXOAzFie20BNi&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=WgVMatjMCd-T1e8Pkp_JsQ8&ei=WgVMatjMCd-T1e8Pkp_JsQ8&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"O atendimento é rápido e a equipe é muito atenciosa\n\nRecomendo!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHfVaCTo0qUtzxvKCwo3L4IHmc-uGBq5VafYp9BOPrvfxIkCnCsPvzMjYefrHSEYUZJ_lfJ9aT592MFIQID4HETbV0OCueW8NlHe8qyDSOQt30K6IF_8WAt9JtplMDVt2lc9PEa=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/-qcBAXicHcRRboIwGADgE1Wq6EJN9oAF16IIRMSwF8OaFqKVAv1B5wV3ht1myb6H7_enAejs2nF0485qY2otRysHYVqQLcyEuTt1Z5GwyDp-eshuPlNFRXOD-xO8ntOOPoy7X3J2F2j82PSrolJlRzZJOkzqyW-0pTadXvG1lGpgx7A8fUYXrSJS5SuyiLc848GShflXgRM6yrN30Ex6_XdwTDJw8e6Nby_e2QcSQafjoICFFiQNq_fHHGOMmv8Fav8AbQpD-w"
+    },
+    {
+      "position": 8,
+      "title": "Kioske Cantinho do Sabor",
+      "place_id": "ChIJL7ngB3YgrQcRkndKsVUtpfw",
+      "data_id": "0x7ad207607e0b92f:0xfca52d55b14a7792",
+      "data_cid": "18205006914785015698",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad207607e0b92f%3A0xfca52d55b14a7792&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad207607e0b92f%3A0xfca52d55b14a7792&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9799636,
+        "longitude": -34.834911999999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJL7ngB3YgrQcRkndKsVUtpfw",
+      "provider_id": "/g/11snnrmmgt",
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Cleto Campêlo - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Porções pequenas"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=x4wL3d145epRNlOXbUi17A&cb_client=search.gws-prod.gps&w=80&h=92&yaw=218.25534&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/W28sh3icHc1JCsIwFADQ22Rnhg44QBD3oiAI7iRNv8mHtPk0sam38VreRvEC733ePmdKOyFSngDyjFAIFwhpRYa7GF0AQ5i4jYOYlcj-OXSjwbAnM0bs9dKUY92rpgW6nML51l1RrQ_MdncbEMasE5jJeu7KT5xizx0lVvRGMq-3FXuZoiu14VXb1g0jzNZryf7LI85aSfkFSog49w"
+    },
+    {
+      "position": 9,
+      "title": "MB Marmitas | Marmitaria em João Pessoa",
+      "place_id": "ChIJ_XODgJ7frAcR2n1xL5ijuX4",
+      "data_id": "0x7acdf9e808373fd:0x7eb9a3982f717dda",
+      "data_cid": "9131509593496714714",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf9e808373fd%3A0x7eb9a3982f717dda&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf9e808373fd%3A0x7eb9a3982f717dda&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.025028,
+        "longitude": -34.8317981
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ_XODgJ7frAcR2n1xL5ijuX4",
+      "provider_id": "/g/11mcx555t2",
+      "rating": 5,
+      "reviews": 2,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Alfredo Chaves, 126 - Poço, Cabedelo - PB, 58101-582",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 06:00",
+      "hours": "Fechado · Abre ter. às 06:00",
+      "operating_hours": {
+        "segunda-feira": "06:00–14:00",
+        "terça-feira": "06:00–14:00",
+        "quarta-feira": "06:00–14:00",
+        "quinta-feira": "06:00–14:00",
+        "sexta-feira": "06:00–14:00",
+        "sábado": "Fechado",
+        "domingo": "Fechado"
+      },
+      "website": "https://www.mbmarmitas.site/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Tranquilo"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Entregam sempre no horário combinado aqui na empresa.\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=L7ndeDgE9ZeQJgAuvCyCGg&cb_client=search.gws-prod.gps&w=80&h=92&yaw=16.400484&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/pVLQw3icHc1RCsIgGADg2_iWuhi1BT8RK4Lopddewrk_FZzKdNpu07W6TdEFvu_z1imFuGMspgkxZYMlmBfauAqCKu-VRRFMpNKPLFcs6XnsnTB2H4TzZoDr1g14VKf2jreLOsy5W7qzIrJ_SGvQJYgoJqmpKj9x8gNVIZICDSca2jVZRIFqQ2vO66YmwSSpgZP_8vQZKs6_dns5gA"
+    },
+    {
+      "position": 10,
+      "title": "Tempero De Casa",
+      "place_id": "ChIJlzh1S-zdrAcRiCUL7fIKsMI",
+      "data_id": "0x7acddec4b753897:0xc2b00af2ed0b2588",
+      "data_cid": "14028724877734389128",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acddec4b753897%3A0xc2b00af2ed0b2588&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acddec4b753897%3A0xc2b00af2ed0b2588&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0671645,
+        "longitude": -34.848778599999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJlzh1S-zdrAcRiCUL7fIKsMI",
+      "provider_id": "/g/11cnp0cddf",
+      "rating": 4.5,
+      "reviews": 65,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Maurício de Alençar Cavalcante - Jardim America, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "10:30–20:00",
+        "terça-feira": "10:30–20:00",
+        "quarta-feira": "10:30–20:00",
+        "quinta-feira": "10:30–20:00",
+        "sexta-feira": "10:30–20:00",
+        "sábado": "10:30–20:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98870-4790",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Serviço de buffet",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Muito bom atendimento nota 10 muito bom mesmo\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFfPE4HQu3XeJ54ZPrc16m7Tj-QVVD9vyHv97zqRUME1_s6G5Fz2u8GM_k6Hc7ZWjWP5RkjXBOTXJXIngzgvNEDBdzTT0voilNB_mYjT8MAUNueybf3CHa_xlebJFWmxJFOSqqshw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/H_mtWHicHcRJDoIwAADAF1VABNTEAwiIJKxWQC9Eay2yVSiL8kOf4G9MnMN8P1nXPdma48pMnBFKSYl7hltE6w7X3QzRiiNPBhADjFN9NyhU8-4bCyvoxQTb0uLst0iQKwXmIIgifTW8rWGlTE14dAwhZfJOMqd5v9w5aSFbSDnHeexLYZEnmgcTO9nXZCKDa-jabYKQH-ijdLW0OuVw6ahHt8fv613cWpf0VeKrbcbVyza9Q9OwbNyMAs_zIPuPQP0DbuVFKQ"
+    },
+    {
+      "position": 11,
+      "title": "Sorveteria Frutos de Goiás - Cabedelo",
+      "place_id": "ChIJpR3-bsYhrQcRFzba--9mhwU",
+      "data_id": "0x7ad21c66efe1da5:0x58766effbda3617",
+      "data_cid": "398400272954177047",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21c66efe1da5%3A0x58766effbda3617&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21c66efe1da5%3A0x58766effbda3617&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.970665299999999,
+        "longitude": -34.8363411
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJpR3-bsYhrQcRFzba--9mhwU",
+      "provider_id": "/g/11xp63l4mf",
+      "rating": 4.9,
+      "reviews": 40,
+      "type": "Sorveteria",
+      "types": [
+        "Sorveteria",
+        "Lanchonete"
+      ],
+      "type_id": "ice_cream_shop",
+      "type_ids": [
+        "ice_cream_shop",
+        "snack_bar"
+      ],
+      "address": "R. Sólon de Lucena, 30B - Centro, Cabedelo - PB, 58100-570",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–22:00",
+        "terça-feira": "14:00–22:00",
+        "quarta-feira": "14:00–22:00",
+        "quinta-feira": "14:00–22:00",
+        "sexta-feira": "14:00–23:00",
+        "sábado": "14:00–23:00",
+        "domingo": "14:00–23:00"
+      },
+      "phone": "(83) 99313-6243",
+      "website": "https://linktr.ee/frutoscabedelo",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Entrega",
+            "Retirada na loja",
+            "Compras na loja",
+            "Serviços no local",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "Cães podem ficar na área externa"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"A melhor sorveteria de cabedelo!!!!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEsGvSaJLpfwbrkhJeRtY5aGjDIJh2Hjh-YypcRDstVoo-0e7PXHsVwFTbeqH3E29oOJKJOiOF-fenXJCOsDo_ICHd9KDxDt91X7_QErJaaF4paQEiVXWslFSXqVZ93YkRDrA1CB2cRNK8q=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/T4eNYnicHcTdboIwGADQJ6r8bVFMdoEUxGJEcGFlN6bWShWkha-KPuWu9zYmnovz_yeN0TC3rFZ6k1qpuhU3EANXnRGdmXB1tWoNiAMCK9hu8iaIYHnfMbLWp_EwNJKIwlSfbHnBKyLd5CJR9dS8wGBKpZAtpluaQDnG3wfRJ17k-iojKcnOWYxOoqMkzACr_SpMjn6KH9j4Dp3u82ggjMUfmuXRuaQ_0MY72pe_vlc1BR4CJ1y4vNiks_5rdGzbRvI9R90LtPVGow"
+    },
+    {
+      "position": 12,
+      "title": "Sol e mar restaurante e self service",
+      "place_id": "ChIJC7wrAbDfrAcRL094F_SfelU",
+      "data_id": "0x7acdfb0012bbc0b:0x557a9ff417784f2f",
+      "data_cid": "6159411311097171759",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfb0012bbc0b%3A0x557a9ff417784f2f&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfb0012bbc0b%3A0x557a9ff417784f2f&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.008306999999999,
+        "longitude": -34.8301071
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJC7wrAbDfrAcRL094F_SfelU",
+      "provider_id": "/g/1v3h_5rh",
+      "rating": 4.6,
+      "reviews": 22,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Restaurante self-service",
+      "types": [
+        "Restaurante self-service"
+      ],
+      "type_id": "buffet_restaurant",
+      "type_ids": [
+        "buffet_restaurant"
+      ],
+      "address": "R. Márcia Travassos, 331 - Camboinha, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 11:30",
+      "hours": "Fechado · Abre ter. às 11:30",
+      "operating_hours": {
+        "segunda-feira": "11:30–15:00",
+        "terça-feira": "11:30–15:00",
+        "quarta-feira": "11:30–15:00",
+        "quinta-feira": "11:30–15:00",
+        "sexta-feira": "11:30–15:00",
+        "sábado": "11:30–15:00",
+        "domingo": "11:30–15:00"
+      },
+      "phone": "(83) 99157-8255",
+      "website": "https://www.ifood.com.br/delivery/cabedelo-pb/sol-e-mar-restaurante-e-self-service-camboinha/442872f0-427e-4ed6-8659-495081e6a0ce?UTM_Medium=share",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Buffet de saladas",
+            "Cerveja"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Vale muito a pena pelo sabor e pelo preço justo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGmPu_3D2BRxHIjFfS0Oinx-hNYHqDFL08XZsNmzPssQ4cr1ZK9XpZU0BJkEgnGRuN2YtIqr6sob02Io1L0qoxGLjMzRxyK6j_K1f3EUSTKNCEmVkb9OA8bYtJ6sh8U5saRYefcHg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Yg19pHicHcRRboIwGADgE1UKTIIme8CJgGBFHEZ4MaOBdiAt8JcMuaFH8DZL_B6-15Mr1cFa0-7cXDAp2b0coRyoFKoUakFlq7EOEAUEmhOTU-N4bTzezK2xSSY_qHfVGR9_xYQ4yfx-u4uwfc2BtHMMcPqgg56Hq2uXp3izb1wmvGQkRqaCfrBAFtgIpB7hXk5eVB_mZHqEVn0L9cp00_N3SL7c9tIUq6NjF5naW8DtdAk_SVZW1GeffzrGGPH3FIl_slhEvg"
+    },
+    {
+      "position": 13,
+      "title": "Mercado Público de Cabedelo",
+      "place_id": "ChIJcdlFQXIgrQcRdvr3iVM-Uu0",
+      "data_id": "0x7ad20724145d971:0xed523e5389f7fa76",
+      "data_cid": "17100799263597132406",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad20724145d971%3A0xed523e5389f7fa76&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad20724145d971%3A0xed523e5389f7fa76&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.972693199999999,
+        "longitude": -34.8371809
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJcdlFQXIgrQcRdvr3iVM-Uu0",
+      "provider_id": "/g/11b6gc6xsr",
+      "rating": 4,
+      "reviews": 2563,
+      "unclaimed_listing": true,
+      "type": "Mercado",
+      "types": [
+        "Mercado"
+      ],
+      "type_id": "market",
+      "type_ids": [
+        "market"
+      ],
+      "address": "R. Elizabeth Alves Galvão - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 05:00",
+      "hours": "Fechado · Abre ter. às 05:00",
+      "operating_hours": {
+        "segunda-feira": "05:00–15:00",
+        "terça-feira": "05:00–15:00",
+        "quarta-feira": "05:00–15:00",
+        "quinta-feira": "05:00–15:00",
+        "sexta-feira": "05:00–15:00",
+        "sábado": "05:00–15:00",
+        "domingo": "05:00–15:00"
+      },
+      "extensions": [
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "user_review": "\"Minha experiência foi maravilhosa no mercado de Cabedelo!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHPHP0_imp94tcPTjDwzT3sIyNkL3nMC7qFoAx6q_aA1twzjlJXUsT8vtIyEPl3BYuuXsYwFniBpDulx3Zsbp4vH0vZrMeGMUJLI1Ydvvf2-uL9Nr4bpxGLx-R3DEVDwzINF1X7=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/5esm8XicHc1NjoIwGADQE1WKJf4ls8BBBAOkTnACbIx2ENTaVr62oBecM3gbJ7N52_f6bbVWsHAc3pJRI2XDawN1x6TQtdAjJm9OowAxQOD4NNte_YhGFO_PNzX3NKP5JeifOYH4kV0TItLP6T2U_jC57w--q_vnhW-KHeQzq-PHinKyLI0poOxDcV6qwPCBVHBUno2wrbq0Xqe7TRK75Y-1pzEyyTzrvKMa1smAvkiw-v7L4ix0i-lH72KMUfsvQ-INyWVFYQ"
+    },
+    {
+      "position": 14,
+      "title": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+      "place_id": "ChIJdbKCxUTerAcRNmBt0eRrdX8",
+      "data_id": "0x7acde44c582b275:0x7f756be4d16d6036",
+      "data_cid": "9184365645602316342",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde44c582b275%3A0x7f756be4d16d6036&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde44c582b275%3A0x7f756be4d16d6036&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.029314899999999,
+        "longitude": -34.8302167
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJdbKCxUTerAcRNmBt0eRrdX8",
+      "provider_id": "/g/11b67f3d1y",
+      "rating": 4.4,
+      "reviews": 10742,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante",
+        "Restaurante brasileiro",
+        "Bar",
+        "Bares"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant",
+        "brazilian_restaurant",
+        "cocktail_bar",
+        "pub"
+      ],
+      "address": "R. Vitorino Cardoso, 908 - Ponta de Campina, Cabedelo - PB, 58101-510",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 18:00",
+      "hours": "Aberto · Fecha 18:00",
+      "operating_hours": {
+        "segunda-feira": "09:00–18:00",
+        "terça-feira": "09:00–18:00",
+        "quarta-feira": "09:00–18:00",
+        "quinta-feira": "09:00–18:00",
+        "sexta-feira": "09:00–18:00",
+        "sábado": "09:00–18:00",
+        "domingo": "09:00–18:00"
+      },
+      "phone": "(83) 99408-6293",
+      "website": "https://grupolovina.github.io/lovinapontadecampina",
+      "description": "Pescados, drinques e música na praia. Frutos do mar e acompanhamentos, além de bebidas, em espaço descontraído com música ao vivo e acesso à praia.",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Música ao vivo",
+            "Ótima carta de vinhos",
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Bebidas para happy hour",
+            "Buffet de saladas",
+            "Café",
+            "Cerveja",
+            "Coquetéis",
+            "Espaço privativo para eventos",
+            "Porções pequenas",
+            "Pratos orgânicos",
+            "Pratos para happy hour",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Brunch",
+            "Almoço",
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Romântico",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Alelo",
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee",
+            "Ticket Restaurante",
+            "Vale refeição",
+            "VR"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil",
+            "Tem fraldários"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento coberto gratuito",
+            "Estacionamento coberto pago",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento descoberto pago",
+            "Estacionamento gratuito na rua",
+            "Estacionamento no local",
+            "Estacionamento pago na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Excelente morei durante 8 meses em Cabedelo e frequentava sempre\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGD18zKy5FkqhPUQaNIzmpY0hA2LlMs39EWdz32uSFzQMk4_VgN54_AcrkfJ39U1sygnhKdcv1PbKteCeSmfFggFEfvtDX5dGeQuTJYzuTLrFBrDQDM9WZ5AxXawawNoy3e7RfPLA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/TVC6InicHcRJDoIwAADAFyFgIYqJhyrWKEuou14MltImLEVaRPpDn-BvTJzDfD9cqUbOTLPkYMSEYCXtJG2JqBWt1YiIymSNNIg0pAmTGBdw7dtTHQwuKp48OeI03uiquVocjsMyksBbnTMNxt0eaRwVzv3EYte5Q9IW-RZ4R1sOrOZBRl528ggUXdJ9lSPG0Cp_Kf_iZmuKu8P2qrtD2KJF62M_8s43F74vaZ_2sRgAnezyJITz3rYsy-D_iVH_AOQoRYk"
+    },
+    {
+      "position": 15,
+      "title": "Barber Shop",
+      "place_id": "ChIJJyhwrgshrQcRM_Ar_0VfmpE",
+      "data_id": "0x7ad210bae702827:0x919a5f45ff2bf033",
+      "data_cid": "10491803036151443507",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad210bae702827%3A0x919a5f45ff2bf033&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad210bae702827%3A0x919a5f45ff2bf033&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9719188999999995,
+        "longitude": -34.8372793
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJJyhwrgshrQcRM_Ar_0VfmpE",
+      "provider_id": "/g/11lyjwz03r",
+      "type": "Barbearia",
+      "types": [
+        "Barbearia"
+      ],
+      "type_id": "barber_shop",
+      "type_ids": [
+        "barber_shop"
+      ],
+      "address": "Rua Monsenhor Walfredo Leal, 78 - Centro, Cabedelo - PB, 58100-248",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:30",
+      "hours": "Aberto · Fecha 19:30",
+      "operating_hours": {
+        "segunda-feira": "07:30–12:30, 14:30–19:30",
+        "terça-feira": "07:30–12:30, 14:30–19:30",
+        "quarta-feira": "07:30–12:30, 14:30–19:30",
+        "quinta-feira": "07:30–12:30, 14:30–19:30",
+        "sexta-feira": "07:30–12:30, 14:30–19:30",
+        "sábado": "07:30–12:30, 14:30–19:30",
+        "domingo": "07:30–12:30"
+      },
+      "phone": "(83) 98854-8381",
+      "website": "https://telepesquisa.com/pb/empresas/d/barber-shop",
+      "extensions": [
+        {
+          "service_options": [
+            "Serviços no local"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "serviços_no_local": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH4qFCDT6pLuWPn-CBgwE0MQ16ows_JhYyyHtDz9E7mhTLvL6WaL7T_WmCYe2ktLLuSx7QR-qh7zrC3FmLpM-MDLcAJrw8XJJ3GZnmO1N9gAobwX7Ry-6GYGjBeL6MpAe5sHQo=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/7zIuPHicHcTdboIwGADQJ6qAzFaXeFFBIeTDiSNBdmNc07SZ9kda1uED7h18myU7F-f5K7237jWKbjKdCWPEjY-OD8xoz7WfMaMiYR1iDrmIHvbNlZYv912Wt9jC2B00yjYibOO6SbAJ7lzJfppKnz9WW6JkC9-AuwuQ9typrOfzqwcY339Ic0R3SR5Dlu4U2BrVOTBaDWF5qqq0-NDqLdmvBDWf4USOE8JFX3xtOODaUr5wZWPWIYnjGMn_GdJ_vC1DDA"
+    },
+    {
+      "position": 16,
+      "title": "Mary Refeições",
+      "place_id": "ChIJ2eQ7vvbfrAcRI7MW-9PBLJ8",
+      "data_id": "0x7acdff6be3be4d9:0x9f2cc1d3fb16b323",
+      "data_cid": "11469755467200639779",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdff6be3be4d9%3A0x9f2cc1d3fb16b323&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdff6be3be4d9%3A0x9f2cc1d3fb16b323&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0494017,
+        "longitude": -34.848260599999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ2eQ7vvbfrAcRI7MW-9PBLJ8",
+      "provider_id": "/g/11flt5yxnj",
+      "rating": 4.6,
+      "reviews": 45,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Av. Mar de Corais, 08 - Intermares, Cabedelo - PB, 58102-262",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 08:00",
+      "hours": "Fechado · Abre ter. às 08:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–14:00",
+        "terça-feira": "08:00–14:00",
+        "quarta-feira": "08:00–14:00",
+        "quinta-feira": "08:00–14:00",
+        "sexta-feira": "08:00–14:00",
+        "sábado": "08:00–14:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98880-2447",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Serviço de buffet",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Peço pelo WhatsApp e nunca demoraram a responder, atendimento muito bom.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGgis6-iBEEg5cV2dgBwOfTu3BJfXo7nrkBiYv7urQG3UKImBTi0REGbvFQq-6t_XPbCd6A35rNBfBUFpeXNipBCEDqt7JjW7P12OncZ2XBP__OV-6FXUcRKlFWKMCPx68UlhWG=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/UWMIgXicHcRRDoIgGADgE5GmC1tbD_6mrlyKLZN6cYsUKQMTrG7YGbpNW9_D9_20xvR6YVld6064UryrR10PTElTSzNh6m7xXiOmkbZ8kuY3P-ZCYyQgDPmMHZwLh1fW7EcXNg1VnhxuII5Pbxzy2C2S9R32wt6F8fkZ5Q-ETUXJObhg350NKTRQRH1NU9FDEK4exttcS49MnUyyk0OBVFV2QDiiBdslXVQm24C88bzo2jJevqa2baP2P0PyB-qJQs8"
+    },
+    {
+      "position": 17,
+      "title": "D Lay Refeições - Marmitaria",
+      "place_id": "ChIJ7x-TOz7drAcRBMvOXw4vkwg",
+      "data_id": "0x7acdd3e3b931fef:0x8932f0e5fcecb04",
+      "data_cid": "617889312663325444",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd3e3b931fef%3A0x8932f0e5fcecb04&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd3e3b931fef%3A0x8932f0e5fcecb04&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0728938999999995,
+        "longitude": -34.8560701
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ7x-TOz7drAcRBMvOXw4vkwg",
+      "provider_id": "/g/11wvx21f72",
+      "type": "Restaurante de almoço",
+      "types": [
+        "Restaurante de almoço"
+      ],
+      "type_id": "lunch_restaurant",
+      "type_ids": [
+        "lunch_restaurant"
+      ],
+      "address": "Av. Ambrósio Miranda de Araújo - Renascer, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto 24 horas",
+      "hours": "Aberto 24 horas",
+      "operating_hours": {
+        "segunda-feira": "Atendimento 24 horas",
+        "terça-feira": "Atendimento 24 horas",
+        "quarta-feira": "Atendimento 24 horas",
+        "quinta-feira": "Atendimento 24 horas",
+        "sexta-feira": "Atendimento 24 horas",
+        "sábado": "Atendimento 24 horas",
+        "domingo": "Atendimento 24 horas"
+      },
+      "phone": "(83) 98676-2921",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Tranquilo"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGhkIfmmaHXceINmkXqpp5bvpn_RCWmw2Fik4O6vp_5boBF0lRnhTu7pZneCzLJmlHUB0ZnGFJIBw8z7fVhxUfbnz8uQb3BZgPnd4v4E30lkwq-TNTavFxoKOE_aWq53PiyjGB1Ww=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/z-36xnicHcRRboIwGADgE1XqgGmW7MEaQdyCaHAYXgh0hbq2f8sK1HHDHcHbLNn38D1--TAY--J5kvuLTutOstGyb6phYDAsqFZeZyyiFllvk6UnsYm5SFql6v2VsiRV4tobEzaTgeq8LZR7im4iOD5PpgobTSIsz8DzcWVKYNv5_aDk_kJwCXF0SIhbz6v2g98vbQPzejw1Pim7DD6DKdj5WArXozzN6ym667fjrqqLPvSz289XTJaFe3VLjDHi_1MEf5ZyRrg"
+    },
+    {
+      "position": 18,
+      "title": "Bom Tempero Restaurante",
+      "place_id": "ChIJQwyZx_vfrAcRqBvYbKyyPhQ",
+      "data_id": "0x7acdffbc7990c43:0x143eb2ac6cd81ba8",
+      "data_cid": "1458799782944840616",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdffbc7990c43%3A0x143eb2ac6cd81ba8&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdffbc7990c43%3A0x143eb2ac6cd81ba8&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0288552,
+        "longitude": -34.8465774
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJQwyZx_vfrAcRqBvYbKyyPhQ",
+      "provider_id": "/g/11lgxf13zr",
+      "rating": 4.7,
+      "reviews": 17,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante self-service",
+      "types": [
+        "Restaurante self-service"
+      ],
+      "type_id": "buffet_restaurant",
+      "type_ids": [
+        "buffet_restaurant"
+      ],
+      "address": "Av. Maria de Oliveira Gomes - Portal do Poço, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 11:00",
+      "hours": "Fechado · Abre ter. às 11:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–15:00",
+        "terça-feira": "11:00–15:00",
+        "quarta-feira": "11:00–15:00",
+        "quinta-feira": "11:00–15:00",
+        "sexta-feira": "11:00–15:00",
+        "sábado": "11:00–15:00",
+        "domingo": "Fechado"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Excelente tempero\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF7I_lK5azpiD7_fWnfoewsH9rG8KPSXGDSCtTYvNbau0jV6G9S4qhBZRUy83AEfhO155EAmIVqEywPu1tN3HDQiRDDKO-8KqeuniRLdVQnhyk52m8_FgqZ_f8QVrNTfbdx08g=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Dnml6XicHcRLcoIwAADQE0WCSI3OuKANokMH-Si2bBjFfKiQAAkiHtA7eBtn-hbv9eRaN2ppGBW3JkxKVpFeka6QQhOhJ4WsDdYoUCigDCcMoquznm_zyrdPj6bE85weBZVkUJtF5yE_TH48nHzp_e8tOJ96-Jd-eItk1vLPLD6MyHJcynembbtOvU1bdxzC3tSBtcFRGWPs7wDyW9KLMv6-pJHg49We1ihfszbLKYrSLtjT8-UOEVsNJoQQ8P8LIN7n4UPQ"
+    },
+    {
+      "position": 19,
+      "title": "El sabor restaurante e marmitaria",
+      "place_id": "ChIJ71Tv30HdrAcR40bAo1GUO-0",
+      "data_id": "0x7acdd41dfef54ef:0xed3b9451a3c046e3",
+      "data_cid": "17094419888975398627",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd41dfef54ef%3A0xed3b9451a3c046e3&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd41dfef54ef%3A0xed3b9451a3c046e3&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0634377,
+        "longitude": -34.8459982
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ71Tv30HdrAcR40bAo1GUO-0",
+      "provider_id": "/g/11hz194n__",
+      "rating": 4.6,
+      "reviews": 79,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Pres. Washington Luís, 338 - Bessa, João Pessoa - PB, 58035-340",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "10:00–20:00",
+        "terça-feira": "10:00–20:00",
+        "quarta-feira": "10:00–20:00",
+        "quinta-feira": "10:00–20:00",
+        "sexta-feira": "10:00–20:00",
+        "sábado": "10:00–14:30",
+        "domingo": "Fechado"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Recomendo com certeza\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAESGRuJbDINklM3VQa3v_DFrHoQV04jwIPZJ773WXGMyOD8vzVqxG9x4Ejp9kJl_GuyLlA2lKZHiumWxJAyK9bvSAO_hmAuPUBtuCTJIH2Y73s9TFAdk6pB35pGZnvaDnM11lIH9Q=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/bXFjoHicHcRLcoIwAADQEyFgtDSd6SKKBmJB8IOWDaPIQCUkKUkQvKFH8DbO-Bbv-aiUEvLLNGkFRiXnJS20LNqcM1UwNcp5Y5ZCGrk0pImiMK7RYos3mpxdP6xpAJL4BLrMXbYejxNrcr35UUocBxyOOBjW7md3T_57DPvJ4ipgTWiG9fBD0ZiuUu9PN4eeoGEFz90WrbOqQTraz5Se74jvjX8dIOFuiS71h5iBqcAp604uC2yb-h6Mv2-2ZVlG9T432AurCkRK"
+    },
+    {
+      "position": 20,
+      "title": "M E Refeição",
+      "place_id": "ChIJc3fKUeHfrAcRDLLyfWij5xk",
+      "data_id": "0x7acdfe151ca7773:0x19e7a3687df2b20c",
+      "data_cid": "1866640239753343500",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfe151ca7773%3A0x19e7a3687df2b20c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfe151ca7773%3A0x19e7a3687df2b20c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0443159,
+        "longitude": -34.8447247
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJc3fKUeHfrAcRDLLyfWij5xk",
+      "provider_id": "/g/11fktpg9__",
+      "rating": 5,
+      "reviews": 3,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Intermares, Cabedelo - PB, 58033-455",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=9qWd3AcVLNgGr-Pe8jG81w&cb_client=search.gws-prod.gps&w=80&h=92&yaw=97.326614&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/y-WzpnicHc3NDcIgGADQbbiVn9bU1oQYT70Y40mPhtJPwFBAwKLbuJbbaFzgvc9b5xzShpCUI0BeDJRgnmBTFQRW3isLIpiEpZ_JwkjWj3l0wthtEM6biff389Ts5Gl_UEOsjtDdho4VJMeLtAZc5glElBqr8hOjn7AKCRXeUaR5X6OXKLxf46ZuW7ZCwWSpOUX_5eoXzij9AkzQOQU"
+    }
+  ]
+}

@@ -1,0 +1,452 @@
+[
+  {
+    "id": "775e0a86-b7d6-48a7-a84b-619164add8f9",
+    "name": "Numar Bar e Restaurante",
+    "instagram": "https://instagram.com/numarbarintermares",
+    "username": "numarbarintermares",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "5824ab85-d0ca-4987-aa50-aa45faa631ad",
+    "name": "Restaurante Recanto do Picuí Intermares",
+    "instagram": "https://instagram.com/recantodopicuiintermares",
+    "username": "recantodopicuiintermares",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+    "name": "Empadinhas Barnabé - Intermares",
+    "instagram": "https://instagram.com/empbarnabe",
+    "username": "empbarnabe",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+    "name": "Primo Rico",
+    "instagram": "https://instagram.com/primoricopb",
+    "username": "primoricopb",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "a43626c7-89fe-497c-940e-ffeabc8475fb",
+    "name": "Bar e Restaurante do Sumé",
+    "instagram": "https://instagram.com/bardosumepb",
+    "username": "bardosumepb",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "9f1c7086-a96a-49c9-b537-9fb9565841fd",
+    "name": "Ancoradouro Ponta de Campina",
+    "instagram": "https://instagram.com/ancoradourobsrjp",
+    "username": "ancoradourobsrjp",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2",
+    "name": "Skama Bar e Restaurante",
+    "instagram": "https://instagram.com/skamabar_restaurante",
+    "username": "skamabar_restaurante",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "662a40d4-3612-4ca1-ad28-615646294ea8",
+    "name": "Big Jack comida de rua com INSPIRAÇÃO texana",
+    "instagram": "https://instagram.com/bigjack.intermares",
+    "username": "bigjack.intermares",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+    "name": "Pastelaria Litorânea",
+    "instagram": "https://instagram.com/pastelarialitoranea",
+    "username": "pastelarialitoranea",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+    "name": "BAR DO CHEFF RESTAURANTE",
+    "instagram": "https://instagram.com/bardocheffrestaurante",
+    "username": "bardocheffrestaurante",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "a0f83830-77b8-4f8f-850d-be06b6658efb",
+    "name": "Praçaí - Intermares",
+    "instagram": "https://instagram.com/pracaiintermares",
+    "username": "pracaiintermares",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd",
+    "name": "Viciados em Sushi",
+    "instagram": "https://instagram.com/viciadosemsushi",
+    "username": "viciadosemsushi",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "59147bb0-0a1d-4493-a05a-ba54bd8cd26c",
+    "name": "Restaurante Ondas",
+    "instagram": "https://instagram.com/restauranteondas",
+    "username": "restauranteondas",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "fbf76b65-220f-4ae7-89fc-fec690985eda",
+    "name": "Tapiocaria do Dinho",
+    "instagram": "https://instagram.com/tapiocariadinho",
+    "username": "tapiocariadinho",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487",
+    "name": "Residência do Mário",
+    "instagram": "https://instagram.com/residenciadomario",
+    "username": "residenciadomario",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+    "name": "A Casa do Temakinho",
+    "instagram": "https://instagram.com/acasadotemakinho",
+    "username": "acasadotemakinho",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+    "name": "Pizzaria Bom Sabor",
+    "instagram": "https://instagram.com/pizzariabomsaborpb2",
+    "username": "pizzariabomsaborpb2",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+    "name": "PARCEIRO Rosa Lanches",
+    "instagram": "https://instagram.com/rosaalanches_",
+    "username": "rosaalanches_",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "80b5b1fc-6d5a-4b7d-ab56-f1aadcf1c403",
+    "name": "Erste Sonne Cervejaria Independente",
+    "instagram": "https://instagram.com/sonnehaushamburgueria",
+    "username": "sonnehaushamburgueria",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "55d451bc-f6ee-40f5-b611-7ef6158392d5",
+    "name": "Kubanacan Bar e Restaurante",
+    "instagram": "https://instagram.com/kubanacanbaroficial",
+    "username": "kubanacanbaroficial",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+    "name": "Restaurante Pôr do Sol",
+    "instagram": "https://instagram.com/bar_restaurantepordosol",
+    "username": "bar_restaurantepordosol",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "dce45040-f5ad-45a1-9029-04e65ce13e78",
+    "name": "Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB",
+    "instagram": "https://instagram.com/saxcafe",
+    "username": "saxcafe",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+    "name": "Lary's pizzaria e lanchonete",
+    "instagram": "https://instagram.com/laryspizzariaoficial",
+    "username": "laryspizzariaoficial",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "3549abc7-3261-4ec3-af59-820112bd2358",
+    "name": "Cibelly Mar - Restaurante no Por do Sol do Jacaré",
+    "instagram": "https://instagram.com/cibellymarr",
+    "username": "cibellymarr",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "90398f02-4ae4-44a1-bd64-3f008fdca37c",
+    "name": "Bar e Restaurante Solânense",
+    "instagram": "https://instagram.com/restaurante_solanense",
+    "username": "restaurante_solanense",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  }
+]

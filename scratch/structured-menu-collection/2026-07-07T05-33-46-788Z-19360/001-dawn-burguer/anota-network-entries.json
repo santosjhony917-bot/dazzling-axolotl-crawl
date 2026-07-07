@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 204,
+    "contentType": "",
+    "capturedAt": "2026-07-07T05:33:52.491Z",
+    "body": null,
+    "error": "Could not load response body for this request. This might happen if the request is a preflight request."
+  },
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "capturedAt": "2026-07-07T05:33:53.085Z",
+    "body": {
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"66647e483dcef90019f38a5d\",\"webview\":{\"accept_multiple_payments\":true,\"multiple_payments_quantity\":2,\"waiter_accept_tip\":false,\"waiter_tip_percent\":10,\"waiter_order_delivery\":false,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"address_manual\":true,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":true,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"889459456498782\",\"repeat_order_enabled\":true,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"table_seats\":false,\"hide_google_search\":false,\"edit_manual_region\":false,\"add_disposable\":false,\"color_primary\":\"#000000\",\"description\":\"\",\"footer_description\":\"\",\"items_carousel\":\"most_ordered\",\"smart_categories_ordering\":false,\"smart_category_items_ordering\":false,\"header_image_url\":\"\",\"edit_manual_city\":true,\"allow_bill_payment_in_digital_menu\":false,\"allow_idle_tables_display\":true,\"allow_waiter_to_manage_charges\":false,\"display_order_status_on_table\":true,\"table_idle_time_duration\":30,\"waiter_call_enabled\":false,\"waiter_can_cancel_order\":false,\"waiter_can_change_table_and_ticket\":true,\"waiter_can_open_empty_ticket\":false,\"allow_client_cpf_in_ticket\":false,\"allow_open_empty_tickets\":false,\"waiter_can_link_ticket_to_table\":true},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":false},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":false,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"images\":[],\"deactivate_flow_new_salutation_message\":true},\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"none\",\"delivery_man_send_order_info\":true,\"customer_request_notification_song\":\"sound_1\",\"anota_ai_notification_song\":\"low\",\"anota_ai_notification_song_local_table\":\"low\",\"ifood_integration_notification_song\":\"high\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":false},\"cashback\":{\"cashback_by_weekday\":[],\"active\":false,\"cashback_by_category_item\":{\"_id\":\"693f5d7fbc9238c90872de8b\",\"categories\":[]},\"mode\":\"simple\",\"percentage\":5,\"time_to_expire_credits\":15,\"cashback_for_online_payments\":false},\"page_is_online\":true,\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"66647e487624f40019455b1d\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"addressFormated\":\"Rua Augusto Firmo Paulo, 36 - Monte Castelo, Cabedelo - PB, 58.101-015, Brasil\",\"name\":\"Rua Augusto Firmo Paulo\",\"num\":\"36\",\"neighborhood\":\"Monte Castelo\",\"complement\":\"\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.831653,-6.974622999999999]},\"postal_code\":\"58.101-015\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"country\":\"BR\",\"reference\":\"lateral do Banco do Brasil\",\"hided\":false},\"payment_method\":{\"money\":true,\"creditcard\":true,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":true,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"tuna_digital_wallets\":false,\"ifood_payin\":true,\"ifood_payin_credit\":false,\"ifood_payin_debit\":false,\"ifood_payin_nupay\":false,\"ifood_payin_wallets\":false},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whats"
+    },
+    "error": null,
+    "textLength": 158761
+  }
+]

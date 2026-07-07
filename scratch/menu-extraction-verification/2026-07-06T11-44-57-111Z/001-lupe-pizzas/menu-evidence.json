@@ -1,0 +1,74 @@
+{
+  "success": false,
+  "sourceUrl": "https://accon.ai/lupepizzas",
+  "finalUrl": "https://accon.ai/lupepizzas",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.45,
+  "categories": [
+    {
+      "name": "Cardápio",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": null,
+          "name": "LUPE PIZZAS LTDA - 30.27",
+          "description": "3/0001-18",
+          "image_url": null,
+          "price": 8.72,
+          "price_min": 8.72,
+          "price_max": 8.72,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://accon.ai/lupepizzas",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "LUPE PIZZAS LTDA - 30.27",
+            "price": 8.72,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [
+      {
+        "type": "click_text",
+        "text": "Retirar na loja",
+        "success": true,
+        "result": {
+          "tabId": 943017195,
+          "clickedText": "Retirar na loja\nAgendar",
+          "matched": "retirar na loja agendar",
+          "success": true,
+          "tag": "A"
+        },
+        "error": null
+      }
+    ],
+    "verificationSnapshotError": "Timeout aguardando extensao para snapshot",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783338312719_4808v1yl.jpg",
+    "snapshotFile": "cmd_1783338312719_4808v1yl.jpg",
+    "viewportSnapshots": [],
+    "fullPage": true,
+    "segmentCount": 4,
+    "capturedHeight": 2219,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "9af73997-5cdb-4586-8533-3f50d530beea",
+    "name": "Lupe Pizzas",
+    "category": "Pizzaria·",
+    "address": "Av. Manoel Tavares",
+    "phone": "(83) 3065-9199",
+    "instagram": "https://www.instagram.com/lupepizzass/"
+  }
+}

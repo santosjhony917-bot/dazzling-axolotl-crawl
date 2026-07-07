@@ -1,0 +1,84 @@
+{
+  "id": "9b42e70d-f7a8-4db1-bc19-83d935d84b55",
+  "name": "D'gust Lanchonete",
+  "instagram": "https://www.instagram.com/dgust0402/",
+  "followers": 4548,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "63b59cd9-70e1-4a0f-82c0-48f1884b484c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9b42e70d-f7a8-4db1-bc19-83d935d84b55/instagram_1783385873414_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "72049cd4-52bf-4366-ac56-0852a8c5488f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9b42e70d-f7a8-4db1-bc19-83d935d84b55/instagram_1783385874973_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "57194339-3b23-4acd-ae9b-faa3981cca3f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9b42e70d-f7a8-4db1-bc19-83d935d84b55/instagram_1783385875687_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "c5db50df-da3e-4143-8dfc-4bf4412af251",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9b42e70d-f7a8-4db1-bc19-83d935d84b55/instagram_1783385876903_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "80d60ad2-e967-4618-808e-ffa6ce0607ab",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9b42e70d-f7a8-4db1-bc19-83d935d84b55/instagram_1783385877900_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "be80fff5-6277-457a-a72b-f06579b22443",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9b42e70d-f7a8-4db1-bc19-83d935d84b55/instagram_1783385879040_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "83226808-ab2e-434e-a8d1-a29b3fb5a4e7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9b42e70d-f7a8-4db1-bc19-83d935d84b55/instagram_1783385879805_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "b16e960a-23f1-437b-8ab1-a77f1fb317d6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9b42e70d-f7a8-4db1-bc19-83d935d84b55/instagram_1783385880849_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,66 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 1013,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"9b81a369-6a12-4d3a-b98c-8711827c0037\",\"id\":\"7ec202f3-7516-4060-a30f-1860ea910b9a\",\"code\":\"46\",\"ean\":null,\"priority\":1,\"name\":\"Red Bull (Sabores) 250ml\",\"description\":\"Energetico Red Bull em diversos sabores disponiveis\",\"price\":12,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"25b02fe3-a775-4a2a-8e46-4cf5b41fbaf7\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Red Bull (Sabores) 250ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "1"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "9b81a369-6a12-4d3a-b98c-8711827c0037",
+      "id": "7ec202f3-7516-4060-a30f-1860ea910b9a",
+      "code": "46",
+      "ean": null,
+      "priority": 1,
+      "name": "Red Bull (Sabores) 250ml",
+      "description": "Energetico Red Bull em diversos sabores disponiveis",
+      "price": 12,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "25b02fe3-a775-4a2a-8e46-4cf5b41fbaf7",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Red Bull (Sabores) 250ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

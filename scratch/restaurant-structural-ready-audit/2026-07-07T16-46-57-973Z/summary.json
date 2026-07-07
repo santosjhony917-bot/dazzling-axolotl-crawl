@@ -1,0 +1,603 @@
+{
+  "runId": "2026-07-07T16-46-57-973Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T16-46-57-973Z",
+  "scope": {
+    "ids": [
+      "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+      "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+      "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+      "7dfea73b-b593-4acf-8bf1-71a099224008",
+      "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+      "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+      "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+      "a9904835-65ca-4efd-9caf-c8c7354f9ee5",
+      "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 9,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 9,
+  "issueCounts": {
+    "galeria_sem_evidencia_visual_forte": 7,
+    "adicional_salvo_como_item_avulso": 2,
+    "numero_vazio": 3,
+    "opcao_duplicada_no_mesmo_grupo": 4,
+    "item_operacional": 3,
+    "sem_logo": 2,
+    "sem_capa": 2,
+    "galeria_menor_que_3": 2,
+    "sem_categorias_cardapio": 1,
+    "sem_itens_cardapio": 1,
+    "horario_nao_canonico": 1
+  },
+  "audits": [
+    {
+      "id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+      "name": "A Casa do Temakinho",
+      "readiness": "blocked",
+      "redCount": 3,
+      "yellowCount": 0,
+      "issueCount": 3,
+      "categoryCount": 14,
+      "itemCount": 71,
+      "optionCount": 20,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "71 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+        "instagram": "https://www.instagram.com/acasadotemakinho/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:17.851Z",
+          "status": "enriched",
+          "username": "acasadotemakinho",
+          "followers": 5775,
+          "match": {
+            "score": 140,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://api.whatsapp.com/send?phone=5583999449296",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Av. Mar da Irlanda",
+        "number": "222",
+        "neighborhood": "Intermares",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99944-9296",
+        "latitude": -7.042580399999999,
+        "longitude": -34.8430791,
+        "followers": 5775
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        },
+        {
+          "severity": "red",
+          "code": "adicional_salvo_como_item_avulso",
+          "itemId": "9b2838fd-a50b-47fd-b7d2-a8c28e0f2859",
+          "category": "ADICIONAIS EXTRAS",
+          "item": "Adicional temaki joe",
+          "price": 3
+        },
+        {
+          "severity": "red",
+          "code": "adicional_salvo_como_item_avulso",
+          "itemId": "2c2ca2c4-2d5f-444f-a318-e5786c50e809",
+          "category": "ADICIONAIS EXTRAS",
+          "item": "Adicional dos flambado",
+          "price": 1
+        }
+      ]
+    },
+    {
+      "id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+      "name": "Açaí da Hill Point",
+      "readiness": "blocked",
+      "redCount": 2,
+      "yellowCount": 4,
+      "issueCount": 6,
+      "categoryCount": 5,
+      "itemCount": 18,
+      "optionCount": 263,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "18 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/aai-da-hill-point",
+        "instagram": "https://www.instagram.com/acaidahillpoint/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:43.462Z",
+          "status": "enriched",
+          "username": "acaidahillpoint",
+          "followers": 480,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://g.co/kgs/v9qscKp",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Trailer",
+        "number": null,
+        "neighborhood": "Rua Mar das Antilhas",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58102-000",
+        "phone": "(83) 2178-3682",
+        "latitude": -7.0425897,
+        "longitude": -34.844207,
+        "followers": 480
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "numero_vazio"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        },
+        {
+          "severity": "yellow",
+          "code": "opcao_duplicada_no_mesmo_grupo",
+          "item": "Açaí 300ml",
+          "group": "Adicionais",
+          "option": "Jujuba"
+        },
+        {
+          "severity": "yellow",
+          "code": "opcao_duplicada_no_mesmo_grupo",
+          "item": "Creme de Ninho 300ml",
+          "group": "Adicionais",
+          "option": "Geleia de Frutas Vermelhas"
+        },
+        {
+          "severity": "yellow",
+          "code": "opcao_duplicada_no_mesmo_grupo",
+          "item": "Creme de Ninho 300ml",
+          "group": "Adicionais",
+          "option": "Pasta de Amendoin"
+        },
+        {
+          "severity": "yellow",
+          "code": "opcao_duplicada_no_mesmo_grupo",
+          "item": "Creme de Ninho 300ml",
+          "group": "Adicionais",
+          "option": "Jujuba"
+        }
+      ]
+    },
+    {
+      "id": "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+      "name": "BAR DO CHEFF RESTAURANTE",
+      "readiness": "blocked",
+      "redCount": 4,
+      "yellowCount": 0,
+      "issueCount": 4,
+      "categoryCount": 3,
+      "itemCount": 41,
+      "optionCount": 2,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "41 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": null,
+        "instagram": "https://www.instagram.com/bardocheffrestaurante/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:01.291Z",
+          "status": "enriched",
+          "username": "bardocheffrestaurante",
+          "followers": 588,
+          "match": {
+            "score": 145,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "bioLink": null,
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Av. Mar Vermelho",
+        "number": "357",
+        "neighborhood": "Lj 12 - Intermares",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-120",
+        "phone": "(83) 98842-9424",
+        "latitude": -7.044607,
+        "longitude": -34.844867,
+        "followers": 588
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        },
+        {
+          "severity": "red",
+          "code": "item_operacional",
+          "itemId": "a492efbe-9d4f-47d1-9d53-8b45f98ca77f",
+          "item": "Medalhão de Filet ao molho mostarda p/ 2 pessoas"
+        },
+        {
+          "severity": "red",
+          "code": "item_operacional",
+          "itemId": "47eea305-e2aa-4016-aaaa-fe05a3d39bf1",
+          "item": "Medalhões de filé ao molho queijo e mostarda p/ 2 pessoas"
+        },
+        {
+          "severity": "red",
+          "code": "item_operacional",
+          "itemId": "4aab810e-c770-404b-ae57-20c59210249c",
+          "item": "Filé de frango ao molho de mostarda p/02 pessoas"
+        }
+      ]
+    },
+    {
+      "id": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+      "name": "Espetinho da praia Intermares",
+      "readiness": "blocked",
+      "redCount": 3,
+      "yellowCount": 0,
+      "issueCount": 3,
+      "categoryCount": 9,
+      "itemCount": 61,
+      "optionCount": 19,
+      "galleryCount": 0,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "menuStatusReason": "61 itens estruturados via anota_ai_network; aguardando mídia antes de Prontos p/ App: logo, capa, galeria_min_3.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+        "instagram": null,
+        "mediaLog": null
+      },
+      "fields": {
+        "address": "Av. Oceano Atlântico",
+        "number": "1972",
+        "neighborhood": "Intermares",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 2182-4436",
+        "latitude": -7.0449253999999994,
+        "longitude": -34.8416297,
+        "followers": null
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "sem_logo"
+        },
+        {
+          "severity": "red",
+          "code": "sem_capa"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_menor_que_3",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+      "name": "Pizza do Paulinho",
+      "readiness": "blocked",
+      "redCount": 3,
+      "yellowCount": 0,
+      "issueCount": 3,
+      "categoryCount": 0,
+      "itemCount": 0,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": false,
+      "menuStatus": "needs_recollection",
+      "menuStatusReason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 129.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+        "instagram": "https://www.instagram.com/pizzadopaulinhopb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:19.584Z",
+          "status": "enriched",
+          "username": "pizzadopaulinhopb",
+          "followers": 3823,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://shre.ink/DaCv",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Av. Monsenhor José da Silva Coutinho",
+        "number": "113",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58103-332",
+        "phone": "(83) 98852-8675",
+        "latitude": -6.9847832,
+        "longitude": -34.830605999999996,
+        "followers": 3823
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        },
+        {
+          "severity": "red",
+          "code": "sem_categorias_cardapio"
+        },
+        {
+          "severity": "red",
+          "code": "sem_itens_cardapio"
+        }
+      ]
+    },
+    {
+      "id": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+      "name": "Pizza Now - Intermares",
+      "readiness": "blocked",
+      "redCount": 3,
+      "yellowCount": 0,
+      "issueCount": 3,
+      "categoryCount": 6,
+      "itemCount": 31,
+      "optionCount": 104,
+      "galleryCount": 0,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "menuStatusReason": "31 itens estruturados via anota_ai_network; aguardando mídia antes de Prontos p/ App: logo, capa, galeria_min_3.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/pizza-now-intermares",
+        "instagram": null,
+        "mediaLog": null
+      },
+      "fields": {
+        "address": "Av. Oceano Atlântico",
+        "number": "1592",
+        "neighborhood": "Lj 14 - Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58101-650",
+        "phone": "0800 012 2000",
+        "latitude": -7.0323072,
+        "longitude": -34.8348478,
+        "followers": null
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "sem_logo"
+        },
+        {
+          "severity": "red",
+          "code": "sem_capa"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_menor_que_3",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "id": "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6",
+      "name": "Pizzaria 1000Graus",
+      "readiness": "blocked",
+      "redCount": 2,
+      "yellowCount": 0,
+      "issueCount": 2,
+      "categoryCount": 3,
+      "itemCount": 18,
+      "optionCount": 219,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "18 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": null,
+        "instagram": "https://www.instagram.com/1000grauspizzaria_/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:59.680Z",
+          "status": "enriched",
+          "username": "1000grauspizzaria_",
+          "followers": 9164,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": null,
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": "60",
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-000",
+        "phone": "(83) 99329-1827",
+        "latitude": -6.972387599999999,
+        "longitude": -34.8335572,
+        "followers": 9164
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "horario_nao_canonico"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        }
+      ]
+    },
+    {
+      "id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+      "name": "Route Hot Dogs",
+      "readiness": "blocked",
+      "redCount": 2,
+      "yellowCount": 0,
+      "issueCount": 2,
+      "categoryCount": 5,
+      "itemCount": 20,
+      "optionCount": 76,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "20 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/route-hot-dogs",
+        "instagram": "https://www.instagram.com/routehotdogs/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:36.151Z",
+          "status": "enriched",
+          "username": "routehotdogs",
+          "followers": 4030,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://wa.me/message/S2WMQFVFVE2RB1",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Av. Mar das Antilhas",
+        "number": null,
+        "neighborhood": "Intermares",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58102-212",
+        "phone": "(83) 99878-4228",
+        "latitude": -7.0424896,
+        "longitude": -34.8441311,
+        "followers": 4030
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "numero_vazio"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        }
+      ]
+    },
+    {
+      "id": "a9904835-65ca-4efd-9caf-c8c7354f9ee5",
+      "name": "Self-service da nany",
+      "readiness": "blocked",
+      "redCount": 2,
+      "yellowCount": 0,
+      "issueCount": 2,
+      "categoryCount": 3,
+      "itemCount": 12,
+      "optionCount": 33,
+      "galleryCount": 6,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "12 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": null,
+        "instagram": "https://www.instagram.com/selfservicedanany_/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:47.285Z",
+          "status": "enriched",
+          "username": "selfservicedanany_",
+          "followers": 2497,
+          "match": {
+            "score": 180,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "bioLink": null,
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Monsenhor Valfredo Leal",
+        "number": null,
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99101-1680",
+        "latitude": -6.971718699999999,
+        "longitude": -34.8374289,
+        "followers": 2497
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "numero_vazio"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        }
+      ]
+    }
+  ]
+}

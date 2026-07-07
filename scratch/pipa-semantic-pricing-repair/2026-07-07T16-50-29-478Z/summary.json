@@ -1,0 +1,1109 @@
+{
+  "runId": "2026-07-07T16-50-29-478Z",
+  "mode": "dry-run",
+  "outDir": "scratch\\pipa-semantic-pricing-repair\\2026-07-07T16-50-29-478Z",
+  "countsBefore": {
+    "items": 80,
+    "groups": 128,
+    "options": 970,
+    "availableOptions": 645
+  },
+  "finalPriceGroupsBefore": 7,
+  "operationalOptionsBefore": 0,
+  "emptyOperationalGroupsBefore": 0,
+  "appliedCounts": {
+    "finalPriceGroups": 0,
+    "builderBaseItems": 0,
+    "disabledOperationalOptionSamples": 0,
+    "removedEmptyOperationalGroupSamples": 0
+  },
+  "countsAfter": {
+    "items": 80,
+    "groups": 128,
+    "options": 970,
+    "availableOptions": 645
+  },
+  "finalPriceGroupsAfter": 7,
+  "builderBaseItemsBefore": 2,
+  "builderBaseItemsAfter": 2,
+  "operationalOptionsAfter": 0,
+  "emptyOperationalGroupsAfter": 0,
+  "stillSuspiciousAfter": 0,
+  "examplesBefore": [
+    {
+      "category": "Entradas Clássicas!",
+      "itemId": "1b9fc09c-2789-42ac-bb13-0965f34d48cb",
+      "item": "Sunomono's",
+      "base": 19.9,
+      "sourceBase": 0,
+      "groupId": "2cb7e067-39c4-473d-8cc9-c68decb6225a",
+      "group": "Escolha seu sunomono",
+      "beforeGroup": {
+        "min_quantity": 1,
+        "max_quantity": 5,
+        "is_required": true,
+        "price_behavior": "absolute_price",
+        "semantic_type": "required_choice"
+      },
+      "afterGroup": {
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "is_required": true,
+        "price_behavior": "price_delta",
+        "semantic_type": "required_choice"
+      },
+      "optionCount": 4,
+      "examples": [
+        {
+          "id": "be634430-727d-4aca-a2a4-9d32ce094ed5",
+          "name": "Sunomono Kani",
+          "before": {
+            "price": 21,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 21,
+            "price_delta": 1.1,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "f914ea7a-8a93-456f-b79b-e6bfa1784b69",
+          "name": "Sunomono tradicional",
+          "before": {
+            "price": null,
+            "price_delta": 32.9,
+            "price_behavior": "price_delta"
+          },
+          "after": {
+            "price": 32.9,
+            "price_delta": 13,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "bfda5ff5-dd81-461e-9ce2-8e4cb5ea6868",
+          "name": "Sunomono Pepino",
+          "before": {
+            "price": 19.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 19.9,
+            "price_delta": 0,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "89e3fae1-638e-4cd8-8e38-5a9494932613",
+          "name": "Sunomono Pipa",
+          "before": {
+            "price": 36.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 36.9,
+            "price_delta": 17,
+            "price_behavior": "price_delta"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Temaki's!",
+      "itemId": "1d607a8d-f630-4216-b7e8-e63cd8b57854",
+      "item": "Temaki Variados",
+      "base": 8.5,
+      "sourceBase": 0,
+      "groupId": "81d76214-789e-441d-95f3-7a1acb4e9de7",
+      "group": "Escolha seu Temaki",
+      "beforeGroup": {
+        "min_quantity": 1,
+        "max_quantity": 20,
+        "is_required": true,
+        "price_behavior": "absolute_price",
+        "semantic_type": "required_choice"
+      },
+      "afterGroup": {
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "is_required": true,
+        "price_behavior": "price_delta",
+        "semantic_type": "required_choice"
+      },
+      "optionCount": 5,
+      "examples": [
+        {
+          "id": "d5a3dc9a-7a70-4131-bccc-47b375425001",
+          "name": "Temaki Califórnia",
+          "before": {
+            "price": 27.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 27.9,
+            "price_delta": 19.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "46c72893-d98e-4f4a-b2b7-42d629632851",
+          "name": "Temaki Tako",
+          "before": {
+            "price": 36.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 36.9,
+            "price_delta": 28.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "94b34e94-77c2-4d1f-a74c-e02a92372314",
+          "name": "Temaki Shitake Yaki",
+          "before": {
+            "price": 32.5,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 32.5,
+            "price_delta": 24,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "75d2deb9-f705-4879-8e96-e6356149cd46",
+          "name": "Temaki Shimeji",
+          "before": {
+            "price": 35.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 35.9,
+            "price_delta": 27.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "db750f67-8439-4f09-8ba6-61381019631a",
+          "name": "Temaki Kani Kama",
+          "before": {
+            "price": 27.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 27.9,
+            "price_delta": 19.4,
+            "price_behavior": "price_delta"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Temaki's!",
+      "itemId": "5523a3ab-79e9-43ad-b146-d214b115cfcd",
+      "item": "Temaki's À Base De Salmão",
+      "base": 8.5,
+      "sourceBase": 0,
+      "groupId": "9577928a-3bd7-40a8-b5e1-62d4191709ce",
+      "group": "Escolha seu temaki",
+      "beforeGroup": {
+        "min_quantity": 1,
+        "max_quantity": 20,
+        "is_required": true,
+        "price_behavior": "absolute_price",
+        "semantic_type": "required_choice"
+      },
+      "afterGroup": {
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "is_required": true,
+        "price_behavior": "price_delta",
+        "semantic_type": "required_choice"
+      },
+      "optionCount": 10,
+      "examples": [
+        {
+          "id": "0f855f1f-257d-459b-953d-fd15204f3269",
+          "name": "Temaki sake",
+          "before": {
+            "price": 35,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 35,
+            "price_delta": 26.5,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "b1f0c8de-607d-4487-9c5d-8f8cecc912f2",
+          "name": "Temaki Salmão Flambado",
+          "before": {
+            "price": 35,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 35,
+            "price_delta": 26.5,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "a66e53a2-0793-4a31-b325-45069043be7f",
+          "name": "Temaki Hot Filadélfia",
+          "before": {
+            "price": 29.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 29.9,
+            "price_delta": 21.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "ec5a34a2-d821-4d31-a768-efc196c5f15a",
+          "name": "Temaki Filadélfia",
+          "before": {
+            "price": 28.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 28.9,
+            "price_delta": 20.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "67f69244-97b1-4ceb-a13a-c7418c18c2d7",
+          "name": "Temaki Hot Roll",
+          "before": {
+            "price": 35.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 35.9,
+            "price_delta": 27.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "3c79edf3-f710-4132-adff-b955d6a178b3",
+          "name": "Temaki Sake com Furikake",
+          "before": {
+            "price": 40,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 40,
+            "price_delta": 31.5,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "5fc53426-d675-4337-ae86-cfbc9eeed571",
+          "name": "Temaki Skin",
+          "before": {
+            "price": 18,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 18,
+            "price_delta": 9.5,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "b8692227-4ad4-4041-819a-7d3c6dcc51be",
+          "name": "Temaki Pipa temaki",
+          "before": {
+            "price": 38.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 38.9,
+            "price_delta": 30.4,
+            "price_behavior": "price_delta"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Temaki's!",
+      "itemId": "b5df318f-6306-40a2-99fa-4c6a89dcb7b3",
+      "item": "Temaki's Jhoo",
+      "base": 5.61,
+      "sourceBase": 5.61,
+      "groupId": "a45bf8ea-d325-4983-b568-3170a82d04a8",
+      "group": "Temaki's Jhoo",
+      "beforeGroup": {
+        "min_quantity": 1,
+        "max_quantity": 10,
+        "is_required": true,
+        "price_behavior": "absolute_price",
+        "semantic_type": "required_choice"
+      },
+      "afterGroup": {
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "is_required": true,
+        "price_behavior": "price_delta",
+        "semantic_type": "required_choice"
+      },
+      "optionCount": 5,
+      "examples": [
+        {
+          "id": "fadbc0ae-01c0-4bb6-9498-636dbd171ac1",
+          "name": "Temaki Jhoo Flambado Com Camarão",
+          "before": {
+            "price": 61,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 61,
+            "price_delta": 55.39,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "13b817b2-64b7-4e72-88cd-6f262812464e",
+          "name": "Temaki Jhoo Flambado Com Shitake",
+          "before": {
+            "price": 55.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 55.9,
+            "price_delta": 50.29,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "ffdbf342-da26-4ebe-8e32-a072250721a2",
+          "name": "Temaki Jhoo Flambado com Salmão",
+          "before": {
+            "price": 62.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 62.9,
+            "price_delta": 57.29,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "8a49eec2-76e3-469e-afa5-d8785bf803ee",
+          "name": "Temaki Jhoo Flambado com Shimeji",
+          "before": {
+            "price": 59.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 59.9,
+            "price_delta": 54.29,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "749ccf0c-49cc-4fc3-8c78-bd41e6e29753",
+          "name": "Temaki Jhoo Ebitem",
+          "before": {
+            "price": 61,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 61,
+            "price_delta": 55.39,
+            "price_behavior": "price_delta"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Os Mais Vendidos Do Ifood!",
+      "itemId": "899c502a-bef0-4c46-9b4b-3cf4aab0e79f",
+      "item": "Temaki's À Base De Salmão",
+      "base": 8.5,
+      "sourceBase": 0,
+      "groupId": "b4c87983-a240-485b-9fdc-7ec4c5f041aa",
+      "group": "Escolha seu temaki",
+      "beforeGroup": {
+        "min_quantity": 1,
+        "max_quantity": 20,
+        "is_required": true,
+        "price_behavior": "absolute_price",
+        "semantic_type": "required_choice"
+      },
+      "afterGroup": {
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "is_required": true,
+        "price_behavior": "price_delta",
+        "semantic_type": "required_choice"
+      },
+      "optionCount": 10,
+      "examples": [
+        {
+          "id": "6b62594d-471c-4deb-bb87-b541dc4f9d69",
+          "name": "Temaki sake",
+          "before": {
+            "price": 35,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 35,
+            "price_delta": 26.5,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "77cce9dc-6f2d-46c4-9736-0cb570ccf352",
+          "name": "Temaki Salmão Flambado",
+          "before": {
+            "price": 35,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 35,
+            "price_delta": 26.5,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "ef4e613e-97b1-4adb-b0f2-9cee1143b8f9",
+          "name": "Temaki Hot Filadélfia",
+          "before": {
+            "price": 29.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 29.9,
+            "price_delta": 21.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "600afaaa-87f3-46fa-8d7a-f5025bb50206",
+          "name": "Temaki Filadélfia",
+          "before": {
+            "price": 28.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 28.9,
+            "price_delta": 20.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "cd774246-2856-4bf0-8c0c-ee97ec674cd5",
+          "name": "Temaki Hot Roll",
+          "before": {
+            "price": 35.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 35.9,
+            "price_delta": 27.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "2cee4f84-f124-471f-8855-969609ee6239",
+          "name": "Temaki Sake com Furikake",
+          "before": {
+            "price": 40,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 40,
+            "price_delta": 31.5,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "aa941c26-db35-4b4a-b76a-29cccd59e87f",
+          "name": "Temaki Skin",
+          "before": {
+            "price": 18,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 18,
+            "price_delta": 9.5,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "a713fa65-c5c7-4994-8cf3-8856fc6226a8",
+          "name": "Temaki Pipa temaki",
+          "before": {
+            "price": 38.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 38.9,
+            "price_delta": 30.4,
+            "price_behavior": "price_delta"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Temaki's!",
+      "itemId": "88d66a23-83a4-4480-928e-239879301cd7",
+      "item": "Temaki's À Base De Camarão",
+      "base": 8.5,
+      "sourceBase": 0,
+      "groupId": "ef82b4c2-9fc0-4560-9833-47b3b2881cbe",
+      "group": "Escolha seu Temaki",
+      "beforeGroup": {
+        "min_quantity": 1,
+        "max_quantity": 20,
+        "is_required": true,
+        "price_behavior": "absolute_price",
+        "semantic_type": "required_choice"
+      },
+      "afterGroup": {
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "is_required": true,
+        "price_behavior": "price_delta",
+        "semantic_type": "required_choice"
+      },
+      "optionCount": 2,
+      "examples": [
+        {
+          "id": "82106b11-9836-4e13-a8d5-a2667ad78602",
+          "name": "Temaki Ebitem",
+          "before": {
+            "price": 32.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 32.9,
+            "price_delta": 24.4,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "74d7d83a-a8e6-409f-9a19-37a090f66802",
+          "name": "Temaki Camarão Natural",
+          "before": {
+            "price": 33.5,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 33.5,
+            "price_delta": 25,
+            "price_behavior": "price_delta"
+          }
+        }
+      ]
+    },
+    {
+      "category": "Entradas Clássicas!",
+      "itemId": "e1b55ce1-b3b9-4f54-9bcc-ada5f49bca94",
+      "item": "Harukari",
+      "base": 14.9,
+      "sourceBase": 0,
+      "groupId": "b10dac00-5934-4952-96b7-5ec1ae7889d8",
+      "group": "Escolha a quantidade",
+      "beforeGroup": {
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "is_required": true,
+        "price_behavior": "absolute_price",
+        "semantic_type": "required_choice"
+      },
+      "afterGroup": {
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "is_required": true,
+        "price_behavior": "price_delta",
+        "semantic_type": "required_choice"
+      },
+      "optionCount": 3,
+      "examples": [
+        {
+          "id": "16c97abc-b0b2-4eae-8317-0e962a6c2b40",
+          "name": "1 unidade",
+          "before": {
+            "price": 14.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 14.9,
+            "price_delta": 0,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "1a6a94ac-3fcf-451f-90cc-19b8c1a6590a",
+          "name": "2 unidades",
+          "before": {
+            "price": 28.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 28.9,
+            "price_delta": 14,
+            "price_behavior": "price_delta"
+          }
+        },
+        {
+          "id": "73c8d70f-b9b1-49de-a79d-f86a72657d4d",
+          "name": "5 unidades",
+          "before": {
+            "price": 69.9,
+            "price_delta": null,
+            "price_behavior": "absolute_price"
+          },
+          "after": {
+            "price": 69.9,
+            "price_delta": 55,
+            "price_behavior": "price_delta"
+          }
+        }
+      ]
+    }
+  ],
+  "builderExamplesBefore": [
+    {
+      "itemId": "e5d6f1df-76c6-4df6-9137-67ea30f7a109",
+      "item": "Monte Seu Combinado!",
+      "before": {
+        "price": 19.9,
+        "display_price": 19.9,
+        "price_min": 19.9,
+        "price_max": 39.9,
+        "price_type": "starting_at",
+        "commercial_type": "configurable_item"
+      },
+      "after": {
+        "price": null,
+        "display_price": null,
+        "price_min": null,
+        "price_max": null,
+        "price_type": "option_only",
+        "commercial_type": "combo_builder"
+      },
+      "groupCount": 10,
+      "activeOptionCount": 59,
+      "examples": [
+        {
+          "group": "Escolha Os Niguiris (5 Und.)",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Niguiri Peixe Branco",
+              "price": 32.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 32.5
+            },
+            {
+              "name": "Niguiri Skin",
+              "price": 25,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 25
+            },
+            {
+              "name": "Niguiri Sake Furai",
+              "price": 37.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 37.9
+            },
+            {
+              "name": "Niguiri salmão",
+              "price": 36.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 36.9
+            }
+          ]
+        },
+        {
+          "group": "Escolha Os Sashimis (5 Und.)",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Sashimi Camarão",
+              "price": 32.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 32.5
+            },
+            {
+              "name": "Sashimi Kani Kama",
+              "price": 23,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 23
+            },
+            {
+              "name": "Sashimi Peixe Branco",
+              "price": 24.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 24.9
+            },
+            {
+              "name": "Sashimi Salmão",
+              "price": 32.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 32.9
+            }
+          ]
+        },
+        {
+          "group": "Maki Furai (5 Und.)",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Maki Furai Hot Filadélfia",
+              "price": 25.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 25.9
+            },
+            {
+              "name": "Maki Furai Hot Camarão",
+              "price": 29.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 29.5
+            },
+            {
+              "name": "Maki Furai Hot Roll",
+              "price": 27.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 27.5
+            },
+            {
+              "name": "Maki Furai Hot Carioca",
+              "price": 27.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 27.9
+            }
+          ]
+        },
+        {
+          "group": "Jhoo's e Kani's ( 4 Unidades )",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Kani queijo",
+              "price": 19.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 19.9
+            },
+            {
+              "name": "Kani Sake",
+              "price": 23.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 23.5
+            },
+            {
+              "name": "Kani queijo Hot",
+              "price": 21,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 21
+            },
+            {
+              "name": "Jhoo de camarão",
+              "price": 33.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 33.9
+            }
+          ]
+        },
+        {
+          "group": "Uramaki's",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Uramaki Skin",
+              "price": 19.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 19.9
+            },
+            {
+              "name": "Uramaki Ebi",
+              "price": 25.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 25.5
+            },
+            {
+              "name": "Uramaki Califórnia",
+              "price": 24.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 24.9
+            },
+            {
+              "name": "Uramaki Ebitem",
+              "price": 26.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 26.9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "itemId": "63e94116-362a-459e-8842-a732a185a914",
+      "item": "Monte Seu Combinado!",
+      "before": {
+        "price": 19.9,
+        "display_price": 19.9,
+        "price_min": 19.9,
+        "price_max": 39.9,
+        "price_type": "starting_at",
+        "commercial_type": "configurable_item"
+      },
+      "after": {
+        "price": null,
+        "display_price": null,
+        "price_min": null,
+        "price_max": null,
+        "price_type": "option_only",
+        "commercial_type": "combo_builder"
+      },
+      "groupCount": 10,
+      "activeOptionCount": 59,
+      "examples": [
+        {
+          "group": "Escolha Os Niguiris (5 Und.)",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Niguiri Peixe Branco",
+              "price": 32.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 32.5
+            },
+            {
+              "name": "Niguiri Skin",
+              "price": 25,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 25
+            },
+            {
+              "name": "Niguiri Sake Furai",
+              "price": 37.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 37.9
+            },
+            {
+              "name": "Niguiri salmão",
+              "price": 36.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 36.9
+            }
+          ]
+        },
+        {
+          "group": "Escolha Os Sashimis (5 Und.)",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Sashimi Camarão",
+              "price": 32.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 32.5
+            },
+            {
+              "name": "Sashimi Kani Kama",
+              "price": 23,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 23
+            },
+            {
+              "name": "Sashimi Peixe Branco",
+              "price": 24.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 24.9
+            },
+            {
+              "name": "Sashimi Salmão",
+              "price": 32.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 32.9
+            }
+          ]
+        },
+        {
+          "group": "Maki Furai (5 Und.)",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Maki Furai Hot Filadélfia",
+              "price": 25.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 25.9
+            },
+            {
+              "name": "Maki Furai Hot Camarão",
+              "price": 29.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 29.5
+            },
+            {
+              "name": "Maki Furai Hot Roll",
+              "price": 27.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 27.5
+            },
+            {
+              "name": "Maki Furai Hot Carioca",
+              "price": 27.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 27.9
+            }
+          ]
+        },
+        {
+          "group": "Jhoo's e Kani's ( 4 Unidades )",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Kani queijo",
+              "price": 19.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 19.9
+            },
+            {
+              "name": "Kani Sake",
+              "price": 23.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 23.5
+            },
+            {
+              "name": "Kani queijo Hot",
+              "price": 21,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 21
+            },
+            {
+              "name": "Jhoo de camarão",
+              "price": 33.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 33.9
+            }
+          ]
+        },
+        {
+          "group": "Uramaki's",
+          "min_quantity": 0,
+          "max_quantity": 10,
+          "sampleOptions": [
+            {
+              "name": "Uramaki Skin",
+              "price": 19.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 19.9
+            },
+            {
+              "name": "Uramaki Ebi",
+              "price": 25.5,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 25.5
+            },
+            {
+              "name": "Uramaki Califórnia",
+              "price": 24.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 24.9
+            },
+            {
+              "name": "Uramaki Ebitem",
+              "price": 26.9,
+              "price_delta": null,
+              "price_behavior": "absolute_price",
+              "rawPrice": 26.9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "examplesApplied": [],
+  "builderExamplesApplied": [],
+  "stillSuspicious": []
+}

@@ -1,0 +1,48 @@
+{
+  "id": "27df6fb8-c364-4b9d-be49-8ddb961464a2",
+  "name": "Cosmo Lanches",
+  "category": "Lanchonete",
+  "neighborhood": "Jardim Beta",
+  "reviews_count": 6,
+  "rating": 5,
+  "instagramCandidate": "https://instagram.com/cosmolanchesoficial",
+  "score": 80,
+  "title": "Cosmo Lanches (@cosmolanchesoficial)",
+  "queries": [
+    "Cosmo Lanches cosmolanchesoficial Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/cosmolanchesoficial | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://www.instagram.com/cosmolanchesoficial/ | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://instagram.com/cosmolanchesoficial | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://instagram.com/cosmolanchesoficial",
+  "rowName": "Cosmo Lanches",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": 22,
+    "url": "https://instagram.com/cosmolanchesoficial",
+    "handle": "cosmolanchesoficial",
+    "tokens": [
+      "cosmo"
+    ],
+    "handleMatches": [
+      "cosmo"
+    ],
+    "textMatches": [
+      "cosmo"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": false,
+    "evidenceSample": "Cosmo Lanches (@cosmolanchesoficial) https://instagram.com/cosmolanchesoficial | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://www.instagram.com/cosmolanchesoficial/ | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://instagram.com/cosmolanchesoficial | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://instagram.com/cosmolanchesoficial Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minim",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fcosmolanchesoficial%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "c660bade-22d4-4175-8cfa-5e4fa056bfce"
+}

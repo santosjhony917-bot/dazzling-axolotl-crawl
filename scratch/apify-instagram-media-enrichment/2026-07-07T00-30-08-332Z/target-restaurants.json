@@ -1,0 +1,182 @@
+[
+  {
+    "id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+    "name": "VITAMINA DE AÇAÍ",
+    "instagram": "https://instagram.com/vitaminadeacai__",
+    "username": "vitaminadeacai__",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "4a19815d-0292-4285-bf3a-25df89ef2bf6",
+    "name": "Queens do Açaí",
+    "instagram": "https://instagram.com/queensdoacai",
+    "username": "queensdoacai",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "a9c18317-7315-45ac-b488-831923c9fd56",
+    "name": "Deu Pizza Cabedelo",
+    "instagram": "https://instagram.com/deupizzacabedelo",
+    "username": "deupizzacabedelo",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+    "name": "Ilovepizzapb",
+    "instagram": "https://instagram.com/ilovepizzapb",
+    "username": "ilovepizzapb",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "667aba33-ec9a-46e2-a5a9-9730071371c3",
+    "name": "Kioske Cantinho do Sabor",
+    "instagram": "https://instagram.com/kioskecantinhodosabor",
+    "username": "kioskecantinhodosabor",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "9488d27a-7737-4c86-b059-0e16a6fb049d",
+    "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+    "instagram": "https://instagram.com/lovinapontadecampina",
+    "username": "lovinapontadecampina",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "acb457db-a5d7-408e-a3b5-c9cfb3caff7b",
+    "name": "Cibelly Bar & Restaurante",
+    "instagram": "https://instagram.com/cibellybar",
+    "username": "cibellybar",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "0076b4c5-2d07-416e-a1ac-3ed9e83e02e5",
+    "name": "Gigante Do Mar Beach",
+    "instagram": "https://instagram.com/gigantedomaroficial",
+    "username": "gigantedomaroficial",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "8162456c-2817-4a8a-bbab-aa875c29419e",
+    "name": "Bar das Meninas Restaurante",
+    "instagram": "https://instagram.com/meninasbar",
+    "username": "meninasbar",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "d7d014d6-8d90-440c-a2ab-caee3b86bb0d",
+    "name": "Tenda Formosa Bar & Restaurante",
+    "instagram": "https://instagram.com/tendaformosaoficial",
+    "username": "tendaformosaoficial",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  }
+]

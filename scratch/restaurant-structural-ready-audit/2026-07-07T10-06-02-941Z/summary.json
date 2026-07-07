@@ -1,0 +1,865 @@
+{
+  "runId": "2026-07-07T10-06-02-941Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T10-06-02-941Z",
+  "scope": {
+    "ids": [
+      "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "ecac91e3-52c0-4780-9867-6b3b1d096089"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 3,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 2,
+  "issueCounts": {
+    "opcao_price_delta_sem_delta_positivo": 86
+  },
+  "audits": [
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "readiness": "blocked",
+      "redCount": 25,
+      "yellowCount": 0,
+      "issueCount": 25,
+      "categoryCount": 3,
+      "itemCount": 16,
+      "optionCount": 103,
+      "galleryCount": 4,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "QA estrutural do banco aprovada: cardapio, adicionais, endereco, horario, logo, capa e galeria passaram sem bloqueios.",
+      "source": {
+        "menu": "https://app.anota.ai/m/MeIU-tixw",
+        "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:24.855Z",
+          "status": "enriched",
+          "username": "euqueropizzafoodtruck",
+          "followers": 8518,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.anota.ai/m/MeIU-tixw",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. da Enseada",
+        "number": null,
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99857-3813",
+        "latitude": -7.0311872,
+        "longitude": -34.8335814,
+        "followers": 8518
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Mussarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Frango Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Franpiry Com Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Frango com Creme Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Milho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Brasileira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Milho C Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Marguerita",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Lombinho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Frango C Milho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "GRANDE",
+          "group": "sabor GRANDE",
+          "option": "Mista",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "PEQUENA",
+          "group": "sabor PEQUENA",
+          "option": "Mussarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "PEQUENA",
+          "group": "sabor PEQUENA",
+          "option": "Mista",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Frango",
+          "priceDelta": null
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Pizza Grande Marguerita",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Pizza Frango Catupiry",
+          "priceDelta": null
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Portuguesa",
+          "priceDelta": null
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Calabresa",
+          "priceDelta": null
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Pizza Frango C Milho",
+          "priceDelta": null
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Pizza Brasileira",
+          "priceDelta": null
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Pizza Milho C Bacon",
+          "priceDelta": null
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Pizza Mussarela",
+          "priceDelta": null
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Combo 4",
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Mista",
+          "priceDelta": null
+        }
+      ]
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 10,
+      "itemCount": 112,
+      "optionCount": 791,
+      "galleryCount": 3,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "112 itens estruturados via cardapio_web; mídia mínima completa.",
+      "source": {
+        "menu": "https://app.cardapioweb.com/i_loveburguer",
+        "instagram": "https://www.instagram.com/iloveburguerpb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:30.844Z",
+          "status": "enriched",
+          "username": "iloveburguerpb",
+          "followers": 9915,
+          "match": {
+            "score": 140,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/i_loveburguer",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Praça Getúlio Vargas",
+        "number": "107",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-305",
+        "phone": "(83) 99311-5016",
+        "latitude": -6.9706589,
+        "longitude": -34.8371018,
+        "followers": 9915
+      },
+      "issues": []
+    },
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "readiness": "blocked",
+      "redCount": 61,
+      "yellowCount": 0,
+      "issueCount": 61,
+      "categoryCount": 3,
+      "itemCount": 21,
+      "optionCount": 379,
+      "galleryCount": 6,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "QA estrutural do banco aprovada: cardapio, adicionais, endereco, horario, logo, capa e galeria passaram sem bloqueios.",
+      "source": {
+        "menu": "https://app.cardapioweb.com/ilove_pizza",
+        "instagram": "https://www.instagram.com/ilovepizzapb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:24.975Z",
+          "status": "enriched",
+          "username": "ilovepizzapb",
+          "followers": 3095,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/ilove_pizza",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": null,
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-263",
+        "phone": "(83) 99631-6245",
+        "latitude": -6.9712105,
+        "longitude": -34.8370758,
+        "followers": 3095
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Mussarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango e Milho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango com Cream Cheese",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango com Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "A moda da casa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango com Barbecue",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Calabresa com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Calabresa com Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Caipira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Calabresa com Barbecue",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Siciliana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Medway",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Marguerita",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Mista",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Milho e Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Americana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Chocolate ao Leite",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Chocolate Branco",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Dois Amores",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Doce de Leite",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Sensação",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Paçoca",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Churros",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Romeu e Julieta",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Cartola",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Pequena",
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Chocolate com Banana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Mussarela",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Maria bonita",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango e Milho",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango com Cream Cheese",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango com Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango com Barbecue",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Calabresa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Calabresa com Catupiry",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Calabresa com Cheddar",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Caipira",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Calabresa com Barbecue",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Siciliana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Medway",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Marguerita",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Mista",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Milho e Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Bacon",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Americana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Portuguesa",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Chocolate ao Leite",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Chocolate Branco",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Dois Amores",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Doce de Leite",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Sensação",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Paçoca",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Churros",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Romeu e Julieta",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Cartola",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "Chocolate com Banana",
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_sem_delta_positivo",
+          "item": "Pizza Grande",
+          "group": "Escolha sua Pizza Grande",
+          "option": "A moda da casa",
+          "priceDelta": 0
+        }
+      ]
+    }
+  ]
+}

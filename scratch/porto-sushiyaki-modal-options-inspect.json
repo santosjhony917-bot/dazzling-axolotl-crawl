@@ -1,0 +1,36 @@
+{
+  "Porto do acai": [
+    {
+      "probe": "ACAI M (ACAI TRADICIONAL)",
+      "clicked": true,
+      "modalText": "Detalhes do Produto ACAI M (ACAI TRADICIONAL) Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas. Todos Complementos Frutas Complementos (Selecione até 7 opções) Opcional - + Amendoin - + Confete - + Farinha Láctea - + Granola - + Leite Condensado - + Leite em Pó - + Paçoca Frutas (Selecione até 2 opções) Opcional - + Banana - + Kiwi - + Morango - + Adicionar ao Carrinho R$ 18 ,00"
+    },
+    {
+      "probe": "ACAI G (TRADICIONAL)",
+      "clicked": true,
+      "modalText": "Detalhes do Produto ACAI G (TRADICIONAL) Escolha ate tres opcoes de frutas. Todos Complementos Frutas Complementos (Selecione até 7 opções) Opcional - + Amendoin - + Confete - + Farinha Láctea - + Granola - + Leite Condensado - + Leite em Pó - + Paçoca Frutas (Selecione até 3 opções) Opcional - + Banana - + Kiwi - + Morango - + Adicionar ao Carrinho R$ 25 ,00"
+    },
+    {
+      "probe": "GELATTO G (Creme de Ninho)",
+      "clicked": true,
+      "modalText": "Detalhes do Produto GELATTO G (Creme de Ninho) Cremoso, doce e irresistivel, tres opcoes de frutas. Todos Complementos Frutas Complementos (Selecione até 7 opções) Opcional - + Amendoin - + Confete - + Farinha Láctea - + Granola - + Leite Condensado - + Leite em Pó - + Paçoca Frutas (Selecione até 3 opções) Opcional - + Banana - + Kiwi - + Morango - + Adicionar ao Carrinho R$ 25 ,00"
+    }
+  ],
+  "Sushiyaki": [
+    {
+      "probe": "Temaki de kani",
+      "clicked": true,
+      "modalText": "DETALHES DO ITEM 2 Temaki de kani Se desejar frito, por favor colocar na observação. R$ 25,00 Observações Adicionar R$ 25,00"
+    },
+    {
+      "probe": "Temaki pasta de salmão",
+      "clicked": true,
+      "modalText": "DETALHES DO ITEM 2 Temaki pasta de salmão Se desejar frito, por favor colocar na observação. R$ 65,90 Observações Adicionar R$ 65,90"
+    },
+    {
+      "probe": "Big hot de kani",
+      "clicked": true,
+      "modalText": "DETALHES DO ITEM Big hot de kani R$ 25,00 Observações Adicionar R$ 25,00"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "url": "https://pedido.brendi.com.br/api/oxiburguercabedelo/analytics/events/batch",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "fetch",
+  "method": "POST",
+  "textLength": 57,
+  "textSample": "{\"success\":true,\"eventsReceived\":10,\"eventsPublished\":10}",
+  "jsonKeys": [
+    "success",
+    "eventsReceived",
+    "eventsPublished"
+  ],
+  "json": {
+    "success": true,
+    "eventsReceived": 10,
+    "eventsPublished": 10
+  }
+}

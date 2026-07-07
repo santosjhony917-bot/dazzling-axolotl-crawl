@@ -1,0 +1,77 @@
+{
+  "runId": "2026-07-07T10-31-06-642Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T10-31-06-642Z",
+  "scope": {
+    "ids": [
+      "a123251e-ae13-4a7a-8725-a54b3bdd2d66"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 0,
+  "needsReview": 1,
+  "blocked": 0,
+  "issueCounts": {
+    "telefone_ausente": 1
+  },
+  "audits": [
+    {
+      "id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+      "name": "VITAMINA DE AÇAÍ",
+      "readiness": "needs_review",
+      "redCount": 0,
+      "yellowCount": 1,
+      "issueCount": 1,
+      "categoryCount": 8,
+      "itemCount": 45,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "45 itens estruturados via cardapiodigital_html_payload; mídia mínima completa.",
+      "source": {
+        "menu": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+        "instagram": "https://www.instagram.com/vitaminadeacai__/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:03:46.601Z",
+          "status": "enriched",
+          "username": "vitaminadeacai__",
+          "followers": 1730,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Av. Ambrósio Miranda de Araújo",
+        "number": null,
+        "neighborhood": "Renascer",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58108-232",
+        "phone": null,
+        "latitude": -7.073893,
+        "longitude": -34.855734,
+        "followers": 1730
+      },
+      "issues": [
+        {
+          "severity": "yellow",
+          "code": "telefone_ausente"
+        }
+      ]
+    }
+  ]
+}

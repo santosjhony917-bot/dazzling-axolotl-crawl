@@ -1,0 +1,402 @@
+[
+  {
+    "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+    "name": "Eu Quero Pizza",
+    "redCount": 38,
+    "issueCodes": [
+      "opcao_price_delta_com_price_preenchido"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "Mussarela",
+        "price": 52.9,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "Calabresa",
+        "price": 52.9,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "Frango Catupiry",
+        "price": 52.9,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "Franpiry Com Bacon",
+        "price": 52.9,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "4 Queijos",
+        "price": 54.9,
+        "priceDelta": 2
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "5 Queijos C Alho Frito",
+        "price": 57.9,
+        "priceDelta": 5
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "Pizza Lombinho Especial",
+        "price": 57.9,
+        "priceDelta": 5
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "Frango com Creme Cheddar",
+        "price": 52.9,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "Milho",
+        "price": 52.9,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "GRANDE",
+        "group": "sabor GRANDE",
+        "option": "Brasileira",
+        "price": 52.9,
+        "priceDelta": 0
+      }
+    ]
+  },
+  {
+    "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+    "name": "I love burguer",
+    "redCount": 532,
+    "issueCodes": [
+      "opcao_price_delta_com_price_preenchido"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "bacon",
+        "price": 4,
+        "priceDelta": 4
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "carne de 120g",
+        "price": 6,
+        "priceDelta": 6
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "carne de 200g",
+        "price": 9,
+        "priceDelta": 9
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "filé de frango",
+        "price": 6,
+        "priceDelta": 6
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "cheddar polenghi",
+        "price": 3,
+        "priceDelta": 3
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "catupiry original",
+        "price": 4,
+        "priceDelta": 4
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "salada",
+        "price": 2,
+        "priceDelta": 2
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "queijo mussarela",
+        "price": 3,
+        "priceDelta": 3
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "cream cheese",
+        "price": 4,
+        "priceDelta": 4
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "option": "calabresa",
+        "price": 3,
+        "priceDelta": 3
+      }
+    ]
+  },
+  {
+    "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+    "name": "Ilovepizzapb",
+    "redCount": 69,
+    "issueCodes": [
+      "opcao_price_delta_com_price_preenchido"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "option": "Borda Cheddar",
+        "price": 15,
+        "priceDelta": 15
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "option": "Borda Cream Cheese",
+        "price": 15,
+        "priceDelta": 15
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "option": "Borda Catupiry",
+        "price": 15,
+        "priceDelta": 15
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "option": "Borda Chocolate Branco",
+        "price": 15,
+        "priceDelta": 15
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "option": "Borda Chocolate ao Leite",
+        "price": 15,
+        "priceDelta": 15
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "option": "Borda Ovomaltine",
+        "price": 20,
+        "priceDelta": 20
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "option": "Borda Nutella",
+        "price": 20,
+        "priceDelta": 20
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "option": "Borda Creme de Ninho Original",
+        "price": 20,
+        "priceDelta": 20
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Refrigerante 1L",
+        "option": "Guaraná antartica 1L",
+        "price": 5,
+        "priceDelta": 5
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Refrigerante 1L",
+        "option": "Coca cola 1L",
+        "price": 12,
+        "priceDelta": 12
+      }
+    ]
+  },
+  {
+    "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+    "name": "Lary's pizzaria e lanchonete",
+    "redCount": 208,
+    "issueCodes": [
+      "opcao_price_delta_com_price_preenchido"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Americana",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Baiana",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Basca",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Brasileira",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Calabresa",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Calabresa Especial",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Carne de Sol Com Catupiry",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Cartola",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Charge",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Chilena",
+        "price": 0,
+        "priceDelta": 0
+      }
+    ]
+  }
+]

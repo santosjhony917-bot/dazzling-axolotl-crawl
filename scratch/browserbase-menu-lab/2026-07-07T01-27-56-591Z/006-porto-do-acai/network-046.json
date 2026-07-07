@@ -1,0 +1,321 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 6490,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"d408161d-ab59-46aa-9fb6-d7f7a7f09bc9\",\"id\":\"c8f330ce-3f4a-4c67-9951-c9b7461cc628\",\"code\":\"13\",\"ean\":null,\"priority\":1,\"name\":\"GELATTO G (Creme de Ninho)\",\"description\":\"Cremoso, doce e irresistivel, tres opcoes de frutas.\",\"price\":25,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"617e592f-03e4-46e7-bc04-7f9e3a8e6869\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"GELATTO G (Creme de Ninho)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-c8f330ce-3f4a-4c67-9951-c9b7461cc628_3c931147-e22e-457f-80c9-7dd6a2b7f7ee.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"d408161d-ab59-46aa-9fb6-d7f7a7f09bc9\",\"id\":\"1f332bd8-4a3d-4597-a327-a690e264cb6e\",\"code\":\"17\",\"ean\":null,\"priority\":2,\"name\":\"GELATTO P (Creme de Ninho)\",\"description\":\"Cremoso, doce e irresistivel, uma opcao de fruta.\",\"price\":16,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"cabb8ae6-84bd-4d98-8fcb-593559a8d1fa\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"GELATTO P (Creme de Ninho)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-1f332bd8-4a3d-4597-a327-a690e264cb6e_6702b93d-014e-4af6-90e9-e29817453d84.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"d408161d-ab59-46aa-9fb6-d7f7a7f09bc9\",\"id\":\"a0cffdd7-04e7-459f-a84c-4e6938663451\",\"code\":\"16\",\"ean\":null,\"priority\":3,\"name\":\"GELATTO P (Creme de Cupuacu)\",\"description\":\"Gelatto de cupuacu cremoso, uma opcao de fruta.\",\"price\":16,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"26f316ef-dc67-4358-9730-df4494d81a8f\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"GELATTO P (Creme de Cupuacu)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-a0cffdd7-04e7-459f-a84c-4e6938663451_b4c62d35-a4a1-47af-a110-e39837345595.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"d408161d-ab59-46aa-9fb6-d7f7a7f09bc9\",\"id\":\"eb692b62-ab17-48f3-bade-b1496b9a8f40\",\"code\":\"15\",\"ean\":null,\"priority\":4,\"name\":\"GELATTO M (CUPUACU)\",\"description\":\"Gelatto de Cupuacu Cremoso com Duas Opcoes de Frutas.\",\"price\":18,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"b9a64c8a-496d-41c8-9f11-3591a007c657\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"GELATTO M (CUPUACU)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-eb692b62-ab17-48f3-bade-b1496b9a8f40_2ada8724-f3f3-49e3-b365-603b1fc0eeec.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"d408161d-ab59-46aa-9fb6-d7f7a7f09bc9\",\"id\":\"e07e4560-3c98-463f-b6b2-14df2d6ebde0\",\"code\":\"14\",\"ean\":null,\"priority\":5,\"name\":\"GELATTO M (Creme de Ninho)\",\"description\":\"Gelatto de ninho cremoso, com duas opcoes de frutas.\",\"price\":18,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"9699819b-97e6-49b4-93fd-4fdd5e0261ca\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"GELATTO M (Creme de Ninho)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-e07e4560-3c98-463f-b6b2-14df2d6ebde0_1896cd2d-ed17-4a77-ad88-fde2bad3335f.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"d408161d-ab59-46aa-9fb6-d7f7a7f09bc9\",\"id\":\"b817765b-cce1-4c14-90cf-e4c59e582bfc\",\"code\":\"12\",\"ean\":null,\"priority\":6,\"name\":\"GELATTO G (Creme de Cupuacu)\",\"description\":\"Gelatto de cupuacu cremoso, tres opcoes de frutas.\",\"price\":25,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"8ff45f77-a1e5-4615-b235-edec605eac16\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"GELATTO G (Creme de Cupuacu)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-b817765b-cce1-4c14-90cf-e4c59e582bfc_1e57b785-2d1e-453a-ab25-53be2a832532.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "6"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+      "id": "c8f330ce-3f4a-4c67-9951-c9b7461cc628",
+      "code": "13",
+      "ean": null,
+      "priority": 1,
+      "name": "GELATTO G (Creme de Ninho)",
+      "description": "Cremoso, doce e irresistivel, tres opcoes de frutas.",
+      "price": 25,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "617e592f-03e4-46e7-bc04-7f9e3a8e6869",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "GELATTO G (Creme de Ninho)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c8f330ce-3f4a-4c67-9951-c9b7461cc628_3c931147-e22e-457f-80c9-7dd6a2b7f7ee.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+      "id": "1f332bd8-4a3d-4597-a327-a690e264cb6e",
+      "code": "17",
+      "ean": null,
+      "priority": 2,
+      "name": "GELATTO P (Creme de Ninho)",
+      "description": "Cremoso, doce e irresistivel, uma opcao de fruta.",
+      "price": 16,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "cabb8ae6-84bd-4d98-8fcb-593559a8d1fa",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "GELATTO P (Creme de Ninho)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-1f332bd8-4a3d-4597-a327-a690e264cb6e_6702b93d-014e-4af6-90e9-e29817453d84.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+      "id": "a0cffdd7-04e7-459f-a84c-4e6938663451",
+      "code": "16",
+      "ean": null,
+      "priority": 3,
+      "name": "GELATTO P (Creme de Cupuacu)",
+      "description": "Gelatto de cupuacu cremoso, uma opcao de fruta.",
+      "price": 16,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "26f316ef-dc67-4358-9730-df4494d81a8f",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "GELATTO P (Creme de Cupuacu)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a0cffdd7-04e7-459f-a84c-4e6938663451_b4c62d35-a4a1-47af-a110-e39837345595.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+      "id": "eb692b62-ab17-48f3-bade-b1496b9a8f40",
+      "code": "15",
+      "ean": null,
+      "priority": 4,
+      "name": "GELATTO M (CUPUACU)",
+      "description": "Gelatto de Cupuacu Cremoso com Duas Opcoes de Frutas.",
+      "price": 18,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "b9a64c8a-496d-41c8-9f11-3591a007c657",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "GELATTO M (CUPUACU)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-eb692b62-ab17-48f3-bade-b1496b9a8f40_2ada8724-f3f3-49e3-b365-603b1fc0eeec.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+      "id": "e07e4560-3c98-463f-b6b2-14df2d6ebde0",
+      "code": "14",
+      "ean": null,
+      "priority": 5,
+      "name": "GELATTO M (Creme de Ninho)",
+      "description": "Gelatto de ninho cremoso, com duas opcoes de frutas.",
+      "price": 18,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "9699819b-97e6-49b4-93fd-4fdd5e0261ca",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "GELATTO M (Creme de Ninho)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-e07e4560-3c98-463f-b6b2-14df2d6ebde0_1896cd2d-ed17-4a77-ad88-fde2bad3335f.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+      "id": "b817765b-cce1-4c14-90cf-e4c59e582bfc",
+      "code": "12",
+      "ean": null,
+      "priority": 6,
+      "name": "GELATTO G (Creme de Cupuacu)",
+      "description": "Gelatto de cupuacu cremoso, tres opcoes de frutas.",
+      "price": 25,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "8ff45f77-a1e5-4615-b235-edec605eac16",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "GELATTO G (Creme de Cupuacu)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-b817765b-cce1-4c14-90cf-e4c59e582bfc_1e57b785-2d1e-453a-ab25-53be2a832532.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

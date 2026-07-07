@@ -1,0 +1,70 @@
+{
+  "runId": "2026-07-07T11-57-33-463Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T11-57-33-463Z",
+  "scope": {
+    "ids": [
+      "2ef9ccde-0e20-4108-a8ac-874108b3c16b"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 14,
+      "itemCount": 60,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "60 itens estruturados via meucarrinho_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://meucarrinho.delivery/portodoacai",
+        "instagram": "https://www.instagram.com/portodoacai01/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:06:02.194Z",
+          "status": "enriched",
+          "username": "portodoacai01",
+          "followers": 962,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://meucarrinho.delivery/portodoacai",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Cleto Campêlo",
+        "number": "623",
+        "neighborhood": "Camalaú",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99384-2261",
+        "latitude": -6.9791672,
+        "longitude": -34.8348377,
+        "followers": 962
+      },
+      "issues": []
+    }
+  ]
+}

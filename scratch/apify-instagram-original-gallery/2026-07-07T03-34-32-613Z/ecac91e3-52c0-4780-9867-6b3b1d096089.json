@@ -1,0 +1,241 @@
+{
+  "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+  "name": "I love burguer",
+  "username": "iloveburguerpb",
+  "instagram": "https://www.instagram.com/iloveburguerpb/",
+  "applied": false,
+  "forceMedia": false,
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [],
+  "skipped": [],
+  "profile": {
+    "username": "iloveburguerpb",
+    "followers": 9915,
+    "posts": 121,
+    "profilePic": true,
+    "biography": "🏆 ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO🥇 ABERTO DE QUARTA À SEG - 18h à 01h 📍Praça Getúlio Vargas, 107 📞(83) 99311-5016 ⬇️ Peça no site ⬇️"
+  },
+  "postCount": 16,
+  "candidates": [
+    {
+      "source": "instagram_post_image_api",
+      "score": -117,
+      "postIndex": 1,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZLduKqmnzz/",
+      "sourceType": "Image",
+      "width": 1346,
+      "height": 1683,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-atl3-2.cdninstagram.com/v/t51.82787-15/716470779_18176860057398013_4070378068153809349_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gH_qBBYs2wFjaieDjde7CkZEyLk4ZYnwGwE-gB0Aq2rtNbf_nfsqYiJD7P_sKliDPQ&_nc_ohc=tiDDMHzMjngQ7kNvwEW7Pig&_nc_gid=c9DziD9MdXJPVqi16WsTmQ&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQBnvXIwZBCm8XEUewsdn73DGTfbS4w4lzfAju311j-d4A&oe=6A526216&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -118,
+      "postIndex": 2,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZs93ClBcNM/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-sea1-1.cdninstagram.com/v/t51.82787-15/724056028_18178215667398013_4574995080326375869_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-sea1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gHAbALo_uuvhXLRT0troHEwWfN3gN18v4lk5CNMB--rq6MX7ZWeIQy_YcdtOCNqqm8&_nc_ohc=KzccnlcqgbkQ7kNvwGIiclT&_nc_gid=OakErZMWtdJDrn3vrNTUrg&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQBAtuzkUB7bgKkhgxrYs9UicxZkMUVYAeiExWamNW3SLw&oe=6A525F6E&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -119,
+      "postIndex": 7,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZf0CC1GgWs/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-atl3-2.cdninstagram.com/v/t51.82787-15/723239078_18177695740398013_5041230849197416621_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-atl3-2.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gHgNHP_Q75NN9Zxj9RWyRGytnl5sO1NP5lQDy5ed3lyXmPNFZ22vKM9nAFsXZLx3NE&_nc_ohc=uj_0R_7g4GkQ7kNvwGNaKhI&_nc_gid=xiyLYIybF6Coln8mR-DHLw&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQDKTR6_PSwOgQYtu0fNx1-htMvQ_CovKRGudWwjQHr6vw&oe=6A525BCB&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -120,
+      "postIndex": 0,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZTKjO0mgOD/",
+      "sourceType": "Image",
+      "width": 1039,
+      "height": 1298,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://instagram.fcre1-1.fna.fbcdn.net/v/t51.82787-15/719519632_18177198256398013_2379108759541767328_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=instagram.fcre1-1.fna.fbcdn.net&_nc_cat=101&_nc_oc=Q6cZ2gGzrLp2QqrDGYBK8c-d6UfhAzwYyEhDjA7oEfKgqZ3aejN62QZvGV1dpkL6JXN1rnU&_nc_ohc=fQAEYZztDj4Q7kNvwHuUeEG&_nc_gid=FzOgyb2mD1yp3FIx18vedA&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQD0sXb25B4lpBPUL0z3yBTCWZeLKk7f6uiDFzkVVaTe0Q&oe=6A522C82&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -122,
+      "postIndex": 3,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C6RZyKtLHax/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 960,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-sjc6-1.cdninstagram.com/v/t39.30808-6/465681058_18118867024398013_3232941586278016765_n.jpg?stp=dst-jpg_e35_s1080x1080_sh2.08_tt6&_nc_ht=scontent-sjc6-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gEghYaMpvFrsTL0y8CaVQrA0omxPA5mLEVRJ9kzAW2VhE_x8BGmUarBMxhHsIBiouI&_nc_ohc=43Jeqs_PvFcQ7kNvwEnfHoT&_nc_gid=Tg1k9L3zKjG29EszdyIRZA&edm=ADp7STQAAAAA&ccb=7-5&oh=00_AQDIEpAQy7R646Gu52GZt4U0IbNR5HG_V4pG5rwSHG6v5A&oe=6A52302F&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -124,
+      "postIndex": 4,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZdfMQAGsKJ/",
+      "sourceType": "Image",
+      "width": 1448,
+      "height": 1931,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-phx1-1.cdninstagram.com/v/t51.82787-15/722446935_18177592360398013_3180233413931782886_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-phx1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gFiMklYxkSpgW81Tg7XEiybi-qdYINk6T8as11F4rpXH9R1hDbLNtXfFMlXz7cTc5M&_nc_ohc=QI6M2A4POjUQ7kNvwGoT_ah&_nc_gid=87oFIdAVaClcW2mb7Bqwxg&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQDOws9Xg1IoWWfbTP1CEyoCBgWLmIgfMf4a1wkSd-n42A&oe=6A523705&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -125,
+      "postIndex": 5,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DaTYQbjBmb-/",
+      "sourceType": "Image",
+      "width": 1876,
+      "height": 2290,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/729560506_18179751625398013_4122750598150502892_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gHZnCec7dMLfuWl_I4ZCXU08idGIgwceDFPIpZt1vz7G0DhHnJ2evo4hQbh5zSAkec&_nc_ohc=7iemJFfT73kQ7kNvwFUTMIs&_nc_gid=oFaIQw8QbSJhtc2ciD8nXg&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQCg9OIE9u4wTCl7jcG4t90fhWop9eSSERhc6OEo2mUOxQ&oe=6A5230B9&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -125,
+      "postIndex": 9,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DY8G3RbmmNS/",
+      "sourceType": "Image",
+      "width": 1052,
+      "height": 1315,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-sjc6-1.cdninstagram.com/v/t51.82787-15/708854107_18176229349398013_8586577929686933105_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-sjc6-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gFjKEz9bIGdj8ZQq3McY91PIAW-v_MQA7xXVCAQ7glIoDg2mKolWSIplQBT6UQMH7o&_nc_ohc=SzTQ48GRW-0Q7kNvwG8EEXW&_nc_gid=7izGT-LSe7un2sgWXYVdkQ&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQBq-R-ZkNBn0vbV4cSleUm5koBhyiplijRts8nO-b_kWQ&oe=6A524F2A&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -127,
+      "postIndex": 8,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DFTo1oNxL_5/",
+      "sourceType": "Sidecar",
+      "width": 1440,
+      "height": 1800,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-dfw6-2.cdninstagram.com/v/t51.75761-15/475140760_18481587673045308_1875057119090041618_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=109&ig_cache_key=MzU1NDM2NDEyODQyNjkyMzUwMA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTQ0MC5oZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=JGPDQFcEd7UQ7kNvwE5qLv3&_nc_oc=AdqQTocXBpLRQarCkbnPm_eDZgxyufY3sC5vYIujxONnAlruHmHEpSeZaQIDsdR0sGc&_nc_zt=23&_nc_ht=scontent-dfw6-2.cdninstagram.com&_nc_gid=6bgrbSg3Ghx0vw1DrmJwPg&_nc_ss=72a8c&oh=00_AQByjS2SFCIFU3tCmoUP3YKdraquJByPaduxfV-eMPWEXw&oe=6A5254CD."
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -128,
+      "postIndex": 8,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/DFTo1oNxL_5/",
+      "sourceType": "Image",
+      "width": 1215,
+      "height": 1518,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-dfw6-1.cdninstagram.com/v/t51.75761-15/475148382_18481587682045308_546775787343944642_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=101&ig_cache_key=MzU1NDM2NDEyODQxODU0NzU4MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIxNS5oZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=TtwRIo4OACsQ7kNvwHpTHYv&_nc_oc=AdpmiHNB0iph78S_XBGuBfLELgKjyg0BfTVijI0J55boFbLJEpyM_yOtQ_Mu5WZBhw8&_nc_zt=23&_nc_ht=scontent-dfw6-1.cdninstagram.com&_nc_gid=6bgrbSg3Ghx0vw1DrmJwPg&_nc_ss=72a8c&oh=00_AQC1Y8eeg1sZKyiWU1BjZctYLSyJEAEkK7EbqbfNfSgjrw&oe=6A523184."
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -128,
+      "postIndex": 8,
+      "childIndex": 2,
+      "postUrl": "https://www.instagram.com/p/DFTo1oNxL_5/",
+      "sourceType": "Image",
+      "width": 1215,
+      "height": 1518,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-dfw5-1.cdninstagram.com/v/t51.75761-15/475258797_18481587691045308_7431405717907477327_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=111&ig_cache_key=MzU1NDM2NDEyODM2ODA4ODE4NQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTIxNS5oZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=xNJiBNsfNHkQ7kNvwEvRD9F&_nc_oc=AdrZjeqg4DF3DpekbiQK7YFRP4clc-4h40Wf6qKIe4dlAcQtmvrc3ht1vyLyWAe7oj8&_nc_zt=23&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_gid=6bgrbSg3Ghx0vw1DrmJwPg&_nc_ss=72a8c&oh=00_AQDVid00evpwN5saJp_kPJITTHWepo0Sv3viSoMu2knSEQ&oe=6A523FF0."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -130,
+      "postIndex": 10,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DY29J0mmjIb/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-det1-1.cdninstagram.com/v/t51.82787-15/708102324_18176013205398013_1137222010988866675_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-det1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gG4jO76A9GBTJnu5VY0KsUhB0XY0lgnHpMKm5-tlYqok-YqGVG5SS9DqJaLDcJNm4s&_nc_ohc=lcyA-2jnB_cQ7kNvwEmhDQF&_nc_gid=jxWUCuEMdyvoy0OotfAzDg&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQBbsckekbNDlJef1hQj_B657iteCvC6si4VGZXEnw2_9w&oe=6A524D7E&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -132,
+      "postIndex": 12,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DaAxiI1hUic/",
+      "sourceType": "Image",
+      "width": 1013,
+      "height": 1266,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-lax7-1.cdninstagram.com/v/t51.82787-15/731442360_18178998580398013_524917870117795393_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-lax7-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gEwVjDMI_oELtsNQt17aEkNvElcfdrY4aVh0OBswsxxnrb45Uuq39LKdQHRspErd98&_nc_ohc=hiRapVJw3voQ7kNvwG4xbbv&_nc_gid=lniYdtVUq5esImv60nllEA&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQD9J34V_1gHyOZjlDvquYhpXPeeNrfXrsJVfYCuevIggA&oe=6A524B1B&_nc_sid=c6f216."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -135,
+      "postIndex": 15,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZnn98TBrky/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://scontent-mia5-1.cdninstagram.com/v/t51.82787-15/724081315_18178012120398013_8349121814311049863_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-mia5-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gHDFDdr5VlxpiPpH3Xr91gXhCMB0fz4dCrCQE-unuvRf9nhu8GaRJqt4Z-_dcIXWiU&_nc_ohc=F8VRzmSRtMUQ7kNvwH58aKh&_nc_gid=PxoMdZTfoJJIvFQAVOx0Pg&edm=ADp7STQBAAAA&ccb=7-5&oh=00_AQD81aChBgyxznDyazfhXtvuAtkymy-M4JNHMRkGGFG4pw&oe=6A525747&_nc_sid=c6f216."
+      }
+    }
+  ],
+  "approvedCount": 0,
+  "after": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "promotion": null,
+  "status": "media_incomplete"
+}

@@ -1,0 +1,2 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+red,7,cardapioweb,DinDin Alegria,https://app.cardapioweb.com/dindin_alegria,collector_error|no_extension_print|no_structured_items|insufficient_visual_menu_evidence|price_coverage_review,reject_or_rediscover_source,7a564e31-faab-4bf2-9c1a-791be4da2968

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-06T15:25:49.394Z",
+  "queueFile": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-06T13-08-08-820Z\\queue.json",
+  "sourceQueueGeneratedAt": "2026-07-06T13:08:08.820Z",
+  "summary": {
+    "runId": "2026-07-06T15-25-49-353Z",
+    "queueCount": 186,
+    "lanes": 1,
+    "assignedCount": 3,
+    "activeLeaseCount": 0,
+    "dryRun": true,
+    "ttlHours": 18,
+    "limitPerLane": 3,
+    "globalPlatforms": [],
+    "globalTiers": [
+      "green",
+      "yellow"
+    ],
+    "byLane": {
+      "test-lane": {
+        "port": "9331",
+        "platforms": [],
+        "count": 3,
+        "items": [
+          {
+            "id": "a7e0b267-8b70-4488-b548-dcee41bce76f",
+            "name": "Bar da Queda",
+            "platform": "anota_ai",
+            "tier": "green",
+            "reviews_count": 790
+          },
+          {
+            "id": "624a1b1d-80ea-4c9c-a5ed-a1cb81702e16",
+            "name": "Bebelu Sanduíches Centro",
+            "platform": "anota_ai",
+            "tier": "green",
+            "reviews_count": 359
+          },
+          {
+            "id": "d0c129b8-27e9-4f49-9085-c17f06b5c307",
+            "name": "Gigantão Lanches",
+            "platform": "anota_ai",
+            "tier": "green",
+            "reviews_count": 239
+          }
+        ]
+      }
+    }
+  },
+  "laneOutputs": [
+    {
+      "laneId": "test-lane",
+      "port": "9331",
+      "platforms": [],
+      "count": 3,
+      "laneDir": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-25-49-353Z\\test-lane",
+      "idsPath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-25-49-353Z\\test-lane\\ids.txt",
+      "queuePath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-25-49-353Z\\test-lane\\queue.json",
+      "csvPath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-25-49-353Z\\test-lane\\queue.csv",
+      "promptPath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-25-49-353Z\\test-lane\\prompt.md",
+      "commandsPath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-25-49-353Z\\test-lane\\commands.ps1"
+    }
+  ]
+}

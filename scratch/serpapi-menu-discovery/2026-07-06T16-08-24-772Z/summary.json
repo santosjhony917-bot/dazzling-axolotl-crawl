@@ -1,0 +1,46 @@
+{
+  "runId": "2026-07-06T16-08-24-772Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "menu",
+  "apply": false,
+  "processed": 1,
+  "foundGreen": 1,
+  "foundYellow": 0,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "anota_ai": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-08-24-772Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-08-24-772Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-08-24-772Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": "b9232f4a-86ea-44a4-9a27-8471c5403d5d",
+        "name": "Necão Restaurante",
+        "category": "",
+        "address": "R. Santarém, 368",
+        "neighborhood": "Malvinas",
+        "rating": 4.8,
+        "reviews_count": 3560
+      },
+      "query": "Necão Restaurante Malvinas R. Santarém (83) 98838-0726 Campina Grande PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Necão Restaurante | Delivery em CAMPINA GRANDE",
+        "link": "https://pedido.anota.ai/loja/neco-restaurante",
+        "snippet": "Faça seu pedido online agora mesmo no Necão Restaurante! Seu delivery em CAMPINA GRANDE. Acesse a loja através do Cardápio Digital da Anota AI.",
+        "displayedLink": "https://pedido.anota.ai › loja › neco-restaurante",
+        "platform": "anota_ai",
+        "score": 112,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 10
+    }
+  ]
+}

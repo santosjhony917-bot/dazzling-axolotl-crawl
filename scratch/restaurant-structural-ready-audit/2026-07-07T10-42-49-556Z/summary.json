@@ -1,0 +1,121 @@
+{
+  "runId": "2026-07-07T10-42-49-556Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T10-42-49-556Z",
+  "scope": {
+    "ids": [
+      "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "9aed5c42-1ab1-47f0-9010-788da722a399"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 2,
+  "ready": 2,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 10,
+      "itemCount": 108,
+      "optionCount": 670,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "108 itens estruturados via whatsmenu_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://whatsmenu.com.br/pastelarialitoranea",
+        "instagram": "https://www.instagram.com/pastelarialitoranea/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:00.427Z",
+          "status": "enriched",
+          "username": "pastelarialitoranea",
+          "followers": 6535,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://whatsmenu.com.br/pastelarialitoranea",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Sólon de Lucena",
+        "number": "19",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98807-9929",
+        "latitude": -6.970531299999999,
+        "longitude": -34.8366612,
+        "followers": 6535
+      },
+      "issues": []
+    },
+    {
+      "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+      "name": "Sorveteria Frutos de Goiás - Cabedelo",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 5,
+      "itemCount": 16,
+      "optionCount": 245,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "16 itens estruturados via whatsmenu_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://whatsmenu.com.br/frutoscabedelo",
+        "instagram": "https://www.instagram.com/frutoscabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:38.607Z",
+          "status": "enriched",
+          "username": "frutoscabedelo",
+          "followers": 2714,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://whatsmenu.com.br/frutoscabedelo",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Sólon de Lucena",
+        "number": "30B",
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-570",
+        "phone": "(83) 99313-6243",
+        "latitude": -6.970665299999999,
+        "longitude": -34.8363411,
+        "followers": 2714
+      },
+      "issues": []
+    }
+  ]
+}

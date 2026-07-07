@@ -1,0 +1,117 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 2088,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"82b800bb-eb5e-445b-a525-f49ffcc50600\",\"id\":\"3585f2c0-9757-44a7-be3e-694c39e64eaf\",\"code\":\"55\",\"ean\":null,\"priority\":1,\"name\":\"DOGAO DO PORTO\",\"description\":\"Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna.\",\"price\":9,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"04ae60ce-e06c-4836-96a5-115b56b2b008\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"DOGAO DO PORTO\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"82b800bb-eb5e-445b-a525-f49ffcc50600\",\"id\":\"6894e94a-a8ca-4098-a7ae-af7a46a0104b\",\"code\":\"56\",\"ean\":null,\"priority\":2,\"name\":\"SANDUBAO DE FRANGO\",\"description\":\"Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho.\",\"price\":9,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"3164d859-af46-4a74-a832-d9b2650f1406\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"SANDUBAO DE FRANGO\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "2"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "82b800bb-eb5e-445b-a525-f49ffcc50600",
+      "id": "3585f2c0-9757-44a7-be3e-694c39e64eaf",
+      "code": "55",
+      "ean": null,
+      "priority": 1,
+      "name": "DOGAO DO PORTO",
+      "description": "Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna.",
+      "price": 9,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "04ae60ce-e06c-4836-96a5-115b56b2b008",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "DOGAO DO PORTO",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "82b800bb-eb5e-445b-a525-f49ffcc50600",
+      "id": "6894e94a-a8ca-4098-a7ae-af7a46a0104b",
+      "code": "56",
+      "ean": null,
+      "priority": 2,
+      "name": "SANDUBAO DE FRANGO",
+      "description": "Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho.",
+      "price": 9,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "3164d859-af46-4a74-a832-d9b2650f1406",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "SANDUBAO DE FRANGO",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

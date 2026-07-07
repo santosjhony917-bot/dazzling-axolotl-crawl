@@ -1,0 +1,2 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+red,38,goomer,Tia Graça Cafeteria e Doceria,https://tia-graa-doces-e-salgados.goomer.app,collector_error|no_extension_print|no_structured_items|insufficient_visual_menu_evidence|price_coverage_review,reject_or_rediscover_source,42a3fb16-037e-4824-9f83-b62fee3b8407

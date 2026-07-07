@@ -1,0 +1,17 @@
+{
+  "restaurantId": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+  "restaurantName": "VITAMINA DE AÇAÍ",
+  "platform": "cardapiodigital",
+  "sourceUrl": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T10-18-52-583Z-26136\\001-vitamina-de-acai",
+  "startedAt": "2026-07-07T10:18:56.891Z",
+  "details": null,
+  "rawSummary": null,
+  "evidencePath": null,
+  "dryRun": null,
+  "review": null,
+  "committed": false,
+  "commit": null,
+  "error": "CardapioDigital sem categorias com itens estruturados.",
+  "finishedAt": "2026-07-07T10:19:02.057Z"
+}

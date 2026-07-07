@@ -1,0 +1,651 @@
+{
+  "success": true,
+  "sourceUrl": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+  "finalUrl": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.74,
+  "categories": [
+    {
+      "name": "Pizza grande | 2 sabores | 8 fatias",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": null,
+          "name": "A partir de",
+          "description": null,
+          "image_url": null,
+          "price": 51.9,
+          "price_min": 51.9,
+          "price_max": 51.9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "A partir de",
+            "price": 51.9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "name": "Pizza grande | 4 sabores",
+      "order_index": 1,
+      "items": [
+        {
+          "external_id": null,
+          "name": "A partir de",
+          "description": null,
+          "image_url": null,
+          "price": 51.9,
+          "price_min": 51.9,
+          "price_max": 51.9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "A partir de",
+            "price": 51.9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "name": "Combo | Pra nós + Entrega grátis",
+      "order_index": 2,
+      "items": [
+        {
+          "external_id": null,
+          "name": "Pizza grande + refrigerante 1L + entrega grátis | Utilize o cupom: ENTREGA para validar a sua entrega grátis 2 Sabores | 8 fatias",
+          "description": null,
+          "image_url": null,
+          "price": 59.99,
+          "price_min": 59.99,
+          "price_max": 59.99,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Pizza grande + refrigerante 1L + entrega grátis | Utilize o cupom: ENTREGA para validar a sua entrega grátis 2 Sabores | 8 fatias",
+            "price": 59.99,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "name": "PIZZA GRANDE 8 FATIAS 4 SABORES + ENTREGA GRÁTIS",
+      "order_index": 3,
+      "items": [
+        {
+          "external_id": null,
+          "name": "-29%",
+          "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha.",
+          "image_url": null,
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "-29%",
+            "price": 10,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "ESFIHA DOCE",
+          "description": "Descubra o verdadeiro sabor em cada esfiha.",
+          "image_url": null,
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 1,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "ESFIHA DOCE",
+            "price": 10,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "name": "Combo | Pra galera",
+      "order_index": 4,
+      "items": [
+        {
+          "external_id": null,
+          "name": "2 Pizzas grandes + Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+          "description": null,
+          "image_url": null,
+          "price": 99.99,
+          "price_min": 99.99,
+          "price_max": 99.99,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "2 Pizzas grandes + Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+            "price": 99.99,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "name": "Pizza pequena | 1 sabor | 4 fatias",
+      "order_index": 5,
+      "items": [
+        {
+          "external_id": null,
+          "name": "A partir de",
+          "description": null,
+          "image_url": null,
+          "price": 31.9,
+          "price_min": 31.9,
+          "price_max": 31.9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "A partir de",
+            "price": 31.9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "ESFIHAS",
+          "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha.",
+          "image_url": null,
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 1,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "ESFIHAS",
+            "price": 10,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "ESFIHA DOCE",
+          "description": "Descubra o verdadeiro sabor em cada esfiha.",
+          "image_url": null,
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 2,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "ESFIHA DOCE",
+            "price": 10,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Calzones",
+          "description": "CALZONE Carnepiry Mussarela, molho de tomate, carne de sol desfiada, catupiry e orégano.",
+          "image_url": null,
+          "price": 39.9,
+          "price_min": 39.9,
+          "price_max": 39.9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 3,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Calzones",
+            "price": 39.9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "CALZONE Franpiry",
+          "description": "Mussarela, molho de tomate, frango desfiado, catupiry e orégano.",
+          "image_url": null,
+          "price": 31.9,
+          "price_min": 31.9,
+          "price_max": 31.9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 4,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "CALZONE Franpiry",
+            "price": 31.9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "CALZONE 4 Queijos",
+          "description": "Mussarela, molho de tomate, provolone, cream cheese, parmesão e orégano.",
+          "image_url": null,
+          "price": 35.9,
+          "price_min": 35.9,
+          "price_max": 35.9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 5,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "CALZONE 4 Queijos",
+            "price": 35.9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Bebidas",
+          "description": "Coca-Cola Lata",
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 6,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Bebidas",
+            "price": 5,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Coca Zero Lata",
+          "description": null,
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 7,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Coca Zero Lata",
+            "price": 5,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "GUARANÁ LATA ZERO",
+          "description": null,
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 8,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "GUARANÁ LATA ZERO",
+            "price": 5,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "GUARANÁ LATA",
+          "description": null,
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 9,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "GUARANÁ LATA",
+            "price": 5,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Coca-Cola 1L",
+          "description": null,
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 10,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Coca-Cola 1L",
+            "price": 9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Coca-cola sem açúcar 1L",
+          "description": null,
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 11,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Coca-cola sem açúcar 1L",
+            "price": 9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Coca-cola original 2L",
+          "description": "COCA-COLA 2 LITROS",
+          "image_url": null,
+          "price": 12.9,
+          "price_min": 12.9,
+          "price_max": 12.9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 12,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Coca-cola original 2L",
+            "price": 12.9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Guaraná 1L",
+          "description": null,
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 13,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Guaraná 1L",
+            "price": 9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "GUARANA 1 LITRO ZERO",
+          "description": null,
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 14,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "GUARANA 1 LITRO ZERO",
+            "price": 9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Guaraná Antarctica 2L",
+          "description": null,
+          "image_url": null,
+          "price": 11.9,
+          "price_min": 11.9,
+          "price_max": 11.9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 15,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Guaraná Antarctica 2L",
+            "price": 11.9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "Pepsi 1L",
+          "description": null,
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 16,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "Pepsi 1L",
+            "price": 9,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        },
+        {
+          "external_id": null,
+          "name": "A cada",
+          "description": "em compras você ganha 1 ponto que pode ser trocado por recompensas.",
+          "image_url": null,
+          "price": 1,
+          "price_min": 1,
+          "price_max": 1,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 17,
+          "source_url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque#promocoes",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "A cada",
+            "price": 1,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "verificationSnapshotError": null,
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337044749_9mmeydg6.jpg",
+    "snapshotFile": "cmd_1783337044749_9mmeydg6.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "div#root",
+        "scrollTop": 0,
+        "maxScrollTop": 3501,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337053084_wjq8abxf.jpg",
+        "snapshotFile": "cmd_1783337053084_wjq8abxf.jpg"
+      },
+      {
+        "ratio": 0.22,
+        "target": "div#root",
+        "scrollTop": 770,
+        "maxScrollTop": 3501,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337060388_vpmlfw3s.jpg",
+        "snapshotFile": "cmd_1783337060388_vpmlfw3s.jpg"
+      },
+      {
+        "ratio": 0.45,
+        "target": "div#root",
+        "scrollTop": 1575,
+        "maxScrollTop": 3501,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337067683_4ridj6j9.jpg",
+        "snapshotFile": "cmd_1783337067683_4ridj6j9.jpg"
+      },
+      {
+        "ratio": 0.68,
+        "target": "div#root",
+        "scrollTop": 2381,
+        "maxScrollTop": 3501,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337074886_7fm0fd6o.jpg",
+        "snapshotFile": "cmd_1783337074886_7fm0fd6o.jpg"
+      },
+      {
+        "ratio": 0.9,
+        "target": "div#root",
+        "scrollTop": 3151,
+        "maxScrollTop": 3501,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337081130_fp3rir3l.jpg",
+        "snapshotFile": "cmd_1783337081130_fp3rir3l.jpg"
+      },
+      {
+        "ratio": 1,
+        "target": "div#root",
+        "scrollTop": 3501,
+        "maxScrollTop": 3501,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337088396_4reqluyz.jpg",
+        "snapshotFile": "cmd_1783337088396_4reqluyz.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 1,
+    "capturedHeight": 674,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "f26df9fd-52c7-41b0-b961-893396ea690a",
+    "name": "Pizza do Bosque",
+    "category": "Pizzaria",
+    "address": "R. Renata do Nascimento Cruz",
+    "phone": "(83) 98757-4840",
+    "instagram": "https://www.instagram.com/pizzadobosquecg/"
+  }
+}

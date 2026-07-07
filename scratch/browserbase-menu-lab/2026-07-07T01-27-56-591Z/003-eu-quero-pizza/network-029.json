@@ -1,0 +1,27 @@
+{
+  "url": "https://api.anota.ai/clientauth/items-analytics/items/carousel?slug=anotaai-item-patrocinado-homedestaque&latitude=-7.052025899999999&longitude=-34.84330540000001",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 151,
+  "textSample": "{\"success\":true,\"message\":\"Itens listados com sucesso\",\"promoItems\":{\"items\":[],\"type\":\"promo_items\"},\"mostOrdered\":{\"items\":[],\"type\":\"most_ordered\"}}",
+  "jsonKeys": [
+    "success",
+    "message",
+    "promoItems",
+    "mostOrdered"
+  ],
+  "json": {
+    "success": true,
+    "message": "Itens listados com sucesso",
+    "promoItems": {
+      "items": [],
+      "type": "promo_items"
+    },
+    "mostOrdered": {
+      "items": [],
+      "type": "most_ordered"
+    }
+  }
+}

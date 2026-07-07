@@ -1,0 +1,25 @@
+{
+  "url": "https://pedido.brendi.com.br/_nuxt/builds/meta/f6f0b47f-1184-480d-b373-2f5bf12f6562.json",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "other",
+  "method": "GET",
+  "textLength": 139,
+  "textSample": "{\"id\":\"f6f0b47f-1184-480d-b373-2f5bf12f6562\",\"timestamp\":1783365905156,\"matcher\":{\"static\":{},\"wildcard\":{},\"dynamic\":{}},\"prerendered\":[]}",
+  "jsonKeys": [
+    "id",
+    "timestamp",
+    "matcher",
+    "prerendered"
+  ],
+  "json": {
+    "id": "f6f0b47f-1184-480d-b373-2f5bf12f6562",
+    "timestamp": 1783365905156,
+    "matcher": {
+      "static": {},
+      "wildcard": {},
+      "dynamic": {}
+    },
+    "prerendered": []
+  }
+}

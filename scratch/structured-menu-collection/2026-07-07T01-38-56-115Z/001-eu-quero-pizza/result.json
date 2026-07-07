@@ -1,0 +1,17 @@
+{
+  "restaurantId": "8bae41e4-1365-4def-9857-34e4abdbf329",
+  "restaurantName": "Eu Quero Pizza",
+  "platform": "anota_ai",
+  "sourceUrl": "https://app.anota.ai/m/MeIU-tixw",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T01-38-56-115Z\\001-eu-quero-pizza",
+  "startedAt": "2026-07-07T01:39:00.613Z",
+  "details": null,
+  "rawSummary": null,
+  "evidencePath": null,
+  "dryRun": null,
+  "review": null,
+  "committed": false,
+  "commit": null,
+  "error": "PlatformAdapters.normalizeAnotaNetworkMenu is not a function",
+  "finishedAt": "2026-07-07T01:42:06.959Z"
+}

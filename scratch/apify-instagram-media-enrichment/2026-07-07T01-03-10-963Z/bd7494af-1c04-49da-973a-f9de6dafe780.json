@@ -1,0 +1,91 @@
+{
+  "id": "bd7494af-1c04-49da-973a-f9de6dafe780",
+  "name": "NutriFit Marmita Fitness Congeladas",
+  "instagram": "https://www.instagram.com/marmita_nutrifit/",
+  "followers": 2273,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/5583987216120?text=Ol%C3%A1%2C+gostaria+de+informa%C3%A7%C3%B5es+sobre+as+mamitas+fitness%21"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "7b7ac5fe-e73a-424e-933d-379122e65fa7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/bd7494af-1c04-49da-973a-f9de6dafe780/instagram_1783385420050_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "74027c0a-193d-44fc-9f3d-eb83a37fced6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/bd7494af-1c04-49da-973a-f9de6dafe780/instagram_1783385421126_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "d9873637-706f-412e-a150-cb572349ce91",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/bd7494af-1c04-49da-973a-f9de6dafe780/instagram_1783385421990_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "e273cc82-0248-4a1e-9289-1626acf01969",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/bd7494af-1c04-49da-973a-f9de6dafe780/instagram_1783385422497_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "77c17132-b9db-4569-81aa-17b79f70b74d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/bd7494af-1c04-49da-973a-f9de6dafe780/instagram_1783385423473_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "025d28f0-a2c4-4ffb-85c6-defc710180c2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/bd7494af-1c04-49da-973a-f9de6dafe780/instagram_1783385424288_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "e323fa23-a291-4647-afd9-8875b41d1028",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/bd7494af-1c04-49da-973a-f9de6dafe780/instagram_1783385425001_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "c7552453-186b-49eb-9eab-cc2cf2d37f0c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/bd7494af-1c04-49da-973a-f9de6dafe780/instagram_1783385425931_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

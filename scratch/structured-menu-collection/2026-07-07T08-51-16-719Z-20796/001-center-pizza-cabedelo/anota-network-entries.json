@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 204,
+    "contentType": "",
+    "capturedAt": "2026-07-07T08:51:21.638Z",
+    "body": null,
+    "error": "Could not load response body for this request. This might happen if the request is a preflight request."
+  },
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "capturedAt": "2026-07-07T08:51:21.855Z",
+    "body": {
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"6836678a7e3e950019068d1a\",\"webview\":{\"accept_multiple_payments\":false,\"multiple_payments_quantity\":0,\"waiter_accept_tip\":true,\"waiter_tip_percent\":10,\"waiter_order_delivery\":true,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"address_manual\":true,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"false\",\"repeat_order_enabled\":true,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"table_seats\":false,\"hide_google_search\":false,\"edit_manual_city\":false,\"edit_manual_region\":true},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":false},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":false,\"observation\":true,\"receipt\":false,\"wrong_order\":false,\"closed_advice\":false,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":false,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"deactivate_establishment_closed_salutation_message\":false,\"deactivate_flow_new_salutation_message\":false,\"images\":[]},\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"sound_1\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":true},\"cashback\":{\"cashback_by_weekday\":[]},\"page_is_online\":true,\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"6836678a001ddb0012c1a276\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"name\":\"Rua Ismael Farias\",\"num\":\"180\",\"neighborhood\":\"Centro\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.8341145,-6.9728958]},\"postal_code\":\"58.100-233\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"country\":\"BR\",\"addressFormated\":\"Rua Ismael Farias, 180 - Centro, Cabedelo - PB, 58.100-233, Brasil\",\"complement\":\"Em frente ao armazém paraíba \",\"hided\":false,\"reference\":\"Villa Porto loja 09\"},\"payment_method\":{\"money\":true,\"creditcard\":true,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":true,\"ifood_payin_credit\":true,\"tuna_digital_wallets\":false,\"ifood_payin_debit\":true},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":false},\"timezone\":\"America/Sao_Paulo\",\"exproductiontime\":null,\"time_delivery_min\":50,\"time_delivery_max\":70,\"time_take_min\":40,\"time_take_max\":60,\"order_automatic_on_production\":true,\"totem_order_automatic_on_production\":false,\"cpf_cnpj_on_order\":false,\"published\":true,\"acceptDelivery\":true,\"acceptTake\":true,\"acceptLocal\":true,\"name\":\"Center Pizza Cabedelo \",\"page\":\"6836678a7e3e950019068d12\",\"phones\":[{\"_id\":\"68368311209e266b409bf0d6\",\"number\":\"83986290531\",\"type\":\"cell\"}],\"regions\":[{\"name\":\"Camalau \",\"price\":5,\"active\":true,\"_id\":\"68368138a4f4799d9e8c1c03\"},{\"name\":\"Camboinha \",\"price\":7,\"active\":true,\"_id\":\"683681569d9b973ecb03ee10\"},{\"name\":\"Centro\",\"price\":5,\"active\":true,\"_id\":\"68368107a4f4799d9e8c1b6f\"},{\"name\":\"Intermares \",\"price\":15,\"active\":true,\"_id\":\"683681be9d9b973ecb03ee59\"},{\"name\":\"Jardim Brasília\",\"price\":5,\"active\":true,\"_id\":\"69fdd00f9f5a9528dab03094\"},{\"name\":\"Jardim jericó \",\"price\":7,\"active\""
+    },
+    "error": null,
+    "textLength": 130836
+  }
+]

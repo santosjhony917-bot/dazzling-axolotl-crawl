@@ -1,0 +1,270 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 5070,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"75d27928-5fc6-4e04-b989-eb306096d3df\",\"id\":\"b4932a41-cfaf-4dd5-9e3c-b65846f765b8\",\"code\":\"33\",\"ean\":null,\"priority\":1,\"name\":\"Bolo no Pote\",\"description\":\"\",\"price\":10,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"e666d4d6-d779-4801-a791-5e26e5d88d2c\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Bolo no Pote\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-b4932a41-cfaf-4dd5-9e3c-b65846f765b8_e6c8a356-116d-4ebb-9ca9-fc8c5878e48a.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"75d27928-5fc6-4e04-b989-eb306096d3df\",\"id\":\"22972e7c-1e5d-4727-a823-28af7bbb5806\",\"code\":\"31\",\"ean\":null,\"priority\":2,\"name\":\"Bolo Dois Amores\",\"description\":\"\",\"price\":8,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"77674eb7-2965-43e6-816b-3f3a559a0a9a\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Bolo Dois Amores\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-22972e7c-1e5d-4727-a823-28af7bbb5806_382b1b8c-48fe-4324-8c45-e407642cffad.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"75d27928-5fc6-4e04-b989-eb306096d3df\",\"id\":\"d928f4ef-1138-462e-bc43-3254b9c96508\",\"code\":\"32\",\"ean\":null,\"priority\":3,\"name\":\"Pudim\",\"description\":\"\",\"price\":8,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"d69c1c92-3809-46cf-bc56-5a0476cfc941\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Pudim\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-d928f4ef-1138-462e-bc43-3254b9c96508_d4add02a-48dd-43fd-81b1-fdad39229088.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"75d27928-5fc6-4e04-b989-eb306096d3df\",\"id\":\"8c52a7b7-9d67-4fd5-9424-0d84274defcb\",\"code\":\"34\",\"ean\":null,\"priority\":4,\"name\":\"Brownie\",\"description\":\"\",\"price\":6,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"9e736ac3-f406-461d-9d78-4222a272ca64\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Brownie\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-8c52a7b7-9d67-4fd5-9424-0d84274defcb_49492a5d-63fa-4f32-be65-54ff8bb86048.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"75d27928-5fc6-4e04-b989-eb306096d3df\",\"id\":\"a93d4ce1-0413-45f3-961c-bc353e722fc1\",\"code\":\"35\",\"ean\":null,\"priority\":5,\"name\":\"Brownie com Gelatto de Ninho\",\"description\":\"Brownie com Gelatto de Ninho cremoso\",\"price\":10,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"795fdb10-ea7f-4e2d-b026-742286d10fcf\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Brownie com Gelatto de Ninho\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-a93d4ce1-0413-45f3-961c-bc353e722fc1_6723d961-9ba5-4a67-aeeb-801c9545d475.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "5"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+      "id": "b4932a41-cfaf-4dd5-9e3c-b65846f765b8",
+      "code": "33",
+      "ean": null,
+      "priority": 1,
+      "name": "Bolo no Pote",
+      "description": "",
+      "price": 10,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "e666d4d6-d779-4801-a791-5e26e5d88d2c",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Bolo no Pote",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-b4932a41-cfaf-4dd5-9e3c-b65846f765b8_e6c8a356-116d-4ebb-9ca9-fc8c5878e48a.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+      "id": "22972e7c-1e5d-4727-a823-28af7bbb5806",
+      "code": "31",
+      "ean": null,
+      "priority": 2,
+      "name": "Bolo Dois Amores",
+      "description": "",
+      "price": 8,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "77674eb7-2965-43e6-816b-3f3a559a0a9a",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Bolo Dois Amores",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-22972e7c-1e5d-4727-a823-28af7bbb5806_382b1b8c-48fe-4324-8c45-e407642cffad.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+      "id": "d928f4ef-1138-462e-bc43-3254b9c96508",
+      "code": "32",
+      "ean": null,
+      "priority": 3,
+      "name": "Pudim",
+      "description": "",
+      "price": 8,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "d69c1c92-3809-46cf-bc56-5a0476cfc941",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Pudim",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-d928f4ef-1138-462e-bc43-3254b9c96508_d4add02a-48dd-43fd-81b1-fdad39229088.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+      "id": "8c52a7b7-9d67-4fd5-9424-0d84274defcb",
+      "code": "34",
+      "ean": null,
+      "priority": 4,
+      "name": "Brownie",
+      "description": "",
+      "price": 6,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "9e736ac3-f406-461d-9d78-4222a272ca64",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Brownie",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-8c52a7b7-9d67-4fd5-9424-0d84274defcb_49492a5d-63fa-4f32-be65-54ff8bb86048.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+      "id": "a93d4ce1-0413-45f3-961c-bc353e722fc1",
+      "code": "35",
+      "ean": null,
+      "priority": 5,
+      "name": "Brownie com Gelatto de Ninho",
+      "description": "Brownie com Gelatto de Ninho cremoso",
+      "price": 10,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "795fdb10-ea7f-4e2d-b026-742286d10fcf",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Brownie com Gelatto de Ninho",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a93d4ce1-0413-45f3-961c-bc353e722fc1_6723d961-9ba5-4a67-aeeb-801c9545d475.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

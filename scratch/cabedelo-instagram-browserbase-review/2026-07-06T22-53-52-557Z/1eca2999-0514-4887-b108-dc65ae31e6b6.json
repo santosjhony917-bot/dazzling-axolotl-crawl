@@ -1,0 +1,50 @@
+{
+  "id": "1eca2999-0514-4887-b108-dc65ae31e6b6",
+  "name": "Churrascaria do Caicó",
+  "category": "Churrascaria",
+  "neighborhood": "Av. Pastor José Alves de Oliveira",
+  "reviews_count": 753,
+  "rating": 4.3,
+  "instagramCandidate": "https://instagram.com/churrascariacaico",
+  "score": 80,
+  "title": "CHURRASCARIA CAICÓ (@churrascariacaico)",
+  "queries": [
+    "Churrascaria do Caicó churrascariacaico Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/churrascariacaico | CHURRASCARIA CAICÓ (@churrascariacaico) Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ... https://www.instagram.com/churrascariacaico/?hl=pt-br | CHURRASCARIA CAICÓ (@churrascariacaico) Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ... https://instagram.com/churrascariacaico",
+  "rowName": "Churrascaria do Caicó",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": -78,
+    "url": "https://instagram.com/churrascariacaico",
+    "handle": "churrascariacaico",
+    "tokens": [
+      "caico"
+    ],
+    "handleMatches": [
+      "caico"
+    ],
+    "textMatches": [
+      "caico"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [
+      "caico"
+    ],
+    "outOfScope": false,
+    "evidenceSample": "CHURRASCARIA CAICÓ (@churrascariacaico) https://instagram.com/churrascariacaico | CHURRASCARIA CAICÓ (@churrascariacaico) Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ... https://www.instagram.com/churrascariacaico/?hl=pt-br | CHURRASCARIA CAICÓ (@churrascariacaico) Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ... https://instagram.com/churrascariacaico Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fchurrascariacaico%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "92a876ec-192a-411c-aae8-3a9332224526"
+}

@@ -1,0 +1,90 @@
+{
+  "id": "55d451bc-f6ee-40f5-b611-7ef6158392d5",
+  "name": "Kubanacan Bar e Restaurante",
+  "instagram": "https://www.instagram.com/kubanacanbaroficial/",
+  "followers": 1374,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://canva.link/cpnbydcqik5wim6"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "d869ce98-4f83-4a26-b9f9-013d992cbce3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/55d451bc-f6ee-40f5-b611-7ef6158392d5/instagram_1783384826552_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "4a49a726-15ca-4e70-ad32-80d5af19af36",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/55d451bc-f6ee-40f5-b611-7ef6158392d5/instagram_1783384827553_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "72df2ac6-cf35-4876-8659-3f347ec8dc1e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/55d451bc-f6ee-40f5-b611-7ef6158392d5/instagram_1783384828464_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "f81f06a1-a7de-4e1b-a077-9d4ecd73d52c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/55d451bc-f6ee-40f5-b611-7ef6158392d5/instagram_1783384829072_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "89868a0b-0164-4b6d-9aa3-27b094448288",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/55d451bc-f6ee-40f5-b611-7ef6158392d5/instagram_1783384829781_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "0a69410c-bfcc-42db-af77-f25c86c3e36e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/55d451bc-f6ee-40f5-b611-7ef6158392d5/instagram_1783384830663_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "5f5bba93-f37d-44c7-8563-08ed87c56c4b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/55d451bc-f6ee-40f5-b611-7ef6158392d5/instagram_1783384831383_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "51b9cf8d-2b13-4107-b4c4-20c4b7c6c17b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/55d451bc-f6ee-40f5-b611-7ef6158392d5/instagram_1783384832117_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

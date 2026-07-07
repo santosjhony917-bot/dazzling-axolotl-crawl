@@ -1,0 +1,912 @@
+{
+  "restaurantId": "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+  "restaurantName": "BAR DO CHEFF RESTAURANTE",
+  "platform": "anota_ai",
+  "sourceUrl": "https://pedido.anota.ai/loja/bar-do-cheff-restaurante-1?referer=gbp_anota",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T14-10-14-466Z-29032\\003-bar-do-cheff-restaurante",
+  "startedAt": "2026-07-07T14:10:19.431Z",
+  "details": {
+    "url": "https://pedido.anota.ai/loja/bar-do-cheff-restaurante-1?referer=gbp_anota",
+    "title": "Bar do Cheff Restaurante - Anota AI",
+    "bodyTextSample": "Bar do Cheff Restaurante Loja offline. Sem pedido mínimo Perfil da loja Pratos Arrumadinho do cheff 02 pessoas Carne de sol, feijão verde, vinagrete, farofa e arroz branco. R$ 71,90 Filé Mignon À Parmegiana c/ spaguete p/02 pessoas Filé mignon empanado gratinado ao molho de tomate,espaguete,tomate fresco, manjericão e purê de batatas. R$ 89,90 Penne ao molho 4queijo com frango Cubos de frango grelhados,penne,brocolis,tomates frescos,manjericão, molho 4queijos R$ 64,90 Medalhão de Filet ao molho mostarda p/ 2 pessoas Medalhão de filé grelhado ao molho de queijo e mostarda, arroz de brocolis e batatas fritas R$ 89,90 Camarão à parmegiana(02 pessoas) Camarões empanados gratinados com queijo,arroz piamontes e fritas R$ 94,90 Filé de frango A parmegiana arroz e pure Filé de frango empanado gratinado com queijo,molho de tomate,arroz branco e purê de batata R$ 74,90 Camarão na manteiga Individual Camarões grelhados,arroz à grega e fritas R$ 64,90 Camarão a milanesa arroz e fritas(individual) Camarões empanados,arroz e fritas R$ 84,90 Penne camarão ao molho queijo Camarôes grelhados,penne,molho de queijo,manjericão e parmesão R$ 74,90 Medalhões de filé ao molho queijo e mostarda p/ 2 pessoas Medalhão de filé grelhado ao molho de queijo e mostarda, arroz de brocolis e batatas fritas R$ 94,90 Filé mignon ao molho madeira Individual Filé mignon grelhado , molho madeira arroz de brócolis e fritas. R$ 64,90 Medalhões De Filé Ao Molho Chateaubriand( 02 Pessoas) Medalhões de filé grelhado ao molho chateaubriand,arroz c/ alho crocante e purê de batatas R$ 99,90 Rubacão de carne sol na nata p/02 pessoas Carne de sol,feijão verde ,creme de queijo e nata, R$ 69,90 Strogonoff de filé mignon p/02 pessoas Arroz branco e purê de batatas R$ 74,90 Posta de Cavala grelhada Posta de cavala grelhada,arroz à grega e batata frita R$ 94,90 Posta de atum p/ 02 pessoas Arroz a grega,Salada e fritas. R$ 64,90 Penne camarão ao molho de tomate Camarôes grelhados,penne,ricota,manjericão,ervas finas,molho de tomate R$ 74,90 Camarão ao molho 4queijos (02 pessoas) Camarões grelhados,molho de 4queijos, arroz de brocólis e fritas R$ 89,90 Posta de Meca grelhada P/ 02 Pessoas Posta de meca grelhada ,arroz à grega e fritas R$ 94,90 Filé de frango ao molho de mostarda p/02 pessoas Filé de frango grelhado,molho de mostarda,arroz de brocolis e batatas fritas R$ 74,90 Risoto de camarão com arroz árborio Camarões grelhados,arroz árborio,molho de queijo,brocolis, tomate seco,manjericão e queijo parmesão R$ 98,90 Camarão A Parmegiana ( Individual) Camarões empanados gratinado com queijo ao molho de tomate, arroz a piamontese e batatas fritas R$ 64,90 Filé a Parmegiana( Individual) Filé Mignon empanado gratinado com queijo ao molho de tomate,Espaguete ao molho de tomate,tomates frescos e manjericão. R$ 64,90 Espaguete com camarão Camarões grelhados,espaguete ao molho de tomate e manjericão. R$ 94,90 Filé de Frango a parmegina p/02 pessoas Filé de frango empanado gratinado com queijo ao molho de tomate com espaguete e purê de batatas R$ 74,90 Filé de frango grelhado Individual Filé de frango grelhado com purê e arroz branco R$ 59,90 Picadinho de filé ao molho madeira Com arroz farofa e feijão preto. R$ 74,90 Medalhões de filé ao molho madeira(02 pessoas) Medalhões de filé mignon grelhado,molho madeira,arooz a piamontese e fritas R$ 89,90 Camarão grelhado ao molho de gorgonzola p/02 pessoas Camarão,molho gorgonzola,brocolis,tomates fresco,manjericão,arroz de brocolis e purê de batatas R$ 89,90 Camarão a parmegiana c/ spaguette ( Individual) Camarões empanado gratinado com queijo ao molho de tomate,espaguete ao molho de tomate,tomates frescos ,majericão e purê de batatas R$ 64,90 Filé mignon a parmegiana(03 pessoas) Filé mignon empanado gratinado com queijo ,molho de tomate,espaguete,tomates fresco,manjericão e purê R$ 119,90 Peixada à brasileira p 2 pessoas Meca em posta ao molho ,pirão ,arroz branco e ovos cozidos R$ 119,90 Porções extras Arroz de brócolis R$ 25,00 Bebidas Coca Cola Lata 350 Ml R$ 9,00 Coca Zero Lata 350 Ml R$ 9,00 Guarana 1l Refrigerante pet R$ 14,00 Aguá C/ Gás 350 Ml R$ 8,00 Limoneto 500 Ml R$ 10,00 Guaraná Lata 350 Ml R$ 8,00 Suco Laranja 300 Ml R$ 14,00 Coca cola 1l Refrigerante pet R$ 15,00 Início Pedidos",
+    "metrics": {
+      "scrollHeight": 2973,
+      "bodyLength": 43092,
+      "imageCount": 42
+    }
+  },
+  "rawSummary": {
+    "categoryCount": 3,
+    "itemCount": 41,
+    "optionCount": 2,
+    "operationalCategoryCount": 0,
+    "operationalItemCount": 0,
+    "operationalOptionCount": 0,
+    "samples": [
+      {
+        "name": "Pratos",
+        "items": [
+          {
+            "name": "Arrumadinho do cheff 02 pessoas",
+            "price": 71.9,
+            "options": []
+          },
+          {
+            "name": "Filé Mignon À Parmegiana c/ spaguete p/02 pessoas",
+            "price": 89.9,
+            "options": []
+          },
+          {
+            "name": "Penne ao molho 4queijo com frango",
+            "price": 64.9,
+            "options": []
+          },
+          {
+            "name": "Medalhão de Filet ao molho mostarda p/ 2 pessoas",
+            "price": 89.9,
+            "options": []
+          },
+          {
+            "name": "Camarão à parmegiana(02 pessoas)",
+            "price": 94.9,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Porções extras",
+        "items": [
+          {
+            "name": "Arroz de brócolis",
+            "price": 25,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Coca Cola Lata",
+            "price": 9,
+            "options": []
+          },
+          {
+            "name": "Coca Zero Lata",
+            "price": 9,
+            "options": []
+          },
+          {
+            "name": "Guarana 1l",
+            "price": 14,
+            "options": []
+          },
+          {
+            "name": "Aguá C/ Gás",
+            "price": 8,
+            "options": []
+          },
+          {
+            "name": "Limoneto",
+            "price": 10,
+            "options": []
+          }
+        ]
+      }
+    ]
+  },
+  "evidencePath": "scratch\\structured-menu-collection\\2026-07-07T14-10-14-466Z-29032\\003-bar-do-cheff-restaurante\\menu-evidence.json",
+  "dryRun": {
+    "code": 0,
+    "result": {
+      "success": true,
+      "dryRun": true,
+      "audit": {
+        "approved": true,
+        "confidence": 0.98,
+        "categoryCount": 3,
+        "itemCount": 41,
+        "resolvedPriceCount": 41,
+        "unresolvedPriceCount": 0,
+        "fullPriceDeltaAnomalyCount": 0,
+        "fullPriceDeltaAnomalies": [],
+        "optionPriceCount": 0,
+        "pricedRatio": 1,
+        "issues": [],
+        "optionSemanticAI": {
+          "used": true,
+          "groups": 2,
+          "model": "gpt-4o-mini",
+          "deltaFixes": 0,
+          "storageFixes": 1,
+          "guardFixes": 0
+        }
+      },
+      "preview": [
+        {
+          "name": "Pratos",
+          "count": 32,
+          "samples": [
+            {
+              "name": "Arrumadinho do cheff 02 pessoas",
+              "price": 71.9,
+              "kind": "simple_item",
+              "description": "Carne de sol, feijão verde, vinagrete, farofa e arroz branco."
+            },
+            {
+              "name": "Filé Mignon À Parmegiana c/ spaguete p/02 pessoas",
+              "price": 89.9,
+              "kind": "simple_item",
+              "description": "Filé mignon empanado gratinado ao molho de tomate,espaguete,tomate fresco, manjericão e purê de batatas."
+            },
+            {
+              "name": "Penne ao molho 4queijo com frango",
+              "price": 64.9,
+              "kind": "simple_item",
+              "description": "Cubos de frango grelhados,penne,brocolis,tomates frescos,manjericão, molho 4queijos"
+            },
+            {
+              "name": "Medalhão de Filet ao molho mostarda p/ 2 pessoas",
+              "price": 89.9,
+              "kind": "simple_item",
+              "description": "Medalhão de filé grelhado ao molho de queijo e mostarda, arroz de brocolis e batatas fritas"
+            },
+            {
+              "name": "Camarão à parmegiana(02 pessoas)",
+              "price": 94.9,
+              "kind": "configurable_item",
+              "description": "Camarões empanados gratinados com queijo,arroz piamontes e fritas"
+            }
+          ]
+        },
+        {
+          "name": "Porções extras",
+          "count": 1,
+          "samples": [
+            {
+              "name": "Arroz de brócolis",
+              "price": 25,
+              "kind": "simple_item",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Bebidas",
+          "count": 8,
+          "samples": [
+            {
+              "name": "Coca Cola Lata",
+              "price": 9,
+              "kind": "simple_item",
+              "description": "350 Ml"
+            },
+            {
+              "name": "Coca Zero Lata",
+              "price": 9,
+              "kind": "simple_item",
+              "description": "350 Ml"
+            },
+            {
+              "name": "Guarana 1l",
+              "price": 14,
+              "kind": "simple_item",
+              "description": "Refrigerante pet"
+            },
+            {
+              "name": "Aguá C/ Gás",
+              "price": 8,
+              "kind": "simple_item",
+              "description": "350 Ml"
+            },
+            {
+              "name": "Limoneto",
+              "price": 10,
+              "kind": "simple_item",
+              "description": "500 Ml"
+            }
+          ]
+        }
+      ],
+      "categories": [
+        {
+          "name": "Pratos",
+          "items": [
+            {
+              "name": "Arrumadinho do cheff 02 pessoas",
+              "description": "Carne de sol, feijão verde, vinagrete, farofa e arroz branco.",
+              "price": 71.9,
+              "display_price": 71.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Filé Mignon À Parmegiana c/ spaguete p/02 pessoas",
+              "description": "Filé mignon empanado gratinado ao molho de tomate,espaguete,tomate fresco, manjericão e purê de batatas.",
+              "price": 89.9,
+              "display_price": 89.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Penne ao molho 4queijo com frango",
+              "description": "Cubos de frango grelhados,penne,brocolis,tomates frescos,manjericão, molho 4queijos",
+              "price": 64.9,
+              "display_price": 64.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Medalhão de Filet ao molho mostarda p/ 2 pessoas",
+              "description": "Medalhão de filé grelhado ao molho de queijo e mostarda, arroz de brocolis e batatas fritas",
+              "price": 89.9,
+              "display_price": 89.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão à parmegiana(02 pessoas)",
+              "description": "Camarões empanados gratinados com queijo,arroz piamontes e fritas",
+              "price": 94.9,
+              "display_price": 94.9,
+              "price_type": "fixed",
+              "commercial_type": "configurable_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Filé de frango A parmegiana arroz e pure",
+              "description": "Filé de frango empanado gratinado com queijo,molho de tomate,arroz branco e purê de batata",
+              "price": 74.9,
+              "display_price": 74.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão na manteiga Individual",
+              "description": "Camarões grelhados,arroz à grega e fritas",
+              "price": 64.9,
+              "display_price": 64.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão a milanesa arroz e fritas(individual)",
+              "description": "Camarões empanados,arroz e fritas",
+              "price": 84.9,
+              "display_price": 84.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Penne camarão ao molho queijo",
+              "description": "Camarôes grelhados,penne,molho de queijo,manjericão e parmesão",
+              "price": 74.9,
+              "display_price": 74.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Medalhões de filé ao molho queijo e mostarda p/ 2 pessoas",
+              "description": "Medalhão de filé grelhado ao molho de queijo e mostarda, arroz de brocolis e batatas fritas",
+              "price": 94.9,
+              "display_price": 94.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Filé mignon ao molho madeira Individual",
+              "description": "Filé mignon grelhado , molho madeira arroz de brócolis e fritas.",
+              "price": 64.9,
+              "display_price": 64.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Medalhões De Filé Ao Molho Chateaubriand( 02 Pessoas)",
+              "description": "Medalhões de filé grelhado ao molho chateaubriand,arroz c/ alho crocante e purê de batatas",
+              "price": 99.9,
+              "display_price": 99.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Rubacão de carne sol na nata p/02 pessoas",
+              "description": "Carne de sol,feijão verde ,creme de queijo e nata,",
+              "price": 69.9,
+              "display_price": 69.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Strogonoff de filé mignon p/02 pessoas",
+              "description": "Arroz branco e purê de batatas",
+              "price": 74.9,
+              "display_price": 74.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Posta de Cavala grelhada",
+              "description": "Posta de cavala grelhada,arroz à grega e batata frita",
+              "price": 94.9,
+              "display_price": 94.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Posta de atum p/ 02 pessoas",
+              "description": "Arroz a grega,Salada e fritas.",
+              "price": 64.9,
+              "display_price": 64.9,
+              "price_type": "starting_at",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Embalagens",
+                  "min_quantity": 1,
+                  "max_quantity": 2,
+                  "is_required": true,
+                  "semantic_type": "not_searchable",
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "external_id": "6931ec8fa4852257defa4aa7",
+                      "group_name": "Embalagens",
+                      "name": "Embalagens",
+                      "description": null,
+                      "image_url": null,
+                      "price": null,
+                      "price_delta": null,
+                      "min_quantity": 1,
+                      "max_quantity": 2,
+                      "is_required": true,
+                      "semantic_type": "not_searchable",
+                      "price_behavior": "included",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "6931ec8fa4852257defa4aa7",
+                  "group_name": "Embalagens",
+                  "name": "Embalagens",
+                  "description": null,
+                  "image_url": null,
+                  "price": null,
+                  "price_delta": null,
+                  "min_quantity": 1,
+                  "max_quantity": 2,
+                  "is_required": true,
+                  "semantic_type": "not_searchable",
+                  "price_behavior": "included",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "Penne camarão ao molho de tomate",
+              "description": "Camarôes grelhados,penne,ricota,manjericão,ervas finas,molho de tomate",
+              "price": 74.9,
+              "display_price": 74.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão ao molho 4queijos (02 pessoas)",
+              "description": "Camarões grelhados,molho de 4queijos, arroz de brocólis e fritas",
+              "price": 89.9,
+              "display_price": 89.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Posta de Meca grelhada P/ 02 Pessoas",
+              "description": "Posta de meca grelhada ,arroz à grega e fritas",
+              "price": 94.9,
+              "display_price": 94.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Filé de frango ao molho de mostarda p/02 pessoas",
+              "description": "Filé de frango grelhado,molho de mostarda,arroz de brocolis e batatas fritas",
+              "price": 74.9,
+              "display_price": 74.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Risoto de camarão com arroz árborio",
+              "description": "Camarões grelhados,arroz árborio,molho de queijo,brocolis, tomate seco,manjericão e queijo parmesão",
+              "price": 98.9,
+              "display_price": 98.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão A Parmegiana ( Individual)",
+              "description": "Camarões empanados gratinado com queijo ao molho de tomate, arroz a piamontese e batatas fritas",
+              "price": 64.9,
+              "display_price": 64.9,
+              "price_type": "fixed",
+              "commercial_type": "configurable_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Filé a Parmegiana( Individual)",
+              "description": "Filé Mignon empanado gratinado com queijo ao molho de tomate,Espaguete ao molho de tomate,tomates frescos e manjericão.",
+              "price": 64.9,
+              "display_price": 64.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Espaguete com camarão",
+              "description": "Camarões grelhados,espaguete ao molho de tomate e manjericão.",
+              "price": 94.9,
+              "display_price": 94.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Filé de Frango a parmegina p/02 pessoas",
+              "description": "Filé de frango empanado gratinado com queijo ao molho de tomate com espaguete e purê de batatas",
+              "price": 74.9,
+              "display_price": 74.9,
+              "price_type": "starting_at",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Embalagens",
+                  "min_quantity": 0,
+                  "max_quantity": 1,
+                  "is_required": false,
+                  "semantic_type": "addon",
+                  "price_behavior": "price_delta",
+                  "items": [
+                    {
+                      "external_id": "6931ec8fa4852257defa4ab1",
+                      "group_name": "Embalagens",
+                      "name": "Embalagens",
+                      "description": null,
+                      "image_url": null,
+                      "price": null,
+                      "price_delta": 4.5,
+                      "min_quantity": 0,
+                      "max_quantity": 1,
+                      "is_required": false,
+                      "semantic_type": "addon",
+                      "price_behavior": "price_delta",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "6931ec8fa4852257defa4ab1",
+                  "group_name": "Embalagens",
+                  "name": "Embalagens",
+                  "description": null,
+                  "image_url": null,
+                  "price": null,
+                  "price_delta": 4.5,
+                  "min_quantity": 0,
+                  "max_quantity": 1,
+                  "is_required": false,
+                  "semantic_type": "addon",
+                  "price_behavior": "price_delta",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "Filé de frango grelhado Individual",
+              "description": "Filé de frango grelhado com purê e arroz branco",
+              "price": 59.9,
+              "display_price": 59.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Picadinho de filé ao molho madeira",
+              "description": "Com arroz farofa e feijão preto.",
+              "price": 74.9,
+              "display_price": 74.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Medalhões de filé ao molho madeira(02 pessoas)",
+              "description": "Medalhões de filé mignon grelhado,molho madeira,arooz a piamontese e fritas",
+              "price": 89.9,
+              "display_price": 89.9,
+              "price_type": "fixed",
+              "commercial_type": "configurable_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão grelhado ao molho de gorgonzola p/02 pessoas",
+              "description": "Camarão,molho gorgonzola,brocolis,tomates fresco,manjericão,arroz de brocolis e purê de batatas",
+              "price": 89.9,
+              "display_price": 89.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão a parmegiana c/ spaguette ( Individual)",
+              "description": "Camarões empanado gratinado com queijo ao molho de tomate,espaguete ao molho de tomate,tomates frescos ,majericão e purê de batatas",
+              "price": 64.9,
+              "display_price": 64.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Filé mignon a parmegiana(03 pessoas)",
+              "description": "Filé mignon empanado gratinado com queijo ,molho de tomate,espaguete,tomates fresco,manjericão e purê",
+              "price": 119.9,
+              "display_price": 119.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Peixada à brasileira p 2 pessoas",
+              "description": "Meca em posta ao molho ,pirão ,arroz branco e ovos cozidos",
+              "price": 119.9,
+              "display_price": 119.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Porções extras",
+          "items": [
+            {
+              "name": "Arroz de brócolis",
+              "description": "",
+              "price": 25,
+              "display_price": 25,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Bebidas",
+          "items": [
+            {
+              "name": "Coca Cola Lata",
+              "description": "350 Ml",
+              "price": 9,
+              "display_price": 9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Coca Zero Lata",
+              "description": "350 Ml",
+              "price": 9,
+              "display_price": 9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Guarana 1l",
+              "description": "Refrigerante pet",
+              "price": 14,
+              "display_price": 14,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Aguá C/ Gás",
+              "description": "350 Ml",
+              "price": 8,
+              "display_price": 8,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Limoneto",
+              "description": "500 Ml",
+              "price": 10,
+              "display_price": 10,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Guaraná Lata",
+              "description": "350 Ml",
+              "price": 8,
+              "display_price": 8,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Suco Laranja",
+              "description": "300 Ml",
+              "price": 14,
+              "display_price": 14,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Coca cola 1l",
+              "description": "Refrigerante pet",
+              "price": 15,
+              "display_price": 15,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        }
+      ],
+      "message": "Prévia estruturada com 41 itens via anota_ai_network."
+    },
+    "stdoutTail": "display_price\":74.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Medalhões de filé ao molho madeira(02 pessoas)\",\"description\":\"Medalhões de filé mignon grelhado,molho madeira,arooz a piamontese e fritas\",\"price\":89.9,\"display_price\":89.9,\"price_type\":\"fixed\",\"commercial_type\":\"configurable_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Camarão grelhado ao molho de gorgonzola p/02 pessoas\",\"description\":\"Camarão,molho gorgonzola,brocolis,tomates fresco,manjericão,arroz de brocolis e purê de batatas\",\"price\":89.9,\"display_price\":89.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Camarão a parmegiana c/ spaguette ( Individual)\",\"description\":\"Camarões empanado gratinado com queijo ao molho de tomate,espaguete ao molho de tomate,tomates frescos ,majericão e purê de batatas\",\"price\":64.9,\"display_price\":64.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Filé mignon a parmegiana(03 pessoas)\",\"description\":\"Filé mignon empanado gratinado com queijo ,molho de tomate,espaguete,tomates fresco,manjericão e purê\",\"price\":119.9,\"display_price\":119.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Peixada à brasileira p 2 pessoas\",\"description\":\"Meca em posta ao molho ,pirão ,arroz branco e ovos cozidos\",\"price\":119.9,\"display_price\":119.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Porções extras\",\"items\":[{\"name\":\"Arroz de brócolis\",\"description\":\"\",\"price\":25,\"display_price\":25,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Bebidas\",\"items\":[{\"name\":\"Coca Cola Lata\",\"description\":\"350 Ml\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca Zero Lata\",\"description\":\"350 Ml\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Guarana 1l\",\"description\":\"Refrigerante pet\",\"price\":14,\"display_price\":14,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Aguá C/ Gás\",\"description\":\"350 Ml\",\"price\":8,\"display_price\":8,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Limoneto\",\"description\":\"500 Ml\",\"price\":10,\"display_price\":10,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Guaraná Lata\",\"description\":\"350 Ml\",\"price\":8,\"display_price\":8,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Suco Laranja\",\"description\":\"300 Ml\",\"price\":14,\"display_price\":14,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca cola 1l\",\"description\":\"Refrigerante pet\",\"price\":15,\"display_price\":15,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 41 itens via anota_ai_network.\"}\n",
+    "stderrTail": ""
+  },
+  "review": {
+    "tier": "yellow",
+    "flags": [
+      "source_identity_not_confirmed"
+    ],
+    "dryRunApproved": true,
+    "dryRunOperationalEntityCount": 0,
+    "dryRunOperationalCategoryCount": 0,
+    "dryRunOperationalItemCount": 0,
+    "dryRunOperationalOptionCount": 0,
+    "itemCount": 41,
+    "optionCount": 2,
+    "rawOperationalCategoryCount": 0,
+    "rawOperationalItemCount": 0,
+    "rawOperationalOptionCount": 0,
+    "identity": {
+      "confirmed": false,
+      "pageHasName": true,
+      "urlHasName": true,
+      "pageHasPhone": false,
+      "pageHasAddress": false,
+      "pageHasCity": false,
+      "pageHasState": false,
+      "evidence": {
+        "targetName": "BAR DO CHEFF RESTAURANTE",
+        "targetAddress": "Av. Mar Vermelho",
+        "targetPhoneLast8": "88429424",
+        "targetCity": "Cabedelo",
+        "targetState": "PB"
+      }
+    },
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 3,
+      "itemCount": 41,
+      "resolvedPriceCount": 41,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": true,
+        "groups": 2,
+        "model": "gpt-4o-mini",
+        "deltaFixes": 0,
+        "storageFixes": 1,
+        "guardFixes": 0
+      }
+    }
+  },
+  "committed": false,
+  "commit": null,
+  "error": null,
+  "commitSkippedReason": "review_tier_yellow",
+  "finishedAt": "2026-07-07T14:10:46.538Z"
+}

@@ -1,0 +1,539 @@
+[
+  {
+    "restaurantId": "b800fc7b-5bbe-44e1-b964-f96e36d4700a",
+    "restaurantName": "Me gusta Açaí",
+    "restaurantCategory": "Praça de alimentação",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/acai_megusta",
+      "handle": "acai_megusta",
+      "tokens": [
+        "gusta"
+      ],
+      "handleMatches": [
+        "gusta"
+      ],
+      "titleMatches": [
+        "gusta"
+      ],
+      "titleHandleMatches": [
+        "gusta"
+      ],
+      "textMatches": [
+        "gusta"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG",
+        "link": "https://instagram.com/acai_megusta/?__d=1%E5%86%85%E8%92%99%E5%8F%A4%E5%91%BC%E4%BC%A6%E8%B4%9D%E5%B0%94%E6%83%B3%E8%A6%81%E6%89%BE%E6%A8%A1%E7%89%B9%E9%85%92%E5%B1%80%E5%85%A8%E5%A5%97%3F%2B-%2B%E5%91%BC%E4%BC%A6%E8%B4%9D%E5%B0%94%E6%A8%A1%E7%89%B9.%E2%9C%94%EF%B8%8Fbaoyang.cyou",
+        "snippet": "Temos em nosso cardápio o Açaí Tradicional Venha nos visitar, estamos na rua José Alves 357, Jardim dos Comerciários/BH Não quer sair de casa?",
+        "displayedLink": "https://www.instagram.com › acai_megusta",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99979-7906"
+  },
+  {
+    "restaurantId": "ca0f0788-f272-4859-826e-38af8e426eef",
+    "restaurantName": "Caribe burger",
+    "restaurantCategory": "Lanchonete",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/gigantedomaroficial",
+      "handle": "gigantedomaroficial",
+      "tokens": [
+        "caribe"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99995-2504"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 10,
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "link": "https://instagram.com/gigantedomaroficial",
+        "snippet": "⏰ Horário de Funcionamento: 9:00 às 16:00 Contato: 8399995-2504 Localização: Avenida Max Zagel, 450. Camboinha /Cabedelo. JP /PB Brasil .",
+        "displayedLink": "Mais de 53,2 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98178-9635"
+  },
+  {
+    "restaurantId": "743c1d75-28df-42ef-ba44-663a736f9783",
+    "restaurantName": "Sabor da infância no pôr do sol",
+    "restaurantCategory": "Sorveteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/pordosoldojacare",
+      "handle": "pordosoldojacare",
+      "tokens": [
+        "sabor",
+        "infancia"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "Pôr do Sol do Jacaré (@pordosoldojacare) · Cabedelo, PB",
+        "link": "https://instagram.com/pordosoldojacare",
+        "snippet": "Você já conhece o Pôr do Sol do Jacaré? Fica localizado na Paraíba, em Cabedelo. Você encontra diversas lojas e espetáculos, além dessa vista maravilhosa❤️ ...",
+        "displayedLink": "Mais de 23 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98860-4213"
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "restaurantName": "Porto do açaí",
+    "restaurantCategory": "Lanchonete",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/portodoacai01",
+      "handle": "portodoacai01",
+      "tokens": [
+        "porto"
+      ],
+      "handleMatches": [
+        "porto"
+      ],
+      "titleMatches": [
+        "porto"
+      ],
+      "titleHandleMatches": [
+        "porto"
+      ],
+      "textMatches": [
+        "porto"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [
+        "cleto campelo"
+      ],
+      "phones": [],
+      "openingHoursText": "Porto do Açaí (@portodoacai01) · Cabedelo, PB. 956 followers · 81 posts · Ceo: @nazarebaracho - @leilacam26 : Rua Cleto Campelo, quiosque 3 Segunda à Sábado de 9h às 21hrs Faça seu pedido abaixo.. https://instagram.com/portodoacai01",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Porto do Açaí (@portodoacai01) · Cabedelo, PB",
+        "link": "https://instagram.com/portodoacai01",
+        "snippet": "956 followers · 81 posts · Ceo: @nazarebaracho - @leilacam26 : Rua Cleto Campelo, quiosque 3 Segunda à Sábado de 9h às 21hrs Faça seu pedido abaixo.",
+        "displayedLink": "Mais de 960 seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "https://instagram.com/portodoacai01",
+    "existingPhone": "(83) 99384-2261"
+  },
+  {
+    "restaurantId": "9092bbb6-9b7e-4aff-a990-7edecd6f155b",
+    "restaurantName": "Bebel & Jó Pizzaria",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/bellapizza.en",
+      "handle": "bellapizza.en",
+      "tokens": [
+        "bebel"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 3231-1552"
+      ],
+      "openingHoursText": "Bella Pizza (@bellapizza.en). Rodízio | À La carte ☎️ (83) 3231-1552 | 98869-9558 ▪️ Terça a Domingo: 18h às 23h Rua Agostinho Fonseca Neto, 211 - Água Fria - João Pessoa-PB.. https://instagram.com/bellapizza.en",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "Bella Pizza (@bellapizza.en)",
+        "link": "https://instagram.com/bellapizza.en",
+        "snippet": "Rodízio | À La carte ☎️ (83) 3231-1552 | 98869-9558 ▪️ Terça a Domingo: 18h às 23h Rua Agostinho Fonseca Neto, 211 - Água Fria - João Pessoa-PB.",
+        "displayedLink": "Mais de 47,6 mil seguidores",
+        "platform": "instagram",
+        "score": 40,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "352e2216-3bb5-4742-9960-374c9ca64e13",
+    "restaurantName": "Açai",
+    "restaurantCategory": "Loja de açaí",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "no_distinctive_restaurant_token",
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/danieldoacai",
+      "handle": "danieldoacai",
+      "tokens": [],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98669-5781"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "link": "https://instagram.com/danieldoacai",
+        "snippet": "Açaíteria & Lanchonete Eleita 4x a melhor açaíteria de Cabedelo Atendimento exclusivo por delivery Pedidos: (83) 98669-5781.",
+        "displayedLink": "Mais de 5 mil seguidores",
+        "platform": "instagram",
+        "score": 112,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "68fed341-d74c-4c02-806c-a217e74b7d2f",
+    "restaurantName": "Fatia do Céu",
+    "restaurantCategory": "Cafeteria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 92,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/ceunabocaoficial",
+      "handle": "ceunabocaoficial",
+      "tokens": [
+        "fatia",
+        "ceu"
+      ],
+      "handleMatches": [
+        "ceu"
+      ],
+      "titleMatches": [
+        "ceu"
+      ],
+      "titleHandleMatches": [
+        "ceu"
+      ],
+      "textMatches": [
+        "fatia",
+        "ceu"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "Céu na Boca (@ceunabocaoficial)",
+        "link": "https://instagram.com/ceunabocaoficial",
+        "snippet": "... R$12,00 a fatia! É a oportunidade perfeita para matar a saudade das melhores quartas-feiras da vida. ✨ Se liga nos detalhes: ⠀⠀⠀⠀⠀⠀⠀⠀⠀ Preço ...",
+        "displayedLink": "Mais de 111,9 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "8d326630-6c57-4b8f-996f-f2a71d56c9a4",
+    "restaurantName": "Pastelaria Arretada",
+    "restaurantCategory": "Pastelaria brasileira",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/pastelaria.arretadapb",
+      "handle": "pastelaria.arretadapb",
+      "tokens": [
+        "arretada"
+      ],
+      "handleMatches": [
+        "arretada"
+      ],
+      "titleMatches": [
+        "arretada"
+      ],
+      "titleHandleMatches": [
+        "arretada"
+      ],
+      "textMatches": [
+        "arretada"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99380-1327"
+      ],
+      "openingHoursText": "Pastelaria Arretada (@pastelaria.arretadapb). ⏰| QUA/SEG 18:00h às 00:00h ❌|Fechamos na TERÇA | Pastel, Crepe, cuscuz recheado | 83 99380-1327 ⬇️ FAÇA SEU PEDIDO AGORA! ⬇️ · CURTIU? Então já marca o @ .... https://instagram.com/pastelaria.arretadapb",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Pastelaria Arretada (@pastelaria.arretadapb)",
+        "link": "https://instagram.com/pastelaria.arretadapb",
+        "snippet": "⏰| QUA/SEG 18:00h às 00:00h ❌|Fechamos na TERÇA | Pastel, Crepe, cuscuz recheado | 83 99380-1327 ⬇️ FAÇA SEU PEDIDO AGORA! ⬇️ · CURTIU? Então já marca o @ ...",
+        "displayedLink": "Mais de 970 seguidores",
+        "platform": "instagram",
+        "score": 116,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "https://instagram.com/pastelaria.arretadapb",
+    "existingPhone": "(83) 99380-1327"
+  },
+  {
+    "restaurantId": "1d3e88fe-546d-4e89-a3e5-0ab54670cfea",
+    "restaurantName": "Cafeteria Deus Seja Louvado",
+    "restaurantCategory": "Cafeteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/saxcafe",
+      "handle": "saxcafe",
+      "tokens": [
+        "deus",
+        "seja",
+        "louvado"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "saxcafe · Cabedelo, PB",
+        "link": "https://instagram.com/saxcafe",
+        "snippet": "Cafés | Tapiocas | Bebidas Diariamente: das 14h às 20h · Pra ela, o Sax Café no Pôr do Sol do Jacaré, se tornou único e inesquecível. · Duas vidas, vivendo a ...",
+        "displayedLink": "Mais de 500 seguidores",
+        "platform": "instagram",
+        "score": 38,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98618-3414"
+  },
+  {
+    "restaurantId": "4e7acf35-2f23-41de-89f6-1a98cf6e0b4b",
+    "restaurantName": "Espetinho São Paulo",
+    "restaurantCategory": "Churrascaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "no_instagram_candidate",
+    "best": null,
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "27f1b5b7-56c6-49dd-80b5-4273a1dc3761",
+    "restaurantName": "Rainha da tapioca",
+    "restaurantCategory": "Cafeteria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "no_location_or_phone_support",
+    "best": {
+      "approved": true,
+      "score": 138,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/rainhadatapioca",
+      "handle": "rainhadatapioca",
+      "tokens": [
+        "rainha",
+        "tapioca"
+      ],
+      "handleMatches": [
+        "rainha",
+        "tapioca"
+      ],
+      "titleMatches": [
+        "rainha",
+        "tapioca"
+      ],
+      "titleHandleMatches": [
+        "rainha",
+        "tapioca"
+      ],
+      "textMatches": [
+        "rainha",
+        "tapioca"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca)",
+        "link": "https://instagram.com/rainhadatapioca/reels",
+        "snippet": "Tá com vontade de comer bem de verdade? Aqui tem de tudo pra matar sua fome: tapioca caprichada, hambúrguer suculento e pratos que fazem qualquer um voltar!",
+        "displayedLink": "https://www.instagram.com › rainhadatapioca",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98711-6152"
+  }
+]

@@ -1,0 +1,2 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+red,7,cardapioweb,Bar da Curva - Sandro's Bar,https://app.cardapioweb.com/sandros_bar?s=cb,collector_error|no_extension_print|no_structured_items|insufficient_visual_menu_evidence|price_coverage_review,reject_or_rediscover_source,395c5d1a-99f7-40e3-82f3-af6e22406e75

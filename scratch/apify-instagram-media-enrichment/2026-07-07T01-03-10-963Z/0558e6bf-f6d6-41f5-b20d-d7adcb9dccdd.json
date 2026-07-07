@@ -1,0 +1,85 @@
+{
+  "id": "0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd",
+  "name": "Viciados em Sushi",
+  "instagram": "https://www.instagram.com/viciadosemsushi/",
+  "followers": 8354,
+  "match": {
+    "score": 115,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "5c03455b-8b4a-4296-bd80-d2ad37579402",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd/instagram_1783384725314_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "2951f95f-5630-4c28-b88d-58a4d9c0d171",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd/instagram_1783384726865_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "6d9d0e40-3125-4056-9d2b-2dd1e3a68e25",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd/instagram_1783384728099_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "55eccc9c-71d1-4c4b-9257-110eae9ffd09",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd/instagram_1783384729590_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "1a530477-26f8-4359-a12e-5ee78b43291a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd/instagram_1783384730403_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "1a03569e-ef9a-48e2-8759-c34aeefae0ed",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd/instagram_1783384731159_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "d1b2f762-7ba2-44f3-be5a-25a9e060f696",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd/instagram_1783384731846_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "374bff0e-3b47-4705-b07d-2384d3459d82",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd/instagram_1783384733198_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

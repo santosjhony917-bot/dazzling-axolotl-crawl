@@ -1,0 +1,1587 @@
+{
+  "summary": {
+    "generatedAt": "2026-07-06T22:55:00.270Z",
+    "apply": true,
+    "city": "Cabedelo",
+    "state": "PB",
+    "queueFile": "scratch\\cabedelo-instagram-browserbase-review\\hold-queue.json",
+    "outDir": "scratch\\cabedelo-instagram-browserbase-review\\2026-07-06T22-53-52-557Z",
+    "requested": 31,
+    "processed": 31,
+    "concurrency": 12,
+    "contextId": "2a25781e-3bb3-4a83-9b6a-e831e6a7afaa",
+    "counts": {
+      "hold": 11,
+      "reject": 20
+    },
+    "applied": [],
+    "failures": [],
+    "approved": []
+  },
+  "results": [
+    {
+      "id": "afa4d143-2996-418e-af22-d839e60b546a",
+      "name": "Porto do Café",
+      "category": "Cafeteria",
+      "neighborhood": "Centro",
+      "reviews_count": 6,
+      "rating": 4.7,
+      "instagramCandidate": "https://instagram.com/portodocafe__",
+      "score": 120,
+      "title": "portodocafe__",
+      "queries": [
+        "Porto do Café portodocafe__ Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/portodocafe__",
+      "rowName": "Porto do Café",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 64,
+        "url": "https://instagram.com/portodocafe__",
+        "handle": "portodocafe__",
+        "tokens": [
+          "porto",
+          "cafe"
+        ],
+        "handleMatches": [
+          "porto",
+          "cafe"
+        ],
+        "textMatches": [
+          "porto",
+          "cafe"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "portodocafe__ https://instagram.com/portodocafe__ Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png https://instagram.com/ 124024574287414 Create an account or log in to Instagram - Share what you're into with the people who get you. Instagram dark Forgot password? https://www.instagram.com/accounts/password/reset/?next=https%3A%2F%2Fwww.instagram.com%2Fportodocafe__%2F%3Fhl%3Dpt-br Create new account https://www.instagram.com/accounts/emailsignup/?next=https%3A%2F%2Fwww.instagram.com%2Fportodocafe__%",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fportodocafe__%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "c660bade-22d4-4175-8cfa-5e4fa056bfce"
+    },
+    {
+      "id": "2e4d043d-4eae-48c9-852a-f81b7ef842f5",
+      "name": "Bom apetite",
+      "category": "Restaurante",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 4,
+      "rating": 3.3,
+      "instagramCandidate": "https://instagram.com/bomapetitejp",
+      "score": 120,
+      "title": "Bom Apetite - Empanadas Argentinas - (@bomapetitejp)",
+      "queries": [
+        "Bom apetite bomapetitejp Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/bomapetitejp | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://www.instagram.com/bomapetitejp/ | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://instagram.com/bomapetitejp",
+      "rowName": "Bom apetite",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 64,
+        "url": "https://instagram.com/bomapetitejp",
+        "handle": "bomapetitejp",
+        "tokens": [
+          "bom",
+          "apetite"
+        ],
+        "handleMatches": [
+          "bom",
+          "apetite"
+        ],
+        "textMatches": [
+          "bom",
+          "apetite"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Bom Apetite - Empanadas Argentinas - (@bomapetitejp) https://instagram.com/bomapetitejp | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://www.instagram.com/bomapetitejp/ | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://instagram.com/bomapetitejp Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.ins",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fbomapetitejp%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "8c571f3c-2973-47cb-ac67-c98cd23311f9"
+    },
+    {
+      "id": "68fed341-d74c-4c02-806c-a217e74b7d2f",
+      "name": "Fatia do Céu",
+      "category": "Cafeteria",
+      "neighborhood": "Recanto do Poço",
+      "reviews_count": null,
+      "rating": null,
+      "instagramCandidate": "https://instagram.com/fatiadoceu_",
+      "score": 120,
+      "title": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ",
+      "queries": [
+        "Fatia do Céu fatia_ceu Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU ☁️ | Doceria e Sorveteria ✨ desde 2023. Descubra o céu em cada mordida. Feito com amor e açúcar, porque a vida é mais doce conosco. https://www.instagram.com/fatiadoceu_/",
+      "rowName": "Fatia do Céu",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -136,
+        "url": "https://instagram.com/fatiadoceu_",
+        "handle": "fatiadoceu_",
+        "tokens": [
+          "fatia",
+          "ceu"
+        ],
+        "handleMatches": [
+          "fatia",
+          "ceu"
+        ],
+        "textMatches": [
+          "fatia",
+          "ceu"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [
+          "sao goncalo",
+          "são gonçalo"
+        ],
+        "outOfScope": true,
+        "evidenceSample": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU ☁️ | Doceria e Sorveteria ✨ desde 2023. Descubra o céu em cada mordida. Feito com amor e açúcar, porque a vida é mais doce conosco. https://www.instagram.com/fatiadoceu_/ Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png https://instagram.com/ 124024574287414 Create an account or log in to Instagram - Share what you're into with the people who get you. Instagram dark Forgot password? ",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Ffatiadoceu_%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "685fad2e-ec67-47d0-9b29-d9766ac60461"
+    },
+    {
+      "id": "2d89c5e8-5bf4-4d1f-9720-58513e1ab377",
+      "name": "Chapa Quente Lanches e Refeições",
+      "category": "Lanchonete",
+      "neighborhood": "Jacaré",
+      "reviews_count": 43,
+      "rating": 4.7,
+      "instagramCandidate": "https://instagram.com/chapa_quente_burguer_22",
+      "score": 120,
+      "title": "CHAPA QUENTE BURGUER (@chapa_quente_burguer_22)",
+      "queries": [
+        "Chapa Quente Lanches e Refeições chapa_quente_burguer_22 Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/chapa_quente_burguer_22 | CHAPA QUENTE BURGUER (@chapa_quente_burguer_22) Chapa quente burguer trabalhamos com lanches, porções, hot dogs, chuleta na chapa e muito mais.. estamos localizados na rua Bento José Luiz 22 São Cristóvão, ... https://www.instagram.com/chapa_quente_burguer_22/ | CHAPA QUENTE BURGUER (@chapa_quente_burguer_22) Chapa quente burguer trabalhamos com lanches, porções, hot dogs, chuleta na chapa e muito mais.. estamos localizados na rua Bento José Luiz 22 São Cristóvão, ... https://instagram.com/chapa_quente_burguer_22",
+      "rowName": "Chapa Quente Lanches e Refeições",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 64,
+        "url": "https://instagram.com/chapa_quente_burguer_22",
+        "handle": "chapa_quente_burguer_22",
+        "tokens": [
+          "chapa",
+          "quente",
+          "refeicoes"
+        ],
+        "handleMatches": [
+          "chapa",
+          "quente"
+        ],
+        "textMatches": [
+          "chapa",
+          "quente"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "CHAPA QUENTE BURGUER (@chapa_quente_burguer_22) https://instagram.com/chapa_quente_burguer_22 | CHAPA QUENTE BURGUER (@chapa_quente_burguer_22) Chapa quente burguer trabalhamos com lanches, porções, hot dogs, chuleta na chapa e muito mais.. estamos localizados na rua Bento José Luiz 22 São Cristóvão, ... https://www.instagram.com/chapa_quente_burguer_22/ | CHAPA QUENTE BURGUER (@chapa_quente_burguer_22) Chapa quente burguer trabalhamos com lanches, porções, hot dogs, chuleta na chapa e muito mais.. estamos localizados na rua Bento José Luiz 22 São Cristóvão, ... https://instagram.com/chapa_quente_burguer_22 Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfe",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fchapa_quente_burguer_22%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "79fe9e70-50e9-49c9-8dc1-ea67b613274f"
+    },
+    {
+      "id": "13cacb5e-52f2-4d8c-80ed-26c53a847ea9",
+      "name": "Esquina do galeto",
+      "category": "Churrascaria",
+      "neighborhood": null,
+      "reviews_count": 1,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/esquinadogaleto_01",
+      "score": 120,
+      "title": "Esquina do galeto 01 (@esquinadogaleto_01)",
+      "queries": [
+        "Esquina do galeto esquinadogaleto01 Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01. 952 followers. 3,359 following. ESQUINA DO GALETO (ESPECIALIDADE EM ASSADOS ) (SÁBADOS E DOMINGOS) das 11:00 as 15:30. ZAP: 99555 0672 https://www.instagram.com/esquinadogaleto_01/ | Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01. 952 followers. 3,359 following. ESQUINA DO GALETO (ESPECIALIDADE EM ASSADOS ) (SÁBADOS E DOMINGOS) das 11:00 as 15:30. ZAP: 99555 0672 https://instagram.com/esquinadogaleto_01",
+      "rowName": "Esquina do galeto",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 64,
+        "url": "https://instagram.com/esquinadogaleto_01",
+        "handle": "esquinadogaleto_01",
+        "tokens": [
+          "esquina",
+          "galeto"
+        ],
+        "handleMatches": [
+          "esquina",
+          "galeto"
+        ],
+        "textMatches": [
+          "esquina",
+          "galeto"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01. 952 followers. 3,359 following. ESQUINA DO GALETO (ESPECIALIDADE EM ASSADOS ) (SÁBADOS E DOMINGOS) das 11:00 as 15:30. ZAP: 99555 0672 https://www.instagram.com/esquinadogaleto_01/ | Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01. 952 followers. 3,359 following. ESQUINA DO GALETO (ESPECIALIDADE EM ASSADOS ) (SÁBADOS E DOMINGOS) das 11:00 as 15:30. ZAP: 99555 0672 https://instagram.com/esquinadogaleto_01 Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fesquinadogaleto_01%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "92a876ec-192a-411c-aae8-3a9332224526"
+    },
+    {
+      "id": "cec28f47-fb35-4c1b-af88-4af762996479",
+      "name": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+      "category": "Lanchonete",
+      "neighborhood": "Sl A15 - Ponta de Campina",
+      "reviews_count": 13,
+      "rating": 4.1,
+      "instagramCandidate": "https://instagram.com/thecheeseburguerfactory",
+      "score": 160,
+      "title": "The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory)",
+      "queries": [
+        "TCF - The Cheeseburguer Factory - Unidade Cabedelo thecheeseburguerfactory Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/thecheeseburguerfactory | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Follow. Message ... https://www.instagram.com/thecheeseburguerfactory/ | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Follow. Message ... https://instagram.com/thecheeseburguerfactory",
+      "rowName": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 106,
+        "url": "https://instagram.com/thecheeseburguerfactory",
+        "handle": "thecheeseburguerfactory",
+        "tokens": [
+          "tcf",
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "handleMatches": [
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "textMatches": [
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) https://instagram.com/thecheeseburguerfactory | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Follow. Message ... https://www.instagram.com/thecheeseburguerfactory/ | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Follow. Message ... https://instagram.com/thecheeseburguerfactory Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.a",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fthecheeseburguerfactory%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "20f39d07-5069-4877-9f2e-32d39c42e006"
+    },
+    {
+      "id": "47118179-91f8-4cd7-a84d-f015a7d6033f",
+      "name": "Ravellas - Food Truck",
+      "category": "Hamburgueria",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 5,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/euqueropizzafoodtruck",
+      "score": 128,
+      "title": "Dicas do Selmar Na praça Bela Vista em Intermares, tem a ...",
+      "queries": [
+        "Ravellas - Food Truck ravellasjp Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "Dicas do Selmar Na praça Bela Vista em Intermares, tem a ... ... ravellasjp que faz um hambúrguer Gourmet de 180Grs ... Dj. OCR. @euqueropizzafoodtruck Lombinho Especial Pepperoni Eu Quero PIZZA FOOD TRUCK ... https://instagram.com/euqueropizzafoodtruck",
+      "rowName": "Ravellas - Food Truck",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 72,
+        "url": "https://instagram.com/euqueropizzafoodtruck",
+        "handle": "euqueropizzafoodtruck",
+        "tokens": [
+          "ravellas",
+          "food",
+          "truck"
+        ],
+        "handleMatches": [
+          "food",
+          "truck"
+        ],
+        "textMatches": [
+          "ravellas",
+          "food",
+          "truck"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Dicas do Selmar Na praça Bela Vista em Intermares, tem a ... Dicas do Selmar Na praça Bela Vista em Intermares, tem a ... ... ravellasjp que faz um hambúrguer Gourmet de 180Grs ... Dj. OCR. @euqueropizzafoodtruck Lombinho Especial Pepperoni Eu Quero PIZZA FOOD TRUCK ... https://instagram.com/euqueropizzafoodtruck Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png https://instagram.com/ 124024574287414 Create an account or log in to Instagram - Share what you're into with the people who get you. Instagr",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Feuqueropizzafoodtruck%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "20e29fe1-2981-43f9-ac9c-c0b73654ac77"
+    },
+    {
+      "id": "0e3f0746-de34-4715-93fc-06a1b5c10e2b",
+      "name": "D Lay Refeições - Marmitaria",
+      "category": "Restaurante de almoço",
+      "neighborhood": "Cabedelo",
+      "reviews_count": null,
+      "rating": null,
+      "instagramCandidate": "https://instagram.com/d_lay_refeicoes",
+      "score": 120,
+      "title": "Photo by D Lay Refeições (@d_lay_refeicoes) · January 8, ...",
+      "queries": [
+        "D Lay Refeições - Marmitaria cantinhodoreallanches Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "Photo by D Lay Refeições (@d_lay_refeicoes) · January 8, ... Chama no WhatsApp. Delivery até às 15h. Almoço de 12,00 e 15,00 ... Photo by D Lay Refeições on January 17, 2025. https://instagram.com/d_lay_refeicoes",
+      "rowName": "D Lay Refeições - Marmitaria",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 89,
+        "url": "https://instagram.com/d_lay_refeicoes",
+        "handle": "d_lay_refeicoes",
+        "tokens": [
+          "lay",
+          "refeicoes",
+          "marmitaria"
+        ],
+        "handleMatches": [
+          "lay",
+          "refeicoes"
+        ],
+        "textMatches": [
+          "lay",
+          "refeicoes"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Photo by D Lay Refeições (@d_lay_refeicoes) · January 8, ... Photo by D Lay Refeições (@d_lay_refeicoes) · January 8, ... Chama no WhatsApp. Delivery até às 15h. Almoço de 12,00 e 15,00 ... Photo by D Lay Refeições on January 17, 2025. https://instagram.com/d_lay_refeicoes www.instagram.com This page isn’t working If the problem continues, contact the site owner. HTTP ERROR 429 Reload light dark #fff width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+        "pageUrl": "chrome-error://chromewebdata/",
+        "pageTitle": "www.instagram.com"
+      },
+      "sessionId": "5c6809ac-89bc-4f95-864a-a5dfbbb79b1f"
+    },
+    {
+      "id": "62958074-8ac2-487e-9cde-9b6c018c34dc",
+      "name": "Empório Do Sabor",
+      "category": "Restaurante",
+      "neighborhood": "Lot. Oceania VI",
+      "reviews_count": 1,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/emporio_do_saborrg",
+      "score": 120,
+      "title": "Empório do Sabor (@emporio_do_saborrg)",
+      "queries": [
+        "Empório Do Sabor emporio_do_sabor_oficial Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://www.instagram.com/emporio_do_saborrg/ | Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://instagram.com/emporio_do_saborrg",
+      "rowName": "Empório Do Sabor",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -36,
+        "url": "https://instagram.com/emporio_do_saborrg",
+        "handle": "emporio_do_saborrg",
+        "tokens": [
+          "emporio",
+          "sabor"
+        ],
+        "handleMatches": [
+          "emporio",
+          "sabor"
+        ],
+        "textMatches": [
+          "emporio",
+          "sabor"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [
+          "cassino/rs"
+        ],
+        "outOfScope": false,
+        "evidenceSample": "Empório do Sabor (@emporio_do_saborrg) Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://www.instagram.com/emporio_do_saborrg/ | Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://instagram.com/emporio_do_saborrg Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdni",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Femporio_do_saborrg%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "d8854d41-bec5-4a35-8fc0-cb3ac0a3e38e"
+    },
+    {
+      "id": "c0081954-6410-42be-9abd-96c4300b6ec5",
+      "name": "Cantinho Bom",
+      "category": "Sorveteria",
+      "neighborhood": "Jardim Camboinha",
+      "reviews_count": 1,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/cantinhodopaoofc",
+      "score": 88,
+      "title": "Cantinho do Pão | Padaria (@cantinhodopaoofc)",
+      "queries": [
+        "Cantinho Bom cantinhodopaoofc Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://www.instagram.com/cantinhodopaoofc/ | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) ☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim - RJ WhatsApp ↴ ... Mais alguém nos faria esse favor de graça? https://www.instagram.com/cantinhodopaoofc/reels/ | Cantinho do Pão | Padaria (@cantinhodopaoofc) ☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim - RJ WhatsApp ↴ ... Mais alguém nos faria esse favor de",
+      "rowName": "Cantinho Bom",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -70,
+        "url": "https://instagram.com/cantinhodopaoofc",
+        "handle": "cantinhodopaoofc",
+        "tokens": [
+          "cantinho",
+          "bom"
+        ],
+        "handleMatches": [
+          "cantinho"
+        ],
+        "textMatches": [
+          "cantinho",
+          "bom"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": true,
+        "evidenceSample": "Cantinho do Pão | Padaria (@cantinhodopaoofc) https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://www.instagram.com/cantinhodopaoofc/ | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) ☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim - RJ WhatsApp ↴ ... Mais alguém nos faria esse favor de graça? https://www.instagram.com/cantinhodopaoofc/reels/ | Cantinho do Pão | Padaria (@cantinhodopaoofc) ☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim - RJ WhatsApp ↴ ... Mais alguém nos faria esse favor de Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά ",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fcantinhodopaoofc%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "c660bade-22d4-4175-8cfa-5e4fa056bfce"
+    },
+    {
+      "id": "166ab094-fea7-412e-9386-d0517895dbb4",
+      "name": "Bras Coffee",
+      "category": "Lanchonete",
+      "neighborhood": "Jardim America",
+      "reviews_count": 25,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/coffeelab_br",
+      "score": 88,
+      "title": "coffeelab (@coffeelab_br) • Instagram photos and videos",
+      "queries": [
+        "Bras Coffee coffeelab_br Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/coffeelab_br | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. Follow. Message. https://www.instagram.com/coffeelab_br/ | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. Follow. Message. https://instagram.com/coffeelab_br | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. https://www.instagram.com/coffeelab_br/reels/ | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. https://instagram.com/coffeelab_br | Coffee Lab ☕️ O @coffeelab_br é um dos cafés mais ... So Cafetina is a space where you can taste all the coffees from Café Por Elas prepared by us in two different methods, in Kalita and Gina. In ... https://instagram.com/coffeelab_br | • Coffee Lab • São Paulo • .",
+      "rowName": "Bras Coffee",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -70,
+        "url": "https://instagram.com/coffeelab_br",
+        "handle": "coffeelab_br",
+        "tokens": [
+          "bras",
+          "coffee"
+        ],
+        "handleMatches": [
+          "coffee"
+        ],
+        "textMatches": [
+          "bras",
+          "coffee"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [
+          "sao paulo"
+        ],
+        "outOfScope": false,
+        "evidenceSample": "coffeelab (@coffeelab_br) • Instagram photos and videos https://instagram.com/coffeelab_br | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. Follow. Message. https://www.instagram.com/coffeelab_br/ | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. Follow. Message. https://instagram.com/coffeelab_br | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. https://www.instagram.com/coffeelab_br/reels/ | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. https://instagram.com/coffeelab_br | Coffee Lab ☕️ O @coffeelab_br é um dos cafés mais ... So Cafetina is a space where you can taste all the coffees from Café Por Elas prepared by us in two different methods, in Kalita and Gina. In ... https://instagram.com/coffeelab_br | • Coffee Lab • São Paulo • . Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fcoffeelab_br%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "8c571f3c-2973-47cb-ac67-c98cd23311f9"
+    },
+    {
+      "id": "2ebf5453-9be4-469d-afd8-be3ac7833f00",
+      "name": "Restaurante e pizzaria chapa quente",
+      "category": "Pizzaria",
+      "neighborhood": "Centro",
+      "reviews_count": 26,
+      "rating": 4.7,
+      "instagramCandidate": "https://instagram.com/chapaquenteviamao",
+      "score": 120,
+      "title": "Chapa Quente - Restaurante & bar (@chapaquenteviamao)",
+      "queries": [
+        "Restaurante e pizzaria chapa quente chapaquenteviamao Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/chapaquenteviamao | Chapa Quente - Restaurante & bar (@chapaquenteviamao) Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ... https://www.instagram.com/chapaquenteviamao/ | Chapa Quente - Restaurante & bar (@chapaquenteviamao) Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ... https://instagram.com/chapaquenteviamao | Chapa Quente - Restaurante & bar | Sexta-feira pede pizza ... Chapa Quente - Restaurante & bar | Sexta-feira pede pizza no Chapa! Chama os amigos, escolhe o sabor e vem curtir aquela noite leve, com ... https://www.instagram.com/chapaquenteviamao/p/DJux6nLy9wE/?hl=kn",
+      "rowName": "Restaurante e pizzaria chapa quente",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -36,
+        "url": "https://instagram.com/chapaquenteviamao",
+        "handle": "chapaquenteviamao",
+        "tokens": [
+          "chapa",
+          "quente"
+        ],
+        "handleMatches": [
+          "chapa",
+          "quente"
+        ],
+        "textMatches": [
+          "chapa",
+          "quente"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [
+          "(51) 3046-5510"
+        ],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [
+          "viamao",
+          "viamão"
+        ],
+        "outOfScope": false,
+        "evidenceSample": "Chapa Quente - Restaurante & bar (@chapaquenteviamao) https://instagram.com/chapaquenteviamao | Chapa Quente - Restaurante & bar (@chapaquenteviamao) Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ... https://www.instagram.com/chapaquenteviamao/ | Chapa Quente - Restaurante & bar (@chapaquenteviamao) Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ... https://instagram.com/chapaquenteviamao | Chapa Quente - Restaurante & bar | Sexta-feira pede pizza ... Chapa Quente - Restaurante & bar | Sexta-feira pede pizza no Chapa! Chama os amigos, escolhe o sabor e vem curtir aquela noite leve, com ... https://www.instagram.com/chapaquenteviamao/p/DJux6nLy9wE/?hl=kn Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Българ",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fchapaquenteviamao%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "597538a5-3457-4de0-8649-17b1d8778564"
+    },
+    {
+      "id": "74a5c779-4ae7-4e7f-a91f-372783779162",
+      "name": "Varanda da pizza Delivery",
+      "category": "Delivery de Pizza",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 5,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/varanda.gourmetsh",
+      "score": 80,
+      "title": "Varanda Gourmet (@varanda.gourmetsh)",
+      "queries": [
+        "Varanda da pizza Delivery varanda.gourmetsh Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/varanda.gourmetsh | Varanda Gourmet (@varanda.gourmetsh) Pizzas Hambúrgueres Bebidas Petiscos WhatsApp: (98) 98461-6216 ⬇️Faça seu pedido através do nosso link ⬇️. https://www.instagram.com/varanda.gourmetsh/ | Varanda Gourmet (@varanda.gourmetsh) Pizzas Hambúrgueres Bebidas Petiscos WhatsApp: (98) 98461-6216 ⬇️Faça seu pedido através do nosso link ⬇️. https://instagram.com/varanda.gourmetsh",
+      "rowName": "Varanda da pizza Delivery",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/varanda.gourmetsh",
+        "handle": "varanda.gourmetsh",
+        "tokens": [
+          "varanda"
+        ],
+        "handleMatches": [
+          "varanda"
+        ],
+        "textMatches": [
+          "varanda"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [
+          "(98) 98461-6216"
+        ],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Varanda Gourmet (@varanda.gourmetsh) https://instagram.com/varanda.gourmetsh | Varanda Gourmet (@varanda.gourmetsh) Pizzas Hambúrgueres Bebidas Petiscos WhatsApp: (98) 98461-6216 ⬇️Faça seu pedido através do nosso link ⬇️. https://www.instagram.com/varanda.gourmetsh/ | Varanda Gourmet (@varanda.gourmetsh) Pizzas Hambúrgueres Bebidas Petiscos WhatsApp: (98) 98461-6216 ⬇️Faça seu pedido através do nosso link ⬇️. https://instagram.com/varanda.gourmetsh Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png ht",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fvaranda.gourmetsh%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "685fad2e-ec67-47d0-9b29-d9766ac60461"
+    },
+    {
+      "id": "9caafb45-c961-481d-8261-0aea2b1e4eec",
+      "name": "Valéria Lanches Delivery",
+      "category": "Delivery",
+      "neighborhood": "Recanto do Poço",
+      "reviews_count": 2,
+      "rating": 4.5,
+      "instagramCandidate": "https://instagram.com/valerialanches",
+      "score": 80,
+      "title": "valerialanches",
+      "queries": [
+        "Valéria Lanches Delivery valerialanches Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/valerialanches | valerialanches 13K followers · 323 following · 776 posts · @valerialanches: “O VERDADEIRO PODRÃO VOCÊ ENCONTRA AQUI ! Off-line as terças feiras ❌ 24998391853” https://www.instagram.com/valerialanches/reels/ | valerialanches 13K followers · 323 following · 776 posts · @valerialanches: “O VERDADEIRO PODRÃO VOCÊ ENCONTRA AQUI ! Off-line as terças feiras ❌ 24998391853” https://instagram.com/valerialanches | ValeriaLanches 14K followers · 331 following · 778 posts · @valerialanches: “O VERDADEIRO PODRÃO VOCÊ ENCONTRA AQUI ! Off-line as terças feiras ❌ 24998391853” https://www.instagram.com/valerialanches/ | ValeriaLanches 14K followers · 331 following · 778 posts · @valerialanches: “O VERDADEIRO PODRÃO VOCÊ ENCONTRA AQUI ! Off-line as terças feiras ❌ 24998391853” https://instagram.com/valerialanches",
+      "rowName": "Valéria Lanches Delivery",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/valerialanches",
+        "handle": "valerialanches",
+        "tokens": [
+          "valeria"
+        ],
+        "handleMatches": [
+          "valeria"
+        ],
+        "textMatches": [
+          "valeria"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [
+          "(24) 99839-1853"
+        ],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "valerialanches https://instagram.com/valerialanches | valerialanches 13K followers · 323 following · 776 posts · @valerialanches: “O VERDADEIRO PODRÃO VOCÊ ENCONTRA AQUI ! Off-line as terças feiras ❌ 24998391853” https://www.instagram.com/valerialanches/reels/ | valerialanches 13K followers · 323 following · 776 posts · @valerialanches: “O VERDADEIRO PODRÃO VOCÊ ENCONTRA AQUI ! Off-line as terças feiras ❌ 24998391853” https://instagram.com/valerialanches | ValeriaLanches 14K followers · 331 following · 778 posts · @valerialanches: “O VERDADEIRO PODRÃO VOCÊ ENCONTRA AQUI ! Off-line as terças feiras ❌ 24998391853” https://www.instagram.com/valerialanches/ | ValeriaLanches 14K followers · 331 following · 778 posts · @valerialanches: “O VERDADEIRO PODRÃO VOCÊ ENCONTRA AQUI ! Off-line as terças feiras ❌ 24998391853” https://instagram.com/valerialanches Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canad",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fvalerialanches%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "79fe9e70-50e9-49c9-8dc1-ea67b613274f"
+    },
+    {
+      "id": "fd64e520-194c-4a69-a6e7-1ea6f8213889",
+      "name": "Casa de Taipa",
+      "category": "Restaurante",
+      "neighborhood": "Praia do poço",
+      "reviews_count": 58,
+      "rating": 4.5,
+      "instagramCandidate": "https://instagram.com/taipa_arquitetura",
+      "score": 80,
+      "title": "Taipa Arquitetura (@taipa_arquitetura)",
+      "queries": [
+        "Casa de Taipa casacombr Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://www.instagram.com/taipa_arquitetura/ | Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://instagram.com/taipa_arquitetura | Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://instagram.com/taipa_arquitetura",
+      "rowName": "Casa de Taipa",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -78,
+        "url": "https://instagram.com/taipa_arquitetura",
+        "handle": "taipa_arquitetura",
+        "tokens": [
+          "casa",
+          "taipa"
+        ],
+        "handleMatches": [
+          "taipa"
+        ],
+        "textMatches": [
+          "taipa"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": true,
+        "evidenceSample": "Taipa Arquitetura (@taipa_arquitetura) Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://www.instagram.com/taipa_arquitetura/ | Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://instagram.com/taipa_arquitetura | Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://instagram.com/taipa_arquitetura Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=dev",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Ftaipa_arquitetura%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "20e29fe1-2981-43f9-ac9c-c0b73654ac77"
+    },
+    {
+      "id": "1eca2999-0514-4887-b108-dc65ae31e6b6",
+      "name": "Churrascaria do Caicó",
+      "category": "Churrascaria",
+      "neighborhood": "Av. Pastor José Alves de Oliveira",
+      "reviews_count": 753,
+      "rating": 4.3,
+      "instagramCandidate": "https://instagram.com/churrascariacaico",
+      "score": 80,
+      "title": "CHURRASCARIA CAICÓ (@churrascariacaico)",
+      "queries": [
+        "Churrascaria do Caicó churrascariacaico Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/churrascariacaico | CHURRASCARIA CAICÓ (@churrascariacaico) Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ... https://www.instagram.com/churrascariacaico/?hl=pt-br | CHURRASCARIA CAICÓ (@churrascariacaico) Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ... https://instagram.com/churrascariacaico",
+      "rowName": "Churrascaria do Caicó",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -78,
+        "url": "https://instagram.com/churrascariacaico",
+        "handle": "churrascariacaico",
+        "tokens": [
+          "caico"
+        ],
+        "handleMatches": [
+          "caico"
+        ],
+        "textMatches": [
+          "caico"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [
+          "caico"
+        ],
+        "outOfScope": false,
+        "evidenceSample": "CHURRASCARIA CAICÓ (@churrascariacaico) https://instagram.com/churrascariacaico | CHURRASCARIA CAICÓ (@churrascariacaico) Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ... https://www.instagram.com/churrascariacaico/?hl=pt-br | CHURRASCARIA CAICÓ (@churrascariacaico) Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ... https://instagram.com/churrascariacaico Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fchurrascariacaico%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "92a876ec-192a-411c-aae8-3a9332224526"
+    },
+    {
+      "id": "10f71936-a4b9-4c9b-b2c4-d1c709081a93",
+      "name": "Bar e Restaurante do Pessoinha",
+      "category": "Restaurante",
+      "neighborhood": "Forte Velho",
+      "reviews_count": 499,
+      "rating": 4.5,
+      "instagramCandidate": "https://instagram.com/bardopessoinha",
+      "score": 80,
+      "title": "bardopessoinha",
+      "queries": [
+        "Bar e Restaurante do Pessoinha bardopessoinha Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/bardopessoinha",
+      "rowName": "Bar e Restaurante do Pessoinha",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/bardopessoinha",
+        "handle": "bardopessoinha",
+        "tokens": [
+          "pessoinha"
+        ],
+        "handleMatches": [
+          "pessoinha"
+        ],
+        "textMatches": [
+          "pessoinha"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "bardopessoinha https://instagram.com/bardopessoinha Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png https://instagram.com/ 124024574287414 Create an account or log in to Instagram - Share what you're into with the people who get you. Instagram dark Forgot password? https://www.instagram.com/accounts/password/reset/?next=https%3A%2F%2Fwww.instagram.com%2Fbardopessoinha%2F%3Fhl%3Dpt-br Create new account https://www.instagram.com/accounts/emailsignup/?next=https%3A%2F%2Fwww.instagram.com%2Fbardopessoi",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fbardopessoinha%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "20f39d07-5069-4877-9f2e-32d39c42e006"
+    },
+    {
+      "id": "27df6fb8-c364-4b9d-be49-8ddb961464a2",
+      "name": "Cosmo Lanches",
+      "category": "Lanchonete",
+      "neighborhood": "Jardim Beta",
+      "reviews_count": 6,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/cosmolanchesoficial",
+      "score": 80,
+      "title": "Cosmo Lanches (@cosmolanchesoficial)",
+      "queries": [
+        "Cosmo Lanches cosmolanchesoficial Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/cosmolanchesoficial | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://www.instagram.com/cosmolanchesoficial/ | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://instagram.com/cosmolanchesoficial | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://instagram.com/cosmolanchesoficial",
+      "rowName": "Cosmo Lanches",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/cosmolanchesoficial",
+        "handle": "cosmolanchesoficial",
+        "tokens": [
+          "cosmo"
+        ],
+        "handleMatches": [
+          "cosmo"
+        ],
+        "textMatches": [
+          "cosmo"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Cosmo Lanches (@cosmolanchesoficial) https://instagram.com/cosmolanchesoficial | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://www.instagram.com/cosmolanchesoficial/ | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://instagram.com/cosmolanchesoficial | Cosmo Lanches (@cosmolanchesoficial) 622 followers · 1.8K+ following · 30 posts · @cosmolanchesoficial: “Tradição e Qualidade com o delicioso hambúrguer artesanal :)” https://instagram.com/cosmolanchesoficial Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minim",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fcosmolanchesoficial%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "c660bade-22d4-4175-8cfa-5e4fa056bfce"
+    },
+    {
+      "id": "58f3eb00-556c-496a-abee-790e691903ce",
+      "name": "Pastel do Thiago",
+      "category": "Pastelaria brasileira",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 9,
+      "rating": 4,
+      "instagramCandidate": "https://instagram.com/thiago_pasteis",
+      "score": 80,
+      "title": "O melhor pastel do mundo (@thiago_pasteis)",
+      "queries": [
+        "Pastel do Thiago thiago_pasteis Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/thiago_pasteis | O melhor pastel do mundo (@thiago_pasteis) ° Predominando a região oeste com o melhor pastel ° Montados e fritos na hora ° Recheios variados. Faça seus pedidos pelo link ⤵️ · INAUGURAÇÃO DO NOVO LUGAR ✨ ... https://www.instagram.com/thiago_pasteis/ | O melhor pastel do mundo (@thiago_pasteis) ° Predominando a região oeste com o melhor pastel ° Montados e fritos na hora ° Recheios variados. Faça seus pedidos pelo link ⤵️ · INAUGURAÇÃO DO NOVO LUGAR ✨ ... https://instagram.com/thiago_pasteis",
+      "rowName": "Pastel do Thiago",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/thiago_pasteis",
+        "handle": "thiago_pasteis",
+        "tokens": [
+          "thiago"
+        ],
+        "handleMatches": [
+          "thiago"
+        ],
+        "textMatches": [
+          "thiago"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "O melhor pastel do mundo (@thiago_pasteis) https://instagram.com/thiago_pasteis | O melhor pastel do mundo (@thiago_pasteis) ° Predominando a região oeste com o melhor pastel ° Montados e fritos na hora ° Recheios variados. Faça seus pedidos pelo link ⤵️ · INAUGURAÇÃO DO NOVO LUGAR ✨ ... https://www.instagram.com/thiago_pasteis/ | O melhor pastel do mundo (@thiago_pasteis) ° Predominando a região oeste com o melhor pastel ° Montados e fritos na hora ° Recheios variados. Faça seus pedidos pelo link ⤵️ · INAUGURAÇÃO DO NOVO LUGAR ✨ ... https://instagram.com/thiago_pasteis Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android htt",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fthiago_pasteis%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "d8854d41-bec5-4a35-8fc0-cb3ac0a3e38e"
+    },
+    {
+      "id": "b91f652e-112d-4dcf-921c-4df6c2d1700f",
+      "name": "Recanto do Pastel",
+      "category": "Pastelaria brasileira",
+      "neighborhood": "Recanto do Poço",
+      "reviews_count": 2,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/recantodopastelbr",
+      "score": 80,
+      "title": "Recanto do Pastel (@recantodopastelbr)",
+      "queries": [
+        "Recanto do Pastel recantodopastelbr Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/recantodopastelbr | Recanto do Pastel (@recantodopastelbr) Recanto do Pastel, sem pensar duas vezes! Afinal, aqui o que não falta são opções deliciosas pra matar a fome! Unidade Salto: Rua Mal. Deodoro da Fonseca, ... https://www.instagram.com/recantodopastelbr/ | Recanto do Pastel (@recantodopastelbr) Recanto do Pastel, sem pensar duas vezes! Afinal, aqui o que não falta são opções deliciosas pra matar a fome! Unidade Salto: Rua Mal. Deodoro da Fonseca, ... https://instagram.com/recantodopastelbr | Recanto do Pastel (@recantodopastelbr) Salto e Indaiatuba O diferencial está no detalhe, a qualidade e sabor, é nossa especialidade Massa Gourmet Produtos selecionados. Cardápio no link ; 42.7K. https://www.instagram.com/recantodopastelbr/reels/ | Recanto do Pastel (@recantodopastelbr) Salto e Indaiatuba O diferencial está no detalhe, a qualidade e sabor, é nossa especialidade Massa Gourmet Produtos selecionados. Cardápio no link ; 42.7K. https://instagram.com/recantodopastelbr",
+      "rowName": "Recanto do Pastel",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/recantodopastelbr",
+        "handle": "recantodopastelbr",
+        "tokens": [
+          "recanto"
+        ],
+        "handleMatches": [
+          "recanto"
+        ],
+        "textMatches": [
+          "recanto"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Recanto do Pastel (@recantodopastelbr) https://instagram.com/recantodopastelbr | Recanto do Pastel (@recantodopastelbr) Recanto do Pastel, sem pensar duas vezes! Afinal, aqui o que não falta são opções deliciosas pra matar a fome! Unidade Salto: Rua Mal. Deodoro da Fonseca, ... https://www.instagram.com/recantodopastelbr/ | Recanto do Pastel (@recantodopastelbr) Recanto do Pastel, sem pensar duas vezes! Afinal, aqui o que não falta são opções deliciosas pra matar a fome! Unidade Salto: Rua Mal. Deodoro da Fonseca, ... https://instagram.com/recantodopastelbr | Recanto do Pastel (@recantodopastelbr) Salto e Indaiatuba O diferencial está no detalhe, a qualidade e sabor, é nossa especialidade Massa Gourmet Produtos selecionados. Cardápio no link ; 42.7K. https://www.instagram.com/recantodopastelbr/reels/ | Recanto do Pastel (@recantodopastelbr) Salto e Indaiatuba O diferencial está no detalhe, a qualidade e sabor, é nossa especialidade Massa Gourmet Produtos selecionados. Cardápio no link ; 42.7K. https://instagram.com/recantodopastelbr Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svens",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Frecantodopastelbr%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "685fad2e-ec67-47d0-9b29-d9766ac60461"
+    },
+    {
+      "id": "6a2fdb0c-b4ce-4085-9d59-b1240d59009a",
+      "name": "JL Bolos",
+      "category": "Cafeteria",
+      "neighborhood": "Jardim Camboinha",
+      "reviews_count": 5,
+      "rating": 4.8,
+      "instagramCandidate": "https://instagram.com/jlbolosetortas",
+      "score": 80,
+      "title": "JL BOLOS E TORTAS (@jlbolosetortas)",
+      "queries": [
+        "JL Bolos jlbolosetortas Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/jlbolosetortas | JL BOLOS E TORTAS (@jlbolosetortas) Bolos em forma de felicidade Aparecida de Goiânia Pagamentos: dinheiro (crédito ou débito) Faça sua encomenda através do link abaixo⬇️. Follow. https://www.instagram.com/jlbolosetortas/ | JL BOLOS E TORTAS (@jlbolosetortas) Bolos em forma de felicidade Aparecida de Goiânia Pagamentos: dinheiro (crédito ou débito) Faça sua encomenda através do link abaixo⬇️. Follow. https://instagram.com/jlbolosetortas | Photos by JL BOLOS E TORTAS (@jlbolosetortas) Feliz Aniversário BRASIL HINGRIDY NUTRICIONISTA BEM VIVER RESIDENCE ADRIANA CUIDADORA BEM VIVER RESIDENCE VIRGÍLIO RESIDENTE BEM VIVER ... https://instagram.com/jlbolosetortas | Photos by JL BOLOS E TORTAS (@jlbolosetortas) Photos by JL BOLOS E TORTAS (@jlbolosetortas) · April 18, 2025. Instagram. Log in · Open app · jlbolosetortas's profile picture · jlbolosetortas. https://instagram.com/jlbolosetortas | Photos by JL BOLOS E TORTAS (@jlbolosetortas) Photos by JL BOLOS E TORTAS (@jlbolosetortas) · April 18, 2025. Instagram. Log in · Open app · jlbolosetortas's profile picture · jlbolosetortas. https://instagram.com/jlbolosetortas",
+      "rowName": "JL Bolos",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -78,
+        "url": "https://instagram.com/jlbolosetortas",
+        "handle": "jlbolosetortas",
+        "tokens": [
+          "bolos"
+        ],
+        "handleMatches": [
+          "bolos"
+        ],
+        "textMatches": [
+          "bolos"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": true,
+        "evidenceSample": "JL BOLOS E TORTAS (@jlbolosetortas) https://instagram.com/jlbolosetortas | JL BOLOS E TORTAS (@jlbolosetortas) Bolos em forma de felicidade Aparecida de Goiânia Pagamentos: dinheiro (crédito ou débito) Faça sua encomenda através do link abaixo⬇️. Follow. https://www.instagram.com/jlbolosetortas/ | JL BOLOS E TORTAS (@jlbolosetortas) Bolos em forma de felicidade Aparecida de Goiânia Pagamentos: dinheiro (crédito ou débito) Faça sua encomenda através do link abaixo⬇️. Follow. https://instagram.com/jlbolosetortas | Photos by JL BOLOS E TORTAS (@jlbolosetortas) Feliz Aniversário BRASIL HINGRIDY NUTRICIONISTA BEM VIVER RESIDENCE ADRIANA CUIDADORA BEM VIVER RESIDENCE VIRGÍLIO RESIDENTE BEM VIVER ... https://instagram.com/jlbolosetortas | Photos by JL BOLOS E TORTAS (@jlbolosetortas) Photos by JL BOLOS E TORTAS (@jlbolosetortas) · April 18, 2025. Instagram. Log in · Open app · jlbolosetortas's profile picture · jlbolosetortas. https://instagram.com/jlbolosetortas | Photos by JL BOLOS E TORTAS (@jlbolosetortas) Photos by JL BOLOS E TORTAS (@jlbolosetortas) · April 18, 2025. Instagram. Log in · Open app · jlbolosetortas's profile picture · jlbolosetortas. https://instagram.com/jlbolosetortas Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fjlbolosetortas%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "8c571f3c-2973-47cb-ac67-c98cd23311f9"
+    },
+    {
+      "id": "9acd9efa-a669-453b-a548-2387fa2e7612",
+      "name": "Sorveteria Tropical",
+      "category": "Sorveteria",
+      "neighborhood": "Lot. Oceania VI",
+      "reviews_count": 16,
+      "rating": 4.4,
+      "instagramCandidate": "https://instagram.com/jjsorveteriatropical",
+      "score": 80,
+      "title": "Sorveteria Tropical | RJ (@jjsorveteriatropical)",
+      "queries": [
+        "Sorveteria Tropical jjsorveteriatropical Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/jjsorveteriatropical | Sorveteria Tropical | RJ (@jjsorveteriatropical) Sorvetes deliciosos que derretem seu coração! Temos linha Zero Açúcar e Zero Lactose Novo Delivery ( no varejo ) . https://www.instagram.com/jjsorveteriatropical/reels/ | Sorveteria Tropical | RJ (@jjsorveteriatropical) Sorvetes deliciosos que derretem seu coração! Temos linha Zero Açúcar e Zero Lactose Novo Delivery ( no varejo ) . https://instagram.com/jjsorveteriatropical | Crie uma frase que una Copa do Mundo + Sorveteria ... ✓ Siga os nossos dois perfis @jjsorveteriatropical e @sorveteriatropicalcabofrio ‼️Pode comentar mais de uma vez? Sim! Quanto mais frases ... https://instagram.com/jjsorveteriatropical | Sorveteria Tropical | RJ (@jjsorveteriatropical) Sorvetes deliciosos que derretem seu coração! Temos linha Zero Açúcar e Zero Lactose Novo Delivery ( no varejo ) . Follow. Message ... https://www.instagram.com/jjsorveteriatropical/?hl=pt | Sorveteria Tropical | RJ (@jjsorveteriatropical) Sorvetes deliciosos que derretem seu coração! Temos linha Zero Açúcar e Zero Lactose Novo Delivery ( no varejo ) . Follow. Message ... https://instagram.com/jjsorveteriatropical | Sorveteria Tropi",
+      "rowName": "Sorveteria Tropical",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 47,
+        "url": "https://instagram.com/jjsorveteriatropical",
+        "handle": "jjsorveteriatropical",
+        "tokens": [
+          "tropical"
+        ],
+        "handleMatches": [
+          "tropical"
+        ],
+        "textMatches": [
+          "tropical"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Sorveteria Tropical | RJ (@jjsorveteriatropical) https://instagram.com/jjsorveteriatropical | Sorveteria Tropical | RJ (@jjsorveteriatropical) Sorvetes deliciosos que derretem seu coração! Temos linha Zero Açúcar e Zero Lactose Novo Delivery ( no varejo ) . https://www.instagram.com/jjsorveteriatropical/reels/ | Sorveteria Tropical | RJ (@jjsorveteriatropical) Sorvetes deliciosos que derretem seu coração! Temos linha Zero Açúcar e Zero Lactose Novo Delivery ( no varejo ) . https://instagram.com/jjsorveteriatropical | Crie uma frase que una Copa do Mundo + Sorveteria ... ✓ Siga os nossos dois perfis @jjsorveteriatropical e @sorveteriatropicalcabofrio ‼️Pode comentar mais de uma vez? Sim! Quanto mais frases ... https://instagram.com/jjsorveteriatropical | Sorveteria Tropical | RJ (@jjsorveteriatropical) Sorvetes deliciosos que derretem seu coração! Temos linha Zero Açúcar e Zero Lactose Novo Delivery ( no varejo ) . Follow. Message ... https://www.instagram.com/jjsorveteriatropical/?hl=pt | Sorveteria Tropical | RJ (@jjsorveteriatropical) Sorvetes deliciosos que derretem seu coração! Temos linha Zero Açúcar e Zero Lactose Novo Delivery ( no varejo ) . Follow. Message ... https://instagram.com/jjsorveteriatropical | Sorveteria Tropi www.instagram.com This page isn’t working If the problem continues, contact the site owner. HTTP ERROR 429 Reload light dark #fff width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+        "pageUrl": "chrome-error://chromewebdata/",
+        "pageTitle": "www.instagram.com"
+      },
+      "sessionId": "5c6809ac-89bc-4f95-864a-a5dfbbb79b1f"
+    },
+    {
+      "id": "b800fc7b-5bbe-44e1-b964-f96e36d4700a",
+      "name": "Me gusta Açaí",
+      "category": "Praça de alimentação",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 1,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/acai_megusta",
+      "score": 80,
+      "title": "ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG",
+      "queries": [
+        "Me gusta Açaí acai_megusta Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/acai_megusta | ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG Perfil oficial • Marca registrada Açaí & Sorvetes ⭐ Referência no iFood Todos os dias • 13h30 às 00h Delivery | iFood | 99Food Peça ... https://www.instagram.com/acai_megusta/?__d=1%E5%86%85%E8%92%99%E5%8F%A4%E5%91%BC%E4%BC%A6%E8%B4%9D%E5%B0%94%E6%83%B3%E8%A6%81%E6%89%BE%E6%A8%A1%E7%89%B9%E9%85%92%E5%B1%80%E5%85%A8%E5%A5%97%3F%2B-%2B%E5%91%BC%E4%BC%A6%E8%B4%9D%E5%B0%94%E6%A8%A1%E7%89%B9.%E2%9C%94%EF%B8%8Fbaoyang.cyou | ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG Perfil oficial • Marca registrada Açaí & Sorvetes ⭐ Referência no iFood Todos os dias • 13h30 às 00h Delivery | iFood | 99Food Peça ... https://instagram.com/acai_megusta | ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG Perfil oficial • Marca registrada Açaí & Sorvetes ⭐ Referência no iFood Todos os dias • 13h30 às 00h Delivery | iFood | 99Food https://www.instagram.com/acai_megusta/reels/?__d=1%3Futm_source%25OTRAS | ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG Perfil oficial • Marca registrada Açaí & Sorvetes ⭐ Referência no iFood Todos os dias • 13h30 às 00h Delivery | iFood | 99Food https://instagram.com/acai_megusta",
+      "rowName": "Me gusta Açaí",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/acai_megusta",
+        "handle": "acai_megusta",
+        "tokens": [
+          "gusta"
+        ],
+        "handleMatches": [
+          "gusta"
+        ],
+        "textMatches": [
+          "gusta"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG https://instagram.com/acai_megusta | ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG Perfil oficial • Marca registrada Açaí & Sorvetes ⭐ Referência no iFood Todos os dias • 13h30 às 00h Delivery | iFood | 99Food Peça ... https://www.instagram.com/acai_megusta/?__d=1%E5%86%85%E8%92%99%E5%8F%A4%E5%91%BC%E4%BC%A6%E8%B4%9D%E5%B0%94%E6%83%B3%E8%A6%81%E6%89%BE%E6%A8%A1%E7%89%B9%E9%85%92%E5%B1%80%E5%85%A8%E5%A5%97%3F%2B-%2B%E5%91%BC%E4%BC%A6%E8%B4%9D%E5%B0%94%E6%A8%A1%E7%89%B9.%E2%9C%94%EF%B8%8Fbaoyang.cyou | ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG Perfil oficial • Marca registrada Açaí & Sorvetes ⭐ Referência no iFood Todos os dias • 13h30 às 00h Delivery | iFood | 99Food Peça ... https://instagram.com/acai_megusta | ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG Perfil oficial • Marca registrada Açaí & Sorvetes ⭐ Referência no iFood Todos os dias • 13h30 às 00h Delivery | iFood | 99Food https://www.instagram.com/acai_megusta/reels/?__d=1%3Futm_source%25OTRAS | ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG Perfil oficial • Marca registrada Açaí & Sorvetes ⭐ Referência no iFood Todos os dias • 13h30 às 00h Delivery | iFood | 99Food https://instagram.com/acai_megusta Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English En",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Facai_megusta%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "79fe9e70-50e9-49c9-8dc1-ea67b613274f"
+    },
+    {
+      "id": "b6baa6f0-a148-49d2-830d-ea22a28cfeae",
+      "name": "Magela Pizzaria",
+      "category": "Pizzaria",
+      "neighborhood": "Intermares",
+      "reviews_count": 2,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/magelapizzaria",
+      "score": 80,
+      "title": "encerramos as atividades (@magelapizzaria)",
+      "queries": [
+        "Magela Pizzaria magelapizzaria Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/magelapizzaria | encerramos as atividades (@magelapizzaria) Pizza artesanal feita na hora! Trailer em Intermares Delivery | Ter–Dom • 18h–22h30 Peça agora!! · Do forno direto pra sua fome Magela Pizzaria te ... https://www.instagram.com/magelapizzaria/ | encerramos as atividades (@magelapizzaria) Pizza artesanal feita na hora! Trailer em Intermares Delivery | Ter–Dom • 18h–22h30 Peça agora!! · Do forno direto pra sua fome Magela Pizzaria te ... https://instagram.com/magelapizzaria | PIZZAS ESTUPIDAMENTE RECHEADAS POR APENAS R ... Pedi na @magelapizzaria , que faz uma pizza deliciosa em JP! São deliciosas opções à la carte! Pequena: R$29,90 | Média: R$49,90 | Grande ... https://instagram.com/magelapizzaria | @forno39pizza 🍕🔥 Recém inaugurada em Maceió 😮‍💨✨ ... Pedi na @magelapizzaria , que faz uma pizza deliciosa em JP! ... Hoje a pedida é a Pizzaria Magela — sabor que conquista desde a primeira mordida! https://instagram.com/magelapizzaria",
+      "rowName": "Magela Pizzaria",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": -78,
+        "url": "https://instagram.com/magelapizzaria",
+        "handle": "magelapizzaria",
+        "tokens": [
+          "magela"
+        ],
+        "handleMatches": [
+          "magela"
+        ],
+        "textMatches": [
+          "magela"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [
+          "maceio"
+        ],
+        "outOfScope": false,
+        "evidenceSample": "encerramos as atividades (@magelapizzaria) https://instagram.com/magelapizzaria | encerramos as atividades (@magelapizzaria) Pizza artesanal feita na hora! Trailer em Intermares Delivery | Ter–Dom • 18h–22h30 Peça agora!! · Do forno direto pra sua fome Magela Pizzaria te ... https://www.instagram.com/magelapizzaria/ | encerramos as atividades (@magelapizzaria) Pizza artesanal feita na hora! Trailer em Intermares Delivery | Ter–Dom • 18h–22h30 Peça agora!! · Do forno direto pra sua fome Magela Pizzaria te ... https://instagram.com/magelapizzaria | PIZZAS ESTUPIDAMENTE RECHEADAS POR APENAS R ... Pedi na @magelapizzaria , que faz uma pizza deliciosa em JP! São deliciosas opções à la carte! Pequena: R$29,90 | Média: R$49,90 | Grande ... https://instagram.com/magelapizzaria | @forno39pizza 🍕🔥 Recém inaugurada em Maceió 😮‍💨✨ ... Pedi na @magelapizzaria , que faz uma pizza deliciosa em JP! ... Hoje a pedida é a Pizzaria Magela — sabor que conquista desde a primeira mordida! https://instagram.com/magelapizzaria Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fmagelapizzaria%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "597538a5-3457-4de0-8649-17b1d8778564"
+    },
+    {
+      "id": "e3c86dc8-4ac8-4ae0-84f9-83e6167d3570",
+      "name": "Restaurante da Helena",
+      "category": "Pendente validacao",
+      "neighborhood": "Portal do Poço",
+      "reviews_count": 14,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/helenarizzo",
+      "score": 80,
+      "title": "Helena Rizzo (@helenarizzo)",
+      "queries": [
+        "Restaurante da Helena helenarizzo Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "https://instagram.com/helenarizzo | Helena Rizzo (@helenarizzo) Aceitei sem pestanejar! O restaurante se chamava Sala, o chefe era o Miquel Márquez. Sua esposa, duas filhas e o genro trabalhavam lá. Me hospedaram em sua casa ... https://www.instagram.com/helenarizzo/?hl=pt-br | Helena Rizzo (@helenarizzo) Aceitei sem pestanejar! O restaurante se chamava Sala, o chefe era o Miquel Márquez. Sua esposa, duas filhas e o genro trabalhavam lá. Me hospedaram em sua casa ... https://instagram.com/helenarizzo | Helena Rizzo (@helenarizzo) Estou bem feliz com a volta do lab.maní, nosso curso livre de cozinha. Ao longo de muitas edições, formamos cozinheiros que ficaram ou ainda estão com a gente. https://www.instagram.com/helenarizzo/reels/ | Helena Rizzo (@helenarizzo) Estou bem feliz com a volta do lab.maní, nosso curso livre de cozinha. Ao longo de muitas edições, formamos cozinheiros que ficaram ou ainda estão com a gente. https://instagram.com/helenarizzo | Onde Helena Rizzo (@helenarizzo) imagina estar daqui ... Onde Helena Rizzo (@helenarizzo) imagina estar daqui duas décadas? “Vou ter quase 70 anos… Eu me imagino aqui”, afirma a chef de cozinha ... https://instagram.com/helenarizzo |",
+      "rowName": "Restaurante da Helena",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/helenarizzo",
+        "handle": "helenarizzo",
+        "tokens": [
+          "helena"
+        ],
+        "handleMatches": [
+          "helena"
+        ],
+        "textMatches": [
+          "helena"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Helena Rizzo (@helenarizzo) https://instagram.com/helenarizzo | Helena Rizzo (@helenarizzo) Aceitei sem pestanejar! O restaurante se chamava Sala, o chefe era o Miquel Márquez. Sua esposa, duas filhas e o genro trabalhavam lá. Me hospedaram em sua casa ... https://www.instagram.com/helenarizzo/?hl=pt-br | Helena Rizzo (@helenarizzo) Aceitei sem pestanejar! O restaurante se chamava Sala, o chefe era o Miquel Márquez. Sua esposa, duas filhas e o genro trabalhavam lá. Me hospedaram em sua casa ... https://instagram.com/helenarizzo | Helena Rizzo (@helenarizzo) Estou bem feliz com a volta do lab.maní, nosso curso livre de cozinha. Ao longo de muitas edições, formamos cozinheiros que ficaram ou ainda estão com a gente. https://www.instagram.com/helenarizzo/reels/ | Helena Rizzo (@helenarizzo) Estou bem feliz com a volta do lab.maní, nosso curso livre de cozinha. Ao longo de muitas edições, formamos cozinheiros que ficaram ou ainda estão com a gente. https://instagram.com/helenarizzo | Onde Helena Rizzo (@helenarizzo) imagina estar daqui ... Onde Helena Rizzo (@helenarizzo) imagina estar daqui duas décadas? “Vou ter quase 70 anos… Eu me imagino aqui”, afirma a chef de cozinha ... https://instagram.com/helenarizzo | Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (U",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fhelenarizzo%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "20e29fe1-2981-43f9-ac9c-c0b73654ac77"
+    },
+    {
+      "id": "ca0f0788-f272-4859-826e-38af8e426eef",
+      "name": "Caribe burger",
+      "category": "Lanchonete",
+      "neighborhood": "Bessa, Cabedelo",
+      "reviews_count": 1,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/caribeburguerr",
+      "score": 80,
+      "title": "Goiana (@caribeburguerr) - Hambúrguer Artesanal",
+      "queries": [
+        "Caribe burger gigantedomaroficial Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "Goiana (@caribeburguerr) - Hambúrguer Artesanal Um sabor de outro mundo chegou no Caribe Burguer! Prepare-se para uma explosão de gostos assustadoramente irresistíveis — com hambúrgueres, batatas e bebidas ... https://www.instagram.com/caribeburguerr/ | Goiana (@caribeburguerr) - Hambúrguer Artesanal Um sabor de outro mundo chegou no Caribe Burguer! Prepare-se para uma explosão de gostos assustadoramente irresistíveis — com hambúrgueres, batatas e bebidas ... https://instagram.com/caribeburguerr",
+      "rowName": "Caribe burger",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/caribeburguerr",
+        "handle": "caribeburguerr",
+        "tokens": [
+          "caribe"
+        ],
+        "handleMatches": [
+          "caribe"
+        ],
+        "textMatches": [
+          "caribe"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Goiana (@caribeburguerr) - Hambúrguer Artesanal Goiana (@caribeburguerr) - Hambúrguer Artesanal Um sabor de outro mundo chegou no Caribe Burguer! Prepare-se para uma explosão de gostos assustadoramente irresistíveis — com hambúrgueres, batatas e bebidas ... https://www.instagram.com/caribeburguerr/ | Goiana (@caribeburguerr) - Hambúrguer Artesanal Um sabor de outro mundo chegou no Caribe Burguer! Prepare-se para uma explosão de gostos assustadoramente irresistíveis — com hambúrgueres, batatas e bebidas ... https://instagram.com/caribeburguerr Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/ma",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fcaribeburguerr%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "92a876ec-192a-411c-aae8-3a9332224526"
+    },
+    {
+      "id": "6315b5cf-756f-416b-b698-4b1c081c6366",
+      "name": "Biruta Burger",
+      "category": "Hamburgueria",
+      "neighborhood": "Cabedelo",
+      "reviews_count": null,
+      "rating": null,
+      "instagramCandidate": "https://instagram.com/birutaslanchonete",
+      "score": 80,
+      "title": "Não tem como resistir aos lanches do @birutaslanchonete né ...",
+      "queries": [
+        "Biruta Burger bigburgerof Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "Não tem como resistir aos lanches do @birutaslanchonete né ... ... Big Burguer Davi também comeu a batata toda hein? Ah não pisou um ... © 2026 Instagram from Meta. https://instagram.com/birutaslanchonete",
+      "rowName": "Biruta Burger",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/birutaslanchonete",
+        "handle": "birutaslanchonete",
+        "tokens": [
+          "biruta"
+        ],
+        "handleMatches": [
+          "biruta"
+        ],
+        "textMatches": [
+          "biruta"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Não tem como resistir aos lanches do @birutaslanchonete né ... Não tem como resistir aos lanches do @birutaslanchonete né ... ... Big Burguer Davi também comeu a batata toda hein? Ah não pisou um ... © 2026 Instagram from Meta. https://instagram.com/birutaslanchonete Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png https://instagram.com/ 124024574287414 Create an account or log in to Instagram - Share what you're into with the people who get you. Instagram dark Forgot password? https://www.instagram.",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fbirutaslanchonete%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "c660bade-22d4-4175-8cfa-5e4fa056bfce"
+    },
+    {
+      "id": "27f1b5b7-56c6-49dd-80b5-4273a1dc3761",
+      "name": "Rainha da tapioca",
+      "category": "Cafeteria",
+      "neighborhood": "Cabedelo",
+      "reviews_count": null,
+      "rating": null,
+      "instagramCandidate": "https://instagram.com/rainhadatapioca",
+      "score": 65,
+      "title": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca)",
+      "queries": [
+        "Rainha da tapioca rainhadatapioca Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support",
+        "nearby_unit_conflict:tambau|tambaú|ruy carneiro"
+      ],
+      "evidenceSample": "https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://www.instagram.com/rainhadatapioca/reels/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://instagram.com/rainhadatapioca | Reel by Rainha da Tapioca Nordestina (@rainhadatapioca ... Na Peixada e Restaurante Rainha da Tapioca, você aproveita um self-service sem balança, com comida caseira, variedade, sabor e aquele tempero ... https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordestino que já mora no coração da Paraíba. ❤️ ... https://www.instagram.com/rainhadatapioca/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordesti",
+      "rowName": "Rainha da tapioca",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 64,
+        "url": "https://instagram.com/rainhadatapioca",
+        "handle": "rainhadatapioca",
+        "tokens": [
+          "rainha",
+          "tapioca"
+        ],
+        "handleMatches": [
+          "rainha",
+          "tapioca"
+        ],
+        "textMatches": [
+          "rainha",
+          "tapioca"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://www.instagram.com/rainhadatapioca/reels/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://instagram.com/rainhadatapioca | Reel by Rainha da Tapioca Nordestina (@rainhadatapioca ... Na Peixada e Restaurante Rainha da Tapioca, você aproveita um self-service sem balança, com comida caseira, variedade, sabor e aquele tempero ... https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordestino que já mora no coração da Paraíba. ❤️ ... https://www.instagram.com/rainhadatapioca/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordesti Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελλη",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Frainhadatapioca%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "d8854d41-bec5-4a35-8fc0-cb3ac0a3e38e"
+    },
+    {
+      "id": "942e480f-7b67-4aae-9967-e795bdf7502d",
+      "name": "Therê Açaí e Sorvete",
+      "category": "Sorveteria",
+      "neighborhood": "Centro",
+      "reviews_count": null,
+      "rating": null,
+      "instagramCandidate": "https://instagram.com/reidoacaisorveteria",
+      "score": 80,
+      "title": "Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria)",
+      "queries": [
+        "Therê Açaí e Sorvete danieldoacai Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) | Açaíteria • Sorvetes • Delivery ⏰|Todos os dias, das 12h às 23h |67981091550 - whatsapp |Cardápio no link, faça seu pedido na hora! https://www.instagram.com/reidoacaisorveteria/ | Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) | Açaíteria • Sorvetes • Delivery ⏰|Todos os dias, das 12h às 23h |67981091550 - whatsapp |Cardápio no link, faça seu pedido na hora! https://instagram.com/reidoacaisorveteria",
+      "rowName": "Therê Açaí e Sorvete",
+      "status": "reject",
+      "best": {
+        "status": "reject",
+        "score": 22,
+        "url": "https://instagram.com/reidoacaisorveteria",
+        "handle": "reidoacaisorveteria",
+        "tokens": [
+          "there",
+          "sorvete"
+        ],
+        "handleMatches": [
+          "sorvete"
+        ],
+        "textMatches": [
+          "sorvete"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [
+          "(67) 98109-1550"
+        ],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) | Açaíteria • Sorvetes • Delivery ⏰|Todos os dias, das 12h às 23h |67981091550 - whatsapp |Cardápio no link, faça seu pedido na hora! https://www.instagram.com/reidoacaisorveteria/ | Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) | Açaíteria • Sorvetes • Delivery ⏰|Todos os dias, das 12h às 23h |67981091550 - whatsapp |Cardápio no link, faça seu pedido na hora! https://instagram.com/reidoacaisorveteria Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://s",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Freidoacaisorveteria%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "20f39d07-5069-4877-9f2e-32d39c42e006"
+    },
+    {
+      "id": "41451228-761b-4912-a7f7-c4407a1010bd",
+      "name": "Barraca Do Anão",
+      "category": "Bar e restaurante de ostras",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 12,
+      "rating": 4.5,
+      "instagramCandidate": "https://instagram.com/barracadoanaopontadecampina",
+      "score": 120,
+      "title": "BARRACA DO ANAO (@barracadoanaopontadecampina)",
+      "queries": [
+        "Barraca Do Anão Cabedelo PB Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "BARRACA DO ANAO (@barracadoanaopontadecampina) Bar e Restaurante do Anão Peixe frito quentinho Almoço completo Comida simples e saborosa Ponta de Campina ao lado Lovina 83-99917-7542. https://www.instagram.com/barracadoanaopontadecampina/ | BARRACA DO ANAO (@barracadoanaopontadecampina) Bar e Restaurante do Anão Peixe frito quentinho Almoço completo Comida simples e saborosa Ponta de Campina ao lado Lovina 83-99917-7542. https://instagram.com/barracadoanaopontadecampina",
+      "rowName": "Barraca Do Anão",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 64,
+        "url": "https://instagram.com/barracadoanaopontadecampina",
+        "handle": "barracadoanaopontadecampina",
+        "tokens": [
+          "barraca",
+          "anao"
+        ],
+        "handleMatches": [
+          "barraca",
+          "anao"
+        ],
+        "textMatches": [
+          "barraca",
+          "anao"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "BARRACA DO ANAO (@barracadoanaopontadecampina) BARRACA DO ANAO (@barracadoanaopontadecampina) Bar e Restaurante do Anão Peixe frito quentinho Almoço completo Comida simples e saborosa Ponta de Campina ao lado Lovina 83-99917-7542. https://www.instagram.com/barracadoanaopontadecampina/ | BARRACA DO ANAO (@barracadoanaopontadecampina) Bar e Restaurante do Anão Peixe frito quentinho Almoço completo Comida simples e saborosa Ponta de Campina ao lado Lovina 83-99917-7542. https://instagram.com/barracadoanaopontadecampina Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fbarracadoanaopontadecampina%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "714349f9-e52d-45ac-b21a-f5d8525de50d"
+    },
+    {
+      "id": "dfb456d7-1841-474d-bb54-fd442af3e295",
+      "name": "Burguer Hall",
+      "category": "Hamburgueria",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 1,
+      "rating": 5,
+      "instagramCandidate": "https://instagram.com/iloveburguerpb",
+      "score": 92,
+      "title": "I ❤ Burguer (@iloveburguerpb)",
+      "queries": [
+        "Burguer Hall burguerhall Cabedelo Instagram"
+      ],
+      "reasons": [
+        "no_location_or_phone_support"
+      ],
+      "evidenceSample": "I ❤ Burguer (@iloveburguerpb) ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️ · Amor a primeira ... https://www.instagram.com/iloveburguerpb/ | I ❤ Burguer (@iloveburguerpb) ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️ · Amor a primeira ... https://instagram.com/iloveburguerpb",
+      "rowName": "Burguer Hall",
+      "status": "hold",
+      "best": {
+        "status": "hold",
+        "score": 75,
+        "url": "https://instagram.com/iloveburguerpb",
+        "handle": "iloveburguerpb",
+        "tokens": [
+          "burguer",
+          "hall"
+        ],
+        "handleMatches": [
+          "burguer"
+        ],
+        "textMatches": [
+          "burguer"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": true,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [
+          "(83) 99311-5016"
+        ],
+        "exactPhone": false,
+        "ddd83": true,
+        "conflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "I ❤ Burguer (@iloveburguerpb) I ❤ Burguer (@iloveburguerpb) ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️ · Amor a primeira ... https://www.instagram.com/iloveburguerpb/ | I ❤ Burguer (@iloveburguerpb) ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️ · Amor a primeira ... https://instagram.com/iloveburguerpb Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.co",
+        "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Filoveburguerpb%2F%3Fhl%3Dpt-br&is_from_rle",
+        "pageTitle": "Instagram"
+      },
+      "sessionId": "0ed7f595-b631-4d96-80a7-c8af1a5b75b6"
+    }
+  ]
+}

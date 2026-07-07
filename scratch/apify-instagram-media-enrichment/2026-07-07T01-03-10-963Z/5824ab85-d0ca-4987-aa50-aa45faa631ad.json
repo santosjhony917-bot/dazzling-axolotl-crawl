@@ -1,0 +1,91 @@
+{
+  "id": "5824ab85-d0ca-4987-aa50-aa45faa631ad",
+  "name": "Restaurante Recanto do Picuí Intermares",
+  "instagram": "https://www.instagram.com/recantodopicuiintermares/",
+  "followers": 24904,
+  "match": {
+    "score": 145,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://www.recantodopicuiintermares.com.br/"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "c4c57e42-2076-447a-8226-01d7ce948c71",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384439798_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "e33553f9-1e10-4639-ba81-59c6e5844cd6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384441401_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "1f153350-02c9-4ffe-9ac0-ff3287b09327",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384442385_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "46870364-9876-41f9-bb64-63178e1a8c04",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384443359_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "61368ff3-9a93-4458-9128-c3f4cb00e560",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384444095_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "dc118ba5-980b-4474-ba65-ce63cd96988f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384445055_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "a306f3da-893d-4a97-aa9f-7d440b81b334",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384445851_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "a82aef27-f5b7-4f90-8f08-32f9a022c71f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384446789_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

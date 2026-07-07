@@ -1,0 +1,228 @@
+{
+  "id": "c73bb2a7-5e2a-4f2e-8334-daaea6b12b84",
+  "name": "Mão Branca bar e resturante",
+  "instagram": "https://www.instagram.com/maobrancabarerestaurante/",
+  "followers": 9213,
+  "match": {
+    "score": 150,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_profile_1783385342736.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385346907_1.jpg",
+      "score": 38,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385347728_2.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385348688_3.jpg",
+      "score": 32,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385349614_4.jpg",
+      "score": 31,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385350539_5.jpg",
+      "score": 25,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385351105_6.jpg",
+      "score": 25,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385351825_7.jpg",
+      "score": 24,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385352586_8.jpg",
+      "score": 21,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "2a8e706b-f24b-4130-a321-d065e979107f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385346907_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "9e8912cd-1f07-4bd6-a72f-cc1dfae94479",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385347728_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "131735c3-58c6-47c7-bb95-b6b48629e91b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385348688_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "bf8c4eaa-f165-4c52-93c3-153ffab8f48f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385349614_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "831a289a-601f-4a5c-9c95-6e0b089a9227",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385350539_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "91e0d5d2-7eff-4984-98dc-4b375d2908b0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385351105_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "f797dcd7-f375-497d-9aaf-8c9f03b6c274",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385351825_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "05ac8aa7-8971-4158-9108-ae5148a64dee",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385352586_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 38,
+      "caption": "Tem cheiro que entrega de longe. A peixada frita do Mão Branca chega dourada, crocante por fora, macia por dentro e com aquele tempero que só combina com mar e mesa cheia. É prato ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "Ahhh que dia lindo que vivemos em Cabedelo pertinho de João Pessoa a capital Paraíba, em um restaurante flutuante que fica em Areia vermelha, você vai a um passeio incrível para ap",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 32,
+      "caption": "Se você está passando por Cabedelo, a parada é obrigatória. A Praia do Poço é calma, bonita e combina com boa comida e bebida gelada. É turismo, é descanso, é Mão Branca. 🍻",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 31,
+      "caption": "Sol, mar calmo, comida boa e aquele clima que faz o dia render mais. Tem gente que chama isso de sorte. A gente chama de Mão Branca. Pra quem mora aqui, é refúgio. Pra quem visita,",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 25,
+      "caption": "E hoje tivemos a visita de @glauciaaraujo.tv da @correiotv mostrando o MELHOR CARANGUEJO 🦀 do litoral norte aqui em Mão Branca Bar e Restaurante. Acompanhe a reportagem e venha no",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 25,
+      "caption": "Enquanto uns correm atrás do bloco, outros escolhem sombra, mar e boa comida. Carnaval no Mão Branca é assim: leve, bonito e com gosto de verão. 🍹 Estaremos abertos todos os dias!",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "Tem lugar que não é só pra comer. É pra sentir o vento, ouvir o mar e esquecer da pressa. 🌊⛱ O Mão Branca é assim: pé na areia, mesa farta e conversa boa. Seja morador ou turista,",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 21,
+      "caption": "Quer dizer que aí tem mar ? Não seu boi, tem não 😎 Óbvio que água não tá tão cristalina, que tá ventando bastante, mas o inverno aqui é diferente viu 😍 Lanchas, Catamarã e Jetski",
+      "vision": null
+    }
+  ]
+}

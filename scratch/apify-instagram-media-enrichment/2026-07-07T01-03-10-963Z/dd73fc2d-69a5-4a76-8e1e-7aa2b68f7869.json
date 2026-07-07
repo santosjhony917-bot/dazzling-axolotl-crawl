@@ -1,0 +1,90 @@
+{
+  "id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+  "name": "Route Hot Dogs",
+  "instagram": "https://www.instagram.com/routehotdogs/",
+  "followers": 4030,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/message/S2WMQFVFVE2RB1"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "73a0c5dd-4de1-4e1b-90da-04a6d0978831",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385167145_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "33496ec0-385f-403d-ade7-805a96cd90f4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385168647_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "594e8784-c446-4fd8-afcb-4ead50724585",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385169410_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "c1ae05f0-8222-41e9-9d25-ae2d32b7991f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385170385_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "1ccdb8b9-3b50-4ce2-9376-22976833b2e3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385171790_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "66f4a978-5f65-4008-861e-ef18f1419a88",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385172528_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "4fef9151-e390-43e5-9ae9-2203e178e51b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385173152_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "c42ed15a-f58b-4ff4-abeb-2d3711d06e68",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385173740_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

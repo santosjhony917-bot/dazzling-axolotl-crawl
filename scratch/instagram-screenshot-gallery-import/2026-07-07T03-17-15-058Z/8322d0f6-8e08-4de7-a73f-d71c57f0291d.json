@@ -1,0 +1,360 @@
+{
+  "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+  "name": "Ilovepizzapb",
+  "applied": true,
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "cropCount": 12,
+  "approvedCount": 6,
+  "candidates": [
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_01_r1_c1.jpg",
+      "index": 0,
+      "row": 1,
+      "col": 1,
+      "score": 105,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 1,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "A comida é o foco principal e a mão segurando a pizza não é proeminente."
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_03_r1_c3.jpg",
+      "index": 2,
+      "row": 1,
+      "col": 3,
+      "score": 103,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 1,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "A comida é o foco principal e a mão não é proeminente."
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_05_r2_c1.jpg",
+      "index": 4,
+      "row": 2,
+      "col": 1,
+      "score": 101,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida bonita"
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_09_r3_c1.jpg",
+      "index": 8,
+      "row": 3,
+      "col": 1,
+      "score": 97,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto bonita de comida"
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_10_r3_c2.jpg",
+      "index": 9,
+      "row": 3,
+      "col": 2,
+      "score": 96,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 1,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida com mão pequena, foco na pizza"
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_11_r3_c3.jpg",
+      "index": 10,
+      "row": 3,
+      "col": 3,
+      "score": 95,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto bonita de comida"
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_02_r1_c2.jpg",
+      "index": 1,
+      "row": 1,
+      "col": 2,
+      "score": -81,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": true,
+        "person_is_prominent": true,
+        "people_count": 1,
+        "food_visible": false,
+        "text_or_poster_dominant": true,
+        "reason": "imagem com pessoa em destaque e texto dominante"
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_04_r1_c4.jpg",
+      "index": 3,
+      "row": 1,
+      "col": 4,
+      "score": -83,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": true,
+        "person_is_prominent": true,
+        "people_count": 1,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem com pessoa em destaque"
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_06_r2_c2.jpg",
+      "index": 5,
+      "row": 2,
+      "col": 2,
+      "score": -85,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 20,
+        "has_person": true,
+        "person_is_prominent": true,
+        "people_count": 2,
+        "food_visible": true,
+        "text_or_poster_dominant": true,
+        "reason": "Pessoas em destaque e texto dominante."
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_07_r2_c3.jpg",
+      "index": 6,
+      "row": 2,
+      "col": 3,
+      "score": -86,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 20,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de baixa qualidade e não apresenta comida de forma atrativa"
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_08_r2_c4.jpg",
+      "index": 7,
+      "row": 2,
+      "col": 4,
+      "score": -87,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": true,
+        "person_is_prominent": true,
+        "people_count": 1,
+        "food_visible": false,
+        "text_or_poster_dominant": false,
+        "reason": "imagem com pessoa em destaque"
+      }
+    },
+    {
+      "file": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_12_r3_c4.jpg",
+      "index": 11,
+      "row": 3,
+      "col": 4,
+      "score": -91,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": true,
+        "person_is_prominent": true,
+        "people_count": 2,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem com pessoas em destaque"
+      }
+    }
+  ],
+  "uploads": [
+    {
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394230834_1.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 1,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "A comida é o foco principal e a mão segurando a pizza não é proeminente."
+      },
+      "sourceFile": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_01_r1_c1.jpg"
+    },
+    {
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394231427_2.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 1,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "A comida é o foco principal e a mão não é proeminente."
+      },
+      "sourceFile": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_03_r1_c3.jpg"
+    },
+    {
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394231945_3.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida bonita"
+      },
+      "sourceFile": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_05_r2_c1.jpg"
+    },
+    {
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394232611_4.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto bonita de comida"
+      },
+      "sourceFile": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_09_r3_c1.jpg"
+    },
+    {
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394233511_5.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 1,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida com mão pequena, foco na pizza"
+      },
+      "sourceFile": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_10_r3_c2.jpg"
+    },
+    {
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394234061_6.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto bonita de comida"
+      },
+      "sourceFile": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\instagram-screenshot-crops\\ilovepizzapb-2026-07-07\\post_11_r3_c3.jpg"
+    }
+  ],
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 6,
+    "galleryRows": [
+      {
+        "id": "3391b673-f940-4951-a5d0-f73d8a4df857",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394230834_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "70a6673d-5046-493a-9937-a801298c4d04",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394231427_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "f6bc9f09-cb33-49f5-a220-23bb08be1128",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394231945_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "81c32e5f-7f01-4ded-ba4f-7aac32247cd6",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394232611_4.jpg",
+        "order_index": 3
+      },
+      {
+        "id": "2b2bb72e-8986-4dbd-9b7d-15d7870773c6",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394233511_5.jpg",
+        "order_index": 4
+      },
+      {
+        "id": "84be787e-0b17-4731-802e-76c56ff20ec9",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_screenshot_1783394234061_6.jpg",
+        "order_index": 5
+      }
+    ]
+  }
+}

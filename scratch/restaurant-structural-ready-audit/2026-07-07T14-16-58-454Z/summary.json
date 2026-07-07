@@ -1,0 +1,188 @@
+{
+  "runId": "2026-07-07T14-16-58-454Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T14-16-58-454Z",
+  "scope": {
+    "ids": [
+      "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "297a6b03-242d-4d91-9f64-73e736972946",
+      "4fa980c0-13d2-415f-97a6-e31fd3141133"
+    ]
+  },
+  "options": {
+    "includePublished": true,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 3,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 3,
+  "issueCounts": {
+    "galeria_sem_evidencia_visual_forte": 3
+  },
+  "audits": [
+    {
+      "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "name": "Espaço Do Sushi",
+      "readiness": "blocked",
+      "redCount": 1,
+      "yellowCount": 0,
+      "issueCount": 1,
+      "categoryCount": 13,
+      "itemCount": 60,
+      "optionCount": 30,
+      "galleryCount": 5,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "60 itens estruturados via yooga_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://delivery.yooga.app/espacosushi.house",
+        "instagram": "https://www.instagram.com/espacodosushi/",
+        "mediaLog": {
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "source": "apify/instagram-profile-scraper",
+          "status": "enriched",
+          "bioLink": "https://delivery.yooga.app/espacosushi.house",
+          "username": "espacodosushi",
+          "checkedAt": "2026-07-07T01:05:02.118Z",
+          "followers": 4596
+        }
+      },
+      "fields": {
+        "address": "R. Juarez Távora",
+        "number": "227",
+        "neighborhood": "Camalaú",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98838-5605",
+        "latitude": -6.9779893,
+        "longitude": -34.8324569,
+        "followers": 4596
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        }
+      ]
+    },
+    {
+      "id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "readiness": "blocked",
+      "redCount": 1,
+      "yellowCount": 0,
+      "issueCount": 1,
+      "categoryCount": 5,
+      "itemCount": 35,
+      "optionCount": 42,
+      "galleryCount": 3,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "35 itens estruturados via brendi_nuxt_payload; mídia mínima completa.",
+      "source": {
+        "menu": "https://menu.brendi.com.br/oxiburguercabedelo/",
+        "instagram": "https://www.instagram.com/oxicabedelo/",
+        "mediaLog": {
+          "match": {
+            "score": 145,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "source": "apify/instagram-profile-scraper",
+          "status": "enriched",
+          "bioLink": "https://menu.brendi.com.br/oxiburguercabedelo/",
+          "username": "oxicabedelo",
+          "checkedAt": "2026-07-07T01:05:03.063Z",
+          "followers": 887
+        }
+      },
+      "fields": {
+        "address": "R. Maria das Neves Silva",
+        "number": "324",
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58101-660",
+        "phone": "(83) 98793-1915",
+        "latitude": -7.0283906,
+        "longitude": -34.835923699999995,
+        "followers": 887
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        }
+      ]
+    },
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "readiness": "blocked",
+      "redCount": 1,
+      "yellowCount": 0,
+      "issueCount": 1,
+      "categoryCount": 10,
+      "itemCount": 108,
+      "optionCount": 670,
+      "galleryCount": 3,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "108 itens estruturados via whatsmenu_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://whatsmenu.com.br/pastelarialitoranea",
+        "instagram": "https://www.instagram.com/pastelarialitoranea/",
+        "mediaLog": {
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "source": "apify/instagram-profile-scraper",
+          "status": "enriched",
+          "bioLink": "https://whatsmenu.com.br/pastelarialitoranea",
+          "username": "pastelarialitoranea",
+          "checkedAt": "2026-07-07T01:04:00.427Z",
+          "followers": 6535
+        }
+      },
+      "fields": {
+        "address": "R. Sólon de Lucena",
+        "number": "19",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98807-9929",
+        "latitude": -6.970531299999999,
+        "longitude": -34.8366612,
+        "followers": 6535
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        }
+      ]
+    }
+  ]
+}

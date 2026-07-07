@@ -1,0 +1,14 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 2,
+  "textSample": "[]",
+  "jsonKeys": [
+    "array",
+    "0"
+  ],
+  "json": []
+}

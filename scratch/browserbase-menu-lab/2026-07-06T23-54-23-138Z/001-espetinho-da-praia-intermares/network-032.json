@@ -1,0 +1,21 @@
+{
+  "url": "https://api2.amplitude.com/2/httpapi",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "fetch",
+  "method": "POST",
+  "textLength": 93,
+  "textSample": "{\"code\":200,\"server_upload_time\":1783382073640,\"payload_size_bytes\":5902,\"events_ingested\":5}",
+  "jsonKeys": [
+    "code",
+    "server_upload_time",
+    "payload_size_bytes",
+    "events_ingested"
+  ],
+  "json": {
+    "code": 200,
+    "server_upload_time": 1783382073640,
+    "payload_size_bytes": 5902,
+    "events_ingested": 5
+  }
+}

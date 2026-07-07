@@ -1,0 +1,77 @@
+{
+  "runId": "2026-07-07T11-35-38-617Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T11-35-38-617Z",
+  "scope": {
+    "ids": [
+      "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 1,
+  "issueCounts": {
+    "bairro_vazio": 1
+  },
+  "audits": [
+    {
+      "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "readiness": "blocked",
+      "redCount": 1,
+      "yellowCount": 0,
+      "issueCount": 1,
+      "categoryCount": 3,
+      "itemCount": 17,
+      "optionCount": 492,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "17 itens estruturados via instadelivery_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://instadelivery.com.br/FornoBrasilExpress",
+        "instagram": "https://www.instagram.com/forneria_brasilexpress/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:54.930Z",
+          "status": "enriched",
+          "username": "forneria_brasilexpress",
+          "followers": 15556,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://instadelivery.com.br/FornoBrasilExpress",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Rua Monte Castelo 12b",
+        "number": null,
+        "neighborhood": null,
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": null,
+        "phone": "(83) 98653-8522",
+        "latitude": -7.0311464,
+        "longitude": -34.84656,
+        "followers": 15556
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "bairro_vazio"
+        }
+      ]
+    }
+  ]
+}

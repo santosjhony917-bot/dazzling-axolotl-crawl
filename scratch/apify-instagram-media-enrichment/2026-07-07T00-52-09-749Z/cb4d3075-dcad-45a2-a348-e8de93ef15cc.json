@@ -1,0 +1,227 @@
+{
+  "id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+  "name": "Açaí da Hill Point",
+  "instagram": "https://www.instagram.com/acaidahillpoint/",
+  "followers": 480,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_profile_1783385674244.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385678901_1.jpg",
+      "score": 40,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385680095_2.jpg",
+      "score": 38,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385680748_3.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385682241_4.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385683503_5.jpg",
+      "score": 32,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385684663_6.jpg",
+      "score": 21,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385686461_7.jpg",
+      "score": 19,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385687189_8.jpg",
+      "score": 18,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "5effae85-9614-4f23-8509-854da60b6fc6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385678901_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "cf2a2097-9948-4191-a1f6-a38b5fac476e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385680095_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "b2c60ca0-5ec6-4d45-b71c-a5e454bd149a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385680748_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "a3ceeae8-d559-4dbd-9bab-38db75444e01",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385682241_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "a675fb15-e6ae-437b-9038-e1a3ac79beca",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385683503_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "7a2af237-905c-4c72-892d-18f6a2dc7f40",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385684663_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "1cd3e5b8-5487-4a8c-a6da-704302c60e4e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385686461_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "594afdb2-4396-4c7a-8c02-2aa07d29337a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cb4d3075-dcad-45a2-a348-e8de93ef15cc/instagram_1783385687189_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 40,
+      "caption": "Já estamos atendendo aos pedidos peça agora WhatsApp (83)2178-3682 Em breve no iFood . . . #açaí #pontadecampina #cabedelo #hillpoint #calor #frutas #kiwi #morango #laranja #joaope",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 38,
+      "caption": "Pensou em tomar aquele açaí maravilhoso, do seu jeito, pensou em @acaidahillpoint o melhor de ponta de campina, no litoral norte de Cabedelo. #cabedelo #praia #mar #sol #viagem #no",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "Aqui no açaí hill point, tem aquela casquinha que todo mundo ama… 😋🍦❤️🤭 . . . . . #sorveteria #amorporsorvete #pontadecampina #praia #amo 😋❤️",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "Venha se refrescar e saborear o Açaí da Hill Point, bem completo e recheado para todos os gostos!! Ficamos localizados na Avenida Mar das Antilhas próximo ao PSF de Intermares venh",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 32,
+      "caption": "Açaí da HillPoint 300ml. 500ml. 1 litro. R$14,99 R$19,99 R$39,99 Frutas (Escolha até 2) Abacaxi 🍍 Banana 🍌 Maçã 🍎 Morango 🍓 Manga 🥭 Kiwi 🥝 Uva 🍇 *Consultar Disponibilidade* ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 21,
+      "caption": "Nossos bowls contam com complementos e frutas de excelente qualidade para agradar a todo paladar, do mais fitness ao que prefere com mais guloseimas, venham conferir 😋👏🏻🙏🏻 Des",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 19,
+      "caption": "Obrigado a Deus primeiramente por nos permitir chegar onde chegamos, e obrigado a todos nossos clientes, em especial os que nos conheceram e fidelizaram pelo app do iFood, sem você",
+      "vision": null
+    },
+    {
+      "source": "child_post",
+      "score": 18,
+      "caption": "Açaí da HillPoint 300ml. 500ml. 1 litro. R$14,99 R$19,99 R$39,99 Frutas (Escolha até 2) Abacaxi 🍍 Banana 🍌 Maçã 🍎 Morango 🍓 Manga 🥭 Kiwi 🥝 Uva 🍇 *Consultar Disponibilidade* ",
+      "vision": null
+    }
+  ]
+}

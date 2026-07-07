@@ -1,0 +1,171 @@
+{
+  "id": "41451228-761b-4912-a7f7-c4407a1010bd",
+  "name": "Barraca Do Anão",
+  "instagram": "https://www.instagram.com/barracadoanaopontadecampina/",
+  "followers": 454,
+  "match": {
+    "score": 145,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/41451228-761b-4912-a7f7-c4407a1010bd/instagram_profile_1783385613647.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385617914_1.jpg",
+      "score": 32,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385619624_2.jpg",
+      "score": 26,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385620671_3.jpg",
+      "score": 20,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385621786_4.jpg",
+      "score": 19,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385623032_5.jpg",
+      "score": 13,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 5,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 5,
+      "galleryRows": [
+        {
+          "id": "d6c2a154-9b37-4ab2-9705-be31b3c7ea89",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385617914_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "23c3f103-f7b6-444c-8971-ee79b32b6319",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385619624_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "d51bbb15-9695-4589-b8f7-9f734c02ee37",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385620671_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "637de049-c4e1-47b6-b064-f64e5c1591c3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385621786_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "a917b4c9-87d4-4fbe-a066-9dc39104ed40",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385623032_5.jpg",
+          "order_index": 4
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 32,
+      "caption": "Quem aí ama um almoço simples, farto e gostoso? 🙋‍♂️🙋‍♀️ ✔️ Peixe frito ✔️ Feijão ✔️ Arroz ✔️ Salada ✔️ Farofa 💰 Tudo por R$ 25,00 📍 Bar e Restaurante do Anão",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 26,
+      "caption": "Almoço completo, comida caseira e peixe frito na hora! 🔥",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 20,
+      "caption": "",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 19,
+      "caption": "Aqui tem tempero de casa 😋 Comida simples, feita com carinho E preço que cabe no bolso! #comidanordestina #sabordaterra #comidalocal #botecoraiz #restaurantepopular",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 13,
+      "caption": "Peixe frito na hora, crocante por fora e suculento por dentro! 🐟🔥",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    }
+  ]
+}

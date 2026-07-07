@@ -1,0 +1,86 @@
+{
+  "id": "a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2",
+  "name": "Coffee Cake Açaiteria",
+  "instagram": "https://www.instagram.com/coffeecakeacaiteria/",
+  "followers": 792,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "60e4c161-5a72-4b49-8215-0035654e143b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2/instagram_1783385358923_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "628443a0-52be-4bf2-9d8d-b12554a5479b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2/instagram_1783385359927_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "8a81df0b-4bb5-4a56-afd4-16b68f7bbeec",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2/instagram_1783385360946_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "70498664-5c28-46cf-811a-779512797e70",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2/instagram_1783385361909_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "d22de15a-3d09-4eb3-84de-f2d63e440042",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2/instagram_1783385363360_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "3cfcb73d-e922-4032-9ee4-69f811fea62a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2/instagram_1783385364173_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "34e96365-ec81-4c7a-8478-c9e5b1805115",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2/instagram_1783385364678_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "3508f2ea-7799-44ae-a10b-2fef3c18272d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2/instagram_1783385365341_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

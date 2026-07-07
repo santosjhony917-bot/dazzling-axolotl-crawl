@@ -1,0 +1,168 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 3019,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"4d9699c2-183c-477a-9ca7-da7ba229e2a9\",\"id\":\"b34584f6-be3b-4492-bd0d-fe98498f0d28\",\"code\":\"50\",\"ean\":null,\"priority\":1,\"name\":\"Budweiser Long Neck 330ml\",\"description\":\"Cerveja americana classica, leve e refrescante\",\"price\":9,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"064e20f9-fd81-4284-b8b4-9d90ad3f2c72\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Budweiser Long Neck 330ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"4d9699c2-183c-477a-9ca7-da7ba229e2a9\",\"id\":\"9382b1d5-1287-47d3-aa39-37583dce5b88\",\"code\":\"49\",\"ean\":null,\"priority\":2,\"name\":\"Amstel Lata 350ml\",\"description\":\"Cerveja holandesa premium em lata pratica\",\"price\":6,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"5488a1be-88c5-4167-8f9d-aba76b8037a6\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Amstel Lata 350ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"4d9699c2-183c-477a-9ca7-da7ba229e2a9\",\"id\":\"27cb71c7-b3eb-454c-bd28-733c2fc2dfc9\",\"code\":\"48\",\"ean\":null,\"priority\":3,\"name\":\"Heineken Long Neck 330ml\",\"description\":\"Cerveja premium holandesa, refrescante e com sabor equilibrado\",\"price\":10,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"2997984d-fe48-4271-ad90-a8cbe2bb450f\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Heineken Long Neck 330ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "3"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "4d9699c2-183c-477a-9ca7-da7ba229e2a9",
+      "id": "b34584f6-be3b-4492-bd0d-fe98498f0d28",
+      "code": "50",
+      "ean": null,
+      "priority": 1,
+      "name": "Budweiser Long Neck 330ml",
+      "description": "Cerveja americana classica, leve e refrescante",
+      "price": 9,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "064e20f9-fd81-4284-b8b4-9d90ad3f2c72",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Budweiser Long Neck 330ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "4d9699c2-183c-477a-9ca7-da7ba229e2a9",
+      "id": "9382b1d5-1287-47d3-aa39-37583dce5b88",
+      "code": "49",
+      "ean": null,
+      "priority": 2,
+      "name": "Amstel Lata 350ml",
+      "description": "Cerveja holandesa premium em lata pratica",
+      "price": 6,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "5488a1be-88c5-4167-8f9d-aba76b8037a6",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Amstel Lata 350ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "4d9699c2-183c-477a-9ca7-da7ba229e2a9",
+      "id": "27cb71c7-b3eb-454c-bd28-733c2fc2dfc9",
+      "code": "48",
+      "ean": null,
+      "priority": 3,
+      "name": "Heineken Long Neck 330ml",
+      "description": "Cerveja premium holandesa, refrescante e com sabor equilibrado",
+      "price": 10,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "2997984d-fe48-4271-ad90-a8cbe2bb450f",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Heineken Long Neck 330ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

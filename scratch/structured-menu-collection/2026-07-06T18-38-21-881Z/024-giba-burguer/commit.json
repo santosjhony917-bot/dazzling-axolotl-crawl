@@ -1,0 +1,25 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "message": "55 itens estruturados via cardapio_web; 0 requerem revisão de preço.",
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 11,
+      "itemCount": 55,
+      "resolvedPriceCount": 55,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    "fallbackUsed": false
+  },
+  "stdoutTail": "[Menu V2] Auditoria estrutural: {\"approved\":true,\"confidence\":0.98,\"categoryCount\":11,\"itemCount\":55,\"resolvedPriceCount\":55,\"unresolvedPriceCount\":0,\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.\"}}\nRESULT:{\"success\":true,\"message\":\"55 itens estruturados via cardapio_web; 0 requerem revisão de preço.\",\"audit\":{\"approved\":true,\"confidence\":0.98,\"categoryCount\":11,\"itemCount\":55,\"resolvedPriceCount\":55,\"unresolvedPriceCount\":0,\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.\"}},\"fallbackUsed\":false}\n",
+  "stderrTail": "[Menu V2] IA de semântica falhou; mantendo heurística: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.\n"
+}

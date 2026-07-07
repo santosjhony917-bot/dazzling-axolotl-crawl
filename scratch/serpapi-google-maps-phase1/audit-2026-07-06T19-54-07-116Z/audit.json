@@ -1,0 +1,42 @@
+{
+  "apply": true,
+  "city": "Cabedelo",
+  "state": "PB",
+  "activeRows": 213,
+  "suspectCount": 2,
+  "suspects": [
+    {
+      "id": "26db3732-fd9f-499c-927c-dc3da2505fcb",
+      "name": "Casa Di Mainha",
+      "source_category": null,
+      "source_address": "R. Prof. João Lelis de Luna Freire - Jardim Jerico",
+      "latitude": -7.0056058,
+      "longitude": -34.830228,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJI_QFwtzfrAcR4PpGSlWFXfE",
+      "reason": "category_not_restaurant_lead"
+    },
+    {
+      "id": "a63697f7-4a89-48fe-a681-c5f74973b5e5",
+      "name": "Praça do açaí de Intermares",
+      "source_category": null,
+      "source_address": "1548",
+      "latitude": -7.0416118999999995,
+      "longitude": -34.8400082,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ-60_Km3erAcRRKoxlE8MUyc",
+      "reason": "category_not_restaurant_lead"
+    }
+  ],
+  "deleted": [
+    {
+      "id": "26db3732-fd9f-499c-927c-dc3da2505fcb",
+      "name": "Casa Di Mainha",
+      "reason": "category_not_restaurant_lead"
+    },
+    {
+      "id": "a63697f7-4a89-48fe-a681-c5f74973b5e5",
+      "name": "Praça do açaí de Intermares",
+      "reason": "category_not_restaurant_lead"
+    }
+  ],
+  "failed": []
+}

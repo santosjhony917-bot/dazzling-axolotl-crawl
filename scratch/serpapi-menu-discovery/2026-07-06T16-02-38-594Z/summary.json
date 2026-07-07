@@ -1,0 +1,46 @@
+{
+  "runId": "2026-07-06T16-02-38-594Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "menu",
+  "apply": false,
+  "processed": 1,
+  "foundGreen": 0,
+  "foundYellow": 1,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "instagram": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-02-38-594Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-02-38-594Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-02-38-594Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": null,
+        "name": "Bododromo La em Mae Campina Grande cardapio instagram",
+        "category": null,
+        "address": "",
+        "neighborhood": null,
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Bododromo La em Mae Campina Grande cardapio instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Hoje foi dia de conhecer o restaurante @laemmae.cg, que faz ...",
+        "link": "https://instagram.com/reel/DQecpjtDUsj",
+        "snippet": "... Campina Grande e agora eu entendi o porquê! O ambiente é super agradável, com uma decoração aconchegante e cheia de charme. No cardápio ...",
+        "displayedLink": "Mais de 1,2 mil marcações \"Gostei\" · há 8 meses",
+        "platform": "instagram",
+        "score": 73,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 11
+    }
+  ]
+}

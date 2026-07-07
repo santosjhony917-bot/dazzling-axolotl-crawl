@@ -1,0 +1,17 @@
+{
+  "restaurantId": "4f71666b-ecb6-4963-9201-86bcc7d29c66",
+  "restaurantName": "churrascaria do biu",
+  "platform": "anota_ai",
+  "sourceUrl": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T14-02-29-720Z-22848\\003-churrascaria-do-biu",
+  "startedAt": "2026-07-07T14:02:33.397Z",
+  "details": null,
+  "rawSummary": null,
+  "evidencePath": null,
+  "dryRun": null,
+  "review": null,
+  "committed": false,
+  "commit": null,
+  "error": "AnotaAI sem menu estruturado capturado em api.anota.ai/clientauth/nm-category/menu-merchant.",
+  "finishedAt": "2026-07-07T14:02:45.723Z"
+}

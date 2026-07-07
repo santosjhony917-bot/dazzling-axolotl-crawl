@@ -1,0 +1,9 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+green,19,anota_ai,Pizza Now - Intermares,https://pedido.anota.ai/loja/pizza-now-intermares,,fast_visual_review_then_import,ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1
+green,17,anota_ai,A Casa do Temakinho,https://pedido.anota.ai/loja/a-casa-do-temakinho,,fast_visual_review_then_import,07f16c40-a81c-4d0a-8f71-5ef78a3be31c
+green,19,anota_ai,churrascaria do biu,https://pedido.anota.ai/loja/pizzaria-do-biu,,fast_visual_review_then_import,4f71666b-ecb6-4963-9201-86bcc7d29c66
+green,38,goomer,Tia Graça Cafeteria e Doceria,https://tia-graa-doces-e-salgados.goomer.app,,fast_visual_review_then_import,42a3fb16-037e-4824-9f83-b62fee3b8407
+green,17,anota_ai,Route Hot Dogs,https://pedido.anota.ai/loja/route-hot-dogs,,fast_visual_review_then_import,dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869
+green,64,menudino,Casa Do Pastel,https://lacasadepastelpb.menudino.com.br,,fast_visual_review_then_import,72606188-4454-4890-a671-a65d4d08f024
+green,17,anota_ai,Pizza do Paulinho,https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota,,fast_visual_review_then_import,7dfea73b-b593-4acf-8bf1-71a099224008
+green,17,anota_ai,Açaí da Hill Point,https://pedido.anota.ai/loja/aai-da-hill-point,,fast_visual_review_then_import,cb4d3075-dcad-45a2-a348-e8de93ef15cc

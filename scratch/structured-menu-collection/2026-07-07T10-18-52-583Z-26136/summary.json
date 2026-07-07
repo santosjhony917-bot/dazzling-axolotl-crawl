@@ -1,0 +1,109 @@
+{
+  "runId": "2026-07-07T10-18-52-583Z-26136",
+  "outDir": "scratch\\structured-menu-collection\\2026-07-07T10-18-52-583Z-26136",
+  "queuePath": "scratch\\menu-collection-queue\\2026-07-07T10-15-44-315Z\\queue.json",
+  "platform": "cardapiodigital",
+  "apply": false,
+  "concurrency": 1,
+  "targetCount": 1,
+  "browserbase": {
+    "sessionId": "ef755968-38b8-43c3-906c-fcb8c60cdc99",
+    "keepSession": false
+  },
+  "targets": [
+    {
+      "restaurantId": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+      "restaurantName": "VITAMINA DE AÇAÍ",
+      "sourceUrl": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+      "platform": "cardapiodigital",
+      "reviewsCount": null,
+      "address": "Av. Ambrósio Miranda de Araújo",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": null,
+      "queueEntry": {
+        "restaurant_id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+        "name": "VITAMINA DE AÇAÍ",
+        "platform": "cardapiodigital",
+        "tier": "yellow",
+        "priority_score": 212,
+        "risk_flags": [
+          "hard_platform:cardapiodigital"
+        ],
+        "source_field": "other_url",
+        "source_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+        "raw_source_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+        "other_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+        "external_url": "",
+        "other_url_label": "Link da bio do Instagram",
+        "category": "Restaurante",
+        "address": "Av. Ambrósio Miranda de Araújo",
+        "neighborhood": "Renascer",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "",
+        "rating": null,
+        "reviews_count": null,
+        "menu_status": "unknown",
+        "menu_status_reason": "",
+        "menu_last_checked_at": null,
+        "is_published": false,
+        "ai_validated": false,
+        "source_candidates": [
+          {
+            "field": "other_url",
+            "raw": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+            "canonical_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+            "platform": "cardapiodigital",
+            "is_ifood": false,
+            "parse_error": false,
+            "canonical_flags": []
+          }
+        ],
+        "eligible_for_queue": true,
+        "collection_hint": "hard_strategy_or_manual_probe",
+        "rank": 19
+      }
+    }
+  ],
+  "processed": [
+    {
+      "restaurantId": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+      "restaurantName": "VITAMINA DE AÇAÍ",
+      "platform": "cardapiodigital",
+      "sourceUrl": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+      "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T10-18-52-583Z-26136\\001-vitamina-de-acai",
+      "startedAt": "2026-07-07T10:18:56.891Z",
+      "details": null,
+      "rawSummary": null,
+      "evidencePath": null,
+      "dryRun": null,
+      "review": null,
+      "committed": false,
+      "commit": null,
+      "error": "CardapioDigital sem categorias com itens estruturados.",
+      "finishedAt": "2026-07-07T10:19:02.057Z"
+    }
+  ],
+  "release": {
+    "id": "ef755968-38b8-43c3-906c-fcb8c60cdc99",
+    "createdAt": "2026-07-07T10:18:56.37039+00:00",
+    "updatedAt": "2026-07-07T10:19:05.429+00:00",
+    "projectId": "75e35b22-44ad-42b6-b7d7-4509fa0bbfc5",
+    "status": "COMPLETED",
+    "proxyBytes": 0,
+    "keepAlive": false,
+    "region": "us-west-2",
+    "startedAt": "2026-07-07T10:18:56.367+00:00",
+    "endedAt": "2026-07-07T10:19:05.429+00:00",
+    "expiresAt": "2026-07-07T10:23:56.367+00:00"
+  },
+  "counts": {
+    "processed": 1,
+    "committed": 0,
+    "errors": 1,
+    "green": 0,
+    "yellow": 0,
+    "red": 0
+  }
+}

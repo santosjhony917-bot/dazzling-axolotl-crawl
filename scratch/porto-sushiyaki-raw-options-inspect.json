@@ -1,0 +1,3605 @@
+[
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SUCOS",
+    "itemId": "db4ee62c-8f18-49f1-821f-b89df88492ef",
+    "name": "Suco Acai Mix 770ml",
+    "price": 18,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "16ee7897-fda7-46bc-8cd2-31b993e51fe9",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-627f4e6a-76e6-44fe-ad6d-70e814c89225_b2a2cf3f-f071-4da2-af7d-c35ff92dd1a0.png",
+          "default": false,
+          "priority": 0,
+          "description": "Suco Acai Mix 770ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELO",
+    "itemId": "2b77e3de-24be-4b44-8a0a-0f109cff95a1",
+    "name": "Gelo saborizado (coco leve)",
+    "price": 5,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "1c107dc1-eeb3-4536-88bb-74e8c9e32b02",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Gelo saborizado (coco leve)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ENERGETICO",
+    "itemId": "1c781ba3-f893-425c-b7bc-97f63ffb0094",
+    "name": "Red Bull (Sabores) 250ml",
+    "price": 12,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "25b02fe3-a775-4a2a-8e46-4cf5b41fbaf7",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Red Bull (Sabores) 250ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "5053897c-c2f0-49f5-b928-3183a8b74872",
+    "name": "ACAI M (ACAI TRADICIONAL)",
+    "price": 18,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "128e5d98-e2d5-422f-8125-758f8a10b2b0",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-be079b87-2c5c-4550-b59b-641503ceaa8e_069ba222-8bd0-4bcb-9735-5c1ad6055d1c.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI M (ACAI TRADICIONAL)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "DRINKS",
+    "itemId": "06c3c99e-d5b0-458c-8c43-09e1f3cba797",
+    "name": "Skol Beats Senses 269ml",
+    "price": 9,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "fc8298c4-d3c9-4a6f-a3c7-1a64d44e9a8d",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Skol Beats Senses 269ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELATTOS",
+    "itemId": "06b0a497-e31b-40c9-a9ce-90a220ba1a7d",
+    "name": "GELATTO G (Creme de Ninho)",
+    "price": 25,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "617e592f-03e4-46e7-bc04-7f9e3a8e6869",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c8f330ce-3f4a-4c67-9951-c9b7461cc628_3c931147-e22e-457f-80c9-7dd6a2b7f7ee.png",
+          "default": false,
+          "priority": 0,
+          "description": "GELATTO G (Creme de Ninho)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "CERVEJAS",
+    "itemId": "4980022f-1f91-401f-95e9-4aaa8eceda34",
+    "name": "Budweiser Long Neck 330ml",
+    "price": 9,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "064e20f9-fd81-4284-b8b4-9d90ad3f2c72",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Budweiser Long Neck 330ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "b025df7a-a2b1-44ad-aa16-c5905cc3a90c",
+    "name": "Coca-Cola Lata 350ml",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "2051bace-d8ee-446a-88f6-98227d90465b",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Coca-Cola Lata 350ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "BOMBONIERE",
+    "itemId": "5b5c1112-51f2-4a00-ae9e-e8daefe1aef7",
+    "name": "MENTOS",
+    "price": 3.5,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "f7a92e82-722e-4ca6-b351-24ed2e1a5890",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "MENTOS"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "LANCHES DA NOITE",
+    "itemId": "f322964a-a4f6-4a61-9c33-23a869837a95",
+    "name": "DOGAO DO PORTO",
+    "price": 9,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "04ae60ce-e06c-4836-96a5-115b56b2b008",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "DOGAO DO PORTO"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SOBREMESAS",
+    "itemId": "72174263-b79b-454b-ab0b-2ad5ae2d10b8",
+    "name": "Bolo no Pote",
+    "price": 10,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "e666d4d6-d779-4801-a791-5e26e5d88d2c",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-b4932a41-cfaf-4dd5-9e3c-b65846f765b8_e6c8a356-116d-4ebb-9ca9-fc8c5878e48a.png",
+          "default": false,
+          "priority": 0,
+          "description": "Bolo no Pote"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "AGUA",
+    "itemId": "886aecfd-af4a-4908-83e4-df128d639973",
+    "name": "Agua com Gas 500ml",
+    "price": 4,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "9818acc1-5333-4023-8851-c986e188a114",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Agua com Gas 500ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFEICOES PRONTAS",
+    "itemId": "dd3f996f-3777-4df9-9d15-e945532c352f",
+    "name": "Raiz do sertao",
+    "price": 15,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "5bacbe5a-f9e7-45fc-9311-3d6079f57ba6",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975_b26bb366-aa21-46b2-8ffb-7e83b4829716.png",
+          "default": false,
+          "priority": 0,
+          "description": "Raiz do sertao"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "144dfd68-48f4-4d78-8a1c-14e98685bd34",
+    "name": "COMBO COXINHA E GUARANÁ ANTARTICA",
+    "price": 13,
+    "commercialType": "combo_builder",
+    "isConfigurable": true,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "2e9468e0-8d27-4cac-8e68-6d24bc92b34d",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a5ad11c6-f1b4-4612-b01f-38082c3ce724_30ef40c0-fb21-4162-a99d-9d3b9c7c17ca.png",
+          "default": false,
+          "priority": 0,
+          "description": "COMBO COXINHA E GUARANÁ ANTARTICA"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "CERVEJAS",
+    "itemId": "652b2ca4-db59-456d-ba13-043b4ed4d652",
+    "name": "Amstel Lata 350ml",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "5488a1be-88c5-4167-8f9d-aba76b8037a6",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Amstel Lata 350ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SUCOS",
+    "itemId": "3bd94b1a-b140-4562-9e06-95b6041d57b6",
+    "name": "Laranja",
+    "price": 8,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "59435be7-1af6-44f7-9434-5b2d92643696",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a7d2a52a-b862-48a0-949b-3e6691a0272f_96f9d0a0-0d07-42c9-9da5-fd643724308b.png",
+          "default": false,
+          "priority": 0,
+          "description": "Laranja"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "AGUA",
+    "itemId": "b797699a-ba3d-4c2a-86b3-fa2b5618fac6",
+    "name": "Agua Mineral 500ml",
+    "price": 3,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "d3af27e6-e5f1-4f89-897d-20a25a03481c",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Agua Mineral 500ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELO",
+    "itemId": "a04c623b-c17e-4e74-b6ff-14793e68faf0",
+    "name": "Coco",
+    "price": 5,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "5055d7a2-47b5-4ed0-9d78-38dc5e358203",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Coco"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "7526d9b5-b0f9-4237-ac97-94f660ba0f1f",
+    "name": "ACAI G (TRADICIONAL)",
+    "price": 25,
+    "commercialType": "configurable_item",
+    "isConfigurable": true,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "cd7a9167-85fc-4503-a20a-754539a985dd",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a8c2f1a9-0e71-4487-84e8-d60b91913b17_8e61f416-9f3c-4901-a9f1-9a7e16b217fa.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI G (TRADICIONAL)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "863ea9a0-8273-48af-8f45-fffda7289e34",
+    "name": "COCA COLA ORIG KS 1L",
+    "price": 12,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "7939dc20-d911-4ca0-b923-00f396694fde",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "COCA COLA ORIG KS 1L"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "c119ec8c-3a22-4dd8-ab4a-2bb54f885a32",
+    "name": "Pastel de Forno de Carne de Sol",
+    "price": 8,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "23af3713-80dc-43ec-9026-167cd2139042",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c5eb433e-3994-4739-887f-4183c77b9d77_49bbb6ef-849e-4e3f-ae7a-bffcbbf834b7.png",
+          "default": false,
+          "priority": 0,
+          "description": "Pastel de Forno de Carne de Sol"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELATTOS",
+    "itemId": "553b20f7-6945-41ba-ab95-45212117f546",
+    "name": "GELATTO P (Creme de Ninho)",
+    "price": 16,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "cabb8ae6-84bd-4d98-8fcb-593559a8d1fa",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-1f332bd8-4a3d-4597-a327-a690e264cb6e_6702b93d-014e-4af6-90e9-e29817453d84.png",
+          "default": false,
+          "priority": 0,
+          "description": "GELATTO P (Creme de Ninho)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "BOMBONIERE",
+    "itemId": "dadc1517-933b-4b4d-8380-fcf6212b8968",
+    "name": "HALLS",
+    "price": 2.5,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "2d4a0432-7eee-47ee-8cc1-e1ca48e1a234",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "HALLS"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "LANCHES DA NOITE",
+    "itemId": "75d64deb-8507-4967-8105-419de221f12f",
+    "name": "SANDUBAO DE FRANGO",
+    "price": 9,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "3164d859-af46-4a74-a832-d9b2650f1406",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "SANDUBAO DE FRANGO"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SOBREMESAS",
+    "itemId": "54926f5c-7b47-4935-998a-6440f6717e7e",
+    "name": "Bolo Dois Amores",
+    "price": 8,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "77674eb7-2965-43e6-816b-3f3a559a0a9a",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-22972e7c-1e5d-4727-a823-28af7bbb5806_382b1b8c-48fe-4324-8c45-e407642cffad.png",
+          "default": false,
+          "priority": 0,
+          "description": "Bolo Dois Amores"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELO",
+    "itemId": "6f7626da-b1c4-4d46-b740-8cf208cc867b",
+    "name": "Gelo Saborizado Unidade",
+    "price": 4,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "041eca7b-4963-4535-a40e-3f4ebb7996d5",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Gelo Saborizado Unidade"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "CERVEJAS",
+    "itemId": "232d945c-f8b8-4b2a-a03d-6ec708527a8b",
+    "name": "Heineken Long Neck 330ml",
+    "price": 10,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "2997984d-fe48-4271-ad90-a8cbe2bb450f",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Heineken Long Neck 330ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SOBREMESAS",
+    "itemId": "eec66ff9-abe2-4aba-b455-dad3752cbdf7",
+    "name": "Pudim",
+    "price": 8,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "d69c1c92-3809-46cf-bc56-5a0476cfc941",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-d928f4ef-1138-462e-bc43-3254b9c96508_d4add02a-48dd-43fd-81b1-fdad39229088.png",
+          "default": false,
+          "priority": 0,
+          "description": "Pudim"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+    "category": "Big hot",
+    "itemId": "5492e254-f545-4ba8-a613-35b05fb64a3a",
+    "name": "Big hot de camarão empanado",
+    "price": 32,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "idi",
+      "img",
+      "name",
+      "price",
+      "choices",
+      "featured",
+      "min_value",
+      "description",
+      "schedule_type",
+      "promotional_price",
+      "schedule_available",
+      "min_value_promotional",
+      "promotional_percentage"
+    ],
+    "arrays": [
+      {
+        "path": "raw.featured",
+        "length": 1,
+        "keys": [
+          "id",
+          "featured_type",
+          "store_item_id"
+        ],
+        "sample": {
+          "id": 8149,
+          "featured_type": "OFFER",
+          "store_item_id": 2328752
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "6f385959-1ae7-4e50-9511-402839955e6b",
+    "name": "ACAI P (Acai com Creme de Ninho)",
+    "price": 16,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "c09662ab-a9b9-439d-9570-0058767cb6c0",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-956bdd65-290f-4e20-94d6-d9dcdf3247f5_6488bd0a-c5e0-4c3c-95c0-a72fc06d812d.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI P (Acai com Creme de Ninho)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "349e9d69-eda4-4ea3-bf03-6c8e5521ca05",
+    "name": "Pastel de Forno de Frango",
+    "price": 7,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "5b8c1d4c-4b27-49b4-8ec4-e0a95a38d98f",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-bc30aaec-fcae-4dba-a09c-f72eebd96494_7e206f68-4507-4c6b-8e57-f3efb1edcad0.png",
+          "default": false,
+          "priority": 0,
+          "description": "Pastel de Forno de Frango"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SUCOS",
+    "itemId": "e9eb746b-84cd-4226-940e-1b92ecb83105",
+    "name": "SUCO DA POLPA",
+    "price": 7,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "a4e2996f-d423-46a3-979f-6fe0d1bd60b6",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-21e5debf-fae9-4454-8ef5-98e6958016f7_cd6a9095-b08d-4001-bccb-0dda6d3e75e5.png",
+          "default": false,
+          "priority": 0,
+          "description": "SUCO DA POLPA"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELATTOS",
+    "itemId": "aaa56017-58d4-4222-89b4-a2b77144a1eb",
+    "name": "GELATTO P (Creme de Cupuacu)",
+    "price": 16,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "26f316ef-dc67-4358-9730-df4494d81a8f",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a0cffdd7-04e7-459f-a84c-4e6938663451_b4c62d35-a4a1-47af-a110-e39837345595.png",
+          "default": false,
+          "priority": 0,
+          "description": "GELATTO P (Creme de Cupuacu)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "b4238bf3-d0cb-4571-8bc1-16268b8a1095",
+    "name": "COCA COLA ZERO KS 290ML",
+    "price": 5,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "c3394fc8-7c62-46e5-b3a7-cd27e1d75200",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "COCA COLA ZERO KS 290ML"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+    "category": "Sushiburguer",
+    "itemId": "f2c472b3-fc28-4981-ba07-27b03a209cb6",
+    "name": "Sushiburguer de camarão cozido",
+    "price": 35,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "idi",
+      "img",
+      "name",
+      "price",
+      "choices",
+      "featured",
+      "min_value",
+      "description",
+      "schedule_type",
+      "promotional_price",
+      "schedule_available",
+      "min_value_promotional",
+      "promotional_percentage"
+    ],
+    "arrays": [
+      {
+        "path": "raw.featured",
+        "length": 1,
+        "keys": [
+          "id",
+          "featured_type",
+          "store_item_id"
+        ],
+        "sample": {
+          "id": 13708,
+          "featured_type": "OFFER",
+          "store_item_id": 2207013
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELO",
+    "itemId": "c7b5c7ea-833b-442b-b48b-9ee83a1decc6",
+    "name": "Gelo Dose 2kg",
+    "price": 5,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "67b4f8b6-fa6c-46de-a3af-d09e6ad0a235",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Gelo Dose 2kg"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "c0557e42-fb9a-4ef4-8a22-f2a4d1751001",
+    "name": "ACAI M (Acai com Creme de Ninho)",
+    "price": 18,
+    "commercialType": "configurable_item",
+    "isConfigurable": true,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "d4e738df-b3fb-4668-85c2-5215c8c06512",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-04860d22-4fda-4c1a-b869-9692d4c24046_07615423-9d67-450c-9766-9862415446a9.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI M (Acai com Creme de Ninho)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELATTOS",
+    "itemId": "06142138-f54e-41a7-8ae9-98208e5196df",
+    "name": "GELATTO M (CUPUACU)",
+    "price": 18,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "b9a64c8a-496d-41c8-9f11-3591a007c657",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-eb692b62-ab17-48f3-bade-b1496b9a8f40_2ada8724-f3f3-49e3-b365-603b1fc0eeec.png",
+          "default": false,
+          "priority": 0,
+          "description": "GELATTO M (CUPUACU)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SUCOS",
+    "itemId": "a92b4575-d4f6-488a-baab-8718b53e069d",
+    "name": "Suco Acai Mix 400ml",
+    "price": 11,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "5f1c473d-2ca5-466c-8608-4bf474bad9de",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2_fe8ad765-9e2a-4fa8-bf85-25614d38e386.png",
+          "default": false,
+          "priority": 0,
+          "description": "Suco Acai Mix 400ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SOBREMESAS",
+    "itemId": "a1248c41-9252-4729-8369-8563177ed9c2",
+    "name": "Brownie",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "9e736ac3-f406-461d-9d78-4222a272ca64",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-8c52a7b7-9d67-4fd5-9424-0d84274defcb_49492a5d-63fa-4f32-be65-54ff8bb86048.png",
+          "default": false,
+          "priority": 0,
+          "description": "Brownie"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "54306276-0eb3-425b-8301-4aa0c58130b7",
+    "name": "Empada de Frango",
+    "price": 7,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "8deb012f-827f-40da-896d-a61357e105de",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-4b19abbb-39a2-4964-a7bd-8fc801e11604_e5ff41b0-adff-4a2d-ba51-45f68b15a12a.png",
+          "default": false,
+          "priority": 0,
+          "description": "Empada de Frango"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "22770dae-a809-4c38-be74-835606776738",
+    "name": "H2O Limao 500ml",
+    "price": 8,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "3d613614-7876-4204-8db1-abdb37e3e968",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "H2O Limao 500ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "5b4a2d26-0e0a-43ae-8312-840755f1bbc9",
+    "name": "Coxinha",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "90430693-7025-4830-b224-9237312ee9e2",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a9d58685-42a4-4a33-8e45-77d3d570c9d9_86438a5d-4eaa-4fda-aeeb-4e0fe62be586.png",
+          "default": false,
+          "priority": 0,
+          "description": "Coxinha"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "bc361e4b-5067-4cd9-a0e0-4e67c5b6c02b",
+    "name": "ACAI G (Acai com Creme de Ninho)",
+    "price": 25,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "54378d0c-e0ec-46c2-80b0-0adb674c5095",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-5e83213e-a1d3-4ca0-bdfd-86b29533937f_f32397e1-2045-42be-8f59-401e7d3fc3c1.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI G (Acai com Creme de Ninho)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SOBREMESAS",
+    "itemId": "4868febc-5e9f-4f63-852e-d9259625fb2c",
+    "name": "Brownie com Gelatto de Ninho",
+    "price": 10,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "795fdb10-ea7f-4e2d-b026-742286d10fcf",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a93d4ce1-0413-45f3-961c-bc353e722fc1_6723d961-9ba5-4a67-aeeb-801c9545d475.png",
+          "default": false,
+          "priority": 0,
+          "description": "Brownie com Gelatto de Ninho"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELATTOS",
+    "itemId": "fab34ba0-fe18-4ab0-8e72-f16fadeedfc8",
+    "name": "GELATTO M (Creme de Ninho)",
+    "price": 18,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "9699819b-97e6-49b4-93fd-4fdd5e0261ca",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-e07e4560-3c98-463f-b6b2-14df2d6ebde0_1896cd2d-ed17-4a77-ad88-fde2bad3335f.png",
+          "default": false,
+          "priority": 0,
+          "description": "GELATTO M (Creme de Ninho)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "f8ec2248-8a91-4b69-b799-fa227c4b18ff",
+    "name": "Coca-Cola Zero Lata 350ml",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "f5526cf0-6cbd-4178-974c-86084123737a",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Coca-Cola Zero Lata 350ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "92f77f86-7cc9-42e7-9859-9df3100f261f",
+    "name": "Guarana Antarctica Lata 350ml",
+    "price": 5,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "cfec5c91-4aa9-4a3d-b5ef-e30105cf3181",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Guarana Antarctica Lata 350ml"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "GELATTOS",
+    "itemId": "77850f3d-995c-4132-8a65-f044f1d26523",
+    "name": "GELATTO G (Creme de Cupuacu)",
+    "price": 25,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "8ff45f77-a1e5-4615-b235-edec605eac16",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-b817765b-cce1-4c14-90cf-e4c59e582bfc_1e57b785-2d1e-453a-ab25-53be2a832532.png",
+          "default": false,
+          "priority": 0,
+          "description": "GELATTO G (Creme de Cupuacu)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "099064d9-6651-421d-98f9-fca5010864ff",
+    "name": "ACAI P (Acai com Cupuacu)",
+    "price": 16,
+    "commercialType": "configurable_item",
+    "isConfigurable": true,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "47882ce8-c22a-4158-a3da-8bdab8d39591",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c8b7c6f4-62bf-4c20-8fcb-3561b307b57b_8fad64eb-1ac9-4eb5-8555-412a0006ce82.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI P (Acai com Cupuacu)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "6999f79f-9707-414b-94e3-ef1779f5d355",
+    "name": "Enroladinho",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "94b3d562-ac23-49da-9b4d-6aea05e7c7be",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-350957d6-64a5-4a54-8563-bd180f9d08da_eec44af1-b8aa-47ed-9cc6-2b220e455e48.png",
+          "default": false,
+          "priority": 0,
+          "description": "Enroladinho"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "e5a23f1b-360c-4c5e-963e-49f8357c5ce9",
+    "name": "Pao delicia",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "18eb4c01-095a-4ab9-82fc-684f745da3a7",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-8b49d913-1a71-49b0-afb4-97c17a3395c1_becfd043-a741-4f45-aa16-586b51944b99.png",
+          "default": false,
+          "priority": 0,
+          "description": "Pao delicia"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "5c0c535b-e131-45da-8933-2d620d7c2ce6",
+    "name": "SPRITE ZERO LATA 350ML",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "eed8ee27-b95f-472f-94b2-143a2d4c740d",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "SPRITE ZERO LATA 350ML"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "e6937b45-fade-4b22-8f17-e32141141dda",
+    "name": "ACAI M (Acai com Cupuacu)",
+    "price": 18,
+    "commercialType": "configurable_item",
+    "isConfigurable": true,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "bf569079-c6a9-4032-b349-5b238be3f178",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-f5311252-d8bb-43eb-b8fb-d0354af009b9_a140b451-e69c-4565-b1ab-9f47dd7c30ad.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI M (Acai com Cupuacu)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "36d7d3aa-677c-4680-9a89-5e02b86cc2ea",
+    "name": "ACAI G (Acai com Cupuacu)",
+    "price": 25,
+    "commercialType": "configurable_item",
+    "isConfigurable": true,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "803e5b5d-6eb7-4a78-93b5-a7de45e4309f",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-e8406d46-8655-4419-85f9-47e48c0f3463_36ba5987-a145-47b1-a785-f66ae10b0b55.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI G (Acai com Cupuacu)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "6ed5b742-2903-432b-b922-eab10f7f9c0c",
+    "name": "Empada de Carne de Sol",
+    "price": 8,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "4ddc0910-5e40-4981-935d-0ffc1fce5082",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-529736cc-5e77-4d15-ba4e-20ee608b25ef_5fca821c-068d-4851-a78c-eda09a6b1541.png",
+          "default": false,
+          "priority": 0,
+          "description": "Empada de Carne de Sol"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "b80809a4-2a30-4b94-9b3e-a52c7c8b2232",
+    "name": "COCA COLA PET 1L",
+    "price": 12,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "eeea6d60-3ef9-4357-91c7-352195a96c30",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "COCA COLA PET 1L"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+    "category": "Temaki",
+    "itemId": "8db16d17-433c-4f4a-ad0b-15e0f22a93cb",
+    "name": "Temaki frito de camarão empanado",
+    "price": 29,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "idi",
+      "img",
+      "name",
+      "price",
+      "choices",
+      "featured",
+      "min_value",
+      "description",
+      "schedule_type",
+      "promotional_price",
+      "schedule_available",
+      "min_value_promotional",
+      "promotional_percentage"
+    ],
+    "arrays": [
+      {
+        "path": "raw.featured",
+        "length": 1,
+        "keys": [
+          "id",
+          "featured_type",
+          "store_item_id"
+        ],
+        "sample": {
+          "id": 8148,
+          "featured_type": "OFFER",
+          "store_item_id": 2483932
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "afac9b79-8233-42d6-b105-7db16a708e3c",
+    "name": "Empada LEITE CONDENSADO",
+    "price": 6,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "1449bd90-da05-41f1-aee3-f0ecf0f5694c",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-fadbc064-efaa-4de7-9f68-4da936140a7f_3642748f-29fd-49e1-b48d-8af0e83284c5.png",
+          "default": false,
+          "priority": 0,
+          "description": "Empada LEITE CONDENSADO"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "ACAI",
+    "itemId": "c5ea8af2-e4f3-4c7e-82c7-226141a394ba",
+    "name": "ACAI P (TRADICIONAL)",
+    "price": 16,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "ce08e02b-e0a7-4cee-bb82-ffacd077343e",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-48ca7bf5-08f7-4f34-b7de-b9d7dd7d66de_eed6e046-2a0d-41a1-88a5-7b8f83425e6f.png",
+          "default": false,
+          "priority": 0,
+          "description": "ACAI P (TRADICIONAL)"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "REFRIGERANTES",
+    "itemId": "981435fa-39f5-4b73-858b-a624ac4a70b2",
+    "name": "GUARANA 1L",
+    "price": 10,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "041d42c9-1a5d-4033-a96d-bc8558484a7d",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "GUARANA 1L"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "0dd04363-520b-4cb6-9a75-b349e61c0bc4",
+    "name": "Pastel de Queijo",
+    "price": 7,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "82a73f1a-54c1-4eae-9f2f-9d109dd7a292",
+          "main": true,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-81af78b3-16e7-4499-a041-a394c50462cf_b14dafda-b14c-452d-9017-dd0d1470abf7.png",
+          "default": false,
+          "priority": 1,
+          "description": "Pastel de Queijo"
+        }
+      }
+    ]
+  },
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "category": "SALGADOS",
+    "itemId": "3a751c20-36c1-42a3-931c-c620881fc0cd",
+    "name": "Empada de Queijo",
+    "price": 7,
+    "commercialType": "simple_item",
+    "isConfigurable": false,
+    "rawKeys": [
+      "id",
+      "ean",
+      "code",
+      "name",
+      "ship",
+      "price",
+      "stock",
+      "images",
+      "measure",
+      "priority",
+      "promotion",
+      "categoryId",
+      "merchantId",
+      "variations",
+      "description",
+      "isPromotion",
+      "availability",
+      "crossSelling",
+      "isBestSeller",
+      "byIntegration",
+      "bestSellerRank",
+      "variationsGrid",
+      "availabilityOrigin",
+      "merchantSuggestion",
+      "availabilitySchedules"
+    ],
+    "arrays": [
+      {
+        "path": "raw.images",
+        "length": 1,
+        "keys": [
+          "id",
+          "main",
+          "path",
+          "default",
+          "priority",
+          "description"
+        ],
+        "sample": {
+          "id": "fa1e1272-fd72-4466-b74d-65d785fb9eea",
+          "main": false,
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png",
+          "default": true,
+          "priority": 0,
+          "description": "Empada de Queijo"
+        }
+      }
+    ]
+  }
+]

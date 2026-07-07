@@ -1,0 +1,673 @@
+{
+  "runId": "2026-07-07T13-59-15-519Z",
+  "outDir": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z",
+  "results": [
+    {
+      "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "name": "Espaço Do Sushi",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z\\espaco-do-sushi-3efd7101.png",
+      "galleryCount": 8,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 29997,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://cdn-production.yooga.com.br/206320221013050320po7SGBaOm.jpeg"
+        },
+        {
+          "label": "1 CAPA",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 187405,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385263801_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 106961,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385265853_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 126053,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385267601_3.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 158841,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385268377_4.jpg"
+        },
+        {
+          "label": "5",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 54338,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269405_5.jpg"
+        },
+        {
+          "label": "6",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 56972,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269973_6.jpg"
+        },
+        {
+          "label": "7",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 112037,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385270696_7.jpg"
+        },
+        {
+          "label": "8",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 187083,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385271566_8.jpg"
+        }
+      ]
+    },
+    {
+      "id": "49423823-d994-4263-9597-cb829e208129",
+      "name": "Home Smash Burger",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z\\home-smash-burger-49423823.png",
+      "galleryCount": 8,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 159249,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://cdn-production.yooga.com.br/520420230115182417H46UndHMU.jpeg"
+        },
+        {
+          "label": "1 CAPA",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 151438,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385142168_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 146233,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385143705_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 165645,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385144590_3.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 106124,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385145490_4.jpg"
+        },
+        {
+          "label": "5",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 281984,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385146255_5.jpg"
+        },
+        {
+          "label": "6",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 122801,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385147452_6.jpg"
+        },
+        {
+          "label": "7",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 139656,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385148190_7.jpg"
+        },
+        {
+          "label": "8",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 360925,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385149069_8.jpg"
+        }
+      ]
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z\\i-love-burguer-ecac91e3.png",
+      "galleryCount": 3,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 29945,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_profile_1783392691268.jpg"
+        },
+        {
+          "label": "1 CAPA",
+          "caption": "Instagram API (food)",
+          "kind": "gallery",
+          "bytes": 123672,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_original_1783396098064_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Instagram API (food)",
+          "kind": "gallery",
+          "bytes": 200272,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_original_1783396098664_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Instagram API (food)",
+          "kind": "gallery",
+          "bytes": 275481,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_original_1783396099299_3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+      "name": "Lary's pizzaria e lanchonete",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z\\lary-s-pizzaria-e-lanchonete-c23b0422.png",
+      "galleryCount": 8,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 14815,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_profile_1783384869914.jpg"
+        },
+        {
+          "label": "1 CAPA",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 188360,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_1783384874219_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 88509,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_1783384875774_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 213724,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_1783384876922_3.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 161165,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_1783384877651_4.jpg"
+        },
+        {
+          "label": "5",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 252125,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_1783384878538_5.jpg"
+        },
+        {
+          "label": "6",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 321026,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_1783384879969_6.jpg"
+        },
+        {
+          "label": "7",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 300348,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_1783384881434_7.jpg"
+        },
+        {
+          "label": "8",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 155811,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c23b0422-4e34-43be-b07e-6a494804f6fc/instagram_1783384882164_8.jpg"
+        }
+      ]
+    },
+    {
+      "id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z\\oxi-burguer-cabedelo-297a6b03.png",
+      "galleryCount": 8,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 7201,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/297a6b03-242d-4d91-9f64-73e736972946/instagram_profile_1783385273388.jpg"
+        },
+        {
+          "label": "1 CAPA",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 244387,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385278641_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 309827,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385280370_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 110058,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385282129_3.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 233396,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385283380_4.jpg"
+        },
+        {
+          "label": "5",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 232448,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385284124_5.jpg"
+        },
+        {
+          "label": "6",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 375750,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385284890_6.jpg"
+        },
+        {
+          "label": "7",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 29668,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385285794_7.jpg"
+        },
+        {
+          "label": "8",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 74191,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385286640_8.jpg"
+        }
+      ]
+    },
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z\\pastelaria-litoranea-4fa980c0.png",
+      "galleryCount": 8,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 17570,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/tLOGO.jpeg"
+        },
+        {
+          "label": "1",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 90850,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384673744_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 354653,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384674958_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 220610,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384676250_3.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 51727,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384677077_4.jpg"
+        },
+        {
+          "label": "5",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 212354,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384677975_5.jpg"
+        },
+        {
+          "label": "6",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 23731,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384679174_6.jpg"
+        },
+        {
+          "label": "7",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 150973,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384679996_7.jpg"
+        },
+        {
+          "label": "8",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 50556,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384680983_8.jpg"
+        }
+      ]
+    },
+    {
+      "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z\\porto-do-acai-2ef9ccde.png",
+      "galleryCount": 8,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 123775,
+          "contentType": "application/octet-stream",
+          "error": null,
+          "url": "https://meucarrinhostg.blob.core.windows.net/images/logo-f256954b-098d-4c6a-affb-7fa33729a5a1.png"
+        },
+        {
+          "label": "1",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 193636,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386012614_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 225881,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386015296_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 206344,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386016217_3.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 99498,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386016956_4.jpg"
+        },
+        {
+          "label": "5",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 93926,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386017620_5.jpg"
+        },
+        {
+          "label": "6",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 192684,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386018457_6.jpg"
+        },
+        {
+          "label": "7",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 52448,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386019644_7.jpg"
+        },
+        {
+          "label": "8",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 244249,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386020647_8.jpg"
+        }
+      ]
+    },
+    {
+      "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T13-59-15-519Z\\sushiyaki-restaurante-2ed733a0.png",
+      "galleryCount": 8,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 15822,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://cdn-production.yooga.com.br/5333920221112175004IfJbypwPf.jpeg"
+        },
+        {
+          "label": "1 CAPA",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 133182,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385664450_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 85450,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385666394_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 132397,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385667097_3.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 119065,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385668429_4.jpg"
+        },
+        {
+          "label": "5",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 168098,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385669380_5.jpg"
+        },
+        {
+          "label": "6",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 51957,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385670245_6.jpg"
+        },
+        {
+          "label": "7",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 30867,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385671295_7.jpg"
+        },
+        {
+          "label": "8",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 116577,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385672478_8.jpg"
+        }
+      ]
+    }
+  ]
+}

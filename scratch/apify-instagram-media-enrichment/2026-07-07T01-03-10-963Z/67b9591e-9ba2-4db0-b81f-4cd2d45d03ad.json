@@ -1,0 +1,90 @@
+{
+  "id": "67b9591e-9ba2-4db0-b81f-4cd2d45d03ad",
+  "name": "Hora Da Pizza",
+  "instagram": "https://www.instagram.com/horadapizzaa_/",
+  "followers": 3665,
+  "match": {
+    "score": 140,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/5583993558904"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "e5b12af6-6c05-4ce1-8547-8664ffb5b435",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/67b9591e-9ba2-4db0-b81f-4cd2d45d03ad/instagram_1783385563338_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "2609100c-df76-43fe-8c9e-319791e26467",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/67b9591e-9ba2-4db0-b81f-4cd2d45d03ad/instagram_1783385564973_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "17926388-d03f-4ba6-8eee-ea447bef532d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/67b9591e-9ba2-4db0-b81f-4cd2d45d03ad/instagram_1783385565977_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "8ce61cff-c1d0-4c92-a27a-8440819c78ef",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/67b9591e-9ba2-4db0-b81f-4cd2d45d03ad/instagram_1783385566775_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "56a0af85-c2d6-4a73-bd07-55eea9a9a757",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/67b9591e-9ba2-4db0-b81f-4cd2d45d03ad/instagram_1783385567610_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "6e9ea331-b9bf-44b9-85d0-e4afa008b756",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/67b9591e-9ba2-4db0-b81f-4cd2d45d03ad/instagram_1783385568435_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "87cb80fa-fb2e-4779-a7c0-d49b7060a405",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/67b9591e-9ba2-4db0-b81f-4cd2d45d03ad/instagram_1783385569213_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "f39a62f2-e573-45e2-b049-e42f91564ade",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/67b9591e-9ba2-4db0-b81f-4cd2d45d03ad/instagram_1783385570071_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

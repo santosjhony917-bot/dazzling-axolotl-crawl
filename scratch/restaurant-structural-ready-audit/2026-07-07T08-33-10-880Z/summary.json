@@ -1,0 +1,71 @@
+{
+  "runId": "2026-07-07T08-33-10-880Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T08-33-10-880Z",
+  "scope": {
+    "ids": [
+      "9aed5c42-1ab1-47f0-9010-788da722a399"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+      "name": "Sorveteria Frutos de Goiás - Cabedelo",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 4,
+      "itemCount": 16,
+      "optionCount": 245,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "16 itens estruturados via whatsmenu_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://whatsmenu.com.br/frutoscabedelo",
+        "instagram": "https://www.instagram.com/frutoscabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:38.607Z",
+          "status": "enriched",
+          "username": "frutoscabedelo",
+          "followers": 2714,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://whatsmenu.com.br/frutoscabedelo",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Sólon de Lucena",
+        "number": "30B",
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-570",
+        "phone": "(83) 99313-6243",
+        "latitude": -6.970665299999999,
+        "longitude": -34.8363411,
+        "followers": 2714
+      },
+      "issues": []
+    }
+  ]
+}

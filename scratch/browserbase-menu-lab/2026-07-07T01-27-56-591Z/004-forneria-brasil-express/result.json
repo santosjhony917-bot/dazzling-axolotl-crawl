@@ -1,0 +1,41 @@
+{
+  "restaurantId": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+  "restaurantName": "Forneria Brasil Express 🍕",
+  "sourceUrl": "https://instadelivery.com.br/FornoBrasilExpress",
+  "platform": "instadelivery",
+  "reviewsCount": 2,
+  "address": null,
+  "phone": "(83) 98653-8522",
+  "startedAt": "2026-07-07T01:29:03.884Z",
+  "finishedAt": "2026-07-07T01:29:19.667Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\004-forneria-brasil-express",
+  "finalUrl": "https://instadelivery.com.br/FornoBrasilExpress",
+  "title": "Forneria Brasil Express Cardápio - Delivery de Pizza em Cabedelo",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 5014,
+    "bodyLength": 51604,
+    "anchorCount": 3,
+    "imageCount": 29
+  },
+  "priceCountInVisibleText": 41,
+  "menuWords": [
+    "pedido",
+    "adicional",
+    "combo",
+    "pizza",
+    "bebida"
+  ],
+  "networkInterestingCount": 12,
+  "failedRequestCount": 12,
+  "directProbe": {
+    "platform": "instadelivery",
+    "success": false,
+    "reason": "no_direct_probe_for_platform_yet"
+  },
+  "lessonFlags": [
+    "visible_text_fallback_possible"
+  ],
+  "error": null
+}

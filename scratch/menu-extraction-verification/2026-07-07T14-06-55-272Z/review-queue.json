@@ -1,0 +1,32 @@
+[
+  {
+    "tier": "red",
+    "restaurantId": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+    "restaurantName": "Tia Graça Cafeteria e Doceria",
+    "platform": "goomer",
+    "sourceUrl": "https://tia-graa-doces-e-salgados.goomer.app",
+    "score": 38,
+    "sourceTier": "green",
+    "sourceFlags": [],
+    "itemCount": 0,
+    "optionCount": 0,
+    "operationalOptionCount": 0,
+    "dryRunApproved": false,
+    "confidence": 0,
+    "pricedRatio": 0,
+    "unresolvedPriceCount": 0,
+    "committed": false,
+    "flags": [
+      "collector_error",
+      "no_extension_print",
+      "no_structured_items",
+      "insufficient_visual_menu_evidence",
+      "price_coverage_review"
+    ],
+    "nextAction": "reject_or_rediscover_source",
+    "snapshotPath": null,
+    "viewportSnapshotPaths": [],
+    "evidencePath": null,
+    "error": "Timeout aguardando extensao para open_url"
+  }
+]

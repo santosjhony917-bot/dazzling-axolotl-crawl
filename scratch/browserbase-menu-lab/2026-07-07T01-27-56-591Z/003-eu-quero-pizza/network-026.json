@@ -1,0 +1,144 @@
+{
+  "url": "https://api.anota.ai/clientauth/client/v2",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 1753,
+  "textSample": "{\"_id\":\"6838f4abf5b2a10011bce109\",\"idwhats\":\"558398504733@c.us\",\"page\":\"682e6d00001ddb0012bddddc\",\"__v\":0,\"accepted_user_terms\":true,\"accepted_user_terms_data\":null,\"address\":[{\"region_name\":\"\",\"reference_point\":\"Praca das corujas é Naia\",\"name\":\"Av. Oceano Atlântico\",\"num\":\"899\",\"neighborhood\":\"Intermares\",\"complement\":\"Treiler de hamburguer\",\"location\":{\"coordinates\":[-34.8382085,-7.038227200000001],\"type\":\"Point\"},\"postal_code\":\"58310-000\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"country\":\"br\",\"deliveryprice\":0,\"alias\":\"\",\"_id\":\"69f7cef81b1e33eb62e38739\"}],\"advice\":false,\"agerange\":null,\"birthday\":null,\"broadcastChat\":true,\"cashback_wallet\":0,\"coordinates_not_supported\":[],\"createdAt\":\"2025-05-29T23:58:35.933Z\",\"credit_card\":[],\"delivery_mode_order\":{\"delivery\":true,\"take\":false,\"local\":false},\"dumbBotNextInteraction\":{\"expires\":null},\"gender\":null,\"idfb\":null,\"idinsta\":null,\"indication_points\":{\"indicated_clients\":[],\"total\":0},\"lastAction\":{\"expires\":null},\"lastRequest\":{\"data\":null,\"time\":null},\"lastSendHelp\":null,\"last_ordered_items\":[\"6831d2b5dd1ce937260d517b\"],\"link_accessed\":false,\"liveChat\":{\"active\":false,\"expires\":null},\"marketplaces_ref\":[],\"name\":\"Eu Quero Burguer\",\"orders_intervals\":[],\"phone\":\"83998504733\",\"phone_whats\":\"558398504733\",\"picture\":\"\",\"shortId\":\"MeIU-tix\",\"sorrySended\":{\"count\":0,\"expires\":null},\"status_payment_online\":true,\"temp\":false,\"total_orders\":1,\"total_orders_net\":110.8,\"unsubscribe_trigger_whats\":false,\"updatedAt\":\"2026-05-03T22:45:07.909Z\",\"last_reactive_trigger_received\":\"2026-02-07T01:47:11.794Z\",\"last_notification_received\":\"2025-05-30T01:59:17.070Z\",\"last_nps_sent\":\"2025-05-30T01:59:17.070Z\",\"ifood_id\":\"113b9b5e-05f3-4997-8ae0-c155595b6711\",\"last_order_realized\":\"2026-05-03T22:45:06.848Z\"}",
+  "jsonKeys": [
+    "_id",
+    "idwhats",
+    "page",
+    "__v",
+    "accepted_user_terms",
+    "accepted_user_terms_data",
+    "address",
+    "advice",
+    "agerange",
+    "birthday",
+    "broadcastChat",
+    "cashback_wallet",
+    "coordinates_not_supported",
+    "createdAt",
+    "credit_card",
+    "delivery_mode_order",
+    "dumbBotNextInteraction",
+    "gender",
+    "idfb",
+    "idinsta",
+    "indication_points",
+    "lastAction",
+    "lastRequest",
+    "lastSendHelp",
+    "last_ordered_items",
+    "link_accessed",
+    "liveChat",
+    "marketplaces_ref",
+    "name",
+    "orders_intervals",
+    "phone",
+    "phone_whats",
+    "picture",
+    "shortId",
+    "sorrySended",
+    "status_payment_online",
+    "temp",
+    "total_orders",
+    "total_orders_net",
+    "unsubscribe_trigger_whats"
+  ],
+  "json": {
+    "_id": "6838f4abf5b2a10011bce109",
+    "idwhats": "558398504733@c.us",
+    "page": "682e6d00001ddb0012bddddc",
+    "__v": 0,
+    "accepted_user_terms": true,
+    "accepted_user_terms_data": null,
+    "address": [
+      {
+        "region_name": "",
+        "reference_point": "Praca das corujas é Naia",
+        "name": "Av. Oceano Atlântico",
+        "num": "899",
+        "neighborhood": "Intermares",
+        "complement": "Treiler de hamburguer",
+        "location": {
+          "coordinates": [
+            -34.8382085,
+            -7.038227200000001
+          ],
+          "type": "Point"
+        },
+        "postal_code": "58310-000",
+        "city": "Cabedelo",
+        "state": "PB",
+        "country": "br",
+        "deliveryprice": 0,
+        "alias": "",
+        "_id": "69f7cef81b1e33eb62e38739"
+      }
+    ],
+    "advice": false,
+    "agerange": null,
+    "birthday": null,
+    "broadcastChat": true,
+    "cashback_wallet": 0,
+    "coordinates_not_supported": [],
+    "createdAt": "2025-05-29T23:58:35.933Z",
+    "credit_card": [],
+    "delivery_mode_order": {
+      "delivery": true,
+      "take": false,
+      "local": false
+    },
+    "dumbBotNextInteraction": {
+      "expires": null
+    },
+    "gender": null,
+    "idfb": null,
+    "idinsta": null,
+    "indication_points": {
+      "indicated_clients": [],
+      "total": 0
+    },
+    "lastAction": {
+      "expires": null
+    },
+    "lastRequest": {
+      "data": null,
+      "time": null
+    },
+    "lastSendHelp": null,
+    "last_ordered_items": [
+      "6831d2b5dd1ce937260d517b"
+    ],
+    "link_accessed": false,
+    "liveChat": {
+      "active": false,
+      "expires": null
+    },
+    "marketplaces_ref": [],
+    "name": "Eu Quero Burguer",
+    "orders_intervals": [],
+    "phone": "83998504733",
+    "phone_whats": "558398504733",
+    "picture": "",
+    "shortId": "MeIU-tix",
+    "sorrySended": {
+      "count": 0,
+      "expires": null
+    },
+    "status_payment_online": true,
+    "temp": false,
+    "total_orders": 1,
+    "total_orders_net": 110.8,
+    "unsubscribe_trigger_whats": false,
+    "updatedAt": "2026-05-03T22:45:07.909Z",
+    "last_reactive_trigger_received": "2026-02-07T01:47:11.794Z",
+    "last_notification_received": "2025-05-30T01:59:17.070Z",
+    "last_nps_sent": "2025-05-30T01:59:17.070Z",
+    "ifood_id": "113b9b5e-05f3-4997-8ae0-c155595b6711",
+    "last_order_realized": "2026-05-03T22:45:06.848Z"
+  }
+}

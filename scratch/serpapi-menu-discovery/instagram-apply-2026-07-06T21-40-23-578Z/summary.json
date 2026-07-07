@@ -1,0 +1,109 @@
+{
+  "apply": true,
+  "overwrite": false,
+  "safeOnly": true,
+  "skipExisting": true,
+  "minScore": 100,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\instagram-selected-second-pass-2026-07-06T21-40-05-554Z",
+  "processed": 6,
+  "approved": 6,
+  "baseApproved": 6,
+  "safe": 6,
+  "rejected": 0,
+  "applied": 6,
+  "failures": [],
+  "reasonCounts": {
+    "approved_safe": 6
+  },
+  "approvedSamples": [
+    {
+      "name": "Bar e Restaurante do Sumé",
+      "instagram": "https://instagram.com/bardosumepb",
+      "score": 107,
+      "phoneCandidate": "(83) 99893-9381",
+      "openingHoursText": null
+    },
+    {
+      "name": "PARCEIRO Rosa Lanches",
+      "instagram": "https://instagram.com/rosaalanches_",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "LANCHONETE EM CABEDELO (PB) (@rosaalanches_). Abrimos todos os dias! Horário de funcionamento das 18h à 01h Endereço: Rua Tenente Antônio Pontes, 139 Faça seu pedido pelo link abaixo.. https://instagram.com/rosaalanches_"
+    },
+    {
+      "name": "Melhor Sabor - Churrascaria e Self-Service",
+      "instagram": "https://instagram.com/melhor_sabor01",
+      "score": 142,
+      "phoneCandidate": "(83) 98716-7904",
+      "openingHoursText": "RESTAURANTE MELHOR SABOR PRIME .... Churrascaria e Self Service de Comida regional 🏜️ ... Segunda a Sábado (10:50h às 14:00h) ... Pedidos no Whatsapp (83) 98716 -7904.. https://instagram.com/melhor_sabor01"
+    },
+    {
+      "name": "Hora Da Pizza",
+      "instagram": "https://instagram.com/horadapizzaa_",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Açaí da Hill Point",
+      "instagram": "https://instagram.com/acaidahillpoint",
+      "score": 138,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Deu Pizza Cabedelo",
+      "instagram": "https://instagram.com/deupizzacabedelo",
+      "score": 107,
+      "phoneCandidate": "(83) 99339-5381",
+      "openingHoursText": null
+    }
+  ],
+  "rejectedSamples": [],
+  "updates": [
+    {
+      "id": "a43626c7-89fe-497c-940e-ffeabc8475fb",
+      "name": "Bar e Restaurante do Sumé",
+      "instagram": "https://instagram.com/bardosumepb",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+      "name": "PARCEIRO Rosa Lanches",
+      "instagram": "https://instagram.com/rosaalanches_",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "6e825bdf-c07e-4b4c-ab3e-98d7fe713928",
+      "name": "Melhor Sabor - Churrascaria e Self-Service",
+      "instagram": "https://instagram.com/melhor_sabor01",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "67b9591e-9ba2-4db0-b81f-4cd2d45d03ad",
+      "name": "Hora Da Pizza",
+      "instagram": "https://instagram.com/horadapizzaa_",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+      "name": "Açaí da Hill Point",
+      "instagram": "https://instagram.com/acaidahillpoint",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "a9c18317-7315-45ac-b488-831923c9fd56",
+      "name": "Deu Pizza Cabedelo",
+      "instagram": "https://instagram.com/deupizzacabedelo",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    }
+  ]
+}

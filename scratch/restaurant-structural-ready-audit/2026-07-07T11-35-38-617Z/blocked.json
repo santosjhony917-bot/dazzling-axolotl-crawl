@@ -1,0 +1,16 @@
+[
+  {
+    "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+    "name": "Forneria Brasil Express 🍕",
+    "redCount": 1,
+    "issueCodes": [
+      "bairro_vazio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_vazio"
+      }
+    ]
+  }
+]

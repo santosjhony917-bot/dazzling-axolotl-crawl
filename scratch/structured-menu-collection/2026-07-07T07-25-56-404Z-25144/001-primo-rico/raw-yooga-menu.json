@@ -1,0 +1,1117 @@
+{
+  "endpoint": "https://delivery2.yooga.com.br/v2/stores/restaurante-primo-rico/menu?type_query=null",
+  "status": 200,
+  "textLength": 13145,
+  "stats": {
+    "categoryCount": 3,
+    "itemCount": 21,
+    "optionCount": 54,
+    "operationalCategoryCount": 0,
+    "operationalItemCount": 0,
+    "operationalOptionCount": 0,
+    "samples": [
+      {
+        "name": "Marmitas",
+        "items": [
+          {
+            "name": "Quentinha G",
+            "price": 35,
+            "options": [
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Frango Ao Forno (Coxa e sobrecoxa)",
+                "price": null,
+                "min": 3,
+                "max": 3,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Panqueca De Frango",
+                "price": null,
+                "min": 3,
+                "max": 3,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Filé De Frango À Milanesa",
+                "price": null,
+                "min": 3,
+                "max": 3,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Filé De Frango Na Chapa",
+                "price": null,
+                "min": 3,
+                "max": 3,
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Quentinha P",
+            "price": 20,
+            "options": [
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Frango Ao Forno (Coxa e sobrecoxa)",
+                "price": null,
+                "min": 1,
+                "max": 1,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Panqueca De Frango",
+                "price": null,
+                "min": 1,
+                "max": 1,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Filé De Frango À Milanesa",
+                "price": null,
+                "min": 1,
+                "max": 1,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Filé De Frango Na Chapa",
+                "price": null,
+                "min": 1,
+                "max": 1,
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Marmita M",
+            "price": 28,
+            "options": [
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Frango Ao Forno (Coxa e sobrecoxa)",
+                "price": null,
+                "min": 2,
+                "max": 2,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Panqueca De Frango",
+                "price": null,
+                "min": 2,
+                "max": 2,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Filé De Frango À Milanesa",
+                "price": null,
+                "min": 2,
+                "max": 2,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Filé De Frango Na Chapa",
+                "price": null,
+                "min": 2,
+                "max": 2,
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "CARNE EXTRA",
+            "price": 8,
+            "options": [
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Frango Ao Forno (Coxa e sobrecoxa)",
+                "price": null,
+                "min": 1,
+                "max": 1,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Panqueca De Frango",
+                "price": null,
+                "min": 1,
+                "max": 1,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Filé De Frango À Milanesa",
+                "price": null,
+                "min": 1,
+                "max": 1,
+                "required": true
+              },
+              {
+                "group": "Escolha a Proteína:",
+                "name": "Filé De Frango Na Chapa",
+                "price": null,
+                "min": 1,
+                "max": 1,
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Coca Lata",
+            "price": 7,
+            "options": []
+          },
+          {
+            "name": "Coca Lata Zero",
+            "price": 7,
+            "options": []
+          },
+          {
+            "name": "Fanta Laranja Lata",
+            "price": 7,
+            "options": []
+          },
+          {
+            "name": "Guaraná Antártica Lata",
+            "price": 7,
+            "options": []
+          },
+          {
+            "name": "Coca 1 Lt",
+            "price": 14,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Itens diversos",
+        "items": [
+          {
+            "name": "Halls",
+            "price": 3,
+            "options": []
+          },
+          {
+            "name": "Paçoca P",
+            "price": 1,
+            "options": []
+          },
+          {
+            "name": "Cocada",
+            "price": 3,
+            "options": []
+          }
+        ]
+      }
+    ]
+  },
+  "payload": [
+    {
+      "id": 265600,
+      "name": "Marmitas",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 7161863,
+          "idi": 65258,
+          "name": "Quentinha G",
+          "description": null,
+          "price": 35,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/54a8de2c8f03de516476078bbe2ecba0.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 35,
+          "min_value_promotional": 0,
+          "featured": [
+            {
+              "id": 18495,
+              "store_item_id": 7161863,
+              "featured_type": "OFFER"
+            }
+          ],
+          "choices": [
+            {
+              "id": 4085945,
+              "name": "Escolha a Proteína:",
+              "required": 1,
+              "min": 3,
+              "max": 3,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 29473487,
+                  "name": "Frango Ao Forno (Coxa e sobrecoxa)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473490,
+                  "name": "Panqueca De Frango",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473492,
+                  "name": "Filé De Frango À Milanesa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473493,
+                  "name": "Filé De Frango Na Chapa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473534,
+                  "name": "Cozido De Carne",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473557,
+                  "name": "frango xadrez",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473596,
+                  "name": "Carne Desfiada Acebolada",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4085946,
+              "name": "Escolha os Acompanhamentos:",
+              "required": 1,
+              "min": 5,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 29473597,
+                  "name": "Arroz refogado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473601,
+                  "name": "Feijão preto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473602,
+                  "name": "Feijão carioca",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473607,
+                  "name": "Macarrão",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473612,
+                  "name": "Farofa da casa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473614,
+                  "name": "Batata doce",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473615,
+                  "name": "Salada cozida( cenoura, batatinha, chuchu)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473620,
+                  "name": "Salada natural (alface , tomate, cebola, cenoura, beterraba)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7161864,
+          "idi": 65258,
+          "name": "Quentinha P",
+          "description": null,
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/f884c6e09e5ab12e34e4eda3a7b97a6d.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [
+            {
+              "id": 121101,
+              "store_item_id": 7161864,
+              "featured_type": "OFFER"
+            }
+          ],
+          "choices": [
+            {
+              "id": 4085947,
+              "name": "Escolha a Proteína:",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 29473628,
+                  "name": "Frango Ao Forno (Coxa e sobrecoxa)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473631,
+                  "name": "Panqueca De Frango",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473633,
+                  "name": "Filé De Frango À Milanesa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473634,
+                  "name": "Filé De Frango Na Chapa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473675,
+                  "name": "Cozido De Carne",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473698,
+                  "name": "frango xadrez",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473737,
+                  "name": "Carne Desfiada Acebolada",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4085948,
+              "name": "Escolha os Acompanhamentos:",
+              "required": 1,
+              "min": 3,
+              "max": 3,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 29473738,
+                  "name": "Arroz refogado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473740,
+                  "name": "Arroz branco;",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473742,
+                  "name": "Feijão preto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473743,
+                  "name": "Feijão carioca",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473748,
+                  "name": "Macarrão",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473753,
+                  "name": "Farofa da casa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473755,
+                  "name": "Batata doce",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473756,
+                  "name": "Salada cozida( cenoura, batatinha, chuchu)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29473761,
+                  "name": "Salada natural (alface , tomate, cebola, cenoura, beterraba)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7375860,
+          "idi": 65258,
+          "name": "Marmita M",
+          "description": null,
+          "price": 28,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/54a8de2c8f03de516476078bbe2ecba0.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 28,
+          "min_value_promotional": 0,
+          "featured": [
+            {
+              "id": 18497,
+              "store_item_id": 7375860,
+              "featured_type": "OFFER"
+            }
+          ],
+          "choices": [
+            {
+              "id": 4196331,
+              "name": "Escolha a Proteína:",
+              "required": 1,
+              "min": 2,
+              "max": 2,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 30304448,
+                  "name": "Frango Ao Forno (Coxa e sobrecoxa)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304451,
+                  "name": "Panqueca De Frango",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304453,
+                  "name": "Filé De Frango À Milanesa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304454,
+                  "name": "Filé De Frango Na Chapa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304495,
+                  "name": "Cozido De Carne",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304518,
+                  "name": "frango xadrez",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304555,
+                  "name": "Carne Desfiada Acebolada",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4196332,
+              "name": "Escolha os Acompanhamentos:",
+              "required": 1,
+              "min": 5,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 30304559,
+                  "name": "Arroz refogado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304561,
+                  "name": "Arroz branco;",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304563,
+                  "name": "Feijão preto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304564,
+                  "name": "Feijão carioca",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304569,
+                  "name": "Macarrão",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304574,
+                  "name": "Farofa da casa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304576,
+                  "name": "Batata doce",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304577,
+                  "name": "Salada cozida( cenoura, batatinha, chuchu)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304582,
+                  "name": "Salada natural (alface , tomate, cebola, cenoura, beterraba)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7375861,
+          "idi": 65258,
+          "name": "CARNE EXTRA",
+          "description": null,
+          "price": 8,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": null,
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 8,
+          "min_value_promotional": 0,
+          "featured": [
+            {
+              "id": 57117,
+              "store_item_id": 7375861,
+              "featured_type": "OFFER"
+            }
+          ],
+          "choices": [
+            {
+              "id": 4196333,
+              "name": "Escolha a Proteína:",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 30304591,
+                  "name": "Frango Ao Forno (Coxa e sobrecoxa)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304594,
+                  "name": "Panqueca De Frango",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304596,
+                  "name": "Filé De Frango À Milanesa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304597,
+                  "name": "Filé De Frango Na Chapa",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304638,
+                  "name": "Cozido De Carne",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304661,
+                  "name": "frango xadrez",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 30304698,
+                  "name": "Carne Desfiada Acebolada",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 265601,
+      "name": "Bebidas",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 1985027,
+          "idi": 65258,
+          "name": "Coca Lata",
+          "description": null,
+          "price": 7,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/2ccd79327600c7a627e00bb5fa0a3e3c.webp",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 7,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985028,
+          "idi": 65258,
+          "name": "Coca Lata Zero",
+          "description": null,
+          "price": 7,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/b83269ae0922f43038810df7993a97c5.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 7,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985031,
+          "idi": 65258,
+          "name": "Fanta Laranja Lata",
+          "description": null,
+          "price": 7,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/c37d7e31bc762011e30dc17a27f52ad8.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 7,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985032,
+          "idi": 65258,
+          "name": "Guaraná Antártica Lata",
+          "description": null,
+          "price": 7,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/947a223385d00f745fc954f05dd613e0.png",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 7,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985035,
+          "idi": 65258,
+          "name": "Coca 1 Lt",
+          "description": null,
+          "price": 14,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/c3e0caba32dbbc6b445f57df5c6d1011.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 14,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985039,
+          "idi": 65258,
+          "name": "Água Com Gás",
+          "description": null,
+          "price": 6,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/4b5a5fca1a3e08d2b1da6bffb05ce679.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 6,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985040,
+          "idi": 65258,
+          "name": "Água Sem Gás",
+          "description": null,
+          "price": 5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/4b5a5fca1a3e08d2b1da6bffb05ce679.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985043,
+          "idi": 65258,
+          "name": "Sucos 400Ml Limão",
+          "description": null,
+          "price": 10,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/9edfc3d59413b25c4037c706a8928260.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 10,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985045,
+          "idi": 65258,
+          "name": "Sucos 400Ml Manga",
+          "description": null,
+          "price": 10,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/32d21d809ea86a244c1899f730cdb4bf.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 10,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985046,
+          "idi": 65258,
+          "name": "Sucos 800Ml Laranja",
+          "description": null,
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/b772991e663c711e9cc175e8e5a852cd.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985047,
+          "idi": 65258,
+          "name": "Sucos 800Ml Limão",
+          "description": null,
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/9edfc3d59413b25c4037c706a8928260.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985049,
+          "idi": 65258,
+          "name": "Sucos 800Ml Manga",
+          "description": null,
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/32d21d809ea86a244c1899f730cdb4bf.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 2013377,
+          "idi": 65258,
+          "name": "H2o limoneto",
+          "description": null,
+          "price": 10,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": null,
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 10,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 2013416,
+          "idi": 65258,
+          "name": "Heineken Long Neck",
+          "description": null,
+          "price": 13,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": null,
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 13,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 265602,
+      "name": "Itens diversos",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 1985065,
+          "idi": 65258,
+          "name": "Halls",
+          "description": null,
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985067,
+          "idi": 65258,
+          "name": "Paçoca P",
+          "description": null,
+          "price": 1,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 1,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1985069,
+          "idi": 65258,
+          "name": "Cocada",
+          "description": null,
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    }
+  ]
+}

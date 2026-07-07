@@ -1,0 +1,114 @@
+{
+  "queue": [
+    {
+      "restaurant_id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+      "name": "A Casa do Temakinho",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99944-9296"
+    },
+    {
+      "restaurant_id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+      "name": "Açaí da Hill Point",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 2178-3682"
+    },
+    {
+      "restaurant_id": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+      "name": "Espetinho da praia Intermares",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 2182-4436"
+    },
+    {
+      "restaurant_id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+      "name": "Pizza do Paulinho",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98852-8675"
+    },
+    {
+      "restaurant_id": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+      "name": "Pizza Now - Intermares",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "0800 012 2000"
+    },
+    {
+      "restaurant_id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+      "name": "Route Hot Dogs",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99878-4228"
+    },
+    {
+      "restaurant_id": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+      "name": "Pizzaria tá no ponto",
+      "platform": "restaurantlogin",
+      "tier": "green",
+      "source_url": "https://www.pizzariatanoponto.com.br/",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99608-4407"
+    },
+    {
+      "restaurant_id": "3549abc7-3261-4ec3-af59-820112bd2358",
+      "name": "Cibelly Mar",
+      "platform": "pdf_drive",
+      "tier": "yellow",
+      "source_url": "https://drive.google.com/file/d/1GJmCiphVxNCs9pCWIz5ld-v3ATsQc0J3/view?usp=drive_link",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99394-0898"
+    },
+    {
+      "restaurant_id": "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+      "name": "BAR DO CHEFF RESTAURANTE",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/bar-do-cheff-restaurante-1?referer=gbp_anota",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98842-9424"
+    },
+    {
+      "restaurant_id": "a9904835-65ca-4efd-9caf-c8c7354f9ee5",
+      "name": "Self-service da nany",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/selfservice-da-nany",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99101-1680"
+    },
+    {
+      "restaurant_id": "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6",
+      "name": "Pizzaria 1000Graus",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://pedido.anota.ai/loja/pizzaria-1000graus-1",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99329-1827"
+    }
+  ]
+}

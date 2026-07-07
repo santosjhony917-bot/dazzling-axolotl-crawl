@@ -1,0 +1,54 @@
+[
+  {
+    "restaurantId": "297a6b03-242d-4d91-9f64-73e736972946",
+    "restaurantName": "Oxi Burguer Cabedelo",
+    "sourceUrl": "https://menu.brendi.com.br/oxiburguercabedelo",
+    "platform": "brendi",
+    "reviewsCount": 31,
+    "address": "R. Maria das Neves Silva",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98793-1915",
+    "queueEntry": {
+      "restaurant_id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "platform": "brendi",
+      "tier": "green",
+      "priority_score": 41,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://menu.brendi.com.br/oxiburguercabedelo",
+      "raw_source_url": "https://menu.brendi.com.br/oxiburguercabedelo/",
+      "other_url": "https://menu.brendi.com.br/oxiburguercabedelo/",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Hamburgueria",
+      "address": "R. Maria das Neves Silva",
+      "neighborhood": "Ponta de Campina",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98793-1915",
+      "rating": 5,
+      "reviews_count": 31,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://menu.brendi.com.br/oxiburguercabedelo/",
+          "canonical_url": "https://menu.brendi.com.br/oxiburguercabedelo",
+          "platform": "brendi",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 13
+    }
+  }
+]

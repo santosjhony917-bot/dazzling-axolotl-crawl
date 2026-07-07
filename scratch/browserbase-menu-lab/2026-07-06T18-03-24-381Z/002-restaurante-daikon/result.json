@@ -1,0 +1,320 @@
+{
+  "restaurantId": "528002c2-69ff-4e98-9646-8ed10b97ea69",
+  "restaurantName": "Restaurante Daikôn",
+  "sourceUrl": "https://app.cardapioweb.com/daikon_delivery?s=pub",
+  "platform": "cardapioweb",
+  "reviewsCount": 1012,
+  "address": "R. Cap. João Alves de Lira, 303",
+  "phone": null,
+  "startedAt": "2026-07-06T18:03:40.556Z",
+  "finishedAt": "2026-07-06T18:03:52.638Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-06T18-03-24-381Z\\002-restaurante-daikon",
+  "finalUrl": "https://app.cardapioweb.com/daikon_delivery",
+  "title": "Daikon Delivery",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 1100,
+    "bodyLength": 157151,
+    "anchorCount": 4,
+    "imageCount": 16
+  },
+  "priceCountInVisibleText": 143,
+  "menuWords": [
+    "cardapio",
+    "cardápio",
+    "pedido",
+    "delivery",
+    "combo",
+    "bebida"
+  ],
+  "networkInterestingCount": 33,
+  "failedRequestCount": 2,
+  "directProbe": {
+    "platform": "cardapioweb",
+    "success": true,
+    "source": "cardapioweb_native_api",
+    "endpoint": "https://integracao.cardapioweb.com/api/menu/company/categories?only_available_for=delivery&origin=catalogo",
+    "details": {
+      "companyId": "16426",
+      "companySlug": "daikon_delivery"
+    },
+    "categoryCount": 11,
+    "itemCount": 141,
+    "optionCount": 9,
+    "operationalOptionCount": 0,
+    "operationalSample": [],
+    "samples": [
+      {
+        "name": "Promoções.",
+        "items": [
+          {
+            "name": "Dupla Temaki Skin",
+            "price": 34.23,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          },
+          {
+            "name": "Dupla Temaki Kani",
+            "price": 34.23,
+            "optionSample": []
+          },
+          {
+            "name": "Dupla Temaki Ebiten",
+            "price": 47.9,
+            "optionSample": []
+          },
+          {
+            "name": "235 -  yakisoba individual",
+            "price": 25.9,
+            "optionSample": []
+          }
+        ]
+      },
+      {
+        "name": "Duplas",
+        "items": [
+          {
+            "name": "300 - Dupla Niguiri Ebi",
+            "price": 6.9,
+            "optionSample": []
+          },
+          {
+            "name": "301 - Dupla Daikôn Shake",
+            "price": 6.9,
+            "optionSample": []
+          },
+          {
+            "name": "302 - Dupla Filadélfia Especial",
+            "price": 6.9,
+            "optionSample": []
+          },
+          {
+            "name": "303 - Dupla Enjoy",
+            "price": 9.9,
+            "optionSample": []
+          },
+          {
+            "name": "304 - Dupla Uramaki Skin",
+            "price": 6.9,
+            "optionSample": []
+          },
+          {
+            "name": "305 - Dupla Hot Filadélfia",
+            "price": 6.9,
+            "optionSample": []
+          },
+          {
+            "name": "306 - Dupla Canapé Ebi",
+            "price": 6.9,
+            "optionSample": []
+          },
+          {
+            "name": "307 - Dupla Salmão Cheese",
+            "price": 9.9,
+            "optionSample": []
+          }
+        ]
+      },
+      {
+        "name": "Promoção (Mais Vendidos)",
+        "items": [
+          {
+            "name": "Combo 10 peças de sushi",
+            "price": 23.9,
+            "optionSample": []
+          },
+          {
+            "name": "Combo 20 peças de sushi-",
+            "price": 45.9,
+            "optionSample": []
+          },
+          {
+            "name": "Combo 30 peças de sushi",
+            "price": 62.9,
+            "optionSample": []
+          },
+          {
+            "name": "Combo 40 peças",
+            "price": 79.9,
+            "optionSample": []
+          }
+        ]
+      },
+      {
+        "name": "Temaki",
+        "items": [
+          {
+            "name": "210 - temaki de kani",
+            "price": 21.9,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          },
+          {
+            "name": "211 - temaki california",
+            "price": 19.9,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          },
+          {
+            "name": "212 - temaki skin",
+            "price": 19.9,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          },
+          {
+            "name": "213 - temaki salmão simples",
+            "price": 29.9,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          },
+          {
+            "name": "214 - temaki polvo",
+            "price": 28.9,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          },
+          {
+            "name": "215 - temaki prego",
+            "price": 28.9,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          },
+          {
+            "name": "216 - temaki ebi",
+            "price": 27.9,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          },
+          {
+            "name": "217 - temaki ebiten",
+            "price": 27.9,
+            "optionSample": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pratos Individuais",
+        "items": [
+          {
+            "name": "230 - Prato Indivudal - Carne",
+            "price": 29.9,
+            "optionSample": []
+          },
+          {
+            "name": "231 Prato Individual  Frango",
+            "price": 28.9,
+            "optionSample": []
+          },
+          {
+            "name": "232 Prato Individual de camarão",
+            "price": 34.9,
+            "optionSample": []
+          },
+          {
+            "name": "233 - Prato Individual de peixe",
+            "price": 29.9,
+            "optionSample": []
+          }
+        ]
+      },
+      {
+        "name": "Pratos executivos",
+        "items": [
+          {
+            "name": "87 executivo de carne",
+            "price": 39,
+            "optionSample": []
+          },
+          {
+            "name": "88 executivo de frango",
+            "price": 37,
+            "optionSample": []
+          },
+          {
+            "name": "89 executivo de camarão",
+            "price": 46,
+            "optionSample": []
+          },
+          {
+            "name": "90 executivo de peixe",
+            "price": 42,
+            "optionSample": []
+          },
+          {
+            "name": "41 - risoto de frango",
+            "price": 29,
+            "optionSample": []
+          },
+          {
+            "name": "91 arroz shop suey",
+            "price": 12,
+            "optionSample": []
+          },
+          {
+            "name": "Arroz branco (Porçao)",
+            "price": 10,
+            "optionSample": []
+          },
+          {
+            "name": "92 risoto de carne",
+            "price": 31,
+            "optionSample": []
+          }
+        ]
+      }
+    ],
+    "lesson": "CardapioWeb exposes structured categories/items/add-ons through integracao.cardapioweb.com when company/company-id are known."
+  },
+  "lessonFlags": [
+    "structured_api_available",
+    "short_fullpage_snapshot_should_be_valid"
+  ],
+  "error": null
+}

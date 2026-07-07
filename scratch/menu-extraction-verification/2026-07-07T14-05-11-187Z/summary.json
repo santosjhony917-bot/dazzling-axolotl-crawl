@@ -1,0 +1,83 @@
+{
+  "runId": "2026-07-07T14-05-11-187Z",
+  "laneId": "default",
+  "apply": true,
+  "limit": 1,
+  "platform": "menudino",
+  "status": "any",
+  "targetCount": 1,
+  "targetQueueCounts": {
+    "green": 1,
+    "yellow": 0,
+    "red": 0
+  },
+  "processed": [
+    {
+      "restaurantId": "72606188-4454-4890-a671-a65d4d08f024",
+      "restaurantName": "Casa Do Pastel",
+      "sourceUrl": "https://lacasadepastelpb.menudino.com.br",
+      "platform": "menudino",
+      "queue": {
+        "restaurantId": "72606188-4454-4890-a671-a65d4d08f024",
+        "restaurantName": "Casa Do Pastel",
+        "platform": "menudino",
+        "sourceUrl": "https://lacasadepastelpb.menudino.com.br",
+        "score": 64,
+        "tier": "green",
+        "flags": [],
+        "nextAction": "fast_visual_review_then_import",
+        "category": "Pastelaria brasileira",
+        "address": "R. Honório Patrício dos Santos",
+        "phone": "(83) 98663-1487",
+        "instagram": null
+      },
+      "review": {
+        "tier": "red",
+        "restaurantId": "72606188-4454-4890-a671-a65d4d08f024",
+        "restaurantName": "Casa Do Pastel",
+        "platform": "menudino",
+        "sourceUrl": "https://lacasadepastelpb.menudino.com.br",
+        "score": 64,
+        "sourceTier": "green",
+        "sourceFlags": [],
+        "itemCount": 0,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "dryRunApproved": false,
+        "confidence": 0,
+        "pricedRatio": 0,
+        "unresolvedPriceCount": 0,
+        "committed": false,
+        "flags": [
+          "collector_error",
+          "no_extension_print",
+          "no_structured_items",
+          "insufficient_visual_menu_evidence",
+          "price_coverage_review"
+        ],
+        "nextAction": "reject_or_rediscover_source",
+        "snapshotPath": null,
+        "viewportSnapshotPaths": [],
+        "evidencePath": null,
+        "error": "Timeout aguardando extensao para open_url"
+      },
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-07T14-05-11-187Z\\001-casa-do-pastel",
+      "openedTabId": null,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": null,
+      "verificationSnapshots": [],
+      "verificationSnapshotError": null,
+      "extractionSummary": null,
+      "dryRun": null,
+      "committed": false,
+      "visualBlock": null,
+      "error": "Timeout aguardando extensao para open_url"
+    }
+  ],
+  "reviewCounts": {
+    "green": 0,
+    "yellow": 0,
+    "red": 1
+  }
+}

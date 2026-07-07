@@ -1,0 +1,578 @@
+{
+  "apply": false,
+  "overwrite": false,
+  "safeOnly": true,
+  "skipExisting": true,
+  "minScore": 100,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\2026-07-06T21-11-27-096Z",
+  "processed": 40,
+  "approved": 3,
+  "baseApproved": 12,
+  "safe": 3,
+  "rejected": 37,
+  "applied": 0,
+  "failures": [],
+  "reasonCounts": {
+    "score_below_100": 5,
+    "existing_instagram_present": 8,
+    "no_distinctive_restaurant_token,brand_not_confirmed": 2,
+    "approved_safe": 3,
+    "no_location_or_phone_support": 3,
+    "brand_not_confirmed": 14,
+    "weak_single_brand_token": 1,
+    "brand_not_confirmed,weak_single_brand_token": 1,
+    "out_of_scope_name_or_category": 1,
+    "not_profile": 2
+  },
+  "approvedSamples": [
+    {
+      "name": "Restaurante mar de amor",
+      "instagram": "https://instagram.com/gigantedomaroficial",
+      "score": 107,
+      "phoneCandidate": "(83) 99995-2504",
+      "openingHoursText": null
+    },
+    {
+      "name": "Deu Pizza Cabedelo",
+      "instagram": "https://instagram.com/deupizzacabedelo",
+      "score": 107,
+      "phoneCandidate": "(83) 99339-5381",
+      "openingHoursText": null
+    },
+    {
+      "name": "gat mal ponta de campina",
+      "instagram": "https://instagram.com/getmall.oficial",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    }
+  ],
+  "rejectedSamples": [
+    {
+      "name": "Piratas Burger",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/piratasartburger",
+        "title": "Piratas Art Burger (@piratasartburger)",
+        "score": 93,
+        "tokens": [
+          "piratas"
+        ],
+        "handleMatches": [
+          "piratas"
+        ],
+        "textMatches": [
+          "piratas"
+        ]
+      }
+    },
+    {
+      "name": "Pizzaria tá no ponto",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/pizzariatanoponto",
+        "title": "Pizzaria tá no ponto (@pizzariatanoponto)",
+        "score": 93,
+        "tokens": [
+          "ponto"
+        ],
+        "handleMatches": [
+          "ponto"
+        ],
+        "textMatches": [
+          "ponto"
+        ]
+      }
+    },
+    {
+      "name": "Restaurante Self Sabor",
+      "reason": "existing_instagram_present",
+      "best": {
+        "url": "https://instagram.com/_selfsabor",
+        "title": "Restaurante Self Sabor (@_selfsabor) · Cabedelo, PB",
+        "score": 152,
+        "tokens": [
+          "self",
+          "sabor"
+        ],
+        "handleMatches": [
+          "self",
+          "sabor"
+        ],
+        "textMatches": [
+          "self",
+          "sabor"
+        ]
+      }
+    },
+    {
+      "name": "Restaurante",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/gigantedomaroficial",
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "score": -2,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Empório Do Sabor",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/emporio.dos.sabores",
+        "title": "EMPÓRIO D🍳S SABORES🥓 (@emporio.dos.sabores)",
+        "score": 138,
+        "tokens": [
+          "emporio",
+          "sabor"
+        ],
+        "handleMatches": [
+          "emporio",
+          "sabor"
+        ],
+        "textMatches": [
+          "emporio",
+          "sabor"
+        ]
+      }
+    },
+    {
+      "name": "Juci",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/prefeituradecabedelo",
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "score": -6,
+        "tokens": [
+          "juci"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Manguinhos Burguer",
+      "reason": "existing_instagram_present",
+      "best": {
+        "url": "https://instagram.com/manguinhosburguer",
+        "title": "Manguinhos Burguer (@manguinhosburguer)",
+        "score": 156,
+        "tokens": [
+          "manguinhos",
+          "burguer"
+        ],
+        "handleMatches": [
+          "manguinhos",
+          "burguer"
+        ],
+        "textMatches": [
+          "manguinhos",
+          "burguer"
+        ]
+      }
+    },
+    {
+      "name": "Pizzaria 1000Graus",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/ilovepizzapb",
+        "title": "I ❤️ Pizza (@ilovepizzapb)",
+        "score": -2,
+        "tokens": [
+          "1000graus"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Bar E Restaurante Do Nal",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/meninasbar",
+        "title": "Meninas Bar e Restaurante (@meninasbar) · Cabedelos, PB",
+        "score": -2,
+        "tokens": [
+          "nal"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Cantinho do açaí",
+      "reason": "weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/cantinhodoacaiedocess",
+        "title": "CANTINHO DO AÇAÍ E DOCES",
+        "score": 65,
+        "tokens": [
+          "cantinho"
+        ],
+        "handleMatches": [
+          "cantinho"
+        ],
+        "textMatches": [
+          "cantinho"
+        ]
+      }
+    },
+    {
+      "name": "Cantinho Bom",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/cantinhodopaoofc",
+        "title": "Cantinho do Pão | Padaria (@cantinhodopaoofc)",
+        "score": 92,
+        "tokens": [
+          "cantinho",
+          "bom"
+        ],
+        "handleMatches": [
+          "cantinho"
+        ],
+        "textMatches": [
+          "cantinho",
+          "bom"
+        ]
+      }
+    },
+    {
+      "name": "Burguer Hall",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/burguerhall",
+        "title": "Burguer Hall - Bessa📍 (@burguerhall)",
+        "score": 138,
+        "tokens": [
+          "burguer",
+          "hall"
+        ],
+        "handleMatches": [
+          "burguer",
+          "hall"
+        ],
+        "textMatches": [
+          "burguer",
+          "hall"
+        ]
+      }
+    },
+    {
+      "name": "Zhu Burguer",
+      "reason": "existing_instagram_present",
+      "best": {
+        "url": "https://instagram.com/zhuburguer",
+        "title": "Zhu Burguer ❤️‍🔥 (@zhuburguer)",
+        "score": 142,
+        "tokens": [
+          "zhu",
+          "burguer"
+        ],
+        "handleMatches": [
+          "zhu",
+          "burguer"
+        ],
+        "textMatches": [
+          "zhu",
+          "burguer"
+        ]
+      }
+    },
+    {
+      "name": "Kioske Cantinho do Sabor",
+      "reason": "existing_instagram_present",
+      "best": {
+        "url": "https://instagram.com/kioskecantinhodosabor",
+        "title": "Kioske Cantinho Do Sabor (@kioskecantinhodosabor)",
+        "score": 205,
+        "tokens": [
+          "kioske",
+          "cantinho",
+          "sabor"
+        ],
+        "handleMatches": [
+          "kioske",
+          "cantinho",
+          "sabor"
+        ],
+        "textMatches": [
+          "kioske",
+          "cantinho",
+          "sabor"
+        ]
+      }
+    },
+    {
+      "name": "Alfa",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/prefeituradecabedelo",
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "score": -6,
+        "tokens": [
+          "alfa"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "BIG BURGUER",
+      "reason": "existing_instagram_present",
+      "best": {
+        "url": "https://instagram.com/big.burguer01",
+        "title": "BIG BURGUER (@big.burguer01)",
+        "score": 156,
+        "tokens": [
+          "big",
+          "burguer"
+        ],
+        "handleMatches": [
+          "big",
+          "burguer"
+        ],
+        "textMatches": [
+          "big",
+          "burguer"
+        ]
+      }
+    },
+    {
+      "name": "Ilovepizzapb",
+      "reason": "existing_instagram_present",
+      "best": {
+        "url": "https://instagram.com/ilovepizzapb",
+        "title": "I ❤️ Pizza (@ilovepizzapb)",
+        "score": 107,
+        "tokens": [
+          "ilovepizzapb"
+        ],
+        "handleMatches": [
+          "ilovepizzapb"
+        ],
+        "textMatches": [
+          "ilovepizzapb"
+        ]
+      }
+    },
+    {
+      "name": "Biruta Burger",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/bigburgerof",
+        "title": "Big Burger | Hamburgueria Artesanal (@bigburgerof)",
+        "score": -6,
+        "tokens": [
+          "biruta"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "D Lay Refeições - Marmitaria",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/cantinhodoreallanches",
+        "title": "Cantinho do Real lanches (@cantinhodoreallanches)",
+        "score": -2,
+        "tokens": [
+          "lay",
+          "refeicoes",
+          "marmitaria"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Churrascaria Do Gaúcho",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/popular",
+        "title": "Rancho Do Gaúcho Cabedelo",
+        "score": 71,
+        "tokens": [
+          "gaucho"
+        ],
+        "handleMatches": [],
+        "textMatches": [
+          "gaucho"
+        ]
+      }
+    },
+    {
+      "name": "CASA DA PIZZA",
+      "reason": "brand_not_confirmed,weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/centerpizza_cabedelo",
+        "title": "Center Pizza Cabedelo PB (@centerpizza_cabedelo)",
+        "score": -30,
+        "tokens": [
+          "casa"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Pizzaria NEVARE",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/centerpizza_cabedelo",
+        "title": "Center Pizza Cabedelo PB (@centerpizza_cabedelo)",
+        "score": -6,
+        "tokens": [
+          "nevare"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "JuJuba sorvete e açaí",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/sorveteeacaijujuba",
+        "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+        "score": 138,
+        "tokens": [
+          "jujuba",
+          "sorvete"
+        ],
+        "handleMatches": [
+          "jujuba",
+          "sorvete"
+        ],
+        "textMatches": [
+          "jujuba",
+          "sorvete"
+        ]
+      }
+    },
+    {
+      "name": "Triniity Burguer",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/trinity.burger",
+        "title": "T R I N I T Y B U R G E R 🔺 (@trinity.burger)",
+        "score": -17,
+        "tokens": [
+          "triniity",
+          "burguer"
+        ],
+        "handleMatches": [],
+        "textMatches": [
+          "burguer"
+        ]
+      }
+    },
+    {
+      "name": "Café cultural",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/cafecultura",
+        "title": "Café Cultura (@cafecultura) • Instagram photos and videos",
+        "score": 89,
+        "tokens": [
+          "cafe",
+          "cultural"
+        ],
+        "handleMatches": [
+          "cafe"
+        ],
+        "textMatches": [
+          "cafe"
+        ]
+      }
+    },
+    {
+      "name": "Café Cabedelo",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/prefeituradecabedelo",
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "score": -6,
+        "tokens": [
+          "cafe"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Espetinho da Praça",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/prefeituradecabedelo",
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "score": -6,
+        "tokens": [
+          "praca"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "cabe 1one açaí",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/danieldoacai",
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "score": 1,
+        "tokens": [
+          "cabe",
+          "1one"
+        ],
+        "handleMatches": [],
+        "textMatches": [
+          "cabe"
+        ]
+      }
+    },
+    {
+      "name": "Therê Açaí e Sorvete",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/danieldoacai",
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "score": -2,
+        "tokens": [
+          "there",
+          "sorvete"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Obra Fest Verão",
+      "reason": "out_of_scope_name_or_category",
+      "best": {
+        "url": "https://instagram.com/festverao_pb",
+        "title": "Fest Verão Paraíba (@festverao_pb)",
+        "score": 152,
+        "tokens": [
+          "obra",
+          "fest",
+          "verao"
+        ],
+        "handleMatches": [
+          "fest",
+          "verao"
+        ],
+        "textMatches": [
+          "fest",
+          "verao"
+        ]
+      }
+    }
+  ],
+  "updates": []
+}

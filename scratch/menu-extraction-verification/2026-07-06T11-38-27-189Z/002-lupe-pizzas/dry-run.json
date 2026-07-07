@@ -1,0 +1,61 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": false,
+      "confidence": 0.45,
+      "categoryCount": 1,
+      "itemCount": 1,
+      "resolvedPriceCount": 1,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [
+        "baixa_densidade_cardapio"
+      ],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "no_groups"
+      }
+    },
+    "preview": [
+      {
+        "name": "Pizzas",
+        "count": 1,
+        "samples": [
+          {
+            "name": "LUPE PIZZAS LTDA - 30.27",
+            "price": 8.72,
+            "kind": "simple_item",
+            "description": "3/0001-18"
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Pizzas",
+        "items": [
+          {
+            "name": "LUPE PIZZAS LTDA - 30.27",
+            "description": "3/0001-18",
+            "price": 8.72,
+            "display_price": 8.72,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 1 itens via visible_text."
+  },
+  "stdoutTail": "[Menu V2] Semântica de opções via heurística (no_groups).\n[Menu V2] Auditoria estrutural: {\"approved\":false,\"confidence\":0.45,\"categoryCount\":1,\"itemCount\":1,\"resolvedPriceCount\":1,\"unresolvedPriceCount\":0,\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[\"baixa_densidade_cardapio\"],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\"}}\nRESULT:{\"success\":true,\"dryRun\":true,\"audit\":{\"approved\":false,\"confidence\":0.45,\"categoryCount\":1,\"itemCount\":1,\"resolvedPriceCount\":1,\"unresolvedPriceCount\":0,\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[\"baixa_densidade_cardapio\"],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\"}},\"preview\":[{\"name\":\"Pizzas\",\"count\":1,\"samples\":[{\"name\":\"LUPE PIZZAS LTDA - 30.27\",\"price\":8.72,\"kind\":\"simple_item\",\"description\":\"3/0001-18\"}]}],\"categories\":[{\"name\":\"Pizzas\",\"items\":[{\"name\":\"LUPE PIZZAS LTDA - 30.27\",\"description\":\"3/0001-18\",\"price\":8.72,\"display_price\":8.72,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 1 itens via visible_text.\"}\n",
+  "stderrTail": ""
+}

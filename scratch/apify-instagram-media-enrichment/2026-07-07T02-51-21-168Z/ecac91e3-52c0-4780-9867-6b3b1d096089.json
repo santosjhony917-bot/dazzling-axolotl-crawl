@@ -1,0 +1,60 @@
+{
+  "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+  "name": "I love burguer",
+  "instagram": "https://www.instagram.com/iloveburguerpb/",
+  "followers": 9915,
+  "match": {
+    "score": 140,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "same_username"
+    ]
+  },
+  "bioHours": null,
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_profile_1783392691268.jpg"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "missing_capa_galeria_min_3",
+    "mediaStatus": {
+      "complete": false,
+      "missing": [
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": true,
+      "hasCover": false
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,131 @@
+{
+  "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+  "name": "Eu Quero Pizza",
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "applied": false,
+  "uploads": [
+    {
+      "kind": "gallery_dry_run",
+      "source": "google_maps_photo",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida aceitável"
+      },
+      "urlHost": "lh3.googleusercontent.com"
+    }
+  ],
+  "skipped": [],
+  "resolver": {
+    "dataId": "0x7acdf02662a4b07:0x147e30c4edb222f7",
+    "source": "cached_phase1_raw",
+    "rawFile": "scratch\\serpapi-google-maps-phase1\\2026-07-06T19-32-09-190Z\\raw-002.json"
+  },
+  "photoCount": 4,
+  "candidates": [
+    {
+      "source": "google_maps_photo",
+      "score": 125,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida aceitável"
+      },
+      "index": 0,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -91,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 30,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": true,
+        "reason": "texto dominante"
+      },
+      "index": 1,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -92,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": false,
+        "text_or_poster_dominant": true,
+        "reason": "texto dominante"
+      },
+      "index": 2,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "serpapi_maps_thumbnail",
+      "score": -110,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 30,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": true,
+        "reason": "texto dominante"
+      },
+      "index": null,
+      "urlHost": "serpapi.com"
+    },
+    {
+      "source": "google_maps_streetview",
+      "score": -150,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": false,
+        "text_or_poster_dominant": true,
+        "reason": "imagem com texto dominante e sem comida"
+      },
+      "index": 3,
+      "urlHost": "streetviewpixels-pa.googleapis.com"
+    }
+  ],
+  "after": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "promotion": null,
+  "status": "ok"
+}

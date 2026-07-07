@@ -1,0 +1,261 @@
+{
+  "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+  "name": "Pastelaria Litorânea",
+  "username": "pastelarialitoranea",
+  "instagram": "https://www.instagram.com/pastelarialitoranea/",
+  "applied": false,
+  "forceMedia": false,
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "galleryRows": [
+      {
+        "id": "8f6f8e07-9f29-440d-919d-604db5f35edc",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384673744_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "a5704735-039f-4e6a-9a81-0c8c62233e86",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384674958_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "d368ee3d-4e1b-449d-9393-c9ca1ddabe29",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384676250_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "b2810f7f-e8ce-4f4d-adbd-c15a9b189b56",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384677077_4.jpg",
+        "order_index": 3
+      },
+      {
+        "id": "08baa7b6-7c79-43d9-85c4-3243e391178b",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384677975_5.jpg",
+        "order_index": 4
+      },
+      {
+        "id": "8f6b5e3f-2895-4749-9d1a-5fd44eb7d04c",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384679174_6.jpg",
+        "order_index": 5
+      },
+      {
+        "id": "4dc599e7-770b-4e07-ab41-d165c984a28b",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384679996_7.jpg",
+        "order_index": 6
+      },
+      {
+        "id": "fd60fc38-f4a9-4a61-b61e-2f2d5e44fba3",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384680983_8.jpg",
+        "order_index": 7
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "profile": {
+    "username": "pastelarialitoranea",
+    "followers": 6535,
+    "posts": 46,
+    "profilePic": true,
+    "biography": "DESDE 2017 TER A DOMINGO ⏰17:30 AS 22:50 📍Rua Solon de Lucena 19 - Cabedelo/PB 👉WHATS 988079929 10 ANOS 1 DECADA DE QUALIDADE 👇PEÇA COM DESCONTOS@"
+  },
+  "postCount": 24,
+  "candidates": [
+    {
+      "source": "instagram_post_image_api",
+      "score": 109,
+      "postIndex": 0,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/CzpKridre8O/",
+      "sourceType": "Image",
+      "width": 900,
+      "height": 900,
+      "vision": {
+        "ok": true,
+        "gridNumber": 1,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "aprovadas 1 e 3",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\4fa980c0-13d2-415f-97a6-e31fd3141133-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 98,
+      "postIndex": 10,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/Cp3I2PdpEin/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1080,
+      "vision": {
+        "ok": true,
+        "gridNumber": 3,
+        "kind": "food",
+        "score": 80,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "aprovadas 1 e 3",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\4fa980c0-13d2-415f-97a6-e31fd3141133-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -102,
+      "postIndex": 6,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DA9mLtBx-K1/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1350,
+      "vision": {
+        "ok": false,
+        "gridNumber": 2,
+        "kind": "bad",
+        "score": 0,
+        "reason": "contém pessoas",
+        "gridSummary": "aprovadas 1 e 3",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\4fa980c0-13d2-415f-97a6-e31fd3141133-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -103,
+      "postIndex": 3,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C1NdJfSx8Ez/",
+      "sourceType": "Image",
+      "width": 900,
+      "height": 1125,
+      "vision": {
+        "ok": false,
+        "gridNumber": 4,
+        "kind": "bad",
+        "score": 0,
+        "reason": "contém texto grande",
+        "gridSummary": "aprovadas 1 e 3",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\4fa980c0-13d2-415f-97a6-e31fd3141133-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -106,
+      "postIndex": 4,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C4OyyCDrcwO/",
+      "sourceType": "Image",
+      "width": 550,
+      "height": 550,
+      "vision": {
+        "ok": false,
+        "gridNumber": 5,
+        "kind": "bad",
+        "score": 0,
+        "reason": "contém pessoas",
+        "gridSummary": "aprovadas 1 e 3",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\4fa980c0-13d2-415f-97a6-e31fd3141133-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -112,
+      "postIndex": 12,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/CYU62zBrZ4H/",
+      "sourceType": "Sidecar",
+      "width": 1440,
+      "height": 1800,
+      "vision": {
+        "ok": false,
+        "gridNumber": 6,
+        "kind": "bad",
+        "score": 0,
+        "reason": "contém pessoas",
+        "gridSummary": "aprovadas 1 e 3",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\4fa980c0-13d2-415f-97a6-e31fd3141133-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -113,
+      "postIndex": 12,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/CYU62zBrZ4H/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1800,
+      "vision": {
+        "ok": false,
+        "gridNumber": 7,
+        "kind": "bad",
+        "score": 0,
+        "reason": "contém pessoas",
+        "gridSummary": "aprovadas 1 e 3",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\4fa980c0-13d2-415f-97a6-e31fd3141133-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    }
+  ],
+  "approvedCount": 2,
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "galleryRows": [
+      {
+        "id": "8f6f8e07-9f29-440d-919d-604db5f35edc",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384673744_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "a5704735-039f-4e6a-9a81-0c8c62233e86",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384674958_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "d368ee3d-4e1b-449d-9393-c9ca1ddabe29",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384676250_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "b2810f7f-e8ce-4f4d-adbd-c15a9b189b56",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384677077_4.jpg",
+        "order_index": 3
+      },
+      {
+        "id": "08baa7b6-7c79-43d9-85c4-3243e391178b",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384677975_5.jpg",
+        "order_index": 4
+      },
+      {
+        "id": "8f6b5e3f-2895-4749-9d1a-5fd44eb7d04c",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384679174_6.jpg",
+        "order_index": 5
+      },
+      {
+        "id": "4dc599e7-770b-4e07-ab41-d165c984a28b",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384679996_7.jpg",
+        "order_index": 6
+      },
+      {
+        "id": "fd60fc38-f4a9-4a61-b61e-2f2d5e44fba3",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384680983_8.jpg",
+        "order_index": 7
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "promotion": null,
+  "status": "media_complete"
+}

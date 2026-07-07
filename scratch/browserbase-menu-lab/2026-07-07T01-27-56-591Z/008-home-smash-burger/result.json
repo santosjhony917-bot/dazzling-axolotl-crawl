@@ -1,0 +1,42 @@
+{
+  "restaurantId": "49423823-d994-4263-9597-cb829e208129",
+  "restaurantName": "Home Smash Burger",
+  "sourceUrl": "https://delivery.yooga.app/home-smash-burger",
+  "platform": "yooga",
+  "reviewsCount": 48,
+  "address": "R. Sólon de Lucena, 19",
+  "phone": "(83) 98673-5263",
+  "startedAt": "2026-07-07T01:31:16.187Z",
+  "finishedAt": "2026-07-07T01:31:43.946Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\008-home-smash-burger",
+  "finalUrl": "https://delivery.yooga.app/home-smash-burger/tabs/home",
+  "title": "Home Smash Burger Delivery | Ponta de Matos - Cabedelo | Faça seu pedido.",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 1100,
+    "bodyLength": 60339,
+    "anchorCount": 1,
+    "imageCount": 59
+  },
+  "priceCountInVisibleText": 59,
+  "menuWords": [
+    "cardapio",
+    "cardápio",
+    "pedido",
+    "adicional",
+    "combo"
+  ],
+  "networkInterestingCount": 27,
+  "failedRequestCount": 1,
+  "directProbe": {
+    "platform": "yooga",
+    "success": false,
+    "reason": "no_direct_probe_for_platform_yet"
+  },
+  "lessonFlags": [
+    "short_fullpage_snapshot_should_be_valid",
+    "visible_text_fallback_possible"
+  ],
+  "error": null
+}

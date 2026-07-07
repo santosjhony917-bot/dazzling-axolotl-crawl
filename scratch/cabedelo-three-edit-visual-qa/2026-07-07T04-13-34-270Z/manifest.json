@@ -1,0 +1,31 @@
+{
+  "runId": "2026-07-07T04-13-34-270Z",
+  "outDir": "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-13-34-270Z",
+  "baseUrl": "http://127.0.0.1:8080",
+  "targets": [
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "scrollInfo": null,
+      "screenshots": [
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-13-34-270Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-01-no-scroll-info.png"
+      ]
+    },
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "scrollInfo": null,
+      "screenshots": [
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-13-34-270Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-01-no-scroll-info.png"
+      ]
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "scrollInfo": null,
+      "screenshots": [
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-13-34-270Z\\i-love-burguer-ecac91e3-52c0-4780-9867-6b3b1d096089\\part-01-no-scroll-info.png"
+      ]
+    }
+  ]
+}

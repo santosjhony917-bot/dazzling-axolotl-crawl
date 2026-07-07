@@ -1,0 +1,15 @@
+{
+  "url": "https://marketing.yooga.com.br/yooga/events",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 15,
+  "textSample": "{\"status\":true}",
+  "jsonKeys": [
+    "status"
+  ],
+  "json": {
+    "status": true
+  }
+}

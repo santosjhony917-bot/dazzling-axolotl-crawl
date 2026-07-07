@@ -1,0 +1,4213 @@
+[
+  {
+    "restaurantId": "9488d27a-7737-4c86-b059-0e16a6fb049d",
+    "restaurantName": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/lovinapontadecampina",
+      "handle": "lovinapontadecampina",
+      "tokens": [
+        "lovina"
+      ],
+      "handleMatches": [
+        "lovina"
+      ],
+      "titleMatches": [
+        "lovina"
+      ],
+      "titleHandleMatches": [
+        "lovina"
+      ],
+      "textMatches": [
+        "lovina"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "Lovina Ponta de Campina (@lovinapontadecampina). R. Vitorino Cardoso, 908 - Ponta de Campina, Cabedelo ⏰ Todos os dias das 09h às 18h ✓ Estamos seguindo todas as medidas de saúde para melhor te .... https://instagram.com/lovinapontadecampina/reels",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "Lovina Ponta de Campina (@lovinapontadecampina)",
+        "link": "https://instagram.com/lovinapontadecampina/reels",
+        "snippet": "R. Vitorino Cardoso, 908 - Ponta de Campina, Cabedelo ⏰ Todos os dias das 09h às 18h ✓ Estamos seguindo todas as medidas de saúde para melhor te ...",
+        "displayedLink": "https://www.instagram.com › lovinapontadecampina",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99408-6293"
+  },
+  {
+    "restaurantId": "acb457db-a5d7-408e-a3b5-c9cfb3caff7b",
+    "restaurantName": "Cibelly Bar & Restaurante",
+    "restaurantCategory": "Bar e restaurante de ostras",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/cibellybar",
+      "handle": "cibellybar",
+      "tokens": [
+        "cibelly"
+      ],
+      "handleMatches": [
+        "cibelly"
+      ],
+      "titleMatches": [
+        "cibelly"
+      ],
+      "titleHandleMatches": [
+        "cibelly"
+      ],
+      "textMatches": [
+        "cibelly"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 99982-5668",
+        "(83) 99819-0654"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Cibelly Bar & Restaurante (@cibellybar) · Cabedelo, PB",
+        "link": "https://instagram.com/cibellybar/?hl=pt-br",
+        "snippet": "•DESDE 1980• Praia do Poço, Cabedelo-PB Frutos do mar e comidas típicas Aberto todos os dias ⏰ Das 9h às 17h 83 99982-5668 83 99819-0654.",
+        "displayedLink": "Mais de 54,9 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99982-5668"
+  },
+  {
+    "restaurantId": "0076b4c5-2d07-416e-a1ac-3ed9e83e02e5",
+    "restaurantName": "Gigante Do Mar Beach",
+    "restaurantCategory": "Restaurante de frutos do mar",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/gigantedomaroficial",
+      "handle": "gigantedomaroficial",
+      "tokens": [
+        "gigante",
+        "mar"
+      ],
+      "handleMatches": [
+        "gigante",
+        "mar"
+      ],
+      "titleMatches": [
+        "gigante",
+        "mar"
+      ],
+      "titleHandleMatches": [
+        "gigante",
+        "mar"
+      ],
+      "textMatches": [
+        "gigante",
+        "mar"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 99995-2504"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "link": "https://instagram.com/gigantedomaroficial/reels",
+        "snippet": "☀️ ⬇️ ⏰ Horário de Funcionamento: 9:00 às 16:00 Contato: 8399995-2504 Localização: Avenida Max Zagel, 450. Camboinha /Cabedelo. JP /PB Brasil .",
+        "displayedLink": "https://www.instagram.com › gigantedomaroficial",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99995-2504"
+  },
+  {
+    "restaurantId": "8162456c-2817-4a8a-bbab-aa875c29419e",
+    "restaurantName": "Bar das Meninas Restaurante",
+    "restaurantCategory": "Restaurante de frutos do mar",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/meninasbar",
+      "handle": "meninasbar",
+      "tokens": [
+        "meninas"
+      ],
+      "handleMatches": [
+        "meninas"
+      ],
+      "titleMatches": [
+        "meninas"
+      ],
+      "titleHandleMatches": [
+        "meninas"
+      ],
+      "textMatches": [
+        "meninas"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98715-5110"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Meninas Bar e Restaurante (@meninasbar) · Cabedelos, PB",
+        "link": "https://instagram.com/meninasbar",
+        "snippet": "5.5K+ followers · 53 posts · CONTA OFICIAL Cabedelo - PB Aceitamos todos os cartões Contato: 83 98715-5110 Funcionamos de Domingo a domingo!",
+        "displayedLink": "Mais de 5,5 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98715-5110"
+  },
+  {
+    "restaurantId": "76a39b5d-8130-4119-a4a5-87e8ea3020b8",
+    "restaurantName": "Ilha Dourada Restaurante",
+    "restaurantCategory": "Restaurante de frutos do mar",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "not_profile,brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -100,
+      "reasons": [
+        "not_profile",
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "",
+      "handle": "",
+      "tokens": [
+        "ilha"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "Pier Restaurante | Já pode? Aqui pode! A partir das 10h30 .... Te esperamos aqui no Maravela! Terça a sábado: 12h às 16h | 18h às 23h. Domingo: 12h às 18h. Estamos no Iate Club Pajuçara e contamos com .... https://instagram.com/p/DTfirGmAAy2",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Pier Restaurante | Já pode? Aqui pode! A partir das 10h30 ...",
+        "link": "https://instagram.com/p/DTfirGmAAy2",
+        "snippet": "Te esperamos aqui no Maravela! Terça a sábado: 12h às 16h | 18h às 23h. Domingo: 12h às 18h. Estamos no Iate Club Pajuçara e contamos com ...",
+        "displayedLink": "Mais de 10 marcações \"Gostei\" · há 5 meses",
+        "platform": "instagram",
+        "score": -19,
+        "tier": "red",
+        "flags": [
+          "instagram_p_not_profile",
+          "brand_not_confirmed",
+          "instagram_profile_not_canonicalizable",
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3228-1826"
+  },
+  {
+    "restaurantId": "d7d014d6-8d90-440c-a2ab-caee3b86bb0d",
+    "restaurantName": "Tenda Formosa Bar & Restaurante",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "no_instagram_candidate",
+    "best": null,
+    "existingInstagram": "",
+    "existingPhone": "(83) 98850-1112"
+  },
+  {
+    "restaurantId": "775e0a86-b7d6-48a7-a84b-619164add8f9",
+    "restaurantName": "Numar Bar e Restaurante",
+    "restaurantCategory": "Bar",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/numarbarintermares",
+      "handle": "numarbarintermares",
+      "tokens": [
+        "numar"
+      ],
+      "handleMatches": [
+        "numar"
+      ],
+      "titleMatches": [
+        "numar"
+      ],
+      "titleHandleMatches": [
+        "numar"
+      ],
+      "textMatches": [
+        "numar"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [
+        "(83) 3567-7306"
+      ],
+      "openingHoursText": "Numar Bar e Restaurante (@numarbarintermares). ⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.. https://instagram.com/numarbarintermares",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "link": "https://instagram.com/numarbarintermares",
+        "snippet": "⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.",
+        "displayedLink": "Mais de 12,6 mil seguidores",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3567-7306"
+  },
+  {
+    "restaurantId": "5824ab85-d0ca-4987-aa50-aa45faa631ad",
+    "restaurantName": "Restaurante Recanto do Picuí Intermares",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/recantodopicuiintermares",
+      "handle": "recantodopicuiintermares",
+      "tokens": [
+        "recanto",
+        "picui"
+      ],
+      "handleMatches": [
+        "recanto",
+        "picui"
+      ],
+      "titleMatches": [
+        "recanto",
+        "picui"
+      ],
+      "titleHandleMatches": [
+        "recanto",
+        "picui"
+      ],
+      "textMatches": [
+        "recanto",
+        "picui"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [
+        "(83) 98844-4200"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Bar & Restaurante Intermares (@recantodopicuiintermares)",
+        "link": "https://instagram.com/recantodopicuiintermares",
+        "snippet": "Endereço: R. Golfo Sidra, 72 - Intermares, Cabedelo - PB, Brasil DELIVERY: +55 83 98844-4200 Siga nossas redes sociais para acompanhar novidades ...",
+        "displayedLink": "Mais de 24,9 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98844-4200"
+  },
+  {
+    "restaurantId": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+    "restaurantName": "Empadinhas Barnabé - Intermares",
+    "restaurantCategory": "Lanchonete",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 124,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/empbarnabe",
+      "handle": "empbarnabe",
+      "tokens": [
+        "empadinhas",
+        "barnabe"
+      ],
+      "handleMatches": [
+        "barnabe"
+      ],
+      "titleMatches": [
+        "empadinhas",
+        "barnabe"
+      ],
+      "titleHandleMatches": [
+        "empadinhas",
+        "barnabe"
+      ],
+      "textMatches": [
+        "empadinhas",
+        "barnabe"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 99104-6005"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "🎉Empadinhas Barnabé ® (@empbarnabe) · João Pessoa ...",
+        "link": "https://instagram.com/empbarnabe/?hl=pt",
+        "snippet": "Há 30 anos, só não come quem não QUER! ⭐ 100% Paraibana Pet Friendly 12 unidades em João Pessoa Peça já: (83) 99104-6005 ⬇️ ... Tem lugar que você vai… e ...",
+        "displayedLink": "Mais de 46,5 mil seguidores",
+        "platform": "instagram",
+        "score": 124,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3248-1250"
+  },
+  {
+    "restaurantId": "1653a7ff-cb75-4303-b780-0580642c5974",
+    "restaurantName": "Primo Rico",
+    "restaurantCategory": "Restaurante self-service",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 150,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/primoricopb",
+      "handle": "primoricopb",
+      "tokens": [
+        "primo",
+        "rico"
+      ],
+      "handleMatches": [
+        "primo",
+        "rico"
+      ],
+      "titleMatches": [
+        "primo",
+        "rico"
+      ],
+      "titleHandleMatches": [
+        "primo",
+        "rico"
+      ],
+      "textMatches": [
+        "primo",
+        "rico"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [
+        "(83) 98820-1132"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "derived_instagram_handle",
+        "position": 6,
+        "title": "Instagram profile @primoricopb",
+        "link": "https://instagram.com/primoricopb",
+        "snippet": "... (83) 98820-1132 ... Primo Rico, na Av. Oceano Atlântico, na orla de Intermares, Cabedelo/PB.",
+        "displayedLink": "derived from Google result",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98820-1132"
+  },
+  {
+    "restaurantId": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+    "restaurantName": "Espetinho da praia Intermares",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "no_distinctive_restaurant_token",
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/numarbarintermares",
+      "handle": "numarbarintermares",
+      "tokens": [],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [
+        "(83) 3567-7306"
+      ],
+      "openingHoursText": "Numar Bar e Restaurante (@numarbarintermares). ⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.. https://instagram.com/numarbarintermares",
+      "candidate": {
+        "source": "organic",
+        "position": 6,
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "link": "https://instagram.com/numarbarintermares",
+        "snippet": "⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.",
+        "displayedLink": "Mais de 12,6 mil seguidores",
+        "platform": "instagram",
+        "score": 100,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 2182-4436"
+  },
+  {
+    "restaurantId": "a43626c7-89fe-497c-940e-ffeabc8475fb",
+    "restaurantName": "Bar e Restaurante do Sumé",
+    "restaurantCategory": "Restaurante de frutos do mar",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "weak_handle_evidence",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/bardosumepb",
+      "handle": "bardosumepb",
+      "tokens": [
+        "sume"
+      ],
+      "handleMatches": [
+        "sume"
+      ],
+      "titleMatches": [
+        "sume"
+      ],
+      "titleHandleMatches": [
+        "sume"
+      ],
+      "textMatches": [
+        "sume"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 99893-9381"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Sumé | Bar e Restaurante (@bardosumepb) · Cabedelo, PB",
+        "link": "https://instagram.com/bardosumepb",
+        "snippet": "+30 anos oferecendo o melhor da culinária Especialistas em frutos do mar (83) 998939381 · @renallidaoficial ❤️ · Estamos te esperando! · A qualidade você já ...",
+        "displayedLink": "Mais de 5,8 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3011-0124"
+  },
+  {
+    "restaurantId": "1eca2999-0514-4887-b108-dc65ae31e6b6",
+    "restaurantName": "Churrascaria do Caicó",
+    "restaurantCategory": "Churrascaria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/churrascariacaico",
+      "handle": "churrascariacaico",
+      "tokens": [
+        "caico"
+      ],
+      "handleMatches": [
+        "caico"
+      ],
+      "titleMatches": [
+        "caico"
+      ],
+      "titleHandleMatches": [
+        "caico"
+      ],
+      "textMatches": [
+        "caico"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "CHURRASCARIA CAICÓ (@churrascariacaico)",
+        "link": "https://instagram.com/churrascariacaico/?hl=pt-br",
+        "snippet": "Parnamirim Self-service e delivery De domingo à domingo ⏰ Das 10:50 até 14:30. É trabalhando que plantamos o nosso futuro, a Churrascaria Caíco agradece ...",
+        "displayedLink": "Mais de 480 seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "f917b01d-4f06-48a7-9bba-fcb85f0201c7",
+    "restaurantName": "Mega Pizza",
+    "restaurantCategory": "Pizzaria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/megapizza1",
+      "handle": "megapizza1",
+      "tokens": [
+        "mega"
+      ],
+      "handleMatches": [
+        "mega"
+      ],
+      "titleMatches": [
+        "mega"
+      ],
+      "titleHandleMatches": [
+        "mega"
+      ],
+      "textMatches": [
+        "mega"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 3248-2112"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Mega Pizza e Massas (@megapizza1)",
+        "link": "https://instagram.com/megapizza1",
+        "snippet": "A melhor pizza da sua noite! ⏰ Aberto todos os dias, das 18h às 22h30 Peça pelo telefone: (83) 3248-2112 / 3248-3941 Também estamos no iFood!",
+        "displayedLink": "Mais de 3 mil seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3248-2118"
+  },
+  {
+    "restaurantId": "0aab67a1-5843-4fe8-933a-45b0f8a67321",
+    "restaurantName": "Sport Marina",
+    "restaurantCategory": "Restaurante de frutos do mar",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "not_profile",
+    "best": {
+      "approved": false,
+      "score": 8,
+      "reasons": [
+        "not_profile"
+      ],
+      "canonicalUrl": "",
+      "handle": "",
+      "tokens": [
+        "sport",
+        "marina"
+      ],
+      "handleMatches": [],
+      "titleMatches": [
+        "sport",
+        "marina"
+      ],
+      "titleHandleMatches": [
+        "sport",
+        "marina"
+      ],
+      "textMatches": [
+        "sport",
+        "marina"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "É ou não é o paraíso?😍🤩 📍 BR-230, Sport Marina, ...",
+        "link": "https://instagram.com/p/DOLme3mDsEZ",
+        "snippet": "Estamos na praia de Areia Dourada em Cabedelo, região metropolitana de João Pessoa na Paraíba Na BR 230 Vem aproveitar a melhor vibe pé ...",
+        "displayedLink": "Mais de 10 marcações \"Gostei\" · há 10 meses",
+        "platform": "instagram",
+        "score": 59,
+        "tier": "yellow",
+        "flags": [
+          "instagram_p_not_profile",
+          "instagram_profile_not_canonicalizable"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3228-3500"
+  },
+  {
+    "restaurantId": "10f71936-a4b9-4c9b-b2c4-d1c709081a93",
+    "restaurantName": "Bar e Restaurante do Pessoinha",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/bardopessoinha",
+      "handle": "bardopessoinha",
+      "tokens": [
+        "pessoinha"
+      ],
+      "handleMatches": [
+        "pessoinha"
+      ],
+      "titleMatches": [
+        "pessoinha"
+      ],
+      "titleHandleMatches": [
+        "pessoinha"
+      ],
+      "textMatches": [
+        "pessoinha"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "Bar/Restaurante do Pessoinha (@bardopessoinha). 🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem • https://wa.me/qr/TABUCYMLK.. https://instagram.com/bardopessoinha",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Bar/Restaurante do Pessoinha (@bardopessoinha)",
+        "link": "https://instagram.com/bardopessoinha",
+        "snippet": "🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem • https://wa.me/qr/TABUCYMLK.",
+        "displayedLink": "Mais de 6,8 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98127-1419"
+  },
+  {
+    "restaurantId": "9f1c7086-a96a-49c9-b537-9fb9565841fd",
+    "restaurantName": "Ancoradouro Ponta de Campina",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 97,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/ancoradourobsrjp",
+      "handle": "ancoradourobsrjp",
+      "tokens": [
+        "ancoradouro"
+      ],
+      "handleMatches": [
+        "ancoradouro"
+      ],
+      "titleMatches": [
+        "ancoradouro"
+      ],
+      "titleHandleMatches": [
+        "ancoradouro"
+      ],
+      "textMatches": [
+        "ancoradouro"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "derived_instagram_handle",
+        "position": 3,
+        "title": "Instagram profile @ancoradourobsrjp",
+        "link": "https://instagram.com/ancoradourobsrjp",
+        "snippet": "... Henrique Siqueira, N 242 - Ponta de Campina, Cabedelo - PB Não esquece de CURTIR, SALVAR e COMPARTILHAR com a galera ♥️ Valores no video ✓\".",
+        "displayedLink": "derived from Google result",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "4afb52ad-1fa0-493f-be6c-8275d6664324",
+    "restaurantName": "Galeteria D'intermares",
+    "restaurantCategory": "Restaurante de carne",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/numarbarintermares",
+      "handle": "numarbarintermares",
+      "tokens": [
+        "dintermares"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 3567-7306"
+      ],
+      "openingHoursText": "Numar Bar e Restaurante (@numarbarintermares). ⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.. https://instagram.com/numarbarintermares",
+      "candidate": {
+        "source": "organic",
+        "position": 6,
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "link": "https://instagram.com/numarbarintermares",
+        "snippet": "⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.",
+        "displayedLink": "Mais de 12,6 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 2178-2106"
+  },
+  {
+    "restaurantId": "4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2",
+    "restaurantName": "Skama Bar e Restaurante",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/skamabar_restaurante",
+      "handle": "skamabar_restaurante",
+      "tokens": [
+        "skama"
+      ],
+      "handleMatches": [
+        "skama"
+      ],
+      "titleMatches": [
+        "skama"
+      ],
+      "titleHandleMatches": [
+        "skama"
+      ],
+      "textMatches": [
+        "skama"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98677-5976"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "Skama | Bar e Restaurante (@skamabar_restaurante)",
+        "link": "https://instagram.com/skamabar_restaurante",
+        "snippet": "☀️Bar e Restaurante ⏰ Terça à domingo: 09:00 às 17:00 (83) 986775976 org:@matheuszxss · Venha conferir nossas deliciosas peixadas o melhor preço da região, ...",
+        "displayedLink": "Mais de 1,1 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98677-5976"
+  },
+  {
+    "restaurantId": "662a40d4-3612-4ca1-ad28-615646294ea8",
+    "restaurantName": "Big Jack comida de rua com INSPIRAÇÃO texana",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 155,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/bigjack.intermares",
+      "handle": "bigjack.intermares",
+      "tokens": [
+        "big",
+        "jack",
+        "com",
+        "inspiracao",
+        "texana"
+      ],
+      "handleMatches": [
+        "big",
+        "jack"
+      ],
+      "titleMatches": [
+        "big",
+        "jack"
+      ],
+      "titleHandleMatches": [
+        "big",
+        "jack"
+      ],
+      "textMatches": [
+        "big",
+        "jack",
+        "com"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "Big Jack Sanduicheria (@bigjack.intermares) · Cabedelo, PB. 11K followers · 194 posts · Um novo conceito de comida de rua. ⚠️ NÃO TRABALHAMOS COM IFOOD! Funcionamento: Terça a Domingo, 18h-22h. Acesse o cardápio:. https://instagram.com/bigjack.intermares",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Big Jack Sanduicheria (@bigjack.intermares) · Cabedelo, PB",
+        "link": "https://instagram.com/bigjack.intermares",
+        "snippet": "11K followers · 194 posts · Um novo conceito de comida de rua. ⚠️ NÃO TRABALHAMOS COM IFOOD! Funcionamento: Terça a Domingo, 18h-22h. Acesse o cardápio:",
+        "displayedLink": "Mais de 11,2 mil seguidores",
+        "platform": "instagram",
+        "score": 144,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99317-7080"
+  },
+  {
+    "restaurantId": "d90b585e-8b14-442e-993f-457ad253dc8f",
+    "restaurantName": "CTG Saudade Da Querência",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "no_location_or_phone_support",
+    "best": {
+      "approved": true,
+      "score": 187,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/ctgsaudadesdaquerencia",
+      "handle": "ctgsaudadesdaquerencia",
+      "tokens": [
+        "ctg",
+        "saudade",
+        "querencia"
+      ],
+      "handleMatches": [
+        "ctg",
+        "saudade",
+        "querencia"
+      ],
+      "titleMatches": [
+        "ctg",
+        "saudade",
+        "querencia"
+      ],
+      "titleHandleMatches": [
+        "ctg",
+        "saudade",
+        "querencia"
+      ],
+      "textMatches": [
+        "ctg",
+        "saudade",
+        "querencia"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 7,
+        "title": "ctgsaudadesdaquerencia",
+        "link": "https://instagram.com/ctgsaudadesdaquerencia",
+        "snippet": "Fundado em 18/05/86. \"Neste galpão gaúcho há sempre uma pousada para aqueles que, com dignidade e honra, se cobrem com o poncho das nossas tradições.\".",
+        "displayedLink": "Mais de 4,3 mil seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+    "restaurantName": "Pipa Sushi & Temakeria",
+    "restaurantCategory": "Restaurante de sushi",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "not_profile,brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -96,
+      "reasons": [
+        "not_profile",
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "",
+      "handle": "",
+      "tokens": [
+        "pipa"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": true,
+      "phones": [
+        "(83) 3248-4251"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Crocante por fora e irresistível por dentro! Coma o nosso bolinho ...",
+        "link": "https://instagram.com/p/CeJ7WyQrqh3",
+        "snippet": "INTERMARES (Todos os dias) Av. Mar das Antilhas,1161-1203 - Intermares Delivery: (83) 3248-4251 98733-0887. PRAIA DE PONTA DE CAMPINA (Quinta a Domingo)",
+        "displayedLink": "https://www.instagram.com › ...",
+        "platform": "instagram",
+        "score": -7,
+        "tier": "red",
+        "flags": [
+          "instagram_p_not_profile",
+          "brand_not_confirmed",
+          "instagram_profile_not_canonicalizable",
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3248-4251"
+  },
+  {
+    "restaurantId": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+    "restaurantName": "Pastelaria Litorânea",
+    "restaurantCategory": "Pastelaria brasileira",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/pastelarialitoranea",
+      "handle": "pastelarialitoranea",
+      "tokens": [
+        "litoranea"
+      ],
+      "handleMatches": [
+        "litoranea"
+      ],
+      "titleMatches": [
+        "litoranea"
+      ],
+      "titleHandleMatches": [
+        "litoranea"
+      ],
+      "textMatches": [
+        "litoranea"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Pastelaria Litorânea (@pastelarialitoranea)",
+        "link": "https://instagram.com/pastelarialitoranea",
+        "snippet": "DESDE 2017. TER A DOMINGO ⏰17:30 AS 22:50 Rua Solon de Lucena 19 - Cabedelo/PB WHATS 988079929 10 ANOS 1 DECADA DE QUALIDADE PEÇA COM DESCONTOS@.",
+        "displayedLink": "Mais de 6,5 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98807-9929"
+  },
+  {
+    "restaurantId": "6a5072b1-12a8-4613-be77-4d8f4f47ab48",
+    "restaurantName": "Sakê Temakeria Ponta de Campina, Cabedelo",
+    "restaurantCategory": "Restaurante japonês",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/saketemaki",
+      "handle": "saketemaki",
+      "tokens": [
+        "sake"
+      ],
+      "handleMatches": [
+        "sake"
+      ],
+      "titleMatches": [
+        "sake"
+      ],
+      "titleHandleMatches": [
+        "sake"
+      ],
+      "textMatches": [
+        "sake"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Sakê Temakeria Premium (@saketemaki)",
+        "link": "https://instagram.com/saketemaki",
+        "snippet": "Você sabia que tem um SAKĒ nos Bancários? Fica por trás do Shopping Sul, na Av. Flamboyant, 405. Você pode vir aqui ou pedi pelo iFood, caso more na zona sul.",
+        "displayedLink": "Mais de 53,1 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98160-8378"
+  },
+  {
+    "restaurantId": "1c95b48d-3189-4496-8e70-4e9167967964",
+    "restaurantName": "La casa de pastel e La Pizza Premium",
+    "restaurantCategory": "Pastelaria brasileira",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "weak_single_brand_token",
+    "best": {
+      "approved": false,
+      "score": 79,
+      "reasons": [
+        "weak_single_brand_token"
+      ],
+      "canonicalUrl": "https://instagram.com/lacasadepastelpbof",
+      "handle": "lacasadepastelpbof",
+      "tokens": [
+        "casa"
+      ],
+      "handleMatches": [
+        "casa"
+      ],
+      "titleMatches": [
+        "casa"
+      ],
+      "titleHandleMatches": [
+        "casa"
+      ],
+      "textMatches": [
+        "casa"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98625-2145"
+      ],
+      "openingHoursText": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB. | Estamos no iFood | 83 98625-2145 ⏱️| Aberto Das 18h às 00:00 (Terça feira Folga ) ⬇️ Toque no link para fazer pedido! ⬇️ ... *Inauguração da Nossa Segunda .... https://instagram.com/lacasadepastelpbof",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB",
+        "link": "https://instagram.com/lacasadepastelpbof",
+        "snippet": "| Estamos no iFood | 83 98625-2145 ⏱️| Aberto Das 18h às 00:00 (Terça feira Folga ) ⬇️ Toque no link para fazer pedido! ⬇️ ... *Inauguração da Nossa Segunda ...",
+        "displayedLink": "Mais de 9,9 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98625-2145"
+  },
+  {
+    "restaurantId": "7c405790-3fe5-455d-9a65-8d12b2236e50",
+    "restaurantName": "Sorveteria glacial",
+    "restaurantCategory": "Sorveteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "location_conflict:manaus, am",
+    "best": {
+      "approved": false,
+      "score": 13,
+      "reasons": [
+        "location_conflict:manaus, am"
+      ],
+      "canonicalUrl": "https://instagram.com/sorveteriaglacial",
+      "handle": "sorveteriaglacial",
+      "tokens": [
+        "glacial"
+      ],
+      "handleMatches": [
+        "glacial"
+      ],
+      "titleMatches": [
+        "glacial"
+      ],
+      "titleHandleMatches": [
+        "glacial"
+      ],
+      "textMatches": [
+        "glacial"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(92) 3233-7871"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Sorveteria Glacial (@sorveteriaglacial) · Manaus, AM",
+        "link": "https://instagram.com/sorveteriaglacial",
+        "snippet": "Há mais de 55 anos refrescando o povo manauara com o autêntico sabor da Amazônia. www.glacial.com.br (92) 3233-7871 ou Direct ... Cremosidade e felicidade, ...",
+        "displayedLink": "Mais de 62 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99827-1690"
+  },
+  {
+    "restaurantId": "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+    "restaurantName": "BAR DO CHEFF RESTAURANTE",
+    "restaurantCategory": "Bar com música ao vivo",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/bardocheffrestaurante",
+      "handle": "bardocheffrestaurante",
+      "tokens": [
+        "cheff"
+      ],
+      "handleMatches": [
+        "cheff"
+      ],
+      "titleMatches": [
+        "cheff"
+      ],
+      "titleHandleMatches": [
+        "cheff"
+      ],
+      "textMatches": [
+        "cheff"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "Bar do Cheff Restaurante (@bardocheffrestaurante). Self-service De Seg à Sex ⏰️Das 11h às 14h ➡️Bar Aberto de Seg à Sab ⏰️Das 17hs às 23h. Av Mar Vermelho 357 Intermares Cabedelo.. https://instagram.com/bardocheffrestaurante/?hl=pt",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Bar do Cheff Restaurante (@bardocheffrestaurante)",
+        "link": "https://instagram.com/bardocheffrestaurante/?hl=pt",
+        "snippet": "Self-service De Seg à Sex ⏰️Das 11h às 14h ➡️Bar Aberto de Seg à Sab ⏰️Das 17hs às 23h. Av Mar Vermelho 357 Intermares Cabedelo.",
+        "displayedLink": "Mais de 590 seguidores",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98842-9424"
+  },
+  {
+    "restaurantId": "a0f83830-77b8-4f8f-850d-be06b6658efb",
+    "restaurantName": "Praçaí - Intermares",
+    "restaurantCategory": "Lanchonete",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/pracaiintermares",
+      "handle": "pracaiintermares",
+      "tokens": [
+        "pracai"
+      ],
+      "handleMatches": [
+        "pracai"
+      ],
+      "titleMatches": [
+        "pracai"
+      ],
+      "titleHandleMatches": [
+        "pracai"
+      ],
+      "textMatches": [
+        "pracai"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "Praçaí Intermares (@pracaiintermares) · Cabedelo, PB. | O melhor Açaí da PB | 23 anos no coração de Intermares | Atendimento 16h as 23h | Av. Oceano Pacífico Praça 7 - Intermares PEDIDOS AQUI .... https://instagram.com/pracaiintermares",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Praçaí Intermares (@pracaiintermares) · Cabedelo, PB",
+        "link": "https://instagram.com/pracaiintermares",
+        "snippet": "| O melhor Açaí da PB | 23 anos no coração de Intermares | Atendimento 16h as 23h | Av. Oceano Pacífico Praça 7 - Intermares PEDIDOS AQUI ...",
+        "displayedLink": "Mais de 2,5 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98701-9413"
+  },
+  {
+    "restaurantId": "e6b82c85-d208-4590-8889-6aa3de57c7a5",
+    "restaurantName": "Açaí da Cris",
+    "restaurantCategory": "Lanchonete",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -20,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/meuacaicity",
+      "handle": "meuacaicity",
+      "tokens": [
+        "cris"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 6,
+        "title": "AçaiCity - Acaiteria - Sorveteria🍦 (@meuacaicity)",
+        "link": "https://instagram.com/meuacaicity",
+        "snippet": "✨ Refresque o calor com nosso açaí geladinho e cremoso! Escolha seus complementos favoritos: banana, granola, leite em pó e muito mais! Entregamos ...",
+        "displayedLink": "Mais de 20,4 mil seguidores",
+        "platform": "instagram",
+        "score": 34,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98865-3585"
+  },
+  {
+    "restaurantId": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+    "restaurantName": "Pizza Now - Intermares",
+    "restaurantCategory": "Delivery de Pizza",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/pizzanowexpress",
+      "handle": "pizzanowexpress",
+      "tokens": [
+        "now"
+      ],
+      "handleMatches": [
+        "now"
+      ],
+      "titleMatches": [
+        "now"
+      ],
+      "titleHandleMatches": [
+        "now"
+      ],
+      "textMatches": [
+        "now"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Pizza Now (@pizzanowexpress)",
+        "link": "https://instagram.com/pizzanowexpress",
+        "snippet": "Atendimento em loja em: Campina, Recife, Ponta de Campina, Grande e Natal. No Instagram da @pizzanowexpress tem cupons e promoções Pedidos com promoções, ...",
+        "displayedLink": "Mais de 53,6 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "0800 012 2000"
+  },
+  {
+    "restaurantId": "0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd",
+    "restaurantName": "Viciados em Sushi",
+    "restaurantCategory": "Restaurante japonês",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/viciadosemsushi",
+      "handle": "viciadosemsushi",
+      "tokens": [
+        "viciados"
+      ],
+      "handleMatches": [
+        "viciados"
+      ],
+      "titleMatches": [
+        "viciados"
+      ],
+      "titleHandleMatches": [
+        "viciados"
+      ],
+      "textMatches": [
+        "viciados"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98704-2458"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Viciados Em Sushi (@viciadosemsushi)",
+        "link": "https://instagram.com/viciadosemsushi",
+        "snippet": "Garante o seu e peça já no nosso whatsapp (83) 98704-2458 . #viciadosemsushi #lovesushi #cabedelopb #yakisoba #culinariachinesa ...",
+        "displayedLink": "Mais de 8,4 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98704-2458"
+  },
+  {
+    "restaurantId": "59147bb0-0a1d-4493-a05a-ba54bd8cd26c",
+    "restaurantName": "Restaurante Ondas",
+    "restaurantCategory": "Restaurante brasileiro",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/restauranteondas",
+      "handle": "restauranteondas",
+      "tokens": [
+        "ondas"
+      ],
+      "handleMatches": [
+        "ondas"
+      ],
+      "titleMatches": [
+        "ondas"
+      ],
+      "titleHandleMatches": [
+        "ondas"
+      ],
+      "textMatches": [
+        "ondas"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98898-8397"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Restaurante Ondas (@restauranteondas)",
+        "link": "https://instagram.com/restauranteondas",
+        "snippet": "Restaurante a beira mar, com culinária especializada em frutos do mar. Aberto de terça a Domingo. 83 98898-8397 Link Para Pedidos ⬇️.",
+        "displayedLink": "Mais de 5,7 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98898-8397"
+  },
+  {
+    "restaurantId": "538d1975-cdfa-4c9f-97f6-ddee94efc67b",
+    "restaurantName": "Meio Quilo",
+    "restaurantCategory": "Restaurante self-service",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/secultcabedelo",
+      "handle": "secultcabedelo",
+      "tokens": [
+        "meio",
+        "quilo"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "SECULT Cabedelo/PB - Brasil (@secultcabedelo)",
+        "link": "https://instagram.com/secultcabedelo",
+        "snippet": "Perfil Oficial da Secretaria de Cultura de Cabedelo Cidade de Cultura Viva! Rua Cleto Campelo, S/N - Camalaú ☎️ 3206-0524 ⤵️ Acesse: Follow. Message ...",
+        "displayedLink": "Mais de 9,2 mil seguidores",
+        "platform": "instagram",
+        "score": 38,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3228-8464"
+  },
+  {
+    "restaurantId": "fbf76b65-220f-4ae7-89fc-fec690985eda",
+    "restaurantName": "Tapiocaria do Dinho",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/tapiocariadinho",
+      "handle": "tapiocariadinho",
+      "tokens": [
+        "dinho"
+      ],
+      "handleMatches": [
+        "dinho"
+      ],
+      "titleMatches": [
+        "dinho"
+      ],
+      "titleHandleMatches": [
+        "dinho"
+      ],
+      "textMatches": [
+        "dinho"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "TAPIOCARIA DO DINHO 🔥 (@tapiocariadinho)",
+        "link": "https://instagram.com/tapiocariadinho",
+        "snippet": "Funcionamos de Seg a dom ‼️ ⏰17:30 às 00:00. Delivery ⬇️ | Loja física Av. Ambrósio Miranda de Araújo - renascer,cabedelo. Follow. Message ...",
+        "displayedLink": "Mais de 4 mil seguidores",
+        "platform": "instagram",
+        "score": 126,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98645-7353"
+  },
+  {
+    "restaurantId": "cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487",
+    "restaurantName": "Residência do Mário",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/residenciadomario",
+      "handle": "residenciadomario",
+      "tokens": [
+        "residencia",
+        "mario"
+      ],
+      "handleMatches": [
+        "residencia",
+        "mario"
+      ],
+      "titleMatches": [
+        "residencia",
+        "mario"
+      ],
+      "titleHandleMatches": [
+        "residencia",
+        "mario"
+      ],
+      "textMatches": [
+        "residencia",
+        "mario"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 99988-2096"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "residencia do mario (@residenciadomario) · Cabedelos, PB",
+        "link": "https://instagram.com/residenciadomario/reels",
+        "snippet": "Restaurante de Frutos do Mar e Comida Regional. Ambiente Familiar! #aceitamoscartoes · #ÉPROIBIDOBEIJAR Fone: (83) 99988-2096/996898089.",
+        "displayedLink": "https://www.instagram.com › residenciadomario",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99988-2096"
+  },
+  {
+    "restaurantId": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+    "restaurantName": "A Casa do Temakinho",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/acasadotemakinho",
+      "handle": "acasadotemakinho",
+      "tokens": [
+        "casa",
+        "temakinho"
+      ],
+      "handleMatches": [
+        "casa",
+        "temakinho"
+      ],
+      "titleMatches": [
+        "casa",
+        "temakinho"
+      ],
+      "titleHandleMatches": [
+        "casa",
+        "temakinho"
+      ],
+      "textMatches": [
+        "casa",
+        "temakinho"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "A CASA DO TEMAKINHO 🍣🥢 (@acasadotemakinho). A SUA CASA FORA DE CASA ⏰ Aberto de Quinta à Domingo das 17 às 22:30 horas. @acasadotemakinho Av. Mar da Irlanda, 222 - INTERMARES cabedelo PB Brasil.. https://instagram.com/acasadotemakinho/reels",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "A CASA DO TEMAKINHO 🍣🥢 (@acasadotemakinho)",
+        "link": "https://instagram.com/acasadotemakinho/reels",
+        "snippet": "A SUA CASA FORA DE CASA ⏰ Aberto de Quinta à Domingo das 17 às 22:30 horas. @acasadotemakinho Av. Mar da Irlanda, 222 - INTERMARES cabedelo PB Brasil.",
+        "displayedLink": "https://www.instagram.com › acasadotemakinho",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99944-9296"
+  },
+  {
+    "restaurantId": "4f71666b-ecb6-4963-9201-86bcc7d29c66",
+    "restaurantName": "churrascaria do biu",
+    "restaurantCategory": "Churrascaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/bar_restaurantepordosol",
+      "handle": "bar_restaurantepordosol",
+      "tokens": [
+        "biu"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 6,
+        "title": "RESTAURANTE POR DO SOL • (@bar_restaurantepordosol)",
+        "link": "https://instagram.com/bar_restaurantepordosol",
+        "snippet": "Rua, Presidente João Pessoa, n°149, Centro, Cabedelo - PB. ⏰ Aberto de Terça a Domingo. Fone/Wpp: 83 9 8794-6826 · Festa temática no clima do Halloween. ·",
+        "displayedLink": "Mais de 1,2 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98752-5897"
+  },
+  {
+    "restaurantId": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+    "restaurantName": "Pizzaria Bom Sabor",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/pizzariabomsaborpb2",
+      "handle": "pizzariabomsaborpb2",
+      "tokens": [
+        "bom",
+        "sabor"
+      ],
+      "handleMatches": [
+        "bom",
+        "sabor"
+      ],
+      "titleMatches": [
+        "bom",
+        "sabor"
+      ],
+      "titleHandleMatches": [
+        "bom",
+        "sabor"
+      ],
+      "textMatches": [
+        "bom",
+        "sabor"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98762-6366"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Pizzaria Bom Sabor 🍕 (@pizzariabomsaborpb2)",
+        "link": "https://instagram.com/pizzariabomsaborpb2",
+        "snippet": "Insta NOVO Funcionamos de Quarta a Domingo Das 18:00 Às 23:30. Fazemos entrega (83)98762-6366 Cabedelo/Jacaré PB Av Jair Cunha Cavalcante.",
+        "displayedLink": "https://www.instagram.com › pizzariabomsaborpb2",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98762-6366"
+  },
+  {
+    "restaurantId": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+    "restaurantName": "PARCEIRO Rosa Lanches",
+    "restaurantCategory": "Lanchonete",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "weak_handle_evidence",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/rosaalanches_",
+      "handle": "rosaalanches_",
+      "tokens": [
+        "parceiro",
+        "rosa"
+      ],
+      "handleMatches": [
+        "rosa"
+      ],
+      "titleMatches": [
+        "rosa"
+      ],
+      "titleHandleMatches": [
+        "rosa"
+      ],
+      "textMatches": [
+        "rosa"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "LANCHONETE EM CABEDELO (PB) (@rosaalanches_). Abrimos todos os dias! Horário de funcionamento das 18h à 01h Endereço: Rua Tenente Antônio Pontes, 139 Faça seu pedido pelo link abaixo.. https://instagram.com/rosaalanches_",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "LANCHONETE EM CABEDELO (PB) (@rosaalanches_)",
+        "link": "https://instagram.com/rosaalanches_",
+        "snippet": "Abrimos todos os dias! Horário de funcionamento das 18h à 01h Endereço: Rua Tenente Antônio Pontes, 139 Faça seu pedido pelo link abaixo.",
+        "displayedLink": "Mais de 6,8 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98836-3792"
+  },
+  {
+    "restaurantId": "80b5b1fc-6d5a-4b7d-ab56-f1aadcf1c403",
+    "restaurantName": "Erste Sonne Cervejaria Independente",
+    "restaurantCategory": "Microcervejaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 124,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/sonnehaushamburgueria",
+      "handle": "sonnehaushamburgueria",
+      "tokens": [
+        "erste",
+        "sonne",
+        "cervejaria",
+        "independente"
+      ],
+      "handleMatches": [
+        "sonne"
+      ],
+      "titleMatches": [
+        "sonne",
+        "cervejaria"
+      ],
+      "titleHandleMatches": [
+        "sonne",
+        "cervejaria"
+      ],
+      "textMatches": [
+        "sonne",
+        "cervejaria"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [
+        "(83) 99405-1627"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Hamburgueria Sonne Haus Pub | Cervejaria em João ...",
+        "link": "https://instagram.com/sonnehaushamburgueria/reels",
+        "snippet": "NOVO ENDEREÇO DA SONNE HAUS PARA A NOSSA FABRICA R. José Bartolomeu Cabral, 40 - Jardim America, Cabedelo - PB Entre em contato: 8399405-1627.",
+        "displayedLink": "https://www.instagram.com › reels",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99808-7425"
+  },
+  {
+    "restaurantId": "55d451bc-f6ee-40f5-b611-7ef6158392d5",
+    "restaurantName": "Kubanacan Bar e Restaurante",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/kubanacanbaroficial",
+      "handle": "kubanacanbaroficial",
+      "tokens": [
+        "kubanacan"
+      ],
+      "handleMatches": [
+        "kubanacan"
+      ],
+      "titleMatches": [
+        "kubanacan"
+      ],
+      "titleHandleMatches": [
+        "kubanacan"
+      ],
+      "textMatches": [
+        "kubanacan"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "kubanacan Bar (@kubanacanbaroficial). Abertos de terça à domingo das 10hs às 22hs. R. Julieta Viana, 103 - Camboinha, Cabedelo - PB, 58101-375.. https://instagram.com/kubanacanbaroficial",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "kubanacan Bar (@kubanacanbaroficial)",
+        "link": "https://instagram.com/kubanacanbaroficial",
+        "snippet": "Abertos de terça à domingo das 10hs às 22hs. R. Julieta Viana, 103 - Camboinha, Cabedelo - PB, 58101-375.",
+        "displayedLink": "Mais de 1,4 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99921-2329"
+  },
+  {
+    "restaurantId": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+    "restaurantName": "Restaurante Pôr do Sol",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/bar_restaurantepordosol",
+      "handle": "bar_restaurantepordosol",
+      "tokens": [
+        "por",
+        "sol"
+      ],
+      "handleMatches": [
+        "por",
+        "sol"
+      ],
+      "titleMatches": [
+        "por",
+        "sol"
+      ],
+      "titleHandleMatches": [
+        "por",
+        "sol"
+      ],
+      "textMatches": [
+        "por",
+        "sol"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "RESTAURANTE POR DO SOL • (@bar_restaurantepordosol)",
+        "link": "https://instagram.com/bar_restaurantepordosol",
+        "snippet": "Rua, Presidente João Pessoa, n°149, Centro, Cabedelo - PB. ⏰ Aberto de Terça a Domingo. Fone/Wpp: 83 9 8794-6826.",
+        "displayedLink": "Mais de 1,2 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99672-7835"
+  },
+  {
+    "restaurantId": "dce45040-f5ad-45a1-9029-04e65ce13e78",
+    "restaurantName": "Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/saxcafe",
+      "handle": "saxcafe",
+      "tokens": [
+        "sax",
+        "cafe",
+        "por",
+        "sol",
+        "cabedelopb"
+      ],
+      "handleMatches": [
+        "sax",
+        "cafe"
+      ],
+      "titleMatches": [
+        "sax",
+        "cafe"
+      ],
+      "titleHandleMatches": [
+        "sax",
+        "cafe"
+      ],
+      "textMatches": [
+        "sax",
+        "cafe",
+        "por",
+        "sol"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "saxcafe · Cabedelo, PB",
+        "link": "https://instagram.com/saxcafe",
+        "snippet": "Cafés | Tapiocas | Bebidas Diariamente: das 14h às 20h · Pra ela, o Sax Café no Pôr do Sol do Jacaré, se tornou único e inesquecível. · Duas vidas, vivendo a ...",
+        "displayedLink": "Mais de 500 seguidores",
+        "platform": "instagram",
+        "score": 136,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+    "restaurantName": "Lary's pizzaria e lanchonete",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/laryspizzariaoficial",
+      "handle": "laryspizzariaoficial",
+      "tokens": [
+        "larys"
+      ],
+      "handleMatches": [
+        "larys"
+      ],
+      "titleMatches": [
+        "larys"
+      ],
+      "titleHandleMatches": [
+        "larys"
+      ],
+      "textMatches": [
+        "larys"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "larys pizzaria (@laryspizzariaoficial) · Cabedelo, PB. ✨TERÇA À DOMINGO 17:30 às 23:30. DELIVERY 17:45h às 23:20h ; Uma maravilha de pizza chocolate com calabresa ; Vem saborear nossas deliciosas pizza de frango .... https://instagram.com/laryspizzariaoficial",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "larys pizzaria (@laryspizzariaoficial) · Cabedelo, PB",
+        "link": "https://instagram.com/laryspizzariaoficial",
+        "snippet": "✨TERÇA À DOMINGO 17:30 às 23:30. DELIVERY 17:45h às 23:20h ; Uma maravilha de pizza chocolate com calabresa ; Vem saborear nossas deliciosas pizza de frango ...",
+        "displayedLink": "Mais de 2,2 mil seguidores",
+        "platform": "instagram",
+        "score": 68,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98877-2470"
+  },
+  {
+    "restaurantId": "90398f02-4ae4-44a1-bd64-3f008fdca37c",
+    "restaurantName": "Bar e Restaurante Solânense",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/restaurante_solanense",
+      "handle": "restaurante_solanense",
+      "tokens": [
+        "solanense"
+      ],
+      "handleMatches": [
+        "solanense"
+      ],
+      "titleMatches": [
+        "solanense"
+      ],
+      "titleHandleMatches": [
+        "solanense"
+      ],
+      "textMatches": [
+        "solanense"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98811-7616"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Solanense - Bar e Restaurante 🌊 (@restaurante_solanense)",
+        "link": "https://instagram.com/restaurante_solanense",
+        "snippet": "Rua Sólon de Lucena, 364 – Cabedelo (83) 98811-7616 Fome disfarçada de mau humor a gente resolve com comida boa!",
+        "displayedLink": "Mais de 4,3 mil seguidores",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98811-7616"
+  },
+  {
+    "restaurantId": "3549abc7-3261-4ec3-af59-820112bd2358",
+    "restaurantName": "Cibelly Mar - Restaurante no Por do Sol do Jacaré",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/cibellymarr",
+      "handle": "cibellymarr",
+      "tokens": [
+        "cibelly",
+        "mar",
+        "por",
+        "sol"
+      ],
+      "handleMatches": [
+        "cibelly",
+        "mar"
+      ],
+      "titleMatches": [
+        "cibelly",
+        "mar"
+      ],
+      "titleHandleMatches": [
+        "cibelly",
+        "mar"
+      ],
+      "textMatches": [
+        "cibelly",
+        "mar"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Cibelly Mar | Restaurante Flutuante (@cibellymarr)",
+        "link": "https://instagram.com/cibellymarr",
+        "snippet": "No coração da praia do Jacaré, em Cabedelo–PB, o Cibelly Mar é um restaurante flutuante que une sabor, tranquilidade e uma vista de tirar o fôlego!",
+        "displayedLink": "Mais de 78,9 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99394-0898"
+  },
+  {
+    "restaurantId": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+    "restaurantName": "Tia Graça Cafeteria e Doceria",
+    "restaurantCategory": "Cafeteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "no_instagram_candidate",
+    "best": null,
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "63e642dd-ed66-42a7-ae08-d395f8110b6d",
+    "restaurantName": "Tempero De Casa",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/marmitaria_temperodecasa",
+      "handle": "marmitaria_temperodecasa",
+      "tokens": [
+        "tempero",
+        "casa"
+      ],
+      "handleMatches": [
+        "tempero",
+        "casa"
+      ],
+      "titleMatches": [
+        "tempero",
+        "casa"
+      ],
+      "titleHandleMatches": [
+        "tempero",
+        "casa"
+      ],
+      "textMatches": [
+        "tempero",
+        "casa"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 99840-3817"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "marmitaria_temperodecasa",
+        "link": "https://instagram.com/marmitaria_temperodecasa",
+        "snippet": "João Pessoa - PB Funcionamos De Segunda a sábado . Whatsapp: 83998403817. Faça seu pedido através do Ifood ou direto pelo WhatsApp · Parmegiana de bife ...",
+        "displayedLink": "Mais de 2,1 mil seguidores",
+        "platform": "instagram",
+        "score": 124,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98870-4790"
+  },
+  {
+    "restaurantId": "e88b7772-a307-4cca-a7b8-e3c7f6502788",
+    "restaurantName": "Pizzaria Jacaré",
+    "restaurantCategory": "Pizzaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "no_distinctive_restaurant_token",
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/pizzariabomsaborpb",
+      "handle": "pizzariabomsaborpb",
+      "tokens": [],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 8,
+        "title": "Pizzaria Bom Sabor🍕 (@pizzariabomsaborpb)",
+        "link": "https://instagram.com/pizzariabomsaborpb",
+        "snippet": "5K+ followers · 60 posts · Fucionamos de quarta à Domingo Fazemos entrega 987626366 Cabedelo/Jacaré PB Av Jair Cunha . Das 18:00 às 23:30.",
+        "displayedLink": "Mais de 5 mil seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "fd64e520-194c-4a69-a6e7-1ea6f8213889",
+    "restaurantName": "Casa de Taipa",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/casacombr",
+      "handle": "casacombr",
+      "tokens": [
+        "casa",
+        "taipa"
+      ],
+      "handleMatches": [
+        "casa"
+      ],
+      "titleMatches": [
+        "casa"
+      ],
+      "titleHandleMatches": [
+        "casa"
+      ],
+      "textMatches": [
+        "casa"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Casa.com.br (@casacombr)",
+        "link": "https://instagram.com/casacombr",
+        "snippet": "992K followers · 468 following · 11832 posts · @casacombr: “Um HUB de decoração, arquitetura e jardinagem. Quem mora, precisa!”",
+        "displayedLink": "Mais de 991,8 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99195-9104"
+  },
+  {
+    "restaurantId": "935e3614-8815-4e2e-bddf-01ac5b254832",
+    "restaurantName": "Açaí Araxá",
+    "restaurantCategory": "Lanchonete",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/acaiaraxa2",
+      "handle": "acaiaraxa2",
+      "tokens": [
+        "araxa"
+      ],
+      "handleMatches": [
+        "araxa"
+      ],
+      "titleMatches": [
+        "araxa"
+      ],
+      "titleHandleMatches": [
+        "araxa"
+      ],
+      "textMatches": [
+        "araxa"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "acaiaraxa2 · Cabedelo, PB",
+        "link": "https://instagram.com/acaiaraxa2",
+        "snippet": "O melhor açaí da pb no melhor pico de intermares. ... Por do sol do melhor point de intermares. O por do sol aqui do novo point Araxá está sensacional.",
+        "displayedLink": "Mais de 2,6 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99385-0594"
+  },
+  {
+    "restaurantId": "17a6f6c2-9f28-453f-a22d-71e7abd3dcfd",
+    "restaurantName": "Oliver Grill e Espetos",
+    "restaurantCategory": "Restaurante brasileiro",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 187,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/olivergrilleespetos",
+      "handle": "olivergrilleespetos",
+      "tokens": [
+        "oliver",
+        "grill",
+        "espetos"
+      ],
+      "handleMatches": [
+        "oliver",
+        "grill",
+        "espetos"
+      ],
+      "titleMatches": [
+        "oliver",
+        "grill",
+        "espetos"
+      ],
+      "titleHandleMatches": [
+        "oliver",
+        "grill",
+        "espetos"
+      ],
+      "textMatches": [
+        "oliver",
+        "grill",
+        "espetos"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "espetinhos / grill / caldos/ churrasco (@olivergrilleespetos). Aquele sabor de churrasco que vicia! Intermares – Av. Oceano Índico,928 Seg a Sabado• 17h às 00h Peça no iFood ou venha nos visitar.. https://instagram.com/olivergrilleespetos",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "espetinhos / grill / caldos/ churrasco (@olivergrilleespetos)",
+        "link": "https://instagram.com/olivergrilleespetos",
+        "snippet": "Aquele sabor de churrasco que vicia! Intermares – Av. Oceano Índico,928 Seg a Sabado• 17h às 00h Peça no iFood ou venha nos visitar.",
+        "displayedLink": "Mais de 3,6 mil seguidores",
+        "platform": "instagram",
+        "score": 122,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "eae14867-4b70-4fb0-93eb-303b35931ab3",
+    "restaurantName": "Pizzaria Bom Sabor Camboinha",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/pizzariabomsaborpb",
+      "handle": "pizzariabomsaborpb",
+      "tokens": [
+        "bom",
+        "sabor"
+      ],
+      "handleMatches": [
+        "bom",
+        "sabor"
+      ],
+      "titleMatches": [
+        "bom",
+        "sabor"
+      ],
+      "titleHandleMatches": [
+        "bom",
+        "sabor"
+      ],
+      "textMatches": [
+        "bom",
+        "sabor"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "Pizzaria Bom Sabor🍕 (@pizzariabomsaborpb)",
+        "link": "https://instagram.com/pizzariabomsaborpb",
+        "snippet": "Fucionamos de quarta à Domingo Fazemos entrega 987626366 Cabedelo/Jacaré PB Av Jair Cunha . Das 18:00 às 23:30.",
+        "displayedLink": "Mais de 5 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99680-7485"
+  },
+  {
+    "restaurantId": "0a91fc09-ad7d-4141-8d4d-82a732b61565",
+    "restaurantName": "Ethic Alimentos",
+    "restaurantCategory": "Sorveteria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/ethicalimentos",
+      "handle": "ethicalimentos",
+      "tokens": [
+        "ethic",
+        "alimentos"
+      ],
+      "handleMatches": [
+        "ethic",
+        "alimentos"
+      ],
+      "titleMatches": [
+        "ethic",
+        "alimentos"
+      ],
+      "titleHandleMatches": [
+        "ethic",
+        "alimentos"
+      ],
+      "textMatches": [
+        "ethic",
+        "alimentos"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Ethic Alimentos (@ethicalimentos) · Cabedelo, PB",
+        "link": "https://instagram.com/ethicalimentos",
+        "snippet": "1.1K+ followers · 259 posts · Bem-vindo ao Instagram oficial da Ethic Alimentos.",
+        "displayedLink": "Mais de 1,1 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3246-1105"
+  },
+  {
+    "restaurantId": "49423823-d994-4263-9597-cb829e208129",
+    "restaurantName": "Home Smash Burger",
+    "restaurantCategory": "Hamburgueria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/homesmashburguer",
+      "handle": "homesmashburguer",
+      "tokens": [
+        "home",
+        "smash"
+      ],
+      "handleMatches": [
+        "home",
+        "smash"
+      ],
+      "titleMatches": [
+        "home",
+        "smash"
+      ],
+      "titleHandleMatches": [
+        "home",
+        "smash"
+      ],
+      "textMatches": [
+        "home",
+        "smash"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "HAMBURGUERIA ARTESANAL (@homesmashburguer)",
+        "link": "https://instagram.com/homesmashburguer",
+        "snippet": "Estamos localizados na Rua Sólon de Lucena, 19 - Vila São Joao - Cabedelo - PB. Qualidade e originalidade com muuuuuuuuito sabor? Só na ...",
+        "displayedLink": "Mais de 8,9 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98673-5263"
+  },
+  {
+    "restaurantId": "133ad582-46f6-4334-a2b7-34ecd3c5287b",
+    "restaurantName": "Kikão Cachorro Quente",
+    "restaurantCategory": "Lanchonete",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/kikaofood",
+      "handle": "kikaofood",
+      "tokens": [
+        "kikao",
+        "cachorro",
+        "quente"
+      ],
+      "handleMatches": [
+        "kikao"
+      ],
+      "titleMatches": [
+        "kikao"
+      ],
+      "titleHandleMatches": [
+        "kikao"
+      ],
+      "textMatches": [
+        "kikao"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Kikão Food (@kikaofood) · Cabedelo, PB",
+        "link": "https://instagram.com/kikaofood",
+        "snippet": "Inauguração do nosso espaço físico é hoje pessoal! Esperamos vocês! Av. Mar Vermelho, Onda Mar Shopping, 357, Intermares.",
+        "displayedLink": "Mais de 2 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "98888-8856"
+  },
+  {
+    "restaurantId": "de5e3f48-dddc-4872-823a-71ba50fe51ab",
+    "restaurantName": "Caldinho Prime Formosa",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "weak_single_brand_token",
+    "best": {
+      "approved": false,
+      "score": 75,
+      "reasons": [
+        "weak_single_brand_token"
+      ],
+      "canonicalUrl": "https://instagram.com/caldinhoprimeformosa",
+      "handle": "caldinhoprimeformosa",
+      "tokens": [
+        "prime"
+      ],
+      "handleMatches": [
+        "prime"
+      ],
+      "titleMatches": [
+        "prime"
+      ],
+      "titleHandleMatches": [
+        "prime"
+      ],
+      "textMatches": [
+        "prime"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Cabedelo (@caldinhoprimeformosa) - Praia Formosa",
+        "link": "https://instagram.com/caldinhoprimeformosa/?hl=pt",
+        "snippet": "Praia Formosa|Cabedelo|Apart Hotel Filial @caldinhooprime ‍ CEO @jk.jullianakelly ⏱️Funcionamento 09hrs ás 16hrs ⬇️Link disponível para DELIVERY.",
+        "displayedLink": "Mais de 4,9 mil seguidores",
+        "platform": "instagram",
+        "score": 126,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "04f7bdf2-230d-4224-99d5-aea50cefc56f",
+    "restaurantName": "Mary Refeições",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/numarbarintermares",
+      "handle": "numarbarintermares",
+      "tokens": [
+        "mary",
+        "refeicoes"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 3567-7306"
+      ],
+      "openingHoursText": "Numar Bar e Restaurante (@numarbarintermares). ⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.. https://instagram.com/numarbarintermares",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "link": "https://instagram.com/numarbarintermares",
+        "snippet": "⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.",
+        "displayedLink": "Mais de 12,6 mil seguidores",
+        "platform": "instagram",
+        "score": 32,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98880-2447"
+  },
+  {
+    "restaurantId": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+    "restaurantName": "Route Hot Dogs",
+    "restaurantCategory": "Hamburgueria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 201,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/routehotdogs",
+      "handle": "routehotdogs",
+      "tokens": [
+        "route",
+        "hot",
+        "dogs"
+      ],
+      "handleMatches": [
+        "route",
+        "hot",
+        "dogs"
+      ],
+      "titleMatches": [
+        "route",
+        "hot",
+        "dogs"
+      ],
+      "titleHandleMatches": [
+        "route",
+        "hot",
+        "dogs"
+      ],
+      "textMatches": [
+        "route",
+        "hot",
+        "dogs"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "ROUTE HOT DOGS (@routehotdogs) · Cabedelo, PB",
+        "link": "https://instagram.com/routehotdogs",
+        "snippet": "Vem pra Route!!! Hot Dogs e Hambúrgueres Feitos na Churrasqueira Intermares - PB Praça Durval Portela de Andrade Av. Mar das Antilhas, Cabedelo ...",
+        "displayedLink": "Mais de 4 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99878-4228"
+  },
+  {
+    "restaurantId": "ec6b2565-934c-4278-9a8a-63168eb819f2",
+    "restaurantName": "DAWN BURGUER",
+    "restaurantCategory": "Hamburgueria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/dawn.burguer",
+      "handle": "dawn.burguer",
+      "tokens": [
+        "dawn",
+        "burguer"
+      ],
+      "handleMatches": [
+        "dawn",
+        "burguer"
+      ],
+      "titleMatches": [
+        "dawn",
+        "burguer"
+      ],
+      "titleHandleMatches": [
+        "dawn",
+        "burguer"
+      ],
+      "textMatches": [
+        "dawn",
+        "burguer"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "HAMBURGUERIA ARTESANAL (@dawn.burguer). A MELHOR HAMBURGUERIA DE CABEDELO ▪️ Seg à Sexta • 18h às 00h ▪️ FDS e feriados • 18h às 01h ▪️ Fechado às quartas ↓ Peça agora pelo link abaixo.. https://instagram.com/dawn.burguer",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "HAMBURGUERIA ARTESANAL (@dawn.burguer)",
+        "link": "https://instagram.com/dawn.burguer",
+        "snippet": "A MELHOR HAMBURGUERIA DE CABEDELO ▪️ Seg à Sexta • 18h às 00h ▪️ FDS e feriados • 18h às 01h ▪️ Fechado às quartas ↓ Peça agora pelo link abaixo.",
+        "displayedLink": "Mais de 9,8 mil seguidores",
+        "platform": "instagram",
+        "score": 134,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99638-6080"
+  },
+  {
+    "restaurantId": "2d89c5e8-5bf4-4d1f-9720-58513e1ab377",
+    "restaurantName": "Chapa Quente Lanches e Refeições",
+    "restaurantCategory": "Lanchonete",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "phone_area_conflict:47",
+    "best": {
+      "approved": true,
+      "score": 142,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/chapa_quente_burguer_22",
+      "handle": "chapa_quente_burguer_22",
+      "tokens": [
+        "chapa",
+        "quente",
+        "refeicoes"
+      ],
+      "handleMatches": [
+        "chapa",
+        "quente"
+      ],
+      "titleMatches": [
+        "chapa",
+        "quente"
+      ],
+      "titleHandleMatches": [
+        "chapa",
+        "quente"
+      ],
+      "textMatches": [
+        "chapa",
+        "quente"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(47) 9966-6275"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "CHAPA QUENTE BURGUER (@chapa_quente_burguer_22)",
+        "link": "https://instagram.com/chapa_quente_burguer_22",
+        "snippet": "Peça pelo WhatsApp: (47) 9966-6275 Delivery rápido e prático! Uma lanchonete completa para todos os gostos: Diversos tipos de lanches, desde os ...",
+        "displayedLink": "Mais de 5,1 mil seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98870-6504"
+  },
+  {
+    "restaurantId": "e593d18c-792e-4c38-b9c4-4b34d62f7aa6",
+    "restaurantName": "South Beach | Açaí, Sorveteria e Cremes",
+    "restaurantCategory": "Sorveteria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/southbeachacaiteria",
+      "handle": "southbeachacaiteria",
+      "tokens": [
+        "south",
+        "cremes"
+      ],
+      "handleMatches": [
+        "south"
+      ],
+      "titleMatches": [
+        "south"
+      ],
+      "titleHandleMatches": [
+        "south"
+      ],
+      "textMatches": [
+        "south"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "South Beach | Açaí & Sorvete (@southbeachacaiteria)",
+        "link": "https://instagram.com/southbeachacaiteria",
+        "snippet": "⏰A partir das 17h Avenida Oceano Atlântico 870 - Intermares - Cabedelo - PB (Orla de Intermares, ao lado do Numar) #southbeachintermares #açaiteriajp ...",
+        "displayedLink": "Mais de 1,6 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3032-7901"
+  },
+  {
+    "restaurantId": "e794929f-0b9f-43b8-a5c6-6d37a38dcb23",
+    "restaurantName": "Chié artesanato e comedoria",
+    "restaurantCategory": "Café",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 201,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/chieartesanatoecomedoria",
+      "handle": "chieartesanatoecomedoria",
+      "tokens": [
+        "chie",
+        "artesanato",
+        "comedoria"
+      ],
+      "handleMatches": [
+        "chie",
+        "artesanato",
+        "comedoria"
+      ],
+      "titleMatches": [
+        "chie",
+        "artesanato",
+        "comedoria"
+      ],
+      "titleHandleMatches": [
+        "chie",
+        "artesanato",
+        "comedoria"
+      ],
+      "textMatches": [
+        "chie",
+        "artesanato",
+        "comedoria"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "Artesanato e Comida Típica (@chieartesanatoecomedoria)",
+        "link": "https://instagram.com/chieartesanatoecomedoria",
+        "snippet": "Artesanato Paraibano Criativo e Utilitário Comida Típica Regional ‍ Bolero de Ravel Pôr do Sol Praia do Jacaré / Cabedelo - PB.",
+        "displayedLink": "Mais de 1,4 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98885-0093"
+  },
+  {
+    "restaurantId": "9aed5c42-1ab1-47f0-9010-788da722a399",
+    "restaurantName": "Sorveteria Frutos de Goiás - Cabedelo",
+    "restaurantCategory": "Sorveteria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 120,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/frutoscabedelo",
+      "handle": "frutoscabedelo",
+      "tokens": [
+        "frutos",
+        "goias"
+      ],
+      "handleMatches": [
+        "frutos"
+      ],
+      "titleMatches": [
+        "frutos",
+        "goias"
+      ],
+      "titleHandleMatches": [
+        "frutos",
+        "goias"
+      ],
+      "textMatches": [
+        "frutos",
+        "goias"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "Frutos de Goiás Cabedelo (@frutoscabedelo). O MELHOR SORVETE DO MUNDO Sorvete • Picolé • Paleta • Açaí Seg a Qui 14–22h | Sex a Dom 14–23h Peça pelo delivery.. https://instagram.com/frutoscabedelo",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Frutos de Goiás Cabedelo (@frutoscabedelo)",
+        "link": "https://instagram.com/frutoscabedelo",
+        "snippet": "O MELHOR SORVETE DO MUNDO Sorvete • Picolé • Paleta • Açaí Seg a Qui 14–22h | Sex a Dom 14–23h Peça pelo delivery.",
+        "displayedLink": "Mais de 2,7 mil seguidores",
+        "platform": "instagram",
+        "score": 134,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99313-6243"
+  },
+  {
+    "restaurantId": "6b65edcc-4d44-4dd4-82c8-36291fdef22b",
+    "restaurantName": "Caiçara Bar e Restaurante",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/caicarabarerestaurante",
+      "handle": "caicarabarerestaurante",
+      "tokens": [
+        "caicara"
+      ],
+      "handleMatches": [
+        "caicara"
+      ],
+      "titleMatches": [
+        "caicara"
+      ],
+      "titleHandleMatches": [
+        "caicara"
+      ],
+      "textMatches": [
+        "caicara"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98843-8076"
+      ],
+      "openingHoursText": "Caiçara Bar e Restaurante (@caicarabarerestaurante). Pé na areia em Cabedelo | O melhor pôr do sol da região | Venha viver essa experiência hoje ⏰ | Seg. a Dom. das 10 as 17h ☎️ | (83) 98843-8076 .... https://instagram.com/caicarabarerestaurante",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Caiçara Bar e Restaurante (@caicarabarerestaurante)",
+        "link": "https://instagram.com/caicarabarerestaurante",
+        "snippet": "Pé na areia em Cabedelo | O melhor pôr do sol da região | Venha viver essa experiência hoje ⏰ | Seg. a Dom. das 10 as 17h ☎️ | (83) 98843-8076 ...",
+        "displayedLink": "Mais de 3,2 mil seguidores",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98843-8076"
+  },
+  {
+    "restaurantId": "da4479b5-3306-409a-808e-b65982c120f8",
+    "restaurantName": "Sonne Haus Hambúrgueria",
+    "restaurantCategory": "Bar",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/sonnehaushamburgueria",
+      "handle": "sonnehaushamburgueria",
+      "tokens": [
+        "sonne",
+        "haus"
+      ],
+      "handleMatches": [
+        "sonne",
+        "haus"
+      ],
+      "titleMatches": [
+        "sonne",
+        "haus"
+      ],
+      "titleHandleMatches": [
+        "sonne",
+        "haus"
+      ],
+      "textMatches": [
+        "sonne",
+        "haus"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [
+        "(83) 99405-1627"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Hamburgueria Sonne Haus Pub | Cervejaria em João ...",
+        "link": "https://instagram.com/sonnehaushamburgueria",
+        "snippet": "NOVO ENDEREÇO DA SONNE HAUS PARA A NOSSA FABRICA R. José Bartolomeu Cabral, 40 - Jardim America, Cabedelo - PB Entre em contato: 8399405-1627.",
+        "displayedLink": "Mais de 3,1 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99405-1627"
+  },
+  {
+    "restaurantId": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+    "restaurantName": "Espaço Do Sushi",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/espacodosushi",
+      "handle": "espacodosushi",
+      "tokens": [
+        "espaco"
+      ],
+      "handleMatches": [
+        "espaco"
+      ],
+      "titleMatches": [
+        "espaco"
+      ],
+      "titleHandleMatches": [
+        "espaco"
+      ],
+      "textMatches": [
+        "espaco"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Espaço do Sushi (@espacodosushi)",
+        "link": "https://instagram.com/espacodosushi/reels",
+        "snippet": "Rua Juarez Távora, 227 - Camalaú Sushis a partir de R$2,85. ABERTO TODOS OS DIAS, a partir das 18h00. PEDIDOS ATRAVÉS DO NOSSO LINK.",
+        "displayedLink": "https://www.instagram.com › espacodosushi",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "28b2ef44-31b3-47b1-bd94-5c69a5a42f17",
+    "restaurantName": "Lanchonete e Pizzaria Popular",
+    "restaurantCategory": "Pizzaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed,weak_single_brand_token",
+    "best": {
+      "approved": false,
+      "score": -34,
+      "reasons": [
+        "brand_not_confirmed",
+        "weak_single_brand_token"
+      ],
+      "canonicalUrl": "https://instagram.com/euqueropizzafoodtruck",
+      "handle": "euqueropizzafoodtruck",
+      "tokens": [
+        "popular"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck). Melhor pizza ! . Estamos na Rua da Enseada 1215, Ponta de Campina, Cabedelo-PB ⏰️Abertos de segunda a quinta e domingo das 17 às 23h e sexta e sábado das 17h às .... https://instagram.com/euqueropizzafoodtruck",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)",
+        "link": "https://instagram.com/euqueropizzafoodtruck",
+        "snippet": "Melhor pizza ! . Estamos na Rua da Enseada 1215, Ponta de Campina, Cabedelo-PB ⏰️Abertos de segunda a quinta e domingo das 17 às 23h e sexta e sábado das 17h às ...",
+        "displayedLink": "Mais de 8,5 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98794-7442"
+  },
+  {
+    "restaurantId": "98a3b276-2cfa-4c15-902a-aedb022cc215",
+    "restaurantName": "Caldeirão Nordestino - Caldinho e Nhoques Cabedelo",
+    "restaurantCategory": "Barraca de comida",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/caldeirao.nordestino",
+      "handle": "caldeirao.nordestino",
+      "tokens": [
+        "caldeirao",
+        "nordestino",
+        "nhoques"
+      ],
+      "handleMatches": [
+        "caldeirao",
+        "nordestino"
+      ],
+      "titleMatches": [
+        "caldeirao",
+        "nordestino"
+      ],
+      "titleHandleMatches": [
+        "caldeirao",
+        "nordestino"
+      ],
+      "textMatches": [
+        "caldeirao",
+        "nordestino"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "caldeirao.nordestino - Caldinho Cabedelo/JP",
+        "link": "https://instagram.com/caldeirao.nordestino",
+        "snippet": "364 followers · 256 following · 40 posts · @caldeirao.nordestino: “ Caldinho raiz na praia Sáb e Dom • Cabedelo + JP-PB veja stories ☝️”",
+        "displayedLink": "Mais de 360 seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98916-4925"
+  },
+  {
+    "restaurantId": "297a6b03-242d-4d91-9f64-73e736972946",
+    "restaurantName": "Oxi Burguer Cabedelo",
+    "restaurantCategory": "Hamburgueria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 120,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/oxicabedelo",
+      "handle": "oxicabedelo",
+      "tokens": [
+        "oxi",
+        "burguer"
+      ],
+      "handleMatches": [
+        "oxi"
+      ],
+      "titleMatches": [
+        "oxi",
+        "burguer"
+      ],
+      "titleHandleMatches": [
+        "oxi",
+        "burguer"
+      ],
+      "textMatches": [
+        "oxi",
+        "burguer"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Oxi Burguer Cabedelo (@oxicabedelo)",
+        "link": "https://instagram.com/oxicabedelo",
+        "snippet": "874 followers · 13 following · 14 posts · @oxicabedelo: “O sabor da terra Vai Brasil! Ponta de Campina - Cabedelo/PB Faça aqui seu pedido ”",
+        "displayedLink": "Mais de 870 seguidores",
+        "platform": "instagram",
+        "score": 140,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98793-1915"
+  },
+  {
+    "restaurantId": "5ba77eda-968b-407b-aaa9-4c6d641e66cb",
+    "restaurantName": "Tropical Burgz",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/tropicalburgz",
+      "handle": "tropicalburgz",
+      "tokens": [
+        "tropical",
+        "burgz"
+      ],
+      "handleMatches": [
+        "tropical",
+        "burgz"
+      ],
+      "titleMatches": [
+        "tropical",
+        "burgz"
+      ],
+      "titleHandleMatches": [
+        "tropical",
+        "burgz"
+      ],
+      "textMatches": [
+        "tropical",
+        "burgz"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "TROPICAL BURGZ (@tropicalburgz). Hambúrguer Artesanal Aquele sabor que você ama! Local: Praça Jornalista – Rua Oceano Pacífico, 392, Cabedelo - PB terça a Sábado das 18h .... https://instagram.com/tropicalburgz",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "TROPICAL BURGZ (@tropicalburgz)",
+        "link": "https://instagram.com/tropicalburgz",
+        "snippet": "Hambúrguer Artesanal Aquele sabor que você ama! Local: Praça Jornalista – Rua Oceano Pacífico, 392, Cabedelo - PB terça a Sábado das 18h ...",
+        "displayedLink": "Mais de 1,4 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "9c83d3fb-60df-4b9a-8687-05e889cfef48",
+    "restaurantName": "Nena Doceria & Salgaderia",
+    "restaurantCategory": "Lanchonete",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/nena_doceria",
+      "handle": "nena_doceria",
+      "tokens": [
+        "nena",
+        "doceria",
+        "salgaderia"
+      ],
+      "handleMatches": [
+        "nena",
+        "doceria"
+      ],
+      "titleMatches": [
+        "nena",
+        "doceria"
+      ],
+      "titleHandleMatches": [
+        "nena",
+        "doceria"
+      ],
+      "textMatches": [
+        "nena",
+        "doceria"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Nena Doceria (@nena_doceria)",
+        "link": "https://instagram.com/nena_doceria",
+        "snippet": "8.8K+ followers · 1.2K+ following · 3555 posts · @nena_doceria: “ Cabedelo/PB Bolos e Tortas Doces diversos ⬇️Contato”",
+        "displayedLink": "Mais de 8,8 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99629-9367"
+  },
+  {
+    "restaurantId": "c73bb2a7-5e2a-4f2e-8334-daaea6b12b84",
+    "restaurantName": "Mão Branca bar e resturante",
+    "restaurantCategory": "Restaurante de frutos do mar",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 142,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/maobrancabarerestaurante",
+      "handle": "maobrancabarerestaurante",
+      "tokens": [
+        "mao",
+        "branca",
+        "resturante"
+      ],
+      "handleMatches": [
+        "mao",
+        "branca"
+      ],
+      "titleMatches": [
+        "mao",
+        "branca"
+      ],
+      "titleHandleMatches": [
+        "mao",
+        "branca"
+      ],
+      "textMatches": [
+        "mao",
+        "branca"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": true,
+      "phones": [
+        "(83) 92178-1050"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "maobrancabarerestaurante",
+        "link": "https://instagram.com/maobrancabarerestaurante",
+        "snippet": "Rua Luna Pedrosa, 36 – Praia do Poço (83) 92178-1050. Aberto todos os dias. Conheça nosso barco bar flutuante na Ilha de Areia Vermelha.",
+        "displayedLink": "Mais de 9,2 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 92178-1050"
+  },
+  {
+    "restaurantId": "2ebf5453-9be4-469d-afd8-be3ac7833f00",
+    "restaurantName": "Restaurante e pizzaria chapa quente",
+    "restaurantCategory": "Pizzaria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "phone_area_conflict:51",
+    "best": {
+      "approved": true,
+      "score": 142,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/chapaquenteviamao",
+      "handle": "chapaquenteviamao",
+      "tokens": [
+        "chapa",
+        "quente"
+      ],
+      "handleMatches": [
+        "chapa",
+        "quente"
+      ],
+      "titleMatches": [
+        "chapa",
+        "quente"
+      ],
+      "titleHandleMatches": [
+        "chapa",
+        "quente"
+      ],
+      "textMatches": [
+        "chapa",
+        "quente"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(51) 3046-5510"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 8,
+        "title": "Chapa Quente - Restaurante & bar (@chapaquenteviamao)",
+        "link": "https://instagram.com/chapaquenteviamao",
+        "snippet": "Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ...",
+        "displayedLink": "Mais de 7,6 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99988-8764"
+  },
+  {
+    "restaurantId": "166ab094-fea7-412e-9386-d0517895dbb4",
+    "restaurantName": "Bras Coffee",
+    "restaurantCategory": "Lanchonete",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/coffeelab_br",
+      "handle": "coffeelab_br",
+      "tokens": [
+        "bras",
+        "coffee"
+      ],
+      "handleMatches": [
+        "coffee"
+      ],
+      "titleMatches": [
+        "coffee"
+      ],
+      "titleHandleMatches": [
+        "coffee"
+      ],
+      "textMatches": [
+        "coffee"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "coffeelab (@coffeelab_br) • Instagram photos and videos",
+        "link": "https://instagram.com/coffeelab_br",
+        "snippet": "Hoje, até 14h temos café, leitinho da vovó e outras coisinhas boas. Voltamos amanhã com nossas programação anormal ;) escola, lojas e igood: 9h - 18h coffeelab ...",
+        "displayedLink": "Mais de 281 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "8bae41e4-1365-4def-9857-34e4abdbf329",
+    "restaurantName": "Eu Quero Pizza",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/euqueropizzafoodtruck",
+      "handle": "euqueropizzafoodtruck",
+      "tokens": [
+        "quero"
+      ],
+      "handleMatches": [
+        "quero"
+      ],
+      "titleMatches": [
+        "quero"
+      ],
+      "titleHandleMatches": [
+        "quero"
+      ],
+      "textMatches": [
+        "quero"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)",
+        "link": "https://instagram.com/euqueropizzafoodtruck",
+        "snippet": "Pizza Grande a partir de R$ 49,90! . Estamos no @almagre.parahyba na Rua da Enseada 1215, Ponta de Campina, Cabedelo-PB ⏰️Abertos de segunda a ...",
+        "displayedLink": "Mais de 8,5 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99857-3813"
+  },
+  {
+    "restaurantId": "a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2",
+    "restaurantName": "Coffee Cake Açaiteria",
+    "restaurantCategory": "Lanchonete",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/coffeecakeacaiteria",
+      "handle": "coffeecakeacaiteria",
+      "tokens": [
+        "coffee",
+        "cake"
+      ],
+      "handleMatches": [
+        "coffee",
+        "cake"
+      ],
+      "titleMatches": [
+        "coffee",
+        "cake"
+      ],
+      "titleHandleMatches": [
+        "coffee",
+        "cake"
+      ],
+      "textMatches": [
+        "coffee",
+        "cake"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "ᴄᴏғғᴇᴇ ᴄᴀᴋᴇ ᴀçᴀɪᴛᴇʀɪᴀ (@coffeecakeacaiteria)",
+        "link": "https://instagram.com/coffeecakeacaiteria",
+        "snippet": "... Avenida Oceano Atlântico N° 422 Sala 04 - Intermares - Cabedelo - Paraíba. Contamos com sua presença... Forte abraços!!!",
+        "displayedLink": "Mais de 790 seguidores",
+        "platform": "instagram",
+        "score": 122,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99961-5054"
+  },
+  {
+    "restaurantId": "646b1437-0afa-4aef-b8e4-7a83bce3f43f",
+    "restaurantName": "Sol e mar restaurante e self service",
+    "restaurantCategory": "Restaurante self-service",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 174,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/restaurantesolemar__",
+      "handle": "restaurantesolemar__",
+      "tokens": [
+        "sol",
+        "mar",
+        "self",
+        "service"
+      ],
+      "handleMatches": [
+        "sol",
+        "mar"
+      ],
+      "titleMatches": [
+        "sol",
+        "mar",
+        "self",
+        "service"
+      ],
+      "titleHandleMatches": [
+        "sol",
+        "mar",
+        "self",
+        "service"
+      ],
+      "textMatches": [
+        "sol",
+        "mar",
+        "self",
+        "service"
+      ],
+      "cityConfirmed": false,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 99157-8255"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Sol e Mar Restaurante Self-service (@restaurantesolemar__)",
+        "link": "https://instagram.com/restaurantesolemar__",
+        "snippet": "Almoço: 11H00 às 14H30 TODOS OS DIAS WhatsApp : (83)99157-8255. Camboinha: Rua Márcia Travassos, 331 A. Intermares: Av. Mar das Antilhas, 197. ; Desejamos um ...",
+        "displayedLink": "Mais de 2,6 mil seguidores",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99157-8255"
+  },
+  {
+    "restaurantId": "2386896b-b1f2-4d3a-9a12-edb93d96a24f",
+    "restaurantName": "Tapiocaria da zeti",
+    "restaurantCategory": "Lanchonete",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/tapiocariadinho",
+      "handle": "tapiocariadinho",
+      "tokens": [
+        "zeti"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 7,
+        "title": "TAPIOCARIA DO DINHO 🔥 (@tapiocariadinho)",
+        "link": "https://instagram.com/tapiocariadinho",
+        "snippet": "Funcionamos de Seg a dom ‼️ ⏰17:30 às 00:00. Delivery ⬇️ | Loja física Av. Ambrósio Miranda de Araújo - renascer,cabedelo. Follow. Message ...",
+        "displayedLink": "Mais de 4 mil seguidores",
+        "platform": "instagram",
+        "score": 62,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "72606188-4454-4890-a671-a65d4d08f024",
+    "restaurantName": "Casa Do Pastel",
+    "restaurantCategory": "Pastelaria brasileira",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "weak_single_brand_token",
+    "best": {
+      "approved": false,
+      "score": 79,
+      "reasons": [
+        "weak_single_brand_token"
+      ],
+      "canonicalUrl": "https://instagram.com/lacasadepastelpbof",
+      "handle": "lacasadepastelpbof",
+      "tokens": [
+        "casa"
+      ],
+      "handleMatches": [
+        "casa"
+      ],
+      "titleMatches": [
+        "casa"
+      ],
+      "titleHandleMatches": [
+        "casa"
+      ],
+      "textMatches": [
+        "casa"
+      ],
+      "cityConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "phones": [
+        "(83) 98625-2145"
+      ],
+      "openingHoursText": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB. 9.9K+ followers · 11 posts · | Estamos no iFood | 83 98625-2145 ⏱️| Aberto Das 18h às 00:00 (Terça feira Folga ) ⬇️ Toque no link para fazer pedido!. https://instagram.com/lacasadepastelpbof",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB",
+        "link": "https://instagram.com/lacasadepastelpbof",
+        "snippet": "9.9K+ followers · 11 posts · | Estamos no iFood | 83 98625-2145 ⏱️| Aberto Das 18h às 00:00 (Terça feira Folga ) ⬇️ Toque no link para fazer pedido!",
+        "displayedLink": "Mais de 9,9 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98663-1487"
+  }
+]

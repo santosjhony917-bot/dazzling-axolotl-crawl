@@ -1,0 +1,134 @@
+{
+  "id": "a4f66e28-5f08-468c-b552-1c96d59744e2",
+  "name": "BIG BURGUER",
+  "instagram": "https://www.instagram.com/big.burguer01/",
+  "followers": 5431,
+  "match": {
+    "score": 140,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.2885-19/450797466_2499718416884702_179023536970650909_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=v5Pg_53pfhYQ7kNvwEAOoRE&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQCn-9bwkKCWor2use188gJxLsYFILZfd3mbQ0GKCaV66Q&oe=6A522B71&_nc_sid=8b3546"
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/715242380_18091481933578614_4298486535497028644_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=GIT9EJowL2UQ7kNvwEv9xI5&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzkxMTYzMjUwNjI5MDQyMTc4MQ%3D%3D.3-ccb7-5&oh=00_AQCduizx7mydAIPRdMYMYpYuaAxEAxPK_4dVD6IFGPI1lQ&oe=6A521439&_nc_sid=8b3546",
+      "score": 26,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/723895064_18092566889578614_4595122613497946028_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=Lexg5QSXCSsQ7kNvwGmeesX&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzkxNzkwOTcxMTMwMjMzMDYwOA%3D%3D.3-ccb7-5&oh=00_AQA14hz4-uPYnMI9kMzBQvRP0K_9lcKz_06GxodIEt6Dzg&oe=6A520556&_nc_sid=8b3546",
+      "score": 24,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/713983701_18091482401578614_805495610967354322_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=oMVzOpE1StEQ7kNvwFxGaZJ&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzkxMTYzODA3NDg5MTUwODc1Mw%3D%3D.3-ccb7-5&oh=00_AQB5mVkdu_kNRQkyG99m9wTQxB93OdaBi4bA-oiUqLm5qA&oe=6A5216DB&_nc_sid=8b3546",
+      "score": 23,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/714403694_18091480754578614_5609481308129369975_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=7EQmhmqww-QQ7kNvwHdWaUL&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzkxMTYyNzkxNzI2ODY3NTk0Mw%3D%3D.3-ccb7-5&oh=00_AQBFJQZBBwTCNtSAwGyhHmVfj6BuiZcnbMpyrF0Ur7svQg&oe=6A520B2F&_nc_sid=8b3546",
+      "score": 22,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/716550583_18091481825578614_5577615583096699382_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=luB40bcqHu8Q7kNvwGMx_Bq&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzkxMTYzMTc1NjM2NTQwMjA2MQ%3D%3D.3-ccb7-5&oh=00_AQDeP2Jey57IFqRHMUckpxsKSpP9_fAF6vWm4Ut5tGnS5g&oe=6A521CD2&_nc_sid=8b3546",
+      "score": 21,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/715850004_18091481162578614_6758998180300869047_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=N3AR11-kelsQ7kNvwGRY3kp&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzkxMTYzMDIzMTM1ODU2ODgzMg%3D%3D.3-ccb7-5&oh=00_AQAfB_Wq5skusXqZD5yrLoM3JXvDnR-dmc7NS8n5lwbx3g&oe=6A5226AF&_nc_sid=8b3546",
+      "score": 20,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/683769435_18086994467578614_2436079762447716590_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=RiiwumGjeScQ7kNvwGvrHPY&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=Mzg4NTU1MTYzMzI2MjkzMDQwNw%3D%3D.3-ccb7-5&oh=00_AQDSwEli4mHUrsmhVhiaF1Lu8XZ2JWZVaT2UAmzy583CvQ&oe=6A52200A&_nc_sid=8b3546",
+      "score": 18,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-hou1-1.cdninstagram.com/v/t51.82787-15/682720167_18086995343578614_3751061209299059367_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-hou1-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gH6vAWVBo5S_hHJSg527-GjC60vHxyPQ193ORS_UhIwUQc88zjpyS9Ubmfoy73_bi8&_nc_ohc=RL7uBHLuRiAQ7kNvwHH3svc&_nc_gid=pKUIm6fH4sHkPQnTnPVP6A&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=Mzg4NTU1NzAzNDQxMDc5NTgyNw%3D%3D.3-ccb7-5&oh=00_AQCmGpx1QlM8u9UScpodnYu21M7bVhlwhrv0vLlIsBL6Aw&oe=6A52032E&_nc_sid=8b3546",
+      "score": 17,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": false,
+  "status": "ok",
+  "after": null,
+  "promotion": null,
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 26,
+      "caption": "Entre dietas e hambúrgueres, eu escolho ser feliz. 🤩",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "Mini Burguer 😍🥹",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "X-TUDO 🔥",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "Sorriso sincero e pastel quentinho. Sabores: Frango com catupiry Queijo Carne desfiada com queijo Chocolate",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 21,
+      "caption": "LambLamb 😋",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 20,
+      "caption": "Só mais um petisco… 😋",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 18,
+      "caption": "Tem coisa melhor do que comida boa e um cantinho confortável? 🫠🍔",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 17,
+      "caption": "Big Catucrispy 🫠",
+      "vision": null
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "message": "38 itens estruturados via cardapio_web; 0 requerem revisão de preço.",
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 7,
+      "itemCount": 38,
+      "resolvedPriceCount": 38,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "no_groups"
+      }
+    },
+    "fallbackUsed": false
+  },
+  "stdoutTail": "[Menu V2] Semântica de opções via heurística (no_groups).\n[Menu V2] Auditoria estrutural: {\"approved\":true,\"confidence\":0.98,\"categoryCount\":7,\"itemCount\":38,\"resolvedPriceCount\":38,\"unresolvedPriceCount\":0,\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\"}}\nRESULT:{\"success\":true,\"message\":\"38 itens estruturados via cardapio_web; 0 requerem revisão de preço.\",\"audit\":{\"approved\":true,\"confidence\":0.98,\"categoryCount\":7,\"itemCount\":38,\"resolvedPriceCount\":38,\"unresolvedPriceCount\":0,\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\"}},\"fallbackUsed\":false}\n",
+  "stderrTail": ""
+}

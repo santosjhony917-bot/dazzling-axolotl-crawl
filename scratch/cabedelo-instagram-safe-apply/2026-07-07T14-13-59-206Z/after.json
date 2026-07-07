@@ -1,0 +1,307 @@
+[
+  {
+    "id": "10f71936-a4b9-4c9b-b2c4-d1c709081a93",
+    "name": "Bar e Restaurante do Pessoinha",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98730-8003",
+    "whatsapp_url": "http://wa.me/5583987308003",
+    "instagram": "https://instagram.com/bardopessoinha",
+    "followers_override": 6834,
+    "social_networks": [
+      {
+        "url": "https://instagram.com/bardopessoinha",
+        "source": "serpapi_google_plus_apify_safe_validation",
+        "platform": "instagram",
+        "bio_phone": "(83) 98730-8003",
+        "biography": "🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem 📱 • https://wa.me/qr/TABUCYMLK",
+        "followers": 6834,
+        "confidence": 1,
+        "verifiedAt": "2026-07-07T14:13:59.550Z",
+        "bio_whatsapp_url": "http://wa.me/5583987308003",
+        "bio_opening_hours_text": "🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem 📱 • https://wa.me/qr/TABUCYMLK",
+        "opening_hours_from_bio": {
+          "friday": {
+            "slots": [
+              {
+                "end": "17:00",
+                "start": "09:00"
+              }
+            ],
+            "isOpen": true
+          },
+          "monday": {
+            "slots": [
+              {
+                "end": "17:00",
+                "start": "09:00"
+              }
+            ],
+            "isOpen": true
+          },
+          "sunday": {
+            "slots": [
+              {
+                "end": "17:00",
+                "start": "09:00"
+              }
+            ],
+            "isOpen": true
+          },
+          "tuesday": {
+            "slots": [],
+            "isOpen": false
+          },
+          "saturday": {
+            "slots": [
+              {
+                "end": "17:00",
+                "start": "09:00"
+              }
+            ],
+            "isOpen": true
+          },
+          "thursday": {
+            "slots": [],
+            "isOpen": false
+          },
+          "wednesday": {
+            "slots": [],
+            "isOpen": false
+          }
+        }
+      }
+    ],
+    "opening_hours": {
+      "friday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "monday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "sunday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "tuesday": {
+        "slots": [],
+        "isOpen": false
+      },
+      "saturday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "thursday": {
+        "slots": [],
+        "isOpen": false
+      },
+      "wednesday": {
+        "slots": [],
+        "isOpen": false
+      }
+    },
+    "coleta_logs": "{\"phase1_serpapi_google_maps_v1\":{\"runId\":\"2026-07-06T19-42-57-721Z\",\"collectedAt\":\"2026-07-06T19:46:06.343Z\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"query\":\"espetinho Cabedelo PB\",\"area\":\"Centro Cabedelo\",\"ll\":\"@-6.9748,-34.8373,15z\",\"category_source\":\"Restaurante\",\"address_source\":\"PB-011, 178 - Forte Velho, Santa Rita - PB, 58304-300\",\"rating_source\":4.5,\"reviews_source\":499,\"phone_source\":\"(83) 98127-1419\",\"website_source\":\"\",\"latitude\":-6.990155499999999,\"longitude\":-34.8743396},\"phase1_serpapi_google_maps_backfill_v1\":{\"runId\":\"2026-07-06T19-42-57-721Z\",\"file\":\"raw-016.json\",\"backfilledAt\":\"2026-07-06T19:51:52.818Z\",\"category_source\":\"Restaurante\",\"address_source\":\"PB-011, 178 - Forte Velho, Santa Rita - PB, 58304-300\",\"rating_source\":4.5,\"reviews_source\":499,\"phone_source\":\"(83) 98127-1419\",\"website_source\":\"\",\"hours_source\":\"Fecha em breve · 17:00 · Abre sex. às 09:00\",\"has_operating_hours\":true,\"latitude\":-6.990155499999999,\"longitude\":-34.8743396},\"canonical_address_hours_repair_v1\":{\"repairedAt\":\"2026-07-07T13:40:41.912Z\",\"rawAddress\":\"PB-011, 178 - Forte Velho, Santa Rita - PB, 58304-300\",\"addressPatch\":{},\"hoursSource\":\"google_maps_operating_hours\",\"sourceRunId\":\"2026-07-06T19-42-57-721Z\",\"sourceFile\":\"raw-016.json\"},\"cabedelo_phase1_final_audit_v1\":{\"auditedAt\":\"2026-07-07T13:41:08.496Z\",\"status\":\"aprovado\",\"pending\":[],\"cep_status\":\"ok\",\"source\":\"serpapi_google_maps_cached_raw\",\"rawRunId\":\"2026-07-06T19-42-57-721Z\",\"rawFile\":\"raw-016.json\"},\"instagram_safe_apply_2026_07_07\":{\"appliedAt\":\"2026-07-07T14:13:59.549Z\",\"sourceReport\":\"scratch/cabedelo-instagram-validation-report/2026-07-07T14-04-52-526Z/items.json\",\"status\":\"secure\",\"confidence\":100,\"instagram\":\"https://instagram.com/bardopessoinha\",\"followers\":6834,\"biography\":\"🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem 📱 • https://wa.me/qr/TABUCYMLK\",\"bio_phone\":\"(83) 98730-8003\",\"bio_whatsapp_url\":\"http://wa.me/5583987308003\",\"bio_opening_hours_text\":\"🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem 📱 • https://wa.me/qr/TABUCYMLK\",\"opening_hours_applied\":true,\"opening_hours\":{\"monday\":{\"isOpen\":true,\"slots\":[{\"start\":\"09:00\",\"end\":\"17:00\"}]},\"tuesday\":{\"isOpen\":false,\"slots\":[]},\"wednesday\":{\"isOpen\":false,\"slots\":[]},\"thursday\":{\"isOpen\":false,\"slots\":[]},\"friday\":{\"isOpen\":true,\"slots\":[{\"start\":\"09:00\",\"end\":\"17:00\"}]},\"saturday\":{\"isOpen\":true,\"slots\":[{\"start\":\"09:00\",\"end\":\"17:00\"}]},\"sunday\":{\"isOpen\":true,\"slots\":[{\"start\":\"09:00\",\"end\":\"17:00\"}]}},\"observation\":null,\"appliedFields\":[\"instagram\",\"followers_override\",\"social_networks\",\"phone\",\"whatsapp_url\",\"opening_hours\",\"coleta_logs\"]}}",
+    "is_deleted": false
+  },
+  {
+    "id": "b91f652e-112d-4dcf-921c-4df6c2d1700f",
+    "name": "Recanto do Pastel",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 9948-9339",
+    "whatsapp_url": "https://wa.me/558399489339?countryCode=55&countryName=BR&phoneNumber=8399489339",
+    "instagram": "https://instagram.com/recantodopastel2025",
+    "followers_override": 149,
+    "social_networks": [
+      {
+        "url": "https://instagram.com/recantodopastel2025",
+        "source": "serpapi_google_plus_apify_safe_validation",
+        "platform": "instagram",
+        "bio_phone": "(83) 9948-9339",
+        "biography": "📍 Recanto do Poço - Cabedelo 🥟 Pastel frito na hora 😋 das 17 as 23horas",
+        "followers": 149,
+        "confidence": 1,
+        "verifiedAt": "2026-07-07T14:13:59.776Z",
+        "bio_whatsapp_url": "https://wa.me/558399489339?countryCode=55&countryName=BR&phoneNumber=8399489339",
+        "bio_opening_hours_text": null,
+        "opening_hours_from_bio": null
+      }
+    ],
+    "opening_hours": {
+      "friday": {
+        "slots": [
+          {
+            "end": "23:00",
+            "start": "17:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "monday": {
+        "slots": [],
+        "isOpen": false
+      },
+      "sunday": {
+        "slots": [
+          {
+            "end": "23:00",
+            "start": "18:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "tuesday": {
+        "slots": [
+          {
+            "end": "23:00",
+            "start": "17:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "saturday": {
+        "slots": [
+          {
+            "end": "23:00",
+            "start": "17:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "thursday": {
+        "slots": [
+          {
+            "end": "23:00",
+            "start": "17:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "wednesday": {
+        "slots": [
+          {
+            "end": "23:00",
+            "start": "17:00"
+          }
+        ],
+        "isOpen": true
+      }
+    },
+    "coleta_logs": "{\"phase1_serpapi_google_maps_v1\":{\"runId\":\"2026-07-06T19-42-57-721Z\",\"collectedAt\":\"2026-07-06T19:46:06.342Z\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"query\":\"pastelaria Cabedelo PB\",\"area\":\"Centro Cabedelo\",\"ll\":\"@-6.9748,-34.8373,15z\",\"category_source\":\"Pastelaria brasileira\",\"address_source\":\"R. Gov. Antônio Mariz, 76 - Recanto do Poço, Cabedelo - PB, 58105-126\",\"rating_source\":5,\"reviews_source\":2,\"phone_source\":\"\",\"website_source\":\"\",\"latitude\":-7.020205499999999,\"longitude\":-34.8382338},\"phase1_serpapi_google_maps_backfill_v1\":{\"runId\":\"2026-07-06T19-42-57-721Z\",\"file\":\"raw-073.json\",\"backfilledAt\":\"2026-07-06T19:51:52.818Z\",\"category_source\":\"Pastelaria brasileira\",\"address_source\":\"R. Gov. Antônio Mariz, 76 - Recanto do Poço, Cabedelo - PB, 58105-126\",\"rating_source\":5,\"reviews_source\":2,\"phone_source\":\"\",\"website_source\":\"\",\"hours_source\":\"Fechado · Abre ter. às 17:00\",\"has_operating_hours\":true,\"latitude\":-7.020205499999999,\"longitude\":-34.8382338},\"canonical_address_hours_repair_v1\":{\"repairedAt\":\"2026-07-07T13:40:41.910Z\",\"rawAddress\":\"R. Gov. Antônio Mariz, 76 - Recanto do Poço, Cabedelo - PB, 58105-126\",\"addressPatch\":{},\"hoursSource\":\"google_maps_operating_hours\",\"sourceRunId\":\"2026-07-06T19-42-57-721Z\",\"sourceFile\":\"raw-073.json\"},\"cabedelo_phase1_final_audit_v1\":{\"auditedAt\":\"2026-07-07T13:41:08.495Z\",\"status\":\"aprovado_com_pendencias\",\"pending\":[\"pendente_telefone_google\"],\"cep_status\":\"ok\",\"source\":\"serpapi_google_maps_cached_raw\",\"rawRunId\":\"2026-07-06T19-42-57-721Z\",\"rawFile\":\"raw-073.json\"},\"instagram_safe_apply_2026_07_07\":{\"appliedAt\":\"2026-07-07T14:13:59.776Z\",\"sourceReport\":\"scratch/cabedelo-instagram-validation-report/2026-07-07T14-04-52-526Z/items.json\",\"status\":\"secure\",\"confidence\":100,\"instagram\":\"https://instagram.com/recantodopastel2025\",\"followers\":149,\"biography\":\"📍 Recanto do Poço - Cabedelo 🥟 Pastel frito na hora 😋 das 17 as 23horas\",\"bio_phone\":\"(83) 9948-9339\",\"bio_whatsapp_url\":\"https://wa.me/558399489339?countryCode=55&countryName=BR&phoneNumber=8399489339\",\"bio_opening_hours_text\":null,\"opening_hours_applied\":false,\"opening_hours\":null,\"observation\":\"Bio menciona \\\"das 17 as 23horas\\\", mas nao informa dias; opening_hours nao foi alterado.\",\"appliedFields\":[\"instagram\",\"followers_override\",\"social_networks\",\"phone\",\"whatsapp_url\",\"coleta_logs\"]}}",
+    "is_deleted": false
+  },
+  {
+    "id": "fd64e520-194c-4a69-a6e7-1ea6f8213889",
+    "name": "Casa de Taipa",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 99195-9104",
+    "whatsapp_url": "https://wa.me/5583991959104",
+    "instagram": "https://instagram.com/casadetaipapb",
+    "followers_override": 198,
+    "social_networks": [
+      {
+        "url": "https://instagram.com/casadetaipapb",
+        "source": "serpapi_google_plus_apify_safe_validation",
+        "platform": "instagram",
+        "bio_phone": null,
+        "biography": "Bar e Restaurante que oferece o melhor da comida típica nordestina. Venha viver essa experiência.",
+        "followers": 198,
+        "confidence": 1,
+        "verifiedAt": "2026-07-07T14:13:59.671Z",
+        "bio_whatsapp_url": null,
+        "bio_opening_hours_text": null,
+        "opening_hours_from_bio": null
+      }
+    ],
+    "opening_hours": {
+      "friday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "monday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "sunday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "tuesday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "saturday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "thursday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      },
+      "wednesday": {
+        "slots": [
+          {
+            "end": "17:00",
+            "start": "09:00"
+          }
+        ],
+        "isOpen": true
+      }
+    },
+    "coleta_logs": "{\"phase1_serpapi_google_maps_v1\":{\"runId\":\"2026-07-06T19-29-21-567Z\",\"collectedAt\":\"2026-07-06T19:30:30.258Z\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"query\":\"restaurantes Cabedelo PB\",\"area\":\"Camboinha\",\"ll\":\"@-7.0125,-34.8302,15z\",\"category_source\":\"Restaurante\",\"address_source\":\"R. Vitorino Cardoso, s/n - Praia do poço, Cabedelo - PB, 58101-502\",\"rating_source\":4.5,\"reviews_source\":58,\"phone_source\":\"(83) 99195-9104\",\"website_source\":\"\",\"latitude\":-7.0244085,\"longitude\":-34.8307421},\"phase1_serpapi_google_maps_backfill_v1\":{\"runId\":\"2026-07-06T19-42-57-721Z\",\"file\":\"raw-069.json\",\"backfilledAt\":\"2026-07-06T19:51:52.816Z\",\"category_source\":\"Restaurante\",\"address_source\":\"R. Vitorino Cardoso, s/n - Praia do poço, Cabedelo - PB, 58101-502\",\"rating_source\":4.5,\"reviews_source\":58,\"phone_source\":\"(83) 99195-9104\",\"website_source\":\"\",\"hours_source\":\"Fecha em breve · 17:00 · Abre ter. às 09:00\",\"has_operating_hours\":true,\"latitude\":-7.0244085,\"longitude\":-34.8307421},\"canonical_address_hours_repair_v1\":{\"repairedAt\":\"2026-07-07T13:40:41.924Z\",\"rawAddress\":\"R. Vitorino Cardoso, s/n - Praia do poço, Cabedelo - PB, 58101-502\",\"addressPatch\":{},\"hoursSource\":\"google_maps_operating_hours\",\"sourceRunId\":\"2026-07-06T19-42-57-721Z\",\"sourceFile\":\"raw-069.json\"},\"serpapi_fast_menu_discovery_v1\":{\"checkedAt\":\"2026-07-07T13:16:25.068Z\",\"query\":\"Casa de Taipa Praia do poço R. Vitorino Cardoso (83) 99195-9104 Cabedelo PB cardapio pedido delivery\",\"selected\":{\"source\":\"organic\",\"position\":4,\"title\":\"Casa de davi | Delivery em Cabedelo | Pedido online\",\"link\":\"https://pedido.anota.ai/loja/casa-de-davi\",\"snippet\":\"Faça seu pedido online agora mesmo no Casa de davi! Seu delivery em Cabedelo. Acesse a loja através do Cardápio Digital da Anota AI.\",\"displayedLink\":\"https://pedido.anota.ai › loja › casa-de-davi\",\"platform\":\"anota_ai\",\"score\":129,\"tier\":\"green\",\"flags\":[],\"tokenHits\":[\"casa\"]},\"candidateCount\":10,\"source\":\"serpapi/google_search\"},\"serpapi_fast_menu_discovery_reverted_v1\":{\"revertedAt\":\"2026-07-07T13:23:35.752Z\",\"previousOtherUrl\":\"https://pedido.anota.ai/loja/casa-de-davi\",\"previousLabel\":\"SerpApi menu discovery (anota_ai)\",\"previousReason\":\"Fonte de cardapio encontrada via SerpApi: anota_ai score 129.\",\"reason\":\"weak_brand_match_after_rule_fix\"},\"cabedelo_phase1_final_audit_v1\":{\"auditedAt\":\"2026-07-07T13:41:08.501Z\",\"status\":\"aprovado\",\"pending\":[],\"cep_status\":\"ok\",\"source\":\"serpapi_google_maps_cached_raw\",\"rawRunId\":\"2026-07-06T19-42-57-721Z\",\"rawFile\":\"raw-069.json\"},\"instagram_safe_apply_2026_07_07\":{\"appliedAt\":\"2026-07-07T14:13:59.670Z\",\"sourceReport\":\"scratch/cabedelo-instagram-validation-report/2026-07-07T14-04-52-526Z/items.json\",\"status\":\"secure\",\"confidence\":100,\"instagram\":\"https://instagram.com/casadetaipapb\",\"followers\":198,\"biography\":\"Bar e Restaurante que oferece o melhor da comida típica nordestina. Venha viver essa experiência.\",\"bio_phone\":null,\"bio_whatsapp_url\":null,\"bio_opening_hours_text\":null,\"opening_hours_applied\":false,\"opening_hours\":null,\"observation\":null,\"appliedFields\":[\"instagram\",\"followers_override\",\"social_networks\",\"coleta_logs\"]}}",
+    "is_deleted": false
+  }
+]

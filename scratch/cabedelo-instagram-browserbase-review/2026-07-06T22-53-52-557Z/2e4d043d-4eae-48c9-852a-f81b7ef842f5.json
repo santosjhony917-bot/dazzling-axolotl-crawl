@@ -1,0 +1,51 @@
+{
+  "id": "2e4d043d-4eae-48c9-852a-f81b7ef842f5",
+  "name": "Bom apetite",
+  "category": "Restaurante",
+  "neighborhood": "Cabedelo",
+  "reviews_count": 4,
+  "rating": 3.3,
+  "instagramCandidate": "https://instagram.com/bomapetitejp",
+  "score": 120,
+  "title": "Bom Apetite - Empanadas Argentinas - (@bomapetitejp)",
+  "queries": [
+    "Bom apetite bomapetitejp Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/bomapetitejp | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://www.instagram.com/bomapetitejp/ | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://instagram.com/bomapetitejp",
+  "rowName": "Bom apetite",
+  "status": "hold",
+  "best": {
+    "status": "hold",
+    "score": 64,
+    "url": "https://instagram.com/bomapetitejp",
+    "handle": "bomapetitejp",
+    "tokens": [
+      "bom",
+      "apetite"
+    ],
+    "handleMatches": [
+      "bom",
+      "apetite"
+    ],
+    "textMatches": [
+      "bom",
+      "apetite"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": false,
+    "evidenceSample": "Bom Apetite - Empanadas Argentinas - (@bomapetitejp) https://instagram.com/bomapetitejp | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://www.instagram.com/bomapetitejp/ | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://instagram.com/bomapetitejp Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.ins",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fbomapetitejp%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "8c571f3c-2973-47cb-ac67-c98cd23311f9"
+}

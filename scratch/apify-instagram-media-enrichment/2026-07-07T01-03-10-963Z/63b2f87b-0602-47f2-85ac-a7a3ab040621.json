@@ -1,0 +1,85 @@
+{
+  "id": "63b2f87b-0602-47f2-85ac-a7a3ab040621",
+  "name": "Vanda da coxinha cabedelo PB",
+  "instagram": "https://www.instagram.com/vandada_coxinha_cabedelo/",
+  "followers": 167,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "7642d606-ede4-48d5-be8a-f3075a73d6bc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385791088_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "868c45e7-cb22-474b-9e7c-71e48cd1814b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385792253_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "815d03ea-b2d0-4aff-843e-7ed0228c5e74",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385792855_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "aff79af8-6c84-4fa0-88ac-3af66be73353",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385793681_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "0a1db361-bf35-40bb-8576-e91e10da7520",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385794217_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "7bef4212-fe52-471e-bb87-3c80950dcfa6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385794759_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "98c88928-d1d1-41e6-a6ba-fa84aefc3dc9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385795318_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "009f3167-8726-4f8d-bb5c-7655a7aa66bf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385795850_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

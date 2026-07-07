@@ -1,0 +1,56 @@
+[
+  {
+    "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+    "name": "JuJuba sorvete e açaí",
+    "instagram": "https://instagram.com/sorveteeacaijujuba",
+    "username": "sorveteeacaijujuba",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "8d326630-6c57-4b8f-996f-f2a71d56c9a4",
+    "name": "Pastelaria Arretada",
+    "instagram": "https://instagram.com/pastelaria.arretadapb",
+    "username": "pastelaria.arretadapb",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  },
+  {
+    "id": "a4f66e28-5f08-468c-b552-1c96d59744e2",
+    "name": "BIG BURGUER",
+    "instagram": "https://instagram.com/big.burguer01",
+    "username": "big.burguer01",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  }
+]

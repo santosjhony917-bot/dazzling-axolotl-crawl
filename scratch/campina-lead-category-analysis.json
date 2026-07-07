@@ -1,0 +1,1145 @@
+﻿{
+  "totalActiveCampinaLeads": 2138,
+  "actionCounts": {
+    "manter": 1844,
+    "revisar": 294
+  },
+  "reasonCounts": {
+    "sinal de estabelecimento de comida": 1844,
+    "sem sinal forte de comida": 146,
+    "sem categoria e sem sinal claro de comida no nome": 90,
+    "tem sinal de comida, mas categoria/nome e misto": 44,
+    "categoria de produto/loja/evento pode ou nao ter cardapio": 13,
+    "temporariamente fechado no Google": 1
+  },
+  "categories": [
+    {
+      "category": "Restaurante",
+      "count": 380
+    },
+    {
+      "category": "Lanchonete",
+      "count": 234
+    },
+    {
+      "category": "Bar",
+      "count": 221
+    },
+    {
+      "category": "Pendente validação",
+      "count": 202
+    },
+    {
+      "category": "(sem categoria)",
+      "count": 142
+    },
+    {
+      "category": "(categoria ilegível)",
+      "count": 111
+    },
+    {
+      "category": "Hamburgueria",
+      "count": 94
+    },
+    {
+      "category": "Pizzaria",
+      "count": 79
+    },
+    {
+      "category": "Sorveteria",
+      "count": 79
+    },
+    {
+      "category": "Cafeteria",
+      "count": 46
+    },
+    {
+      "category": "Doceria",
+      "count": 46
+    },
+    {
+      "category": "Pastelaria brasileira",
+      "count": 38
+    },
+    {
+      "category": "Confeitaria",
+      "count": 32
+    },
+    {
+      "category": "Churrascaria",
+      "count": 26
+    },
+    {
+      "category": "Restaurante self-service",
+      "count": 25
+    },
+    {
+      "category": "Bares",
+      "count": 21
+    },
+    {
+      "category": "Delivery de Pizza",
+      "count": 20
+    },
+    {
+      "category": "Loja de açaí",
+      "count": 20
+    },
+    {
+      "category": "Café",
+      "count": 18
+    },
+    {
+      "category": "Restaurante fast-food",
+      "count": 18
+    },
+    {
+      "category": "Delivery",
+      "count": 16
+    },
+    {
+      "category": "Restaurante familiar",
+      "count": 13
+    },
+    {
+      "category": "Restaurante brasileiro",
+      "count": 11
+    },
+    {
+      "category": "Restaurante japonês",
+      "count": 11
+    },
+    {
+      "category": "Hambúrguer",
+      "count": 10
+    },
+    {
+      "category": "Lounge bar",
+      "count": 10
+    },
+    {
+      "category": "Restaurante de comida para viagem",
+      "count": 9
+    },
+    {
+      "category": "Sorvete",
+      "count": 8
+    },
+    {
+      "category": "Bar com música ao vivo",
+      "count": 7
+    },
+    {
+      "category": "Diner",
+      "count": 6
+    },
+    {
+      "category": "Sorveteria especializada em sundaes",
+      "count": 6
+    },
+    {
+      "category": "Bar e Grill",
+      "count": 5
+    },
+    {
+      "category": "Cachorro-quente",
+      "count": 5
+    },
+    {
+      "category": "Creperia",
+      "count": 5
+    },
+    {
+      "category": "Loja",
+      "count": 5
+    },
+    {
+      "category": "Restaurante asiático",
+      "count": 5
+    },
+    {
+      "category": "Restaurante de churrasquinho",
+      "count": 5
+    },
+    {
+      "category": "Restaurante de frango",
+      "count": 5
+    },
+    {
+      "category": "Restaurante de sopas",
+      "count": 5
+    },
+    {
+      "category": "Fabricação de alimentos",
+      "count": 4
+    },
+    {
+      "category": "Loja de chocolates",
+      "count": 4
+    },
+    {
+      "category": "Petiscaria",
+      "count": 4
+    },
+    {
+      "category": "Pizza",
+      "count": 4
+    },
+    {
+      "category": "Restaurante de frutos do mar",
+      "count": 4
+    },
+    {
+      "category": "Restaurante de sushi",
+      "count": 4
+    },
+    {
+      "category": "Sanduicheria",
+      "count": 4
+    },
+    {
+      "category": "Bar de cervejas",
+      "count": 3
+    },
+    {
+      "category": "Delivery de comida chinesa",
+      "count": 3
+    },
+    {
+      "category": "Espresso bar",
+      "count": 3
+    },
+    {
+      "category": "Lan House e Cyber café",
+      "count": 3
+    },
+    {
+      "category": "Loja de cestas de presente",
+      "count": 3
+    },
+    {
+      "category": "Restaurante chinês",
+      "count": 3
+    },
+    {
+      "category": "Atacadista de confeitaria",
+      "count": 2
+    },
+    {
+      "category": "Cervejaria",
+      "count": 2
+    },
+    {
+      "category": "Clube",
+      "count": 2
+    },
+    {
+      "category": "Cozinha solidária",
+      "count": 2
+    },
+    {
+      "category": "Delivery especializado em pratos de frango",
+      "count": 2
+    },
+    {
+      "category": "Escritório da empresa",
+      "count": 2
+    },
+    {
+      "category": "Fornecedor de produtos alimentícios",
+      "count": 2
+    },
+    {
+      "category": "Fornecedor de produtos descartáveis",
+      "count": 2
+    },
+    {
+      "category": "Incluído: café da manhã, Wi-Fi e estacionamento",
+      "count": 2
+    },
+    {
+      "category": "Loja de produtos naturais",
+      "count": 2
+    },
+    {
+      "category": "Pizza para levar",
+      "count": 2
+    },
+    {
+      "category": "Restaurante italiano",
+      "count": 2
+    },
+    {
+      "category": "Restaurante vegetariano",
+      "count": 2
+    },
+    {
+      "category": "Tropeiros pizzaria5,0(1)Delivery de pizza",
+      "count": 2
+    },
+    {
+      "category": "\"A massa Parece das que encontramos no supermercado e quase não tem queijo.\"",
+      "count": 1
+    },
+    {
+      "category": "Advogado",
+      "count": 1
+    },
+    {
+      "category": "Área de camping",
+      "count": 1
+    },
+    {
+      "category": "Área de recreação",
+      "count": 1
+    },
+    {
+      "category": "Artesanato",
+      "count": 1
+    },
+    {
+      "category": "Atração turística",
+      "count": 1
+    },
+    {
+      "category": "Banco de alimentos",
+      "count": 1
+    },
+    {
+      "category": "Bar de apostas",
+      "count": 1
+    },
+    {
+      "category": "Bar de blues",
+      "count": 1
+    },
+    {
+      "category": "Bar e restaurante de ostras",
+      "count": 1
+    },
+    {
+      "category": "Bar informal",
+      "count": 1
+    },
+    {
+      "category": "Bistrô",
+      "count": 1
+    },
+    {
+      "category": "Bom Sabor Pizzaria4,4(399)Delivery de pizza",
+      "count": 1
+    },
+    {
+      "category": "Bubby Dog Gourmet Hot Dog5,0(3)Restaurante",
+      "count": 1
+    },
+    {
+      "category": "Butecu's bar e petiscaria",
+      "count": 1
+    },
+    {
+      "category": "Cama e café",
+      "count": 1
+    },
+    {
+      "category": "Casa de campo",
+      "count": 1
+    },
+    {
+      "category": "Casa de Salgados4,4(59)Lanchonete",
+      "count": 1
+    },
+    {
+      "category": "Centro comunitário",
+      "count": 1
+    },
+    {
+      "category": "Centro de comida de rua",
+      "count": 1
+    },
+    {
+      "category": "Cinema",
+      "count": 1
+    },
+    {
+      "category": "Complexo habitacional",
+      "count": 1
+    },
+    {
+      "category": "Delicatessen",
+      "count": 1
+    },
+    {
+      "category": "Delivery de pizza",
+      "count": 1
+    },
+    {
+      "category": "Dk salgados5,0(3)Lanchonete",
+      "count": 1
+    },
+    {
+      "category": "Esfiharia",
+      "count": 1
+    },
+    {
+      "category": "Estúdio de televisão",
+      "count": 1
+    },
+    {
+      "category": "Fábrica de papel",
+      "count": 1
+    },
+    {
+      "category": "Fabricante",
+      "count": 1
+    },
+    {
+      "category": "Feira Livre",
+      "count": 1
+    },
+    {
+      "category": "Fornecedor de almoços prontos",
+      "count": 1
+    },
+    {
+      "category": "Incluído: estacionamento",
+      "count": 1
+    },
+    {
+      "category": "Loja de alimentos congelados",
+      "count": 1
+    },
+    {
+      "category": "Loja de artigos para festas",
+      "count": 1
+    },
+    {
+      "category": "Loja de bebidas",
+      "count": 1
+    },
+    {
+      "category": "Loja de café",
+      "count": 1
+    },
+    {
+      "category": "Loja de cervejas",
+      "count": 1
+    },
+    {
+      "category": "Loja de ervas",
+      "count": 1
+    },
+    {
+      "category": "Loja de tortas",
+      "count": 1
+    },
+    {
+      "category": "Pet Shop",
+      "count": 1
+    },
+    {
+      "category": "Piscina",
+      "count": 1
+    },
+    {
+      "category": "Praça de alimentação",
+      "count": 1
+    },
+    {
+      "category": "Pub irlandês",
+      "count": 1
+    },
+    {
+      "category": "Restaurante de almoço",
+      "count": 1
+    },
+    {
+      "category": "Restaurante de carne",
+      "count": 1
+    },
+    {
+      "category": "Restaurante de comida natural",
+      "count": 1
+    },
+    {
+      "category": "Restaurante de culinária japonesa com influência ocidental",
+      "count": 1
+    },
+    {
+      "category": "Restaurante especializado em churrasco grego",
+      "count": 1
+    },
+    {
+      "category": "Restaurante especializado em cuscuz",
+      "count": 1
+    },
+    {
+      "category": "Restaurante especializado em sopas",
+      "count": 1
+    },
+    {
+      "category": "Restaurante havaiano",
+      "count": 1
+    },
+    {
+      "category": "Restaurante indiano",
+      "count": 1
+    },
+    {
+      "category": "Restaurante mexicano",
+      "count": 1
+    },
+    {
+      "category": "Restaurante norte-americano",
+      "count": 1
+    },
+    {
+      "category": "Restaurante ou café",
+      "count": 1
+    },
+    {
+      "category": "Restaurante português",
+      "count": 1
+    },
+    {
+      "category": "Restaurantes Izakayas Modernos",
+      "count": 1
+    },
+    {
+      "category": "Salão",
+      "count": 1
+    },
+    {
+      "category": "Serviço de bar",
+      "count": 1
+    },
+    {
+      "category": "Serviço de lavanderia",
+      "count": 1
+    },
+    {
+      "category": "Sinagoga conservadora",
+      "count": 1
+    },
+    {
+      "category": "specialepizzaria.com",
+      "count": 1
+    },
+    {
+      "category": "Supermercado",
+      "count": 1
+    },
+    {
+      "category": "Temporariamente fechado",
+      "count": 1
+    },
+    {
+      "category": "The Black Pizzaria4,9(49)Pizza",
+      "count": 1
+    }
+  ],
+  "suspiciousSamples": {
+    "sem sinal forte de comida": [
+      {
+        "id": "f8fbc863-0651-4d9a-94f2-abf005057c9b",
+        "name": "Magu Delivery",
+        "category": "Delivery",
+        "rating": 5,
+        "reviews_count": 2,
+        "action": "revisar"
+      },
+      {
+        "id": "d7d034f7-924b-49e7-b8ff-c88f93041f41",
+        "name": "Adocei",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "52e4f7dc-a4b3-4c03-b71b-ad4737294ff5",
+        "name": "Na'vi Rooftop",
+        "category": "Pendente validação",
+        "rating": 4.6,
+        "reviews_count": 316,
+        "action": "revisar"
+      },
+      {
+        "id": "71e026d3-a6e0-4507-bf90-7ff752cb57f9",
+        "name": "Sapore D'Italia",
+        "category": "Pendente validação",
+        "rating": 4.5,
+        "reviews_count": 2654,
+        "action": "revisar"
+      },
+      {
+        "id": "b2352198-92e4-49cf-97e4-c01ad5532b6e",
+        "name": "Lo Straniero Pizzeria e ristoranti.",
+        "category": "Pendente validação",
+        "rating": 4.6,
+        "reviews_count": 414,
+        "action": "revisar"
+      },
+      {
+        "id": "addab3f0-8199-4298-93b4-a715bd739bce",
+        "name": "La Migliore - O melhor rodízio de Campina Grande",
+        "category": "Pendente validação",
+        "rating": 4.3,
+        "reviews_count": 425,
+        "action": "revisar"
+      },
+      {
+        "id": "cf798796-ea2e-48f0-b948-59a0c727ffdc",
+        "name": "Malvinas",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "37a86011-a5d5-4b64-a95b-4b9047eeec9c",
+        "name": "Jaba pizzas e massas",
+        "category": "Delivery",
+        "rating": 5,
+        "reviews_count": 13,
+        "action": "revisar"
+      },
+      {
+        "id": "726cd0ec-c611-4a81-930c-e14e27a4d618",
+        "name": "Melk lanches",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "da7496f3-50f8-4bdb-8c9f-e146ea91eb91",
+        "name": "Terraço da Liberdade (Panquecaria da Liberdade)",
+        "category": "Pendente validação",
+        "rating": 4.4,
+        "reviews_count": 1146,
+        "action": "revisar"
+      },
+      {
+        "id": "5ae9cbfe-fdf0-4dfe-a666-8fae16168927",
+        "name": "Sertões Burguer",
+        "category": "Pendente validação",
+        "rating": 4.9,
+        "reviews_count": 35,
+        "action": "revisar"
+      },
+      {
+        "id": "0fefbf95-c184-48bc-8893-bcb158976cb0",
+        "name": "Pasteky",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "bdae6733-d3dc-47c3-ae41-bd49417fb271",
+        "name": "Container",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "fef00c37-4d74-46d0-ab92-5d9fda589f1c",
+        "name": "KPOINT",
+        "category": "Cachorro-quente",
+        "rating": 4.9,
+        "reviews_count": 9,
+        "action": "revisar"
+      },
+      {
+        "id": "d1765c1c-6c22-43d5-8a01-e4bcb3fabc53",
+        "name": "Império Açaíteria",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "e0e78920-71c7-4224-9b1e-4891861113b8",
+        "name": "Kero Mais Rações e Variedades",
+        "category": "Pet Shop",
+        "rating": 4.8,
+        "reviews_count": 94,
+        "action": "revisar"
+      },
+      {
+        "id": "6be769ff-4903-4c7c-9957-a5255782b876",
+        "name": "Jardins Club",
+        "category": "Clube",
+        "rating": 4.3,
+        "reviews_count": 101,
+        "action": "revisar"
+      },
+      {
+        "id": "b1c99adc-be94-4882-8416-c88a2b123916",
+        "name": "Xodó Lanches",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "b938bcbc-ea99-4694-bba0-15e36839c948",
+        "name": "Cineteatro São José PB",
+        "category": "Cinema",
+        "rating": 4.4,
+        "reviews_count": 282,
+        "action": "revisar"
+      },
+      {
+        "id": "eec6fc5b-4f49-4e45-a3de-089f06f2222b",
+        "name": "Caldinhodabia",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      }
+    ],
+    "sem categoria e sem sinal claro de comida no nome": [
+      {
+        "id": "db181c5d-ced0-49c3-be41-34e76677382f",
+        "name": "City Lanches",
+        "category": "(categoria ilegível)",
+        "rating": 4.4,
+        "reviews_count": 1091,
+        "action": "revisar"
+      },
+      {
+        "id": "38b60353-c78f-4bf9-883b-017f2ad02cc4",
+        "name": "Dream's Burguer",
+        "category": "(categoria ilegível)",
+        "rating": 3.8,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "62d2584d-280e-4a83-b9fd-560b30035eb8",
+        "name": "Ceceu food Truck",
+        "category": "(categoria ilegível)",
+        "rating": 4.4,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "6776121f-b3a0-4874-ae07-ed4c3933a759",
+        "name": "Lojas Palheta",
+        "category": "(categoria ilegível)",
+        "rating": 4.3,
+        "reviews_count": 1321,
+        "action": "revisar"
+      },
+      {
+        "id": "c4c4e077-9c65-478d-b70c-a93901b749f3",
+        "name": "Zeus Empório",
+        "category": "(categoria ilegível)",
+        "rating": 4.2,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "b3e23586-cefc-4608-9f46-0872c8b47fdf",
+        "name": "Sr Feijão",
+        "category": "(categoria ilegível)",
+        "rating": 4.6,
+        "reviews_count": 1368,
+        "action": "revisar"
+      },
+      {
+        "id": "d20af724-ccb7-4388-b49f-08346f4c876c",
+        "name": "Assaí Atacadista Liberdade",
+        "category": "(categoria ilegível)",
+        "rating": 4.4,
+        "reviews_count": 1505,
+        "action": "revisar"
+      },
+      {
+        "id": "70f10deb-5b92-419a-9c88-28c2728cb855",
+        "name": "Pastelaria Anchieta - Malvinas",
+        "category": "(categoria ilegível)",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "4f0b9eee-b479-4e9a-b411-e19b29cf932b",
+        "name": "Tatanka Burguer",
+        "category": "(sem categoria)",
+        "rating": 5,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "291608bd-8da0-4a17-a7e4-5afdcd50be50",
+        "name": "D'licias lanches",
+        "category": "(sem categoria)",
+        "rating": 5,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "9e85f434-d829-4657-adcd-42fb904bfd2c",
+        "name": "Pratô",
+        "category": "(sem categoria)",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "fadd7555-f127-4039-b152-f35ecb1dda5f",
+        "name": "Master fogão",
+        "category": "(sem categoria)",
+        "rating": 4.2,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "034fc935-e52a-4381-85f6-e3d1617127f6",
+        "name": "Barzim no quintal",
+        "category": "(categoria ilegível)",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "ff6d6255-41c4-4597-8753-6a7764dc6baf",
+        "name": "Barteco petiscaria",
+        "category": "(categoria ilegível)",
+        "rating": 4.6,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "a690f315-61c8-4c42-95ab-0043dcab5848",
+        "name": "Nf_lanches",
+        "category": "(categoria ilegível)",
+        "rating": 5,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "cccbd3ee-854c-45a8-b5ff-954e57ae2a01",
+        "name": "Caldão Borborema",
+        "category": "(sem categoria)",
+        "rating": 5,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "62ced8c5-9e0f-4468-ab60-dab41d48f001",
+        "name": "Elanstel",
+        "category": "(sem categoria)",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "46a6823c-d936-4315-af3c-d750d1ecce0a",
+        "name": "Pimenta secrets",
+        "category": "(sem categoria)",
+        "rating": 4.8,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "cf55a548-f369-4918-8f9e-d48e00b97bbf",
+        "name": "Amigos da sexta",
+        "category": "(sem categoria)",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "39484a8b-bdd8-4e95-b04a-625992c76ed8",
+        "name": "Divino Almoço",
+        "category": "(categoria ilegível)",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      }
+    ],
+    "tem sinal de comida, mas categoria/nome e misto": [
+      {
+        "id": "48cf0b8e-a8e9-4a80-a075-5c02ff09723b",
+        "name": "RV Açaíteria - O melhor açaí de Campina Grande",
+        "category": "Loja de alimentos congelados",
+        "rating": 5,
+        "reviews_count": 3,
+        "action": "revisar"
+      },
+      {
+        "id": "a4510c36-59a0-47ec-b3fd-e5358934eae5",
+        "name": "Açaí Mania Distribuidora CG",
+        "category": "Loja de açaí",
+        "rating": 5,
+        "reviews_count": 1,
+        "action": "revisar"
+      },
+      {
+        "id": "dfbe0e07-bd3f-4e8f-9ff1-ec412619330e",
+        "name": "Bebelu Sanduíches Partage Shopping Campina Grande/PB",
+        "category": "Lanchonete",
+        "rating": 4.2,
+        "reviews_count": 48,
+        "action": "revisar"
+      },
+      {
+        "id": "3000da6f-8241-4820-af5e-865a9c575920",
+        "name": "Mr'selaht Açaíteria",
+        "category": "Loja de açaí",
+        "rating": 4.9,
+        "reviews_count": 61,
+        "action": "revisar"
+      },
+      {
+        "id": "47ee352f-19cb-4f36-aba7-674417ee0991",
+        "name": "Bob's Shakes - Shopping Boulevard",
+        "category": "Restaurante fast-food",
+        "rating": 4.9,
+        "reviews_count": 8,
+        "action": "revisar"
+      },
+      {
+        "id": "cf8ec3d9-b384-49fe-b8b2-a2a537c9a02d",
+        "name": "Bob's Burger - Shopping Partage Campina Grande",
+        "category": "Restaurante fast-food",
+        "rating": 4.3,
+        "reviews_count": 143,
+        "action": "revisar"
+      },
+      {
+        "id": "a22af5f5-23c1-4720-9c47-016632d0cc58",
+        "name": "Great Açai",
+        "category": "Loja de açaí",
+        "rating": 4,
+        "reviews_count": 1,
+        "action": "revisar"
+      },
+      {
+        "id": "9344775e-f4b1-4213-ac7a-ad31e1293332",
+        "name": "Realeza Salgados",
+        "category": "Loja",
+        "rating": 4.6,
+        "reviews_count": 11,
+        "action": "revisar"
+      },
+      {
+        "id": "5caeeec9-ab84-40bc-8b20-f454db26f13f",
+        "name": "Stars Açaí Concept",
+        "category": "Loja de açaí",
+        "rating": 4.9,
+        "reviews_count": 24,
+        "action": "revisar"
+      },
+      {
+        "id": "2fbcd76a-61cd-495f-a99e-4e7fca8667a5",
+        "name": "Wonder açaí",
+        "category": "Loja de açaí",
+        "rating": 5,
+        "reviews_count": 1,
+        "action": "revisar"
+      },
+      {
+        "id": "cc412374-a773-43a0-ac72-37be519151d5",
+        "name": "LF Variedades & Açaíteria",
+        "category": "Loja de açaí",
+        "rating": 4.9,
+        "reviews_count": 25,
+        "action": "revisar"
+      },
+      {
+        "id": "375b675b-7f24-41ab-a481-a766c86a7be5",
+        "name": "Rua Francisco",
+        "category": "Delivery de pizza",
+        "rating": 5,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "e07a333e-5d09-4770-9b55-4ef558951270",
+        "name": "Açaíteria e Sorveteria Power",
+        "category": "Loja de açaí",
+        "rating": 5,
+        "reviews_count": 2,
+        "action": "revisar"
+      },
+      {
+        "id": "db9ed618-de29-4676-8ed7-88bb36c3dd62",
+        "name": "Posto Sudoeste",
+        "category": "Incluído: café da manhã, Wi-Fi e estacionamento",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "2782bd81-bd05-4c43-b615-b9c9fda17b5a",
+        "name": "Bar Do Robertinho",
+        "category": "Loja",
+        "rating": 4.5,
+        "reviews_count": 25,
+        "action": "revisar"
+      },
+      {
+        "id": "59784a37-322e-41d3-8b8c-4a0e3a861c96",
+        "name": "Saboreie Açaí",
+        "category": "Loja de açaí",
+        "rating": 5,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "68a7c89b-2f5e-45d7-8a47-05a5d08fab8f",
+        "name": "Paraiso do Açai - Sorveteria e Açaiteria",
+        "category": "Loja de açaí",
+        "rating": 5,
+        "reviews_count": 22,
+        "action": "revisar"
+      },
+      {
+        "id": "cd44d884-6455-4e9f-8dd3-e6cb5ab0c429",
+        "name": "Jonnes Café",
+        "category": "Loja de café",
+        "rating": 5,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "48e8cf0e-1590-4b91-9790-39be865a1934",
+        "name": "AçaíShake - Power Fruit",
+        "category": "Loja de açaí",
+        "rating": 5,
+        "reviews_count": 3,
+        "action": "revisar"
+      },
+      {
+        "id": "c3f3a9d4-9f70-4d88-9c52-f07c22b3c0b1",
+        "name": "Cafeteria Atacadão",
+        "category": "Pendente validação",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      }
+    ],
+    "categoria de produto/loja/evento pode ou nao ter cardapio": [
+      {
+        "id": "d6d8abb8-2965-42e9-9788-8f562c9759ac",
+        "name": "Saitó Delivery",
+        "category": "Loja de bebidas",
+        "rating": 4.4,
+        "reviews_count": 19,
+        "action": "revisar"
+      },
+      {
+        "id": "6b9b44ce-9d06-4ec3-b683-3561d92029e6",
+        "name": "Empório do Alemão",
+        "category": "Loja de produtos naturais",
+        "rating": 4.6,
+        "reviews_count": 61,
+        "action": "revisar"
+      },
+      {
+        "id": "769f1d16-14a9-4c24-a913-e12713104b7c",
+        "name": "Frigotil Bodocongó",
+        "category": "Loja",
+        "rating": 4.2,
+        "reviews_count": 21,
+        "action": "revisar"
+      },
+      {
+        "id": "66490898-0270-4ba0-a902-bfc443f4771b",
+        "name": "Cacau Show -Chocolates",
+        "category": "Loja de chocolates",
+        "rating": 5,
+        "reviews_count": 41,
+        "action": "revisar"
+      },
+      {
+        "id": "68770e3d-01e7-4d13-811b-412d3452ef20",
+        "name": "Casa Gramado",
+        "category": "Loja de chocolates",
+        "rating": 4.7,
+        "reviews_count": 77,
+        "action": "revisar"
+      },
+      {
+        "id": "8b9119b0-4628-41df-8241-75c39a9e12cf",
+        "name": "A Fazendinha",
+        "category": "Loja de cestas de presente",
+        "rating": 4.4,
+        "reviews_count": 39,
+        "action": "revisar"
+      },
+      {
+        "id": "1c0a5388-97c9-4895-ae1f-c43646af309b",
+        "name": "Cestas Mazul",
+        "category": "Loja de cestas de presente",
+        "rating": 4.7,
+        "reviews_count": 3,
+        "action": "revisar"
+      },
+      {
+        "id": "7707835e-8845-4cdf-9d83-7afeab371859",
+        "name": "Cacau Show - Chocolates",
+        "category": "Loja de chocolates",
+        "rating": 5,
+        "reviews_count": 5,
+        "action": "revisar"
+      },
+      {
+        "id": "54c76203-ff50-49e0-a1ff-4483d98f87b3",
+        "name": "Arca Titão - Banca das Ervas Medicinais",
+        "category": "Loja de ervas",
+        "rating": 4.9,
+        "reviews_count": 11,
+        "action": "revisar"
+      },
+      {
+        "id": "2b593c1f-f23d-4792-bec9-927b0f909416",
+        "name": "Empório do Brasil",
+        "category": "Loja de produtos naturais",
+        "rating": 4.8,
+        "reviews_count": 73,
+        "action": "revisar"
+      },
+      {
+        "id": "60b82894-8b9d-44af-8808-6ed22ec34f79",
+        "name": "Senhora Cestas Finas",
+        "category": "Loja de cestas de presente",
+        "rating": null,
+        "reviews_count": null,
+        "action": "revisar"
+      },
+      {
+        "id": "3f6f8b7f-887c-4fba-8275-84fc314ee792",
+        "name": "Lugano Gramado Campina Grande",
+        "category": "Loja de chocolates",
+        "rating": 4.7,
+        "reviews_count": 57,
+        "action": "revisar"
+      },
+      {
+        "id": "49b9168a-7c95-4df1-bf73-fef7bf67e9c2",
+        "name": "Dé Criativa",
+        "category": "Loja de artigos para festas",
+        "rating": 4.5,
+        "reviews_count": 111,
+        "action": "revisar"
+      }
+    ],
+    "temporariamente fechado no Google": [
+      {
+        "id": "e6d0c58e-6bbb-4a02-a4e9-f0b5af05a894",
+        "name": "ACAI",
+        "category": "Temporariamente fechado",
+        "rating": 4.4,
+        "reviews_count": 7,
+        "action": "revisar"
+      }
+    ]
+  }
+}

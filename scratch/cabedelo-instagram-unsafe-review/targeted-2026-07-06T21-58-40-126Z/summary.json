@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-07-06T21:58:55.125Z",
+  "dryRun": true,
+  "city": "Cabedelo",
+  "state": "PB",
+  "reviewFile": "scratch\\cabedelo-instagram-unsafe-review\\2026-07-06T21-34-26-304Z\\review-queue.json",
+  "previousRefined": "scratch\\cabedelo-instagram-targeted-refine\\2026-07-06T21-52-21-442Z\\refined.json",
+  "totalUnsafeOriginal": 126,
+  "remainingWithoutInstagramReviewed": 10,
+  "apiCalls": 2,
+  "counts": {
+    "reject": 1,
+    "approve": 3,
+    "hold": 6
+  },
+  "approved": [
+    {
+      "id": "cec28f47-fb35-4c1b-af88-4af762996479",
+      "name": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+      "instagram": "https://instagram.com/thecheeseburguerfactory",
+      "score": 178,
+      "title": "The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory)",
+      "evidence": "https://instagram.com/thecheeseburguerfactory | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Foll"
+    },
+    {
+      "id": "dfb456d7-1841-474d-bb54-fd442af3e295",
+      "name": "Burguer Hall",
+      "instagram": "https://instagram.com/burguerhall",
+      "score": 166,
+      "title": "Burguer Hall - Bessa📍 (@burguerhall)",
+      "evidence": "https://instagram.com/burguerhall | Burguer Hall - Bessa📍 (@burguerhall) Burguer Hall - Bessa📍 (@burguerhall) | | Hamburgueria Clássica e Artesanal | | Hamburgueria Delivery | ⏰️ | ter. a Dom. | Das 18:00 às 23:00 | | Cardápio via direct · Duplo Chedda # ... https://www.instagr"
+    },
+    {
+      "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+      "name": "JuJuba sorvete e açaí",
+      "instagram": "https://instagram.com/sorveteeacaijujuba",
+      "score": 160,
+      "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+      "evidence": "https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://w"
+    }
+  ],
+  "applied": [],
+  "failures": [],
+  "outDir": "scratch\\cabedelo-instagram-unsafe-review\\targeted-2026-07-06T21-58-40-126Z"
+}

@@ -1,0 +1,108 @@
+{
+  "mode": "apply",
+  "generatedAt": "2026-07-06T03:02:47.409Z",
+  "runId": "2026-07-06T03-01-39-104Z",
+  "limit": null,
+  "offset": 0,
+  "redo": true,
+  "redoNotFoundBefore": null,
+  "searchCandidateLimit": 6,
+  "profileCandidateLimit": 6,
+  "targetCount": 1,
+  "processed": 1,
+  "counts": {
+    "found": 1,
+    "not_found": 0,
+    "blocked": 0,
+    "error": 0
+  },
+  "outputDir": "scratch\\campina-instagram-search\\2026-07-06T03-01-39-104Z",
+  "checkpointFile": "scratch\\campina-instagram-search\\2026-07-06T03-01-39-104Z\\results.jsonl",
+  "rows": [
+    {
+      "index": 1,
+      "total": 1,
+      "id": "26e7dde6-2a3b-4b5c-b93a-0be1b9fc6e2d",
+      "name": "Rei dos Salagdos loja 3",
+      "category": "Pendente validação",
+      "status": "found",
+      "selectedUrl": "https://www.instagram.com/reidossalgados_campinagrande/",
+      "confidence": 0.99,
+      "reason": "Perfil confirmado por Google+Instagram: sinal de Campina Grande/CG; telefone confere; endereco confere (praca, bandeira, 62)",
+      "candidates": [
+        {
+          "url": "https://www.instagram.com/reidossalgados_campinagrande/",
+          "googleScore": 58,
+          "profileScore": 211,
+          "accepted": true,
+          "addressSignal": true,
+          "evidenceMatchedTokens": 1,
+          "tokenCount": 2,
+          "exactNameInEvidence": false,
+          "exactNameInHandle": false,
+          "rejectReason": null
+        },
+        {
+          "url": "https://www.instagram.com/reidossalgadosmcz/",
+          "googleScore": 36,
+          "profileScore": -414,
+          "accepted": false,
+          "addressSignal": false,
+          "evidenceMatchedTokens": 1,
+          "tokenCount": 2,
+          "exactNameInEvidence": false,
+          "exactNameInHandle": false,
+          "rejectReason": "endereco do perfil diverge do Maps sem telefone correspondente: R. Antônio Ferreira Barbosa, 103, Ponta Grossa, Maceió, AL | r. antonio ferreira barbosa 103 ponta grossa maceio al 5582996321499 82 996321499"
+        },
+        {
+          "url": "https://www.instagram.com/reidosalgado.oficial/",
+          "googleScore": 28,
+          "profileScore": -56,
+          "accepted": false,
+          "addressSignal": false,
+          "evidenceMatchedTokens": 1,
+          "tokenCount": 2,
+          "exactNameInEvidence": false,
+          "exactNameInHandle": false,
+          "rejectReason": "perfil indica negocio nao-food sem telefone correspondente"
+        },
+        {
+          "url": "https://www.instagram.com/rei_dosalgadosof/",
+          "googleScore": 28,
+          "profileScore": -304,
+          "accepted": false,
+          "addressSignal": false,
+          "evidenceMatchedTokens": 1,
+          "tokenCount": 2,
+          "exactNameInEvidence": false,
+          "exactNameInHandle": false,
+          "rejectReason": "ddd conflitante sem sinal de Campina/telefone: 71"
+        },
+        {
+          "url": "https://www.instagram.com/reidossalgados.rj/",
+          "googleScore": -92,
+          "profileScore": -176,
+          "accepted": false,
+          "addressSignal": false,
+          "evidenceMatchedTokens": 1,
+          "tokenCount": 2,
+          "exactNameInEvidence": false,
+          "exactNameInHandle": false,
+          "rejectReason": "perfil indica negocio nao-food sem telefone correspondente"
+        },
+        {
+          "url": "https://www.instagram.com/reidamassa_joaopessoa/",
+          "googleScore": -92,
+          "profileScore": -176,
+          "accepted": false,
+          "addressSignal": false,
+          "evidenceMatchedTokens": 1,
+          "tokenCount": 2,
+          "exactNameInEvidence": false,
+          "exactNameInHandle": false,
+          "rejectReason": "endereco do perfil diverge do Maps sem telefone correspondente: rua santo elias 306 venha nos conhecer e saborear o salgado mais delicioso da paraiba . reidam"
+        }
+      ]
+    }
+  ]
+}

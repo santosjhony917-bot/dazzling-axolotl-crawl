@@ -1,0 +1,91 @@
+{
+  "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+  "name": "Primo Rico",
+  "instagram": "https://www.instagram.com/primoricopb/",
+  "followers": 12887,
+  "match": {
+    "score": 150,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://delivery.yooga.app/restaurante-primo-rico"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "d8f07459-6d4a-4293-b80d-195f4e33beab",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/1653a7ff-cb75-4303-b780-0580642c5974/instagram_1783384465509_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "cd08fce6-6a9a-45f7-95ba-f4104c7ebbca",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/1653a7ff-cb75-4303-b780-0580642c5974/instagram_1783384466972_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "383c6787-69b9-4f87-bb19-aacecd7399cd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/1653a7ff-cb75-4303-b780-0580642c5974/instagram_1783384467872_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "94fe74e2-820c-4da1-ab3d-28e1c0a379ab",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/1653a7ff-cb75-4303-b780-0580642c5974/instagram_1783384469235_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "6990a093-6804-4138-9727-352b64bc8ab0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/1653a7ff-cb75-4303-b780-0580642c5974/instagram_1783384469970_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "d69f4cbe-528b-46b0-9cd1-6a1536729671",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/1653a7ff-cb75-4303-b780-0580642c5974/instagram_1783384470954_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "f865010b-fd3a-44e4-85a0-7a7e1d771682",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/1653a7ff-cb75-4303-b780-0580642c5974/instagram_1783384471654_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "7e5909a4-f963-4f42-95f3-585c66215a26",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/1653a7ff-cb75-4303-b780-0580642c5974/instagram_1783384472898_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

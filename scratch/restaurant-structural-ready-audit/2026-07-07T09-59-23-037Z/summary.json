@@ -1,0 +1,72 @@
+{
+  "runId": "2026-07-07T09-59-23-037Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T09-59-23-037Z",
+  "scope": {
+    "ids": [
+      "297a6b03-242d-4d91-9f64-73e736972946"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 5,
+      "itemCount": 35,
+      "optionCount": 42,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "35 itens estruturados via brendi_nuxt_payload; mídia mínima completa.",
+      "source": {
+        "menu": "https://menu.brendi.com.br/oxiburguercabedelo/",
+        "instagram": "https://www.instagram.com/oxicabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:03.063Z",
+          "status": "enriched",
+          "username": "oxicabedelo",
+          "followers": 887,
+          "match": {
+            "score": 145,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://menu.brendi.com.br/oxiburguercabedelo/",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Maria das Neves Silva",
+        "number": "324",
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58101-660",
+        "phone": "(83) 98793-1915",
+        "latitude": -7.0283906,
+        "longitude": -34.835923699999995,
+        "followers": 887
+      },
+      "issues": []
+    }
+  ]
+}

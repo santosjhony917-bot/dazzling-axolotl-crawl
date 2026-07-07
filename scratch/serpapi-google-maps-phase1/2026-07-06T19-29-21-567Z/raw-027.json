@@ -1,0 +1,2163 @@
+{
+  "search": {
+    "query": "hamburgueria Cabedelo PB",
+    "term": "hamburgueria",
+    "area": "Poco",
+    "lat": -7.0205,
+    "lng": -34.8426,
+    "ll": "@-7.0205,-34.8426,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c0232b7942fb0a9f91c93",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/6J0rLBsB0Baw9xgEiDLhfA/6a4c0232b7942fb0a9f91c93.json",
+    "created_at": "2026-07-06 19:29:54 UTC",
+    "processed_at": "2026-07-06 19:29:54 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/hamburgueria+Cabedelo+PB/@-7.0205,-34.8426,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/6J0rLBsB0Baw9xgEiDLhfA/6a4c0232b7942fb0a9f91c93.html",
+    "prettify_html_file": "https://serpapi.com/searches/6J0rLBsB0Baw9xgEiDLhfA/6a4c0232b7942fb0a9f91c93.prettify",
+    "total_time_taken": 1.97
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "hamburgueria Cabedelo PB",
+    "ll": "@-7.0205,-34.8426,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "Oxi Burguer Cabedelo",
+      "place_id": "ChIJ-3vOhY7frAcRyc0HXHjB-zo",
+      "data_id": "0x7acdf8e85ce7bfb:0x3afbc1785c07cdc9",
+      "data_cid": "4250203396038446537",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf8e85ce7bfb%3A0x3afbc1785c07cdc9&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf8e85ce7bfb%3A0x3afbc1785c07cdc9&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0283906,
+        "longitude": -34.835923699999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ-3vOhY7frAcRyc0HXHjB-zo",
+      "provider_id": "/g/11z5r7p710",
+      "rating": 5,
+      "reviews": 31,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "R. Maria das Neves Silva - Ponta de Campina, Cabedelo - PB, 58101-660",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–23:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "18:00–23:00",
+        "quinta-feira": "18:00–23:00",
+        "sexta-feira": "18:00–23:00",
+        "sábado": "18:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "phone": "(83) 98793-1915",
+      "website": "https://pedido.brendi.com.br/oxiburguercabedelo",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Serviços no local",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Atendimento no balcão",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Tanto a batata como os hambúrgueres estavam deliciosos.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGfWdkRfx_SvJD-E8-c0dsMCRIzaS8mrA6nJGkCT6eeBEv8zOWfrzMAGfNKHiKTaOKbFh-vq-T6p46gYto5SpV7DzoAajsasNVPCLrYF-w06KyuIsnlkAZWwo9vut-Pm-F-hp7__BsrdB4F=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/RlgzDnicHcvLUoMwFADQL7oljjVFZ1wEWmqLpViYMnXDYHhEgSTmBrD8pGv_RsfN2Z2fb2GtxgfH6cTtolGq6aoBK8OVtJW0C656p9EIHAEdFkcvLdvWWdme6q88Gfdr2LjASYkH_7Sbi8TtDaNyv239lFaVtxnd-ZjVZj78rSh8eg_T4hi-BQLGT0ipXtLmYtVdos-r9axY8YEFRufYfzaXACZCw-uwQ9m17DWb1P04WIh7CEDoVZ57aEpvGTxON4QQEP9ykL-OWUdV"
+    },
+    {
+      "position": 2,
+      "title": "Big Jack comida de rua com INSPIRAÇÃO texana",
+      "place_id": "ChIJCTY1v6rfrAcRD3ZYZu4I32E",
+      "data_id": "0x7acdfaabf353609:0x61df08ee6658760f",
+      "data_cid": "7052365361497798159",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfaabf353609%3A0x61df08ee6658760f&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfaabf353609%3A0x61df08ee6658760f&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0454330999999994,
+        "longitude": -34.8419735
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJCTY1v6rfrAcRD3ZYZu4I32E",
+      "provider_id": "/g/11llvtk6v3",
+      "rating": 4.8,
+      "reviews": 353,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Av. Mar Vermelho, QUADRA 12 - LOTE 01 - Intermares, Cabedelo - PB, 58102-120",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:00",
+      "hours": "Fechado · Abre ter. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:00–22:00",
+        "quarta-feira": "18:00–22:00",
+        "quinta-feira": "18:00–22:00",
+        "sexta-feira": "18:00–22:00",
+        "sábado": "18:00–22:00",
+        "domingo": "18:00–22:00"
+      },
+      "phone": "(83) 99317-7080",
+      "website": "http://www.bigjackcomidatexana.com.br/",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Lugar para sentar"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Delicioso hamburguer texano com batata frita com brisket!!!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFHvCwm5d_mwlag8IbzQfXnfM0K3JX4uwBznbhoXuQsXFCW6ZWc2VkXeV07KaVLkuNL6el3OjaB4B4B6oufd1aP_8ckyM1pp03-sIP-KqMQs-MziTKK2wblpQFavOEVv4FFONUD=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/JhWPJ3icHcRdboMgAADgE1GxOtc06UPbjcxRf0hWS_bSIKJuIrAhknrBnWG36bJ8yff700-TsdsgkH206rTupHBWfHOtJqGmFddj0BkLuAU22Jc5GfboZT768aG5jl6ybpPWC2mpajOIo1caO39YVN1r6oil6HhJ3i98XQ1UVPARs-o0uPyUCBkVn-wQ_0m0a5uQldcNH25ZaAyMgE1LgL8yYkG2fLxhvPa1NASxuXiu5hihIj8_7XwIIQT9_xyoO3_lRFE"
+    },
+    {
+      "position": 3,
+      "title": "A Ferro Y Fogo Churrasco & Burger Artesanal na Brasa",
+      "place_id": "ChIJNWudC1nfrAcRZp_VOIvsXTQ",
+      "data_id": "0x7acdf590b9d6b35:0x345dec8b38d59f66",
+      "data_cid": "3773432145504477030",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf590b9d6b35%3A0x345dec8b38d59f66&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf590b9d6b35%3A0x345dec8b38d59f66&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.032432999999999,
+        "longitude": -34.835043899999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJNWudC1nfrAcRZp_VOIvsXTQ",
+      "provider_id": "/g/11whb7xnvk",
+      "rating": 3.9,
+      "reviews": 39,
+      "price": "R$ 40–60",
+      "extracted_price": 40,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Av. Oceano Atlântico, 1592 - Shopping GetMall - Ponta de Campina, Cabedelo - PB, 58101-650",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 23:00",
+      "hours": "Aberto · Fecha 23:00",
+      "operating_hours": {
+        "segunda-feira": "10:30–23:00",
+        "terça-feira": "10:30–23:00",
+        "quarta-feira": "10:30–23:00",
+        "quinta-feira": "10:30–23:00",
+        "sexta-feira": "10:30–23:30",
+        "sábado": "10:30–23:30",
+        "domingo": "10:30–23:00"
+      },
+      "phone": "(83) 99384-7900",
+      "website": "https://www.ifood.com.br/delivery/cabedelo-pb/a-ferro-y-fogo-almoco-churrasco--burger-artesanal-ponta-de-campina/7c6e27b5-66ee-4af6-8ed1-e9c4acdae284?utm_medium=share",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida",
+            "Cães podem ficar na área externa",
+            "Permite a entrada de cães"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Odoro comer hambúrguer mais quando o barbudo tá mais nota 10 pra vocês\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFqGD3SRrChEWrvJAvrhvF96YXbGhmksYmCgo0VNJ1yWUiZRXTbwMYKC1U4V3u1BIQcRObdIdld3sY8iT0PsnJZl84I_HaDbLel7D7gaFUllM9R8eWjiI-yr9Nd5vQZp4AGlaKK=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/1MkEMXicHcThEkIwAADgJ1rmqOiuHyJCKUriT8fsNjWmTbqesGfobbrr-_F9P3QYerlQFEa1CeGcMPyUWCDeDbgbJoi3CuklQBJIxTpE8d1yH56jHRNh03UmxsAaBR1dc5ZfKo-2d5m3NuHwHAXqO0ubIrmcqtcuD2011c_aU135MUr2Ve3XrNZkbjQneJBdUDBD96-b0qm2mM2dOSndlLGdmRg4uzU-eAszqqdjXPS65bEyDJcvFUII6H8Euh9HE0P_"
+    },
+    {
+      "position": 4,
+      "title": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+      "place_id": "ChIJ17zIKW_drAcRpW44MoCAPKM",
+      "data_id": "0x7acdd6f29c8bcd7:0xa33c808032386ea5",
+      "data_cid": "11762417614871621285",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd6f29c8bcd7%3A0xa33c808032386ea5&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd6f29c8bcd7%3A0xa33c808032386ea5&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.032432999999999,
+        "longitude": -34.835043899999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ17zIKW_drAcRpW44MoCAPKM",
+      "provider_id": "/g/11sybq2v86",
+      "rating": 4.1,
+      "reviews": 13,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Oceano Atlântico, 1592 - Sl A15 - Ponta de Campina, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 17:00",
+      "hours": "Fechado · Abre às 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:00",
+        "terça-feira": "17:00–23:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "17:00–23:00",
+        "sexta-feira": "17:00–23:00",
+        "sábado": "11:30–15:00, 17:00–23:00",
+        "domingo": "11:30–15:00, 17:00–23:00"
+      },
+      "website": "https://www.instagram.com/tcfbrasil/?hl=en",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Jantar",
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento coberto gratuito",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Lugar aconchegante, burgers de excelência e atendimento 10\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFyVz42Gskrl2KFBKvA4yKJNk6rdiL8VDtDe_fZ24GWfLeHf4pesRIhSFg7KCZr8nt68kFRXm_yWovfb9HSNRyrEGTI3BaYfw8FdsbAx4_VrcloamN870czp3C5GBA0W0I_WYdw_g=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/hNy-G3icHcRdboIwAADgEyEVOq1LfChqETFEcYHpS6OlLYafkrbC4IYeYbdZsu_h-32X1nbm03Xr0p9JpWTNX4ZrplrLWztjqnFlZxxmHOPiU3KuMBmzCXqhqXTtxSSIewzH-JBUC108jyjb2i2n4ubBMBdHvhew4yaNyguRy3hz06i1C1SR9LuhY6568VjtL0k66l34FfnB_SoGRArzwD-QZprV6t4kaAnY1PmbjzDAIAcRza_FQOV6mAMAnPJ_5rR_1rlE_A"
+    },
+    {
+      "position": 5,
+      "title": "GETMall",
+      "place_id": "ChIJX7HMo6rdrAcRCeFWODir8Rw",
+      "data_id": "0x7acddaaa3ccb15f:0x1cf1ab383856e109",
+      "data_cid": "2085636360400986377",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acddaaa3ccb15f%3A0x1cf1ab383856e109&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acddaaa3ccb15f%3A0x1cf1ab383856e109&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.032432999999999,
+        "longitude": -34.835043899999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJX7HMo6rdrAcRCeFWODir8Rw",
+      "provider_id": "/g/11rhw2g7k5",
+      "rating": 4.3,
+      "reviews": 103,
+      "price": "R$ 20–80",
+      "extracted_price": 20,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria",
+        "Padaria",
+        "Parque",
+        "Praça de alimentação",
+        "Mercado",
+        "Pet Shop"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant",
+        "bakery",
+        "fairground",
+        "food_court",
+        "market",
+        "pet_store"
+      ],
+      "address": "Av. Oceano Atlântico, 1592 - Ponta de Campina, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 00:00",
+      "hours": "Aberto · Fecha 00:00",
+      "operating_hours": {
+        "segunda-feira": "14:30–00:00",
+        "terça-feira": "14:30–00:00",
+        "quarta-feira": "14:30–00:00",
+        "quinta-feira": "14:30–00:00",
+        "sexta-feira": "14:30–00:00",
+        "sábado": "14:30–00:00",
+        "domingo": "14:30–00:00"
+      },
+      "website": "https://www.instagram.com/getmall.oficial?igsh=MWZsMzY5dGxiZ25tZw==",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento descoberto pago",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Sorveteria, hamburgueria, restaurante japonês!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH6SwWf3VQytbMpJBb2zr_gvrYj5gU3NH-GUxUAB38ahG3T9vNssE4kRYHYL82x-sCV48eNTGHUBFix8i7pibFg9hU-FkcQja1uki4Y3Wm5Rj909EXwAZdu9jWZZpdP9l6knqKIJ3QTS6Ny=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/1kDBonicHcTBboIwAADQL6qgRUZNPIARmJuNKBXhYqRiC0WotAj6kzvvb5bsHd7vD9daqoVh1BxOWNuyuuhV0dG20UWjJ7S9G0wqQBVQhrvDkXBD-zAkN3iMXjrfyo2Xz97dmT27tJozAnEIAjIS14POhQcwRk-s1NoS-zRMv53ZCNTqaDkFjoOQeH45OuWHLHOfIU6AL2hUXaa9KK0UJvf5vkImWp8GN7v2qEqyTF53qLZF8_j63MAoPtj4tRympmkC_j8FzR88b0YK"
+    },
+    {
+      "position": 6,
+      "title": "Route Hot Dogs",
+      "place_id": "ChIJu6yeCaTfrAcRfb31UenQ2FI",
+      "data_id": "0x7acdfa4099eacbb:0x52d8d0e951f5bd7d",
+      "data_cid": "5969751006600609149",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfa4099eacbb%3A0x52d8d0e951f5bd7d&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfa4099eacbb%3A0x52d8d0e951f5bd7d&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0424896,
+        "longitude": -34.8441311
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJu6yeCaTfrAcRfb31UenQ2FI",
+      "provider_id": "/g/11s0yyx6b1",
+      "rating": 5,
+      "reviews": 45,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria",
+        "Cachorro-quente",
+        "Petiscaria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant",
+        "hot_dog_restaurant",
+        "tapas_bar"
+      ],
+      "address": "Av. Mar das Antilhas - Intermares, Cabedelo - PB, 58102-212",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–23:30",
+        "terça-feira": "Fechado",
+        "quarta-feira": "18:00–23:30",
+        "quinta-feira": "18:00–23:30",
+        "sexta-feira": "18:00–23:30",
+        "sábado": "18:00–23:30",
+        "domingo": "18:00–23:30"
+      },
+      "phone": "(83) 99878-4228",
+      "website": "https://instagram.com/routehotdogs?utm_medium=copy_link",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Esportes"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Lugar para sentar"
+          ]
+        },
+        {
+          "amenities": [
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega": true
+      },
+      "user_review": "\"Pedi o hamburguer n.1 pela segunda vez.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF2_ddYUtiMeFLgt8AKKzN2JZlNXk42TauwHWL4QwP_Ivq2t-WFDdfoE9Fk5mmNKgjaxoUuHCcpiKvlk2UPYQBQWJjGFFUUMh-wuRjvCkmIlKhHU_74lbKH3zwi9MhXQfVUwcOZ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/HTM97XicHcRdboIwAADgE1WwsviT7AHZOrTC6LIO9YW4gi20ULSFLl7QM3gbk30P3-MurO3NyvOUmE241lxVg6muTHe26uyE6dbjvQHMAOOFWUpkiGBRlgdq66RCO24XIca3FG6PKt3LAH6fBhfnu4C4rNiMF2hBjt7Ks35fIvnStinmzelP0yGOWF_jUUlIswNZk3zbfCBEaSKAG76aMZLtRmER02IeqF8cz26uXiZiT84_1LHP46ub-r4PxP8MdE992EVH"
+    },
+    {
+      "position": 7,
+      "title": "PAULISTA BURGER",
+      "place_id": "ChIJl51YE9DfrAcRuBF9yMwZnqg",
+      "data_id": "0x7acdfd013589d97:0xa89e19ccc87d11b8",
+      "data_cid": "12150177212019839416",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfd013589d97%3A0xa89e19ccc87d11b8&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfd013589d97%3A0xa89e19ccc87d11b8&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0299111,
+        "longitude": -34.8471127
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJl51YE9DfrAcRuBF9yMwZnqg",
+      "provider_id": "/g/11xt44kljh",
+      "rating": 5,
+      "reviews": 2,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "R. Marizeiro - Portal do Poço, Cabedelo - PB, 58106-106",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qui. às 18:00",
+      "hours": "Fechado · Abre qui. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "18:00–22:00",
+        "sexta-feira": "18:00–22:00",
+        "sábado": "18:00–22:00",
+        "domingo": "18:00–22:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=U4xvWI6pK7bUyFsAZ04wDA&cb_client=search.gws-prod.gps&w=80&h=92&yaw=140.84622&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/35k73HicHc1RCsIgGADg2_iWuiFrBT8xiCB6HkEv4cxUcPNnmm636VrdpugC3_d525Qw7hmLadY6ZacLukX7uEFJTQjGa4kuUhVGliuW7GscJun8AeUU3AN6seTrucHLdujXU-xuXJRjR9RwV97pKUHUclaWmvIT5_CgBiMp0HJiYVeTVRaoBKetaOqaoEvKAif_5RkyVJx_AVv9OSY"
+    },
+    {
+      "position": 8,
+      "title": "Na brasa hambúrgueria",
+      "place_id": "ChIJS0Cl_7khrQcRXHqZzABLeRg",
+      "data_id": "0x7ad21b9ffa5404b:0x18794b00cc997a5c",
+      "data_cid": "1763523195896953436",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21b9ffa5404b%3A0x18794b00cc997a5c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21b9ffa5404b%3A0x18794b00cc997a5c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9777596,
+        "longitude": -34.830875
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJS0Cl_7khrQcRXHqZzABLeRg",
+      "provider_id": "/g/11r9dsggtg",
+      "rating": 4.5,
+      "reviews": 15,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Pastor José Alves de Oliveira, 511 - Centro, Cabedelo - PB, 58100-222",
+      "country": "Brasil",
+      "phone": "(83) 98655-6103",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"ótima comidas 😋\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFYh9cL-bhlo3Tm4rJBhSEpThpYLN2buSoUm_RapCNm0ZUfxi7hPwha1iCv-F1ewGynofHiBhgSoiiMTu7bXcUMssNNX1EuI0uxTOUF4mWBhZWVeQ4q3fy-5xDZA6buALh5gKyK=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/J3Z1k3icHcTdboIwGADQJ6oUwRlNvACU-YOdCkzlxkhT-jVS2lkq8IQ-w95myc7F-X1D22ozd5wavBFXitfMGvakqmlZ046okg7XBlGDjBMcyPERxFeY0QSVUCsvk_5zG0K60hnoa0LGpU1VLm-nu46IxEVe9WIKhw7uroheKHZZ9zk0qlqLEHiqhNhndlpeaL43hpCLu7IbbPvsK499eQ6hOH-zo__jVQOa9Msi-ChtkMCE74bdonMxxgj-p6j5A7P5RVc"
+    },
+    {
+      "position": 9,
+      "title": "Manguinhos Burguer",
+      "place_id": "ChIJ7714LT_frAcROZGgCaHyb1A",
+      "data_id": "0x7acdf3f2d78bdef:0x506ff2a109a09139",
+      "data_cid": "5796118018914292025",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf3f2d78bdef%3A0x506ff2a109a09139&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf3f2d78bdef%3A0x506ff2a109a09139&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.989290899999999,
+        "longitude": -34.8292082
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ7714LT_frAcROZGgCaHyb1A",
+      "provider_id": "/g/11yxpdy8m9",
+      "rating": 5,
+      "reviews": 1,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "R. Débora Borges Xavier, 29 - Vila Sao Joao, Cabedelo - PB, 58103-405",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–00:00",
+        "terça-feira": "18:00–00:00",
+        "quarta-feira": "18:00–00:00",
+        "quinta-feira": "18:00–00:00",
+        "sexta-feira": "18:00–00:00",
+        "sábado": "18:00–00:00",
+        "domingo": "19:30–00:00"
+      },
+      "phone": "(83) 99831-1272",
+      "website": "https://pedido.anota.ai/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAPgZg1leHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAac5_sPaSx2zRFu_HdrEQKVqI0PVq6uIi1LpfJ_ZqzuK1NlV0mIIkAMnjeOvew_aem_LAdepWxHFGxiP2PLipJ22w",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Serviços no local",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTF5eHBkeThtORgAOgMI8A0%3D&g2lbs=AEzIGDtMHvmHCiaQtk_7CLosj23Ck4Izkop0vIpGNXkKz-rFz3o1ssMChz8FLwu7abwCcpWAZ92r&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=MgJMapShF-Lm1sQPhYG9-Ao&ei=MgJMapShF-Lm1sQPhYG9-Ao&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG13vSHsr2dih9jYYrDghc7bPbTVvw1uVwQpfzF51Wj7VOmMtyLmqgd9P0Yhhm7Oq0ApMvNDloeTRaRHv_5zhcVTlJum89JACiD0L2wEEHP-elENOWN4qZ-wZ94O3xZMFn6xWTSgcu9SsNY=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/uSEJSXicHcTBboIwAADQL6oUUVmX7EAGjhgpKAQCl0VrbdWWAi3U-ZM7-zcmvsN7_nNjOv3pOIJ7M6YUE3TUdCCqNbQ1M6KkwzoNiAbaCTK8uwU_rjflsR7mpwtH17oeQsaJf8yORTlZdyztrjs_1ku3uvplKhPzt5U9O6EM1pxLP-1h0CUTDoWixf6wj6ff5YOTshCbUX6gTfB9CeF2bqMozgAVEU4rvOgbYBu0SL17k6zb1b0qckZGlGtcf1kXQgj4ewLaF-GbR4A"
+    },
+    {
+      "position": 10,
+      "title": "Seu Jerônimo",
+      "place_id": "ChIJWVZmZADdrAcRKTJks1JgeWU",
+      "data_id": "0x7acdd0064665659:0x65796052b3643229",
+      "data_cid": "7311981378325983785",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd0064665659%3A0x65796052b3643229&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd0064665659%3A0x65796052b3643229&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0526203999999995,
+        "longitude": -34.8468444
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJWVZmZADdrAcRKTJks1JgeWU",
+      "provider_id": "/g/11ldczzmtg",
+      "rating": 5,
+      "reviews": 13,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "unclaimed_listing": true,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "R. Virginia Maria Nogueira Gadelha Pimentel - Lot. Bela Vista, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "phone": "(83) 98746-8640",
+      "website": "https://www.instagram.com/seujeronimo_/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"De fato é o melhor hambúrguer de intermares, já fui mais de 5x.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFlsoYjuw4sxkI0HViDFxDcgxWSd_cBKXcxrCh6j5lm6AD-YinzcKZqWDawYaODcftGG5YTVkEqXnc6s4I0ijEQwiblTBv7BOIeV-xa4kWB44SwvWcplIV6Wx1iK93861TXp4fu=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/bE6z5HicHcTdboIwGADQJ6qUWKsu2QVYfwiJzkgoeGPwE6FQW7TFNnvBPcPeZsnOxfn9aa0dzEcQyHY6abRuZD2a-gVa2VrZCehH0AwGgUEmiL72xz7aSKPLbnTE-D7Bu1ywjWfQeH66XSBOC_CvVUu7mXzQiKFSqG9Iz0_OKldWBwZ3u93Oyizv189CATUkwaJbH524yix-z-NDUufIV6TnMSEn9-YwyCSn3IciXU4XNMyKgdzHTxdijFH7PyD1B93yRSo"
+    },
+    {
+      "position": 11,
+      "title": "food service",
+      "place_id": "ChIJS6CBWLHfrAcRa3OXU-u9pJk",
+      "data_id": "0x7acdfb15881a04b:0x99a4bdeb5397736b",
+      "data_cid": "11071182602400920427",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfb15881a04b%3A0x99a4bdeb5397736b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfb15881a04b%3A0x99a4bdeb5397736b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.010345099999999,
+        "longitude": -34.833362
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJS6CBWLHfrAcRa3OXU-u9pJk",
+      "provider_id": "/g/11x1qkph8r",
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "Muro da São Brás, R. Floresta - Camboinha, Cabedelo - PB, 58103-740",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "06:00–22:00",
+        "terça-feira": "06:00–22:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "06:00–22:00",
+        "sexta-feira": "06:00–22:00",
+        "sábado": "06:00–22:00",
+        "domingo": "06:00–22:00"
+      },
+      "phone": "(83) 99139-5546",
+      "website": "https://ifood.com.br/restaurantes",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEc2SBaj4Wy8imG3Mamnx6iq7DTwxZU3n0Rzu9urSNh9zvQrCkxMmc9MHWSyCRKXgPdAZlusxTMenuStCAFLnfMxc34eG1BuU6NxZmcFsC65PFBsynmXOpTy3rG2QyScMpKs0E=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/PgzizHicHcTRboIwFADQL0KqdSgmewAmmGgZWIyGN3NXQaWFcVtt_cD9w_5myc7D-f1ptR5w5ftdSydN3zedMChG6JUWSk-gl34zoAfooR8VeXmP1jDj8fk2P7rlVWaUnaWywfV78VE9bX2giuxfJjQjz9vw9SjH5G6ZhJBtjtwl--2pKb6iujNoKyaU4TqJ0p26MAt0LrJpbA5BbmsJKSbBW5HG6JQ8fQ6Vo2M2Kx0HNmyRrN-fU0KI1_4PnvoDf71Fag"
+    },
+    {
+      "position": 12,
+      "title": "Piratas Burger",
+      "place_id": "ChIJLePNgbbfrAcRx5JgcXhj0i8",
+      "data_id": "0x7acdfb681cde32d:0x2fd26378716092c7",
+      "data_cid": "3445926033841230535",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfb681cde32d%3A0x2fd26378716092c7&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfb681cde32d%3A0x2fd26378716092c7&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0322719,
+        "longitude": -34.8342707
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJLePNgbbfrAcRx5JgcXhj0i8",
+      "provider_id": "/g/11s4d03qzf",
+      "rating": 1,
+      "reviews": 1,
+      "unclaimed_listing": true,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "Av. Oceano Atlântico, 55 - Intermares, Cabedelo - PB, 58102-252",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 17:00",
+      "hours": "Fechado · Abre às 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:00",
+        "terça-feira": "17:00–23:00",
+        "quarta-feira": "17:00–23:00",
+        "quinta-feira": "17:00–23:00",
+        "sexta-feira": "17:00–00:00",
+        "sábado": "17:00–00:00",
+        "domingo": "17:00–00:00"
+      },
+      "phone": "(83) 98155-6636",
+      "website": "https://www.instagram.com/piratasfoodburger/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=aooYneF4i7SYkA6jO7e13Q&cb_client=search.gws-prod.gps&w=80&h=92&yaw=130.98184&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Hk-O9nicHc1LDsIgFADA27CTj21sa0KMG7fGuOrKUPqEpxRIwaK38VreRuMFZj5vm3NMW8ZSngHyglAiPsGlVVTUhGAcqIiJ6jCxRbBsH9PgFbpdVD7gKFUIvYdDjc25v-83t2MDojoRPVy0Q_BZJlCzttSUnziHkZqYSJEtJ1Z2a_JSRYqK064VbU0iZm0lJ__lGhYpOP8CXi85Jw"
+    },
+    {
+      "position": 13,
+      "title": "Home Smash Burger",
+      "place_id": "ChIJv390eRbfrAcRXHxRKIdKrf0",
+      "data_id": "0x7acdf1679747fbf:0xfdad4a8728517c5c",
+      "data_cid": "18279348406924180572",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1679747fbf%3A0xfdad4a8728517c5c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1679747fbf%3A0xfdad4a8728517c5c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.970525599999999,
+        "longitude": -34.836659499999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJv390eRbfrAcRXHxRKIdKrf0",
+      "provider_id": "/g/11nrwnjrfl",
+      "rating": 4.4,
+      "reviews": 48,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "R. Sólon de Lucena, 19 - Vila Sao Joao, Cabedelo - PB, 58100-570",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 17:30",
+      "hours": "Fechado · Abre às 17:30",
+      "operating_hours": {
+        "segunda-feira": "17:30–23:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "17:30–23:00",
+        "quinta-feira": "17:30–23:00",
+        "sexta-feira": "17:30–23:00",
+        "sábado": "17:30–23:00",
+        "domingo": "17:30–23:00"
+      },
+      "phone": "(83) 98673-5263",
+      "website": "https://delivery.yooga.app/home-smash-burger/tabs/home",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Lugar para sentar"
+          ]
+        },
+        {
+          "amenities": [
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Grupos",
+            "Universitários"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida",
+            "Cães podem ficar na área externa"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "accessibility": [
+            "Aro de indução magnética",
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Em geral: É uma boa hamburgueria, só pecando na parte da infraestrutura.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGyFY_9wQQ9EyX-dbyFPA0HdXmfQKelPEp2bdk1FstltcLZCFD26ZuaS4P-ppmEn5eHkjDJAHaCbsln7uC-GT0QrzHq3dCusq42Gd-l5uTSsKeG_UbhtEIwLEdL-wzsJtadjHfm=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/FOdWRHicHcRBjoIwFADQE32pqGM0cUGwUJUYGjVh3BhoK0RKqf42BC_oGeY2k_gW7-_TOGdxHQS6mU3qvq-18qheojdOGTcRfRfUFkEgYBDlR95G6Zj83lYD5ys6FiCrMckjwmTR3flB6ZzasJLtNEGnnciucbINf66-PM1zsLajZqFY-9juI1bGFWqz9DGkZ8Jfb_acydjjcx6mEvTCn094UOntUjWO7oaMygyGN-5dKR_s3m2GKSEEmu8CzD9R9ET3"
+    },
+    {
+      "position": 14,
+      "title": "DAWN BURGUER",
+      "place_id": "ChIJadfjewAhrQcRf8d09KL-Gi4",
+      "data_id": "0x7ad21007be3d769:0x2e1afea2f474c77f",
+      "data_cid": "3322247650978613119",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21007be3d769%3A0x2e1afea2f474c77f&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21007be3d769%3A0x2e1afea2f474c77f&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.974396,
+        "longitude": -34.831213999999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJadfjewAhrQcRf8d09KL-Gi4",
+      "provider_id": "/g/11lth9f67f",
+      "rating": 4.2,
+      "reviews": 45,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "R. Augusto Firmo Paulo, 51 - Vila Sao Joao, Cabedelo - PB, 58101-015",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–01:00",
+        "terça-feira": "18:00–01:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "18:00–01:00",
+        "sexta-feira": "18:00–01:00",
+        "sábado": "18:00–01:00",
+        "domingo": "18:00–01:00"
+      },
+      "phone": "(83) 99638-6080",
+      "website": "https://menu.anota.ai/loja/dawn-burguer?f=msa",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua",
+            "Estacionamento no local"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFsdGg5ZjY3ZhgAOgMI8A0%3D&g2lbs=AEzIGDvJ1hjBC9kTY-sgDIwjtouJG6G-DWRqV0w5nFS0qTt5f6aqtysRLgfXD3yq9bEkApfxWce5&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=MgJMapShF-Lm1sQPhYG9-Ao&ei=MgJMapShF-Lm1sQPhYG9-Ao&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Não sou habitué de hamburguerias, pois não costumo comer sanduíches.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGXyaLUMYhG38goNK_C18UmDuKt289QJpmlMaLJ_uVS5i19KbA6DHB-AQ7Ts9k1uJzKHc1RmX996u_5le1sldnPZXMhGF_7kftqklx__5rQysZfFycQwYqhMMl92g-38pYrjTqu=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/JSMTn3icHcRdDoIgAADgE5GSs6StB6tl02jR39QXVmRQoqjAyi7YGbpNW9_D9_0IYxo9cRwpvAFXisvC6qJjqjZFbQZMVQ5vNGAaaCfcbkgZRml_Xh9xJiIv4GqT0DkMjtXCJmYYIBI3lcTndUztae_fIUou4WixmoGQjA8aldDG72TF4K5KERpZ6ssCanmtt3mKRbSk4_Jm2lK-KPU70uv8tuwZeWatwFiiIQde0GTd49Da6RO6rgvEfwbqH-1LREs"
+    },
+    {
+      "position": 15,
+      "title": "Alfa",
+      "place_id": "ChIJdXDpCwDfrAcRdATvNzRIN98",
+      "data_id": "0x7acdf000be97075:0xdf37483437ef0474",
+      "data_cid": "16084403983290926196",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf000be97075%3A0xdf37483437ef0474&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf000be97075%3A0xdf37483437ef0474&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.015028,
+        "longitude": -34.829523699999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJdXDpCwDfrAcRdATvNzRIN98",
+      "provider_id": "/g/11yt7sxlb1",
+      "unclaimed_listing": true,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "R. Dr. Lima Neto, 2008 - Lot. Nazareth, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 19:00",
+      "hours": "Fechado · Abre às 19:00",
+      "operating_hours": {
+        "segunda-feira": "19:00–23:00",
+        "terça-feira": "19:00–23:00",
+        "quarta-feira": "19:00–23:00",
+        "quinta-feira": "19:00–23:00",
+        "sexta-feira": "19:00–23:00",
+        "sábado": "19:00–23:00",
+        "domingo": "19:00–23:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=9DlxPUY-kGY2IxWCeL67vQ&cb_client=search.gws-prod.gps&w=80&h=92&yaw=104.88136&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/_SI22nicHc3BCsIgHIDxt_E2dSvWFkiHggg61CFip3DuP5XclGm63qbX6m0anT_4fd-PCsH5LSE-TAAhakhOz2B85jiW1koD3GmPhR1IzElQr6EduTY7x0erO1YfzHy5Ndnz2BSn-b6Hc7mJVyTahzAaxsA88EkoLNMiTrbD0nmUWEWRYnWB3jyxnK5xVeWrEjkdhGIU_S-9jUuiP1GiORA"
+    },
+    {
+      "position": 16,
+      "title": "Ravellas - Food Truck",
+      "place_id": "ChIJCQyRIcvdrAcRu26vxSLBThs",
+      "data_id": "0x7acddcb21910c09:0x1b4ec122c5af6ebb",
+      "data_cid": "1967722442297142971",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acddcb21910c09%3A0x1b4ec122c5af6ebb&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acddcb21910c09%3A0x1b4ec122c5af6ebb&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0530973999999995,
+        "longitude": -34.8469039
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJCQyRIcvdrAcRu26vxSLBThs",
+      "provider_id": "/g/11zkmcq4nn",
+      "rating": 5,
+      "reviews": 5,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "Rua Clóvis de Holanda Calado - Intermares, Cabedelo - PB, 58102-335",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qua. às 17:00",
+      "hours": "Fechado · Abre qua. às 17:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "17:00–22:30",
+        "quinta-feira": "17:00–22:30",
+        "sexta-feira": "17:00–22:30",
+        "sábado": "17:00–22:30",
+        "domingo": "17:00–22:30"
+      },
+      "phone": "(83) 98789-1997",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "accessibility": [
+            "Aro de indução magnética",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Hambúrguer e choripan excelentes!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEADpKjy_NglPmqEgaPI8YXtspqxexlQ9-bEvSXS1eA5LP-UQUC0P3jPv_sdusYKJVyy0zuXRsGgZqsmVgEq0HK_rkC3Tl2qh2Ak_FlR2YRpyqwIcJTy5JJO8em4ch0KaNBCVmzSlc0smH5=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/22Do_nicHcTBboIwGADgJ6pUGIlbskPHcAoLK6AEdiHaNW2khda_qPUld97bmOw7fH-_0jkDL0GgZLQQ0yQUn4Gf2TQ6ProFm3QgDCAGCAJCi3IgKXk3-cn3hVBU21Qc6HbVtQ6MvfGbKp_RMb3Ubb3kJP6kaF_uE0yjE7308DNDl2eN9_g-txV8iG8LuhGpxZu8Pw9JtFOhlSEZ-rWqwq4y3l63LNv5OMu-Vlw_MYnzQ_GWNPpeK4ZBb-LX6xJjjOT_DI0PHmhIag"
+    },
+    {
+      "position": 17,
+      "title": "Eu Quero Burguer",
+      "place_id": "ChIJJcEkMkzfrAcRnRtjQM7OQy0",
+      "data_id": "0x7acdf4c3224c125:0x2d43cece40631b9d",
+      "data_cid": "3261677940385192861",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf4c3224c125%3A0x2d43cece40631b9d&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf4c3224c125%3A0x2d43cece40631b9d&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0526168,
+        "longitude": -34.8472302
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJJcEkMkzfrAcRnRtjQM7OQy0",
+      "provider_id": "/g/11rrvr0gdd",
+      "rating": 3,
+      "reviews": 10,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "Praça Bela Vista de Intermares, Intermares, Cabedelo - PB, 58102-302",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 17:00",
+      "hours": "Fechado · Abre ter. às 17:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "17:00–23:00",
+        "quarta-feira": "17:00–23:00",
+        "quinta-feira": "17:00–23:00",
+        "sexta-feira": "16:00–23:00",
+        "sábado": "16:00–23:00",
+        "domingo": "17:00–23:00"
+      },
+      "phone": "(83) 99850-4733",
+      "website": "https://www.instagram.com/euqueroburguerartesanal/?hl=pt-br",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Da outra vez que vim era um boy alto de óculos muito gente boa.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG9ZobUZkcOQxlIIU1x9qzHS2LZaR8A3rZre79J_a1hAT0haOXWD5l6tqQCZ0f5E7U7ttitNjvQ9xRWwoQgVM9HnrmH3cbGfuFyeyuE0u1MTlF_kBX_NC40QgATdKhpsybqmEE=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/A5zw1nicHcRRboIwAADQEyFlqKwmflRFcZtoFdT0h0CtrVIo0DLBA-4O3maJ7-O9_oQxlZ7YthTugCvFJWs1a6gqDSvNgKrC5pW2qLa0jXYhztEKEpXFJKdb3Mn1OnY6WD-Dw8cPSfefyG1Iwzz4laSOQBEQ6fZ8Wozk2NR4TsB15HuxZ8zNhPdfDLv96aEwP25gUDZF4NJsdW2XPetbH7TOJpLLJJ-dk3A-BJij6PItKt1ndeH704cDALDEe2qV__3YRGc"
+    },
+    {
+      "position": 18,
+      "title": "Obra Fest Verão",
+      "place_id": "ChIJx8A1HgDfrAcRvs1SuaCzXN0",
+      "data_id": "0x7acdf001e35c0c7:0xdd5cb3a0b952cdbe",
+      "data_cid": "15950821483124805054",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf001e35c0c7%3A0xdd5cb3a0b952cdbe&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf001e35c0c7%3A0xdd5cb3a0b952cdbe&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0435381999999995,
+        "longitude": -34.8407798
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJx8A1HgDfrAcRvs1SuaCzXN0",
+      "provider_id": "/g/11yspdky74",
+      "unclaimed_listing": true,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "Av. Oceano Atlântico - Intermares, Cabedelo - PB, 58102-252",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=O_r9n-HnVoPVOpHSeppw-A&cb_client=search.gws-prod.gps&w=80&h=92&yaw=29.13897&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Kme-qHicHc3BDcIgFADQbbgVaD1YTIjx1ltNTHptKP0CCYUfwKLTOJfbaFzgvc_bloL5xFguCaDsDiq6J_jcoKImRuNBoctUx43tLSv2sS1BOX9GFaJb5TgnEZohTPE6jTjcALE2F6KXWXsHocgMKmlLTf2JKa7UYCZV9pxYKTryUlV2graHXhwJuqKt5OSf3OMuW86_S0c5dw"
+    },
+    {
+      "position": 19,
+      "title": "I love burguer",
+      "place_id": "ChIJ2_aBWAAhrQcRP7iv8wg49-U",
+      "data_id": "0x7ad21005881f6db:0xe5f73808f3afb83f",
+      "data_cid": "16570774965032302655",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21005881f6db%3A0xe5f73808f3afb83f&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21005881f6db%3A0xe5f73808f3afb83f&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9706589,
+        "longitude": -34.8371018
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ2_aBWAAhrQcRP7iv8wg49-U",
+      "provider_id": "/g/11y2fkbgr4",
+      "rating": 4.1,
+      "reviews": 18,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "Praça Getúlio Vargas, 107 - Vila Sao Joao, Cabedelo - PB, 58100-305",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–01:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "18:00–01:00",
+        "quinta-feira": "18:00–01:00",
+        "sexta-feira": "18:00–02:00",
+        "sábado": "18:00–02:00",
+        "domingo": "18:00–01:00"
+      },
+      "phone": "(83) 99311-5016",
+      "website": "https://delivery.yooga.app/i-love-burguer/tabs/home",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTF5MmZrYmdyNBgAOgMI8A0%3D&g2lbs=AEzIGDu0LxbEkFeGLqFTiIQNgvFqUE8_nxzqQK74fxB9jWaONXdff8mWl9MU7BeMV3qxW6aq2hxX&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=MgJMapShF-Lm1sQPhYG9-Ao&ei=MgJMapShF-Lm1sQPhYG9-Ao&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Melhor hamburger dá paraíba, ótimo preço é muito bom\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF_jmShjnZYEVPAeX0kFzFFcFvMMNuyUFeHP3mLrHrPpcqcPYXwbNhkJJkrrwN46TgEO4cRkrvFWGf4u5mq7tAh0nL3vudKOGsfs0kWTdmy97pz9AwtIezHKKcGykC6qr42_-v93g=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/9_woOnicHcTdboIwGADQJ6p0ghqWeNEsFBTFuun8uTHxs7axtkBbIPCGewTfxmTn4rz-pPeV-wyCpwxHoizFkzeOWyiN58aPoNSBqBwCh1xAWLFVhF4e-kc-zPmU_DLCj1jRgVKg7XpdNP2e8oyFemUzyyqogZ2O3bWQarlU1nZFNN2JZBPBt7ItPaT3qJnoeuaJxGYVts0t36Tu7rA67G66j2fVEJPOL_iQ5Tmkvfqa1jYaX1Abh2LefWCMkfwfkHkDecZGlw"
+    },
+    {
+      "position": 20,
+      "title": "Biruta Burger",
+      "place_id": "ChIJ0fBGaf_frAcRbPBUisnQ7L0",
+      "data_id": "0x7acdfff6946f0d1:0xbdecd0c98a54f06c",
+      "data_cid": "13685542931699921004",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfff6946f0d1%3A0xbdecd0c98a54f06c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfff6946f0d1%3A0xbdecd0c98a54f06c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0442301,
+        "longitude": -34.845835099999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ0fBGaf_frAcRbPBUisnQ7L0",
+      "provider_id": "/g/11xn80z6jd",
+      "type": "Hamburgueria",
+      "types": [
+        "Hamburgueria"
+      ],
+      "type_id": "hamburger_restaurant",
+      "type_ids": [
+        "hamburger_restaurant"
+      ],
+      "address": "R. Golfo Veneza - Intermares, Cabedelo - PB, 58102-122",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–02:00",
+        "terça-feira": "18:00–02:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "18:00–02:00",
+        "sexta-feira": "18:00–02:00",
+        "sábado": "18:00–02:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98176-4185",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=kQTaL3QjWtURyaURuW6Lbg&cb_client=search.gws-prod.gps&w=80&h=92&yaw=54.385136&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/25qFAXicHc1RDoIgGADg2_AWYKazNtYFfNHlfGy_REChMPmVvE3X6ja1LvB9n7dBDPHEWMRZKVytSsG-lIu7AFR7r52CYCOVfmRrxtAs4zCBdecAk7c38WwuUOfNo8eu3aBrl76sB03kcJXOqglFVDBLQ3X6ibO_UR0iSaLixIjjnmyQRHGgeVVkeUmCRWkEJ__l7leRcf4Fi2Y5wA"
+    }
+  ]
+}

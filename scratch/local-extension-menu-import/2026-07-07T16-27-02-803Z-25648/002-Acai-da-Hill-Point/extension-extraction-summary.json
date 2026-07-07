@@ -1,0 +1,15 @@
+{
+  "extraction": {
+    "success": true,
+    "platform": "anota_ai_network",
+    "error": null,
+    "extractionLevel": 0,
+    "confidence": 0.995
+  },
+  "rawSummary": {
+    "categoryCount": 5,
+    "itemCount": 18,
+    "optionCount": 548,
+    "operationalOptionCount": 0
+  }
+}

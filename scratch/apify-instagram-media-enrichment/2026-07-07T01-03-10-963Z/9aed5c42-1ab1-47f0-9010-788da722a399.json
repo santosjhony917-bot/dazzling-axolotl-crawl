@@ -1,0 +1,90 @@
+{
+  "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+  "name": "Sorveteria Frutos de Goiás - Cabedelo",
+  "instagram": "https://www.instagram.com/frutoscabedelo/",
+  "followers": 2714,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://whatsmenu.com.br/frutoscabedelo"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "c5cd28c5-d596-4e2d-b6da-803a83e5808c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385211714_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "368d4ec7-f062-422c-87e8-fcb6b75030dd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385213434_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "21de579e-0a8e-45ca-b4a6-694cdfd617de",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385214317_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "6dd562c3-6ca1-441c-a200-1387aad59b36",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385215122_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "6f384995-8b81-4183-ac8c-ff839a9ab3c6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385216003_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "38cac753-f460-4896-88cc-b9f8d1cb3a5f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385217001_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "4dfb06a4-9b69-4275-8a52-1a7a3e622af8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385217939_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "e32699e2-cdec-4dc5-9dfa-e6f9f14fe492",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385218581_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,43 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+green,17,anota_ai,Alexandre Restaurante,https://pedido.anota.ai/loja/alexandre-restaurante?f=msa,,fast_visual_review_then_import,eea035c3-ab24-4d02-998a-88854e5450f7
+green,17,anota_ai,Bar da Queda,https://anota.ai/bar-da-queda-1,,fast_visual_review_then_import,a7e0b267-8b70-4488-b548-dcee41bce76f
+green,17,anota_ai,Bebelu Sanduíches - Dinamérica / Campina Grande-PB,https://app.anota.ai/Bebelucg,,fast_visual_review_then_import,c98bf942-43f3-4c5c-9bf3-57f4567e53f1
+green,17,anota_ai,Bebelu Sanduíches Partage Shopping Campina Grande/PB,https://app.anota.ai/Bebelucg,,fast_visual_review_then_import,dfbe0e07-bd3f-4e8f-9ff1-ec412619330e
+green,17,anota_ai,Bompescado Sushi Home,https://pedido.anota.ai/loja/bompescado-sushi-home-1?f=msa,,fast_visual_review_then_import,fae32436-66fd-42bd-b346-cabdf1440c24
+green,17,anota_ai,Campina Pizza,https://pedido.anota.ai/loja/campina-pizza?f=msa,,fast_visual_review_then_import,df32d6b7-9e6e-438e-9b53-f8fff02908cd
+green,17,anota_ai,Campina SeaFood - A Casa do Caranguejo,https://pedido.anota.ai/loja/campina-seafood-1?f=msa,,fast_visual_review_then_import,6dd9120c-1d37-4b63-82ed-e56a836f00f6
+green,17,anota_ai,Dalijapa Campina Grande,https://pedido.anota.ai/loja/dalijapa-restaurante-ltda-1,,fast_visual_review_then_import,9e62de28-08df-4361-a632-31eae168d26b
+green,17,anota_ai,Delegas Restaurante,https://pedido.anota.ai/loja/delegas-restaurante,,fast_visual_review_then_import,587998d2-2b52-4823-8821-2faa90294d8e
+green,17,anota_ai,Fornalha Pizzaria CG,https://pedido.anota.ai/loja/fornalha-pizzaria-14?f=msa,,fast_visual_review_then_import,177eedb9-5801-4e9f-b353-30404f9c987a
+green,17,anota_ai,Gigantão Lanches,https://anota.ai/p/gigantao-lanches-e-restaurante,,fast_visual_review_then_import,d0c129b8-27e9-4f49-9085-c17f06b5c307
+green,17,anota_ai,Gulas Restaurante,https://pedido.anota.ai/loja/restaurante-gulas,,fast_visual_review_then_import,918ae01a-d7d3-4414-962e-585625c0c62a
+green,17,anota_ai,Henrique Lanches,https://pedido.anota.ai/loja/henrique-pizzas-e-lanches?f=msa,,fast_visual_review_then_import,454a71e4-f461-4d12-a9c3-7b8418d0f419
+green,17,anota_ai,Henrique Pizzas e Lanches,https://pedido.anota.ai/loja/henrique-pizzas-e-lanches?f=msa,,fast_visual_review_then_import,5d9dc8a1-f113-4dd7-94a2-88fdb4dd0454
+green,17,anota_ai,Joy Sushi House,https://pedido.anota.ai/loja/joy-sushi-house-1?f=msa,,fast_visual_review_then_import,d9567f23-f2c8-4911-9b62-980f06e57a3b
+green,17,anota_ai,Joy Sushi House,https://pedido.anota.ai/loja/joy-sushi-house-1?f=msa,,fast_visual_review_then_import,aee07ea0-0c82-4a90-85be-c09cb66ed0c6
+green,17,anota_ai,La Casa da Pizza,https://anota.ai/m/9yUn8x5kl,,fast_visual_review_then_import,919558fb-f07f-44e4-86ab-19cd34f76364
+green,17,anota_ai,La Paloma Restaurante,https://pedido.anota.ai/loja/la-paloma-restaurante,,fast_visual_review_then_import,19753013-293e-46f9-b3ca-04b2611ecee3
+green,17,anota_ai,Mais Sabor,https://pedido.anota.ai/loja/pizzaria-mais-sabor-campina-grande?f=msa,,fast_visual_review_then_import,287b90be-0d24-4add-ad22-125e56f35007
+green,17,anota_ai,Mais Sushi,https://pedido.anota.ai/loja/maissushicg?f=msa,,fast_visual_review_then_import,e16a7a26-2a1f-4621-9a70-e245c092981b
+green,17,anota_ai,Manu's Smash Burger,https://pedido.anota.ai/loja/manus-smash-burger?f=msa,,fast_visual_review_then_import,c2ccfba5-c332-4a00-9454-91cd5d2d30b8
+green,17,anota_ai,Necão Restaurante,https://pedido.anota.ai/loja/neco-restaurante,,fast_visual_review_then_import,b9232f4a-86ea-44a4-9a27-8471c5403d5d
+green,17,anota_ai,O Senhor dos Cafés Cafeteria e Restaurante,https://pedido.anota.ai/loja/o-senhor-dos-cafes-campina-grande?f=msa,,fast_visual_review_then_import,c0e015c8-194a-4bc7-b6b4-9a20487dbb68
+green,17,anota_ai,oxente tapiocaria,https://pedido.anota.ai/loja/oxente-tapiocaria-1?f=msa,,fast_visual_review_then_import,43f5d6eb-8984-403b-bf4c-225abc0649ce
+green,17,anota_ai,Pajé Burger,https://pedido.anota.ai/loja/hamburgueria-paje,,fast_visual_review_then_import,05284e1c-56ac-4be4-879c-129559c3f2b1
+green,17,anota_ai,Paraizo Cozinha,https://pedido.anota.ai/loja/paraizo-cozinha,,fast_visual_review_then_import,a46c3952-11c5-43ee-b189-86910059dfeb
+green,17,anota_ai,Pizzaria Mais Sabor - Campina Grande,https://pedido.anota.ai/loja/pizzaria-mais-sabor-campina-grande?f=msa,,fast_visual_review_then_import,1049c632-8c5f-4aa7-b36f-5075bec1e92f
+green,17,anota_ai,Q'Pirão Restaurante (Pirão de Macaxeira),https://pedido.anota.ai/loja/qpirao-restaurante?f=msa,,fast_visual_review_then_import,4a03380c-a361-4c07-b744-2f8073f0f396
+green,17,anota_ai,Restaurante China Kame,https://pedido.anota.ai/loja/china-kame?from=menu-share-adm&referer=https%3A%2F%2Fl.facebook.com%2F,,fast_visual_review_then_import,f32de17a-7391-4cc9-83eb-d3172df5409b
+green,17,anota_ai,SK Restaurante,https://pedido.anota.ai/loja/sk-restaurante?f=msa,,fast_visual_review_then_import,749ae810-4c16-40ed-b2dd-141bf090db80
+green,17,anota_ai,sorveteria maná,https://pedido.anota.ai/loja/sorveteria-mana?f=msa,,fast_visual_review_then_import,6e23d990-4f37-4963-ab45-e8be25505e4e
+green,17,anota_ai,Tapioca Dourada,https://pedido.anota.ai/loja/tapioca-dourada-shopping-partage-1?f=msa,,fast_visual_review_then_import,5c79d325-9fe6-41ff-acce-20823de01937
+green,17,anota_ai,Tchê Costelaria,https://pedido.anota.ai/loja/tche-costela-e-vinhos?f=msa,,fast_visual_review_then_import,07925905-2691-4f71-b3a2-dc8fa614a2f0
+green,17,anota_ai,Terraço da Liberdade (Panquecaria da Liberdade),https://pedido.anota.ai/loja/terrao-da-liberdade,,fast_visual_review_then_import,da7496f3-50f8-4bdb-8c9f-e146ea91eb91
+green,17,anota_ai,The House Food,https://pedido.anota.ai/loja/the-house-pizzaria-1?f=msa,,fast_visual_review_then_import,b180a38e-c067-482a-acbe-db0c177e01ef
+green,17,anota_ai,The Woods Restô Bar,https://pedido.anota.ai/loja/the-woods-rb?f=msa,,fast_visual_review_then_import,3a679d0f-256e-489d-aa62-d985f36a121b
+green,17,anota_ai,Ulin Lanches,https://pedido.anota.ai/loja/ulin-lanches?f=msa,,fast_visual_review_then_import,df756b30-aa88-44a9-8696-849af835b933
+green,17,anota_ai,Varanda Pizzaria,https://pedido.anota.ai/loja/varanda-pizzaria-cg?f=msa,,fast_visual_review_then_import,8cd09e66-60a7-4b90-ac63-97b3b21f2c3b
+green,17,anota_ai,Villa Pizza,https://pedido.anota.ai/loja/villa-pizza-delivery?f=msa,,fast_visual_review_then_import,dc94c164-d2d1-463f-8b60-8474d35ae1cc
+green,18,anota_ai,Bebelu Sanduíches Centro,https://app.anota.ai/Bebelucg,,fast_visual_review_then_import,624a1b1d-80ea-4c9c-a5ed-a1cb81702e16
+green,18,anota_ai,Laluca Doceria,https://pedido.anota.ai/loja/laluca-doceria?f=msa,,fast_visual_review_then_import,d7888d9e-574b-4bb0-a2c9-0e3a33c79b2b
+green,18,anota_ai,Ôxente coxinha,https://pedido.anota.ai/loja/oxente-coxinha?f=msa,,fast_visual_review_then_import,cf74a254-e6c6-4643-95d1-5a7c04c74c40

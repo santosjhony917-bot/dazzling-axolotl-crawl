@@ -1,0 +1,23 @@
+[
+  {
+    "restaurantId": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+    "restaurantName": "Pizzaria tá no ponto",
+    "sourceUrl": "https://www.pizzariatanoponto.com.br/",
+    "platform": "restaurantlogin",
+    "reviewsCount": null,
+    "address": null,
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 99608-4407",
+    "queueEntry": {
+      "restaurant_id": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+      "name": "Pizzaria tá no ponto",
+      "platform": "restaurantlogin",
+      "tier": "green",
+      "source_url": "https://www.pizzariatanoponto.com.br/",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99608-4407"
+    }
+  }
+]

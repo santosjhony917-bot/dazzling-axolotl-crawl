@@ -1,0 +1,432 @@
+{
+  "url": "https://www.restaurantlogin.com/api/translation/language_pack?app=widget&restaurant_uid=9c0d0eff-2947-4617-b174-f62eae570fe2",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 8286,
+  "textSample": "[{\"name\":\"Albanian\",\"language_code\":\"sq\",\"id\":118885,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118885\"},{\"name\":\"Arabic\",\"language_code\":\"ar\",\"id\":118861,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118861\"},{\"name\":\"Armenian\",\"language_code\":\"hy\",\"id\":118871,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118871\"},{\"name\":\"Bosanski\",\"language_code\":\"bs\",\"id\":118851,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118851\"},{\"name\":\"Catalan\",\"language_code\":\"ca\",\"id\":118859,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118859\"},{\"name\":\"Central Khmer\",\"language_code\":\"km\",\"id\":118883,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118883\"},{\"name\":\"Český\",\"language_code\":\"cs\",\"id\":118862,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118862\"},{\"name\":\"Dansk\",\"language_code\":\"da\",\"id\":118856,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118856\"},{\"name\":\"Deutsch\",\"language_code\":\"de\",\"id\":118853,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118853\"},{\"name\":\"English\",\"language_code\":\"en\",\"id\":118850,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118850\"},{\"name\":\"Español\",\"language_code\":\"es\",\"id\":118864,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118864\"},{\"name\":\"Español (Argentina)\",\"language_code\":\"es-ar\",\"id\":118875,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118875\"},{\"name\":\"Español (Bolivia)\",\"language_code\":\"es-bo\",\"id\":118868,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118868\"},{\"name\":\"Español (Costa Rica)\",\"language_code\":\"es-cr\",\"id\":118866,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118866\"},{\"name\":\"Español (México)\",\"language_code\":\"es-mx\",\"id\":118867,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118867\"},{\"name\":\"Estonian\",\"language_code\":\"et\",\"id\":118852,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118852\"},{\"name\":\"Finnish\",\"language_code\":\"fi\",\"id\":118858,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118858\"},{\"name\":\"Français\",\"language_code\":\"fr\",\"id\":118857,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118857\"},{\"name\":\"Hebrew\",\"language_code\":\"he\",\"id\":118860,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118860\"},{\"name\":\"Hrvatski\",\"language_code\":\"hr\",\"id\":118877,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118877\"},{\"name\":\"Icelandic\",\"language_code\":\"is\",\"id\":118873,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118873\"},{\"name\":\"Indonesian\",\"language_code\":\"id\",\"id\":118865,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118865\"},{\"name\":\"Italiano\",\"language_code\":\"it\",\"id\":118869,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118869\"},{\"name\":\"Japanese\",\"language_code\":\"ja\",\"id\":118872,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118872\"},{\"name\":\"Latvian\",\"language_code\":\"lv\",\"id\":118878,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118878\"},{\"name\":\"Lithuanian\",\"language_code\":\"lt\",\"id\":118879,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118879\"},{\"name\":\"Magyar\",\"language_code\":\"hu\",\"id\":118870,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118870\"},{\"name\":\"Nederlands\",\"language_code\":\"nl\",\"id\":118880,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118880\"},{\"name\":\"Norwegian Bokmål\",\"language_code\":\"nb\",\"id\":118884,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118884\"},{\"name\":\"Persian\",\"language_code\":\"fa\",\"id\":118863,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118863\"},{\"name\":\"Polski\",\"language_code\":\"pl\",\"id\":118882,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118882\"},{\"name\":\"Português\",\"language_code\":\"pt\",\"id\":118881,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118881\"},{\"name\":\"Português (Brasil)\",\"language_code\":\"pt-br\",\"id\":118896,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118896\",\"default\":true},{\"name\":\"Română\",\"language_code\":\"ro\",\"id\":118889,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118889\"},{\"name\":\"Slovenian\",\"language_code\":\"sl\",\"id\":118892,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118892\"},{\"name\":\"Slovenský\",\"language_code\":\"sk\",\"id\":118895,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118895\"},{\"name\":\"Srpski\",\"language_code\":\"sr\",\"id\":118888,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118888\"},{\"name\":\"Svenska\",\"language_code\":\"sv\",\"id\":118893,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118893\"},{\"name\":\"Telugu\",\"language_code\":\"te\",\"id\":118887,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118887\"},{\"name\":\"Thai\",\"language_code\":\"th\",\"id\":118890,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118890\"},{\"name\":\"Tiếng Việt\",\"language_code\":\"vi\",\"id\":118891,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118891\"},{\"name\":\"Türkçe\",\"language_code\":\"tr\",\"id\":118898,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118898\"},{\"name\":\"Vlaams\",\"language_code\":\"fl\",\"id\":118849,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118849\"},{\"name\":\"Ελληνικη\",\"language_code\":\"el\",\"id\":118854,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118854\"},{\"name\":\"Български\",\"language_code\":\"bg\",\"id\":118855,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118855\"},{\"name\":\"македонски\",\"language_code\":\"mk\",\"id\":118876,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118876\"},{\"name\":\"Русский\",\"language_code\":\"ru\",\"id\":118886,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118886\"},{\"name\":\"українська\",\"language_code\":\"uk\",\"id\":118894,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118894\"},{\"name\":\"ქართული\",\"language_code\":\"ka\",\"id\":118874,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118874\"},{\"name\":\"简体中文\",\"language_code\":\"zh-cn\",\"id\":118897,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118897\"},{\"name\":\"繁體中文\",\"language_code\":\"zh-tw\",\"id\":118900,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118900\"},{\"name\":\"香港粵語\",\"language_code\":\"zh-hk\",\"id\":118899,\"app\":\"widget\",\"app_version\":\"7.2.6\",\"url\":\"https://www.fbgcdn.com/api/translation/language_pack/118899\"}]",
+  "jsonKeys": [
+    "array",
+    "52"
+  ],
+  "json": [
+    {
+      "name": "Albanian",
+      "language_code": "sq",
+      "id": 118885,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118885"
+    },
+    {
+      "name": "Arabic",
+      "language_code": "ar",
+      "id": 118861,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118861"
+    },
+    {
+      "name": "Armenian",
+      "language_code": "hy",
+      "id": 118871,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118871"
+    },
+    {
+      "name": "Bosanski",
+      "language_code": "bs",
+      "id": 118851,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118851"
+    },
+    {
+      "name": "Catalan",
+      "language_code": "ca",
+      "id": 118859,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118859"
+    },
+    {
+      "name": "Central Khmer",
+      "language_code": "km",
+      "id": 118883,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118883"
+    },
+    {
+      "name": "Český",
+      "language_code": "cs",
+      "id": 118862,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118862"
+    },
+    {
+      "name": "Dansk",
+      "language_code": "da",
+      "id": 118856,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118856"
+    },
+    {
+      "name": "Deutsch",
+      "language_code": "de",
+      "id": 118853,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118853"
+    },
+    {
+      "name": "English",
+      "language_code": "en",
+      "id": 118850,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118850"
+    },
+    {
+      "name": "Español",
+      "language_code": "es",
+      "id": 118864,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118864"
+    },
+    {
+      "name": "Español (Argentina)",
+      "language_code": "es-ar",
+      "id": 118875,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118875"
+    },
+    {
+      "name": "Español (Bolivia)",
+      "language_code": "es-bo",
+      "id": 118868,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118868"
+    },
+    {
+      "name": "Español (Costa Rica)",
+      "language_code": "es-cr",
+      "id": 118866,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118866"
+    },
+    {
+      "name": "Español (México)",
+      "language_code": "es-mx",
+      "id": 118867,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118867"
+    },
+    {
+      "name": "Estonian",
+      "language_code": "et",
+      "id": 118852,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118852"
+    },
+    {
+      "name": "Finnish",
+      "language_code": "fi",
+      "id": 118858,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118858"
+    },
+    {
+      "name": "Français",
+      "language_code": "fr",
+      "id": 118857,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118857"
+    },
+    {
+      "name": "Hebrew",
+      "language_code": "he",
+      "id": 118860,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118860"
+    },
+    {
+      "name": "Hrvatski",
+      "language_code": "hr",
+      "id": 118877,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118877"
+    },
+    {
+      "name": "Icelandic",
+      "language_code": "is",
+      "id": 118873,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118873"
+    },
+    {
+      "name": "Indonesian",
+      "language_code": "id",
+      "id": 118865,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118865"
+    },
+    {
+      "name": "Italiano",
+      "language_code": "it",
+      "id": 118869,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118869"
+    },
+    {
+      "name": "Japanese",
+      "language_code": "ja",
+      "id": 118872,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118872"
+    },
+    {
+      "name": "Latvian",
+      "language_code": "lv",
+      "id": 118878,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118878"
+    },
+    {
+      "name": "Lithuanian",
+      "language_code": "lt",
+      "id": 118879,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118879"
+    },
+    {
+      "name": "Magyar",
+      "language_code": "hu",
+      "id": 118870,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118870"
+    },
+    {
+      "name": "Nederlands",
+      "language_code": "nl",
+      "id": 118880,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118880"
+    },
+    {
+      "name": "Norwegian Bokmål",
+      "language_code": "nb",
+      "id": 118884,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118884"
+    },
+    {
+      "name": "Persian",
+      "language_code": "fa",
+      "id": 118863,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118863"
+    },
+    {
+      "name": "Polski",
+      "language_code": "pl",
+      "id": 118882,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118882"
+    },
+    {
+      "name": "Português",
+      "language_code": "pt",
+      "id": 118881,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118881"
+    },
+    {
+      "name": "Português (Brasil)",
+      "language_code": "pt-br",
+      "id": 118896,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118896",
+      "default": true
+    },
+    {
+      "name": "Română",
+      "language_code": "ro",
+      "id": 118889,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118889"
+    },
+    {
+      "name": "Slovenian",
+      "language_code": "sl",
+      "id": 118892,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118892"
+    },
+    {
+      "name": "Slovenský",
+      "language_code": "sk",
+      "id": 118895,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118895"
+    },
+    {
+      "name": "Srpski",
+      "language_code": "sr",
+      "id": 118888,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118888"
+    },
+    {
+      "name": "Svenska",
+      "language_code": "sv",
+      "id": 118893,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118893"
+    },
+    {
+      "name": "Telugu",
+      "language_code": "te",
+      "id": 118887,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118887"
+    },
+    {
+      "name": "Thai",
+      "language_code": "th",
+      "id": 118890,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118890"
+    },
+    {
+      "name": "Tiếng Việt",
+      "language_code": "vi",
+      "id": 118891,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118891"
+    },
+    {
+      "name": "Türkçe",
+      "language_code": "tr",
+      "id": 118898,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118898"
+    },
+    {
+      "name": "Vlaams",
+      "language_code": "fl",
+      "id": 118849,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118849"
+    },
+    {
+      "name": "Ελληνικη",
+      "language_code": "el",
+      "id": 118854,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118854"
+    },
+    {
+      "name": "Български",
+      "language_code": "bg",
+      "id": 118855,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118855"
+    },
+    {
+      "name": "македонски",
+      "language_code": "mk",
+      "id": 118876,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118876"
+    },
+    {
+      "name": "Русский",
+      "language_code": "ru",
+      "id": 118886,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118886"
+    },
+    {
+      "name": "українська",
+      "language_code": "uk",
+      "id": 118894,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118894"
+    },
+    {
+      "name": "ქართული",
+      "language_code": "ka",
+      "id": 118874,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118874"
+    },
+    {
+      "name": "简体中文",
+      "language_code": "zh-cn",
+      "id": 118897,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118897"
+    },
+    {
+      "name": "繁體中文",
+      "language_code": "zh-tw",
+      "id": 118900,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118900"
+    },
+    {
+      "name": "香港粵語",
+      "language_code": "zh-hk",
+      "id": 118899,
+      "app": "widget",
+      "app_version": "7.2.6",
+      "url": "https://www.fbgcdn.com/api/translation/language_pack/118899"
+    }
+  ]
+}

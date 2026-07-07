@@ -1,0 +1,711 @@
+{
+  "restaurantId": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+  "restaurantName": "Restaurante Pôr do Sol",
+  "platform": "anota_ai",
+  "sourceUrl": "https://pedido.anota.ai/loja/restaurante-por-do-sol-5?f=msa",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T05-33-46-788Z-19360\\004-restaurante-por-do-sol",
+  "startedAt": "2026-07-07T05:34:45.972Z",
+  "details": {
+    "url": "https://pedido.anota.ai/loja/restaurante-por-do-sol-5?f=msa",
+    "title": "Restaurante Por do Sol - Anota AI",
+    "bodyTextSample": "Restaurante Por do Sol Loja offline. Sem pedido mínimo Perfil da loja Bebidas Suco - Jarra R$ 15,00 Refrigerante 1L Descrição do Refrigerante 600ml R$ 12,00 Refrigerante - Lata R$ 6,00 Refrigerante - lata Zero R$ 7,00 Suco - Copo R$ 7,00 Água c/ gás R$ 3,00 Água s/ gás R$ 2,50 Cerveja - 600ml Itaipava R$ 12,00 Cerveja - lata Petra R$ 8,00 Cerveja - long neck Heineken R$ 12,00 Vinho Quinta do morgado R$ 30,00 Almoço / petisco Peixada completa Arroz, pirão, verdura, peixe frito ou ao molho de coco ou tomate R$ 140,00 Camarão ao alho e óleo Arroz, batata frita, feijão e verdura R$ 150,00 Meia peixada R$ 80,00 Camarão ao molho Arroz, pirão, verdura e batata frita R$ 170,00 Bode guisado Arroz, pirão ou feijão e batata frita R$ 100,00 Carne de sol Batata frita, arroz, feijão e verdura R$ 100,00 Bisteca Arroz, feijão, batata frita e verdura R$ 100,00 Galinha guisada Batata frita, arroz, feijão e verdura R$ 80,00 Prato feito Carne de sol, peixe, bode guisado e galinha guisada R$ 30,00 Peixe - PETISCO R$ 70,00 Camarão - PETISCO R$ 80,00 Carne de sol - PETISCO R$ 70,00 Arrumadinho- PETISCO R$ 70,00 Bode guisado - PETISCO R$ 70,00 Picado - PETISCO R$ 50,00 Galinha guisada - PETISCO R$ 45,00 Batata frita R$ 20,00 Bisteca - PETISCO R$ 70,00 Mocotó - PETISCO R$ 50,00 Ensopados Cação peixe R$ 25,00 Marisco R$ 20,00 Início Pedidos",
+    "metrics": {
+      "scrollHeight": 2462,
+      "bodyLength": 42229,
+      "imageCount": 33
+    }
+  },
+  "rawSummary": {
+    "categoryCount": 3,
+    "itemCount": 32,
+    "optionCount": 0,
+    "operationalCategoryCount": 0,
+    "operationalItemCount": 0,
+    "operationalOptionCount": 0,
+    "samples": [
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Suco - Jarra",
+            "price": 15,
+            "options": []
+          },
+          {
+            "name": "Refrigerante 1L",
+            "price": 12,
+            "options": []
+          },
+          {
+            "name": "Refrigerante - Lata",
+            "price": 6,
+            "options": []
+          },
+          {
+            "name": "Refrigerante - lata",
+            "price": 7,
+            "options": []
+          },
+          {
+            "name": "Suco - Copo",
+            "price": 7,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Almoço / petisco",
+        "items": [
+          {
+            "name": "Peixada completa",
+            "price": 140,
+            "options": []
+          },
+          {
+            "name": "Camarão ao alho e óleo",
+            "price": 150,
+            "options": []
+          },
+          {
+            "name": "Meia peixada",
+            "price": 80,
+            "options": []
+          },
+          {
+            "name": "Camarão ao molho",
+            "price": 170,
+            "options": []
+          },
+          {
+            "name": "Bode guisado",
+            "price": 100,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Ensopados",
+        "items": [
+          {
+            "name": "Cação",
+            "price": 25,
+            "options": []
+          },
+          {
+            "name": "Marisco",
+            "price": 20,
+            "options": []
+          }
+        ]
+      }
+    ]
+  },
+  "evidencePath": "scratch\\structured-menu-collection\\2026-07-07T05-33-46-788Z-19360\\004-restaurante-por-do-sol\\menu-evidence.json",
+  "dryRun": {
+    "code": 0,
+    "result": {
+      "success": true,
+      "dryRun": true,
+      "audit": {
+        "approved": true,
+        "confidence": 0.98,
+        "categoryCount": 3,
+        "itemCount": 32,
+        "resolvedPriceCount": 32,
+        "unresolvedPriceCount": 0,
+        "fullPriceDeltaAnomalyCount": 0,
+        "fullPriceDeltaAnomalies": [],
+        "optionPriceCount": 0,
+        "pricedRatio": 1,
+        "issues": [],
+        "optionSemanticAI": {
+          "used": false,
+          "reason": "no_groups",
+          "deltaFixes": 0
+        }
+      },
+      "preview": [
+        {
+          "name": "Bebidas",
+          "count": 11,
+          "samples": [
+            {
+              "name": "Suco - Jarra",
+              "price": 15,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Refrigerante 1L",
+              "price": 12,
+              "kind": "simple_item",
+              "description": "Descrição do Refrigerante 600ml"
+            },
+            {
+              "name": "Refrigerante - Lata",
+              "price": 6,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Refrigerante - lata",
+              "price": 7,
+              "kind": "simple_item",
+              "description": "Zero"
+            },
+            {
+              "name": "Suco - Copo",
+              "price": 7,
+              "kind": "simple_item",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Pratos Principais",
+          "count": 19,
+          "samples": [
+            {
+              "name": "Peixada completa",
+              "price": 140,
+              "kind": "simple_item",
+              "description": "Arroz, pirão, verdura, peixe frito ou ao molho de coco ou tomate"
+            },
+            {
+              "name": "Camarão ao alho e óleo",
+              "price": 150,
+              "kind": "simple_item",
+              "description": "Arroz, batata frita, feijão e verdura"
+            },
+            {
+              "name": "Meia peixada",
+              "price": 80,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Camarão ao molho",
+              "price": 170,
+              "kind": "simple_item",
+              "description": "Arroz, pirão, verdura e batata frita"
+            },
+            {
+              "name": "Bode guisado",
+              "price": 100,
+              "kind": "simple_item",
+              "description": "Arroz, pirão ou feijão e batata frita"
+            }
+          ]
+        },
+        {
+          "name": "Ensopados",
+          "count": 2,
+          "samples": [
+            {
+              "name": "Cação",
+              "price": 25,
+              "kind": "simple_item",
+              "description": "peixe"
+            },
+            {
+              "name": "Marisco",
+              "price": 20,
+              "kind": "simple_item",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "categories": [
+        {
+          "name": "Bebidas",
+          "items": [
+            {
+              "name": "Suco - Jarra",
+              "description": "",
+              "price": 15,
+              "display_price": 15,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997715194blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Refrigerante 1L",
+              "description": "Descrição do Refrigerante 600ml",
+              "price": 12,
+              "display_price": 12,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997729381blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Refrigerante - Lata",
+              "description": "",
+              "price": 6,
+              "display_price": 6,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997756125blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Refrigerante - lata",
+              "description": "Zero",
+              "price": 7,
+              "display_price": 7,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997775935blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Suco - Copo",
+              "description": "",
+              "price": 7,
+              "display_price": 7,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997791077blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Água c/ gás",
+              "description": "",
+              "price": 3,
+              "display_price": 3,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997806230blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Água s/ gás",
+              "description": "",
+              "price": 2.5,
+              "display_price": 2.5,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997822975blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Cerveja - 600ml",
+              "description": "Itaipava",
+              "price": 12,
+              "display_price": 12,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997854327blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Cerveja - lata",
+              "description": "Petra",
+              "price": 8,
+              "display_price": 8,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997868107blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Cerveja - long neck",
+              "description": "Heineken",
+              "price": 12,
+              "display_price": 12,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997884312blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Vinho",
+              "description": "Quinta do morgado",
+              "price": 30,
+              "display_price": 30,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997900325blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Pratos Principais",
+          "items": [
+            {
+              "name": "Peixada completa",
+              "description": "Arroz, pirão, verdura, peixe frito ou ao molho de coco ou tomate",
+              "price": 140,
+              "display_price": 140,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723996961153blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão ao alho e óleo",
+              "description": "Arroz, batata frita, feijão e verdura",
+              "price": 150,
+              "display_price": 150,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723996993591blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Meia peixada",
+              "description": "",
+              "price": 80,
+              "display_price": 80,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão ao molho",
+              "description": "Arroz, pirão, verdura e batata frita",
+              "price": 170,
+              "display_price": 170,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997940241blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Bode guisado",
+              "description": "Arroz, pirão ou feijão e batata frita",
+              "price": 100,
+              "display_price": 100,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997023503blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Carne de sol",
+              "description": "Batata frita, arroz, feijão e verdura",
+              "price": 100,
+              "display_price": 100,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997967211blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Bisteca",
+              "description": "Arroz, feijão, batata frita e verdura",
+              "price": 100,
+              "display_price": 100,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Galinha guisada",
+              "description": "Batata frita, arroz, feijão e verdura",
+              "price": 80,
+              "display_price": 80,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Prato feito",
+              "description": "Carne de sol, peixe, bode guisado e galinha guisada",
+              "price": 30,
+              "display_price": 30,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Peixe - PETISCO",
+              "description": "",
+              "price": 70,
+              "display_price": 70,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Camarão - PETISCO",
+              "description": "",
+              "price": 80,
+              "display_price": 80,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Carne de sol - PETISCO",
+              "description": "",
+              "price": 70,
+              "display_price": 70,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Arrumadinho- PETISCO",
+              "description": "",
+              "price": 70,
+              "display_price": 70,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Bode guisado - PETISCO",
+              "description": "",
+              "price": 70,
+              "display_price": 70,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Picado - PETISCO",
+              "description": "",
+              "price": 50,
+              "display_price": 50,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Galinha guisada - PETISCO",
+              "description": "",
+              "price": 45,
+              "display_price": 45,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Batata frita",
+              "description": "",
+              "price": 20,
+              "display_price": 20,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Bisteca - PETISCO",
+              "description": "",
+              "price": 70,
+              "display_price": 70,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Mocotó - PETISCO",
+              "description": "",
+              "price": 50,
+              "display_price": 50,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Ensopados",
+          "items": [
+            {
+              "name": "Cação",
+              "description": "peixe",
+              "price": 25,
+              "display_price": 25,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723998036779blob",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Marisco",
+              "description": "",
+              "price": 20,
+              "display_price": 20,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        }
+      ],
+      "message": "Prévia estruturada com 32 itens via anota_ai_network."
+    },
+    "stdoutTail": "/-1723997023503blob\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Carne de sol\",\"description\":\"Batata frita, arroz, feijão e verdura\",\"price\":100,\"display_price\":100,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723997967211blob\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Bisteca\",\"description\":\"Arroz, feijão, batata frita e verdura\",\"price\":100,\"display_price\":100,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Galinha guisada\",\"description\":\"Batata frita, arroz, feijão e verdura\",\"price\":80,\"display_price\":80,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Prato feito\",\"description\":\"Carne de sol, peixe, bode guisado e galinha guisada\",\"price\":30,\"display_price\":30,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Peixe - PETISCO\",\"description\":\"\",\"price\":70,\"display_price\":70,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Camarão - PETISCO\",\"description\":\"\",\"price\":80,\"display_price\":80,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Carne de sol - PETISCO\",\"description\":\"\",\"price\":70,\"display_price\":70,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Arrumadinho- PETISCO\",\"description\":\"\",\"price\":70,\"display_price\":70,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Bode guisado - PETISCO\",\"description\":\"\",\"price\":70,\"display_price\":70,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Picado - PETISCO\",\"description\":\"\",\"price\":50,\"display_price\":50,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Galinha guisada - PETISCO\",\"description\":\"\",\"price\":45,\"display_price\":45,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Batata frita\",\"description\":\"\",\"price\":20,\"display_price\":20,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Bisteca - PETISCO\",\"description\":\"\",\"price\":70,\"display_price\":70,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Mocotó - PETISCO\",\"description\":\"\",\"price\":50,\"display_price\":50,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Ensopados\",\"items\":[{\"name\":\"Cação\",\"description\":\"peixe\",\"price\":25,\"display_price\":25,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://client-assets.anota.ai/produtos/66c2155d6a81990019d67492/-1723998036779blob\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Marisco\",\"description\":\"\",\"price\":20,\"display_price\":20,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 32 itens via anota_ai_network.\"}\n",
+    "stderrTail": ""
+  },
+  "review": {
+    "tier": "yellow",
+    "flags": [
+      "source_identity_not_confirmed"
+    ],
+    "dryRunApproved": true,
+    "dryRunOperationalEntityCount": 0,
+    "dryRunOperationalCategoryCount": 0,
+    "dryRunOperationalItemCount": 0,
+    "dryRunOperationalOptionCount": 0,
+    "itemCount": 32,
+    "optionCount": 0,
+    "rawOperationalCategoryCount": 0,
+    "rawOperationalItemCount": 0,
+    "rawOperationalOptionCount": 0,
+    "identity": {
+      "confirmed": false,
+      "pageHasName": true,
+      "urlHasName": true,
+      "pageHasPhone": false,
+      "pageHasAddress": false,
+      "pageHasCity": false,
+      "pageHasState": false,
+      "evidence": {
+        "targetName": "Restaurante Pôr do Sol",
+        "targetAddress": "R. Pres. João Pessoa, 1, Vila Sao Joao",
+        "targetPhoneLast8": "96727835",
+        "targetCity": "Cabedelo",
+        "targetState": "PB"
+      }
+    },
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 3,
+      "itemCount": 32,
+      "resolvedPriceCount": 32,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "no_groups",
+        "deltaFixes": 0
+      }
+    }
+  },
+  "committed": false,
+  "commit": null,
+  "error": null,
+  "finishedAt": "2026-07-07T05:34:57.632Z"
+}

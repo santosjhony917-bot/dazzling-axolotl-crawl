@@ -1,0 +1,188 @@
+{
+  "runId": "2026-07-07T14-11-58-037Z",
+  "outDir": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z",
+  "apply": false,
+  "forceMedia": false,
+  "promote": false,
+  "processed": 3,
+  "mediaComplete": 3,
+  "mediaIncomplete": 0,
+  "failed": 0,
+  "promoted": 0,
+  "results": [
+    {
+      "id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "status": "media_complete",
+      "posts": 14,
+      "approved": 2,
+      "uploads": 0,
+      "after": {
+        "hasLogo": true,
+        "hasCover": true,
+        "galleryCount": 8,
+        "galleryRows": [
+          {
+            "id": "1a741a5b-73aa-4873-b60e-472db719879c",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385278641_1.jpg",
+            "order_index": 0
+          },
+          {
+            "id": "3e5d9b58-2136-4381-a2b1-eb370c5089f3",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385280370_2.jpg",
+            "order_index": 1
+          },
+          {
+            "id": "460fc115-8c7d-42f5-8444-a57c7c4450e6",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385282129_3.jpg",
+            "order_index": 2
+          },
+          {
+            "id": "dac9d53f-7668-4c90-b0f0-7d2cb769cde8",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385283380_4.jpg",
+            "order_index": 3
+          },
+          {
+            "id": "e976e58e-ac53-4107-9278-bb6361bfa30e",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385284124_5.jpg",
+            "order_index": 4
+          },
+          {
+            "id": "a3faf0b8-d555-4a45-9a46-ace392e05788",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385284890_6.jpg",
+            "order_index": 5
+          },
+          {
+            "id": "189ce291-2ded-409a-a152-f4128e5a4854",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385285794_7.jpg",
+            "order_index": 6
+          },
+          {
+            "id": "6138fb5c-3ed0-40b6-aaa5-c450a130d5bd",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385286640_8.jpg",
+            "order_index": 7
+          }
+        ],
+        "complete": true,
+        "missing": []
+      },
+      "reason": null
+    },
+    {
+      "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "name": "Espaço Do Sushi",
+      "status": "media_complete",
+      "posts": 24,
+      "approved": 5,
+      "uploads": 0,
+      "after": {
+        "hasLogo": true,
+        "hasCover": true,
+        "galleryCount": 8,
+        "galleryRows": [
+          {
+            "id": "0acd468e-75bf-49aa-9226-71e09c7af970",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385263801_1.jpg",
+            "order_index": 0
+          },
+          {
+            "id": "8fc31b99-ab3a-41d1-afb7-316ea01b58fb",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385265853_2.jpg",
+            "order_index": 1
+          },
+          {
+            "id": "a12faba2-53c3-4d58-9a44-be821a16d724",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385267601_3.jpg",
+            "order_index": 2
+          },
+          {
+            "id": "c007c102-3055-4f26-9193-a03de1e88ae1",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385268377_4.jpg",
+            "order_index": 3
+          },
+          {
+            "id": "77c45160-5a09-4677-ab80-f28b53060681",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269405_5.jpg",
+            "order_index": 4
+          },
+          {
+            "id": "7ba432b9-d8e3-48c8-a3a0-9dd1152d6fab",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269973_6.jpg",
+            "order_index": 5
+          },
+          {
+            "id": "e8908e67-ad9c-4cd6-92ff-7d647e19b363",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385270696_7.jpg",
+            "order_index": 6
+          },
+          {
+            "id": "5b5d48bd-7b23-4d17-960d-c39281de1cda",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385271566_8.jpg",
+            "order_index": 7
+          }
+        ],
+        "complete": true,
+        "missing": []
+      },
+      "reason": null
+    },
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "status": "media_complete",
+      "posts": 24,
+      "approved": 2,
+      "uploads": 0,
+      "after": {
+        "hasLogo": true,
+        "hasCover": true,
+        "galleryCount": 8,
+        "galleryRows": [
+          {
+            "id": "8f6f8e07-9f29-440d-919d-604db5f35edc",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384673744_1.jpg",
+            "order_index": 0
+          },
+          {
+            "id": "a5704735-039f-4e6a-9a81-0c8c62233e86",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384674958_2.jpg",
+            "order_index": 1
+          },
+          {
+            "id": "d368ee3d-4e1b-449d-9393-c9ca1ddabe29",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384676250_3.jpg",
+            "order_index": 2
+          },
+          {
+            "id": "b2810f7f-e8ce-4f4d-adbd-c15a9b189b56",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384677077_4.jpg",
+            "order_index": 3
+          },
+          {
+            "id": "08baa7b6-7c79-43d9-85c4-3243e391178b",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384677975_5.jpg",
+            "order_index": 4
+          },
+          {
+            "id": "8f6b5e3f-2895-4749-9d1a-5fd44eb7d04c",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384679174_6.jpg",
+            "order_index": 5
+          },
+          {
+            "id": "4dc599e7-770b-4e07-ab41-d165c984a28b",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384679996_7.jpg",
+            "order_index": 6
+          },
+          {
+            "id": "fd60fc38-f4a9-4a61-b61e-2f2d5e44fba3",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4fa980c0-13d2-415f-97a6-e31fd3141133/instagram_1783384680983_8.jpg",
+            "order_index": 7
+          }
+        ],
+        "complete": true,
+        "missing": []
+      },
+      "reason": null
+    }
+  ]
+}

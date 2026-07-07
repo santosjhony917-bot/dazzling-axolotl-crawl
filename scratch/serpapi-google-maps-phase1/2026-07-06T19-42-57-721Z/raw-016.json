@@ -1,0 +1,2044 @@
+{
+  "search": {
+    "query": "espetinho Cabedelo PB",
+    "term": "espetinho",
+    "area": "Porto/Cabedelo",
+    "lat": -6.9665,
+    "lng": -34.8405,
+    "ll": "@-6.9665,-34.8405,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c055bac1765dfe80d9e04",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/oqW8IV86Fx3b5Yf3yc4y3g/6a4c055bac1765dfe80d9e04.json",
+    "created_at": "2026-07-06 19:43:23 UTC",
+    "processed_at": "2026-07-06 19:43:23 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/espetinho+Cabedelo+PB/@-6.9665,-34.8405,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/oqW8IV86Fx3b5Yf3yc4y3g/6a4c055bac1765dfe80d9e04.html",
+    "prettify_html_file": "https://serpapi.com/searches/oqW8IV86Fx3b5Yf3yc4y3g/6a4c055bac1765dfe80d9e04.prettify",
+    "total_time_taken": 1.55
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "espetinho Cabedelo PB",
+    "ll": "@-6.9665,-34.8405,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "Espetinho da galega",
+      "place_id": "ChIJJVi9GnPfrAcRIXE-8OdZZLQ",
+      "data_id": "0x7acdf731abd5825:0xb46459e7f03e7121",
+      "data_cid": "12998613277201035553",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf731abd5825%3A0xb46459e7f03e7121&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf731abd5825%3A0xb46459e7f03e7121&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.980994399999999,
+        "longitude": -34.8328272
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJJVi9GnPfrAcRIXE-8OdZZLQ",
+      "provider_id": "/g/11t5x742pl",
+      "rating": 5,
+      "reviews": 2,
+      "type": "Bar",
+      "types": [
+        "Bar"
+      ],
+      "type_id": "bar",
+      "type_ids": [
+        "bar"
+      ],
+      "address": "Av. São Sebastião, 124 - Camalaú, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qua. às 17:00",
+      "hours": "Fechado · Abre qua. às 17:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "17:00–01:00",
+        "quinta-feira": "17:00–01:00",
+        "sexta-feira": "17:00–01:00",
+        "sábado": "17:00–01:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98815-5357",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de cervejas"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida",
+            "Comida no bar"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGPqhxr_zhL49pmPi4bcENLUcCywpOFo1h0u6444E8_pQJJvAd1ZAPWwlQs1g4cAv-hzU3oovv6XlJTlkCEt5vQvZVl9HdkTU_OVB29iaya4GVFV8GJoGsmi2TMOn5ukwFHopqN=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/jWg-kXicHcTdCoIwGADQJ1pqLcmgiyX-IOUPqEU3YkucOP1Wm7N6wZ6htwk6F-f7YUoJuTUMzlaLFqDlzSSbB4VRNaNaUBiMVkhEJZIGSeOsJ0F6Z89H9WYH7Igh7fCVevGhoO5rFokPFjMnG2PsbSqRRZEmN-tC0tPMM2m1mBKN2LtYAWhtn3mU89711Fpn-lJyJ7z1eVEl5X7pdPWrxkHpl5sggkAO3TI_JuN66mc_BHGPd7NlmiZi_ykaf30NRQQ"
+    },
+    {
+      "position": 2,
+      "title": "Verano Praia Bar",
+      "place_id": "ChIJh0FVTwvfrAcRloIZE5Iit7w",
+      "data_id": "0x7acdf0b4f554187:0xbcb7229213198296",
+      "data_cid": "13598375610649510550",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0b4f554187%3A0xbcb7229213198296&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0b4f554187%3A0xbcb7229213198296&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9863829,
+        "longitude": -34.8278581
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJh0FVTwvfrAcRloIZE5Iit7w",
+      "provider_id": "/g/11rkm9v89d",
+      "rating": 4.4,
+      "reviews": 324,
+      "price": "R$ 60–140",
+      "extracted_price": 60,
+      "type": "Bar",
+      "types": [
+        "Bar"
+      ],
+      "type_id": "bar",
+      "type_ids": [
+        "bar"
+      ],
+      "address": "Av. Pastor José Alves de Oliveira, 848 - Areia Dourada, Cabedelo - PB, 58101-205",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre ter. às 09:00",
+      "hours": "Fecha em breve · 17:00 · Abre ter. às 09:00",
+      "operating_hours": {
+        "segunda-feira": "09:00–17:00",
+        "terça-feira": "09:00–17:00",
+        "quarta-feira": "09:00–17:00",
+        "quinta-feira": "09:00–17:00",
+        "sexta-feira": "09:00–17:00",
+        "sábado": "09:00–17:00",
+        "domingo": "09:00–17:00"
+      },
+      "phone": "(83) 3206-0072",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida",
+            "Comida no bar",
+            "Coquetéis",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": false
+      },
+      "user_review": "\"O espetinho de Meca nota 10 também.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEUF4iyOl95bYBmFZQc2ximwjyElDhNWXMmxFlGkt6VEinaQ7gdEAqxX9CXGTtV8TJbhEDLyDh3RNek19ibRZKnkEuck9tPeXM7RbmGDoF7de4HMcn2izJ1-Y57No8TTaq8jx9pS_7GPJA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/tHOKzXicHcTbboIwAADQL6qAl5Uu2QMbhQUHA2QOfVmkNrT2hmuN4Ef67t8s2Xk4jztzbrDPnifZYtYb00t6sfSXGO2odjNilNcPFhALrBeVRSUi_JUs-fQp0arbvapkX5H5yNX1NGEZs-K7zdWYyFS4py3m-lDB_oij89iitzZt3DZsso7h-GOK2aIuqAgQ7-r9Wgt8IQK5krY5rDuVxiaBR7p8z4me81sWgN0KFiZsmsM5PI1o2PzAtMyil2vg-z5g_xOg_wBw2Uai"
+    },
+    {
+      "position": 3,
+      "title": "Espetinho da Rafa Camboinha",
+      "place_id": "ChIJOWgbm17frAcRk4X3wNNiTBA",
+      "data_id": "0x7acdf5e9b1b6839:0x104c62d3c0f78593",
+      "data_cid": "1174422264451925395",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf5e9b1b6839%3A0x104c62d3c0f78593&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf5e9b1b6839%3A0x104c62d3c0f78593&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0039017999999995,
+        "longitude": -34.8260195
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJOWgbm17frAcRk4X3wNNiTBA",
+      "provider_id": "/g/11lm2rf8c3",
+      "rating": 4.9,
+      "reviews": 19,
+      "price": "R$ 60–80",
+      "extracted_price": 60,
+      "unclaimed_listing": true,
+      "type": "Bar",
+      "types": [
+        "Bar"
+      ],
+      "type_id": "bar",
+      "type_ids": [
+        "bar"
+      ],
+      "address": "Av. Max Zagel, 16 - Jardim Jerico, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre ter. às 08:30",
+      "hours": "Fecha em breve · 17:00 · Abre ter. às 08:30",
+      "operating_hours": {
+        "segunda-feira": "08:30–17:00",
+        "terça-feira": "08:30–17:00",
+        "quarta-feira": "08:30–17:00",
+        "quinta-feira": "08:30–17:00",
+        "sexta-feira": "08:30–17:00",
+        "sábado": "08:30–17:00",
+        "domingo": "08:30–17:00"
+      },
+      "phone": "(83) 98649-2624",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de cervejas"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida",
+            "Comida no bar"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Ótimos Drinks , Refeições com sabor caseiro e muito bem servidas.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAExpq6FUbnT9Uk968xsjEZe7Zjmhn-JFDs7DlAZ9FEYbG1Z2szJ1rFapnBbvOjcnP8WykuJ5cqIq4gA3_SkCmeZNl6-EcZXCSXLxIByo7k3oWL-XuO5J09qzPZUMyPWl7Wp8vCxbO1In7P7=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/-eQ5Y3icHcTBCoIwAADQL1pqltOgg5mGUrko0XaJHENxc5tNS_vJzv1N0Du876fue6VXhsFre1ZJWXE6aPogUvRU9DMiW6NSGhANtOGj44n54ag6J8pKcfEy5jnuqJsQU4ibthYgibYabrmPvSi8ljsLz_U7sR7RXYlN-UwbIpCbT2xIlqSLu0Xl27czC1qKj9wBIcFFcC72Y7yZJGS2zPegGNJlYnrdG-HsMKGcw1y5z2AsUysWEMH1yzJNE9T_CRA_htZGxQ"
+    },
+    {
+      "position": 4,
+      "title": "Espetinho da praia Intermares",
+      "place_id": "ChIJE-mcRMTfrAcRBThGnfI6x2c",
+      "data_id": "0x7acdfc4449ce913:0x67c73af29d463805",
+      "data_cid": "7478010519967119365",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfc4449ce913%3A0x67c73af29d463805&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfc4449ce913%3A0x67c73af29d463805&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0449253999999994,
+        "longitude": -34.8416297
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJE-mcRMTfrAcRBThGnfI6x2c",
+      "provider_id": "/g/11h718p7gh",
+      "rating": 4.4,
+      "reviews": 772,
+      "price": "R$ 20–120",
+      "extracted_price": 20,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Av. Oceano Atlântico, 1972 - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 16:00",
+      "hours": "Fechado · Abre ter. às 16:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "16:00–00:00",
+        "quarta-feira": "16:00–00:00",
+        "quinta-feira": "16:00–00:00",
+        "sexta-feira": "16:00–00:00",
+        "sábado": "16:00–00:00",
+        "domingo": "11:30–22:00"
+      },
+      "phone": "(83) 2182-4436",
+      "website": "https://pedido.anota.ai/loja/espetinho-da-praia-3",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Esportes",
+            "Mesas na cobertura",
+            "Música ao vivo",
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Bebidas para happy hour",
+            "Café",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Coquetéis",
+            "Porções pequenas",
+            "Refeição rápida",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Jantar",
+            "Serviço de buffet",
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Grupos",
+            "Turistas",
+            "Universitários"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida",
+            "Cães podem ficar na área externa",
+            "Permite a entrada de cães"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFoNzE4cDdnaBgAOgMI8A0%3D&g2lbs=AEzIGDvzTcW8ZKjLrnaoZpFWmikflYI5U4_FOYj7UZLub7Tp001UDHuee_4j5zjFgzUfTurtSC5e&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=XAVMatLwCKCc0PEP_LiEkQY&ei=XAVMatLwCKCc0PEP_LiEkQY&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Adoramos esse lugar, o espetinho de cebola é maravilhoso!!!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF5fQca3nAA2OFi36f78h0sOstCmMv-KeFNf0azIfetZB_diaSMVMKBPtY7ySe2SuG0CHN43WTIHF1Lrzqs2AY1aLR6RWTC73iRek09EI3Ydo5rpSnKtR8V5yeybZMQkw5XczgI=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/lcNzOHicHcTLDYIwAADQiSqFCqiJh0JECYICRoWLwVI-AVqkVQMLOoPbmPgO7_uppOzFSlHaCs1KzsuWPgUdCGeSMjkjvFPKXgAigFDwMQgb7OhFSDLEMNYOTo2MwlxUUByEtDv_BTzqBAXMJregMrVueZ3F_tn3rKNMzDGmWvzcQnsXzNHl5O4cdT9MD6HhRM32kRFdTraJ6og2cLlxUZJzfehj5slocdZHOt5TP2ze-pVMpbt-qxBCUP0ngP0As7hDGw"
+    },
+    {
+      "position": 5,
+      "title": "Espetinho do Mudinho",
+      "place_id": "ChIJhT-ofm4grQcRvMQNW_e1rs0",
+      "data_id": "0x7ad206e7ea83f85:0xcdaeb5f75b0dc4bc",
+      "data_cid": "14820983497712059580",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad206e7ea83f85%3A0xcdaeb5f75b0dc4bc&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad206e7ea83f85%3A0xcdaeb5f75b0dc4bc&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9694353,
+        "longitude": -34.8344812
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJhT-ofm4grQcRvMQNW_e1rs0",
+      "provider_id": "/g/11zg9pdqsj",
+      "unclaimed_listing": true,
+      "address": "R. Sólon de Lucena, 250 - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=nWNIvEHOjltOVbR2Ol7sOA&cb_client=search.gws-prod.gps&w=80&h=92&yaw=159.95514&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/SbyTbHicHc1NCgIhGADQ27jLn6GhJpCYRVCbhBa1DMcxNRyV8UvrNl2r2xRd4L3P2wKkvCEkw6w1FKdrck_t8yJJbGI0XsvkMlZxIoURsI9pCNL5bZIhupGHy_FQdntx9yDOw6kRfpVFj9RwVd7pADxrOSuLTf2JcxyxSRlVvqbI8q5BL1k5azvctS1bouRAWU7Rf7nFwhmlX3nUOYc"
+    },
+    {
+      "position": 6,
+      "title": "Iran Bebidas",
+      "place_id": "ChIJc9X4a60hrQcRO_mzcZWuCtY",
+      "data_id": "0x7ad21ad6bf8d573:0xd60aae9571b3f93b",
+      "data_cid": "15423331830764665147",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21ad6bf8d573%3A0xd60aae9571b3f93b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21ad6bf8d573%3A0xd60aae9571b3f93b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9796765999999995,
+        "longitude": -34.8302993
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJc9X4a60hrQcRO_mzcZWuCtY",
+      "provider_id": "/g/11lgjb08_q",
+      "rating": 4.9,
+      "reviews": 23,
+      "type": "Bar",
+      "types": [
+        "Bar"
+      ],
+      "type_id": "bar",
+      "type_ids": [
+        "bar"
+      ],
+      "address": "Av. Pastor José Alves de Oliveira - Vila Sao Joao, Cabedelo - PB, 58101-150",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 08:00",
+      "hours": "Fechado · Abre ter. às 08:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "08:00–00:00",
+        "quarta-feira": "08:00–00:00",
+        "quinta-feira": "08:00–00:00",
+        "sexta-feira": "Atendimento 24 horas",
+        "sábado": "Atendimento 24 horas",
+        "domingo": "08:00–00:00"
+      },
+      "phone": "(83) 99195-6962",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de cervejas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "mesas_externas": true
+      },
+      "user_review": "\"Local simples, nada de mais\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFmik4bzscKeeV1Fgsx3WI9jau2MD24-lp-IIBSkeTchR5DPpok5Q8Te3WubtbpBMdF92pombYBIuO_9wR5Fn0yJMok_jgtaYCbwYWfuecQdxasLnlM-QRuHxAzRZSVT8xRHDNeMw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/OHheTHicHcRRboIwGADgE1UQJBGTPYCEiFudVAJhL4bWf0ULbWPbgN7QI-w2S_wevr9Xb602G88b-nDBleIDOAN3pqQFaRdMjR7XBjGDjJccD6VI8vEqVvRp2CdAvcy5mcOmiG-dC3AWrNCgUVGkJwEV60mUHbUSUbmuIGwctVSn-JLHgVYjbdPCfZ_jiUS59B97rMT5xm3XbunUNr8OWHmZO_MlB4xK4nZz8iQ_p7paz2SXHQBPH9PS933Uv2dI_gMbgUZW"
+    },
+    {
+      "position": 7,
+      "title": "Rope Espetos",
+      "place_id": "ChIJmbbN-K3frAcRsyfJ94pu17s",
+      "data_id": "0x7acdfadf8cdb699:0xbbd76e8af7c927b3",
+      "data_cid": "13535408748227012531",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfadf8cdb699%3A0xbbd76e8af7c927b3&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfadf8cdb699%3A0xbbd76e8af7c927b3&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.040004799999999,
+        "longitude": -34.839349
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJmbbN-K3frAcRsyfJ94pu17s",
+      "provider_id": "/g/11kp_62nsj",
+      "rating": 4.5,
+      "reviews": 13,
+      "price": "R$ 40–60",
+      "extracted_price": 40,
+      "type": "Restaurante de churrasquinho",
+      "types": [
+        "Restaurante de churrasquinho"
+      ],
+      "type_id": "kebab_shop",
+      "type_ids": [
+        "kebab_shop"
+      ],
+      "address": "Av. Oceano Atlântico, 422 - Intermares, Cabedelo - PB, 58102-252",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:30",
+      "hours": "Fechado · Abre ter. às 18:30",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:30–23:00",
+        "quarta-feira": "18:30–23:00",
+        "quinta-feira": "18:30–23:00",
+        "sexta-feira": "18:30–00:00",
+        "sábado": "18:30–00:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98854-0926",
+      "website": "https://www.instagram.com/ropeespetos?igsh=NWV2NHFzNjU1eXFp&utm_source=qr",
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true
+      },
+      "user_review": "\"Ambiente agradável, música ambiente, achei ótimo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGZeQ5smEPiZjnp-YhxBiANlzH4ZpgfNq3OnnOk3K_baTPziQiLVYFX0y_PlunxVw6qxHsl0gjrl9dH8sT3-O5U7ZGRdUPElDJfc3j8DFTNyzAry0LLuir8TFWelvqiKbBVr08I_ruAOmFs=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/fLCrbXicHcTBboIwGADgJ6rUdDq2xEONIlMCZUE2uRCttRRLgf6gwEvuvLdZsu_w_f4UXdfAu-PogsxkXUstehCW16YTppvxunJkA4gDAoeyML7TXSbiBVRbprLSNOhUDGtFQz35L1kjb2FLImOiOznkl3PCJhWrID1533jMme7NkD6X7eCDxrK0-u3qu5AQFC2Or9nu83pkW73Z3zgp3Y2XhONE7YiDoFfWTbwvoR-tOlzWqcXuR257GlUerJ5zjDEq_ufI_AEuEUiv"
+    },
+    {
+      "position": 8,
+      "title": "Ilha Dourada Restaurante",
+      "place_id": "ChIJ19PDcIXfrAcRzBwfL7gvIIs",
+      "data_id": "0x7acdf8570c3d3d7:0x8b202fb82f1f1ccc",
+      "data_cid": "10025065238637780172",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf8570c3d3d7%3A0x8b202fb82f1f1ccc&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf8570c3d3d7%3A0x8b202fb82f1f1ccc&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9872387,
+        "longitude": -34.8284643
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ19PDcIXfrAcRzBwfL7gvIIs",
+      "provider_id": "/g/11b7lnh4g2",
+      "rating": 4.2,
+      "reviews": 3161,
+      "price": "R$ 60–180",
+      "extracted_price": 60,
+      "type": "Restaurante de frutos do mar",
+      "types": [
+        "Restaurante de frutos do mar",
+        "Bar"
+      ],
+      "type_id": "seafood_restaurant",
+      "type_ids": [
+        "seafood_restaurant",
+        "bar"
+      ],
+      "address": "BR -230, R. José Américo de Almeida Filho, s/n - Areia Dourada, Cabedelo - PB, 58101-212",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre ter. às 08:00",
+      "hours": "Fecha em breve · 17:00 · Abre ter. às 08:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–17:00",
+        "terça-feira": "08:00–17:00",
+        "quarta-feira": "08:00–17:00",
+        "quinta-feira": "08:00–17:00",
+        "sexta-feira": "08:00–17:00",
+        "sábado": "08:00–17:00",
+        "domingo": "08:00–17:00"
+      },
+      "phone": "(83) 3228-1826",
+      "website": "https://instagram.com/ilhadouradarestaurante?igshid=YmMyMTA2M2Y=",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Música ao vivo",
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Bebidas para happy hour",
+            "Café",
+            "Cerveja",
+            "Coquetéis",
+            "Pratos para happy hour",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil",
+            "Tem fraldários"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento descoberto pago",
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "Cães podem ficar na área externa"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Recomendo pois não é lotado e o atendimento é ótimo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFqiUY7DHyd7Bkt-ZZEOivqB5K6wsNEPr3WMLmTd_YbNCrOpqiWDyNWUBLCesZNA4a4ohx5ePuGHQZwq2BrrtB-iB3JkaQJf4V1DYNcn9goR2tfXzhxw8qEkQQtIU92C-421MHV=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/O3jURHicHcRJDoIwAADAF1VW18QDBRS3So2IcDFaKyUopYuiftA3-BsT5zDfD9O6USPDuDKnU3BeXOldUUl4rWmtO4TfjKJRgCigDC9GuPImokyyfhC9zn1YaZDn4bp8CNhd9FqFwlg66Wp5254P2Qn5ct2IMg1eKE3g0qcqR557dDl7dml8n0Y4b4UNpdQQlNCZV0c8v7g7K8gQqYcF39j6sn-zZzsQYYWxniVD2weuba2i3bi1TNME7D8B9Q9YP0QC"
+    },
+    {
+      "position": 9,
+      "title": "Espetinho da Neide (galega )",
+      "place_id": "ChIJkS4yB_jfrAcRqBXX8hyz1d4",
+      "data_id": "0x7acdff807322e91:0xded5b31cf2d715a8",
+      "data_cid": "16056936983374009768",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdff807322e91%3A0xded5b31cf2d715a8&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdff807322e91%3A0xded5b31cf2d715a8&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.028218799999999,
+        "longitude": -34.8468276
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJkS4yB_jfrAcRqBXX8hyz1d4",
+      "provider_id": "/g/11h_ydlks7",
+      "rating": 5,
+      "reviews": 3,
+      "unclaimed_listing": true,
+      "type": "Área para churrasco",
+      "types": [
+        "Área para churrasco"
+      ],
+      "type_id": "barbecue_spots",
+      "type_ids": [
+        "barbecue_spots"
+      ],
+      "address": "R. Jair Cunha Cavalcanti - Lot. Oceania VI, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–00:00",
+        "terça-feira": "17:00–00:30",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "17:00–00:00",
+        "sexta-feira": "17:00–00:15",
+        "sábado": "17:00–00:15",
+        "domingo": "17:00–00:15"
+      },
+      "phone": "(83) 98809-9052",
+      "extensions": [
+        {
+          "payments": [
+            "Cartão de débito"
+          ]
+        }
+      ],
+      "user_review": "\"Eu amei explodido\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEDK-wgqPUAfapxBCwiMkqBvYsMQWwluE_jqgFShJInd26jzwD4BdlGo7s7loiILTJHMIHhFrgsGSheFD0SmKzIcLTKLa0TEjg4Zzzzwmsv2hrtxmSi1oFzIu5oaYPjl9W9k1dnlg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/In8nuHicHcTdboIwGADQJ6oUf2ZcsgsQ0AosGDDG3SykYAuUFviKNX3DPYJvs8RzcV5_XOsBPh1H8NWCKcVEPUM9USV1LfWCqt5hAyAKCBwv-z53XhjEyLAxu3j3cnj6e9Ok3eg_bpCer0bM4W87sijnJyKr5UdrTbD2K3FQW9gK1ZCkOB1TcuTRxOCQ8zoKcN7HltCkiJMSF2HL1j_WWtPDY8kn_ezzxlWRJfNGlbesFbvrrnMrKdiXcTHGiL-nSP4DmUhHiQ"
+    },
+    {
+      "position": 10,
+      "title": "Meio Quilo",
+      "place_id": "ChIJhzOrgHIgrQcRTCBeQ_9JM-8",
+      "data_id": "0x7ad207280ab3387:0xef3349ff435e204c",
+      "data_cid": "17236201559572750412",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad207280ab3387%3A0xef3349ff435e204c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad207280ab3387%3A0xef3349ff435e204c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.971458999999999,
+        "longitude": -34.83754
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJhzOrgHIgrQcRTCBeQ_9JM-8",
+      "provider_id": "/g/1v_snfv5",
+      "rating": 4.4,
+      "reviews": 160,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "type": "Restaurante self-service",
+      "types": [
+        "Restaurante self-service",
+        "Restaurante fast-food",
+        "Restaurante especializado em sopas"
+      ],
+      "type_id": "buffet_restaurant",
+      "type_ids": [
+        "buffet_restaurant",
+        "fast_food_restaurant",
+        "soup_restaurant"
+      ],
+      "address": "R. Aderbal Piragibe, 13 - Centro, Cabedelo - PB, 58100-110",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 11:00",
+      "hours": "Fechado · Abre ter. às 11:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–15:00",
+        "terça-feira": "11:00–15:00",
+        "quarta-feira": "11:00–15:00",
+        "quinta-feira": "11:00–15:00",
+        "sexta-feira": "11:00–15:00",
+        "sábado": "11:00–15:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 3228-8464",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Serviço de buffet",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Alelo",
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee",
+            "Vale refeição"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Pedidos também via whatsapp.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH5g0lyVQw1W2T5pip8SEeHJfyKAkuNZ4o54ax9oKH8oE5_DXnqkW2pZ5_IQ3iiOTAstaf2U76cB71h0EGAigE_GN4kPkLPFbshKT2P7H_V7A6qI3AIcM2HjKqQU16lp2M50sks=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/csDfonicHcRRToMwGADgEzFKoYBLfKgZrohDyBgYXghroMUiLf5d5k7oGXYbk30P3_1PWmtg67qz9DdCazEPFxh-uF7ssNgN19-uMOBwcMClRV4qyohA860ur16DK2ImEx-Tgb2Nt4yqS94GmgT975POWKwT0u0-l1U12LSkS0t_mj4qCrYf8SkK-UvkSZTs6SSSbp8HqlDvxesZZFbhImJdHdFwTX2a8gNmX9lanrxwNvhAECh4vnoIIUc-5s7yD7jqQi0"
+    },
+    {
+      "position": 11,
+      "title": "Oliver Grill e Espetos",
+      "place_id": "ChIJf5cN1cDfrAcRCKHM1M2eY_Y",
+      "data_id": "0x7acdfc0d50d977f:0xf6639ecdd4cca108",
+      "data_cid": "17754208762900291848",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfc0d50d977f%3A0xf6639ecdd4cca108&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfc0d50d977f%3A0xf6639ecdd4cca108&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0441261,
+        "longitude": -34.8419093
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJf5cN1cDfrAcRCKHM1M2eY_Y",
+      "provider_id": "/g/11xctprrqd",
+      "rating": 4.9,
+      "reviews": 54,
+      "price": "R$ 40–60",
+      "extracted_price": 40,
+      "type": "Restaurante brasileiro",
+      "types": [
+        "Restaurante brasileiro"
+      ],
+      "type_id": "brazilian_restaurant",
+      "type_ids": [
+        "brazilian_restaurant"
+      ],
+      "address": "Av. Oceano Índico, 928 - Intermares, Cabedelo - PB, 58102-222",
+      "country": "Brasil",
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–00:00",
+        "terça-feira": "17:00–00:00",
+        "quarta-feira": "17:00–00:00",
+        "quinta-feira": "17:00–00:00",
+        "sexta-feira": "17:00–00:00",
+        "sábado": "17:00–00:00",
+        "domingo": "Fechado"
+      },
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Serviços no local",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Esportes",
+            "Mesas na cobertura"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Atendimento no balcão",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida",
+            "Cães podem ficar na área externa",
+            "Permite a entrada de cães"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Ótimo espetinho.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHxD4a_rwRN50ZLugWyHF-64Lnt6y-Kb7BbIxlySH6Hu5-PpXbIoSjlsqTAkbZLwABWwph7WAHdZHPnKHoR-ud_XzTQXfIuJC2klin4UpSePkLw8gmeN8KwrIm7pK5EXt6k-MA6C4pyEQ0=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/sNuGtHicHcTBToMwGADgJ_pHVSiLiYduzhRBAmMGwmURVou2tJW26fAhvfs2Jn6H7_dncs7Y-yiS092Ga80l85Yto1aOKbcZ9RxxY2G0YCNSlbUg9PoYv52XcCwT1Beetyt9AhwXyuEV8iHdDdlVrg3F1CdQmW7IdPMp7deJiKEvAtm1wUxpS-ilp5XKqT6Cv5y771PdvWf-eX8r5IeKX03DKlGELZ9Zuc3Dks2pyZND57CAF4L3sVkPNXoINwghmP4fQf0BUKFGyQ"
+    },
+    {
+      "position": 12,
+      "title": "Espetinho Do Jorge",
+      "place_id": "ChIJ07vP-0verAcRwU1RGY6vTT4",
+      "data_id": "0x7acde4bfbcfbbd3:0x3e4daf8e19514dc1",
+      "data_cid": "4489437428403228097",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde4bfbcfbbd3%3A0x3e4daf8e19514dc1&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde4bfbcfbbd3%3A0x3e4daf8e19514dc1&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.020908899999999,
+        "longitude": -34.835215999999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ07vP-0verAcRwU1RGY6vTT4",
+      "provider_id": "/g/11pz13ntxx",
+      "rating": 4,
+      "reviews": 2,
+      "unclaimed_listing": true,
+      "address": "R. Carolino Cardoso - Lot. Vitorino Cardoso, Cabedelo - PB, 58101-502",
+      "country": "Brasil",
+      "user_review": "\"Muito bom atendimento um dono muito legal  música  boa\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=qHjR4LOL8CGo7i6Es9TF9Q&cb_client=search.gws-prod.gps&w=80&h=92&yaw=218.25136&pitch=2.101698&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/EQP1QnicHc3LDcIgAADQbbjJT61gQjwYP4cmRuPdUIqAoQULFp3ImdxG4wLvfd4255iWCKU8aJ1Hp0t0T-3TJEpoQjBey-gSVKFDI0HZPrqml86vouyDa8V9fzvN6kPN1ruwcNUm8fOWH4FqLso73WeRtByUhab8xCG00MQEimAYWMEpeMkiKGGQzsm0AtFlZQWFBJOKM_DPrmEUBOMvvlA6IA"
+    },
+    {
+      "position": 13,
+      "title": "Bar e Restaurante do Pessoinha",
+      "place_id": "ChIJ4XsN-wfhrAcRxkkYL52xlIM",
+      "data_id": "0x7ace107fb0d7be1:0x8394b19d2f1849c6",
+      "data_cid": "9481398404179839430",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ace107fb0d7be1%3A0x8394b19d2f1849c6&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ace107fb0d7be1%3A0x8394b19d2f1849c6&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.990155499999999,
+        "longitude": -34.8743396
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ4XsN-wfhrAcRxkkYL52xlIM",
+      "provider_id": "/g/11cpgy58d5",
+      "rating": 4.5,
+      "reviews": 499,
+      "price": "R$ 20–120",
+      "extracted_price": 20,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante",
+        "Bar"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant",
+        "cocktail_bar"
+      ],
+      "address": "PB-011, 178 - Forte Velho, Santa Rita - PB, 58304-300",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre sex. às 09:00",
+      "hours": "Fecha em breve · 17:00 · Abre sex. às 09:00",
+      "operating_hours": {
+        "segunda-feira": "09:00–17:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "Fechado",
+        "sexta-feira": "09:00–17:00",
+        "sábado": "09:00–17:00",
+        "domingo": "09:00–17:00"
+      },
+      "phone": "(83) 98127-1419",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Café",
+            "Cerveja",
+            "Coquetéis",
+            "Porções pequenas",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Ambiente limpo , organizado e de boa qualidade !\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGwMOJ-DKWdjny5vpIJjQUjWQpace37sd7eWv8CiqV6n3_5xZS98BMazrgFGR7McGbunW69gclYtRPsdsinjMCBdWeLm1_JrLrePh_Zm5MWhCvv2qxx6yzpxfl5evn7xyVj2P3jnA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/JmQ2cXicHcRRboIwGADgE1VQAuiSPSBGIloHLtrMF6KltnbwU2mtxRvuCN7GZN_D9_oTxij94XmNCEa863jD7pr1tAPDwIxo13pcaUQ10l5SbMvfJHvgrxwt1qSWMIRWrXJZ7iUp1YmyINZ1zIidptfbIYKgCt3xezad49Oz58tsF2Oane9AohmnzY_ZFbrWV5A4ndeEbdpxlfebnhWiOrYhJiK1dnJzLhqeyl2akFmI3XCQkyKQkHw-xr7vI_E_RfAGUcRHLA"
+    },
+    {
+      "position": 14,
+      "title": "Espetinh",
+      "place_id": "ChIJuToxFxPfrAcRAaoTNj0a6wo",
+      "data_id": "0x7acdf1317313ab9:0xaeb1a3d3613aa01",
+      "data_cid": "786751410108869121",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1317313ab9%3A0xaeb1a3d3613aa01&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1317313ab9%3A0xaeb1a3d3613aa01&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0052043,
+        "longitude": -34.8319252
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJuToxFxPfrAcRAaoTNj0a6wo",
+      "provider_id": "/g/11m6z4s86n",
+      "rating": 3.7,
+      "reviews": 3,
+      "unclaimed_listing": true,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "R. Nilo Montenegro - Jardim Camboinha, Cabedelo - PB, 58103-676",
+      "country": "Brasil",
+      "phone": "(83) 99999-9999",
+      "extensions": [
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "retirada_na_porta": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=njS5yoYcSkZLHrxtBIBOYw&cb_client=search.gws-prod.gps&w=80&h=92&yaw=113.74156&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/NsaXJnicHc1LDsIgFADA27CTj1p_CTHpShMTF13VjaGIgFIg8CztbbyWt9F4gZnP2wDEvCMkQ1IKBqtKtKNyeRYF1iFop0S0GcvQk4ERMK--88K6fRQ-2Bv3j6aaQiub5-V0SCPUx_rcFiS7q3RWeeBZiSQN1uUnpnDDOmZU-IYiw7dzNInCGVvg9ZJVKxQtSMMp-i_3MHBG6Rejwzn-"
+    },
+    {
+      "position": 15,
+      "title": "Espetinho Do Mago",
+      "place_id": "ChIJq3Ql4-DhrAcRVOlmPkbKwng",
+      "data_id": "0x7ace1e0e32574ab:0x78c2ca463e66e954",
+      "data_cid": "8701739833076672852",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ace1e0e32574ab%3A0x78c2ca463e66e954&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ace1e0e32574ab%3A0x78c2ca463e66e954&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9900861,
+        "longitude": -34.8751994
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJq3Ql4-DhrAcRVOlmPkbKwng",
+      "provider_id": "/g/11gm9h1qkr",
+      "rating": 4.7,
+      "reviews": 3,
+      "unclaimed_listing": true,
+      "type": "Bar",
+      "types": [
+        "Bar"
+      ],
+      "type_id": "bar",
+      "type_ids": [
+        "bar"
+      ],
+      "address": "Forte Velho, Santa Rita - PB",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–00:00",
+        "terça-feira": "18:00–00:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "18:00–00:00",
+        "sexta-feira": "18:00–00:00",
+        "sábado": "18:00–00:00",
+        "domingo": "18:00–00:00"
+      },
+      "phone": "(83) 98899-0705",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de cervejas"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGEPXxFpB3dYQSbljC1YHoFq7f6651IsfKBDkKqkEcdBiRqomVt81Hrlvxm1EX1JKbT8WR2qCUJOncLKipcPoirb2-unJqM6sUkQFo2N7xWdq3Zi4NCxX5rpWDZXYY7oWO7Shl7=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/VEvHOnicHcRBcoIwFADQE0UIVOJ0pgtBUEERtBRwSUCghPyEROWGPYO3caZv8V5_ndZCfRoG6-xFC9Cy5q6aiQLXDdcLCqPRCoWoQspYJ3E6rLd-UsyBcO26TC8V-_VwuYNAkpvjLPFe3SJ3M0Ry8Gnt9mcJ449e4d3EHvOI_QKHUfW9ys-W9LLwxOkh6gVNoJ8qC915KI-OyoY0ACsmc15L-9p_xN5cLCeRb65FWRLIT-TSMfL1xKZpou5_ivgbMN5EQA"
+    },
+    {
+      "position": 16,
+      "title": "Espetinho lá Brasil",
+      "place_id": "ChIJnV7DIgbfrAcR2KjlFmSKYJ8",
+      "data_id": "0x7acdf0622c35e9d:0x9f608a6416e5a8d8",
+      "data_cid": "11484331212280277208",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0622c35e9d%3A0x9f608a6416e5a8d8&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0622c35e9d%3A0x9f608a6416e5a8d8&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0396529,
+        "longitude": -34.839458
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJnV7DIgbfrAcR2KjlFmSKYJ8",
+      "provider_id": "/g/11l2jzsr7g",
+      "rating": 4,
+      "reviews": 4,
+      "type": "Restaurante de churrasquinho",
+      "types": [
+        "Restaurante de churrasquinho"
+      ],
+      "type_id": "kebab_shop",
+      "type_ids": [
+        "kebab_shop"
+      ],
+      "address": "Av. Oceano Pacífico - Intermares, Cabedelo - PB, 58102-236",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 17:30",
+      "hours": "Fechado · Abre às 17:30",
+      "operating_hours": {
+        "segunda-feira": "17:30–23:00",
+        "terça-feira": "17:30–23:30",
+        "quarta-feira": "17:30–23:30",
+        "quinta-feira": "17:30–23:30",
+        "sexta-feira": "17:30–00:00",
+        "sábado": "17:30–00:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(61) 99908-5656",
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Preço justo!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHIVh5ZRnJGQ3AsBIQw_4XlTTDmH0pbutPgetlI2bM1Wx8eHW8EG98G7nQHzeDycDqyeH3ZaBZstbtuxgLrgLYYmhOACXxp2Js3dVT0YuJdpihjZs447faFxEmdya_INeVPfZGB=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/PlHZ1nicHcTdboIwGADQJ0KqsIgmuwBxFOIcGMJPbwiU2m5CqX4lgi-4Z_BtTDwX5_kvtFawNc1OWAs-DLxjI7AbHaRmUi_o0JtcgUHBANONj8nFxWEmPshJRkFiueCFyb2yiy5N_R4j1Yw65kx34ar5XuaTw3Du7IONE6xlgh_Mn6l_nRm2SO0R0I0eJ3648UNZ9uLH3RWTWkVgtVmKyjFq1a_4I2Db63P9Ne37dq6r8Miy-EwC7_O-RAgZ4j015AtpM0VN"
+    },
+    {
+      "position": 17,
+      "title": "Espetinho São Paulo",
+      "place_id": "ChIJK3fELgAfrQcRtB4AcNwaTUc",
+      "data_id": "0x7ad1f002ec4772b:0x474d1adc70001eb4",
+      "data_cid": "5137792283973787316",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad1f002ec4772b%3A0x474d1adc70001eb4&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad1f002ec4772b%3A0x474d1adc70001eb4&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9607496,
+        "longitude": -34.8631483
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJK3fELgAfrQcRtB4AcNwaTUc",
+      "provider_id": "/g/11mdbpzxc6",
+      "unclaimed_listing": true,
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "R. Severina Souto Batista, 11 - Planta de Lucena, Lucena - PB, 58315-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=gP1JFlfxRlzuozkDrVQmfg&cb_client=search.gws-prod.gps&w=80&h=92&yaw=216.70901&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/66tnwnicHc09DsIgGADQ27DJTwe1Jl9cjIOTOrgaSil8KS0EaKk9jdfyNhov8N7nbXMO6cBYylHrPKMuARft0iZIarw3TsuAiSo_sFmwbKehGSW6Y5CjxxbMVVzOrlvubp382p_i4zZ0hqjmqRzqMUPSMipLTfmJ0bfUhEQK7DmxUFfkJQtUYkt3vOaCBMzKAif_pfMzCM6_v5Y6XA"
+    },
+    {
+      "position": 18,
+      "title": "ESPETINHO DO GAUCHO",
+      "place_id": "ChIJQf5xz0verAcRud7oMR4ySFI",
+      "data_id": "0x7acde4bcf71fe41:0x5248321e31e8deb9",
+      "data_cid": "5929044014701010617",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde4bcf71fe41%3A0x5248321e31e8deb9&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde4bcf71fe41%3A0x5248321e31e8deb9&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0204138,
+        "longitude": -34.8369547
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJQf5xz0verAcRud7oMR4ySFI",
+      "provider_id": "/g/11z9bvtpwv",
+      "unclaimed_listing": true,
+      "address": "R. Honório Patrício dos Santos, 44 - Recanto do Poço, Cabedelo - PB, 58105-084",
+      "country": "Brasil",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=OPGscqlnPUWikHjvXvk--Q&cb_client=search.gws-prod.gps&w=80&h=92&yaw=217.05907&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/U13gSHicHc3BDcIgFADQbbgVqImpNSEe9WY9GL0ZSr_wLQUsCLqNa7mNxgXe-7xNSiGuGYtpBkgZoQR8go1VkFR7ry3IgJEqP7Fcs2QeU-8k2k2QzuMg9t02qrt13fGE4-6Wz3msqgNR_UVZBJdEBDkrQ3X5ibMfqA6RFLHixIh2QV6yiEXdUL5seUMCJmUEJ__l6rOoOf8CnR056g"
+    },
+    {
+      "position": 19,
+      "title": "Gigante Do Mar Beach",
+      "place_id": "ChIJ47lgZ6TfrAcR21h_sELDBwk",
+      "data_id": "0x7acdfa46760b9e3:0x907c342b07f58db",
+      "data_cid": "650703362374719707",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfa46760b9e3%3A0x907c342b07f58db&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfa46760b9e3%3A0x907c342b07f58db&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0050937,
+        "longitude": -34.8262224
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ47lgZ6TfrAcR21h_sELDBwk",
+      "provider_id": "/g/11hb5fnqfd",
+      "rating": 4.2,
+      "reviews": 3378,
+      "price": "R$ 60–160",
+      "extracted_price": 60,
+      "type": "Restaurante de frutos do mar",
+      "types": [
+        "Restaurante de frutos do mar",
+        "Agência de passeios de barco",
+        "Agência de viagens a pontos turísticos"
+      ],
+      "type_id": "seafood_restaurant",
+      "type_ids": [
+        "seafood_restaurant",
+        "boat_tour_agency",
+        "sightseeing_tour_agency"
+      ],
+      "address": "Av. Max Zagel, 450 - Camboinha, Cabedelo - PB, 58033-455",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 09:00",
+      "hours": "Fechado · Abre ter. às 09:00",
+      "operating_hours": {
+        "segunda-feira": "09:00–16:00",
+        "terça-feira": "09:00–16:00",
+        "quarta-feira": "09:00–16:00",
+        "quinta-feira": "09:00–16:00",
+        "sexta-feira": "09:00–16:00",
+        "sábado": "09:00–16:00",
+        "domingo": "09:00–16:00"
+      },
+      "phone": "(83) 99995-2504",
+      "website": "https://www.instagram.com/gigantedomaroficial/",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Café",
+            "Cerveja",
+            "Coquetéis",
+            "Porções pequenas",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Recomendação de reserva para almoço",
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Lugar bem posicionado, organizado e bem sombreado.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGU0O0TWpiwAo1rTMLOGCDd5P3OeKILxHhaF2XyYSzxM3D4O2MtchBm11X5rSkbxFuYC8TeC6ngDPMJuzQDvLwOU0qyx4tw-Vz3FYuyrjASj6r-odX26vSzcICr2sYGmosPIeOb=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/5Xof53icHcRJDoIwAADAFxUKKDEmHhAComAxoMJRSkNlK7ZFlg_6Bn9j4hzm-6FS9mKrqg01lJKxsiGDIByzTpJOKpi1atkLgAUQqhWdL7XlXSGCyb1_jhbTeBIGyLOdYh0ZiJz8YDrQh6uncxYvU2g4K6SHEtN9q2npmsd1PrlDZm8SYptd6UThcVguzjsY0RW-5mklR3BbDDcbZl5ZcWVywIpUN9_xgn2b6yLzWiYin6B8N2oQQkD_Y9D9AA_FRIs"
+    },
+    {
+      "position": 20,
+      "title": "Espetinho do xandao",
+      "place_id": "ChIJCcURbQDfrAcRhFrZD2Ih3qI",
+      "data_id": "0x7acdf006d11c509:0xa2de21620fd95a84",
+      "data_cid": "11735854384030505604",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf006d11c509%3A0xa2de21620fd95a84&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf006d11c509%3A0xa2de21620fd95a84&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.031254499999999,
+        "longitude": -34.8336458
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJCcURbQDfrAcRhFrZD2Ih3qI",
+      "provider_id": "/g/11y4x_bjvz",
+      "rating": 4,
+      "reviews": 4,
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "R. da Enseada, 1215 - Ponta de Campina, Cabedelo - PB, 58101-640",
+      "country": "Brasil",
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "17:00–23:00",
+        "quinta-feira": "17:00–23:00",
+        "sexta-feira": "17:00–01:00",
+        "sábado": "17:00–01:00",
+        "domingo": "17:00–22:30"
+      },
+      "phone": "(83) 99656-2295",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Melhor da região.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG7R5M8AqT6wbQXFhAXaKVCS9Rwg37VSxF1VUFpmn4wdeDJbQTXRjISJCuCvAXnj8IxcjhY4ZIsLDWhYXDpu1mXpgPVf-R-effge7LTHLL9x6RPziuXTOgUbEUgpjIYfos9GJgMgw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/5iYU3nicHcRNUoMwGADQE6XAtJbijIsMlBakCuHH0J3E8KVYkmjAMN7QI3ibzvQt3v-fmCZtHh3nKtYrUAqufDb8myk5cTmtmBod0AYxg4yD85fiEx988nDa4a9qa7uCxgLT9-cmLANiYe035RJ7TR3rUW7sB4_SrqgoGZIyDefwB1M57JKFDaLdnBOTRW-ipZGevZFqyJseEcT7HrifVccsC5YtyX8vM61eoe72NeghaXtlgkMKJ7BP1nNdF4n7DMkbrOJFZQ"
+    }
+  ]
+}

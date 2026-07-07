@@ -1,0 +1,227 @@
+{
+  "id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+  "name": "Route Hot Dogs",
+  "instagram": "https://www.instagram.com/routehotdogs/",
+  "followers": 4030,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_profile_1783385162584.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385167145_1.jpg",
+      "score": 44,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385168647_2.jpg",
+      "score": 43,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385169410_3.jpg",
+      "score": 41,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385170385_4.jpg",
+      "score": 40,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385171790_5.jpg",
+      "score": 39,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385172528_6.jpg",
+      "score": 31,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385173152_7.jpg",
+      "score": 29,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385173740_8.jpg",
+      "score": 28,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "73a0c5dd-4de1-4e1b-90da-04a6d0978831",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385167145_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "33496ec0-385f-403d-ade7-805a96cd90f4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385168647_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "594e8784-c446-4fd8-afcb-4ead50724585",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385169410_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "c1ae05f0-8222-41e9-9d25-ae2d32b7991f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385170385_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "1ccdb8b9-3b50-4ce2-9376-22976833b2e3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385171790_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "66f4a978-5f65-4008-861e-ef18f1419a88",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385172528_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "4fef9151-e390-43e5-9ae9-2203e178e51b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385173152_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "c42ed15a-f58b-4ff4-abeb-2d3711d06e68",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869/instagram_1783385173740_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 44,
+      "caption": "Vem pra Route!!! 🌭 Hot Dogs e Hambúrgueres 🍔 Feitos na Churrasqueira 🔥 📍Intermares - PB 🌳 Praça Durval Portela de Andrade Av. Mar das Antilhas, Cabedelo 58102098 - #hotdog #ha",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 43,
+      "caption": "Combo Individual 🍔 com o nosso queridinho “Burger 1”, por apenas R$36,99. 🌭 Hot Dogs e Hambúrgueres 🍔 Feitos na Churrasqueira 🔥 📍Intermares - PB 🌳 Praça Durval Portela de And",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 41,
+      "caption": "Combo Individual 📢 01 “Route Dog 1” + 01 Refri, por apenas R$24,99. 🌭 Hot Dogs e Hambúrgueres 🍔 Feitos na Churrasqueira 🔥 📍Intermares - PB 🌳 Praça Durval Portela de Andrade A",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 40,
+      "caption": "COMBO FAMÍLIA ✨ São 02unds do Dog 1 + 02unds do Burger 1 + 02unds de Regri 🤩 Não perde tempo… Vem pra route! 🌭 Hot Dogs e Hambúrgueres 🍔 Feitos na Churrasqueira 🔥 📍 Intermares",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 39,
+      "caption": "Seu pedido favorito com um desconto especial 🤩 Retire no local, pague via Pix e aproveite 10% OFF. 📢 🌭 Hot Dogs e Hambúrgueres 🍔 Feitos na Churrasqueira 🔥 📍 Intermares - PB P",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 31,
+      "caption": "FUTEBOL NA PRAÇA! ⚽️ Neste sábado (06/06), às 19h, tem transmissão ao vivo de Brasil 🇧🇷 x Egito 🇪🇬 aqui no trailer! Reúna a família, chame os amigos e venha curtir o jogo em um",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "Vem pra Route!! 🌭 Hot Dogs e Hambúrgueres 🍔 Feitos na Churrasqueira 🔥 📍Intermares - PB 🌳 Praça Durval Portela de Andrade Av. Mar das Antilhas, Cabedelo 58102098 - #hotdog #ham",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Reúna os amigos, vista a camisa e venha torcer com a gente. 🌭 Hot Dogs e Hambúrgueres 🍔 Feitos na Churrasqueira 🔥 📍 Intermares - PB Praça Durval Portela de Andrade Av. Mar das ",
+      "vision": null
+    }
+  ]
+}

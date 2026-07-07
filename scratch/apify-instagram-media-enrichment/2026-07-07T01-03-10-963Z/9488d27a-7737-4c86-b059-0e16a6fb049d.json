@@ -1,0 +1,89 @@
+{
+  "id": "9488d27a-7737-4c86-b059-0e16a6fb049d",
+  "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+  "instagram": "https://www.instagram.com/lovinapontadecampina/",
+  "followers": 221445,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://grupolovina.github.io/lovinapontadecampina"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "d0422a5a-4934-46ee-8575-e8ab92e5790a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9488d27a-7737-4c86-b059-0e16a6fb049d/instagram_1783384298815_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "c6d1321c-d6c1-409f-ab8d-d9b94a3be94d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9488d27a-7737-4c86-b059-0e16a6fb049d/instagram_1783384300357_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "2e0e18b5-24e8-44b9-a1d9-0c501f8250cd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9488d27a-7737-4c86-b059-0e16a6fb049d/instagram_1783384300971_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "57081f87-c7f0-4c45-8169-23d66ad938c3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9488d27a-7737-4c86-b059-0e16a6fb049d/instagram_1783384301887_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "f94c1a60-2332-41b2-894b-5979e7cf4d76",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9488d27a-7737-4c86-b059-0e16a6fb049d/instagram_1783384302590_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "973c2f65-a5b7-4690-8a73-27bb425f1751",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9488d27a-7737-4c86-b059-0e16a6fb049d/instagram_1783384303423_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "064b9250-4d2c-4526-962b-8effba3d0d67",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9488d27a-7737-4c86-b059-0e16a6fb049d/instagram_1783384303995_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "2f1b8644-4b84-4a60-9f3a-f31c6945ea14",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9488d27a-7737-4c86-b059-0e16a6fb049d/instagram_1783384304750_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,53 @@
+{
+  "id": "62958074-8ac2-487e-9cde-9b6c018c34dc",
+  "name": "Empório Do Sabor",
+  "category": "Restaurante",
+  "neighborhood": "Lot. Oceania VI",
+  "reviews_count": 1,
+  "rating": 5,
+  "instagramCandidate": "https://instagram.com/emporio_do_saborrg",
+  "score": 120,
+  "title": "Empório do Sabor (@emporio_do_saborrg)",
+  "queries": [
+    "Empório Do Sabor emporio_do_sabor_oficial Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://www.instagram.com/emporio_do_saborrg/ | Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://instagram.com/emporio_do_saborrg",
+  "rowName": "Empório Do Sabor",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": -36,
+    "url": "https://instagram.com/emporio_do_saborrg",
+    "handle": "emporio_do_saborrg",
+    "tokens": [
+      "emporio",
+      "sabor"
+    ],
+    "handleMatches": [
+      "emporio",
+      "sabor"
+    ],
+    "textMatches": [
+      "emporio",
+      "sabor"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [
+      "cassino/rs"
+    ],
+    "outOfScope": false,
+    "evidenceSample": "Empório do Sabor (@emporio_do_saborrg) Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://www.instagram.com/emporio_do_saborrg/ | Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://instagram.com/emporio_do_saborrg Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdni",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Femporio_do_saborrg%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "d8854d41-bec5-4a35-8fc0-cb3ac0a3e38e"
+}

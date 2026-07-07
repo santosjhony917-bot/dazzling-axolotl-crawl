@@ -1,0 +1,62 @@
+{
+  "search_metadata": {
+    "id": "6a4c6cb4018c482914afcb35",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/Jfw2mqr08DMjtyc2pX6IFA/6a4c6cb4018c482914afcb35.json",
+    "created_at": "2026-07-07 03:04:20 UTC",
+    "processed_at": "2026-07-07 03:04:20 UTC",
+    "google_maps_photos_url": "https://www.google.com/maps/_/MapsWizUi/data/batchexecute?rpcids=hspqX&source-path=%2Fmaps%2Fplace%2Fdata%3D%214m1%211s0x7acdf02662a4b07%3A0x147e30c4edb222f7&hl=pt&rt=c",
+    "raw_html_file": "https://serpapi.com/searches/Jfw2mqr08DMjtyc2pX6IFA/6a4c6cb4018c482914afcb35.html",
+    "prettify_html_file": "https://serpapi.com/searches/Jfw2mqr08DMjtyc2pX6IFA/6a4c6cb4018c482914afcb35.prettify",
+    "total_time_taken": 5.84
+  },
+  "search_parameters": {
+    "engine": "google_maps_photos",
+    "data_id": "0x7acdf02662a4b07:0x147e30c4edb222f7",
+    "hl": "pt"
+  },
+  "categories": [
+    {
+      "title": "Tudo",
+      "id": "CgIgAQ"
+    },
+    {
+      "title": "Cardápio",
+      "id": "CgIYIQ"
+    },
+    {
+      "title": "Gastronomia",
+      "id": "CgIYIA"
+    },
+    {
+      "title": "Pizza",
+      "id": "CgwKCC9tLzA2NjN2MAE"
+    },
+    {
+      "title": "Street View e 360°",
+      "id": "CgIgARICCAI"
+    }
+  ],
+  "photos": [
+    {
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEN8I2hpqnz4b93-jE1Is0W4gqMKjrxkE8Vmbjr00hZi1samgPul1BSXGofZa6i3lju1oc3PKM2RVLlSRXPP51JODR-dol_L3IIzyZS9X7zWxGqslaDMCl2GHYOa_FtfvEDQRkp9A=w203-h201-k-no",
+      "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEN8I2hpqnz4b93-jE1Is0W4gqMKjrxkE8Vmbjr00hZi1samgPul1BSXGofZa6i3lju1oc3PKM2RVLlSRXPP51JODR-dol_L3IIzyZS9X7zWxGqslaDMCl2GHYOa_FtfvEDQRkp9A=w720-h713-k-no",
+      "photo_meta_serpapi_link": "https://serpapi.com/search.json?data_id=CIHM0ogKEICAgICRq-OA2QE&engine=google_maps_photo_meta"
+    },
+    {
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGdv9NHALPKywLic88EeIQvvyUON5i1ePc2p5f09RglK234dsIkA7r8_YAbVg3f9KAQ1tMQ6H8l7LNy0L__xkfJyryCMOT0XBl7tmw3ViB4U5v679QZrnM5PV4KEGuKew_WDRYb=w203-h237-k-no",
+      "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGdv9NHALPKywLic88EeIQvvyUON5i1ePc2p5f09RglK234dsIkA7r8_YAbVg3f9KAQ1tMQ6H8l7LNy0L__xkfJyryCMOT0XBl7tmw3ViB4U5v679QZrnM5PV4KEGuKew_WDRYb=w720-h844-k-no",
+      "photo_meta_serpapi_link": "https://serpapi.com/search.json?data_id=CIHM0ogKEICAgICRq-OAWQ&engine=google_maps_photo_meta"
+    },
+    {
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGx37uLSIgIAI8Un5sOPdaJ-G26P_FjHVPOibQyCjBhVg1MXS4PSG1PBmP5eXV4uSygDf-OpklptlkBOqDdmw8c8QKXwfYlXVwZZG88MhvUcJthOrgiX0IzIwNBXmuCossOn1lv8A=w203-h287-k-no",
+      "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGx37uLSIgIAI8Un5sOPdaJ-G26P_FjHVPOibQyCjBhVg1MXS4PSG1PBmP5eXV4uSygDf-OpklptlkBOqDdmw8c8QKXwfYlXVwZZG88MhvUcJthOrgiX0IzIwNBXmuCossOn1lv8A=w905-h1280-k-no",
+      "photo_meta_serpapi_link": "https://serpapi.com/search.json?data_id=CIHM0ogKEICAgID2i7K6pAE&engine=google_maps_photo_meta"
+    },
+    {
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=055VPHQ_mWvU0w8yNA-MLA&cb_client=maps_sv.tactile.gps&w=203&h=100&yaw=116.40865&pitch=0&thumbfov=100",
+      "image": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=055VPHQ_mWvU0w8yNA-MLA&cb_client=maps_sv.tactile.gps&w=10000&h=10000&yaw=116.40865&pitch=0&thumbfov=100",
+      "photo_meta_serpapi_link": "https://serpapi.com/search.json?data_id=055VPHQ_mWvU0w8yNA-MLA&engine=google_maps_photo_meta"
+    }
+  ]
+}

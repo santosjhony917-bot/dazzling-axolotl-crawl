@@ -1,0 +1,85 @@
+{
+  "id": "9007523d-76dc-4621-a738-134d99dfddd1",
+  "name": "Manos Burger Cabedelo",
+  "instagram": "https://www.instagram.com/manosburgercabedelo/",
+  "followers": 1439,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "322a2781-ad78-4c7e-8acb-bcba5d2f665d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9007523d-76dc-4621-a738-134d99dfddd1/instagram_1783385715135_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "8ec8dde6-4976-474d-b984-ae8cb6d52d98",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9007523d-76dc-4621-a738-134d99dfddd1/instagram_1783385716522_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "e95e6929-853e-49bc-8a7e-9fc71b28ad3b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9007523d-76dc-4621-a738-134d99dfddd1/instagram_1783385717755_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "a299ea67-0e7e-45ab-b379-450dc471efcf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9007523d-76dc-4621-a738-134d99dfddd1/instagram_1783385718444_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "f23deb1c-60d2-4d32-af18-d93654278287",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9007523d-76dc-4621-a738-134d99dfddd1/instagram_1783385719254_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "82c1587c-c9a1-4ae9-a436-c6581930b299",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9007523d-76dc-4621-a738-134d99dfddd1/instagram_1783385719914_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "5f30f67e-919e-4517-85c6-f59d1f30f307",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9007523d-76dc-4621-a738-134d99dfddd1/instagram_1783385720551_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "a584b8e7-d73b-42a5-894b-9b15fe1ebcdb",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9007523d-76dc-4621-a738-134d99dfddd1/instagram_1783385721150_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

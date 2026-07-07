@@ -1,0 +1,40 @@
+{
+  "restaurantId": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+  "restaurantName": "Espaço Do Sushi",
+  "sourceUrl": "https://delivery.yooga.app/espacosushi.house",
+  "platform": "yooga",
+  "reviewsCount": 33,
+  "address": "R. Juarez Távora - Camalaú",
+  "phone": null,
+  "startedAt": "2026-07-07T01:31:45.173Z",
+  "finishedAt": "2026-07-07T01:31:59.721Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\009-espaco-do-sushi",
+  "finalUrl": "https://delivery.yooga.app/espacosushi.house/tabs/home",
+  "title": "Espaço do Sushi Delivery | Camalaú - Cabedelo | Faça seu pedido.",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 1100,
+    "bodyLength": 61916,
+    "anchorCount": 1,
+    "imageCount": 61
+  },
+  "priceCountInVisibleText": 61,
+  "menuWords": [
+    "pedido",
+    "combo",
+    "bebida"
+  ],
+  "networkInterestingCount": 24,
+  "failedRequestCount": 0,
+  "directProbe": {
+    "platform": "yooga",
+    "success": false,
+    "reason": "no_direct_probe_for_platform_yet"
+  },
+  "lessonFlags": [
+    "short_fullpage_snapshot_should_be_valid",
+    "visible_text_fallback_possible"
+  ],
+  "error": null
+}

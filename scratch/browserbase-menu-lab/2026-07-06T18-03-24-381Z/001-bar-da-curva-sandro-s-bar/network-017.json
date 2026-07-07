@@ -1,0 +1,28 @@
+{
+  "url": "https://integracao.cardapioweb.com/api/menu/company/loyalty_program_rewards",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 290,
+  "textSample": "[{\"id\":202946,\"name\":\"Desconto de R$ 20,00\",\"kind\":\"discount\",\"fixed_discount_value\":20.0,\"points_quantity_required\":1000,\"points_per_currency_unit\":1,\"active\":true,\"item_id\":null,\"company_id\":36060,\"created_at\":\"2026-01-31T13:31:59.549-03:00\",\"updated_at\":\"2026-02-14T11:22:59.009-03:00\"}]",
+  "jsonKeys": [
+    "array",
+    "1"
+  ],
+  "json": [
+    {
+      "id": 202946,
+      "name": "Desconto de R$ 20,00",
+      "kind": "discount",
+      "fixed_discount_value": 20,
+      "points_quantity_required": 1000,
+      "points_per_currency_unit": 1,
+      "active": true,
+      "item_id": null,
+      "company_id": 36060,
+      "created_at": "2026-01-31T13:31:59.549-03:00",
+      "updated_at": "2026-02-14T11:22:59.009-03:00"
+    }
+  ]
+}

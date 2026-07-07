@@ -1,0 +1,91 @@
+{
+  "id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+  "name": "Pizzaria Bom Sabor",
+  "instagram": "https://www.instagram.com/pizzariabomsaborpb2/",
+  "followers": 548,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://pizzariabomsaborpb.com.br/"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "4f923df2-4168-48d4-bb83-d9bf77935e74",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a84400f3-afea-406e-a1ec-93c1b6e8d34f/instagram_1783384788502_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "784b87ba-af17-46e5-a7bd-37744ccd4745",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a84400f3-afea-406e-a1ec-93c1b6e8d34f/instagram_1783384789972_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "9bd3595d-7c7e-4413-8d05-d46c1d71401d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a84400f3-afea-406e-a1ec-93c1b6e8d34f/instagram_1783384790856_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "77d9bb75-bb16-487b-b5cc-d93fa5f9f071",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a84400f3-afea-406e-a1ec-93c1b6e8d34f/instagram_1783384791768_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "54ac52b8-f5cc-4d8e-9985-db7e643ab058",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a84400f3-afea-406e-a1ec-93c1b6e8d34f/instagram_1783384792848_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "232bc9dd-095e-4d7b-aeb4-2888c7f84b19",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a84400f3-afea-406e-a1ec-93c1b6e8d34f/instagram_1783384793593_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "5bce6bd2-06fd-4504-8466-226f4b0ba495",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a84400f3-afea-406e-a1ec-93c1b6e8d34f/instagram_1783384794449_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "ed5549d3-3c0a-4d5f-bdb4-df6ee660c67b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a84400f3-afea-406e-a1ec-93c1b6e8d34f/instagram_1783384795277_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

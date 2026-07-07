@@ -1,0 +1,71 @@
+{
+  "runId": "2026-07-07T08-11-54-422Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T08-11-54-422Z",
+  "scope": {
+    "ids": [
+      "4fa980c0-13d2-415f-97a6-e31fd3141133"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 7,
+      "itemCount": 108,
+      "optionCount": 670,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "108 itens estruturados via whatsmenu_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://whatsmenu.com.br/pastelarialitoranea",
+        "instagram": "https://www.instagram.com/pastelarialitoranea/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:00.427Z",
+          "status": "enriched",
+          "username": "pastelarialitoranea",
+          "followers": 6535,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://whatsmenu.com.br/pastelarialitoranea",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Sólon de Lucena",
+        "number": "19",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98807-9929",
+        "latitude": -6.970531299999999,
+        "longitude": -34.8366612,
+        "followers": 6535
+      },
+      "issues": []
+    }
+  ]
+}

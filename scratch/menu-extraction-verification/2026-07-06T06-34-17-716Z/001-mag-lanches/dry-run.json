@@ -1,0 +1,1057 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": true,
+      "confidence": 0.97,
+      "categoryCount": 6,
+      "itemCount": 28,
+      "resolvedPriceCount": 28,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": true,
+        "groups": 6,
+        "model": "gpt-4o-mini"
+      }
+    },
+    "preview": [
+      {
+        "name": "Bebidas",
+        "count": 7,
+        "samples": [
+          {
+            "name": "MEGA MAG - 5 pastéis + Suco 1 Litro",
+            "price": 39.99,
+            "kind": "combo_builder",
+            "description": "2 pastéis especiais 1 pastel frango caipira 1 pastel frango cheese 1 pastel charque cheese + 1 suco de 1 litro"
+          },
+          {
+            "name": "Garrafa de suco 350ml",
+            "price": 5,
+            "kind": "simple_item",
+            "description": "Suco natural da fruta sem leite. Suco já adoçado com açúcar. * Imagem meramente ilustrativa"
+          },
+          {
+            "name": "Garrafa de 1 Litro de suco",
+            "price": 11,
+            "kind": "simple_item",
+            "description": "Suco natural da fruta sem leite. Suco já adoçado com açúcar. * Imagem meramente ilustrativa"
+          },
+          {
+            "name": "Mini Refri 250ml indaiá",
+            "price": 3,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Refrigerante Lata",
+            "price": 6,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Pastéis tradicionais",
+        "count": 3,
+        "samples": [
+          {
+            "name": "Queijo coalho",
+            "price": 5,
+            "kind": "simple_item",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Misto",
+            "price": 5.5,
+            "kind": "simple_item",
+            "description": "Queijo coalho e presunto. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Especial",
+            "price": 5.5,
+            "kind": "simple_item",
+            "description": "Queijo coalho, presunto e salsicha. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "count": 12,
+        "samples": [
+          {
+            "name": "Carne moída",
+            "price": 5,
+            "kind": "simple_item",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Frango cheese",
+            "price": 7.5,
+            "kind": "simple_item",
+            "description": "Frango desfiado, miho verde e cream cheese ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Frango com queijo",
+            "price": 6.5,
+            "kind": "simple_item",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Frango com bacon",
+            "price": 6.5,
+            "kind": "simple_item",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Frango com requeijão",
+            "price": 6.5,
+            "kind": "simple_item",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          }
+        ]
+      },
+      {
+        "name": "Pizzas",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Pizza",
+            "price": 5.5,
+            "kind": "simple_item",
+            "description": "Queijo mussarela, presunto e orégano. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          }
+        ]
+      },
+      {
+        "name": "Especiais da Mag",
+        "count": 3,
+        "samples": [
+          {
+            "name": "Charque Cheese",
+            "price": 8.5,
+            "kind": "simple_item",
+            "description": "Charque triturada, cebola e cream cheese ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Charque com queijo coalho",
+            "price": 7.5,
+            "kind": "simple_item",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Charque com requeijão",
+            "price": 7.5,
+            "kind": "simple_item",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          }
+        ]
+      },
+      {
+        "name": "Sobremesas",
+        "count": 2,
+        "samples": [
+          {
+            "name": "Chocolate ao leite com queijo de coalho",
+            "price": 6.5,
+            "kind": "simple_item",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          },
+          {
+            "name": "Laka oreo",
+            "price": 7.5,
+            "kind": "simple_item",
+            "description": "Farofa de biscoito e chocolate branco. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm."
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "MEGA MAG - 5 pastéis + Suco 1 Litro",
+            "description": "2 pastéis especiais 1 pastel frango caipira 1 pastel frango cheese 1 pastel charque cheese + 1 suco de 1 litro",
+            "price": 39.99,
+            "display_price": 39.99,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3201612/bbda4671MAGLanches-20_04-combo_story.jpg.jpeg",
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "MEGA MAG - 5 pastéis",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Suco 1 Litro",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha o sabor do seu suco 😋",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "4096285",
+                    "group_name": "Escolha o sabor do seu suco 😋",
+                    "name": "Maracujá",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4096285",
+                "group_name": "Escolha o sabor do seu suco 😋",
+                "name": "Maracujá",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Garrafa de suco 350ml",
+            "description": "Suco natural da fruta sem leite. Suco já adoçado com açúcar. * Imagem meramente ilustrativa",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175436/fecdb40fsuco-laranja.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha o sabor do seu suco 😋",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "4096285",
+                    "group_name": "Escolha o sabor do seu suco 😋",
+                    "name": "Maracujá",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4096285",
+                "group_name": "Escolha o sabor do seu suco 😋",
+                "name": "Maracujá",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Garrafa de 1 Litro de suco",
+            "description": "Suco natural da fruta sem leite. Suco já adoçado com açúcar. * Imagem meramente ilustrativa",
+            "price": 11,
+            "display_price": 11,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175437/693c18315d6320be7837b7fd5d49d6dd.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha o sabor do seu suco 😋",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "4096285",
+                    "group_name": "Escolha o sabor do seu suco 😋",
+                    "name": "Maracujá",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4096285",
+                "group_name": "Escolha o sabor do seu suco 😋",
+                "name": "Maracujá",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Mini Refri 250ml indaiá",
+            "description": "",
+            "price": 3,
+            "display_price": 3,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4015492/b1f33291garrafas_refri-2.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha o sabor 😋",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "4096290",
+                    "group_name": "Escolha o sabor 😋",
+                    "name": "Laranja",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4096291",
+                    "group_name": "Escolha o sabor 😋",
+                    "name": "Cola",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4096292",
+                    "group_name": "Escolha o sabor 😋",
+                    "name": "Guaraná",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4096290",
+                "group_name": "Escolha o sabor 😋",
+                "name": "Laranja",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4096291",
+                "group_name": "Escolha o sabor 😋",
+                "name": "Cola",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4096292",
+                "group_name": "Escolha o sabor 😋",
+                "name": "Guaraná",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Refrigerante Lata",
+            "description": "",
+            "price": 6,
+            "display_price": 6,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175438/60d5403c26ca4a4e1f48f0d16121e83c.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha o sabor do seu refrigerante 😋",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "4096304",
+                    "group_name": "Escolha o sabor do seu refrigerante 😋",
+                    "name": "Guaraná antarctica",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4096305",
+                    "group_name": "Escolha o sabor do seu refrigerante 😋",
+                    "name": "Coca-Cola",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4096306",
+                    "group_name": "Escolha o sabor do seu refrigerante 😋",
+                    "name": "Coca-Cola zero",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4096304",
+                "group_name": "Escolha o sabor do seu refrigerante 😋",
+                "name": "Guaraná antarctica",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4096305",
+                "group_name": "Escolha o sabor do seu refrigerante 😋",
+                "name": "Coca-Cola",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4096306",
+                "group_name": "Escolha o sabor do seu refrigerante 😋",
+                "name": "Coca-Cola zero",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Refrigerante de 1 Litro",
+            "description": "",
+            "price": 10,
+            "display_price": 10,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175439/bb1ee438fd8a5baba37255221d6489a6.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha o sabor do seu refrigerante 😋",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "4096297",
+                    "group_name": "Escolha o sabor do seu refrigerante 😋",
+                    "name": "Guaraná Antarctica",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4096298",
+                    "group_name": "Escolha o sabor do seu refrigerante 😋",
+                    "name": "Coca-Cola",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4096299",
+                    "group_name": "Escolha o sabor do seu refrigerante 😋",
+                    "name": "Coca-Cola zero",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "flavor",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4096297",
+                "group_name": "Escolha o sabor do seu refrigerante 😋",
+                "name": "Guaraná Antarctica",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4096298",
+                "group_name": "Escolha o sabor do seu refrigerante 😋",
+                "name": "Coca-Cola",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4096299",
+                "group_name": "Escolha o sabor do seu refrigerante 😋",
+                "name": "Coca-Cola zero",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "flavor",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Água mineral 500ml",
+            "description": "",
+            "price": 2,
+            "display_price": 2,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175441/a1651c9ac4a77233fb18a7e741fed860.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pastéis tradicionais",
+        "items": [
+          {
+            "name": "Queijo coalho",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175404/1934d1747fa0d77eec342c9b25d18789.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Misto",
+            "description": "Queijo coalho e presunto. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 5.5,
+            "display_price": 5.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175408/14c8037bMisto.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Especial",
+            "description": "Queijo coalho, presunto e salsicha. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 5.5,
+            "display_price": 5.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175409/2d8d71ae0e78682fdd26e09c00c0c169.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "items": [
+          {
+            "name": "Carne moída",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175406/5bb8a43e1afb7c9da3f12813a9f969c8.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Frango cheese",
+            "description": "Frango desfiado, miho verde e cream cheese ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 7.5,
+            "display_price": 7.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4015507/74e8d399IMG_7476.jpg.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Frango com queijo",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 6.5,
+            "display_price": 6.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175412/f9a41cf0Frango_queijo.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Frango com bacon",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 6.5,
+            "display_price": 6.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175413/b8f5eee8Cópia_de_IMG_1709.jpg.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Frango com requeijão",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 6.5,
+            "display_price": 6.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175414/4cb32dc5Frango_requeijao_.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Carne de sol com queijo coalho",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 8.5,
+            "display_price": 8.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175420/e593ef96Carne_de_sol_queijo.jpg.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "X-Tudo",
+            "description": "Carne moída, frango, presunto e salsicha. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 17x12cm.",
+            "price": 9.5,
+            "display_price": 9.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175421/c3d367d6e3182b5eae286c4b020c6605.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Frango caipira",
+            "description": "Frango, milho, bacon e Catupiry Original. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 17x12cm.",
+            "price": 10.5,
+            "display_price": 10.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175422/e48f422597785e42f1088cab624c9287.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "F.B.C",
+            "description": "Frango, carne de sol, cheddar e bacon. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 17x12cm.",
+            "price": 10.5,
+            "display_price": 10.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175424/f4c64cbedca3af338911c623cc77fcd6.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Sol ao reino",
+            "description": "Carne de sol, queijo do reino, cebola assada e barbecue. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 17x12cm.",
+            "price": 14.99,
+            "display_price": 14.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175426/bd60ae5b5fb9f02702b4091687837ca1.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Camarão ao 4 queijos",
+            "description": "Filé de camarão ao creme de 4 queijos. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 17x12cm.",
+            "price": 19.99,
+            "display_price": 19.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175427/74b2afac86ed04ee1736c8dbb92e4c3d.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coxinha de frango cremoso",
+            "description": "Coxinha com aproximadamente 130g.",
+            "price": 4,
+            "display_price": 4,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175434/03cc3d575f56b8488647aec40665f5a0.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pizzas",
+        "items": [
+          {
+            "name": "Pizza",
+            "description": "Queijo mussarela, presunto e orégano. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 5.5,
+            "display_price": 5.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175410/1c11b0f6imagem-melhorada-3175410-2026-04-21.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Especiais da Mag",
+        "items": [
+          {
+            "name": "Charque Cheese",
+            "description": "Charque triturada, cebola e cream cheese ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 8.5,
+            "display_price": 8.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4015513/54f8411fIMG_7486.jpg.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Charque com queijo coalho",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 7.5,
+            "display_price": 7.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3700867/cf15d284abe042b5876fe2d56caa77a4(2).jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Charque com requeijão",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 7.5,
+            "display_price": 7.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175418/cce845aaa6f7f81a9e2a5266a0e2578d.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Sobremesas",
+        "items": [
+          {
+            "name": "Chocolate ao leite com queijo de coalho",
+            "description": "->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 6.5,
+            "display_price": 6.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175430/0af305a7Cópia_de_IMG_1780.jpg.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Laka oreo",
+            "description": "Farofa de biscoito e chocolate branco. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.",
+            "price": 7.5,
+            "display_price": 7.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175433/81e76464Cópia_de_IMG_1732.jpg.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 28 itens via cardapio_web."
+  },
+  "stdoutTail": ". ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 17x12cm.\",\"price\":14.99,\"display_price\":14.99,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175426/bd60ae5b5fb9f02702b4091687837ca1.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Camarão ao 4 queijos\",\"description\":\"Filé de camarão ao creme de 4 queijos. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 17x12cm.\",\"price\":19.99,\"display_price\":19.99,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175427/74b2afac86ed04ee1736c8dbb92e4c3d.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coxinha de frango cremoso\",\"description\":\"Coxinha com aproximadamente 130g.\",\"price\":4,\"display_price\":4,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175434/03cc3d575f56b8488647aec40665f5a0.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Pizzas\",\"items\":[{\"name\":\"Pizza\",\"description\":\"Queijo mussarela, presunto e orégano. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.\",\"price\":5.5,\"display_price\":5.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175410/1c11b0f6imagem-melhorada-3175410-2026-04-21.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Especiais da Mag\",\"items\":[{\"name\":\"Charque Cheese\",\"description\":\"Charque triturada, cebola e cream cheese ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.\",\"price\":8.5,\"display_price\":8.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4015513/54f8411fIMG_7486.jpg.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Charque com queijo coalho\",\"description\":\"->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.\",\"price\":7.5,\"display_price\":7.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3700867/cf15d284abe042b5876fe2d56caa77a4(2).jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Charque com requeijão\",\"description\":\"->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.\",\"price\":7.5,\"display_price\":7.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175418/cce845aaa6f7f81a9e2a5266a0e2578d.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Sobremesas\",\"items\":[{\"name\":\"Chocolate ao leite com queijo de coalho\",\"description\":\"->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.\",\"price\":6.5,\"display_price\":6.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175430/0af305a7Cópia_de_IMG_1780.jpg.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Laka oreo\",\"description\":\"Farofa de biscoito e chocolate branco. ->Não realizamos alteração nos igredientes dos pastéis. ->Tamanho aproximado 11x22cm.\",\"price\":7.5,\"display_price\":7.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3175433/81e76464Cópia_de_IMG_1732.jpg.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 28 itens via cardapio_web.\"}\n",
+  "stderrTail": ""
+}

@@ -1,0 +1,4260 @@
+[
+  {
+    "id": "4990a612-f3ae-4ca1-959b-694fc7d59b9e",
+    "name": "Pastelaria em família",
+    "google_maps_name": "Pastelaria em família",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJS7zdL3bfrAcRkHxwCEWiiBQ",
+    "google_place_id": "ChIJS7zdL3bfrAcRkHxwCEWiiBQ",
+    "data_id": "0x7acdf762fddbc4b:0x1488a24508707c90",
+    "category_source": "Pastelaria brasileira",
+    "address_source": "R. São Miguel - Camalaú, Cabedelo - PB, 58103-212",
+    "rating_source": 5,
+    "reviews_source": 1,
+    "phone_source": "(83) 98608-6821",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.985920999999999,
+      "longitude": -34.832484
+    },
+    "latitude": -6.985920999999999,
+    "longitude": -34.832484,
+    "query": "pastelaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 3,
+      "title": "Pastelaria em família",
+      "place_id": "ChIJS7zdL3bfrAcRkHxwCEWiiBQ",
+      "data_id": "0x7acdf762fddbc4b:0x1488a24508707c90",
+      "data_cid": "1479610894969240720",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf762fddbc4b%3A0x1488a24508707c90&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf762fddbc4b%3A0x1488a24508707c90&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.985920999999999,
+        "longitude": -34.832484
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJS7zdL3bfrAcRkHxwCEWiiBQ",
+      "provider_id": "/g/11w9dy0d46",
+      "rating": 5,
+      "reviews": 1,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. São Miguel - Camalaú, Cabedelo - PB, 58103-212",
+      "country": "Brasil",
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:50",
+        "terça-feira": "Fechado",
+        "quarta-feira": "17:00–23:50",
+        "quinta-feira": "17:00–23:50",
+        "sexta-feira": "17:00–23:50",
+        "sábado": "17:00–23:50",
+        "domingo": "17:00–23:50"
+      },
+      "phone": "(83) 98608-6821",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFjq_GOn0oR0y9eYgUCcM0MHWo-8JwnOdi_9Y_3kgVG0Mgqlgn3eNB0KsHJOnxQ3IF6s71ISKfoUu7aBzW81R28o3XF4aUX4utE5GmpWl34d2faCwlNVdgGaCgrsjZu6SGy9Yw79w=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/hv2SOnicHcTbboIwGADgJ6oUixyW7EKJ1EOAKUHEG0JK_ZnWFm1J597QR_Btluy7-N6v3phBfziO6MkElALBR80fTEnDpZkwdXNg0IhppJ35V7a7zpPLvaG5xGqPnxGvoYxZitNVpVC4sTLvvpuobsgVDhSncBcgCc8WeKtXm1z-7Mg68XXgrovtWZVj0C5-q9DdT0NFjonXlkdvNMsZvQ2VIF43PbexFdmhA9rG8NCX0-gX9BnVNojsp3Uxxqj_nyH5B4O1REQ"
+    }
+  },
+  {
+    "id": "58f3eb00-556c-496a-abee-790e691903ce",
+    "name": "Pastel do Thiago",
+    "google_maps_name": "Pastel do Thiago",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJkRCA8QQhrQcRdarr_EmBcBI",
+    "google_place_id": "ChIJkRCA8QQhrQcRdarr_EmBcBI",
+    "data_id": "0x7ad2104f1801091:0x12708149fcebaa75",
+    "category_source": "Pastelaria brasileira",
+    "address_source": "R. Sólon de Lucena - Ponta de Matos, Cabedelo - PB, 58100-570",
+    "rating_source": 4,
+    "reviews_source": 9,
+    "phone_source": "(83) 98823-7441",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.9693971999999995,
+      "longitude": -34.8343974
+    },
+    "latitude": -6.9693971999999995,
+    "longitude": -34.8343974,
+    "query": "pastelaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 4,
+      "title": "Pastel do Thiago",
+      "place_id": "ChIJkRCA8QQhrQcRdarr_EmBcBI",
+      "data_id": "0x7ad2104f1801091:0x12708149fcebaa75",
+      "data_cid": "1328704044850195061",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad2104f1801091%3A0x12708149fcebaa75&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad2104f1801091%3A0x12708149fcebaa75&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9693971999999995,
+        "longitude": -34.8343974
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJkRCA8QQhrQcRdarr_EmBcBI",
+      "provider_id": "/g/11h1kq8g1x",
+      "rating": 4,
+      "reviews": 9,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. Sólon de Lucena - Ponta de Matos, Cabedelo - PB, 58100-570",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–02:00",
+        "terça-feira": "18:00–02:00",
+        "quarta-feira": "18:00–02:00",
+        "quinta-feira": "18:00–02:00",
+        "sexta-feira": "18:00–02:00",
+        "sábado": "18:00–02:00",
+        "domingo": "18:00–02:00"
+      },
+      "phone": "(83) 98823-7441",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF9QKrPjBj0kxqYXhiX1JPIXW7WAXmC4SRS45pT9eDEY-nkXfTHLebVAwfzaIBrBRNXXUUa2yIdL1KOgFTUIZcNJKfzTJoo7iOY_L79PC4CIsDU8SK4-O5_QxkG1BUlrjEIxbqT=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/F5rfLHicHcRdEkJAAADgE20oRprpAakW4ye7tXppaluErKwmuWBn6DbN9D1830_R961YSFJdzCY553nNnoJ1lDc9a_oJ5XcpbwWgAgjJjIK4MtdG7HVRaZVyNTxSUtyI4kaQHPSDSe62muwSVWuRwVZOCpqKZGjrs8vefGXjGVqdtQsIwfg8fcOrr3hhvkYYHmngetmIXM71W5iefN2IbNWGYoXniaeCUDvFQ7VRLFx3pQOHywMtX4osy6D4T0HzA-aMQyA"
+    }
+  },
+  {
+    "id": "72606188-4454-4890-a671-a65d4d08f024",
+    "name": "Casa Do Pastel",
+    "google_maps_name": "Casa Do Pastel",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJoc8jbkrerAcRh20OFIzRlDc",
+    "google_place_id": "ChIJoc8jbkrerAcRh20OFIzRlDc",
+    "data_id": "0x7acde4a6e23cfa1:0x3794d18c140e6d87",
+    "category_source": "Pastelaria brasileira",
+    "address_source": "R. Honório Patrício dos Santos, 328 - Recanto do Poço, Cabedelo - PB, 58310-000",
+    "rating_source": 4.2,
+    "reviews_source": 20,
+    "phone_source": "(83) 98663-1487",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.019472299999999,
+      "longitude": -34.839647899999996
+    },
+    "latitude": -7.019472299999999,
+    "longitude": -34.839647899999996,
+    "query": "pastelaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 5,
+      "title": "Casa Do Pastel",
+      "place_id": "ChIJoc8jbkrerAcRh20OFIzRlDc",
+      "data_id": "0x7acde4a6e23cfa1:0x3794d18c140e6d87",
+      "data_cid": "4005056368201330055",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde4a6e23cfa1%3A0x3794d18c140e6d87&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde4a6e23cfa1%3A0x3794d18c140e6d87&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.019472299999999,
+        "longitude": -34.839647899999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJoc8jbkrerAcRh20OFIzRlDc",
+      "provider_id": "/g/11c2l7gtfs",
+      "rating": 4.2,
+      "reviews": 20,
+      "unclaimed_listing": true,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira",
+        "Restaurante"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria",
+        "restaurant"
+      ],
+      "address": "R. Honório Patrício dos Santos, 328 - Recanto do Poço, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "00:00–13:00, 18:00–00:00",
+        "terça-feira": "00:00–13:00, 18:00–00:00",
+        "quarta-feira": "00:00–13:00, 18:00–00:00",
+        "quinta-feira": "00:00–13:00, 18:00–00:00",
+        "sexta-feira": "00:00–13:00, 18:00–00:00",
+        "sábado": "00:00–13:00, 18:00–00:00",
+        "domingo": "00:00–13:00, 18:00–00:00"
+      },
+      "phone": "(83) 98663-1487",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"A tia é maravilhosa e o pastel, sequinho e bem recheado!\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=SjWO0kziWJPm0IFp_-vjkw&cb_client=search.gws-prod.gps&w=80&h=92&yaw=208.36478&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/dk0GSXicHc3BDcIgFADQbbgVqBqtJsSbiV408dBjQynCb2n5KQjqNK7lNhoXeO_ztjFi2DEW4qx1TKAzwkO7UKCkxnvjtEQIVPmRpZJFex_bSYLbo5w8dOLa12c-vKA-XUZ-PGBTpH7IRLWNcqCnKIKWs7LU5J84-44aDCSLihMrtgvylFkseEWX69WmIghRWcHJf7n5JErOv4xaOco"
+    }
+  },
+  {
+    "id": "b91f652e-112d-4dcf-921c-4df6c2d1700f",
+    "name": "Recanto do Pastel",
+    "google_maps_name": "Recanto do Pastel",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJTbQRGwDfrAcRtHi9QRdHtfw",
+    "google_place_id": "ChIJTbQRGwDfrAcRtHi9QRdHtfw",
+    "data_id": "0x7acdf001b11b44d:0xfcb5471741bd78b4",
+    "category_source": "Pastelaria brasileira",
+    "address_source": "R. Gov. Antônio Mariz, 76 - Recanto do Poço, Cabedelo - PB, 58105-126",
+    "rating_source": 5,
+    "reviews_source": 2,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.020205499999999,
+      "longitude": -34.8382338
+    },
+    "latitude": -7.020205499999999,
+    "longitude": -34.8382338,
+    "query": "pastelaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 8,
+      "title": "Recanto do Pastel",
+      "place_id": "ChIJTbQRGwDfrAcRtHi9QRdHtfw",
+      "data_id": "0x7acdf001b11b44d:0xfcb5471741bd78b4",
+      "data_cid": "18209538833555224756",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf001b11b44d%3A0xfcb5471741bd78b4&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf001b11b44d%3A0xfcb5471741bd78b4&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.020205499999999,
+        "longitude": -34.8382338
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJTbQRGwDfrAcRtHi9QRdHtfw",
+      "provider_id": "/g/11mzbr2hcl",
+      "rating": 5,
+      "reviews": 2,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. Gov. Antônio Mariz, 76 - Recanto do Poço, Cabedelo - PB, 58105-126",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 17:00",
+      "hours": "Fechado · Abre ter. às 17:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "17:00–23:00",
+        "quarta-feira": "17:00–23:00",
+        "quinta-feira": "17:00–23:00",
+        "sexta-feira": "17:00–23:00",
+        "sábado": "17:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Super recomendo o pastel é uma delícia 😋👏🏻👏🏻👏🏻\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFmlB-LHbexUVuDPLiK5bPFr6CaxjjMStL1vSRsGgQsCuwxfxlSXxerHQ8s17-EpKZ29hVfZe_Te1CjQOpMjp_VQX8PV1ZbdOcdx_OTX_IPXGX801arugFk6WfGEvjV0etdIZf-8YvyAxJK=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/FjuZqXicHcTBToMwAADQL-poNU408cBwsAkb7Zi1ciGjlGLHoKGF1a_0vL9Z4ju8219rrTavnte1jws5DLITkxEjH3orervgw8WT2gBugPECvCfnILp0K5BuKuE-6fSO05_kqcLRuAxPTqldblM05wcTS2LC6eoa1-XMiXFDfIOewVonxcNLS5tClEeBQkUyvVO6pIT5mKKiqjNeuzI7snKLWcx8iE7jJKPz8quJ17OiUNh6WzTA_55_A_eRvF0RhBC0_3PQ3wHlEUfx"
+    }
+  },
+  {
+    "id": "274e26ff-b503-440c-8c30-411d9d7c361f",
+    "name": "Big lanches camboinha",
+    "google_maps_name": "Big lanches camboinha",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJg_1fFG3frAcRQ_tg6GDYS08",
+    "google_place_id": "ChIJg_1fFG3frAcRQ_tg6GDYS08",
+    "data_id": "0x7acdf6d145ffd83:0x4f4bd860e860fb43",
+    "category_source": "Pastelaria brasileira",
+    "address_source": "R. Márcia Travassos, 165 - Camboinha, Cabedelo - PB, 58103-718",
+    "rating_source": 5,
+    "reviews_source": 6,
+    "phone_source": "(83) 99136-4218",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0071977,
+      "longitude": -34.8341347
+    },
+    "latitude": -7.0071977,
+    "longitude": -34.8341347,
+    "query": "pastelaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 9,
+      "title": "Big lanches camboinha",
+      "place_id": "ChIJg_1fFG3frAcRQ_tg6GDYS08",
+      "data_id": "0x7acdf6d145ffd83:0x4f4bd860e860fb43",
+      "data_cid": "5713898462976736067",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf6d145ffd83%3A0x4f4bd860e860fb43&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf6d145ffd83%3A0x4f4bd860e860fb43&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0071977,
+        "longitude": -34.8341347
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJg_1fFG3frAcRQ_tg6GDYS08",
+      "provider_id": "/g/11kjmd9kw4",
+      "rating": 5,
+      "reviews": 6,
+      "unclaimed_listing": true,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. Márcia Travassos, 165 - Camboinha, Cabedelo - PB, 58103-718",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 19:00",
+      "hours": "Fechado · Abre ter. às 19:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "19:00–00:00",
+        "quarta-feira": "19:00–00:00",
+        "quinta-feira": "19:00–00:00",
+        "sexta-feira": "19:00–00:00",
+        "sábado": "19:00–00:00",
+        "domingo": "19:00–00:00"
+      },
+      "phone": "(83) 99136-4218",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Amei, fui muito bem atendido e sem falar nos lanches que são deliciosos.\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=oIUAWB0nkJowuT8LbDQuyQ&cb_client=search.gws-prod.gps&w=80&h=92&yaw=289.33762&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/v-TwbXicHc1RCsIgGADg2_iWug1qCySKXopeBkWP4exPJecv0812m67VbYou8H2ft0kpxDVjMQ0AabKQg32Bi4sgqUbUDmSwkSrs2VSwZMa-89K6TZAe7V3g4bK97rh_HjGP5_rU7dtxbonqbspZ8ElEkIMyVOefOOCd6hBJFjUnRjQlmWUWZd3QqlotSxJsUkZw8l8eOImC8y-ESTmz"
+    }
+  },
+  {
+    "id": "8d326630-6c57-4b8f-996f-f2a71d56c9a4",
+    "name": "Pastelaria Arretada",
+    "google_maps_name": "Pastelaria Arretada",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJu3uW1J3frAcRSD7yg4vEUJg",
+    "google_place_id": "ChIJu3uW1J3frAcRSD7yg4vEUJg",
+    "data_id": "0x7acdf9dd4967bbb:0x9850c48b83f23e48",
+    "category_source": "Pastelaria brasileira",
+    "address_source": "R. Jair Cunha Cavalcanti - Jacaré, Cabedelo - PB, 58105-700",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "(83) 99380-1327",
+    "website_source": "https://delivery.yooga.app/pastelaria-arretada",
+    "gps_coordinates": {
+      "latitude": -7.0308603,
+      "longitude": -34.8483979
+    },
+    "latitude": -7.0308603,
+    "longitude": -34.8483979,
+    "query": "pastelaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 11,
+      "title": "Pastelaria Arretada",
+      "place_id": "ChIJu3uW1J3frAcRSD7yg4vEUJg",
+      "data_id": "0x7acdf9dd4967bbb:0x9850c48b83f23e48",
+      "data_cid": "10975488395395087944",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf9dd4967bbb%3A0x9850c48b83f23e48&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf9dd4967bbb%3A0x9850c48b83f23e48&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0308603,
+        "longitude": -34.8483979
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJu3uW1J3frAcRSD7yg4vEUJg",
+      "provider_id": "/g/11ysz4ph70",
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira",
+        "Restaurante",
+        "Lanchonete"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria",
+        "restaurant",
+        "snack_bar"
+      ],
+      "address": "R. Jair Cunha Cavalcanti - Jacaré, Cabedelo - PB, 58105-700",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:00",
+      "hours": "Fechado · Abre ter. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:00–23:00",
+        "quarta-feira": "18:00–23:00",
+        "quinta-feira": "18:00–23:00",
+        "sexta-feira": "18:00–23:00",
+        "sábado": "18:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "phone": "(83) 99380-1327",
+      "website": "https://delivery.yooga.app/pastelaria-arretada",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFvoJgThXLWOc-llDHZrUiN8LWu3sttuEFMxbrOIFq2CBd8nXraC4B4pNxOVgiBXDcDrk-0jmbjhFklFIBqoLIwcWAX-btdcUzr3aA3C6GaY2cGOXAO_RC7Nlu4B3FB1sYoaNTfvlux3cP-=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/pttB13icHcTdTsIwGADQJyobdFFi4kW7WZyZLRpwxRuzfcwWVtbRH1h8Sa95GxPPxbn96hBG_5AkRuOZslaZLvrOgR1CN4QZ2FOiRo_AI5-QNX_rCbvYF7XRsqoFIGOK50-3PfBlVUfsQ4hP7HVqnSjZeZHT_XKQrskzmo18Eh_qQGUBhetRejy1R816w0p6tlV5hZpI1IY9bH8cbgjO71bNbgErIYn4es_vuYkZxYzO_c42fPN9MXHCsEaP13mapkj_D2j4A8QVRzs"
+    }
+  },
+  {
+    "id": "0ea2219a-fb1e-47e2-9e40-7da6a335dbd6",
+    "name": "Pastelle (Pastelaria artesanal)",
+    "google_maps_name": "Pastelle (Pastelaria artesanal)",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJKdiJIC7drAcRSmw3uvlT1t0",
+    "google_place_id": "ChIJKdiJIC7drAcRSmw3uvlT1t0",
+    "data_id": "0x7acdd2e2089d829:0xddd653f9ba376c4a",
+    "category_source": "Pastelaria brasileira",
+    "address_source": "R. Raul Seixas - Renascer, Cabedelo - PB, 58108-122",
+    "rating_source": 4.8,
+    "reviews_source": 6,
+    "phone_source": "(83) 98690-5043",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0727449,
+      "longitude": -34.8557281
+    },
+    "latitude": -7.0727449,
+    "longitude": -34.8557281,
+    "query": "pastelaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 15,
+      "title": "Pastelle (Pastelaria artesanal)",
+      "place_id": "ChIJKdiJIC7drAcRSmw3uvlT1t0",
+      "data_id": "0x7acdd2e2089d829:0xddd653f9ba376c4a",
+      "data_cid": "15985056259434310730",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd2e2089d829%3A0xddd653f9ba376c4a&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd2e2089d829%3A0xddd653f9ba376c4a&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0727449,
+        "longitude": -34.8557281
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJKdiJIC7drAcRSmw3uvlT1t0",
+      "provider_id": "/g/11g0473qb0",
+      "rating": 4.8,
+      "reviews": 6,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. Raul Seixas - Renascer, Cabedelo - PB, 58108-122",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:00",
+      "hours": "Fechado · Abre ter. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:00–00:00",
+        "quarta-feira": "18:00–00:00",
+        "quinta-feira": "18:00–00:00",
+        "sexta-feira": "18:00–00:00",
+        "sábado": "18:00–00:00",
+        "domingo": "18:00–00:00"
+      },
+      "phone": "(83) 98690-5043",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Excelente o atendimento\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGpBU0MyCi_0MjtNVrQ2VKF4RVjF1_lvX5H0cWor_S1T2_K990QFm9BHwdeaB4SrsCiE1bh2HxT3krm7NSW9xBO3Gtno6PZ5529vONriSBa0CS-OROrDnutxOs95frlDHwbZRiZJg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/YX1KAHicHcRdDoIgAADgE5H4V6Oth7DM1ZKUsuaLUzK1FBxQ2hE7Qrdp63v4vp9a617NDaOt7UklRNWWT1VKJrguuZ4w0RlVrwBTQBnLQxg9lpsen-D-7TUZ3N91mMjISna-Eyd338za18UNIDsLmVHzaGU7hGDkdwgHw7XMsUOl8pq1WdRWMB7th-xmIT2jERN7o7mYHlLXtdCLhLKhOIceBSQmcsWfeiQKuTfZroKhSOMm3VaLwYQQgvo_A_wHRgpD3A"
+    }
+  },
+  {
+    "id": "fee9720d-1e25-487a-9a73-df9e407e73a6",
+    "name": "Restaurante",
+    "google_maps_name": "Restaurante",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ4dEibQAhrQcRtfjKFtmWxZs",
+    "google_place_id": "ChIJ4dEibQAhrQcRtfjKFtmWxZs",
+    "data_id": "0x7ad21006d22d1e1:0x9bc596d916caf8b5",
+    "category_source": "Churrascaria",
+    "address_source": "R. Cel. José Téles - Vila Sao Joao, Cabedelo - PB, 58100-503",
+    "rating_source": 5,
+    "reviews_source": 1,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.966692,
+      "longitude": -34.8379689
+    },
+    "latitude": -6.966692,
+    "longitude": -34.8379689,
+    "query": "churrascaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 10,
+      "title": "Restaurante",
+      "place_id": "ChIJ4dEibQAhrQcRtfjKFtmWxZs",
+      "data_id": "0x7ad21006d22d1e1:0x9bc596d916caf8b5",
+      "data_cid": "11224543505425299637",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21006d22d1e1%3A0x9bc596d916caf8b5&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21006d22d1e1%3A0x9bc596d916caf8b5&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.966692,
+        "longitude": -34.8379689
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ4dEibQAhrQcRtfjKFtmWxZs",
+      "provider_id": "/g/11vpycpc4p",
+      "rating": 5,
+      "reviews": 1,
+      "unclaimed_listing": true,
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "R. Cel. José Téles - Vila Sao Joao, Cabedelo - PB, 58100-503",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      }
+    }
+  },
+  {
+    "id": "538d1975-cdfa-4c9f-97f6-ddee94efc67b",
+    "name": "Meio Quilo",
+    "google_maps_name": "Meio Quilo",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJhzOrgHIgrQcRTCBeQ_9JM-8",
+    "google_place_id": "ChIJhzOrgHIgrQcRTCBeQ_9JM-8",
+    "data_id": "0x7ad207280ab3387:0xef3349ff435e204c",
+    "category_source": "Restaurante self-service",
+    "address_source": "R. Aderbal Piragibe, 13 - Centro, Cabedelo - PB, 58100-110",
+    "rating_source": 4.4,
+    "reviews_source": 160,
+    "phone_source": "(83) 3228-8464",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.971458999999999,
+      "longitude": -34.83754
+    },
+    "latitude": -6.971458999999999,
+    "longitude": -34.83754,
+    "query": "churrascaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 13,
+      "title": "Meio Quilo",
+      "place_id": "ChIJhzOrgHIgrQcRTCBeQ_9JM-8",
+      "data_id": "0x7ad207280ab3387:0xef3349ff435e204c",
+      "data_cid": "17236201559572750412",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad207280ab3387%3A0xef3349ff435e204c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad207280ab3387%3A0xef3349ff435e204c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.971458999999999,
+        "longitude": -34.83754
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJhzOrgHIgrQcRTCBeQ_9JM-8",
+      "provider_id": "/g/1v_snfv5",
+      "rating": 4.4,
+      "reviews": 160,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "type": "Restaurante self-service",
+      "types": [
+        "Restaurante self-service",
+        "Restaurante fast-food",
+        "Restaurante especializado em sopas"
+      ],
+      "type_id": "buffet_restaurant",
+      "type_ids": [
+        "buffet_restaurant",
+        "fast_food_restaurant",
+        "soup_restaurant"
+      ],
+      "address": "R. Aderbal Piragibe, 13 - Centro, Cabedelo - PB, 58100-110",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 11:00",
+      "hours": "Fechado · Abre ter. às 11:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–15:00",
+        "terça-feira": "11:00–15:00",
+        "quarta-feira": "11:00–15:00",
+        "quinta-feira": "11:00–15:00",
+        "sexta-feira": "11:00–15:00",
+        "sábado": "11:00–15:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 3228-8464",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Serviço de buffet",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Alelo",
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee",
+            "Vale refeição"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Comida de excelente qualidade e com boa variedade!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF5UChR9lfmV8twokTx1Z3fWmB607lmlR87JCy3pMwuttjiXFgj2ll5x0e1IF6Y_-N6UuO720_u27RJjAHG7_LNimLL_N2pZFZVqJExlSBiSaACaQ446tF4FbH3fcx_PvhRsVixYw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/CFA8yHicHcRdToMwAADgExXKz-hc4gMQ6yTIgAk6XhpsgMJairZIPeKO4G2W-D18fzem9aIOts2ZZw1SDrxbVfdN5ay7WVtUCntYFKAKKDvMs-Ia4l0Vs_KB96Le601e34zTeP27iAKIuODlHiXxr7e8bqvW0_iBh8nlfGdg57zg4EJAFlTrCbmQrC4qkyk8PiOSZqNIU5K5S4Ob-it5Mvwcjec2jNvC9wONffx59HpqSP7DSlWP5rI9bg6EELD_KZjvkU1EYw"
+    }
+  },
+  {
+    "id": "13cacb5e-52f2-4d8c-80ed-26c53a847ea9",
+    "name": "Esquina do galeto",
+    "google_maps_name": "Esquina do galeto",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJW2UlHc_frAcRt9uoQzA6qyY",
+    "google_place_id": "ChIJW2UlHc_frAcRt9uoQzA6qyY",
+    "data_id": "0x7acdfcf1d25655b:0x26ab3a3043a8dbb7",
+    "category_source": "Churrascaria",
+    "address_source": "Rua Rosa vieira,245-B praia do poço, Cabedelo - PB",
+    "rating_source": 5,
+    "reviews_source": 1,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0016837999999995,
+      "longitude": -34.8307053
+    },
+    "latitude": -7.0016837999999995,
+    "longitude": -34.8307053,
+    "query": "churrascaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 14,
+      "title": "Esquina do galeto",
+      "place_id": "ChIJW2UlHc_frAcRt9uoQzA6qyY",
+      "data_id": "0x7acdfcf1d25655b:0x26ab3a3043a8dbb7",
+      "data_cid": "2786384773426764727",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfcf1d25655b%3A0x26ab3a3043a8dbb7&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfcf1d25655b%3A0x26ab3a3043a8dbb7&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0016837999999995,
+        "longitude": -34.8307053
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJW2UlHc_frAcRt9uoQzA6qyY",
+      "provider_id": "/g/11pf5zw16c",
+      "rating": 5,
+      "reviews": 1,
+      "unclaimed_listing": true,
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "Rua Rosa vieira,245-B praia do poço, Cabedelo - PB",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=HD8DduA4lRvmdnxFMLC44w&cb_client=search.gws-prod.gps&w=80&h=92&yaw=272.02835&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/jTg9GXicHc1RCsIgGADg2_iWOlu0AoloRA_10gXC6Z8KTmU6XbfpWt2m6ALf93mbnGPaE5LyBJCLhRrtAi6tosA6BO1ARJuwDCMpDclmHgcvrDtE4YNV_NJ3vZqPrbuXUfnlfLue2rYiOTyks-AzTyAmabCuP3EKCuuYUOUdRYbvGHqJytmWYcq69QZFm6XhFP2XZyi8ofQLY5E5Rw"
+    }
+  },
+  {
+    "id": "e445b317-ad12-4b4f-ab07-1289037cd322",
+    "name": "Restaurante Self Sabor",
+    "google_maps_name": "Restaurante Self Sabor",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJCauHMEbfrAcRkfIWALUqaWo",
+    "google_place_id": "ChIJCauHMEbfrAcRkfIWALUqaWo",
+    "data_id": "0x7acdf463087ab09:0x6a692ab50016f291",
+    "category_source": "Restaurante self-service",
+    "address_source": "R. Carolino Cardoso, 361 - Lot. Vitorino Cardoso, Cabedelo - PB, 58101-502",
+    "rating_source": 5,
+    "reviews_source": 1,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.020966,
+      "longitude": -34.83551
+    },
+    "latitude": -7.020966,
+    "longitude": -34.83551,
+    "query": "churrascaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 16,
+      "title": "Restaurante Self Sabor",
+      "place_id": "ChIJCauHMEbfrAcRkfIWALUqaWo",
+      "data_id": "0x7acdf463087ab09:0x6a692ab50016f291",
+      "data_cid": "7667706797453931153",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf463087ab09%3A0x6a692ab50016f291&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf463087ab09%3A0x6a692ab50016f291&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.020966,
+        "longitude": -34.83551
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJCauHMEbfrAcRkfIWALUqaWo",
+      "provider_id": "/g/11ym25gjjj",
+      "rating": 5,
+      "reviews": 1,
+      "type": "Restaurante self-service",
+      "types": [
+        "Restaurante self-service"
+      ],
+      "type_id": "buffet_restaurant",
+      "type_ids": [
+        "buffet_restaurant"
+      ],
+      "address": "R. Carolino Cardoso, 361 - Lot. Vitorino Cardoso, Cabedelo - PB, 58101-502",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 11:00",
+      "hours": "Fechado · Abre ter. às 11:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–14:00",
+        "terça-feira": "11:00–14:00",
+        "quarta-feira": "11:00–14:00",
+        "quinta-feira": "11:00–14:00",
+        "sexta-feira": "11:00–14:00",
+        "sábado": "11:00–14:00",
+        "domingo": "Fechado"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFWR4jopUmVSWDDm30hHT_R_1pCQY2Nx6lTvR7_vLiJsJUHczCNIGXwCEJzKdLpJgy0az2wtO1Mvx2LU71qqJbW1SGYde0iT0KSrfQ8l2Bs1hwWumi9ZSkWoa3xAjAOg0hfAbBtmY3T71WC=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Yvqq_HicHcRLcoIwAADQEyEJdIp2pouIVRsplp8RN4xGTFBCoomAXLJrb-NM3-I9_7gxSn_Yds3dEZOS1eVdlzcqG1M2ZkSlsJnSFtWWttFvGF3QnMRvZ6kysUnIbCZcwJdpERdQ-VHuhP17nbaxV7RBhTXOlnTww-_FtvO_8LA6BgqzB9gPTmfW8KftnSDz4PWKDwQmi_xYgioFq-R2isa1M9WQd-QuqskuuRC5d3t0RmsG-AkdpkbkbupB4n92EABg8f-p1bwAftdG1w"
+    }
+  },
+  {
+    "id": "78bc8cab-4471-43ea-b776-619a6778caaa",
+    "name": "Churrascaria Do Gaúcho",
+    "google_maps_name": "Churrascaria Do Gaúcho",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJF9Ldc20grQcRA89vYj431xM",
+    "google_place_id": "ChIJF9Ldc20grQcRA89vYj431xM",
+    "data_id": "0x7ad206d73ddd217:0x13d7373e626fcf03",
+    "category_source": "Restaurante",
+    "address_source": "Ponta de Matos, Cabedelo - PB, 58100-521",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.970283299999999,
+      "longitude": -34.8380218
+    },
+    "latitude": -6.970283299999999,
+    "longitude": -34.8380218,
+    "query": "churrascaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 18,
+      "title": "Churrascaria Do Gaúcho",
+      "place_id": "ChIJF9Ldc20grQcRA89vYj431xM",
+      "data_id": "0x7ad206d73ddd217:0x13d7373e626fcf03",
+      "data_cid": "1429672147792416515",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad206d73ddd217%3A0x13d7373e626fcf03&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad206d73ddd217%3A0x13d7373e626fcf03&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.970283299999999,
+        "longitude": -34.8380218
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJF9Ldc20grQcRA89vYj431xM",
+      "provider_id": "/g/11x7wmzh8l",
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Ponta de Matos, Cabedelo - PB, 58100-521",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=YiMamUdDi2O2wE4NJhVgwg&cb_client=search.gws-prod.gps&w=80&h=92&yaw=231.05394&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/mnBfM3icHc1BDsIgEADA33ATKK2JNSFe9GKinjTxZChdYRNaSFmL_sZv-RuNH5j5vD1RymshMk0ANCOUhE8IeZEMdzG6ACZh5jYOYq4E-cfQjQbDJpkxYq-veDDDud-iOqmya457f3HFMdvdbEAYSWcwk_XclZ84xZ67lFnRK8m8bhV7maJVXXG5rNuGJSTrtWT_5R5nXUn5BXi8OYQ"
+    }
+  },
+  {
+    "id": "b445cc86-f4d5-43eb-84eb-d204898121d9",
+    "name": "Churrascaria do Pernambucano",
+    "google_maps_name": "Churrascaria do Pernambucano",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ4WDFCCUhrQcRhMUDpf3hgM8",
+    "google_place_id": "ChIJ4WDFCCUhrQcRhMUDpf3hgM8",
+    "data_id": "0x7ad212508c560e1:0xcf80e1fda503c584",
+    "category_source": "Restaurante familiar",
+    "address_source": "R. Cleto Campêlo, 613 - Vila Sao Joao, Cabedelo - PB, 58310-000",
+    "rating_source": 5,
+    "reviews_source": 1,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.9792502999999995,
+      "longitude": -34.8347276
+    },
+    "latitude": -6.9792502999999995,
+    "longitude": -34.8347276,
+    "query": "churrascaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 20,
+      "title": "Churrascaria do Pernambucano",
+      "place_id": "ChIJ4WDFCCUhrQcRhMUDpf3hgM8",
+      "data_id": "0x7ad212508c560e1:0xcf80e1fda503c584",
+      "data_cid": "14952199242381510020",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad212508c560e1%3A0xcf80e1fda503c584&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad212508c560e1%3A0xcf80e1fda503c584&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9792502999999995,
+        "longitude": -34.8347276
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ4WDFCCUhrQcRhMUDpf3hgM8",
+      "provider_id": "/g/11nwxf10dy",
+      "rating": 5,
+      "reviews": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante familiar",
+      "types": [
+        "Restaurante familiar"
+      ],
+      "type_id": "family_restaurant",
+      "type_ids": [
+        "family_restaurant"
+      ],
+      "address": "R. Cleto Campêlo, 613 - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Temporarily closed",
+      "hours": "Temporarily closed",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHpu-9uDS2Vji5B6fwea2r88smc-FG8hI8mqVGbtEuPf4NLwPFY5dDEAO5hfoBPX1joBKOCX1es9Zs-EP2GngHJE3ho76d5gs-5d06gNAsEqRJIQdJEe4UXiQ1LiqSigabQMGXkaA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/bcYaJnicHcTdEoFAGADQJ1r9sIkZFxsrQjYNE3fZtt1QW75tekaP4G3MOBfn-1HGtDC3rJcaj6TW8iV6EG-uGyMaM-K6tmQLiAMCi7A4eZJN26NZv0rdy6PCgVcOInffvg81R-vQV1u_7i7h3dCelZN4P7D1FRcrSo5YlTpgmfPQwe64zBwBsxsgytywkZuIjpWeegWWgHBhezImQLtTtE2KiIrJOasSZ191aSXze3IIs2dOFoNj2zZS_zlqfjrtQz8"
+    }
+  },
+  {
+    "id": "b75a8384-f80f-4a6b-a230-d363cea67597",
+    "name": "Tapioca Sabor Natural",
+    "google_maps_name": "Tapioca Sabor Natural",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ9QK8THIgrQcRvo8cmxxpnWg",
+    "google_place_id": "ChIJ9QK8THIgrQcRvo8cmxxpnWg",
+    "data_id": "0x7ad20724cbc02f5:0x689d691c9b1c8fbe",
+    "category_source": "Restaurante",
+    "address_source": "R. Dr. João Mata, 25 - Vila Sao Joao, Cabedelo - PB, 58310-000",
+    "rating_source": 5,
+    "reviews_source": 1,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.973492299999999,
+      "longitude": -34.8366202
+    },
+    "latitude": -6.973492299999999,
+    "longitude": -34.8366202,
+    "query": "tapiocaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 2,
+      "title": "Tapioca Sabor Natural",
+      "place_id": "ChIJ9QK8THIgrQcRvo8cmxxpnWg",
+      "data_id": "0x7ad20724cbc02f5:0x689d691c9b1c8fbe",
+      "data_cid": "7538296922870419390",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad20724cbc02f5%3A0x689d691c9b1c8fbe&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad20724cbc02f5%3A0x689d691c9b1c8fbe&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.973492299999999,
+        "longitude": -34.8366202
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ9QK8THIgrQcRvo8cmxxpnWg",
+      "provider_id": "/g/11wtp_kg8_",
+      "rating": 5,
+      "reviews": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Dr. João Mata, 25 - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=eZQujgfnmsaYNdEJOPV5iA&cb_client=search.gws-prod.gps&w=80&h=92&yaw=16.590702&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/LCqWb3icHc09DsIgGADQ27AJtEnVmhDTwcXBn8VEF0PpV_gMBVJo0dt4LW-j8QLvfd4mpRA3jMU0AqQZIQd8go2LIKn2XluQASNVfmBzwZKZhtZJtNsgncdOwO08PXTvhiivh263P54uFTZEtXdlEVwSEeSoDNX5J46-ozpEksWaEyPqkrxkFsWSVjVf8ZIETMoITv5L72dRcP4FnOQ53w"
+    }
+  },
+  {
+    "id": "b37d1742-e516-4b41-9c93-8d64ef33f9c2",
+    "name": "Tapiocaria da moça",
+    "google_maps_name": "Tapiocaria da moça",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJvdD_Pj4hrQcRy4Mgdq9GZi4",
+    "google_place_id": "ChIJvdD_Pj4hrQcRy4Mgdq9GZi4",
+    "data_id": "0x7ad213e3effd0bd:0x2e6646af762083cb",
+    "category_source": "Lanchonete",
+    "address_source": "Na, Juarez Távora, praça padre cicero - Camalaú, Cabedelo - PB, 58328-000",
+    "rating_source": 3,
+    "reviews_source": 2,
+    "phone_source": "(83) 98714-8125",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.978269699999999,
+      "longitude": -34.8310788
+    },
+    "latitude": -6.978269699999999,
+    "longitude": -34.8310788,
+    "query": "tapiocaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 4,
+      "title": "Tapiocaria da moça",
+      "place_id": "ChIJvdD_Pj4hrQcRy4Mgdq9GZi4",
+      "data_id": "0x7ad213e3effd0bd:0x2e6646af762083cb",
+      "data_cid": "3343437492784235467",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad213e3effd0bd%3A0x2e6646af762083cb&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad213e3effd0bd%3A0x2e6646af762083cb&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.978269699999999,
+        "longitude": -34.8310788
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJvdD_Pj4hrQcRy4Mgdq9GZi4",
+      "provider_id": "/g/11sn4009pk",
+      "rating": 3,
+      "reviews": 2,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Na, Juarez Távora, praça padre cicero - Camalaú, Cabedelo - PB, 58328-000",
+      "country": "Brasil",
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:00",
+        "terça-feira": "17:00–23:00",
+        "quarta-feira": "17:00–23:00",
+        "quinta-feira": "Fechado",
+        "sexta-feira": "17:00–23:00",
+        "sábado": "Fechado",
+        "domingo": "17:00–23:00"
+      },
+      "phone": "(83) 98714-8125",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF64eWskCT8X1r9MIBozk37HBMKwLcFBptog3luQ7RtsVMQFRHTiHgpkXdfPZ3oyjIuCPyLIV1QQ09M6bGiy6L6CMscAfgH7UDQiSIeCfdkCHpGAKGZBPz3iN8R0QZ5ONrusRch2HpsVpxD=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/pZs2WHicHcTBToMwGADgJ2IU62Az8QBdoGQUKU5cOK4rBYu04S-Z7CU9-zYm-w7f32_vnIUX3x97vFHGqFEuIGdhJicntxHm21cWPAEe-HFVch2n4bP8BE1Ou3Mw71memLvGEU3Y8VaINLHOKDwuPKodNIynNT0NVFl9vnZVi836lS-kWou8CThHexZesmENi5AwEHGnaPRx4MN7Lkl31YTaLD5mbVLd8VDuasTb7Vs5L1CL_olaaOzP4fUWIIS8_rHwpn9FmEaA"
+    }
+  },
+  {
+    "id": "3a22854f-4f10-4a9c-9bdc-cd40abef570e",
+    "name": "Tapiocaria da Edna Paraiba",
+    "google_maps_name": "Tapiocaria da Edna Paraiba",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJUY5qWRvfrAcRK8-qD7N9ni4",
+    "google_place_id": "ChIJUY5qWRvfrAcRK8-qD7N9ni4",
+    "data_id": "0x7acdf1b596a8e51:0x2e9e7db30faacf2b",
+    "category_source": "Lanchonete",
+    "address_source": "R. Praia do Jacaré - Jacaré, Cabedelo - PB, 58310-000",
+    "rating_source": 3.5,
+    "reviews_source": 8,
+    "phone_source": "(83) 98821-2431",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.041162,
+      "longitude": -34.8551296
+    },
+    "latitude": -7.041162,
+    "longitude": -34.8551296,
+    "query": "tapiocaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 10,
+      "title": "Tapiocaria da Edna Paraiba",
+      "place_id": "ChIJUY5qWRvfrAcRK8-qD7N9ni4",
+      "data_id": "0x7acdf1b596a8e51:0x2e9e7db30faacf2b",
+      "data_cid": "3359260580080439083",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1b596a8e51%3A0x2e9e7db30faacf2b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1b596a8e51%3A0x2e9e7db30faacf2b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.041162,
+        "longitude": -34.8551296
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJUY5qWRvfrAcRK8-qD7N9ni4",
+      "provider_id": "/g/11ny0gfgs6",
+      "rating": 3.5,
+      "reviews": 8,
+      "unclaimed_listing": true,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "R. Praia do Jacaré - Jacaré, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–19:00",
+        "terça-feira": "14:00–19:00",
+        "quarta-feira": "14:00–19:00",
+        "quinta-feira": "14:00–19:00",
+        "sexta-feira": "14:00–19:00",
+        "sábado": "14:00–19:00",
+        "domingo": "14:30–19:00"
+      },
+      "phone": "(83) 98821-2431",
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Cuscuz muito bom\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHxsq0YCyyf8PYANAv3J2lRsgHZjK-2JLQuxc9ggTl4LM7Hpi60tbiy0kZoN8u5OXzvjn4xxKAQh6Ehr-4-JXgp4rSpvoFRmB_hX4Ba8PKAWRD0dH6q0DZbTMC90P7cWPy7bpMqcKObIpU=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/4mf6n3icHcTBboIwGADgJ6r80w5wiYeiWxAEC9OIXJbRsVZFWmhB2EN6922W-B2-x10Yo_SbZVViNuFS8qrsdNkyWZuyNhMmrxZXGjGNtEVonFyIP-gGjstx_HXpkcSknwXTKtXcz88hmgabpBvYnPNdhTeR46uTDaY4jXDJZex2r9vsrz_XeBhCkgj7XbQIoyDjCrefqpcf6dX7Ehn2vl0akkO6gh_fbmCVF7toOQfqsAMdnUJFDQu3xVrtF7cXAEDiOUP1PzEnRig"
+    }
+  },
+  {
+    "id": "3e32d9c6-3c16-47a9-912a-b3627b13088d",
+    "name": "Bonitinha das tapiocas",
+    "google_maps_name": "Bonitinha das tapiocas",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ5WIHvhrfrAcRFwG3RLaJgCA",
+    "google_place_id": "ChIJ5WIHvhrfrAcRFwG3RLaJgCA",
+    "data_id": "0x7acdf1abe0762e5:0x208089b644b70117",
+    "category_source": "Café",
+    "address_source": "Av. Pôr do Sol, Cabedelo - PB, 58310-000",
+    "rating_source": 4.2,
+    "reviews_source": 9,
+    "phone_source": "(87) 99906-3738",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0404998999999995,
+      "longitude": -34.8552274
+    },
+    "latitude": -7.0404998999999995,
+    "longitude": -34.8552274,
+    "query": "tapiocaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 11,
+      "title": "Bonitinha das tapiocas",
+      "place_id": "ChIJ5WIHvhrfrAcRFwG3RLaJgCA",
+      "data_id": "0x7acdf1abe0762e5:0x208089b644b70117",
+      "data_cid": "2342023222162555159",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1abe0762e5%3A0x208089b644b70117&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1abe0762e5%3A0x208089b644b70117&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0404998999999995,
+        "longitude": -34.8552274
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ5WIHvhrfrAcRFwG3RLaJgCA",
+      "provider_id": "/g/11fq9pfxy_",
+      "rating": 4.2,
+      "reviews": 9,
+      "unclaimed_listing": true,
+      "type": "Café",
+      "types": [
+        "Café"
+      ],
+      "type_id": "cafe",
+      "type_ids": [
+        "cafe"
+      ],
+      "address": "Av. Pôr do Sol, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "phone": "(87) 99906-3738",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"A melhor tapioca que já comi na vida!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGOPp817WKU0D7KtQaWrcRqUZnAYa_CQXcSGegnVoZm8ufaagt3-eRdIyLz7A2K2349sUfuMTk5ZNSQ7D72phDLkfaTC12A8xl1ux-Z-7mt7FBD_22W8zwg2OpHsXCJVST5OvNG=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/WlzKCnicHcRLjoIwAADQE1WgaIoms6gQUVEQ-Skb09RSEqCttoyOF_QM3mYS3-J93q0xSi8sq2_dCZeS92zU7E6lMEyYCZWDxZUGVANt4UOcdjhMDspzUBUVdoAik5LqTo-3ohb4TC5-eqJZyLgoZT14Y0MINy5gx-vmb_dCGEbQnc510Yz7vJvVcZaiAEHVBruuIbnvQOw9e2d8ghqgwaDVMrhAWHmvB4eJWuuTvy2zfJb8xuHPw7FtG7TfKRD_2rdCsw"
+    }
+  },
+  {
+    "id": "0ca69331-2d1e-48f9-8401-dffb785df697",
+    "name": "ESFIELDS",
+    "google_maps_name": "ESFIELDS",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJDwCxzV7frAcR4SxYIDnucFw",
+    "google_place_id": "ChIJDwCxzV7frAcR4SxYIDnucFw",
+    "data_id": "0x7acdf5ecdb1000f:0x5c70ee3920582ce1",
+    "category_source": "Delivery",
+    "address_source": "Av. Oceano Atlântico - Ponta de Campina, Cabedelo - PB, 58101-650",
+    "rating_source": 4.4,
+    "reviews_source": 12,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.032400399999999,
+      "longitude": -34.835090699999995
+    },
+    "latitude": -7.032400399999999,
+    "longitude": -34.835090699999995,
+    "query": "esfiharia Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 2,
+      "title": "ESFIELDS",
+      "place_id": "ChIJDwCxzV7frAcR4SxYIDnucFw",
+      "data_id": "0x7acdf5ecdb1000f:0x5c70ee3920582ce1",
+      "data_cid": "6661085778004159713",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf5ecdb1000f%3A0x5c70ee3920582ce1&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf5ecdb1000f%3A0x5c70ee3920582ce1&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.032400399999999,
+        "longitude": -34.835090699999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJDwCxzV7frAcR4SxYIDnucFw",
+      "provider_id": "/g/11xfllmckc",
+      "rating": 4.4,
+      "reviews": 12,
+      "type": "Delivery",
+      "types": [
+        "Delivery"
+      ],
+      "type_id": "meal_delivery",
+      "type_ids": [
+        "meal_delivery"
+      ],
+      "address": "Av. Oceano Atlântico - Ponta de Campina, Cabedelo - PB, 58101-650",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 23:00",
+      "hours": "Aberto · Fecha 23:00",
+      "operating_hours": {
+        "segunda-feira": "16:00–23:00",
+        "terça-feira": "16:00–23:00",
+        "quarta-feira": "16:00–23:00",
+        "quinta-feira": "16:00–23:00",
+        "sexta-feira": "16:00–23:00",
+        "sábado": "16:00–23:00",
+        "domingo": "16:00–23:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Ótimo atendimento!\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=LDkHcep32dvWnEMQz05R4A&cb_client=search.gws-prod.gps&w=80&h=92&yaw=329.64124&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/JcGHInicHc1NCgIhGADQ27hLnZ-iCSSCgha1qE3LMOdLJUc_RtPqNF2r2xRd4L3P26SEccFYTCNAyhYK2ge4OEFJdQjagUQbqQoDyxVL5j5cvLRuidIH24vd-rZVgE3d55Pf7A8vPj22K6IuZ-Us-CQiyFEZqstPHENPNUZSxJwTI7qaPGURTd3RWVvVLUGblBGc_JdryKLi_AtUXjkP"
+    }
+  },
+  {
+    "id": "38a4f9a5-b40f-4f79-b124-3dffd9f2c0c5",
+    "name": "Sarau Pizza Bar",
+    "google_maps_name": "Sarau Pizza Bar",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJD-87p8zfrAcRwHD2v5gO-2c",
+    "google_place_id": "ChIJD-87p8zfrAcRwHD2v5gO-2c",
+    "data_id": "0x7acdfcca73bef0f:0x67fb0e98bff670c0",
+    "category_source": "Delivery de Pizza",
+    "address_source": "Av. Oceano Índico, 250 - Intermares, Cabedelo - PB, 58102-222",
+    "rating_source": 4.6,
+    "reviews_source": 74,
+    "phone_source": "(83) 98127-6028",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.038282,
+      "longitude": -34.839225899999995
+    },
+    "latitude": -7.038282,
+    "longitude": -34.839225899999995,
+    "query": "esfiharia Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 16,
+      "title": "Sarau Pizza Bar",
+      "place_id": "ChIJD-87p8zfrAcRwHD2v5gO-2c",
+      "data_id": "0x7acdfcca73bef0f:0x67fb0e98bff670c0",
+      "data_cid": "7492598454279368896",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfcca73bef0f%3A0x67fb0e98bff670c0&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfcca73bef0f%3A0x67fb0e98bff670c0&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.038282,
+        "longitude": -34.839225899999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJD-87p8zfrAcRwHD2v5gO-2c",
+      "provider_id": "/g/11t4_wt2vb",
+      "rating": 4.6,
+      "reviews": 74,
+      "price": "R$ 40–60",
+      "extracted_price": 40,
+      "type": "Delivery de Pizza",
+      "types": [
+        "Delivery de Pizza",
+        "Pizzaria"
+      ],
+      "type_id": "pizza_delivery_service",
+      "type_ids": [
+        "pizza_delivery_service",
+        "pizza_restaurant"
+      ],
+      "address": "Av. Oceano Índico, 250 - Intermares, Cabedelo - PB, 58102-222",
+      "country": "Brasil",
+      "open_state": "Temporarily closed",
+      "hours": "Temporarily closed",
+      "phone": "(83) 98127-6028",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Super recomendo!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHVHx0ndBJIS99N13tG-7eQg8pnXddvFUONC4likHoJfwLiRbIF3DD8M3Sw-QXCvOF6ORWRBC0yIF8KmUeYjo0x5HehGBWVhKZFE1SAMW6KM-qyrHxGDRrIDY-bg7ivziEJT4Q=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/VZ2-eXicHcRLcoIwAADQE0XC4Ac744JfCFCggIq4FNKEigmSFNADeofepjO-xft7MaV6-aFpHTMWVAjakV9JhlpwRbha1OKm0V6CWgKpWV9JdrXwEc-QN3YYFNttohvKBxuSUbPnp6YZ0SFNnGXXXrEIv6fPNr8EyHBdMzaKCWQnZ0zROs3L3HbgI0BmdDuQ6kfAeYUJ8-3yyKIz8vTCist1FIP7Y8Cz7-ZD4FbgQjft-Gy9cL_MdpMOIQTsfQ34P0dkQgA"
+    }
+  },
+  {
+    "id": "a9904835-65ca-4efd-9caf-c8c7354f9ee5",
+    "name": "Self-service da nany",
+    "google_maps_name": "Self-service da nany",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJwauUWwAhrQcRq05-xtkVPo8",
+    "google_place_id": "ChIJwauUWwAhrQcRq05-xtkVPo8",
+    "data_id": "0x7ad21005b94abc1:0x8f3e15d9c67e4eab",
+    "category_source": "Restaurante self-service",
+    "address_source": "R. Monsenhor Valfredo Leal - Vila Sao Joao, Cabedelo - PB, 58310-000",
+    "rating_source": 4.8,
+    "reviews_source": 6,
+    "phone_source": "(83) 99101-1680",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.971718699999999,
+      "longitude": -34.8374289
+    },
+    "latitude": -6.971718699999999,
+    "longitude": -34.8374289,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 2,
+      "title": "Self-service da nany",
+      "place_id": "ChIJwauUWwAhrQcRq05-xtkVPo8",
+      "data_id": "0x7ad21005b94abc1:0x8f3e15d9c67e4eab",
+      "data_cid": "10321711421062008491",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21005b94abc1%3A0x8f3e15d9c67e4eab&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21005b94abc1%3A0x8f3e15d9c67e4eab&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.971718699999999,
+        "longitude": -34.8374289
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJwauUWwAhrQcRq05-xtkVPo8",
+      "provider_id": "/g/11vqp66q3m",
+      "rating": 4.8,
+      "reviews": 6,
+      "unclaimed_listing": true,
+      "type": "Restaurante self-service",
+      "types": [
+        "Restaurante self-service"
+      ],
+      "type_id": "buffet_restaurant",
+      "type_ids": [
+        "buffet_restaurant"
+      ],
+      "address": "R. Monsenhor Valfredo Leal - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 10:30",
+      "hours": "Fechado · Abre ter. às 10:30",
+      "operating_hours": {
+        "segunda-feira": "10:30–14:00",
+        "terça-feira": "10:30–14:00",
+        "quarta-feira": "10:30–14:00",
+        "quinta-feira": "10:30–14:00",
+        "sexta-feira": "10:30–14:00",
+        "sábado": "Fechado",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 99101-1680",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Melhor self-service de CABEDELO👏👏👏\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFMGe5dLYLdMbr8nHu5d1xq5YbeX5z_Yx13k3kfsSD0uaUMJNFFX__OFxlEdfNI3FxwmacM1iRhoFtJk0HR8-_0aIVNZJKAf5d31iinBTZfS5DIJAe4I1DjDo7-GdLLhzelRRlIzckZD1tC=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/IzOsMnicHcTBTsMgAADQL2KFIHFZ4qGKbHRt1U7N2kvTAS0VBnPQrOlPevZvTHyH9_ujY7yETZJYjVeD94NVU1BX4V1ULq6EPyfDJQARQEjS1_LNpKzYKiLzOpfF6bp2u4lINH-T-qSOZGnrGWGDTR8OFE7dR5GVjB3b9oXN9ln2Jcdsvp07UaCx0p7FzMBdtQYt7Phn2WT7tCcSo3F0j-9NfyCUZ6m644h-UX8PtjLP9aJsVVm-CNNQFJ8ebghCCPT_Arg_TEFGGg"
+    }
+  },
+  {
+    "id": "4ddf6e22-ced9-47e4-b213-c378d233f04d",
+    "name": "MB Marmitas | Marmitaria em João Pessoa",
+    "google_maps_name": "MB Marmitas | Marmitaria em João Pessoa",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_XODgJ7frAcR2n1xL5ijuX4",
+    "google_place_id": "ChIJ_XODgJ7frAcR2n1xL5ijuX4",
+    "data_id": "0x7acdf9e808373fd:0x7eb9a3982f717dda",
+    "category_source": "Restaurante",
+    "address_source": "R. Alfredo Chaves, 126 - Poço, Cabedelo - PB, 58101-582",
+    "rating_source": 5,
+    "reviews_source": 2,
+    "phone_source": "",
+    "website_source": "https://www.mbmarmitas.site/",
+    "gps_coordinates": {
+      "latitude": -7.025028,
+      "longitude": -34.8317981
+    },
+    "latitude": -7.025028,
+    "longitude": -34.8317981,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 8,
+      "title": "MB Marmitas | Marmitaria em João Pessoa",
+      "place_id": "ChIJ_XODgJ7frAcR2n1xL5ijuX4",
+      "data_id": "0x7acdf9e808373fd:0x7eb9a3982f717dda",
+      "data_cid": "9131509593496714714",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf9e808373fd%3A0x7eb9a3982f717dda&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf9e808373fd%3A0x7eb9a3982f717dda&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.025028,
+        "longitude": -34.8317981
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ_XODgJ7frAcR2n1xL5ijuX4",
+      "provider_id": "/g/11mcx555t2",
+      "rating": 5,
+      "reviews": 2,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Alfredo Chaves, 126 - Poço, Cabedelo - PB, 58101-582",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 06:00",
+      "hours": "Fechado · Abre ter. às 06:00",
+      "operating_hours": {
+        "segunda-feira": "06:00–14:00",
+        "terça-feira": "06:00–14:00",
+        "quarta-feira": "06:00–14:00",
+        "quinta-feira": "06:00–14:00",
+        "sexta-feira": "06:00–14:00",
+        "sábado": "Fechado",
+        "domingo": "Fechado"
+      },
+      "website": "https://www.mbmarmitas.site/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Recomendo e muito as marmitas da MB Marmitas.\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=L7ndeDgE9ZeQJgAuvCyCGg&cb_client=search.gws-prod.gps&w=80&h=92&yaw=16.400484&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/pVLQw3icHc1RCsIgGADg2_iWuhi1BT8RK4Lopddewrk_FZzKdNpu07W6TdEFvu_z1imFuGMspgkxZYMlmBfauAqCKu-VRRFMpNKPLFcs6XnsnTB2H4TzZoDr1g14VKf2jreLOsy5W7qzIrJ_SGvQJYgoJqmpKj9x8gNVIZICDSca2jVZRIFqQ2vO66YmwSSpgZP_8vQZKs6_dns5gA"
+    }
+  },
+  {
+    "id": "667aba33-ec9a-46e2-a5a9-9730071371c3",
+    "name": "Kioske Cantinho do Sabor",
+    "google_maps_name": "Kioske Cantinho do Sabor",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJL7ngB3YgrQcRkndKsVUtpfw",
+    "google_place_id": "ChIJL7ngB3YgrQcRkndKsVUtpfw",
+    "data_id": "0x7ad207607e0b92f:0xfca52d55b14a7792",
+    "category_source": "Restaurante",
+    "address_source": "R. Cleto Campêlo - Vila Sao Joao, Cabedelo - PB, 58310-000",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.9799636,
+      "longitude": -34.834911999999996
+    },
+    "latitude": -6.9799636,
+    "longitude": -34.834911999999996,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 9,
+      "title": "Kioske Cantinho do Sabor",
+      "place_id": "ChIJL7ngB3YgrQcRkndKsVUtpfw",
+      "data_id": "0x7ad207607e0b92f:0xfca52d55b14a7792",
+      "data_cid": "18205006914785015698",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad207607e0b92f%3A0xfca52d55b14a7792&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad207607e0b92f%3A0xfca52d55b14a7792&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9799636,
+        "longitude": -34.834911999999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJL7ngB3YgrQcRkndKsVUtpfw",
+      "provider_id": "/g/11snnrmmgt",
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Cleto Campêlo - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Porções pequenas"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=x4wL3d145epRNlOXbUi17A&cb_client=search.gws-prod.gps&w=80&h=92&yaw=218.25534&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/W28sh3icHc1JCsIwFADQ22Rnhg44QBD3oiAI7iRNv8mHtPk0sam38VreRvEC733ePmdKOyFSngDyjFAIFwhpRYa7GF0AQ5i4jYOYlcj-OXSjwbAnM0bs9dKUY92rpgW6nML51l1RrQ_MdncbEMasE5jJeu7KT5xizx0lVvRGMq-3FXuZoiu14VXb1g0jzNZryf7LI85aSfkFSog49w"
+    }
+  },
+  {
+    "id": "04f7bdf2-230d-4224-99d5-aea50cefc56f",
+    "name": "Mary Refeições",
+    "google_maps_name": "Mary Refeições",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ2eQ7vvbfrAcRI7MW-9PBLJ8",
+    "google_place_id": "ChIJ2eQ7vvbfrAcRI7MW-9PBLJ8",
+    "data_id": "0x7acdff6be3be4d9:0x9f2cc1d3fb16b323",
+    "category_source": "Restaurante",
+    "address_source": "Av. Mar de Corais, 08 - Intermares, Cabedelo - PB, 58102-262",
+    "rating_source": 4.6,
+    "reviews_source": 45,
+    "phone_source": "(83) 98880-2447",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0494017,
+      "longitude": -34.848260599999996
+    },
+    "latitude": -7.0494017,
+    "longitude": -34.848260599999996,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 15,
+      "title": "Mary Refeições",
+      "place_id": "ChIJ2eQ7vvbfrAcRI7MW-9PBLJ8",
+      "data_id": "0x7acdff6be3be4d9:0x9f2cc1d3fb16b323",
+      "data_cid": "11469755467200639779",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdff6be3be4d9%3A0x9f2cc1d3fb16b323&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdff6be3be4d9%3A0x9f2cc1d3fb16b323&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0494017,
+        "longitude": -34.848260599999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ2eQ7vvbfrAcRI7MW-9PBLJ8",
+      "provider_id": "/g/11flt5yxnj",
+      "rating": 4.6,
+      "reviews": 45,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Av. Mar de Corais, 08 - Intermares, Cabedelo - PB, 58102-262",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 08:00",
+      "hours": "Fechado · Abre ter. às 08:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–14:00",
+        "terça-feira": "08:00–14:00",
+        "quarta-feira": "08:00–14:00",
+        "quinta-feira": "08:00–14:00",
+        "sexta-feira": "08:00–14:00",
+        "sábado": "08:00–14:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98880-2447",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Serviço de buffet",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Peço pelo WhatsApp e nunca demoraram a responder, atendimento muito bom.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGgis6-iBEEg5cV2dgBwOfTu3BJfXo7nrkBiYv7urQG3UKImBTi0REGbvFQq-6t_XPbCd6A35rNBfBUFpeXNipBCEDqt7JjW7P12OncZ2XBP__OV-6FXUcRKlFWKMCPx68UlhWG=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/UWMIgXicHcRRDoIgGADgE5GmC1tbD_6mrlyKLZN6cYsUKQMTrG7YGbpNW9_D9_20xvR6YVld6064UryrR10PTElTSzNh6m7xXiOmkbZ8kuY3P-ZCYyQgDPmMHZwLh1fW7EcXNg1VnhxuII5Pbxzy2C2S9R32wt6F8fkZ5Q-ETUXJObhg350NKTRQRH1NU9FDEK4exttcS49MnUyyk0OBVFV2QDiiBdslXVQm24C88bzo2jJevqa2baP2P0PyB-qJQs8"
+    }
+  },
+  {
+    "id": "0e3f0746-de34-4715-93fc-06a1b5c10e2b",
+    "name": "D Lay Refeições - Marmitaria",
+    "google_maps_name": "D Lay Refeições - Marmitaria",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ7x-TOz7drAcRBMvOXw4vkwg",
+    "google_place_id": "ChIJ7x-TOz7drAcRBMvOXw4vkwg",
+    "data_id": "0x7acdd3e3b931fef:0x8932f0e5fcecb04",
+    "category_source": "Restaurante de almoço",
+    "address_source": "Av. Ambrósio Miranda de Araújo - Renascer, Cabedelo - PB, 58310-000",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "(83) 98676-2921",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0728938999999995,
+      "longitude": -34.8560701
+    },
+    "latitude": -7.0728938999999995,
+    "longitude": -34.8560701,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 18,
+      "title": "D Lay Refeições - Marmitaria",
+      "place_id": "ChIJ7x-TOz7drAcRBMvOXw4vkwg",
+      "data_id": "0x7acdd3e3b931fef:0x8932f0e5fcecb04",
+      "data_cid": "617889312663325444",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd3e3b931fef%3A0x8932f0e5fcecb04&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd3e3b931fef%3A0x8932f0e5fcecb04&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0728938999999995,
+        "longitude": -34.8560701
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ7x-TOz7drAcRBMvOXw4vkwg",
+      "provider_id": "/g/11wvx21f72",
+      "type": "Restaurante de almoço",
+      "types": [
+        "Restaurante de almoço"
+      ],
+      "type_id": "lunch_restaurant",
+      "type_ids": [
+        "lunch_restaurant"
+      ],
+      "address": "Av. Ambrósio Miranda de Araújo - Renascer, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto 24 horas",
+      "hours": "Aberto 24 horas",
+      "operating_hours": {
+        "segunda-feira": "Atendimento 24 horas",
+        "terça-feira": "Atendimento 24 horas",
+        "quarta-feira": "Atendimento 24 horas",
+        "quinta-feira": "Atendimento 24 horas",
+        "sexta-feira": "Atendimento 24 horas",
+        "sábado": "Atendimento 24 horas",
+        "domingo": "Atendimento 24 horas"
+      },
+      "phone": "(83) 98676-2921",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Tranquilo"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGhkIfmmaHXceINmkXqpp5bvpn_RCWmw2Fik4O6vp_5boBF0lRnhTu7pZneCzLJmlHUB0ZnGFJIBw8z7fVhxUfbnz8uQb3BZgPnd4v4E30lkwq-TNTavFxoKOE_aWq53PiyjGB1Ww=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/z-36xnicHcRRboIwGADgE1XqgGmW7MEaQdyCaHAYXgh0hbq2f8sK1HHDHcHbLNn38D1--TAY--J5kvuLTutOstGyb6phYDAsqFZeZyyiFllvk6UnsYm5SFql6v2VsiRV4tobEzaTgeq8LZR7im4iOD5PpgobTSIsz8DzcWVKYNv5_aDk_kJwCXF0SIhbz6v2g98vbQPzejw1Pim7DD6DKdj5WArXozzN6ym667fjrqqLPvSz289XTJaFe3VLjDHi_1MEf5ZyRrg"
+    }
+  },
+  {
+    "id": "80b5f0be-adea-4b91-8b8e-ee162f79f973",
+    "name": "M E Refeição",
+    "google_maps_name": "M E Refeição",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJc3fKUeHfrAcRDLLyfWij5xk",
+    "google_place_id": "ChIJc3fKUeHfrAcRDLLyfWij5xk",
+    "data_id": "0x7acdfe151ca7773:0x19e7a3687df2b20c",
+    "category_source": "Restaurante",
+    "address_source": "Intermares, Cabedelo - PB, 58033-455",
+    "rating_source": 5,
+    "reviews_source": 3,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0443159,
+      "longitude": -34.8447247
+    },
+    "latitude": -7.0443159,
+    "longitude": -34.8447247,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 19,
+      "title": "M E Refeição",
+      "place_id": "ChIJc3fKUeHfrAcRDLLyfWij5xk",
+      "data_id": "0x7acdfe151ca7773:0x19e7a3687df2b20c",
+      "data_cid": "1866640239753343500",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfe151ca7773%3A0x19e7a3687df2b20c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfe151ca7773%3A0x19e7a3687df2b20c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0443159,
+        "longitude": -34.8447247
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJc3fKUeHfrAcRDLLyfWij5xk",
+      "provider_id": "/g/11fktpg9__",
+      "rating": 5,
+      "reviews": 3,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Intermares, Cabedelo - PB, 58033-455",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=9qWd3AcVLNgGr-Pe8jG81w&cb_client=search.gws-prod.gps&w=80&h=92&yaw=97.326614&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/y-WzpnicHc3NDcIgGADQbbiVn9bU1oQYT70Y40mPhtJPwFBAwKLbuJbbaFzgvc9b5xzShpCUI0BeDJRgnmBTFQRW3isLIpiEpZ_JwkjWj3l0wthtEM6biff389Ts5Gl_UEOsjtDdho4VJMeLtAZc5glElBqr8hOjn7AKCRXeUaR5X6OXKLxf46ZuW7ZCwWSpOUX_5eoXzij9AkzQOQU"
+    }
+  },
+  {
+    "id": "0f0b83e3-c399-4f1a-89d6-34cf485b2608",
+    "name": "Rope Espetos",
+    "google_maps_name": "Rope Espetos",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJmbbN-K3frAcRsyfJ94pu17s",
+    "google_place_id": "ChIJmbbN-K3frAcRsyfJ94pu17s",
+    "data_id": "0x7acdfadf8cdb699:0xbbd76e8af7c927b3",
+    "category_source": "Restaurante de churrasquinho",
+    "address_source": "Av. Oceano Atlântico, 422 - Intermares, Cabedelo - PB, 58102-252",
+    "rating_source": 4.5,
+    "reviews_source": 13,
+    "phone_source": "(83) 98854-0926",
+    "website_source": "https://www.instagram.com/ropeespetos?igsh=NWV2NHFzNjU1eXFp&utm_source=qr",
+    "gps_coordinates": {
+      "latitude": -7.040004799999999,
+      "longitude": -34.839349
+    },
+    "latitude": -7.040004799999999,
+    "longitude": -34.839349,
+    "query": "espetinho Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 8,
+      "title": "Rope Espetos",
+      "place_id": "ChIJmbbN-K3frAcRsyfJ94pu17s",
+      "data_id": "0x7acdfadf8cdb699:0xbbd76e8af7c927b3",
+      "data_cid": "13535408748227012531",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfadf8cdb699%3A0xbbd76e8af7c927b3&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfadf8cdb699%3A0xbbd76e8af7c927b3&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.040004799999999,
+        "longitude": -34.839349
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJmbbN-K3frAcRsyfJ94pu17s",
+      "provider_id": "/g/11kp_62nsj",
+      "rating": 4.5,
+      "reviews": 13,
+      "price": "R$ 40–60",
+      "extracted_price": 40,
+      "type": "Restaurante de churrasquinho",
+      "types": [
+        "Restaurante de churrasquinho"
+      ],
+      "type_id": "kebab_shop",
+      "type_ids": [
+        "kebab_shop"
+      ],
+      "address": "Av. Oceano Atlântico, 422 - Intermares, Cabedelo - PB, 58102-252",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:30",
+      "hours": "Fechado · Abre ter. às 18:30",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:30–23:00",
+        "quarta-feira": "18:30–23:00",
+        "quinta-feira": "18:30–23:00",
+        "sexta-feira": "18:30–00:00",
+        "sábado": "18:30–00:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98854-0926",
+      "website": "https://www.instagram.com/ropeespetos?igsh=NWV2NHFzNjU1eXFp&utm_source=qr",
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true
+      },
+      "user_review": "\"Ambiente agradável, música ambiente, achei ótimo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGZeQ5smEPiZjnp-YhxBiANlzH4ZpgfNq3OnnOk3K_baTPziQiLVYFX0y_PlunxVw6qxHsl0gjrl9dH8sT3-O5U7ZGRdUPElDJfc3j8DFTNyzAry0LLuir8TFWelvqiKbBVr08I_ruAOmFs=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/fLCrbXicHcTBboIwGADgJ6rUdDq2xEONIlMCZUE2uRCttRRLgf6gwEvuvLdZsu_w_f4UXdfAu-PogsxkXUstehCW16YTppvxunJkA4gDAoeyML7TXSbiBVRbprLSNOhUDGtFQz35L1kjb2FLImOiOznkl3PCJhWrID1533jMme7NkD6X7eCDxrK0-u3qu5AQFC2Or9nu83pkW73Z3zgp3Y2XhONE7YiDoFfWTbwvoR-tOlzWqcXuR257GlUerJ5zjDEq_ufI_AEuEUiv"
+    }
+  },
+  {
+    "id": "7c7122af-3461-4317-853e-634eaadcc895",
+    "name": "Espetinho lá Brasil",
+    "google_maps_name": "Espetinho lá Brasil",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJnV7DIgbfrAcR2KjlFmSKYJ8",
+    "google_place_id": "ChIJnV7DIgbfrAcR2KjlFmSKYJ8",
+    "data_id": "0x7acdf0622c35e9d:0x9f608a6416e5a8d8",
+    "category_source": "Restaurante de churrasquinho",
+    "address_source": "Av. Oceano Pacífico - Intermares, Cabedelo - PB, 58102-236",
+    "rating_source": 4,
+    "reviews_source": 4,
+    "phone_source": "(61) 99908-5656",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0396529,
+      "longitude": -34.839458
+    },
+    "latitude": -7.0396529,
+    "longitude": -34.839458,
+    "query": "espetinho Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 14,
+      "title": "Espetinho lá Brasil",
+      "place_id": "ChIJnV7DIgbfrAcR2KjlFmSKYJ8",
+      "data_id": "0x7acdf0622c35e9d:0x9f608a6416e5a8d8",
+      "data_cid": "11484331212280277208",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0622c35e9d%3A0x9f608a6416e5a8d8&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0622c35e9d%3A0x9f608a6416e5a8d8&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0396529,
+        "longitude": -34.839458
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJnV7DIgbfrAcR2KjlFmSKYJ8",
+      "provider_id": "/g/11l2jzsr7g",
+      "rating": 4,
+      "reviews": 4,
+      "type": "Restaurante de churrasquinho",
+      "types": [
+        "Restaurante de churrasquinho"
+      ],
+      "type_id": "kebab_shop",
+      "type_ids": [
+        "kebab_shop"
+      ],
+      "address": "Av. Oceano Pacífico - Intermares, Cabedelo - PB, 58102-236",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 17:30",
+      "hours": "Fechado · Abre às 17:30",
+      "operating_hours": {
+        "segunda-feira": "17:30–23:00",
+        "terça-feira": "17:30–23:30",
+        "quarta-feira": "17:30–23:30",
+        "quinta-feira": "17:30–23:30",
+        "sexta-feira": "17:30–00:00",
+        "sábado": "17:30–00:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(61) 99908-5656",
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Preço justo!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHIVh5ZRnJGQ3AsBIQw_4XlTTDmH0pbutPgetlI2bM1Wx8eHW8EG98G7nQHzeDycDqyeH3ZaBZstbtuxgLrgLYYmhOACXxp2Js3dVT0YuJdpihjZs447faFxEmdya_INeVPfZGB=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/PlHZ1nicHcTdboIwGADQJ0KqsIgmuwBxFOIcGMJPbwiU2m5CqX4lgi-4Z_BtTDwX5_kvtFawNc1OWAs-DLxjI7AbHaRmUi_o0JtcgUHBANONj8nFxWEmPshJRkFiueCFyb2yiy5N_R4j1Yw65kx34ar5XuaTw3Du7IONE6xlgh_Mn6l_nRm2SO0R0I0eJ3648UNZ9uLH3RWTWkVgtVmKyjFq1a_4I2Db63P9Ne37dq6r8Miy-EwC7_O-RAgZ4j015AtpM0VN"
+    }
+  },
+  {
+    "id": "19adbb1c-6894-4306-8468-d84cba24eed6",
+    "name": "Espetinh",
+    "google_maps_name": "Espetinh",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJuToxFxPfrAcRAaoTNj0a6wo",
+    "google_place_id": "ChIJuToxFxPfrAcRAaoTNj0a6wo",
+    "data_id": "0x7acdf1317313ab9:0xaeb1a3d3613aa01",
+    "category_source": "Lanchonete",
+    "address_source": "R. Nilo Montenegro - Jardim Camboinha, Cabedelo - PB, 58103-676",
+    "rating_source": 3.7,
+    "reviews_source": 3,
+    "phone_source": "(83) 99999-9999",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0052043,
+      "longitude": -34.8319252
+    },
+    "latitude": -7.0052043,
+    "longitude": -34.8319252,
+    "query": "espetinho Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 15,
+      "title": "Espetinh",
+      "place_id": "ChIJuToxFxPfrAcRAaoTNj0a6wo",
+      "data_id": "0x7acdf1317313ab9:0xaeb1a3d3613aa01",
+      "data_cid": "786751410108869121",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1317313ab9%3A0xaeb1a3d3613aa01&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1317313ab9%3A0xaeb1a3d3613aa01&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0052043,
+        "longitude": -34.8319252
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJuToxFxPfrAcRAaoTNj0a6wo",
+      "provider_id": "/g/11m6z4s86n",
+      "rating": 3.7,
+      "reviews": 3,
+      "unclaimed_listing": true,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "R. Nilo Montenegro - Jardim Camboinha, Cabedelo - PB, 58103-676",
+      "country": "Brasil",
+      "phone": "(83) 99999-9999",
+      "extensions": [
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "retirada_na_porta": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=njS5yoYcSkZLHrxtBIBOYw&cb_client=search.gws-prod.gps&w=80&h=92&yaw=113.74156&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/NsaXJnicHc1LDsIgFADA27CTj1p_CTHpShMTF13VjaGIgFIg8CztbbyWt9F4gZnP2wDEvCMkQ1IKBqtKtKNyeRYF1iFop0S0GcvQk4ERMK--88K6fRQ-2Bv3j6aaQiub5-V0SCPUx_rcFiS7q3RWeeBZiSQN1uUnpnDDOmZU-IYiw7dzNInCGVvg9ZJVKxQtSMMp-i_3MHBG6Rejwzn-"
+    }
+  },
+  {
+    "id": "10f71936-a4b9-4c9b-b2c4-d1c709081a93",
+    "name": "Bar e Restaurante do Pessoinha",
+    "google_maps_name": "Bar e Restaurante do Pessoinha",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ4XsN-wfhrAcRxkkYL52xlIM",
+    "google_place_id": "ChIJ4XsN-wfhrAcRxkkYL52xlIM",
+    "data_id": "0x7ace107fb0d7be1:0x8394b19d2f1849c6",
+    "category_source": "Restaurante",
+    "address_source": "PB-011, 178 - Forte Velho, Santa Rita - PB, 58304-300",
+    "rating_source": 4.5,
+    "reviews_source": 499,
+    "phone_source": "(83) 98127-1419",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.990155499999999,
+      "longitude": -34.8743396
+    },
+    "latitude": -6.990155499999999,
+    "longitude": -34.8743396,
+    "query": "espetinho Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 16,
+      "title": "Bar e Restaurante do Pessoinha",
+      "place_id": "ChIJ4XsN-wfhrAcRxkkYL52xlIM",
+      "data_id": "0x7ace107fb0d7be1:0x8394b19d2f1849c6",
+      "data_cid": "9481398404179839430",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ace107fb0d7be1%3A0x8394b19d2f1849c6&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ace107fb0d7be1%3A0x8394b19d2f1849c6&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.990155499999999,
+        "longitude": -34.8743396
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ4XsN-wfhrAcRxkkYL52xlIM",
+      "provider_id": "/g/11cpgy58d5",
+      "rating": 4.5,
+      "reviews": 499,
+      "price": "R$ 20–120",
+      "extracted_price": 20,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante",
+        "Bar"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant",
+        "cocktail_bar"
+      ],
+      "address": "PB-011, 178 - Forte Velho, Santa Rita - PB, 58304-300",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre sex. às 09:00",
+      "hours": "Fecha em breve · 17:00 · Abre sex. às 09:00",
+      "operating_hours": {
+        "segunda-feira": "09:00–17:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "Fechado",
+        "sexta-feira": "09:00–17:00",
+        "sábado": "09:00–17:00",
+        "domingo": "09:00–17:00"
+      },
+      "phone": "(83) 98127-1419",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Café",
+            "Cerveja",
+            "Coquetéis",
+            "Porções pequenas",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Ambiente limpo , organizado e de boa qualidade !\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGwMOJ-DKWdjny5vpIJjQUjWQpace37sd7eWv8CiqV6n3_5xZS98BMazrgFGR7McGbunW69gclYtRPsdsinjMCBdWeLm1_JrLrePh_Zm5MWhCvv2qxx6yzpxfl5evn7xyVj2P3jnA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/JmQ2cXicHcRRboIwGADgE1VQAuiSPSBGIloHLtrMF6KltnbwU2mtxRvuCN7GZN_D9_oTxij94XmNCEa863jD7pr1tAPDwIxo13pcaUQ10l5SbMvfJHvgrxwt1qSWMIRWrXJZ7iUp1YmyINZ1zIidptfbIYKgCt3xezad49Oz58tsF2Oane9AohmnzY_ZFbrWV5A4ndeEbdpxlfebnhWiOrYhJiK1dnJzLhqeyl2akFmI3XCQkyKQkHw-xr7vI_E_RfAGUcRHLA"
+    }
+  },
+  {
+    "id": "ee3d9e13-53b5-4288-a5e0-e2b421049135",
+    "name": "Espetinho do xandao",
+    "google_maps_name": "Espetinho do xandao",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJCcURbQDfrAcRhFrZD2Ih3qI",
+    "google_place_id": "ChIJCcURbQDfrAcRhFrZD2Ih3qI",
+    "data_id": "0x7acdf006d11c509:0xa2de21620fd95a84",
+    "category_source": "Churrascaria",
+    "address_source": "R. da Enseada, 1215 - Ponta de Campina, Cabedelo - PB, 58101-640",
+    "rating_source": 4,
+    "reviews_source": 4,
+    "phone_source": "(83) 99656-2295",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.031254499999999,
+      "longitude": -34.8336458
+    },
+    "latitude": -7.031254499999999,
+    "longitude": -34.8336458,
+    "query": "espetinho Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 19,
+      "title": "Espetinho do xandao",
+      "place_id": "ChIJCcURbQDfrAcRhFrZD2Ih3qI",
+      "data_id": "0x7acdf006d11c509:0xa2de21620fd95a84",
+      "data_cid": "11735854384030505604",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf006d11c509%3A0xa2de21620fd95a84&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf006d11c509%3A0xa2de21620fd95a84&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.031254499999999,
+        "longitude": -34.8336458
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJCcURbQDfrAcRhFrZD2Ih3qI",
+      "provider_id": "/g/11y4x_bjvz",
+      "rating": 4,
+      "reviews": 4,
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "R. da Enseada, 1215 - Ponta de Campina, Cabedelo - PB, 58101-640",
+      "country": "Brasil",
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "17:00–23:00",
+        "quinta-feira": "17:00–23:00",
+        "sexta-feira": "17:00–01:00",
+        "sábado": "17:00–01:00",
+        "domingo": "17:00–22:30"
+      },
+      "phone": "(83) 99656-2295",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Melhor da região.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG7R5M8AqT6wbQXFhAXaKVCS9Rwg37VSxF1VUFpmn4wdeDJbQTXRjISJCuCvAXnj8IxcjhY4ZIsLDWhYXDpu1mXpgPVf-R-effge7LTHLL9x6RPziuXTOgUbEUgpjIYfos9GJgMgw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/5iYU3nicHcRNUoMwGADQE6XAtJbijIsMlBakCuHH0J3E8KVYkmjAMN7QI3ibzvQt3v-fmCZtHh3nKtYrUAqufDb8myk5cTmtmBod0AYxg4yD85fiEx988nDa4a9qa7uCxgLT9-cmLANiYe035RJ7TR3rUW7sB4_SrqgoGZIyDefwB1M57JKFDaLdnBOTRW-ipZGevZFqyJseEcT7HrifVccsC5YtyX8vM61eoe72NeghaXtlgkMKJ7BP1nNdF4n7DMkbrOJFZQ"
+    }
+  },
+  {
+    "id": "4e7acf35-2f23-41de-89f6-1a98cf6e0b4b",
+    "name": "Espetinho São Paulo",
+    "google_maps_name": "Espetinho São Paulo",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJK3fELgAfrQcRtB4AcNwaTUc",
+    "google_place_id": "ChIJK3fELgAfrQcRtB4AcNwaTUc",
+    "data_id": "0x7ad1f002ec4772b:0x474d1adc70001eb4",
+    "category_source": "Churrascaria",
+    "address_source": "R. Severina Souto Batista, 11 - Planta de Lucena, Lucena - PB, 58315-000",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -6.9607496,
+      "longitude": -34.8631483
+    },
+    "latitude": -6.9607496,
+    "longitude": -34.8631483,
+    "query": "espetinho Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 20,
+      "title": "Espetinho São Paulo",
+      "place_id": "ChIJK3fELgAfrQcRtB4AcNwaTUc",
+      "data_id": "0x7ad1f002ec4772b:0x474d1adc70001eb4",
+      "data_cid": "5137792283973787316",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad1f002ec4772b%3A0x474d1adc70001eb4&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad1f002ec4772b%3A0x474d1adc70001eb4&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9607496,
+        "longitude": -34.8631483
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJK3fELgAfrQcRtB4AcNwaTUc",
+      "provider_id": "/g/11mdbpzxc6",
+      "unclaimed_listing": true,
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "R. Severina Souto Batista, 11 - Planta de Lucena, Lucena - PB, 58315-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=gP1JFlfxRlzuozkDrVQmfg&cb_client=search.gws-prod.gps&w=80&h=92&yaw=216.70901&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/66tnwnicHc09DsIgGADQ27DJTwe1Jl9cjIOTOrgaSil8KS0EaKk9jdfyNhov8N7nbXMO6cBYylHrPKMuARft0iZIarw3TsuAiSo_sFmwbKehGSW6Y5CjxxbMVVzOrlvubp382p_i4zZ0hqjmqRzqMUPSMipLTfmJ0bfUhEQK7DmxUFfkJQtUYkt3vOaCBMzKAif_pfMzCM6_v5Y6XA"
+    }
+  },
+  {
+    "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+    "name": "Forneria Brasil Express 🍕",
+    "google_maps_name": "Forneria Brasil Express 🍕",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJRaVm9q19ZScR9PGc5I1SNg0",
+    "google_place_id": "ChIJRaVm9q19ZScR9PGc5I1SNg0",
+    "data_id": "0x27657dadf666a545:0xd36528de49cf1f4",
+    "category_source": "Delivery de Pizza",
+    "address_source": "",
+    "rating_source": 3,
+    "reviews_source": 2,
+    "phone_source": "(83) 98653-8522",
+    "website_source": "https://instadelivery.com.br/FornoBrasilExpress",
+    "gps_coordinates": {
+      "latitude": -7.0311464,
+      "longitude": -34.84656
+    },
+    "latitude": -7.0311464,
+    "longitude": -34.84656,
+    "query": "esfiharia Cabedelo PB",
+    "area": "Porto/Cabedelo",
+    "ll": "@-6.9665,-34.8405,15z",
+    "raw": {
+      "position": 20,
+      "title": "Forneria Brasil Express 🍕",
+      "place_id": "ChIJRaVm9q19ZScR9PGc5I1SNg0",
+      "data_id": "0x27657dadf666a545:0xd36528de49cf1f4",
+      "data_cid": "952039140614795764",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x27657dadf666a545%3A0xd36528de49cf1f4&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x27657dadf666a545%3A0xd36528de49cf1f4&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0311464,
+        "longitude": -34.84656
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJRaVm9q19ZScR9PGc5I1SNg0",
+      "provider_id": "/g/11y6lgplld",
+      "rating": 3,
+      "reviews": 2,
+      "type": "Delivery de Pizza",
+      "types": [
+        "Delivery de Pizza",
+        "Service establishment"
+      ],
+      "type_id": "pizza_delivery_service",
+      "type_ids": [
+        "pizza_delivery_service",
+        "establishment_service"
+      ],
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:30",
+        "terça-feira": "17:30–23:30",
+        "quarta-feira": "17:30–23:30",
+        "quinta-feira": "17:30–23:30",
+        "sexta-feira": "17:00–23:45",
+        "sábado": "17:00–23:45",
+        "domingo": "17:00–23:30"
+      },
+      "phone": "(83) 98653-8522",
+      "website": "https://instadelivery.com.br/FornoBrasilExpress",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega_sem_contato": true
+      }
+    }
+  },
+  {
+    "id": "dcfb81cb-40ef-4a02-9e77-ef4c37a1f84f",
+    "name": "Marmitaria Jacaré",
+    "google_maps_name": "Marmitaria Jacaré",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJLbuvLDrerAcRPu-x6bYXe_4",
+    "google_place_id": "ChIJLbuvLDrerAcRPu-x6bYXe_4",
+    "data_id": "0x7acde3a2cafbb2d:0xfe7b17b6e9b1ef3e",
+    "category_source": "Restaurante",
+    "address_source": "R. Jair Cunha Cavalcanti - Lot. Oceania VI, Cabedelo - PB, 58105-700",
+    "rating_source": 4,
+    "reviews_source": 7,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0271520999999995,
+      "longitude": -34.8462768
+    },
+    "latitude": -7.0271520999999995,
+    "longitude": -34.8462768,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Jacare",
+    "ll": "@-6.9987,-34.8411,15z",
+    "raw": {
+      "position": 18,
+      "title": "Marmitaria Jacaré",
+      "place_id": "ChIJLbuvLDrerAcRPu-x6bYXe_4",
+      "data_id": "0x7acde3a2cafbb2d:0xfe7b17b6e9b1ef3e",
+      "data_cid": "18337276382141345598",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde3a2cafbb2d%3A0xfe7b17b6e9b1ef3e&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde3a2cafbb2d%3A0xfe7b17b6e9b1ef3e&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0271520999999995,
+        "longitude": -34.8462768
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJLbuvLDrerAcRPu-x6bYXe_4",
+      "provider_id": "/g/11cl_0msyv",
+      "rating": 4,
+      "reviews": 7,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Jair Cunha Cavalcanti - Lot. Oceania VI, Cabedelo - PB, 58105-700",
+      "country": "Brasil",
+      "open_state": "Permanently closed",
+      "hours": "Permanently closed",
+      "extensions": [
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=KdeNCI1Rl2zUdjKTrAoXDA&cb_client=search.gws-prod.gps&w=80&h=92&yaw=310.2225&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/WGOewnicHc1NCgIhGADQ27jLvwgqkBimTQy0iIJ24eiXGs4oamN1mc7VbYou8N7nbUuJeU1ILgmgTA5qdA_weRYlNiEYDzK6jFUYyMRIsfehH6XzmyjH4LToNOzbHTt4_jrpW3dMTThvG6T6i_IOxiIyyKQsNvUnpqCxiRlVsaTIihVHT1nFnFHMOV-g6IqygqJ_cg2TYJR-AS5xORA"
+    }
+  },
+  {
+    "id": "a108a394-1cb3-478b-a857-2d6770d853c4",
+    "name": "Rodizio de caldo do carioca",
+    "google_maps_name": "Rodizio de caldo do carioca",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ6_RJWwDdrAcRxuNt1Q9C4Cc",
+    "google_place_id": "ChIJ6_RJWwDdrAcRxuNt1Q9C4Cc",
+    "data_id": "0x7acdd005b49f4eb:0x27e0420fd56de3c6",
+    "category_source": "Pastelaria brasileira",
+    "address_source": "Rod. Br Duzentos e Trinta, 187 - Renascer, Cabedelo - PB, 58102-171",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.071933199999999,
+      "longitude": -34.8500085
+    },
+    "latitude": -7.071933199999999,
+    "longitude": -34.8500085,
+    "query": "pastelaria Cabedelo PB",
+    "area": "Poco",
+    "ll": "@-7.0205,-34.8426,15z",
+    "raw": {
+      "position": 16,
+      "title": "Rodizio de caldo do carioca",
+      "place_id": "ChIJ6_RJWwDdrAcRxuNt1Q9C4Cc",
+      "data_id": "0x7acdd005b49f4eb:0x27e0420fd56de3c6",
+      "data_cid": "2873369198035067846",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd005b49f4eb%3A0x27e0420fd56de3c6&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd005b49f4eb%3A0x27e0420fd56de3c6&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.071933199999999,
+        "longitude": -34.8500085
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ6_RJWwDdrAcRxuNt1Q9C4Cc",
+      "provider_id": "/g/11nqxyx0h0",
+      "unclaimed_listing": true,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "Rod. Br Duzentos e Trinta, 187 - Renascer, Cabedelo - PB, 58102-171",
+      "country": "Brasil"
+    }
+  },
+  {
+    "id": "2e4d043d-4eae-48c9-852a-f81b7ef842f5",
+    "name": "Bom apetite",
+    "google_maps_name": "Bom apetite",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJg_V2FQDfrAcRTnLbwll2mZk",
+    "google_place_id": "ChIJg_V2FQDfrAcRTnLbwll2mZk",
+    "data_id": "0x7acdf001576f583:0x99997659c2db724e",
+    "category_source": "Restaurante",
+    "address_source": "Jacaré, Cabedelo - PB, 58106-162",
+    "rating_source": 3.3,
+    "reviews_source": 4,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0321482,
+      "longitude": -34.84793
+    },
+    "latitude": -7.0321482,
+    "longitude": -34.84793,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Poco",
+    "ll": "@-7.0205,-34.8426,15z",
+    "raw": {
+      "position": 15,
+      "title": "Bom apetite",
+      "place_id": "ChIJg_V2FQDfrAcRTnLbwll2mZk",
+      "data_id": "0x7acdf001576f583:0x99997659c2db724e",
+      "data_cid": "11068007687133033038",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf001576f583%3A0x99997659c2db724e&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf001576f583%3A0x99997659c2db724e&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0321482,
+        "longitude": -34.84793
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJg_V2FQDfrAcRTnLbwll2mZk",
+      "provider_id": "/g/11wx9s0pd6",
+      "rating": 3.3,
+      "reviews": 4,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Jacaré, Cabedelo - PB, 58106-162",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTF3eDlzMHBkNhgAOgMI8A0%3D&g2lbs=AEzIGDuK8HyllGCu8MdtF4lHBZdpPddn4XQTTQ6sqmu1GZThdDCLyJRtYqGecK4EmpNwP16ucz3h&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=gwVMaqH6G4O3qtsPqJXwwQI&ei=gwVMaqH6G4O3qtsPqJXwwQI&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=e6_hcstqflW-QFVB5BZojA&cb_client=search.gws-prod.gps&w=80&h=92&yaw=85.12785&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/6-znxXicHc0xDoIwFIDh23SjLSQomjRGBncXTVxIKY_2mUIrfYKexnN5G4nbP33_9-OIYtoLkWgCoBlhifgCn7KouQ3BetAREzdhEHMuyD2HdtToD1GPATsFm8aZRI_eX7Pz6VKX9S3cj8y0jfEII6kEejKO22UVp9BxGxNbVCWZU7uCvfXaJc-LbVWyiGSckuw_6cOscil_Ss85aA"
+    }
+  },
+  {
+    "id": "e6406971-6d1b-4cfa-b3ea-c056097219b8",
+    "name": "LeFit - Comida Saudável",
+    "google_maps_name": "LeFit - Comida Saudável",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ9x9S-G_frAcR3U7k4qp8dSQ",
+    "google_place_id": "ChIJ9x9S-G_frAcR3U7k4qp8dSQ",
+    "data_id": "0x7acdf6ff8521ff7:0x24757caae2e44edd",
+    "category_source": "Delivery",
+    "address_source": "Av. Oceano Pacífico - Intermares, Cabedelo - PB, 58102-236",
+    "rating_source": 1,
+    "reviews_source": 1,
+    "phone_source": "(83) 99113-2813",
+    "website_source": "https://instagram.com/lefitjp",
+    "gps_coordinates": {
+      "latitude": -7.0401887,
+      "longitude": -34.8399454
+    },
+    "latitude": -7.0401887,
+    "longitude": -34.8399454,
+    "query": "marmitaria Cabedelo PB",
+    "area": "Poco",
+    "ll": "@-7.0205,-34.8426,15z",
+    "raw": {
+      "position": 19,
+      "title": "LeFit - Comida Saudável",
+      "place_id": "ChIJ9x9S-G_frAcR3U7k4qp8dSQ",
+      "data_id": "0x7acdf6ff8521ff7:0x24757caae2e44edd",
+      "data_cid": "2627143031033450205",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf6ff8521ff7%3A0x24757caae2e44edd&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf6ff8521ff7%3A0x24757caae2e44edd&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0401887,
+        "longitude": -34.8399454
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ9x9S-G_frAcR3U7k4qp8dSQ",
+      "provider_id": "/g/11p7171hb9",
+      "rating": 1,
+      "reviews": 1,
+      "type": "Delivery",
+      "types": [
+        "Delivery"
+      ],
+      "type_id": "meal_delivery",
+      "type_ids": [
+        "meal_delivery"
+      ],
+      "address": "Av. Oceano Pacífico - Intermares, Cabedelo - PB, 58102-236",
+      "country": "Brasil",
+      "open_state": "Temporarily closed",
+      "hours": "Temporarily closed",
+      "phone": "(83) 99113-2813",
+      "website": "https://instagram.com/lefitjp",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega_sem_contato": true,
+        "entrega": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG4qpOTHsdFHRtvjF_UbyBktzaeXK6AGnUzHlKGnjZNMxk2Z_hz3LLLF1PeBa3qjVJfMbyYkcMRkwryrHRaqo-1yTQDnREfrrZPm7MA_TVTdtRj94q9FrsM9ltuzuu2G1WInmOM=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/VinCWnicHcRJDoIwAADAF1XWaDDxgFFApYINblwI1gqh0EJbVPigb_A3Js5hvp9SqVbONa0urUnBeVGTXhKBOVOEqQnmjVa0EmAJpObG-wN1fbtroySQdy9A6ll52fE2LKkac3LZTV2fHceg3vmsSvfwTc00K0crDEPPiMkyt7rqtH3A23ClGCL6EoMIUN5xYAzJYcXQ-iFEGjcz6GbJKbkrVDl253hCQqdW_dj3pm-cN6yJ4OJl6LoOyv8YsB_9GEZr"
+    }
+  },
+  {
+    "id": "b70edc4d-f352-4cc1-9680-4f5d6cd5c773",
+    "name": "gat mal ponta de campina",
+    "google_maps_name": "gat mal ponta de campina",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJDSGSbgDfrAcRN4jq4u0ciKg",
+    "google_place_id": "ChIJDSGSbgDfrAcRN4jq4u0ciKg",
+    "data_id": "0x7acdf006e92210d:0xa8881cede2ea8837",
+    "category_source": "Churrascaria",
+    "address_source": "Av. Oceano Atlântico - Intermares, Cabedelo - PB, 58102-252",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.0330346,
+      "longitude": -34.8356596
+    },
+    "latitude": -7.0330346,
+    "longitude": -34.8356596,
+    "query": "churrascaria Cabedelo PB",
+    "area": "Camboinha",
+    "ll": "@-7.0125,-34.8302,15z",
+    "raw": {
+      "position": 18,
+      "title": "gat mal ponta de campina",
+      "place_id": "ChIJDSGSbgDfrAcRN4jq4u0ciKg",
+      "data_id": "0x7acdf006e92210d:0xa8881cede2ea8837",
+      "data_cid": "12143988203244390455",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf006e92210d%3A0xa8881cede2ea8837&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf006e92210d%3A0xa8881cede2ea8837&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0330346,
+        "longitude": -34.8356596
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJDSGSbgDfrAcRN4jq4u0ciKg",
+      "provider_id": "/g/11zcj62llc",
+      "unclaimed_listing": true,
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "Av. Oceano Atlântico - Intermares, Cabedelo - PB, 58102-252",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito"
+          ]
+        }
+      ],
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=1uT8Qaw2AW6TC03wo3C1Vw&cb_client=search.gws-prod.gps&w=80&h=92&yaw=125.35024&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/ZZDTCnicHc3bCcIwFADQbfJnXrVShVCkEwhFP-U2jcmFtAlN2ug2ruU2iguc83m7nGM6MZbyYkze0JSIT-PTLgK1IVhvIGKiOkxsEyy7dRpmQN9GmAOOSqx9c4Eiz7dD3_GqhKoT10L0cNcezZxVMrBoR235iUsYqY2JFNVw4tRRkhcUJWRNq5rLPYmYtVOc_JdH2JTg_Asx1Tit"
+    }
+  },
+  {
+    "id": "36ef5eca-78a6-42d3-9571-3d71148f5b13",
+    "name": "Laila Comida Oriente Médio",
+    "google_maps_name": "Laila Comida Oriente Médio",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJI_h-O8vfrAcRLDfid-iNmQw",
+    "google_place_id": "ChIJI_h-O8vfrAcRLDfid-iNmQw",
+    "data_id": "0x7acdfcb3b7ef823:0xc998de877e2372c",
+    "category_source": "Restaurante árabe",
+    "address_source": "R. da Enseada, 1215 - Lot. Bela Vista, Ponta de Campina, Cabedelo - PB, 58310-000",
+    "rating_source": 4.6,
+    "reviews_source": 9,
+    "phone_source": "(92) 99282-9712",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.031324499999999,
+      "longitude": -34.8336999
+    },
+    "latitude": -7.031324499999999,
+    "longitude": -34.8336999,
+    "query": "esfiharia Cabedelo PB",
+    "area": "Camboinha",
+    "ll": "@-7.0125,-34.8302,15z",
+    "raw": {
+      "position": 20,
+      "title": "Laila Comida Oriente Médio",
+      "place_id": "ChIJI_h-O8vfrAcRLDfid-iNmQw",
+      "data_id": "0x7acdfcb3b7ef823:0xc998de877e2372c",
+      "data_cid": "907912829475108652",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfcb3b7ef823%3A0xc998de877e2372c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfcb3b7ef823%3A0xc998de877e2372c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.031324499999999,
+        "longitude": -34.8336999
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJI_h-O8vfrAcRLDfid-iNmQw",
+      "provider_id": "/g/11vjz462kt",
+      "rating": 4.6,
+      "reviews": 9,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Restaurante árabe",
+      "types": [
+        "Restaurante árabe",
+        "Restaurante de doner kebab",
+        "Restaurante de falafel",
+        "Centro de comida de rua",
+        "Esfiharia",
+        "Restaurante de shawarma"
+      ],
+      "type_id": "arab_restaurant",
+      "type_ids": [
+        "arab_restaurant",
+        "doner_kebab_restaurant",
+        "falafel_restaurant",
+        "hawker_centre",
+        "sfiha_restaurant",
+        "shawarma_restaurant"
+      ],
+      "address": "R. da Enseada, 1215 - Lot. Bela Vista, Ponta de Campina, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Permanently closed",
+      "hours": "Permanently closed",
+      "phone": "(92) 99282-9712",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento coberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega": true,
+        "para_viagem": true,
+        "refeição_no_local": true
+      },
+      "user_review": "\"Atendimento de excelência.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGSbeiTYdNaZ68uz8Y921dQ_7FK5cJ5a6oXB5bvkM2Nn7L3klpl5ti-BP96kKkM4Krso5nQcUnH6z4-H9nhdjxqHd-5XFfuaz8ECsn5bzyMtJRXvqLs0oc7jN7vp8QDJj31sKw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/gjyTinicHcRJDoIwFADQE1VAKIOJC3AiIEQcEnRjoCBIsQV-QeWA3sHbmPgW7_sphWhgJkl1qU4Kzos67yHvCGciZ2JC-EMqGkAEEEj2LoyovTmk-f14zsLkopv9aJ6tqZJFV2PtY-LhROexg9OBBtOQGVuV1k2NxR05O0unPg00vwOOWUROzNVHDbkWK7Pq1boZwvH61iejuVoAw-n4DoS3j4d2CzInRhUaQ2NGS69SFfCf86ciyzIq_xPEfqtnQ5A"
+    }
+  },
+  {
+    "id": "725b6497-4be9-4426-a2c0-dd3b55ff7956",
+    "name": "Espetinho Pé na Areia",
+    "google_maps_name": "Espetinho Pé na Areia",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGWLtZoffrAcRAWERwF7Q64I",
+    "google_place_id": "ChIJGWLtZoffrAcRAWERwF7Q64I",
+    "data_id": "0x7acdf8766ed6219:0x82ebd05ec0116101",
+    "category_source": "Restaurante",
+    "address_source": "R. Gameleira, 23 - Amazonia Park, Cabedelo - PB, 58106-548",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "(83) 98689-2722",
+    "website_source": "https://api.whatsapp.com/send?phone=5583986892722&text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20prestados%20",
+    "gps_coordinates": {
+      "latitude": -7.0508017999999995,
+      "longitude": -34.850197
+    },
+    "latitude": -7.0508017999999995,
+    "longitude": -34.850197,
+    "query": "espetinho Cabedelo PB",
+    "area": "Ponta de Campina",
+    "ll": "@-7.0374,-34.8347,15z",
+    "raw": {
+      "position": 13,
+      "title": "Espetinho Pé na Areia",
+      "place_id": "ChIJGWLtZoffrAcRAWERwF7Q64I",
+      "data_id": "0x7acdf8766ed6219:0x82ebd05ec0116101",
+      "data_cid": "9433862949825503489",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf8766ed6219%3A0x82ebd05ec0116101&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf8766ed6219%3A0x82ebd05ec0116101&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0508017999999995,
+        "longitude": -34.850197
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJGWLtZoffrAcRAWERwF7Q64I",
+      "provider_id": "/g/11shgd8dr7",
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Gameleira, 23 - Amazonia Park, Cabedelo - PB, 58106-548",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 18:00",
+      "hours": "Aberto · Fecha 18:00",
+      "operating_hours": {
+        "segunda-feira": "08:00–18:00",
+        "terça-feira": "08:00–18:00",
+        "quarta-feira": "08:00–18:00",
+        "quinta-feira": "08:00–18:00",
+        "sexta-feira": "08:00–18:00",
+        "sábado": "Fechado",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98689-2722",
+      "website": "https://api.whatsapp.com/send?phone=5583986892722&text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20prestados%20",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=g2gnWdCZf8LV1ew9hAR1bQ&cb_client=search.gws-prod.gps&w=80&h=92&yaw=185.92363&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/LVKfkHicHc1LDsIgFADA27CTTxtNa0KMcetGF5q4MZS-AgmFl4Kgt_Fa3kbjBWY-b5szpi1jKS8AuTio6J7g0woVNTEaDwpdojrOrAiW7WMegnJ-hypEN0rTmHAdD7epO14E1N7uz2I4ET3ctXcQskygFm2pqT9xiSM1mEiVHSdW9g15qSpFt6Z9025agi5rKzn5L1MsUnD-BV-COTg"
+    }
+  },
+  {
+    "id": "8fb49605-7614-4c27-9a31-406de6240e2d",
+    "name": "Espetinho da Praça",
+    "google_maps_name": "Espetinho da Praça",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJs_L4FXXdrAcREjPCJo77N4c",
+    "google_place_id": "ChIJs_L4FXXdrAcREjPCJo77N4c",
+    "data_id": "0x7acdd7515f8f2b3:0x8737fb8e26c23312",
+    "category_source": "Churrascaria",
+    "address_source": "Renascer III, R. Raul Seixas - Lot. Joao Paulo, Cabedelo - PB, 58108-122",
+    "rating_source": null,
+    "reviews_source": null,
+    "phone_source": "(83) 98847-1337",
+    "website_source": "",
+    "gps_coordinates": {
+      "latitude": -7.073020499999999,
+      "longitude": -34.8552275
+    },
+    "latitude": -7.073020499999999,
+    "longitude": -34.8552275,
+    "query": "espetinho Cabedelo PB",
+    "area": "Bessa/Intermares limite",
+    "ll": "@-7.0606,-34.8494,15z",
+    "raw": {
+      "position": 18,
+      "title": "Espetinho da Praça",
+      "place_id": "ChIJs_L4FXXdrAcREjPCJo77N4c",
+      "data_id": "0x7acdd7515f8f2b3:0x8737fb8e26c23312",
+      "data_cid": "9743532906793546514",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd7515f8f2b3%3A0x8737fb8e26c23312&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd7515f8f2b3%3A0x8737fb8e26c23312&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.073020499999999,
+        "longitude": -34.8552275
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJs_L4FXXdrAcREjPCJo77N4c",
+      "provider_id": "/g/11wx4chxm0",
+      "type": "Churrascaria",
+      "types": [
+        "Churrascaria"
+      ],
+      "type_id": "barbecue_restaurant",
+      "type_ids": [
+        "barbecue_restaurant"
+      ],
+      "address": "Renascer III, R. Raul Seixas - Lot. Joao Paulo, Cabedelo - PB, 58108-122",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 17:00",
+      "hours": "Fechado · Abre ter. às 17:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "17:00–00:00",
+        "quarta-feira": "17:00–00:00",
+        "quinta-feira": "17:00–00:00",
+        "sexta-feira": "17:00–00:00",
+        "sábado": "17:00–00:00",
+        "domingo": "16:00–23:00"
+      },
+      "phone": "(83) 98847-1337",
+      "extensions": [
+        {
+          "service_options": [
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFXsg29vjGzLB9lrIRgdiuTYR3MqxKKglYrfBuP0BtgJNmKrRLzxeU04haeI-8383acrUtB6hVGV1WqyWD2i7XJk-7ASKeEDpg7JIu5-ArkvviuClr4Gscj07xqld384q_GDZco=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/7gxVvXicHcTbEoFAAADQL1otG8WMhxJNhSFyezFmrd202tpL4gd9g78x4zyc74dpXamRZXGGOlQIyolRRGJRalLqDhYPi1YKYAWU5a2W68KbHRTtDZt7-J77Qy6jlF5zsz2maFG3SUL5Ud58s4K-pvHykch0_m5JBm12IRFwkYsuWGbaH7BduOvu69c-6OXOIS6A420SMg0q6sSR6QNPFk2TmwmXdqjwHTptza_ItetzGJywGD-7EELA_mNQ_gBsc0SA"
+    }
+  }
+]

@@ -1,0 +1,281 @@
+{
+  "runId": "2026-07-06T20-04-25-322Z",
+  "city": "Cabedelo",
+  "state": "PB",
+  "mode": "menu",
+  "apply": false,
+  "processed": 10,
+  "foundGreen": 0,
+  "foundYellow": 8,
+  "foundRedOrNone": 2,
+  "byPlatform": {
+    "maps.apple.com": 1,
+    "instagram": 7,
+    "menudino": 1,
+    "deliverydireto": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T20-04-25-322Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T20-04-25-322Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T20-04-25-322Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": "9488d27a-7737-4c86-b059-0e16a6fb049d",
+        "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+        "category": "Restaurante",
+        "address": "R. Vitorino Cardoso, 908",
+        "neighborhood": "Ponta de Campina",
+        "rating": 4.4,
+        "reviews_count": 10742
+      },
+      "query": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo Ponta de Campina R. Vitorino Cardoso (83) 99408-6293 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 8,
+        "title": "Lovina in Cabedelo - PB, Brazil",
+        "link": "https://maps.apple.com/place?place-id=IF8DDAE3601ACC36F",
+        "snippet": "O local conta com um espaço e piscina infantil, minha filha adorou, ficou o tempo todo lá e quis voltar. Ambiente agradável com música ao vivo. Cardápio ...",
+        "displayedLink": "https://maps.apple.com › place",
+        "platform": "maps.apple.com",
+        "score": 38,
+        "tier": "red",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "acb457db-a5d7-408e-a3b5-c9cfb3caff7b",
+        "name": "Cibelly Bar & Restaurante",
+        "category": "Bar e restaurante de ostras",
+        "address": "Rua Luna Pedrosa, 1260",
+        "neighborhood": "Poço",
+        "rating": 4.1,
+        "reviews_count": 4295
+      },
+      "query": "Cibelly Bar & Restaurante Poço Rua Luna Pedrosa (83) 99982-5668 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Cibelly Bar & Restaurante (@cibellybar) · Cabedelo, PB",
+        "link": "https://instagram.com/cibellybar/?hl=pt-br",
+        "snippet": "DESDE 1980 Praia do Poço, Cabedelo-PB Frutos do mar e comidas típicas Aberto todos os dias ⏰ Das 9h às 17h 83 99982-5668 83 99819-0654.",
+        "displayedLink": "Mais de 54,9 mil seguidores",
+        "platform": "instagram",
+        "score": 61,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "0076b4c5-2d07-416e-a1ac-3ed9e83e02e5",
+        "name": "Gigante Do Mar Beach",
+        "category": "Restaurante de frutos do mar",
+        "address": "Av. Max Zagel, 450",
+        "neighborhood": "Camboinha",
+        "rating": 4.2,
+        "reviews_count": 3378
+      },
+      "query": "Gigante Do Mar Beach Camboinha Av. Max Zagel (83) 99995-2504 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "link": "https://instagram.com/gigantedomaroficial",
+        "snippet": "⏰ Horário de Funcionamento: 9:00 às 16:00 Contato: 8399995-2504 Localização: Avenida Max Zagel, 450. Camboinha /Cabedelo. JP /PB Brasil .",
+        "displayedLink": "Mais de 53,2 mil seguidores",
+        "platform": "instagram",
+        "score": 65,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "8162456c-2817-4a8a-bbab-aa875c29419e",
+        "name": "Bar das Meninas Restaurante",
+        "category": "Restaurante de frutos do mar",
+        "address": "R. Des. Onaldo N Montenegro, 368",
+        "neighborhood": "Vila Sao Joao",
+        "rating": 4.2,
+        "reviews_count": 3174
+      },
+      "query": "Bar das Meninas Restaurante Vila Sao Joao R. Des. Onaldo N Montenegro (83) 98715-5110 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 9,
+        "title": "Delivery de Bar em João Pessoa",
+        "link": "https://menudino.com/delivery/joao-pessoa-pb/bar",
+        "snippet": "Veja o cardápio com fotos, descrições e avaliações. Escolha como receber: delivery, retirada ou consumo no local. Aproveite seu pedido, sem mensalidade e sem ...",
+        "displayedLink": "https://menudino.com › Delivery › João Pessoa › Bar",
+        "platform": "menudino",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "76a39b5d-8130-4119-a4a5-87e8ea3020b8",
+        "name": "Ilha Dourada Restaurante",
+        "category": "Restaurante de frutos do mar",
+        "address": "BR -230",
+        "neighborhood": "R. José Américo de Almeida Filho",
+        "rating": 4.2,
+        "reviews_count": 3161
+      },
+      "query": "Ilha Dourada Restaurante R. José Américo de Almeida Filho BR -230 (83) 3228-1826 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Pier Restaurante | Já pode? Aqui pode! A partir das 10h30 ...",
+        "link": "https://instagram.com/p/DTfirGmAAy2",
+        "snippet": "Ceviche — a partir de R$ 49,00 ... Burgers — a partir de R$ 42,00 ... Sanduíche de Pernil — a partir de R$ 45,00 ... Chopp Lugui sem glúten — a partir ...",
+        "displayedLink": "Mais de 10 marcações \"Gostei\" · há 5 meses",
+        "platform": "instagram",
+        "score": 17,
+        "tier": "red",
+        "flags": [
+          "instagram_p_not_profile",
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 1
+    },
+    {
+      "restaurant": {
+        "id": "d7d014d6-8d90-440c-a2ab-caee3b86bb0d",
+        "name": "Tenda Formosa Bar & Restaurante",
+        "category": "Restaurante",
+        "address": "Av. Cassiano da Cunha Nóbrega, 98",
+        "neighborhood": "Praia Formosa",
+        "rating": 4.1,
+        "reviews_count": 1507
+      },
+      "query": "Tenda Formosa Bar & Restaurante Praia Formosa Av. Cassiano da Cunha Nóbrega (83) 98850-1112 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Tenda Formosa restaurante (@tendaformosaoficial)",
+        "link": "https://instagram.com/tendaformosaoficial",
+        "snippet": "Bar e Restaurante na Praia Formosa 🏖️ SEG - DOM À PARTIR DAS 9:00 as 16:00. A beira mar de cabedelo pb · Bom dia, ja estamos funcionando. · Parque infantil ...",
+        "displayedLink": "Mais de 75,1 mil seguidores",
+        "platform": "instagram",
+        "score": 61,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "775e0a86-b7d6-48a7-a84b-619164add8f9",
+        "name": "Numar Bar e Restaurante",
+        "category": "Bar",
+        "address": "Av. Oceano Atlântico, 878",
+        "neighborhood": "Intermares",
+        "rating": 4.5,
+        "reviews_count": 1370
+      },
+      "query": "Numar Bar e Restaurante Intermares Av. Oceano Atlântico (83) 3567-7306 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "link": "https://instagram.com/numarbarintermares",
+        "snippet": "⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.",
+        "displayedLink": "Mais de 12,6 mil seguidores",
+        "platform": "instagram",
+        "score": 55,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "5824ab85-d0ca-4987-aa50-aa45faa631ad",
+        "name": "Restaurante Recanto do Picuí Intermares",
+        "category": "Restaurante",
+        "address": "R. Golfo Sidra, 72",
+        "neighborhood": "Intermares",
+        "rating": 4.5,
+        "reviews_count": 1267
+      },
+      "query": "Restaurante Recanto do Picuí Intermares Intermares R. Golfo Sidra (83) 98844-4200 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Bar & Restaurante Intermares (@recantodopicuiintermares)",
+        "link": "https://instagram.com/recantodopicuiintermares",
+        "snippet": "Endereço: R. Golfo Sidra, 72 - Intermares, Cabedelo - PB, Brasil DELIVERY: +55 83 98844-4200 Siga nossas redes sociais para acompanhar novidades ...",
+        "displayedLink": "Mais de 24,9 mil seguidores",
+        "platform": "instagram",
+        "score": 73,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+        "name": "Empadinhas Barnabé - Intermares",
+        "category": "Lanchonete",
+        "address": "Av. Mar Mediterrâneo - Intermares",
+        "neighborhood": "Cabedelo",
+        "rating": 4.5,
+        "reviews_count": 1029
+      },
+      "query": "Empadinhas Barnabé - Intermares Cabedelo Av. Mar Mediterrâneo - Intermares (83) 3248-1250 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 6,
+        "title": "EMPADINHAS BARNABÉ - FILIAL BANCÁRIOS",
+        "link": "https://deliverydireto.com.br/empadinhasbarnabe/anatolia",
+        "snippet": "Faça pedidos online no delivery OFICIAL EMPADINHAS BARNABÉ - FILIAL BANCÁRIOS, Anatólia, João Pessoa. Veja preços dos pratos no cardápio virtual do ...",
+        "displayedLink": "https://deliverydireto.com.br › anatolia",
+        "platform": "deliverydireto",
+        "score": 100,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+        "name": "Primo Rico",
+        "category": "Restaurante self-service",
+        "address": "Av. Oceano Atlântico, S/N",
+        "neighborhood": "Intermares",
+        "rating": 4.3,
+        "reviews_count": 903
+      },
+      "query": "Primo Rico Intermares Av. Oceano Atlântico (83) 98820-1132 Cabedelo PB cardapio pedido delivery",
+      "best": {
+        "source": "derived_instagram_handle",
+        "position": 3,
+        "title": "Instagram profile @primoricopb",
+        "link": "https://instagram.com/primoricopb",
+        "snippet": "... (83) 98820-1132 ... Primo Rico, na Av. Oceano Atlântico, na orla de Intermares, Cabedelo/PB.",
+        "displayedLink": "derived from Google result",
+        "platform": "instagram",
+        "score": 65,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 11
+    }
+  ]
+}

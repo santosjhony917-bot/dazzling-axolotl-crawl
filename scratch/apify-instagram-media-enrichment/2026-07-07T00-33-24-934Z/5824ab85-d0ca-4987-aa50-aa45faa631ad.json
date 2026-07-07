@@ -1,0 +1,228 @@
+{
+  "id": "5824ab85-d0ca-4987-aa50-aa45faa631ad",
+  "name": "Restaurante Recanto do Picuí Intermares",
+  "instagram": "https://www.instagram.com/recantodopicuiintermares/",
+  "followers": 24904,
+  "match": {
+    "score": 145,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_profile_1783384434835.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384439798_1.jpg",
+      "score": 42,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384441401_2.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384442385_3.jpg",
+      "score": 31,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384443359_4.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384444095_5.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384445055_6.jpg",
+      "score": 24,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384445851_7.jpg",
+      "score": 24,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384446789_8.jpg",
+      "score": 23,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "c4c57e42-2076-447a-8226-01d7ce948c71",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384439798_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "e33553f9-1e10-4639-ba81-59c6e5844cd6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384441401_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "1f153350-02c9-4ffe-9ac0-ff3287b09327",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384442385_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "46870364-9876-41f9-bb64-63178e1a8c04",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384443359_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "61368ff3-9a93-4458-9128-c3f4cb00e560",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384444095_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "dc118ba5-980b-4474-ba65-ce63cd96988f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384445055_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "a306f3da-893d-4a97-aa9f-7d440b81b334",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384445851_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "a82aef27-f5b7-4f90-8f08-32f9a022c71f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5824ab85-d0ca-4987-aa50-aa45faa631ad/instagram_1783384446789_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 42,
+      "caption": "Sabores do Nordeste | Recanto do Picuí Intermares Aqui você encontra o melhor da culinária nordestina, ambiente acolhedor, música ao vivo e muito sabor. 📍 Endereço: R. Golfo Sidra",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "🔥 SOCADA MARILENE CORDEIRO 🔥 Tem sobremesa. E tem a sobremesa que faz todo mundo voltar. 😍 Nossa famosa Socada Marilene Cordeiro combina a cocada de forno quentinha, preparada n",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 31,
+      "caption": "Uma linguiça suculenta e levemente apimentada, preparada no ponto certo para realçar todo o sabor nordestino. Acompanhada de farofa crocante e vinagrete fresco, é aquele prato que ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Suculência que conquista no primeiro corte 🥩🔥 Nossa carne é preparada no ponto perfeito, com aquele sabor marcante e irresistível que você só encontra aqui. Acompanhada de farofa",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Galinha de capoeira bem temperada, cozida lentamente para ficar macia e cheia de sabor. Acompanha arroz soltinho, feijão e macarrão, uma combinação perfeita para duas pessoas que a",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "🔥 Pernil de Cabrito Grelhado: uma experiência de sabor inesquecível! Preparado no ponto certo, com carne macia, suculenta e aquele sabor marcante que conquista na primeira garfada",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "Sabor que conquista no primeiro pedaço! 😍🔥 Nosso pernil de cabrito grelhado é suculento, macio e cheio de tempero nordestino, servido com farofa e vinagrete fresquinhos para comp",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "Na segunda-feira nossa folga coletiva Voltaremos na terça-feira para o almoco",
+      "vision": null
+    }
+  ]
+}

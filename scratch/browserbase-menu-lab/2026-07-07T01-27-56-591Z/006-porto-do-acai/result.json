@@ -1,0 +1,38 @@
+{
+  "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+  "restaurantName": "Porto do açaí",
+  "sourceUrl": "https://meucarrinho.delivery/portodoacai",
+  "platform": "meucarrinho",
+  "reviewsCount": 1,
+  "address": "R. Cleto Campêlo, 623",
+  "phone": "(83) 99384-2261",
+  "startedAt": "2026-07-07T01:29:42.181Z",
+  "finishedAt": "2026-07-07T01:30:49.059Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\006-porto-do-acai",
+  "finalUrl": "https://meucarrinho.delivery/portodoacai",
+  "title": "Meu Carrinho",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 6421,
+    "bodyLength": 67000,
+    "anchorCount": 8,
+    "imageCount": 63
+  },
+  "priceCountInVisibleText": 4,
+  "menuWords": [
+    "delivery",
+    "adicional",
+    "combo",
+    "lanche"
+  ],
+  "networkInterestingCount": 122,
+  "failedRequestCount": 3,
+  "directProbe": {
+    "platform": "meucarrinho",
+    "success": false,
+    "reason": "no_direct_probe_for_platform_yet"
+  },
+  "lessonFlags": [],
+  "error": null
+}

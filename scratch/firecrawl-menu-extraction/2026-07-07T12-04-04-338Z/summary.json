@@ -1,0 +1,35 @@
+{
+  "runId": "2026-07-07T12-04-04-338Z",
+  "mode": "scrape",
+  "restaurant": "Restaurante Recanto do Picuí Intermares",
+  "url": "https://recantodopicuiintermares.com.br",
+  "platform": "unknown",
+  "success": true,
+  "evidence": {
+    "tier": "red",
+    "priceCount": 0,
+    "samplePrices": [],
+    "menuWords": [
+      "cardapio",
+      "cardápio",
+      "menu",
+      "delivery"
+    ],
+    "cityConfirmed": false,
+    "matchedNameTokens": [
+      "recanto",
+      "picui",
+      "intermares"
+    ],
+    "operationalJunk": [],
+    "flags": [
+      "city_not_confirmed"
+    ]
+  },
+  "files": {
+    "rawPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T12-04-04-338Z\\raw-response.json",
+    "markdownPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T12-04-04-338Z\\markdown.md",
+    "jsonPath": null,
+    "summaryPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T12-04-04-338Z\\summary.json"
+  }
+}

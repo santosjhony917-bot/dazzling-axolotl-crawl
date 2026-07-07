@@ -1,0 +1,17 @@
+{
+  "runId": "2026-07-05T02-05-45-853Z",
+  "mode": "ids",
+  "ids": [
+    "cf2cc3cf-a3bd-46e5-9214-4ab059ea29f0",
+    "e486d13b-f5ab-473a-bb78-17270f7e964a",
+    "7b1d26d2-5a35-4db4-8199-44bf51cd18be"
+  ],
+  "missingIds": [],
+  "offset": 0,
+  "limit": 10,
+  "total": 3,
+  "ok": 1,
+  "review": 2,
+  "skipped": 0,
+  "failed": 0
+}

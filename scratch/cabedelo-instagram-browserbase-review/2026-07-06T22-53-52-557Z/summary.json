@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-07-06T22:55:00.270Z",
+  "apply": true,
+  "city": "Cabedelo",
+  "state": "PB",
+  "queueFile": "scratch\\cabedelo-instagram-browserbase-review\\hold-queue.json",
+  "outDir": "scratch\\cabedelo-instagram-browserbase-review\\2026-07-06T22-53-52-557Z",
+  "requested": 31,
+  "processed": 31,
+  "concurrency": 12,
+  "contextId": "2a25781e-3bb3-4a83-9b6a-e831e6a7afaa",
+  "counts": {
+    "hold": 11,
+    "reject": 20
+  },
+  "applied": [],
+  "failures": [],
+  "approved": []
+}

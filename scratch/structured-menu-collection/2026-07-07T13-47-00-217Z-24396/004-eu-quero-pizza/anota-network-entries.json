@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 204,
+    "contentType": "",
+    "capturedAt": "2026-07-07T13:48:01.080Z",
+    "body": null,
+    "error": "Could not load response body for this request. This might happen if the request is a preflight request."
+  },
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "capturedAt": "2026-07-07T13:48:01.377Z",
+    "body": {
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"672baa36533731001959a11c\",\"webview\":{\"accept_multiple_payments\":false,\"multiple_payments_quantity\":0,\"waiter_accept_tip\":true,\"waiter_tip_percent\":10,\"waiter_order_delivery\":true,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"address_manual\":true,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"false\",\"repeat_order_enabled\":true,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"table_seats\":false,\"hide_google_search\":false},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":true},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":true,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"images\":[]},\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"sound_1\",\"anota_ai_notification_song\":\"high\",\"anota_ai_notification_song_local_table\":\"high\",\"ifood_integration_notification_song\":\"high\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":false},\"cashback\":{\"cashback_by_weekday\":[]},\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"672baa361634f400197b9d03\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"state\":\"PB\",\"city\":\"Cabedelo\",\"complement\":\"\",\"addressFormated\":\"Via Litorânea, 1226 - Ponta de Campina, Cabedelo - PB, 58.101-650, Brasil\",\"postal_code\":\"58.101-650\",\"name\":\"Via Litorânea\",\"num\":\"1226\",\"reference\":\"Almagre\",\"neighborhood\":\"Ponta de Campina\",\"location\":{\"coordinates\":[-34.8402237,-7.0418884]}},\"payment_method\":{\"money\":true,\"creditcard\":true,\"question_card\":true,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":true,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":false},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":false},\"timezone\":\"America/Sao_Paulo\",\"exproductiontime\":0,\"time_delivery_min\":0,\"time_delivery_max\":45,\"time_take_min\":0,\"time_take_max\":30,\"order_automatic_on_production\":true,\"totem_order_automatic_on_production\":false,\"cpf_cnpj_on_order\":false,\"published\":true,\"acceptDelivery\":true,\"acceptTake\":true,\"acceptLocal\":true,\"name\":\"Eu Quero Pizza\",\"page\":\"672baa35533731001959a116\",\"phones\":[{\"_id\":\"672e26576e1a45e751136f68\",\"number\":\"(83) 9 9857-3813\",\"type\":\"cell\"}],\"regions\":[{\"_id\":\"672e2679bbc83406b37a6151\",\"name\":\"CABEDELO\",\"price\":0}],\"week\":[{\"short_name\":\"sun\",\"schedules\":[{\"_id\":\"672e26b96e1a457eda137739\",\"start\":\"17:00\",\"end\":\"23:00\"}]},{\"short_name\":\"mon\",\"schedules\":[{\"_id\":\"672e26b96e1a451e9f13773b\",\"start\":\"17:00\",\"end\":\"23:00\"}]},{\"short_name\":\"tue\",\"schedules\":[{\"_id\":\"672e26b96e1a4556f513773d\",\"start\":\"17:00\",\"end\":\"23:00\"}]},{\"short_name\":\"wed\",\"schedules\":[{\"_id\":\"672e26b96e1a45c96d13773f\",\"start\":\"17:00\",\"end\":\"23:00\"}]},{\"short_name\":\"thu\",\"schedules\":[{\"_id\":\"672e26b96e1a45629d137741\",\"start\":\"17:00\",\"end\":\"23:00\"}]},{\"short_name\":\"fri\",\"schedules\":[{\"_id\":\"672e26b96e1a45c439137743\",\"start\":\"17:00\""
+    },
+    "error": null,
+    "textLength": 114383
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "runId": "2026-07-04T22-39-17-302Z",
+  "mode": "offset",
+  "ids": [],
+  "missingIds": [],
+  "offset": 1520,
+  "limit": 25,
+  "total": 25,
+  "ok": 23,
+  "review": 2,
+  "skipped": 0,
+  "failed": 0
+}

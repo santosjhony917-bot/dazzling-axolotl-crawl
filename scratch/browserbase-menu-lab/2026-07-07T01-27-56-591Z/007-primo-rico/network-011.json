@@ -1,0 +1,14 @@
+{
+  "url": "https://delivery2.yooga.com.br/store/fidelidade/65258",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 2,
+  "textSample": "[]",
+  "jsonKeys": [
+    "array",
+    "0"
+  ],
+  "json": []
+}

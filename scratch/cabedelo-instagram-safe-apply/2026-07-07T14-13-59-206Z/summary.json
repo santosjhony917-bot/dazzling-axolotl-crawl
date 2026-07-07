@@ -1,0 +1,130 @@
+{
+  "runId": "2026-07-07T14-13-59-206Z",
+  "appliedAt": "2026-07-07T14:13:59.972Z",
+  "updatedIds": [
+    "10f71936-a4b9-4c9b-b2c4-d1c709081a93",
+    "fd64e520-194c-4a69-a6e7-1ea6f8213889",
+    "b91f652e-112d-4dcf-921c-4df6c2d1700f"
+  ],
+  "updates": [
+    {
+      "id": "10f71936-a4b9-4c9b-b2c4-d1c709081a93",
+      "name": "Bar e Restaurante do Pessoinha",
+      "instagram": "https://instagram.com/bardopessoinha",
+      "followers_override": 6834,
+      "phone": "(83) 98730-8003",
+      "whatsapp_url": "http://wa.me/5583987308003",
+      "opening_hours_changed": true,
+      "social_networks_instagram": {
+        "url": "https://instagram.com/bardopessoinha",
+        "source": "serpapi_google_plus_apify_safe_validation",
+        "platform": "instagram",
+        "bio_phone": "(83) 98730-8003",
+        "biography": "🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem 📱 • https://wa.me/qr/TABUCYMLK",
+        "followers": 6834,
+        "confidence": 1,
+        "verifiedAt": "2026-07-07T14:13:59.550Z",
+        "bio_whatsapp_url": "http://wa.me/5583987308003",
+        "bio_opening_hours_text": "🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem 📱 • https://wa.me/qr/TABUCYMLK",
+        "opening_hours_from_bio": {
+          "friday": {
+            "slots": [
+              {
+                "end": "17:00",
+                "start": "09:00"
+              }
+            ],
+            "isOpen": true
+          },
+          "monday": {
+            "slots": [
+              {
+                "end": "17:00",
+                "start": "09:00"
+              }
+            ],
+            "isOpen": true
+          },
+          "sunday": {
+            "slots": [
+              {
+                "end": "17:00",
+                "start": "09:00"
+              }
+            ],
+            "isOpen": true
+          },
+          "tuesday": {
+            "slots": [],
+            "isOpen": false
+          },
+          "saturday": {
+            "slots": [
+              {
+                "end": "17:00",
+                "start": "09:00"
+              }
+            ],
+            "isOpen": true
+          },
+          "thursday": {
+            "slots": [],
+            "isOpen": false
+          },
+          "wednesday": {
+            "slots": [],
+            "isOpen": false
+          }
+        }
+      },
+      "log_key": "instagram_safe_apply_2026_07_07"
+    },
+    {
+      "id": "fd64e520-194c-4a69-a6e7-1ea6f8213889",
+      "name": "Casa de Taipa",
+      "instagram": "https://instagram.com/casadetaipapb",
+      "followers_override": 198,
+      "phone": "(83) 99195-9104",
+      "whatsapp_url": "https://wa.me/5583991959104",
+      "opening_hours_changed": false,
+      "social_networks_instagram": {
+        "url": "https://instagram.com/casadetaipapb",
+        "source": "serpapi_google_plus_apify_safe_validation",
+        "platform": "instagram",
+        "bio_phone": null,
+        "biography": "Bar e Restaurante que oferece o melhor da comida típica nordestina. Venha viver essa experiência.",
+        "followers": 198,
+        "confidence": 1,
+        "verifiedAt": "2026-07-07T14:13:59.671Z",
+        "bio_whatsapp_url": null,
+        "bio_opening_hours_text": null,
+        "opening_hours_from_bio": null
+      },
+      "log_key": "instagram_safe_apply_2026_07_07"
+    },
+    {
+      "id": "b91f652e-112d-4dcf-921c-4df6c2d1700f",
+      "name": "Recanto do Pastel",
+      "instagram": "https://instagram.com/recantodopastel2025",
+      "followers_override": 149,
+      "phone": "(83) 9948-9339",
+      "whatsapp_url": "https://wa.me/558399489339?countryCode=55&countryName=BR&phoneNumber=8399489339",
+      "opening_hours_changed": false,
+      "social_networks_instagram": {
+        "url": "https://instagram.com/recantodopastel2025",
+        "source": "serpapi_google_plus_apify_safe_validation",
+        "platform": "instagram",
+        "bio_phone": "(83) 9948-9339",
+        "biography": "📍 Recanto do Poço - Cabedelo 🥟 Pastel frito na hora 😋 das 17 as 23horas",
+        "followers": 149,
+        "confidence": 1,
+        "verifiedAt": "2026-07-07T14:13:59.776Z",
+        "bio_whatsapp_url": "https://wa.me/558399489339?countryCode=55&countryName=BR&phoneNumber=8399489339",
+        "bio_opening_hours_text": null,
+        "opening_hours_from_bio": null
+      },
+      "log_key": "instagram_safe_apply_2026_07_07"
+    }
+  ],
+  "outDir": "scratch\\cabedelo-instagram-safe-apply\\2026-07-07T14-13-59-206Z"
+}

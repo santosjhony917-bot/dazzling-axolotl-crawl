@@ -1,0 +1,15 @@
+{
+  "url": "https://api.ipify.org/?format=json",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "fetch",
+  "method": "GET",
+  "textLength": 21,
+  "textSample": "{\"ip\":\"52.27.44.164\"}",
+  "jsonKeys": [
+    "ip"
+  ],
+  "json": {
+    "ip": "52.27.44.164"
+  }
+}

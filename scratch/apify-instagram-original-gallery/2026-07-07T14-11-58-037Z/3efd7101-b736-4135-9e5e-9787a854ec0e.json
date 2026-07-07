@@ -1,0 +1,421 @@
+{
+  "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+  "name": "Espaço Do Sushi",
+  "username": "espacodosushi",
+  "instagram": "https://www.instagram.com/espacodosushi/",
+  "applied": false,
+  "forceMedia": false,
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "galleryRows": [
+      {
+        "id": "0acd468e-75bf-49aa-9226-71e09c7af970",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385263801_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "8fc31b99-ab3a-41d1-afb7-316ea01b58fb",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385265853_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "a12faba2-53c3-4d58-9a44-be821a16d724",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385267601_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "c007c102-3055-4f26-9193-a03de1e88ae1",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385268377_4.jpg",
+        "order_index": 3
+      },
+      {
+        "id": "77c45160-5a09-4677-ab80-f28b53060681",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269405_5.jpg",
+        "order_index": 4
+      },
+      {
+        "id": "7ba432b9-d8e3-48c8-a3a0-9dd1152d6fab",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269973_6.jpg",
+        "order_index": 5
+      },
+      {
+        "id": "e8908e67-ad9c-4cd6-92ff-7d647e19b363",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385270696_7.jpg",
+        "order_index": 6
+      },
+      {
+        "id": "5b5d48bd-7b23-4d17-960d-c39281de1cda",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385271566_8.jpg",
+        "order_index": 7
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "profile": {
+    "username": "espacodosushi",
+    "followers": 4597,
+    "posts": 170,
+    "profilePic": true,
+    "biography": "📍Rua Juarez Távora, 227 - Camalaú 🍣 Sushis a partir de R$2,85 ABERTO TODOS OS DIAS, a partir das 18h00 PEDIDOS ATRAVÉS DO NOSSO LINK 👇"
+  },
+  "postCount": 24,
+  "candidates": [
+    {
+      "source": "instagram_post_image_api",
+      "score": 108,
+      "postIndex": 6,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C85chtnxT06/",
+      "sourceType": "Image",
+      "width": 900,
+      "height": 1125,
+      "vision": {
+        "ok": true,
+        "gridNumber": 5,
+        "kind": "food",
+        "score": 90,
+        "reason": "boa variedade e apresentação",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 105,
+      "postIndex": 4,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C7Sn4O6xtO7/",
+      "sourceType": "Sidecar",
+      "width": 1080,
+      "height": 1169,
+      "vision": {
+        "ok": true,
+        "gridNumber": 2,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 94,
+      "postIndex": 20,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/CgfLNkxJ-XE/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1080,
+      "vision": {
+        "ok": true,
+        "gridNumber": 10,
+        "kind": "food",
+        "score": 88,
+        "reason": "imagem nítida e atraente",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 90,
+      "postIndex": 14,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/CjlMDojLLQR/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1080,
+      "vision": {
+        "ok": true,
+        "gridNumber": 8,
+        "kind": "food",
+        "score": 80,
+        "reason": "prato bem iluminado e focado",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 84,
+      "postIndex": 12,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/Ci_FHQaLb4-/",
+      "sourceType": "Image",
+      "width": 843,
+      "height": 1002,
+      "vision": {
+        "ok": true,
+        "gridNumber": 12,
+        "kind": "food",
+        "score": 82,
+        "reason": "boa apresentação e iluminação",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -99,
+      "postIndex": 3,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C7u0AQORhT5/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1080,
+      "vision": {
+        "ok": false,
+        "gridNumber": 1,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -101,
+      "postIndex": 4,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/C7Sn4O6xtO7/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1169,
+      "vision": {
+        "ok": false,
+        "gridNumber": 3,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -102,
+      "postIndex": 2,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C8X7jRTR28m/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1285,
+      "vision": {
+        "ok": false,
+        "gridNumber": 4,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -104,
+      "postIndex": 8,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/Cvdp-KPrHwM/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1277,
+      "vision": {
+        "ok": false,
+        "gridNumber": 6,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -109,
+      "postIndex": 9,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DSDGFEzDUFb/",
+      "sourceType": "Image",
+      "width": 1045,
+      "height": 1080,
+      "vision": {
+        "ok": false,
+        "gridNumber": 7,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -114,
+      "postIndex": 19,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/ClXBZVHr1pf/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1103,
+      "vision": {
+        "ok": false,
+        "gridNumber": 9,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -117,
+      "postIndex": 15,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/Cj6a3a0LCFJ/",
+      "sourceType": "Image",
+      "width": 843,
+      "height": 1054,
+      "vision": {
+        "ok": false,
+        "gridNumber": 11,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -118,
+      "postIndex": 23,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/CiLgKZnpwdW/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1080,
+      "vision": {
+        "ok": false,
+        "gridNumber": 13,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -123,
+      "postIndex": 17,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/CiQvp0frJQe/",
+      "sourceType": "Image",
+      "width": 760,
+      "height": 863,
+      "vision": {
+        "ok": false,
+        "gridNumber": 14,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -124,
+      "postIndex": 18,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/Cj6QMKsLn15/",
+      "sourceType": "Image",
+      "width": 843,
+      "height": 1041,
+      "vision": {
+        "ok": false,
+        "gridNumber": 15,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de pratos variados e bem apresentados.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\3efd7101-b736-4135-9e5e-9787a854ec0e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    }
+  ],
+  "approvedCount": 5,
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "galleryRows": [
+      {
+        "id": "0acd468e-75bf-49aa-9226-71e09c7af970",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385263801_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "8fc31b99-ab3a-41d1-afb7-316ea01b58fb",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385265853_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "a12faba2-53c3-4d58-9a44-be821a16d724",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385267601_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "c007c102-3055-4f26-9193-a03de1e88ae1",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385268377_4.jpg",
+        "order_index": 3
+      },
+      {
+        "id": "77c45160-5a09-4677-ab80-f28b53060681",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269405_5.jpg",
+        "order_index": 4
+      },
+      {
+        "id": "7ba432b9-d8e3-48c8-a3a0-9dd1152d6fab",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269973_6.jpg",
+        "order_index": 5
+      },
+      {
+        "id": "e8908e67-ad9c-4cd6-92ff-7d647e19b363",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385270696_7.jpg",
+        "order_index": 6
+      },
+      {
+        "id": "5b5d48bd-7b23-4d17-960d-c39281de1cda",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385271566_8.jpg",
+        "order_index": 7
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "promotion": null,
+  "status": "media_complete"
+}

@@ -1,0 +1,95 @@
+{
+  "url": "https://us.i.posthog.com/flags/?v=2&config=true&ip=0&_=1783387771594&ver=1.310.1&compression=base64",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "fetch",
+  "method": "POST",
+  "textLength": 1157,
+  "textSample": "{\"errorsWhileComputingFlags\":false,\"flags\":{},\"requestId\":\"eb337683-8e4f-40b5-9a03-cd857d57df20\",\"evaluatedAt\":1783387771771,\"capturePerformance\":{\"network_timing\":true,\"web_vitals\":false,\"web_vitals_allowed_metrics\":null},\"hasFeatureFlags\":false,\"sessionRecording\":{\"canvasFps\":null,\"canvasQuality\":null,\"consoleLogRecordingEnabled\":true,\"endpoint\":\"/s/\",\"eventTriggers\":[],\"linkedFlag\":null,\"masking\":null,\"minimumDurationMilliseconds\":null,\"networkPayloadCapture\":null,\"recordCanvas\":false,\"recorderVersion\":\"v2\",\"sampleRate\":null,\"scriptConfig\":{\"script\":\"posthog-recorder\"},\"triggerMatchType\":null,\"urlBlocklist\":[],\"urlTriggers\":[],\"version\":1},\"productTours\":false,\"token\":\"phc_rizS6FzmnsL5mYcTYVB8c2oRdiPzUGVqZ8J4RKSXhm9N\",\"errorTracking\":{\"autocaptureExceptions\":false,\"suppressionRules\":[]},\"elementsChainAsString\":true,\"logs\":{\"captureConsoleLogs\":false},\"sdkVersion\":{\"requested\":\"1\"},\"surveys\":false,\"siteApps\":[],\"autocaptureExceptions\":false,\"captureDeadClicks\":false,\"defaultIdentifiedOnly\":true,\"autocapture_opt_out\":false,\"heatmaps\":false,\"analytics\":{\"endpoint\":\"/i/v0/e/\"},\"conversations\":false,\"supportedCompression\":[\"gzip\",\"gzip-js\"]}",
+  "jsonKeys": [
+    "errorsWhileComputingFlags",
+    "flags",
+    "requestId",
+    "evaluatedAt",
+    "capturePerformance",
+    "hasFeatureFlags",
+    "sessionRecording",
+    "productTours",
+    "token",
+    "errorTracking",
+    "elementsChainAsString",
+    "logs",
+    "sdkVersion",
+    "surveys",
+    "siteApps",
+    "autocaptureExceptions",
+    "captureDeadClicks",
+    "defaultIdentifiedOnly",
+    "autocapture_opt_out",
+    "heatmaps",
+    "analytics",
+    "conversations",
+    "supportedCompression"
+  ],
+  "json": {
+    "errorsWhileComputingFlags": false,
+    "flags": {},
+    "requestId": "eb337683-8e4f-40b5-9a03-cd857d57df20",
+    "evaluatedAt": 1783387771771,
+    "capturePerformance": {
+      "network_timing": true,
+      "web_vitals": false,
+      "web_vitals_allowed_metrics": null
+    },
+    "hasFeatureFlags": false,
+    "sessionRecording": {
+      "canvasFps": null,
+      "canvasQuality": null,
+      "consoleLogRecordingEnabled": true,
+      "endpoint": "/s/",
+      "eventTriggers": [],
+      "linkedFlag": null,
+      "masking": null,
+      "minimumDurationMilliseconds": null,
+      "networkPayloadCapture": null,
+      "recordCanvas": false,
+      "recorderVersion": "v2",
+      "sampleRate": null,
+      "scriptConfig": {
+        "script": "posthog-recorder"
+      },
+      "triggerMatchType": null,
+      "urlBlocklist": [],
+      "urlTriggers": [],
+      "version": 1
+    },
+    "productTours": false,
+    "token": "phc_rizS6FzmnsL5mYcTYVB8c2oRdiPzUGVqZ8J4RKSXhm9N",
+    "errorTracking": {
+      "autocaptureExceptions": false,
+      "suppressionRules": []
+    },
+    "elementsChainAsString": true,
+    "logs": {
+      "captureConsoleLogs": false
+    },
+    "sdkVersion": {
+      "requested": "1"
+    },
+    "surveys": false,
+    "siteApps": [],
+    "autocaptureExceptions": false,
+    "captureDeadClicks": false,
+    "defaultIdentifiedOnly": true,
+    "autocapture_opt_out": false,
+    "heatmaps": false,
+    "analytics": {
+      "endpoint": "/i/v0/e/"
+    },
+    "conversations": false,
+    "supportedCompression": [
+      "gzip",
+      "gzip-js"
+    ]
+  }
+}

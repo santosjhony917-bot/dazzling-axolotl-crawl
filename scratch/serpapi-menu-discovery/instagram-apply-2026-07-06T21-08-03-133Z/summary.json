@@ -1,0 +1,1054 @@
+{
+  "apply": true,
+  "overwrite": false,
+  "safeOnly": true,
+  "minScore": 100,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\2026-07-06T21-01-45-237Z",
+  "processed": 80,
+  "approved": 46,
+  "baseApproved": 62,
+  "safe": 46,
+  "rejected": 34,
+  "applied": 46,
+  "failures": [],
+  "reasonCounts": {
+    "approved_safe": 46,
+    "not_profile,brand_not_confirmed": 2,
+    "no_instagram_candidate": 2,
+    "no_distinctive_restaurant_token,brand_not_confirmed": 2,
+    "weak_handle_evidence": 2,
+    "score_below_100": 11,
+    "not_profile": 1,
+    "brand_not_confirmed": 6,
+    "no_location_or_phone_support": 1,
+    "weak_single_brand_token": 3,
+    "location_conflict:manaus, am": 1,
+    "phone_area_conflict:47": 1,
+    "brand_not_confirmed,weak_single_brand_token": 1,
+    "phone_area_conflict:51": 1
+  },
+  "approvedSamples": [
+    {
+      "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+      "instagram": "https://instagram.com/lovinapontadecampina",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "Lovina Ponta de Campina (@lovinapontadecampina). R. Vitorino Cardoso, 908 - Ponta de Campina, Cabedelo ⏰ Todos os dias das 09h às 18h ✓ Estamos seguindo todas as medidas de saúde para melhor te .... https://instagram.com/lovinapontadecampina/reels"
+    },
+    {
+      "name": "Cibelly Bar & Restaurante",
+      "instagram": "https://instagram.com/cibellybar",
+      "score": 107,
+      "phoneCandidate": "(83) 99982-5668",
+      "openingHoursText": null
+    },
+    {
+      "name": "Gigante Do Mar Beach",
+      "instagram": "https://instagram.com/gigantedomaroficial",
+      "score": 156,
+      "phoneCandidate": "(83) 99995-2504",
+      "openingHoursText": null
+    },
+    {
+      "name": "Bar das Meninas Restaurante",
+      "instagram": "https://instagram.com/meninasbar",
+      "score": 107,
+      "phoneCandidate": "(83) 98715-5110",
+      "openingHoursText": null
+    },
+    {
+      "name": "Numar Bar e Restaurante",
+      "instagram": "https://instagram.com/numarbarintermares",
+      "score": 107,
+      "phoneCandidate": "(83) 3567-7306",
+      "openingHoursText": "Numar Bar e Restaurante (@numarbarintermares). ⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.. https://instagram.com/numarbarintermares"
+    },
+    {
+      "name": "Restaurante Recanto do Picuí Intermares",
+      "instagram": "https://instagram.com/recantodopicuiintermares",
+      "score": 156,
+      "phoneCandidate": "(83) 98844-4200",
+      "openingHoursText": null
+    },
+    {
+      "name": "Empadinhas Barnabé - Intermares",
+      "instagram": "https://instagram.com/empbarnabe",
+      "score": 124,
+      "phoneCandidate": "(83) 99104-6005",
+      "openingHoursText": null
+    },
+    {
+      "name": "Primo Rico",
+      "instagram": "https://instagram.com/primoricopb",
+      "score": 150,
+      "phoneCandidate": "(83) 98820-1132",
+      "openingHoursText": null
+    },
+    {
+      "name": "Big Jack comida de rua com INSPIRAÇÃO texana",
+      "instagram": "https://instagram.com/bigjack.intermares",
+      "score": 155,
+      "phoneCandidate": null,
+      "openingHoursText": "Big Jack Sanduicheria (@bigjack.intermares) · Cabedelo, PB. 11K followers · 194 posts · Um novo conceito de comida de rua. ⚠️ NÃO TRABALHAMOS COM IFOOD! Funcionamento: Terça a Domingo, 18h-22h. Acesse o cardápio:. https://instagram.com/bigjack.intermares"
+    },
+    {
+      "name": "Pastelaria Litorânea",
+      "instagram": "https://instagram.com/pastelarialitoranea",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "BAR DO CHEFF RESTAURANTE",
+      "instagram": "https://instagram.com/bardocheffrestaurante",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "Bar do Cheff Restaurante (@bardocheffrestaurante). Self-service De Seg à Sex ⏰️Das 11h às 14h ➡️Bar Aberto de Seg à Sab ⏰️Das 17hs às 23h. Av Mar Vermelho 357 Intermares Cabedelo.. https://instagram.com/bardocheffrestaurante/?hl=pt"
+    },
+    {
+      "name": "Praçaí - Intermares",
+      "instagram": "https://instagram.com/pracaiintermares",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "Praçaí Intermares (@pracaiintermares) · Cabedelo, PB. | O melhor Açaí da PB | 23 anos no coração de Intermares | Atendimento 16h as 23h | Av. Oceano Pacífico Praça 7 - Intermares PEDIDOS AQUI .... https://instagram.com/pracaiintermares"
+    },
+    {
+      "name": "Viciados em Sushi",
+      "instagram": "https://instagram.com/viciadosemsushi",
+      "score": 107,
+      "phoneCandidate": "(83) 98704-2458",
+      "openingHoursText": null
+    },
+    {
+      "name": "Tapiocaria do Dinho",
+      "instagram": "https://instagram.com/tapiocariadinho",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Residência do Mário",
+      "instagram": "https://instagram.com/residenciadomario",
+      "score": 156,
+      "phoneCandidate": "(83) 99988-2096",
+      "openingHoursText": null
+    },
+    {
+      "name": "A Casa do Temakinho",
+      "instagram": "https://instagram.com/acasadotemakinho",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": "A CASA DO TEMAKINHO 🍣🥢 (@acasadotemakinho). A SUA CASA FORA DE CASA ⏰ Aberto de Quinta à Domingo das 17 às 22:30 horas. @acasadotemakinho Av. Mar da Irlanda, 222 - INTERMARES cabedelo PB Brasil.. https://instagram.com/acasadotemakinho/reels"
+    },
+    {
+      "name": "Pizzaria Bom Sabor",
+      "instagram": "https://instagram.com/pizzariabomsaborpb2",
+      "score": 156,
+      "phoneCandidate": "(83) 98762-6366",
+      "openingHoursText": null
+    },
+    {
+      "name": "Erste Sonne Cervejaria Independente",
+      "instagram": "https://instagram.com/sonnehaushamburgueria",
+      "score": 124,
+      "phoneCandidate": "(83) 99405-1627",
+      "openingHoursText": null
+    },
+    {
+      "name": "Kubanacan Bar e Restaurante",
+      "instagram": "https://instagram.com/kubanacanbaroficial",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "kubanacan Bar (@kubanacanbaroficial). Abertos de terça à domingo das 10hs às 22hs. R. Julieta Viana, 103 - Camboinha, Cabedelo - PB, 58101-375.. https://instagram.com/kubanacanbaroficial"
+    },
+    {
+      "name": "Restaurante Pôr do Sol",
+      "instagram": "https://instagram.com/bar_restaurantepordosol",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB",
+      "instagram": "https://instagram.com/saxcafe",
+      "score": 156,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Lary's pizzaria e lanchonete",
+      "instagram": "https://instagram.com/laryspizzariaoficial",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "larys pizzaria (@laryspizzariaoficial) · Cabedelo, PB. ✨TERÇA À DOMINGO 17:30 às 23:30. DELIVERY 17:45h às 23:20h ; Uma maravilha de pizza chocolate com calabresa ; Vem saborear nossas deliciosas pizza de frango .... https://instagram.com/laryspizzariaoficial"
+    },
+    {
+      "name": "Bar e Restaurante Solânense",
+      "instagram": "https://instagram.com/restaurante_solanense",
+      "score": 107,
+      "phoneCandidate": "(83) 98811-7616",
+      "openingHoursText": null
+    },
+    {
+      "name": "Cibelly Mar - Restaurante no Por do Sol do Jacaré",
+      "instagram": "https://instagram.com/cibellymarr",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Tempero De Casa",
+      "instagram": "https://instagram.com/marmitaria_temperodecasa",
+      "score": 156,
+      "phoneCandidate": "(83) 99840-3817",
+      "openingHoursText": null
+    },
+    {
+      "name": "Açaí Araxá",
+      "instagram": "https://instagram.com/acaiaraxa2",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Oliver Grill e Espetos",
+      "instagram": "https://instagram.com/olivergrilleespetos",
+      "score": 187,
+      "phoneCandidate": null,
+      "openingHoursText": "espetinhos / grill / caldos/ churrasco (@olivergrilleespetos). Aquele sabor de churrasco que vicia! Intermares – Av. Oceano Índico,928 Seg a Sabado• 17h às 00h Peça no iFood ou venha nos visitar.. https://instagram.com/olivergrilleespetos"
+    },
+    {
+      "name": "Pizzaria Bom Sabor Camboinha",
+      "instagram": "https://instagram.com/pizzariabomsaborpb",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Ethic Alimentos",
+      "instagram": "https://instagram.com/ethicalimentos",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Home Smash Burger",
+      "instagram": "https://instagram.com/homesmashburguer",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    }
+  ],
+  "rejectedSamples": [
+    {
+      "name": "Ilha Dourada Restaurante",
+      "reason": "not_profile,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/p/DTfirGmAAy2",
+        "title": "Pier Restaurante | Já pode? Aqui pode! A partir das 10h30 ...",
+        "score": -100,
+        "tokens": [
+          "ilha"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Tenda Formosa Bar & Restaurante",
+      "reason": "no_instagram_candidate",
+      "best": null
+    },
+    {
+      "name": "Espetinho da praia Intermares",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/numarbarintermares",
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "score": -2,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Bar e Restaurante do Sumé",
+      "reason": "weak_handle_evidence",
+      "best": {
+        "url": "https://instagram.com/bardosumepb",
+        "title": "Sumé | Bar e Restaurante (@bardosumepb) · Cabedelo, PB",
+        "score": 107,
+        "tokens": [
+          "sume"
+        ],
+        "handleMatches": [
+          "sume"
+        ],
+        "textMatches": [
+          "sume"
+        ]
+      }
+    },
+    {
+      "name": "Churrascaria do Caicó",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/churrascariacaico",
+        "title": "CHURRASCARIA CAICÓ (@churrascariacaico)",
+        "score": 89,
+        "tokens": [
+          "caico"
+        ],
+        "handleMatches": [
+          "caico"
+        ],
+        "textMatches": [
+          "caico"
+        ]
+      }
+    },
+    {
+      "name": "Mega Pizza",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/megapizza1",
+        "title": "Mega Pizza e Massas (@megapizza1)",
+        "score": 93,
+        "tokens": [
+          "mega"
+        ],
+        "handleMatches": [
+          "mega"
+        ],
+        "textMatches": [
+          "mega"
+        ]
+      }
+    },
+    {
+      "name": "Sport Marina",
+      "reason": "not_profile",
+      "best": {
+        "url": "https://instagram.com/p/DOLme3mDsEZ",
+        "title": "É ou não é o paraíso?😍🤩 📍 BR-230, Sport Marina, ...",
+        "score": 8,
+        "tokens": [
+          "sport",
+          "marina"
+        ],
+        "handleMatches": [],
+        "textMatches": [
+          "sport",
+          "marina"
+        ]
+      }
+    },
+    {
+      "name": "Bar e Restaurante do Pessoinha",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/bardopessoinha",
+        "title": "Bar/Restaurante do Pessoinha (@bardopessoinha)",
+        "score": 89,
+        "tokens": [
+          "pessoinha"
+        ],
+        "handleMatches": [
+          "pessoinha"
+        ],
+        "textMatches": [
+          "pessoinha"
+        ]
+      }
+    },
+    {
+      "name": "Ancoradouro Ponta de Campina",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/ancoradourobsrjp",
+        "title": "Instagram profile @ancoradourobsrjp",
+        "score": 97,
+        "tokens": [
+          "ancoradouro"
+        ],
+        "handleMatches": [
+          "ancoradouro"
+        ],
+        "textMatches": [
+          "ancoradouro"
+        ]
+      }
+    },
+    {
+      "name": "Galeteria D'intermares",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/numarbarintermares",
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "score": -2,
+        "tokens": [
+          "dintermares"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Skama Bar e Restaurante",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/skamabar_restaurante",
+        "title": "Skama | Bar e Restaurante (@skamabar_restaurante)",
+        "score": 93,
+        "tokens": [
+          "skama"
+        ],
+        "handleMatches": [
+          "skama"
+        ],
+        "textMatches": [
+          "skama"
+        ]
+      }
+    },
+    {
+      "name": "CTG Saudade Da Querência",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/ctgsaudadesdaquerencia",
+        "title": "ctgsaudadesdaquerencia",
+        "score": 187,
+        "tokens": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ],
+        "handleMatches": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ],
+        "textMatches": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ]
+      }
+    },
+    {
+      "name": "Pipa Sushi & Temakeria",
+      "reason": "not_profile,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/p/CeJ7WyQrqh3",
+        "title": "Crocante por fora e irresistível por dentro! Coma o nosso bolinho ...",
+        "score": -96,
+        "tokens": [
+          "pipa"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Sakê Temakeria Ponta de Campina, Cabedelo",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/saketemaki",
+        "title": "Sakê Temakeria Premium (@saketemaki)",
+        "score": 89,
+        "tokens": [
+          "sake"
+        ],
+        "handleMatches": [
+          "sake"
+        ],
+        "textMatches": [
+          "sake"
+        ]
+      }
+    },
+    {
+      "name": "La casa de pastel e La Pizza Premium",
+      "reason": "weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/lacasadepastelpbof",
+        "title": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB",
+        "score": 79,
+        "tokens": [
+          "casa"
+        ],
+        "handleMatches": [
+          "casa"
+        ],
+        "textMatches": [
+          "casa"
+        ]
+      }
+    },
+    {
+      "name": "Sorveteria glacial",
+      "reason": "location_conflict:manaus, am",
+      "best": {
+        "url": "https://instagram.com/sorveteriaglacial",
+        "title": "Sorveteria Glacial (@sorveteriaglacial) · Manaus, AM",
+        "score": 13,
+        "tokens": [
+          "glacial"
+        ],
+        "handleMatches": [
+          "glacial"
+        ],
+        "textMatches": [
+          "glacial"
+        ]
+      }
+    },
+    {
+      "name": "Açaí da Cris",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/meuacaicity",
+        "title": "AçaiCity - Acaiteria - Sorveteria🍦 (@meuacaicity)",
+        "score": -20,
+        "tokens": [
+          "cris"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Pizza Now - Intermares",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/pizzanowexpress",
+        "title": "Pizza Now (@pizzanowexpress)",
+        "score": 89,
+        "tokens": [
+          "now"
+        ],
+        "handleMatches": [
+          "now"
+        ],
+        "textMatches": [
+          "now"
+        ]
+      }
+    },
+    {
+      "name": "Restaurante Ondas",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/restauranteondas",
+        "title": "Restaurante Ondas (@restauranteondas)",
+        "score": 93,
+        "tokens": [
+          "ondas"
+        ],
+        "handleMatches": [
+          "ondas"
+        ],
+        "textMatches": [
+          "ondas"
+        ]
+      }
+    },
+    {
+      "name": "Meio Quilo",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/secultcabedelo",
+        "title": "SECULT Cabedelo/PB - Brasil (@secultcabedelo)",
+        "score": -6,
+        "tokens": [
+          "meio",
+          "quilo"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "churrascaria do biu",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/bar_restaurantepordosol",
+        "title": "RESTAURANTE POR DO SOL • (@bar_restaurantepordosol)",
+        "score": -6,
+        "tokens": [
+          "biu"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "PARCEIRO Rosa Lanches",
+      "reason": "weak_handle_evidence",
+      "best": {
+        "url": "https://instagram.com/rosaalanches_",
+        "title": "LANCHONETE EM CABEDELO (PB) (@rosaalanches_)",
+        "score": 103,
+        "tokens": [
+          "parceiro",
+          "rosa"
+        ],
+        "handleMatches": [
+          "rosa"
+        ],
+        "textMatches": [
+          "rosa"
+        ]
+      }
+    },
+    {
+      "name": "Tia Graça Cafeteria e Doceria",
+      "reason": "no_instagram_candidate",
+      "best": null
+    },
+    {
+      "name": "Pizzaria Jacaré",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/pizzariabomsaborpb",
+        "title": "Pizzaria Bom Sabor🍕 (@pizzariabomsaborpb)",
+        "score": -6,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Casa de Taipa",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/casacombr",
+        "title": "Casa.com.br (@casacombr)",
+        "score": 89,
+        "tokens": [
+          "casa",
+          "taipa"
+        ],
+        "handleMatches": [
+          "casa"
+        ],
+        "textMatches": [
+          "casa"
+        ]
+      }
+    },
+    {
+      "name": "Caldinho Prime Formosa",
+      "reason": "weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/caldinhoprimeformosa",
+        "title": "Cabedelo (@caldinhoprimeformosa) - Praia Formosa",
+        "score": 75,
+        "tokens": [
+          "prime"
+        ],
+        "handleMatches": [
+          "prime"
+        ],
+        "textMatches": [
+          "prime"
+        ]
+      }
+    },
+    {
+      "name": "Mary Refeições",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/numarbarintermares",
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "score": -2,
+        "tokens": [
+          "mary",
+          "refeicoes"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Chapa Quente Lanches e Refeições",
+      "reason": "phone_area_conflict:47",
+      "best": {
+        "url": "https://instagram.com/chapa_quente_burguer_22",
+        "title": "CHAPA QUENTE BURGUER (@chapa_quente_burguer_22)",
+        "score": 142,
+        "tokens": [
+          "chapa",
+          "quente",
+          "refeicoes"
+        ],
+        "handleMatches": [
+          "chapa",
+          "quente"
+        ],
+        "textMatches": [
+          "chapa",
+          "quente"
+        ]
+      }
+    },
+    {
+      "name": "Espaço Do Sushi",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/espacodosushi",
+        "title": "Espaço do Sushi (@espacodosushi)",
+        "score": 89,
+        "tokens": [
+          "espaco"
+        ],
+        "handleMatches": [
+          "espaco"
+        ],
+        "textMatches": [
+          "espaco"
+        ]
+      }
+    },
+    {
+      "name": "Lanchonete e Pizzaria Popular",
+      "reason": "brand_not_confirmed,weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/euqueropizzafoodtruck",
+        "title": "Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)",
+        "score": -34,
+        "tokens": [
+          "popular"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    }
+  ],
+  "updates": [
+    {
+      "id": "9488d27a-7737-4c86-b059-0e16a6fb049d",
+      "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+      "instagram": "https://instagram.com/lovinapontadecampina",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "acb457db-a5d7-408e-a3b5-c9cfb3caff7b",
+      "name": "Cibelly Bar & Restaurante",
+      "instagram": "https://instagram.com/cibellybar",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "0076b4c5-2d07-416e-a1ac-3ed9e83e02e5",
+      "name": "Gigante Do Mar Beach",
+      "instagram": "https://instagram.com/gigantedomaroficial",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "8162456c-2817-4a8a-bbab-aa875c29419e",
+      "name": "Bar das Meninas Restaurante",
+      "instagram": "https://instagram.com/meninasbar",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "775e0a86-b7d6-48a7-a84b-619164add8f9",
+      "name": "Numar Bar e Restaurante",
+      "instagram": "https://instagram.com/numarbarintermares",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "5824ab85-d0ca-4987-aa50-aa45faa631ad",
+      "name": "Restaurante Recanto do Picuí Intermares",
+      "instagram": "https://instagram.com/recantodopicuiintermares",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+      "name": "Empadinhas Barnabé - Intermares",
+      "instagram": "https://instagram.com/empbarnabe",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+      "name": "Primo Rico",
+      "instagram": "https://instagram.com/primoricopb",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "662a40d4-3612-4ca1-ad28-615646294ea8",
+      "name": "Big Jack comida de rua com INSPIRAÇÃO texana",
+      "instagram": "https://instagram.com/bigjack.intermares",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "instagram": "https://instagram.com/pastelarialitoranea",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+      "name": "BAR DO CHEFF RESTAURANTE",
+      "instagram": "https://instagram.com/bardocheffrestaurante",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "a0f83830-77b8-4f8f-850d-be06b6658efb",
+      "name": "Praçaí - Intermares",
+      "instagram": "https://instagram.com/pracaiintermares",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd",
+      "name": "Viciados em Sushi",
+      "instagram": "https://instagram.com/viciadosemsushi",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "fbf76b65-220f-4ae7-89fc-fec690985eda",
+      "name": "Tapiocaria do Dinho",
+      "instagram": "https://instagram.com/tapiocariadinho",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487",
+      "name": "Residência do Mário",
+      "instagram": "https://instagram.com/residenciadomario",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+      "name": "A Casa do Temakinho",
+      "instagram": "https://instagram.com/acasadotemakinho",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+      "name": "Pizzaria Bom Sabor",
+      "instagram": "https://instagram.com/pizzariabomsaborpb2",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "80b5b1fc-6d5a-4b7d-ab56-f1aadcf1c403",
+      "name": "Erste Sonne Cervejaria Independente",
+      "instagram": "https://instagram.com/sonnehaushamburgueria",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "55d451bc-f6ee-40f5-b611-7ef6158392d5",
+      "name": "Kubanacan Bar e Restaurante",
+      "instagram": "https://instagram.com/kubanacanbaroficial",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+      "name": "Restaurante Pôr do Sol",
+      "instagram": "https://instagram.com/bar_restaurantepordosol",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "dce45040-f5ad-45a1-9029-04e65ce13e78",
+      "name": "Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB",
+      "instagram": "https://instagram.com/saxcafe",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+      "name": "Lary's pizzaria e lanchonete",
+      "instagram": "https://instagram.com/laryspizzariaoficial",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "90398f02-4ae4-44a1-bd64-3f008fdca37c",
+      "name": "Bar e Restaurante Solânense",
+      "instagram": "https://instagram.com/restaurante_solanense",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "3549abc7-3261-4ec3-af59-820112bd2358",
+      "name": "Cibelly Mar - Restaurante no Por do Sol do Jacaré",
+      "instagram": "https://instagram.com/cibellymarr",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "63e642dd-ed66-42a7-ae08-d395f8110b6d",
+      "name": "Tempero De Casa",
+      "instagram": "https://instagram.com/marmitaria_temperodecasa",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "935e3614-8815-4e2e-bddf-01ac5b254832",
+      "name": "Açaí Araxá",
+      "instagram": "https://instagram.com/acaiaraxa2",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "17a6f6c2-9f28-453f-a22d-71e7abd3dcfd",
+      "name": "Oliver Grill e Espetos",
+      "instagram": "https://instagram.com/olivergrilleespetos",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "eae14867-4b70-4fb0-93eb-303b35931ab3",
+      "name": "Pizzaria Bom Sabor Camboinha",
+      "instagram": "https://instagram.com/pizzariabomsaborpb",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "0a91fc09-ad7d-4141-8d4d-82a732b61565",
+      "name": "Ethic Alimentos",
+      "instagram": "https://instagram.com/ethicalimentos",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "49423823-d994-4263-9597-cb829e208129",
+      "name": "Home Smash Burger",
+      "instagram": "https://instagram.com/homesmashburguer",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "133ad582-46f6-4334-a2b7-34ecd3c5287b",
+      "name": "Kikão Cachorro Quente",
+      "instagram": "https://instagram.com/kikaofood",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+      "name": "Route Hot Dogs",
+      "instagram": "https://instagram.com/routehotdogs",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "ec6b2565-934c-4278-9a8a-63168eb819f2",
+      "name": "DAWN BURGUER",
+      "instagram": "https://instagram.com/dawn.burguer",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "e593d18c-792e-4c38-b9c4-4b34d62f7aa6",
+      "name": "South Beach | Açaí, Sorveteria e Cremes",
+      "instagram": "https://instagram.com/southbeachacaiteria",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "e794929f-0b9f-43b8-a5c6-6d37a38dcb23",
+      "name": "Chié artesanato e comedoria",
+      "instagram": "https://instagram.com/chieartesanatoecomedoria",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+      "name": "Sorveteria Frutos de Goiás - Cabedelo",
+      "instagram": "https://instagram.com/frutoscabedelo",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "6b65edcc-4d44-4dd4-82c8-36291fdef22b",
+      "name": "Caiçara Bar e Restaurante",
+      "instagram": "https://instagram.com/caicarabarerestaurante",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "da4479b5-3306-409a-808e-b65982c120f8",
+      "name": "Sonne Haus Hambúrgueria",
+      "instagram": "https://instagram.com/sonnehaushamburgueria",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "98a3b276-2cfa-4c15-902a-aedb022cc215",
+      "name": "Caldeirão Nordestino - Caldinho e Nhoques Cabedelo",
+      "instagram": "https://instagram.com/caldeirao.nordestino",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "instagram": "https://instagram.com/oxicabedelo",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "5ba77eda-968b-407b-aaa9-4c6d641e66cb",
+      "name": "Tropical Burgz",
+      "instagram": "https://instagram.com/tropicalburgz",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "9c83d3fb-60df-4b9a-8687-05e889cfef48",
+      "name": "Nena Doceria & Salgaderia",
+      "instagram": "https://instagram.com/nena_doceria",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "c73bb2a7-5e2a-4f2e-8334-daaea6b12b84",
+      "name": "Mão Branca bar e resturante",
+      "instagram": "https://instagram.com/maobrancabarerestaurante",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "instagram": "https://instagram.com/euqueropizzafoodtruck",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2",
+      "name": "Coffee Cake Açaiteria",
+      "instagram": "https://instagram.com/coffeecakeacaiteria",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "646b1437-0afa-4aef-b8e4-7a83bce3f43f",
+      "name": "Sol e mar restaurante e self service",
+      "instagram": "https://instagram.com/restaurantesolemar__",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "message": "34 itens estruturados via yooga_native_api; 0 requerem revisão de preço.",
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 8,
+      "itemCount": 34,
+      "resolvedPriceCount": 34,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "no_groups",
+        "deltaFixes": 0,
+        "storageFixes": 0
+      }
+    },
+    "fallbackUsed": false
+  },
+  "stdoutTail": "[Menu V2] Semântica de opções via heurística (no_groups).\n[Menu V2] Auditoria estrutural: {\"approved\":true,\"confidence\":0.98,\"categoryCount\":8,\"itemCount\":34,\"resolvedPriceCount\":34,\"unresolvedPriceCount\":0,\"fullPriceDeltaAnomalyCount\":0,\"fullPriceDeltaAnomalies\":[],\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\",\"deltaFixes\":0,\"storageFixes\":0}}\nRESULT:{\"success\":true,\"message\":\"34 itens estruturados via yooga_native_api; 0 requerem revisão de preço.\",\"audit\":{\"approved\":true,\"confidence\":0.98,\"categoryCount\":8,\"itemCount\":34,\"resolvedPriceCount\":34,\"unresolvedPriceCount\":0,\"fullPriceDeltaAnomalyCount\":0,\"fullPriceDeltaAnomalies\":[],\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\",\"deltaFixes\":0,\"storageFixes\":0}},\"fallbackUsed\":false}\n",
+  "stderrTail": ""
+}

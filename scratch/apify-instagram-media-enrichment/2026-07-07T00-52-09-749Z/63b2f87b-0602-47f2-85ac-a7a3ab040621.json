@@ -1,0 +1,227 @@
+{
+  "id": "63b2f87b-0602-47f2-85ac-a7a3ab040621",
+  "name": "Vanda da coxinha cabedelo PB",
+  "instagram": "https://www.instagram.com/vandada_coxinha_cabedelo/",
+  "followers": 167,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_profile_1783385786767.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385791088_1.jpg",
+      "score": 35,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385792253_2.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385792855_3.jpg",
+      "score": 27,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385793681_4.jpg",
+      "score": 27,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385794217_5.jpg",
+      "score": 27,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385794759_6.jpg",
+      "score": 26,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385795318_7.jpg",
+      "score": 25,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385795850_8.jpg",
+      "score": 23,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "7642d606-ede4-48d5-be8a-f3075a73d6bc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385791088_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "868c45e7-cb22-474b-9e7c-71e48cd1814b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385792253_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "815d03ea-b2d0-4aff-843e-7ed0228c5e74",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385792855_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "aff79af8-6c84-4fa0-88ac-3af66be73353",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385793681_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "0a1db361-bf35-40bb-8576-e91e10da7520",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385794217_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "7bef4212-fe52-471e-bb87-3c80950dcfa6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385794759_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "98c88928-d1d1-41e6-a6ba-fa84aefc3dc9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385795318_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "009f3167-8726-4f8d-bb5c-7655a7aa66bf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63b2f87b-0602-47f2-85ac-a7a3ab040621/instagram_1783385795850_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 35,
+      "caption": "Novidade em vanda da coxinha cabedelo!!! Agora também temos salgados de 1,00!! Vem pra vanda da coxinha!!! #vandadacoxinh #assadosnahora# ossalgadosquevcrespeita",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "Boa tarde!!! Vem pra vanda da coxinha!!! #vandadacoxinha#assadosnahora#cabedelo#vem#conferir",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "Os salgados mais saborosos de cabedelo! Faça sua encomenda pelo watts 👉 📲 98761-0576",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "Churros deliciosos! Vem pra vanda da coxinha! Faça sua encomenda pelo watts 👉 📲 98761-0576",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "Gente olha que delícia esses risole!!!! Queijo com presunto!!! Deliciosos... e tem muito mais sabores!!!! Isso, vanda da coxinha tem sabores variados para você fazer sua festa em g",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 26,
+      "caption": "Venha provar e comprovar esses salgados deliciosos!! Encomendas ligue☞ 98761-0576 #coxinhadavanda#saborosos #assadosnahora #cabedelo",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 25,
+      "caption": "Sexta-feira chegou e você ainda não fez sua encomenda ? Não perca tempo ligue 98761-0576 e aproveite este mês de promoções em vanda da coxinha cabedelo!! Estamos esperando sua visi",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "👀 Sério!! você vai ficar só olhando??? Fica só olhando não, Pegue seu celular agora e faça já sua encomenda!!! Hoje é sábadoo junta a galera e faz aquela festa!!! Ligue 98761-0576",
+      "vision": null
+    }
+  ]
+}

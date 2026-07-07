@@ -1,0 +1,6 @@
+{
+  "success": false,
+  "runId": "2026-07-07T13-12-48-803Z",
+  "outDir": "scratch\\cabedelo-fast-source-discovery\\2026-07-07T13-12-48-803Z",
+  "error": "Cannot access 'results' before initialization"
+}

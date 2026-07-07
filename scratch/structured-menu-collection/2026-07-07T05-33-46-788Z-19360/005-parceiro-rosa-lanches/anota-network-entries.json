@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 204,
+    "contentType": "",
+    "capturedAt": "2026-07-07T05:34:59.591Z",
+    "body": null,
+    "error": "Could not load response body for this request. This might happen if the request is a preflight request."
+  },
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "capturedAt": "2026-07-07T05:34:59.825Z",
+    "body": {
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"63a599781a34d400135fb8cd\",\"webview\":{\"address_manual\":true,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"1310737670583075\",\"repeat_order_enabled\":true,\"color_primary\":\"#FFC930\",\"description\":\"\",\"footer_description\":\"\",\"edit_manual_region\":true,\"accept_multiple_payments\":true,\"add_disposable\":false,\"multiple_payments_quantity\":2,\"waiter_can_close_table\":false,\"waiter_edit_order\":false,\"waiter_order_delivery\":true,\"waiter_accept_tip\":false,\"waiter_tip_percent\":10,\"transfer_between_busy_tables\":true,\"edit_manual_city\":true,\"ga4_id\":null,\"google_ads\":null,\"token_capi\":\"EAAOLmxU8bXcBRrnObQMq8LfdZBMdHTbZCo1sghya5ZB2X1aOm9H5uCRfwjWj1WkoOEbRobi8bQ2WLVOaJQawhOqMqj5bhvanXiprJZAeqieZCGVKHXegppYjOUIkVDZBhM7eL8icIit7C1ySf8zMk2kfmyu0tzJUgHZAqUvp8Jt5Kk0BinV1ipw0SuytyjO2gZDZD\"},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":true},\"triggers\":{\"active\":true,\"active_send\":false},\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"images\":[]},\"admin_settings\":{\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"sound_2\",\"anota_ai_notification_song\":\"high\",\"anota_ai_notification_song_local_table\":\"high\",\"ifood_integration_notification_song\":\"high\",\"type_order_settings\":{\"order_type\":\"attendant\",\"request_table\":false,\"request_ticket\":false,\"show_category_tab\":true,\"show_search_bar\":false,\"show_itens\":true,\"popup_fullscreen\":false,\"print_order_waiter\":false,\"print_order_attendant\":false,\"display_type\":\"card\",\"accept_flexible_orders\":false},\"delivery_man_send_order_info\":true},\"scheduling_config\":{\"schedule_interval\":[]},\"page_is_online\":true,\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"63ac3736c0db5d00129a4414\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"location\":{\"type\":\"Point\",\"coordinates\":[-34.8338938,-6.970879399999999]},\"country\":\"br\",\"hided\":false,\"addressFormated\":\"Rua Tenente Antônio Pontes, 139 - Ponta de Mato, Cabedelo - PB, 58.100-645, Brasil\",\"name\":\"Rua Tenente Antônio Pontes\",\"num\":139,\"neighborhood\":\"Ponta de Mato\",\"complement\":\"Em frente a praça da igreja Batista, por trás do supermercado Assis\",\"postal_code\":\"58.100-645\",\"city\":\"Cabedelo\",\"state\":\"PB\"},\"payment_method\":{\"money\":true,\"creditcard\":true,\"question_card\":false,\"whatsapp_pay\":false,\"pix\":true,\"debit\":false,\"tuna_digital_wallets\":false,\"ifood_payin_nupay\":true,\"ifood_payin_wallets\":true,\"ifood_payin\":true,\"ifood_payin_credit\":true},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false},\"timezone\":\"America/Sao_Paulo\",\"exproductiontime\":0,\"time_delivery_min\":40,\"time_delivery_max\":120,\"time_take_min\":40,\"time_take_max\":60,\"order_automatic_on_production\":true,\"cpf_cnpj_on_order\":false,\"published\":true,\"acceptDelivery\":true,\"acceptTake\":true,\"acceptLocal\":true,\"name\":\"Rosa Lanches\",\"page\":\"63a599781a34d400135fb8c8\",\"phones\":[{\"type\":\"cell\",\"number\":\"(83) 9 8836-3792\",\"_id\":\"6a07dea86abcc16717d1f47c\"}],\"credit_cards\":[{\"name\":\"Visa\",\"_id\":\"63ac3736c0db5d00129a4416\"},{\"name\":\"Mastercard\",\"_id\":\"63ac3736c0db5d00129a4417\"},{\"name\":\"Elo\",\"_id\":\"63ac3736c0db5d00129a4418\"},{\"name\":\"Definir\",\"external_id\":\"\",\"_id\":\"645570d67e85790012d07e01\"}],\"week\":[{\"short_name\":\"sun\",\"schedules\":[{\"_id\":\"63ac3736c0db5d00129a4426\",\"start\":\"18:00\",\"end\":\"01:00\"}]},{\"short_name\":\"mon\",\"schedules\":[{\"_id\":\"63ac3736c0db5d00129a441a\",\"start\":\"18:00\",\"end\":\"01:00\"}]},{\"short_name\":\"tue\",\"schedules\":[{\"_id\":\"63ac3736c0db5d00129a441c\",\"start\":\"18:00\",\"end\":\"01:00\"}]},{\"short_name\":\"wed\",\"schedules\":[{\"_id\":\"63a"
+    },
+    "error": null,
+    "textLength": 276035
+  }
+]

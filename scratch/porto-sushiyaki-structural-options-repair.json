@@ -1,0 +1,177 @@
+{
+  "porto": {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "candidateItems": 15,
+    "repairedItems": 15,
+    "deletedGroups": 0,
+    "deletedOptions": 0,
+    "createdGroups": 30,
+    "createdOptions": 150,
+    "repairedItemsSample": [
+      {
+        "id": "5053897c-c2f0-49f5-b928-3183a8b74872",
+        "name": "ACAI M (ACAI TRADICIONAL)",
+        "fruitMax": 2,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "06b0a497-e31b-40c9-a9ce-90a220ba1a7d",
+        "name": "GELATTO G (Creme de Ninho)",
+        "fruitMax": 3,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "7526d9b5-b0f9-4237-ac97-94f660ba0f1f",
+        "name": "ACAI G (TRADICIONAL)",
+        "fruitMax": 3,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "553b20f7-6945-41ba-ab95-45212117f546",
+        "name": "GELATTO P (Creme de Ninho)",
+        "fruitMax": 1,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "6f385959-1ae7-4e50-9511-402839955e6b",
+        "name": "ACAI P (Acai com Creme de Ninho)",
+        "fruitMax": 1,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "aaa56017-58d4-4222-89b4-a2b77144a1eb",
+        "name": "GELATTO P (Creme de Cupuacu)",
+        "fruitMax": 1,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "c0557e42-fb9a-4ef4-8a22-f2a4d1751001",
+        "name": "ACAI M (Acai com Creme de Ninho)",
+        "fruitMax": 2,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "06142138-f54e-41a7-8ae9-98208e5196df",
+        "name": "GELATTO M (CUPUACU)",
+        "fruitMax": 2,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "bc361e4b-5067-4cd9-a0e0-4e67c5b6c02b",
+        "name": "ACAI G (Acai com Creme de Ninho)",
+        "fruitMax": 3,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "fab34ba0-fe18-4ab0-8e72-f16fadeedfc8",
+        "name": "GELATTO M (Creme de Ninho)",
+        "fruitMax": 2,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "77850f3d-995c-4132-8a65-f044f1d26523",
+        "name": "GELATTO G (Creme de Cupuacu)",
+        "fruitMax": 3,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "099064d9-6651-421d-98f9-fca5010864ff",
+        "name": "ACAI P (Acai com Cupuacu)",
+        "fruitMax": 1,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "e6937b45-fade-4b22-8f17-e32141141dda",
+        "name": "ACAI M (Acai com Cupuacu)",
+        "fruitMax": 2,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "36d7d3aa-677c-4680-9a89-5e02b86cc2ea",
+        "name": "ACAI G (Acai com Cupuacu)",
+        "fruitMax": 3,
+        "groups": 2,
+        "options": 10
+      },
+      {
+        "id": "c5ea8af2-e4f3-4c7e-82c7-226141a394ba",
+        "name": "ACAI P (TRADICIONAL)",
+        "fruitMax": 1,
+        "groups": 2,
+        "options": 10
+      }
+    ]
+  },
+  "sushiyaki": {
+    "restaurantId": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+    "candidateInstructionItems": 14,
+    "materializedGroups": 0,
+    "materializedOptions": 0,
+    "reason": "Fonte/modal mostram apenas campo Observações e instrução textual \"se desejar frito\"; não há opções vendáveis estruturadas para materializar sem inventar.",
+    "sample": [
+      {
+        "id": "715e8c6e-a8d2-4219-a1bc-cdacce3387ee",
+        "name": "Temaki de kani",
+        "description": "Se desejar frito, só colocar observação."
+      },
+      {
+        "id": "7f86948d-f5ae-48bc-9b9c-d9ba2853213b",
+        "name": "2 Temaki de kani",
+        "description": "Se desejar frito, por favor colocar na observação."
+      },
+      {
+        "id": "0bdbd9f0-04e3-4770-a746-5d7384d4a5e8",
+        "name": "Temaki pasta de atum",
+        "description": "Se desejar frito, só colocar observação."
+      },
+      {
+        "id": "26a22c67-68c6-490e-b2f2-2eca5804ff3e",
+        "name": "2 Temaki frito de camarão empanado",
+        "description": ""
+      },
+      {
+        "id": "1f07e180-4b3e-4890-9658-fca46ee4ec29",
+        "name": "Temaki pasta de salmão",
+        "description": "Se desejar frito, colocar na observação por favor"
+      },
+      {
+        "id": "fd980085-e899-43be-9b5a-87d52eba80e6",
+        "name": "1 Temaki de camarão empanado frito + coca lata",
+        "description": ""
+      },
+      {
+        "id": "9f0fca96-cb94-4e8a-8c70-b3ecb8ce116d",
+        "name": "1 Temaki de kani e 1 Temaki de camarão empanado",
+        "description": "se desejar frito, informar na observação por favor"
+      },
+      {
+        "id": "cd52d6d5-3129-4e61-9c3e-06bf25ab8108",
+        "name": "Temaki de salmão",
+        "description": "Se desejar frito colocar na observação por favor"
+      },
+      {
+        "id": "bd2e656c-ab9a-4d9d-a8ad-cefed28940bb",
+        "name": "2 Temaki pasta de salmão",
+        "description": "Se desejar frito, por favor colocar na observação."
+      },
+      {
+        "id": "a83f6eca-cf1b-40ec-ae0b-a96c82d27607",
+        "name": "Temaki de camarão cozido",
+        "description": "Se desejar frito, só colocar observação."
+      }
+    ]
+  }
+}

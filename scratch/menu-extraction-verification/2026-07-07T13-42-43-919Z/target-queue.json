@@ -1,0 +1,16 @@
+[
+  {
+    "restaurantId": "72606188-4454-4890-a671-a65d4d08f024",
+    "restaurantName": "Casa Do Pastel",
+    "platform": "menudino",
+    "sourceUrl": "https://lacasadepastelpb.menudino.com.br",
+    "score": 64,
+    "tier": "green",
+    "flags": [],
+    "nextAction": "fast_visual_review_then_import",
+    "category": "Pastelaria brasileira",
+    "address": "R. Honório Patrício dos Santos",
+    "phone": "(83) 98663-1487",
+    "instagram": null
+  }
+]

@@ -1,0 +1,571 @@
+{
+  "runId": "2026-07-07T02-43-32-473Z",
+  "outDir": "scratch\\cabedelo-three-qa\\2026-07-07T02-43-32-473Z",
+  "restaurants": 3,
+  "passed": 0,
+  "failed": 3,
+  "audits": [
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "status": "fail",
+      "redCount": 5,
+      "issueCount": 5,
+      "itemCount": 17,
+      "optionCount": 116,
+      "galleryCount": 0,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "source": {
+        "menu": "https://app.anota.ai/m/MeIU-tixw",
+        "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+        "googleRepair": {
+          "repairedAt": "2026-07-07T02:31:29.789Z",
+          "rawAddress": "R. da Enseada - Ponta de Campina, Cabedelo - PB, 58310-000",
+          "addressPatch": {
+            "city": "Cabedelo"
+          },
+          "hoursSource": "google_maps_operating_hours",
+          "sourceRunId": "2026-07-06T19-32-09-190Z",
+          "sourceFile": "raw-026.json"
+        },
+        "bioHours": null,
+        "media": {
+          "checkedAt": "2026-07-07T01:05:07.352Z",
+          "status": "enriched",
+          "username": "euqueropizzafoodtruck",
+          "followers": 8516,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.anota.ai/m/MeIU-tixw",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. da Enseada",
+        "number": null,
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 99857-3813",
+        "followers": 8516
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "sem_logo"
+        },
+        {
+          "severity": "red",
+          "code": "sem_capa"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_menor_que_3",
+          "count": 0
+        },
+        {
+          "severity": "red",
+          "code": "item_placeholder_interface",
+          "item": "Click aqui e Escolha até 2 sabores"
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Combo 4",
+          "itemPrice": 44.9,
+          "group": "Escolha o sabor da outra pizza",
+          "option": "Pizza Grande Marguerita",
+          "delta": 44.9
+        }
+      ]
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "status": "fail",
+      "redCount": 3,
+      "issueCount": 3,
+      "itemCount": 133,
+      "optionCount": 735,
+      "galleryCount": 0,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "source": {
+        "menu": "https://app.cardapioweb.com/i_loveburguer",
+        "instagram": "https://www.instagram.com/iloveburguerpb/",
+        "googleRepair": {
+          "repairedAt": "2026-07-07T02:31:29.781Z",
+          "rawAddress": "Praça Getúlio Vargas, 107 - Vila Sao Joao, Cabedelo - PB, 58100-305",
+          "addressPatch": {
+            "city": "Cabedelo"
+          },
+          "hoursSource": "google_maps_operating_hours",
+          "sourceRunId": "2026-07-06T19-32-09-190Z",
+          "sourceFile": "raw-035.json"
+        },
+        "bioHours": null,
+        "media": {
+          "checkedAt": "2026-07-07T01:05:09.900Z",
+          "status": "enriched",
+          "username": "iloveburguerpb",
+          "followers": 9915,
+          "match": {
+            "score": 140,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/i_loveburguer",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Praça Getúlio Vargas",
+        "number": "107",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 99311-5016",
+        "followers": 9915
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "sem_logo"
+        },
+        {
+          "severity": "red",
+          "code": "sem_capa"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_menor_que_3",
+          "count": 0
+        }
+      ]
+    },
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "status": "fail",
+      "redCount": 41,
+      "issueCount": 41,
+      "itemCount": 21,
+      "optionCount": 149,
+      "galleryCount": 0,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "source": {
+        "menu": "https://app.cardapioweb.com/ilove_pizza",
+        "instagram": "https://www.instagram.com/ilovepizzapb/",
+        "googleRepair": {
+          "repairedAt": "2026-07-07T02:31:29.781Z",
+          "rawAddress": "R. Duque de Caxias - Centro, Cabedelo - PB, 58100-263",
+          "addressPatch": {
+            "city": "Cabedelo"
+          },
+          "hoursSource": "google_maps_operating_hours",
+          "sourceRunId": "2026-07-06T19-32-09-190Z",
+          "sourceFile": "raw-034.json"
+        },
+        "bioHours": null,
+        "media": {
+          "checkedAt": "2026-07-07T01:03:48.657Z",
+          "status": "enriched",
+          "username": "ilovepizzapb",
+          "followers": 3094,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/ilove_pizza",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": null,
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 99631-6245",
+        "followers": 3094
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "sem_logo"
+        },
+        {
+          "severity": "red",
+          "code": "sem_capa"
+        },
+        {
+          "severity": "red",
+          "code": "galeria_menor_que_3",
+          "count": 0
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Mussarela",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango Catupiry",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango e Milho",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango com Cream Cheese",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango com Cheddar",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "A moda da casa",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Frango com Barbecue",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Calabresa",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Calabresa com Catupiry",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Calabresa com Cheddar",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Caipira",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Calabresa com Barbecue",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Siciliana",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Medway",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Marguerita",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Mista",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Milho e Bacon",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Bacon",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Pequena",
+          "itemPrice": 35,
+          "group": "Escolha sua Pizza Pequena",
+          "option": "Americana",
+          "delta": 35
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Mussarela",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Maria bonita",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango Catupiry",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango e Milho",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Bacon aos 4 queijos",
+          "delta": 65
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango com Cream Cheese",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango com Cheddar",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Frango com Barbecue",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Calabresa",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Calabresa com Catupiry",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Calabresa com Cheddar",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Caipira",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Calabresa com Barbecue",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Siciliana",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Medway",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Marguerita",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Mista",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Milho e Bacon",
+          "delta": 55
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pizza Grande",
+          "itemPrice": 55,
+          "group": "Escolha sua Pizza Grande",
+          "option": "Bacon",
+          "delta": 55
+        }
+      ]
+    }
+  ]
+}

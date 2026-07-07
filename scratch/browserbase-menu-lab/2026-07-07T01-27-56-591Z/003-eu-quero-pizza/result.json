@@ -1,0 +1,43 @@
+{
+  "restaurantId": "8bae41e4-1365-4def-9857-34e4abdbf329",
+  "restaurantName": "Eu Quero Pizza",
+  "sourceUrl": "https://app.anota.ai/m/MeIU-tixw",
+  "platform": "anota_ai",
+  "reviewsCount": 24,
+  "address": "R. da Enseada - Ponta de Campina",
+  "phone": "(83) 99857-3813",
+  "startedAt": "2026-07-07T01:28:47.089Z",
+  "finishedAt": "2026-07-07T01:29:02.340Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\003-eu-quero-pizza",
+  "finalUrl": "https://pedido.anota.ai/loja/eu-quero-pizza-3",
+  "title": "Eu Quero Pizza - Anota AI",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 2007,
+    "bodyLength": 29997,
+    "anchorCount": 0,
+    "imageCount": 22
+  },
+  "priceCountInVisibleText": 19,
+  "menuWords": [
+    "pedido",
+    "combo",
+    "pizza",
+    "bebida"
+  ],
+  "networkInterestingCount": 55,
+  "failedRequestCount": 3,
+  "directProbe": {
+    "platform": "anota_ai",
+    "success": false,
+    "source": "anota_ai_native_api",
+    "endpoint": "https://api.anota.ai/v1/menu/merchant?slug=MeIU-tixw",
+    "payloadKeys": [],
+    "lesson": "AnotaAI endpoint was not available for this slug; use Browserbase network/DOM fallback."
+  },
+  "lessonFlags": [
+    "visible_text_fallback_possible"
+  ],
+  "error": null
+}

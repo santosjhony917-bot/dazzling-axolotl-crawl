@@ -1,0 +1,17 @@
+{
+  "url": "https://api.anota.ai/noauth/access//get-token/espetinho-da-praia-3",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 180,
+  "textSample": "{\"success\":true,\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHBhZ2UiOiI2OTA3ODdmY2U5N2RmZWIwNjMwZjEwY2UiLCJpYXQiOjE3ODMzODIwNzJ9.Kamg3aAMVUw95vy2lji2wA6UcAMKQiAQY9PUKoQ0dpA\"}",
+  "jsonKeys": [
+    "success",
+    "token"
+  ],
+  "json": {
+    "success": true,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHBhZ2UiOiI2OTA3ODdmY2U5N2RmZWIwNjMwZjEwY2UiLCJpYXQiOjE3ODMzODIwNzJ9.Kamg3aAMVUw95vy2lji2wA6UcAMKQiAQY9PUKoQ0dpA"
+  }
+}

@@ -1,0 +1,394 @@
+[
+  {
+    "restaurantId": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+    "restaurantName": "Pipa Sushi & Temakeria",
+    "sourceUrl": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+    "platform": "anota_ai",
+    "reviewsCount": 292,
+    "address": "Av. Mar das Antilhas",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 3248-4251",
+    "queueEntry": {
+      "restaurant_id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+      "name": "Pipa Sushi & Temakeria",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+      "raw_source_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+      "other_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Restaurante de sushi",
+      "address": "Av. Mar das Antilhas",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 3248-4251",
+      "rating": 4.3,
+      "reviews_count": 292,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 143.",
+      "menu_last_checked_at": "2026-07-07T13:16:09.428+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+          "canonical_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 2
+    }
+  },
+  {
+    "restaurantId": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+    "restaurantName": "Pizza Now - Intermares",
+    "sourceUrl": "https://pedido.anota.ai/loja/pizza-now-intermares",
+    "platform": "anota_ai",
+    "reviewsCount": 200,
+    "address": "Av. Oceano Atlântico, 1592",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "0800 012 2000",
+    "queueEntry": {
+      "restaurant_id": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+      "name": "Pizza Now - Intermares",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+      "raw_source_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+      "other_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Delivery de Pizza",
+      "address": "Av. Oceano Atlântico, 1592",
+      "neighborhood": "Lj 14 - Ponta de Campina",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "0800 012 2000",
+      "rating": 4.5,
+      "reviews_count": 200,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 129.",
+      "menu_last_checked_at": "2026-07-07T13:16:22.665+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/pizza-now-intermares",
+          "canonical_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 3
+    }
+  },
+  {
+    "restaurantId": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+    "restaurantName": "A Casa do Temakinho",
+    "sourceUrl": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+    "platform": "anota_ai",
+    "reviewsCount": 150,
+    "address": "Av. Mar da Irlanda, 222",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 99944-9296",
+    "queueEntry": {
+      "restaurant_id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+      "name": "A Casa do Temakinho",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+      "raw_source_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+      "other_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Restaurante",
+      "address": "Av. Mar da Irlanda, 222",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99944-9296",
+      "rating": 4.9,
+      "reviews_count": 150,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 136.",
+      "menu_last_checked_at": "2026-07-07T13:16:21.181+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+          "canonical_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 4
+    }
+  },
+  {
+    "restaurantId": "4f71666b-ecb6-4963-9201-86bcc7d29c66",
+    "restaurantName": "churrascaria do biu",
+    "sourceUrl": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+    "platform": "anota_ai",
+    "reviewsCount": 142,
+    "address": "R. Carolino Cardoso, 248-328",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98752-5897",
+    "queueEntry": {
+      "restaurant_id": "4f71666b-ecb6-4963-9201-86bcc7d29c66",
+      "name": "churrascaria do biu",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+      "raw_source_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+      "other_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Churrascaria",
+      "address": "R. Carolino Cardoso, 248-328",
+      "neighborhood": "Lot. Vitorino Cardoso",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98752-5897",
+      "rating": 4.2,
+      "reviews_count": 142,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 142.",
+      "menu_last_checked_at": "2026-07-07T13:16:21.705+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+          "canonical_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 5
+    }
+  },
+  {
+    "restaurantId": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+    "restaurantName": "Route Hot Dogs",
+    "sourceUrl": "https://pedido.anota.ai/loja/route-hot-dogs",
+    "platform": "anota_ai",
+    "reviewsCount": 45,
+    "address": "Av. Mar das Antilhas",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 99878-4228",
+    "queueEntry": {
+      "restaurant_id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+      "name": "Route Hot Dogs",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+      "raw_source_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+      "other_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Hamburgueria",
+      "address": "Av. Mar das Antilhas",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99878-4228",
+      "rating": 5,
+      "reviews_count": 45,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 143.",
+      "menu_last_checked_at": "2026-07-07T13:16:45.854+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/route-hot-dogs",
+          "canonical_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 6
+    }
+  },
+  {
+    "restaurantId": "7dfea73b-b593-4acf-8bf1-71a099224008",
+    "restaurantName": "Pizza do Paulinho",
+    "sourceUrl": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+    "platform": "anota_ai",
+    "reviewsCount": 11,
+    "address": "Av. Monsenhor José da Silva Coutinho, 113",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98852-8675",
+    "queueEntry": {
+      "restaurant_id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+      "name": "Pizza do Paulinho",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+      "raw_source_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+      "other_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Pizzaria",
+      "address": "Av. Monsenhor José da Silva Coutinho, 113",
+      "neighborhood": "Vila Sao Joao",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98852-8675",
+      "rating": 5,
+      "reviews_count": 11,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 129.",
+      "menu_last_checked_at": "2026-07-07T13:17:30.213+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+          "canonical_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 7
+    }
+  },
+  {
+    "restaurantId": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+    "restaurantName": "Açaí da Hill Point",
+    "sourceUrl": "https://pedido.anota.ai/loja/aai-da-hill-point",
+    "platform": "anota_ai",
+    "reviewsCount": 9,
+    "address": "Trailer",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 2178-3682",
+    "queueEntry": {
+      "restaurant_id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+      "name": "Açaí da Hill Point",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+      "raw_source_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+      "other_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Loja de açaí",
+      "address": "Trailer",
+      "neighborhood": "Rua Mar das Antilhas",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 2178-3682",
+      "rating": 4.6,
+      "reviews_count": 9,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 143.",
+      "menu_last_checked_at": "2026-07-07T13:17:12.283+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/aai-da-hill-point",
+          "canonical_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 8
+    }
+  }
+]

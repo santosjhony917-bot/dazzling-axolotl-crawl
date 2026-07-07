@@ -1,0 +1,5 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+yellow,7,cardapioweb,Dan Pizza,https://app.cardapioweb.com/dan_pizza?s=cb,operational_options_detected,manual_codex_review_before_import,2fa16117-987d-414e-bb67-9e73fc568007
+green,7,cardapioweb,DinDin Alegria,https://app.cardapioweb.com/dindin_alegria,,quick_codex_visual_review_then_import,7a564e31-faab-4bf2-9c1a-791be4da2968
+green,7,cardapioweb,Doha Esfiharia - CG,https://app.cardapioweb.com/doha_esfiharia,,quick_codex_visual_review_then_import,d716d71f-e1c9-41da-a7de-bb32b7bc5854
+green,7,cardapioweb,Dom Brie Pizzaria,https://app.cardapioweb.com/dom_brie,,quick_codex_visual_review_then_import,a00d132c-437d-414f-8297-08b106fec9f8

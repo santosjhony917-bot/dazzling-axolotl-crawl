@@ -1,0 +1,234 @@
+# Auditoria Final Cabedelo/PB
+
+- Run: 2026-07-07T13-40-31-894Z
+- Escopo: Cabedelo/PB ativos, is_deleted=false
+- Total ativo: 206
+- Prontos: 1
+- Bloqueados: 205
+
+## Prontos
+
+- ecac91e3-52c0-4780-9867-6b3b1d096089 | I love burguer
+
+## Motivos De Bloqueio
+
+- sem cardápio estruturado: 185
+- galeria < 3 (0): 108
+- sem capa: 107
+- sem logo: 107
+- sem Instagram: 105
+- sem telefone/WhatsApp: 51
+- sem horários canônicos: 34
+- galeria sem evidência visual forte: 15
+- sem adicionais estruturados: 4
+- número vazio: 3
+- sem CEP: 3
+- menu_status=manual_required: 2
+
+## Bloqueados
+
+- 799763e1-04c1-495d-a7ea-5489a0897da8 | A Casa do Lanche | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 07f16c40-a81c-4d0a-8f71-5ef78a3be31c | A Casa do Temakinho | sem cardápio estruturado
+- 436f9cd0-dff9-44c9-b070-180629e7a50e | Acai | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 352e2216-3bb5-4742-9960-374c9ca64e13 | Açai | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 935e3614-8815-4e2e-bddf-01ac5b254832 | Açaí Araxá | sem cardápio estruturado
+- e6b82c85-d208-4590-8889-6aa3de57c7a5 | Açaí da Cris | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- cb4d3075-dcad-45a2-a348-e8de93ef15cc | Açaí da Hill Point | sem cardápio estruturado
+- e3acb420-5c76-4087-a1a7-0de39e4e3162 | Açaí do Pará Intermares | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 393e1305-e40d-4281-99c5-ebe01cc24c27 | Açaí Jacaré Beach | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 07528f63-3aed-4cf0-b1cc-81f762be4c00 | Alfa | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 9f1c7086-a96a-49c9-b537-9fb9565841fd | Ancoradouro Ponta de Campina | sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 2b235799-a9b7-4b5b-b754-6aced57e707b | Atlântico bar, cabedelo | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 8162456c-2817-4a8a-bbab-aa875c29419e | Bar das Meninas Restaurante | sem cardápio estruturado
+- 82d8aca0-64d5-4788-97c7-cf38503d2eb3 | BAR DO CHEFF RESTAURANTE | sem cardápio estruturado
+- 56b08e89-b750-4ec9-9497-21900cf3d823 | Bar E Restaurante Do Nal | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 10f71936-a4b9-4c9b-b2c4-d1c709081a93 | Bar e Restaurante do Pessoinha | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- a43626c7-89fe-497c-940e-ffeabc8475fb | Bar e Restaurante do Sumé | sem cardápio estruturado
+- 90398f02-4ae4-44a1-bd64-3f008fdca37c | Bar e Restaurante Solânense | sem cardápio estruturado
+- 41451228-761b-4912-a7f7-c4407a1010bd | Barraca Do Anão | sem telefone/WhatsApp; sem cardápio estruturado
+- 9092bbb6-9b7e-4aff-a990-7edecd6f155b | Bebel & Jó Pizzaria | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- a4f66e28-5f08-468c-b552-1c96d59744e2 | BIG BURGUER | sem horários canônicos; sem cardápio estruturado
+- 662a40d4-3612-4ca1-ad28-615646294ea8 | Big Jack comida de rua com INSPIRAÇÃO texana | sem cardápio estruturado
+- 274e26ff-b503-440c-8c30-411d9d7c361f | Big lanches camboinha | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 6315b5cf-756f-416b-b698-4b1c081c6366 | Biruta Burger | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 2e4d043d-4eae-48c9-852a-f81b7ef842f5 | Bom apetite | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 133c9168-09a2-4fbc-b42e-af5ac51d23cb | Bom Tempero Restaurante | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 3e32d9c6-3c16-47a9-912a-b3627b13088d | Bonitinha das tapiocas | sem horários canônicos; sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 68fc5124-13a8-4ec7-a2da-164074c0ea76 | Bonna Gelateria Ponta de Campina | sem telefone/WhatsApp; sem cardápio estruturado
+- 166ab094-fea7-412e-9386-d0517895dbb4 | Bras Coffee | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- f193a559-db9e-4530-be1f-889d9cd213ae | Burger Prime | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- dfb456d7-1841-474d-bb54-fd442af3e295 | Burguer Hall | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 6e248922-94fd-4138-86a0-92c7a04fcfff | cabe 1one açaí | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 3d145fe5-ceba-49ab-9b1d-50b6c19118de | Café Cabedelo | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 57a68170-1982-436a-a5b9-02366f6a999b | Café cultural | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 1d3e88fe-546d-4e89-a3e5-0ab54670cfea | Cafeteria Deus Seja Louvado | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 6b65edcc-4d44-4dd4-82c8-36291fdef22b | Caiçara Bar e Restaurante | sem cardápio estruturado
+- 98a3b276-2cfa-4c15-902a-aedb022cc215 | Caldeirão Nordestino - Caldinho e Nhoques Cabedelo | sem horários canônicos; sem cardápio estruturado
+- de5e3f48-dddc-4872-823a-71ba50fe51ab | Caldinho Prime Formosa | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- c0081954-6410-42be-9abd-96c4300b6ec5 | Cantinho Bom | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- d05af6c4-cbfa-4c6a-9d95-be4bc952d3d9 | Cantinho do açaí | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- ca0f0788-f272-4859-826e-38af8e426eef | Caribe burger | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- f5973934-5e9b-463c-9d2a-a7342c3041e5 | CASA DA PIZZA | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- fd64e520-194c-4a69-a6e7-1ea6f8213889 | Casa de Taipa | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 72606188-4454-4890-a671-a65d4d08f024 | Casa Do Pastel | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- e6fc253f-7f28-47f8-891f-df98848adda0 | Center Pizza Cabedelo | galeria sem evidência visual forte
+- 2d89c5e8-5bf4-4d1f-9720-58513e1ab377 | Chapa Quente Lanches e Refeições | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- e794929f-0b9f-43b8-a5c6-6d37a38dcb23 | Chié artesanato e comedoria | sem cardápio estruturado
+- 17948cd2-fa0d-4c8a-a785-6dfa92101d75 | China Mix e Pizzaria | sem cardápio estruturado
+- 4f71666b-ecb6-4963-9201-86bcc7d29c66 | churrascaria do biu | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 1eca2999-0514-4887-b108-dc65ae31e6b6 | Churrascaria do Caicó | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 78bc8cab-4471-43ea-b776-619a6778caaa | Churrascaria Do Gaúcho | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- acb457db-a5d7-408e-a3b5-c9cfb3caff7b | Cibelly Bar & Restaurante | sem cardápio estruturado
+- 3549abc7-3261-4ec3-af59-820112bd2358 | Cibelly Mar - Restaurante no Por do Sol do Jacaré | sem cardápio estruturado
+- a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2 | Coffee Cake Açaiteria | sem cardápio estruturado
+- 27df6fb8-c364-4b9d-be49-8ddb961464a2 | Cosmo Lanches | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- d90b585e-8b14-442e-993f-457ad253dc8f | CTG Saudade Da Querência | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 0e3f0746-de34-4715-93fc-06a1b5c10e2b | D Lay Refeições - Marmitaria | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 9b42e70d-f7a8-4db1-bc19-83d935d84b55 | D'gust Lanchonete | sem horários canônicos; sem cardápio estruturado
+- 799a8b26-d8ce-4820-b94c-d6589a8507b4 | Daniel do Açaí | sem cardápio estruturado
+- 738fac6b-80b9-4424-bfb2-3ae18488cfcb | Davi do Coco | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- ec6b2565-934c-4278-9a8a-63168eb819f2 | DAWN BURGUER | galeria sem evidência visual forte
+- a9c18317-7315-45ac-b488-831923c9fd56 | Deu Pizza Cabedelo | sem cardápio estruturado
+- 5b44780e-f9ff-4d05-a95c-4fd998039b2d | Empadinhas Barnabé - Intermares | sem cardápio estruturado
+- 62958074-8ac2-487e-9cde-9b6c018c34dc | Empório Do Sabor | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 80b5b1fc-6d5a-4b7d-ab56-f1aadcf1c403 | Erste Sonne Cervejaria Independente | sem cardápio estruturado
+- 0ca69331-2d1e-48f9-8401-dffb785df697 | ESFIELDS | sem cardápio estruturado
+- 3efd7101-b736-4135-9e5e-9787a854ec0e | Espaço Do Sushi | galeria sem evidência visual forte
+- 19adbb1c-6894-4306-8468-d84cba24eed6 | Espetinh | sem horários canônicos; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 8fb49605-7614-4c27-9a31-406de6240e2d | Espetinho da Praça | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- f90edcb3-31a7-4922-9bdd-930817bba3c9 | Espetinho da praia Intermares | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- ee3d9e13-53b5-4288-a5e0-e2b421049135 | Espetinho do xandao | sem cardápio estruturado
+- 7c7122af-3461-4317-853e-634eaadcc895 | Espetinho lá Brasil | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 725b6497-4be9-4426-a2c0-dd3b55ff7956 | Espetinho Pé na Areia | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 4e7acf35-2f23-41de-89f6-1a98cf6e0b4b | Espetinho São Paulo | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 13cacb5e-52f2-4d8c-80ed-26c53a847ea9 | Esquina do galeto | sem CEP; sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 0a91fc09-ad7d-4141-8d4d-82a732b61565 | Ethic Alimentos | sem cardápio estruturado
+- 0f02c321-43d9-480f-be67-bc650e00d0d2 | Eu Quero Burguer | sem cardápio estruturado
+- 8bae41e4-1365-4def-9857-34e4abdbf329 | Eu Quero Pizza | número vazio
+- 68fed341-d74c-4c02-806c-a217e74b7d2f | Fatia do Céu | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- a62661ec-86ed-4ed2-8144-f105736312ad | food service | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 0b4eb55c-e0d9-4068-b198-e5f8cb7a985e | Forneria Brasil Express 🍕 | sem CEP; galeria < 3 (0); menu_status=manual_required
+- 4afb52ad-1fa0-493f-be6c-8275d6664324 | Galeteria D'intermares | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- b70edc4d-f352-4cc1-9680-4f5d6cd5c773 | gat mal ponta de campina | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 0076b4c5-2d07-416e-a1ac-3ed9e83e02e5 | Gigante Do Mar Beach | sem cardápio estruturado
+- 970fe52c-b7f8-46bf-a594-93b443b6d3e5 | Guaiamum & Cia - Cabedelo PB | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 49423823-d994-4263-9597-cb829e208129 | Home Smash Burger | galeria sem evidência visual forte
+- 67b9591e-9ba2-4db0-b81f-4cd2d45d03ad | Hora Da Pizza | sem cardápio estruturado
+- 76a39b5d-8130-4119-a4a5-87e8ea3020b8 | Ilha Dourada Restaurante | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 8322d0f6-8e08-4de7-a73f-d71c57f0291d | Ilovepizzapb | número vazio
+- fa5d1264-03c0-491d-a52a-4bad168948b0 | JKZ Alimentos (AÇAÍto) | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 6a2fdb0c-b4ce-4085-9d59-b1240d59009a | JL Bolos | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- e744a813-7f24-4f4c-a422-d54e2c0ab2ff | Juci | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 126faaa4-8af5-417d-84d9-b75c2084be8e | JuJuba sorvete e açaí | sem cardápio estruturado
+- 133ad582-46f6-4334-a2b7-34ecd3c5287b | Kikão Cachorro Quente | sem cardápio estruturado
+- 667aba33-ec9a-46e2-a5a9-9730071371c3 | Kioske Cantinho do Sabor | sem horários canônicos; sem cardápio estruturado
+- 98e8a6d7-3943-47e6-8b2c-491972c7e4f1 | KIOSQUE CANTINHO DA PRAÇA | sem horários canônicos; sem telefone/WhatsApp; sem cardápio estruturado
+- 55d451bc-f6ee-40f5-b611-7ef6158392d5 | Kubanacan Bar e Restaurante | sem cardápio estruturado
+- 1c95b48d-3189-4496-8e70-4e9167967964 | La casa de pastel e La Pizza Premium | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 28b2ef44-31b3-47b1-bd94-5c69a5a42f17 | Lanchonete e Pizzaria Popular | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- e9ce78de-b4a7-4532-a778-a7807dc0dabe | Lanchonete por do sol | sem telefone/WhatsApp; sem cardápio estruturado
+- c23b0422-4e34-43be-b07e-6a494804f6fc | Lary's pizzaria e lanchonete | 
+- 9488d27a-7737-4c86-b059-0e16a6fb049d | Lovina Ponta de Campina | Bar | Restaurante em Cabedelo | sem cardápio estruturado
+- 80b5f0be-adea-4b91-8b8e-ee162f79f973 | M E Refeição | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- b6baa6f0-a148-49d2-830d-ea22a28cfeae | Magela Pizzaria | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 17c67464-7f14-4f6a-b07c-855f9c9a4593 | Manguinhos Burguer | galeria sem evidência visual forte
+- 9007523d-76dc-4621-a738-134d99dfddd1 | Manos Burger Cabedelo | sem cardápio estruturado
+- c73bb2a7-5e2a-4f2e-8334-daaea6b12b84 | Mão Branca bar e resturante | sem cardápio estruturado
+- 1a2bf81d-2228-463f-ab7a-0dbf5ee3d27c | Marcos Lanches | sem cardápio estruturado
+- 04f7bdf2-230d-4224-99d5-aea50cefc56f | Mary Refeições | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 4ddf6e22-ced9-47e4-b213-c378d233f04d | MB Marmitas | Marmitaria em João Pessoa | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- b800fc7b-5bbe-44e1-b964-f96e36d4700a | Me gusta Açaí | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- f917b01d-4f06-48a7-9bba-fcb85f0201c7 | Mega Pizza | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 538d1975-cdfa-4c9f-97f6-ddee94efc67b | Meio Quilo | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 6e825bdf-c07e-4b4c-ab3e-98d7fe713928 | Melhor Sabor - Churrascaria e Self-Service | sem cardápio estruturado
+- c7306a7c-c69a-413e-b196-29a7847f29c7 | Messe Cafeteria | sem horários canônicos; sem telefone/WhatsApp; sem cardápio estruturado
+- 51776391-e0c6-4348-a640-b35b4fb34bb2 | Mimu's da Geisi confeitaria | sem cardápio estruturado
+- b95fcf06-a8e5-43ff-b86f-7770d2759908 | Mirante Lounge | sem telefone/WhatsApp; sem cardápio estruturado
+- 7ea72c68-7a72-41e1-89e4-ecabaf00d859 | ML Açaíteria | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- ea0bb6d3-17df-4665-b715-32054f497d99 | Na brasa hambúrgueria | sem horários canônicos; sem cardápio estruturado
+- 9c83d3fb-60df-4b9a-8687-05e889cfef48 | Nena Doceria & Salgaderia | sem cardápio estruturado
+- 9aad8169-49b0-4726-9924-14ec8b6f9d38 | Nossa Pizza | sem horários canônicos; sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 775e0a86-b7d6-48a7-a84b-619164add8f9 | Numar Bar e Restaurante | sem cardápio estruturado
+- bd7494af-1c04-49da-973a-f9de6dafe780 | NutriFit Marmita Fitness Congeladas | sem cardápio estruturado
+- 65ebdb63-241a-4831-8015-09a936d25b61 | Obra Fest Verão | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 17a6f6c2-9f28-453f-a22d-71e7abd3dcfd | Oliver Grill e Espetos | sem telefone/WhatsApp; sem cardápio estruturado
+- 297a6b03-242d-4d91-9f64-73e736972946 | Oxi Burguer Cabedelo | galeria sem evidência visual forte
+- 69139ad6-c662-4fd6-b67f-aefef25c5923 | PARCEIRO Rosa Lanches | galeria sem evidência visual forte
+- 58f3eb00-556c-496a-abee-790e691903ce | Pastel do Thiago | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 98181d40-599b-4cb9-89c9-d65dca257d97 | Pastelão da BR | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 8d326630-6c57-4b8f-996f-f2a71d56c9a4 | Pastelaria Arretada | sem cardápio estruturado
+- 4990a612-f3ae-4ca1-959b-694fc7d59b9e | Pastelaria em família | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 4fa980c0-13d2-415f-97a6-e31fd3141133 | Pastelaria Litorânea | galeria sem evidência visual forte
+- 0ea2219a-fb1e-47e2-9e40-7da6a335dbd6 | Pastelle (Pastelaria artesanal) | sem cardápio estruturado
+- e078124e-e310-47b9-aa46-38ea0c3b8bf1 | PAULISTA BURGER | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 60d131e5-d7fb-4aa2-b3b0-83af50747ff2 | Pipa Sushi & Temakeria | sem Instagram; sem logo; sem capa; galeria < 3 (0); menu_status=manual_required
+- d03f3aca-7cdf-4227-b701-fd1a439be3c5 | Piratas Burger | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 7dfea73b-b593-4acf-8bf1-71a099224008 | Pizza do Paulinho | sem cardápio estruturado
+- 35c95d02-3a7b-480d-8061-b276ee281fca | Pizza Família Cipriano | sem cardápio estruturado
+- ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1 | Pizza Now - Intermares | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 6e42a0fb-9793-4d47-9a12-c5c5a6df86d6 | Pizzaria 1000Graus | sem horários canônicos; sem cardápio estruturado
+- a84400f3-afea-406e-a1ec-93c1b6e8d34f | Pizzaria Bom Sabor | galeria sem evidência visual forte
+- eae14867-4b70-4fb0-93eb-303b35931ab3 | Pizzaria Bom Sabor Camboinha | sem cardápio estruturado
+- e88b7772-a307-4cca-a7b8-e3c7f6502788 | Pizzaria Jacaré | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- d6f9c697-1969-49b6-8f3e-737b9f74ea23 | Pizzaria NEVARE | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 0160d19f-be11-446b-a6c5-5048889fff57 | Pizzaria nock_nhock | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- f598d9b8-6875-4bca-92c3-a7675f4775ac | Pizzaria tá no ponto | sem horários canônicos; sem cardápio estruturado
+- 2ef9ccde-0e20-4108-a8ac-874108b3c16b | Porto do açaí | sem adicionais estruturados; galeria sem evidência visual forte
+- afa4d143-2996-418e-af22-d839e60b546a | Porto do Café | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- a0f83830-77b8-4f8f-850d-be06b6658efb | Praçaí - Intermares | sem cardápio estruturado
+- 1653a7ff-cb75-4303-b780-0580642c5974 | Primo Rico | galeria sem evidência visual forte
+- 4a19815d-0292-4285-bf3a-25df89ef2bf6 | Queens do Açaí | sem cardápio estruturado
+- 27f1b5b7-56c6-49dd-80b5-4273a1dc3761 | Rainha da tapioca | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 47118179-91f8-4cd7-a84d-f015a7d6033f | Ravellas - Food Truck | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- b91f652e-112d-4dcf-921c-4df6c2d1700f | Recanto do Pastel | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 0a3b0f9a-629f-41ff-b213-eeb69d825dc2 | Renapizza | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487 | Residência do Mário | sem cardápio estruturado
+- fee9720d-1e25-487a-9a73-df9e407e73a6 | Restaurante | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- e3c86dc8-4ac8-4ae0-84f9-83e6167d3570 | Restaurante da Helena | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 37ab4f58-d719-4d80-a795-591129dcd723 | RESTAURANTE DA WILMA | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 2ebf5453-9be4-469d-afd8-be3ac7833f00 | Restaurante e pizzaria chapa quente | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 637f341e-c8bb-4c2d-8ac6-1ffc96d4b2ce | Restaurante mar de amor | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 59147bb0-0a1d-4493-a05a-ba54bd8cd26c | Restaurante Ondas | sem cardápio estruturado
+- eeb4213a-a5a1-4286-a33f-b6fea80cb891 | Restaurante Pôr do Sol | sem adicionais estruturados; galeria sem evidência visual forte
+- 5824ab85-d0ca-4987-aa50-aa45faa631ad | Restaurante Recanto do Picuí Intermares | sem cardápio estruturado
+- e445b317-ad12-4b4f-ab07-1289037cd322 | Restaurante Self Sabor | sem telefone/WhatsApp; sem cardápio estruturado
+- a108a394-1cb3-478b-a857-2d6770d853c4 | Rodizio de caldo do carioca | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 0f0b83e3-c399-4f1a-89d6-34cf485b2608 | Rope Espetos | sem cardápio estruturado
+- dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869 | Route Hot Dogs | sem cardápio estruturado
+- 90afab4e-44eb-4068-8c16-09dc29a585c8 | Rua São Miguel 159 | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 743c1d75-28df-42ef-ba44-663a736f9783 | Sabor da infância no pôr do sol | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 6a5072b1-12a8-4613-be77-4d8f4f47ab48 | Sakê Temakeria Ponta de Campina, Cabedelo | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- dce45040-f5ad-45a1-9029-04e65ce13e78 | Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB | sem telefone/WhatsApp; sem cardápio estruturado
+- 26330241-3dbd-449f-ac54-9b789abc4a01 | Self service da GG | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- a9904835-65ca-4efd-9caf-c8c7354f9ee5 | Self-service da nany | sem cardápio estruturado
+- a6bf4269-0471-4d9f-b207-0adfc6308285 | Seu Jerônimo | sem horários canônicos; sem cardápio estruturado
+- 4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2 | Skama Bar e Restaurante | sem cardápio estruturado
+- 646b1437-0afa-4aef-b8e4-7a83bce3f43f | Sol e mar restaurante e self service | sem cardápio estruturado
+- da4479b5-3306-409a-808e-b65982c120f8 | Sonne Haus Hambúrgueria | sem cardápio estruturado
+- 4fbc3698-a161-4c24-b3ff-4ed4a22e2b41 | Sorv&cia | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 9aed5c42-1ab1-47f0-9010-788da722a399 | Sorveteria Frutos de Goiás - Cabedelo | galeria sem evidência visual forte
+- 7c405790-3fe5-455d-9a65-8d12b2236e50 | Sorveteria glacial | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 9acd9efa-a669-453b-a548-2387fa2e7612 | Sorveteria Tropical | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- e593d18c-792e-4c38-b9c4-4b34d62f7aa6 | South Beach | Açaí, Sorveteria e Cremes | sem CEP; sem cardápio estruturado
+- 0aab67a1-5843-4fe8-933a-45b0f8a67321 | Sport Marina | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 2ed733a0-a4c7-4bb4-b280-21d7752c0409 | Sushiyaki Restaurante | sem adicionais estruturados; galeria sem evidência visual forte
+- b75a8384-f80f-4a6b-a230-d363cea67597 | Tapioca Sabor Natural | sem horários canônicos; sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 3a22854f-4f10-4a9c-9bdc-cd40abef570e | Tapiocaria da Edna Paraiba | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- b37d1742-e516-4b41-9c93-8d64ef33f9c2 | Tapiocaria da moça | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 2386896b-b1f2-4d3a-9a12-edb93d96a24f | Tapiocaria da zeti | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- fbf76b65-220f-4ae7-89fc-fec690985eda | Tapiocaria do Dinho | sem cardápio estruturado
+- cec28f47-fb35-4c1b-af88-4af762996479 | TCF - The Cheeseburguer Factory - Unidade Cabedelo | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 63e642dd-ed66-42a7-ae08-d395f8110b6d | Tempero De Casa | sem cardápio estruturado
+- d7d014d6-8d90-440c-a2ab-caee3b86bb0d | Tenda Formosa Bar & Restaurante | sem cardápio estruturado
+- 942e480f-7b67-4aae-9967-e795bdf7502d | Therê Açaí e Sorvete | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 42a3fb16-037e-4824-9f83-b62fee3b8407 | Tia Graça Cafeteria e Doceria | sem telefone/WhatsApp; sem cardápio estruturado
+- d8c6249e-fab7-4e9b-a189-861ea7d8d40a | Toca da Árvore | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- e4463ab8-c32d-4e3e-aa0c-b93e2a9f7015 | Triniity Burguer | sem Instagram; sem telefone/WhatsApp; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 5ba77eda-968b-407b-aaa9-4c6d641e66cb | Tropical Burgz | sem telefone/WhatsApp; sem cardápio estruturado
+- 9caafb45-c961-481d-8261-0aea2b1e4eec | Valéria Lanches Delivery | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 63b2f87b-0602-47f2-85ac-a7a3ab040621 | Vanda da coxinha cabedelo PB | sem cardápio estruturado
+- 74a5c779-4ae7-4e7f-a91f-372783779162 | Varanda da pizza Delivery | sem Instagram; sem logo; sem capa; galeria < 3 (0); sem cardápio estruturado
+- 0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd | Viciados em Sushi | sem cardápio estruturado
+- 9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e | Villa Porto | sem cardápio estruturado
+- a123251e-ae13-4a7a-8725-a54b3bdd2d66 | VITAMINA DE AÇAÍ | sem adicionais estruturados; número vazio; galeria sem evidência visual forte
+- e20c7fe6-1563-45fc-9a60-96d75acdaa2b | Zhu Burguer | sem cardápio estruturado

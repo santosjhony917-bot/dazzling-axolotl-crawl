@@ -1,0 +1,4477 @@
+{
+  "success": true,
+  "sourceUrl": "https://meucarrinho.delivery/portodoacai",
+  "finalUrl": "https://meucarrinho.delivery/portodoacai",
+  "platform": "meucarrinho_native_api",
+  "extractionLevel": 0,
+  "confidence": 0.98,
+  "categories": [
+    {
+      "external_id": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "name": "ACAI",
+      "order_index": 1,
+      "items": [
+        {
+          "external_id": "be079b87-2c5c-4550-b59b-641503ceaa8e",
+          "name": "ACAI M (ACAI TRADICIONAL)",
+          "description": "Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-be079b87-2c5c-4550-b59b-641503ceaa8e_069ba222-8bd0-4bcb-9735-5c1ad6055d1c.png",
+          "price": 18,
+          "price_min": 18,
+          "price_max": 18,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "be079b87-2c5c-4550-b59b-641503ceaa8e",
+            "code": "4",
+            "ean": null,
+            "priority": 1,
+            "name": "ACAI M (ACAI TRADICIONAL)",
+            "description": "Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas.",
+            "price": 18,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "128e5d98-e2d5-422f-8125-758f8a10b2b0",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI M (ACAI TRADICIONAL)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-be079b87-2c5c-4550-b59b-641503ceaa8e_069ba222-8bd0-4bcb-9735-5c1ad6055d1c.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "a8c2f1a9-0e71-4487-84e8-d60b91913b17",
+          "name": "ACAI G (TRADICIONAL)",
+          "description": "Escolha ate tres opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a8c2f1a9-0e71-4487-84e8-d60b91913b17_8e61f416-9f3c-4901-a9f1-9a7e16b217fa.png",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "a8c2f1a9-0e71-4487-84e8-d60b91913b17",
+            "code": "5",
+            "ean": null,
+            "priority": 2,
+            "name": "ACAI G (TRADICIONAL)",
+            "description": "Escolha ate tres opcoes de frutas.",
+            "price": 25,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "cd7a9167-85fc-4503-a20a-754539a985dd",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI G (TRADICIONAL)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a8c2f1a9-0e71-4487-84e8-d60b91913b17_8e61f416-9f3c-4901-a9f1-9a7e16b217fa.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "956bdd65-290f-4e20-94d6-d9dcdf3247f5",
+          "name": "ACAI P (Acai com Creme de Ninho)",
+          "description": "Acai cremoso com uma opcao de fruta.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-956bdd65-290f-4e20-94d6-d9dcdf3247f5_6488bd0a-c5e0-4c3c-95c0-a72fc06d812d.png",
+          "price": 16,
+          "price_min": 16,
+          "price_max": 16,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "956bdd65-290f-4e20-94d6-d9dcdf3247f5",
+            "code": "6",
+            "ean": null,
+            "priority": 3,
+            "name": "ACAI P (Acai com Creme de Ninho)",
+            "description": "Acai cremoso com uma opcao de fruta.",
+            "price": 16,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "c09662ab-a9b9-439d-9570-0058767cb6c0",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI P (Acai com Creme de Ninho)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-956bdd65-290f-4e20-94d6-d9dcdf3247f5_6488bd0a-c5e0-4c3c-95c0-a72fc06d812d.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        },
+        {
+          "external_id": "04860d22-4fda-4c1a-b869-9692d4c24046",
+          "name": "ACAI M (Acai com Creme de Ninho)",
+          "description": "Acai cremoso, escolha ate duas opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-04860d22-4fda-4c1a-b869-9692d4c24046_07615423-9d67-450c-9766-9862415446a9.png",
+          "price": 18,
+          "price_min": 18,
+          "price_max": 18,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "04860d22-4fda-4c1a-b869-9692d4c24046",
+            "code": "7",
+            "ean": null,
+            "priority": 4,
+            "name": "ACAI M (Acai com Creme de Ninho)",
+            "description": "Acai cremoso, escolha ate duas opcoes de frutas.",
+            "price": 18,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "d4e738df-b3fb-4668-85c2-5215c8c06512",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI M (Acai com Creme de Ninho)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-04860d22-4fda-4c1a-b869-9692d4c24046_07615423-9d67-450c-9766-9862415446a9.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 4
+        },
+        {
+          "external_id": "5e83213e-a1d3-4ca0-bdfd-86b29533937f",
+          "name": "ACAI G (Acai com Creme de Ninho)",
+          "description": "Acai cremoso, tres opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-5e83213e-a1d3-4ca0-bdfd-86b29533937f_f32397e1-2045-42be-8f59-401e7d3fc3c1.png",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "5e83213e-a1d3-4ca0-bdfd-86b29533937f",
+            "code": "8",
+            "ean": null,
+            "priority": 5,
+            "name": "ACAI G (Acai com Creme de Ninho)",
+            "description": "Acai cremoso, tres opcoes de frutas.",
+            "price": 25,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "54378d0c-e0ec-46c2-80b0-0adb674c5095",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI G (Acai com Creme de Ninho)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-5e83213e-a1d3-4ca0-bdfd-86b29533937f_f32397e1-2045-42be-8f59-401e7d3fc3c1.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 5
+        },
+        {
+          "external_id": "c8b7c6f4-62bf-4c20-8fcb-3561b307b57b",
+          "name": "ACAI P (Acai com Cupuacu)",
+          "description": "Acai com Cupuacu cremoso, escolha uma opcao de fruta.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-c8b7c6f4-62bf-4c20-8fcb-3561b307b57b_8fad64eb-1ac9-4eb5-8555-412a0006ce82.png",
+          "price": 16,
+          "price_min": 16,
+          "price_max": 16,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "c8b7c6f4-62bf-4c20-8fcb-3561b307b57b",
+            "code": "9",
+            "ean": null,
+            "priority": 6,
+            "name": "ACAI P (Acai com Cupuacu)",
+            "description": "Acai com Cupuacu cremoso, escolha uma opcao de fruta.",
+            "price": 16,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "47882ce8-c22a-4158-a3da-8bdab8d39591",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI P (Acai com Cupuacu)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c8b7c6f4-62bf-4c20-8fcb-3561b307b57b_8fad64eb-1ac9-4eb5-8555-412a0006ce82.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 6
+        },
+        {
+          "external_id": "f5311252-d8bb-43eb-b8fb-d0354af009b9",
+          "name": "ACAI M (Acai com Cupuacu)",
+          "description": "Gelatto de cupuacu cremoso e saboroso, escolha duas opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-f5311252-d8bb-43eb-b8fb-d0354af009b9_a140b451-e69c-4565-b1ab-9f47dd7c30ad.png",
+          "price": 18,
+          "price_min": 18,
+          "price_max": 18,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "f5311252-d8bb-43eb-b8fb-d0354af009b9",
+            "code": "10",
+            "ean": null,
+            "priority": 7,
+            "name": "ACAI M (Acai com Cupuacu)",
+            "description": "Gelatto de cupuacu cremoso e saboroso, escolha duas opcoes de frutas.",
+            "price": 18,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "bf569079-c6a9-4032-b349-5b238be3f178",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI M (Acai com Cupuacu)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-f5311252-d8bb-43eb-b8fb-d0354af009b9_a140b451-e69c-4565-b1ab-9f47dd7c30ad.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 7
+        },
+        {
+          "external_id": "e8406d46-8655-4419-85f9-47e48c0f3463",
+          "name": "ACAI G (Acai com Cupuacu)",
+          "description": "Acai cremoso, escolha tres opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-e8406d46-8655-4419-85f9-47e48c0f3463_36ba5987-a145-47b1-a785-f66ae10b0b55.png",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "e8406d46-8655-4419-85f9-47e48c0f3463",
+            "code": "11",
+            "ean": null,
+            "priority": 8,
+            "name": "ACAI G (Acai com Cupuacu)",
+            "description": "Acai cremoso, escolha tres opcoes de frutas.",
+            "price": 25,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "803e5b5d-6eb7-4a78-93b5-a7de45e4309f",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI G (Acai com Cupuacu)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-e8406d46-8655-4419-85f9-47e48c0f3463_36ba5987-a145-47b1-a785-f66ae10b0b55.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 8
+        },
+        {
+          "external_id": "48ca7bf5-08f7-4f34-b7de-b9d7dd7d66de",
+          "name": "ACAI P (TRADICIONAL)",
+          "description": "Acai cremoso e delicioso que ira encantar seu paladar, com uma opcao de fruta.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-48ca7bf5-08f7-4f34-b7de-b9d7dd7d66de_eed6e046-2a0d-41a1-88a5-7b8f83425e6f.png",
+          "price": 16,
+          "price_min": 16,
+          "price_max": 16,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+            "id": "48ca7bf5-08f7-4f34-b7de-b9d7dd7d66de",
+            "code": "3",
+            "ean": null,
+            "priority": 9,
+            "name": "ACAI P (TRADICIONAL)",
+            "description": "Acai cremoso e delicioso que ira encantar seu paladar, com uma opcao de fruta.",
+            "price": 16,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "ce08e02b-e0a7-4cee-bb82-ffacd077343e",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "ACAI P (TRADICIONAL)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-48ca7bf5-08f7-4f34-b7de-b9d7dd7d66de_eed6e046-2a0d-41a1-88a5-7b8f83425e6f.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 9
+        }
+      ]
+    },
+    {
+      "external_id": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+      "name": "GELATTOS",
+      "order_index": 2,
+      "items": [
+        {
+          "external_id": "c8f330ce-3f4a-4c67-9951-c9b7461cc628",
+          "name": "GELATTO G (Creme de Ninho)",
+          "description": "Cremoso, doce e irresistivel, tres opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-c8f330ce-3f4a-4c67-9951-c9b7461cc628_3c931147-e22e-457f-80c9-7dd6a2b7f7ee.png",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+            "id": "c8f330ce-3f4a-4c67-9951-c9b7461cc628",
+            "code": "13",
+            "ean": null,
+            "priority": 1,
+            "name": "GELATTO G (Creme de Ninho)",
+            "description": "Cremoso, doce e irresistivel, tres opcoes de frutas.",
+            "price": 25,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "617e592f-03e4-46e7-bc04-7f9e3a8e6869",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "GELATTO G (Creme de Ninho)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c8f330ce-3f4a-4c67-9951-c9b7461cc628_3c931147-e22e-457f-80c9-7dd6a2b7f7ee.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "1f332bd8-4a3d-4597-a327-a690e264cb6e",
+          "name": "GELATTO P (Creme de Ninho)",
+          "description": "Cremoso, doce e irresistivel, uma opcao de fruta.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-1f332bd8-4a3d-4597-a327-a690e264cb6e_6702b93d-014e-4af6-90e9-e29817453d84.png",
+          "price": 16,
+          "price_min": 16,
+          "price_max": 16,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+            "id": "1f332bd8-4a3d-4597-a327-a690e264cb6e",
+            "code": "17",
+            "ean": null,
+            "priority": 2,
+            "name": "GELATTO P (Creme de Ninho)",
+            "description": "Cremoso, doce e irresistivel, uma opcao de fruta.",
+            "price": 16,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "cabb8ae6-84bd-4d98-8fcb-593559a8d1fa",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "GELATTO P (Creme de Ninho)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-1f332bd8-4a3d-4597-a327-a690e264cb6e_6702b93d-014e-4af6-90e9-e29817453d84.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "a0cffdd7-04e7-459f-a84c-4e6938663451",
+          "name": "GELATTO P (Creme de Cupuacu)",
+          "description": "Gelatto de cupuacu cremoso, uma opcao de fruta.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a0cffdd7-04e7-459f-a84c-4e6938663451_b4c62d35-a4a1-47af-a110-e39837345595.png",
+          "price": 16,
+          "price_min": 16,
+          "price_max": 16,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+            "id": "a0cffdd7-04e7-459f-a84c-4e6938663451",
+            "code": "16",
+            "ean": null,
+            "priority": 3,
+            "name": "GELATTO P (Creme de Cupuacu)",
+            "description": "Gelatto de cupuacu cremoso, uma opcao de fruta.",
+            "price": 16,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "26f316ef-dc67-4358-9730-df4494d81a8f",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "GELATTO P (Creme de Cupuacu)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a0cffdd7-04e7-459f-a84c-4e6938663451_b4c62d35-a4a1-47af-a110-e39837345595.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        },
+        {
+          "external_id": "eb692b62-ab17-48f3-bade-b1496b9a8f40",
+          "name": "GELATTO M (CUPUACU)",
+          "description": "Gelatto de Cupuacu Cremoso com Duas Opcoes de Frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-eb692b62-ab17-48f3-bade-b1496b9a8f40_2ada8724-f3f3-49e3-b365-603b1fc0eeec.png",
+          "price": 18,
+          "price_min": 18,
+          "price_max": 18,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+            "id": "eb692b62-ab17-48f3-bade-b1496b9a8f40",
+            "code": "15",
+            "ean": null,
+            "priority": 4,
+            "name": "GELATTO M (CUPUACU)",
+            "description": "Gelatto de Cupuacu Cremoso com Duas Opcoes de Frutas.",
+            "price": 18,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "b9a64c8a-496d-41c8-9f11-3591a007c657",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "GELATTO M (CUPUACU)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-eb692b62-ab17-48f3-bade-b1496b9a8f40_2ada8724-f3f3-49e3-b365-603b1fc0eeec.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 4
+        },
+        {
+          "external_id": "e07e4560-3c98-463f-b6b2-14df2d6ebde0",
+          "name": "GELATTO M (Creme de Ninho)",
+          "description": "Gelatto de ninho cremoso, com duas opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-e07e4560-3c98-463f-b6b2-14df2d6ebde0_1896cd2d-ed17-4a77-ad88-fde2bad3335f.png",
+          "price": 18,
+          "price_min": 18,
+          "price_max": 18,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+            "id": "e07e4560-3c98-463f-b6b2-14df2d6ebde0",
+            "code": "14",
+            "ean": null,
+            "priority": 5,
+            "name": "GELATTO M (Creme de Ninho)",
+            "description": "Gelatto de ninho cremoso, com duas opcoes de frutas.",
+            "price": 18,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "9699819b-97e6-49b4-93fd-4fdd5e0261ca",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "GELATTO M (Creme de Ninho)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-e07e4560-3c98-463f-b6b2-14df2d6ebde0_1896cd2d-ed17-4a77-ad88-fde2bad3335f.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 5
+        },
+        {
+          "external_id": "b817765b-cce1-4c14-90cf-e4c59e582bfc",
+          "name": "GELATTO G (Creme de Cupuacu)",
+          "description": "Gelatto de cupuacu cremoso, tres opcoes de frutas.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-b817765b-cce1-4c14-90cf-e4c59e582bfc_1e57b785-2d1e-453a-ab25-53be2a832532.png",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+            "id": "b817765b-cce1-4c14-90cf-e4c59e582bfc",
+            "code": "12",
+            "ean": null,
+            "priority": 6,
+            "name": "GELATTO G (Creme de Cupuacu)",
+            "description": "Gelatto de cupuacu cremoso, tres opcoes de frutas.",
+            "price": 25,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "8ff45f77-a1e5-4615-b235-edec605eac16",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "GELATTO G (Creme de Cupuacu)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-b817765b-cce1-4c14-90cf-e4c59e582bfc_1e57b785-2d1e-453a-ab25-53be2a832532.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 6
+        }
+      ]
+    },
+    {
+      "external_id": "7d58ea3c-b59a-4e12-bac0-a7f78feea2e6",
+      "name": "REFEICOES PRONTAS",
+      "order_index": 3,
+      "items": [
+        {
+          "external_id": "64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975",
+          "name": "Raiz do sertao",
+          "description": "Creme de Macaxeira com Carne de Sol e Queijo Coalho 370g",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975_b26bb366-aa21-46b2-8ffb-7e83b4829716.png",
+          "price": 15,
+          "price_min": 15,
+          "price_max": 15,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "7d58ea3c-b59a-4e12-bac0-a7f78feea2e6",
+            "id": "64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975",
+            "code": "18",
+            "ean": null,
+            "priority": 1,
+            "name": "Raiz do sertao",
+            "description": "Creme de Macaxeira com Carne de Sol e Queijo Coalho 370g",
+            "price": 15,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "5bacbe5a-f9e7-45fc-9311-3d6079f57ba6",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Raiz do sertao",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975_b26bb366-aa21-46b2-8ffb-7e83b4829716.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        }
+      ]
+    },
+    {
+      "external_id": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "name": "SALGADOS",
+      "order_index": 4,
+      "items": [
+        {
+          "external_id": "a5ad11c6-f1b4-4612-b01f-38082c3ce724",
+          "name": "COMBO COXINHA E GUARANÁ ANTARTICA",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a5ad11c6-f1b4-4612-b01f-38082c3ce724_30ef40c0-fb21-4162-a99d-9d3b9c7c17ca.png",
+          "price": 13,
+          "price_min": 13,
+          "price_max": 13,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "a5ad11c6-f1b4-4612-b01f-38082c3ce724",
+            "code": "65",
+            "ean": null,
+            "priority": 1,
+            "name": "COMBO COXINHA E GUARANÁ ANTARTICA",
+            "description": "",
+            "price": 13,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "2e9468e0-8d27-4cac-8e68-6d24bc92b34d",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "COMBO COXINHA E GUARANÁ ANTARTICA",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a5ad11c6-f1b4-4612-b01f-38082c3ce724_30ef40c0-fb21-4162-a99d-9d3b9c7c17ca.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "c5eb433e-3994-4739-887f-4183c77b9d77",
+          "name": "Pastel de Forno de Carne de Sol",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-c5eb433e-3994-4739-887f-4183c77b9d77_49bbb6ef-849e-4e3f-ae7a-bffcbbf834b7.png",
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "c5eb433e-3994-4739-887f-4183c77b9d77",
+            "code": "26",
+            "ean": null,
+            "priority": 2,
+            "name": "Pastel de Forno de Carne de Sol",
+            "description": "",
+            "price": 8,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "23af3713-80dc-43ec-9026-167cd2139042",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Pastel de Forno de Carne de Sol",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c5eb433e-3994-4739-887f-4183c77b9d77_49bbb6ef-849e-4e3f-ae7a-bffcbbf834b7.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "bc30aaec-fcae-4dba-a09c-f72eebd96494",
+          "name": "Pastel de Forno de Frango",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-bc30aaec-fcae-4dba-a09c-f72eebd96494_7e206f68-4507-4c6b-8e57-f3efb1edcad0.png",
+          "price": 7,
+          "price_min": 7,
+          "price_max": 7,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "bc30aaec-fcae-4dba-a09c-f72eebd96494",
+            "code": "25",
+            "ean": null,
+            "priority": 3,
+            "name": "Pastel de Forno de Frango",
+            "description": "",
+            "price": 7,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "5b8c1d4c-4b27-49b4-8ec4-e0a95a38d98f",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Pastel de Forno de Frango",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-bc30aaec-fcae-4dba-a09c-f72eebd96494_7e206f68-4507-4c6b-8e57-f3efb1edcad0.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        },
+        {
+          "external_id": "4b19abbb-39a2-4964-a7bd-8fc801e11604",
+          "name": "Empada de Frango",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-4b19abbb-39a2-4964-a7bd-8fc801e11604_e5ff41b0-adff-4a2d-ba51-45f68b15a12a.png",
+          "price": 7,
+          "price_min": 7,
+          "price_max": 7,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "4b19abbb-39a2-4964-a7bd-8fc801e11604",
+            "code": "23",
+            "ean": null,
+            "priority": 4,
+            "name": "Empada de Frango",
+            "description": "",
+            "price": 7,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "8deb012f-827f-40da-896d-a61357e105de",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Empada de Frango",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-4b19abbb-39a2-4964-a7bd-8fc801e11604_e5ff41b0-adff-4a2d-ba51-45f68b15a12a.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 4
+        },
+        {
+          "external_id": "a9d58685-42a4-4a33-8e45-77d3d570c9d9",
+          "name": "Coxinha",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a9d58685-42a4-4a33-8e45-77d3d570c9d9_86438a5d-4eaa-4fda-aeeb-4e0fe62be586.png",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "a9d58685-42a4-4a33-8e45-77d3d570c9d9",
+            "code": "19",
+            "ean": null,
+            "priority": 5,
+            "name": "Coxinha",
+            "description": "",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "90430693-7025-4830-b224-9237312ee9e2",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Coxinha",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a9d58685-42a4-4a33-8e45-77d3d570c9d9_86438a5d-4eaa-4fda-aeeb-4e0fe62be586.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 5
+        },
+        {
+          "external_id": "350957d6-64a5-4a54-8563-bd180f9d08da",
+          "name": "Enroladinho",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-350957d6-64a5-4a54-8563-bd180f9d08da_eec44af1-b8aa-47ed-9cc6-2b220e455e48.png",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "350957d6-64a5-4a54-8563-bd180f9d08da",
+            "code": "20",
+            "ean": null,
+            "priority": 6,
+            "name": "Enroladinho",
+            "description": "",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "94b3d562-ac23-49da-9b4d-6aea05e7c7be",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Enroladinho",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-350957d6-64a5-4a54-8563-bd180f9d08da_eec44af1-b8aa-47ed-9cc6-2b220e455e48.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 6
+        },
+        {
+          "external_id": "8b49d913-1a71-49b0-afb4-97c17a3395c1",
+          "name": "Pao delicia",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-8b49d913-1a71-49b0-afb4-97c17a3395c1_becfd043-a741-4f45-aa16-586b51944b99.png",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "8b49d913-1a71-49b0-afb4-97c17a3395c1",
+            "code": "21",
+            "ean": null,
+            "priority": 7,
+            "name": "Pao delicia",
+            "description": "",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "18eb4c01-095a-4ab9-82fc-684f745da3a7",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Pao delicia",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-8b49d913-1a71-49b0-afb4-97c17a3395c1_becfd043-a741-4f45-aa16-586b51944b99.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 7
+        },
+        {
+          "external_id": "529736cc-5e77-4d15-ba4e-20ee608b25ef",
+          "name": "Empada de Carne de Sol",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-529736cc-5e77-4d15-ba4e-20ee608b25ef_5fca821c-068d-4851-a78c-eda09a6b1541.png",
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "529736cc-5e77-4d15-ba4e-20ee608b25ef",
+            "code": "24",
+            "ean": null,
+            "priority": 8,
+            "name": "Empada de Carne de Sol",
+            "description": "",
+            "price": 8,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "4ddc0910-5e40-4981-935d-0ffc1fce5082",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Empada de Carne de Sol",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-529736cc-5e77-4d15-ba4e-20ee608b25ef_5fca821c-068d-4851-a78c-eda09a6b1541.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 8
+        },
+        {
+          "external_id": "fadbc064-efaa-4de7-9f68-4da936140a7f",
+          "name": "Empada LEITE CONDENSADO",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-fadbc064-efaa-4de7-9f68-4da936140a7f_3642748f-29fd-49e1-b48d-8af0e83284c5.png",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "fadbc064-efaa-4de7-9f68-4da936140a7f",
+            "code": "22",
+            "ean": null,
+            "priority": 9,
+            "name": "Empada LEITE CONDENSADO",
+            "description": "",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "1449bd90-da05-41f1-aee3-f0ecf0f5694c",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Empada LEITE CONDENSADO",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-fadbc064-efaa-4de7-9f68-4da936140a7f_3642748f-29fd-49e1-b48d-8af0e83284c5.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 9
+        },
+        {
+          "external_id": "81af78b3-16e7-4499-a041-a394c50462cf",
+          "name": "Pastel de Queijo",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-81af78b3-16e7-4499-a041-a394c50462cf_b14dafda-b14c-452d-9017-dd0d1470abf7.png",
+          "price": 7,
+          "price_min": 7,
+          "price_max": 7,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "81af78b3-16e7-4499-a041-a394c50462cf",
+            "code": "82",
+            "ean": null,
+            "priority": 10,
+            "name": "Pastel de Queijo",
+            "description": "",
+            "price": 7,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": "",
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": "",
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "82a73f1a-54c1-4eae-9f2f-9d109dd7a292",
+                "default": false,
+                "main": true,
+                "priority": 1,
+                "description": "Pastel de Queijo",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-81af78b3-16e7-4499-a041-a394c50462cf_b14dafda-b14c-452d-9017-dd0d1470abf7.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 10
+        },
+        {
+          "external_id": "f20f975a-744f-49a1-969c-9520609a48d7",
+          "name": "Empada de Queijo",
+          "description": "",
+          "image_url": null,
+          "price": 7,
+          "price_min": 7,
+          "price_max": 7,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+            "id": "f20f975a-744f-49a1-969c-9520609a48d7",
+            "code": "4",
+            "ean": null,
+            "priority": 11,
+            "name": "Empada de Queijo",
+            "description": "",
+            "price": 7,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": "",
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": "",
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "fa1e1272-fd72-4466-b74d-65d785fb9eea",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Empada de Queijo",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 11
+        }
+      ]
+    },
+    {
+      "external_id": "6e73b985-0713-4094-afe9-d8308cf2907b",
+      "name": "SUCOS",
+      "order_index": 5,
+      "items": [
+        {
+          "external_id": "627f4e6a-76e6-44fe-ad6d-70e814c89225",
+          "name": "Suco Acai Mix 770ml",
+          "description": "Refrescancia com energia.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-627f4e6a-76e6-44fe-ad6d-70e814c89225_b2a2cf3f-f071-4da2-af7d-c35ff92dd1a0.png",
+          "price": 18,
+          "price_min": 18,
+          "price_max": 18,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "6e73b985-0713-4094-afe9-d8308cf2907b",
+            "id": "627f4e6a-76e6-44fe-ad6d-70e814c89225",
+            "code": "29",
+            "ean": null,
+            "priority": 1,
+            "name": "Suco Acai Mix 770ml",
+            "description": "Refrescancia com energia.",
+            "price": 18,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "16ee7897-fda7-46bc-8cd2-31b993e51fe9",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Suco Acai Mix 770ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-627f4e6a-76e6-44fe-ad6d-70e814c89225_b2a2cf3f-f071-4da2-af7d-c35ff92dd1a0.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "a7d2a52a-b862-48a0-949b-3e6691a0272f",
+          "name": "Laranja",
+          "description": "Suco natural de laranja fresco",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a7d2a52a-b862-48a0-949b-3e6691a0272f_96f9d0a0-0d07-42c9-9da5-fd643724308b.png",
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "6e73b985-0713-4094-afe9-d8308cf2907b",
+            "id": "a7d2a52a-b862-48a0-949b-3e6691a0272f",
+            "code": "27",
+            "ean": null,
+            "priority": 2,
+            "name": "Laranja",
+            "description": "Suco natural de laranja fresco",
+            "price": 8,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "59435be7-1af6-44f7-9434-5b2d92643696",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Laranja",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a7d2a52a-b862-48a0-949b-3e6691a0272f_96f9d0a0-0d07-42c9-9da5-fd643724308b.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "21e5debf-fae9-4454-8ef5-98e6958016f7",
+          "name": "SUCO DA POLPA",
+          "description": "Sucos cremoso, consultar sabores.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-21e5debf-fae9-4454-8ef5-98e6958016f7_cd6a9095-b08d-4001-bccb-0dda6d3e75e5.png",
+          "price": 7,
+          "price_min": 7,
+          "price_max": 7,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "6e73b985-0713-4094-afe9-d8308cf2907b",
+            "id": "21e5debf-fae9-4454-8ef5-98e6958016f7",
+            "code": "28",
+            "ean": null,
+            "priority": 3,
+            "name": "SUCO DA POLPA",
+            "description": "Sucos cremoso, consultar sabores.",
+            "price": 7,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "a4e2996f-d423-46a3-979f-6fe0d1bd60b6",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "SUCO DA POLPA",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-21e5debf-fae9-4454-8ef5-98e6958016f7_cd6a9095-b08d-4001-bccb-0dda6d3e75e5.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        },
+        {
+          "external_id": "6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2",
+          "name": "Suco Acai Mix 400ml",
+          "description": "Refrescancia com energia.",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2_fe8ad765-9e2a-4fa8-bf85-25614d38e386.png",
+          "price": 11,
+          "price_min": 11,
+          "price_max": 11,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "6e73b985-0713-4094-afe9-d8308cf2907b",
+            "id": "6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2",
+            "code": "30",
+            "ean": null,
+            "priority": 4,
+            "name": "Suco Acai Mix 400ml",
+            "description": "Refrescancia com energia.",
+            "price": 11,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "5f1c473d-2ca5-466c-8608-4bf474bad9de",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Suco Acai Mix 400ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2_fe8ad765-9e2a-4fa8-bf85-25614d38e386.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 4
+        }
+      ]
+    },
+    {
+      "external_id": "75d27928-5fc6-4e04-b989-eb306096d3df",
+      "name": "SOBREMESAS",
+      "order_index": 6,
+      "items": [
+        {
+          "external_id": "b4932a41-cfaf-4dd5-9e3c-b65846f765b8",
+          "name": "Bolo no Pote",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-b4932a41-cfaf-4dd5-9e3c-b65846f765b8_e6c8a356-116d-4ebb-9ca9-fc8c5878e48a.png",
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+            "id": "b4932a41-cfaf-4dd5-9e3c-b65846f765b8",
+            "code": "33",
+            "ean": null,
+            "priority": 1,
+            "name": "Bolo no Pote",
+            "description": "",
+            "price": 10,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "e666d4d6-d779-4801-a791-5e26e5d88d2c",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Bolo no Pote",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-b4932a41-cfaf-4dd5-9e3c-b65846f765b8_e6c8a356-116d-4ebb-9ca9-fc8c5878e48a.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "22972e7c-1e5d-4727-a823-28af7bbb5806",
+          "name": "Bolo Dois Amores",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-22972e7c-1e5d-4727-a823-28af7bbb5806_382b1b8c-48fe-4324-8c45-e407642cffad.png",
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+            "id": "22972e7c-1e5d-4727-a823-28af7bbb5806",
+            "code": "31",
+            "ean": null,
+            "priority": 2,
+            "name": "Bolo Dois Amores",
+            "description": "",
+            "price": 8,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "77674eb7-2965-43e6-816b-3f3a559a0a9a",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Bolo Dois Amores",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-22972e7c-1e5d-4727-a823-28af7bbb5806_382b1b8c-48fe-4324-8c45-e407642cffad.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "d928f4ef-1138-462e-bc43-3254b9c96508",
+          "name": "Pudim",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-d928f4ef-1138-462e-bc43-3254b9c96508_d4add02a-48dd-43fd-81b1-fdad39229088.png",
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+            "id": "d928f4ef-1138-462e-bc43-3254b9c96508",
+            "code": "32",
+            "ean": null,
+            "priority": 3,
+            "name": "Pudim",
+            "description": "",
+            "price": 8,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "d69c1c92-3809-46cf-bc56-5a0476cfc941",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Pudim",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-d928f4ef-1138-462e-bc43-3254b9c96508_d4add02a-48dd-43fd-81b1-fdad39229088.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        },
+        {
+          "external_id": "8c52a7b7-9d67-4fd5-9424-0d84274defcb",
+          "name": "Brownie",
+          "description": "",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-8c52a7b7-9d67-4fd5-9424-0d84274defcb_49492a5d-63fa-4f32-be65-54ff8bb86048.png",
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+            "id": "8c52a7b7-9d67-4fd5-9424-0d84274defcb",
+            "code": "34",
+            "ean": null,
+            "priority": 4,
+            "name": "Brownie",
+            "description": "",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "9e736ac3-f406-461d-9d78-4222a272ca64",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Brownie",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-8c52a7b7-9d67-4fd5-9424-0d84274defcb_49492a5d-63fa-4f32-be65-54ff8bb86048.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 4
+        },
+        {
+          "external_id": "a93d4ce1-0413-45f3-961c-bc353e722fc1",
+          "name": "Brownie com Gelatto de Ninho",
+          "description": "Brownie com Gelatto de Ninho cremoso",
+          "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a93d4ce1-0413-45f3-961c-bc353e722fc1_6723d961-9ba5-4a67-aeeb-801c9545d475.png",
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "75d27928-5fc6-4e04-b989-eb306096d3df",
+            "id": "a93d4ce1-0413-45f3-961c-bc353e722fc1",
+            "code": "35",
+            "ean": null,
+            "priority": 5,
+            "name": "Brownie com Gelatto de Ninho",
+            "description": "Brownie com Gelatto de Ninho cremoso",
+            "price": 10,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "795fdb10-ea7f-4e2d-b026-742286d10fcf",
+                "default": false,
+                "main": false,
+                "priority": 0,
+                "description": "Brownie com Gelatto de Ninho",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a93d4ce1-0413-45f3-961c-bc353e722fc1_6723d961-9ba5-4a67-aeeb-801c9545d475.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 5
+        }
+      ]
+    },
+    {
+      "external_id": "c052bb1b-2754-4935-a6d2-fb182a0b7bfe",
+      "name": "AGUA",
+      "order_index": 7,
+      "items": [
+        {
+          "external_id": "5d2400a1-5d2b-437c-b32c-e158a161bbd2",
+          "name": "Agua Mineral 1,5L",
+          "description": "Agua mineral natural em embalagem economica",
+          "image_url": null,
+          "price": 7,
+          "price_min": 7,
+          "price_max": 7,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "c052bb1b-2754-4935-a6d2-fb182a0b7bfe",
+            "id": "5d2400a1-5d2b-437c-b32c-e158a161bbd2",
+            "code": "37",
+            "ean": null,
+            "priority": 1,
+            "name": "Agua Mineral 1,5L",
+            "description": "Agua mineral natural em embalagem economica",
+            "price": 7,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "33ae3d54-58c8-46e4-864a-de6dea186139",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Agua Mineral 1,5L",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "ab92f59e-b6b9-4ea9-a6b7-fce82e7b7552",
+          "name": "Agua com Gas 500ml",
+          "description": "Agua mineral gaseificada refrescante",
+          "image_url": null,
+          "price": 4,
+          "price_min": 4,
+          "price_max": 4,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "c052bb1b-2754-4935-a6d2-fb182a0b7bfe",
+            "id": "ab92f59e-b6b9-4ea9-a6b7-fce82e7b7552",
+            "code": "36",
+            "ean": null,
+            "priority": 2,
+            "name": "Agua com Gas 500ml",
+            "description": "Agua mineral gaseificada refrescante",
+            "price": 4,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "9818acc1-5333-4023-8851-c986e188a114",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Agua com Gas 500ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "51be9763-6f24-4e9c-8be5-8d9f59ccb439",
+          "name": "Agua Mineral 500ml",
+          "description": "Agua mineral natural pura e cristalina",
+          "image_url": null,
+          "price": 3,
+          "price_min": 3,
+          "price_max": 3,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "c052bb1b-2754-4935-a6d2-fb182a0b7bfe",
+            "id": "51be9763-6f24-4e9c-8be5-8d9f59ccb439",
+            "code": "38",
+            "ean": null,
+            "priority": 3,
+            "name": "Agua Mineral 500ml",
+            "description": "Agua mineral natural pura e cristalina",
+            "price": 3,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "d3af27e6-e5f1-4f89-897d-20a25a03481c",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Agua Mineral 500ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        }
+      ]
+    },
+    {
+      "external_id": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "name": "REFRIGERANTES",
+      "order_index": 8,
+      "items": [
+        {
+          "external_id": "963eae4f-6efb-49b8-b721-33dd18edb02a",
+          "name": "Coca-Cola Lata 350ml",
+          "description": "O classico refrigerante de cola gelado",
+          "image_url": null,
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "963eae4f-6efb-49b8-b721-33dd18edb02a",
+            "code": "41",
+            "ean": null,
+            "priority": 1,
+            "name": "Coca-Cola Lata 350ml",
+            "description": "O classico refrigerante de cola gelado",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "2051bace-d8ee-446a-88f6-98227d90465b",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Coca-Cola Lata 350ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "f2dcffec-adb7-40ff-bd0f-e41a99bbc3e1",
+          "name": "COCA COLA ORIG KS 1L",
+          "description": "",
+          "image_url": null,
+          "price": 12,
+          "price_min": 12,
+          "price_max": 12,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "f2dcffec-adb7-40ff-bd0f-e41a99bbc3e1",
+            "code": "61",
+            "ean": null,
+            "priority": 2,
+            "name": "COCA COLA ORIG KS 1L",
+            "description": "",
+            "price": 12,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "7939dc20-d911-4ca0-b923-00f396694fde",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "COCA COLA ORIG KS 1L",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "26f51d99-3015-4f5a-896f-00f4e324466c",
+          "name": "COCA COLA ZERO KS 290ML",
+          "description": "",
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "26f51d99-3015-4f5a-896f-00f4e324466c",
+            "code": "60",
+            "ean": null,
+            "priority": 3,
+            "name": "COCA COLA ZERO KS 290ML",
+            "description": "",
+            "price": 5,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "c3394fc8-7c62-46e5-b3a7-cd27e1d75200",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "COCA COLA ZERO KS 290ML",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        },
+        {
+          "external_id": "3de2b9a6-ca2f-4180-8512-01f46bba9b8d",
+          "name": "H2O Limao 500ml",
+          "description": "Agua saborizada com limao natural",
+          "image_url": null,
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "3de2b9a6-ca2f-4180-8512-01f46bba9b8d",
+            "code": "39",
+            "ean": null,
+            "priority": 4,
+            "name": "H2O Limao 500ml",
+            "description": "Agua saborizada com limao natural",
+            "price": 8,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "3d613614-7876-4204-8db1-abdb37e3e968",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "H2O Limao 500ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 4
+        },
+        {
+          "external_id": "dcd6ebbc-e558-40bb-8e74-66135cfaefdc",
+          "name": "Coca-Cola Zero Lata 350ml",
+          "description": "Coca-Cola zero acucar, mesmo sabor original",
+          "image_url": null,
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "dcd6ebbc-e558-40bb-8e74-66135cfaefdc",
+            "code": "40",
+            "ean": null,
+            "priority": 5,
+            "name": "Coca-Cola Zero Lata 350ml",
+            "description": "Coca-Cola zero acucar, mesmo sabor original",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "f5526cf0-6cbd-4178-974c-86084123737a",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Coca-Cola Zero Lata 350ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 5
+        },
+        {
+          "external_id": "d415bba7-c8a6-4434-9508-e6bfe8bbc402",
+          "name": "Guarana Antarctica Lata 350ml",
+          "description": "Refrigerante brasileiro de guarana natural",
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "d415bba7-c8a6-4434-9508-e6bfe8bbc402",
+            "code": "42",
+            "ean": null,
+            "priority": 6,
+            "name": "Guarana Antarctica Lata 350ml",
+            "description": "Refrigerante brasileiro de guarana natural",
+            "price": 5,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "cfec5c91-4aa9-4a3d-b5ef-e30105cf3181",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Guarana Antarctica Lata 350ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 6
+        },
+        {
+          "external_id": "86727ba4-3a9b-481e-972e-0f5f18a91cc2",
+          "name": "SPRITE ZERO LATA 350ML",
+          "description": "Refrigerante de limao sem acucar, refrescante",
+          "image_url": null,
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "86727ba4-3a9b-481e-972e-0f5f18a91cc2",
+            "code": "43",
+            "ean": null,
+            "priority": 7,
+            "name": "SPRITE ZERO LATA 350ML",
+            "description": "Refrigerante de limao sem acucar, refrescante",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "eed8ee27-b95f-472f-94b2-143a2d4c740d",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "SPRITE ZERO LATA 350ML",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 7
+        },
+        {
+          "external_id": "838985c4-cb5a-46af-b664-b538be81238e",
+          "name": "COCA COLA PET 1L",
+          "description": "",
+          "image_url": null,
+          "price": 12,
+          "price_min": 12,
+          "price_max": 12,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "838985c4-cb5a-46af-b664-b538be81238e",
+            "code": "44",
+            "ean": null,
+            "priority": 8,
+            "name": "COCA COLA PET 1L",
+            "description": "",
+            "price": 12,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "eeea6d60-3ef9-4357-91c7-352195a96c30",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "COCA COLA PET 1L",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 8
+        },
+        {
+          "external_id": "ce5d6173-6f59-4ec3-a499-82aeb46a287f",
+          "name": "GUARANA 1L",
+          "description": "",
+          "image_url": null,
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+            "id": "ce5d6173-6f59-4ec3-a499-82aeb46a287f",
+            "code": "45",
+            "ean": null,
+            "priority": 9,
+            "name": "GUARANA 1L",
+            "description": "",
+            "price": 10,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "041d42c9-1a5d-4033-a96d-bc8558484a7d",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "GUARANA 1L",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 9
+        }
+      ]
+    },
+    {
+      "external_id": "9b81a369-6a12-4d3a-b98c-8711827c0037",
+      "name": "ENERGETICO",
+      "order_index": 9,
+      "items": [
+        {
+          "external_id": "7ec202f3-7516-4060-a30f-1860ea910b9a",
+          "name": "Red Bull (Sabores) 250ml",
+          "description": "Energetico Red Bull em diversos sabores disponiveis",
+          "image_url": null,
+          "price": 12,
+          "price_min": 12,
+          "price_max": 12,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "9b81a369-6a12-4d3a-b98c-8711827c0037",
+            "id": "7ec202f3-7516-4060-a30f-1860ea910b9a",
+            "code": "46",
+            "ean": null,
+            "priority": 1,
+            "name": "Red Bull (Sabores) 250ml",
+            "description": "Energetico Red Bull em diversos sabores disponiveis",
+            "price": 12,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "25b02fe3-a775-4a2a-8e46-4cf5b41fbaf7",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Red Bull (Sabores) 250ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        }
+      ]
+    },
+    {
+      "external_id": "a9d916ad-c000-4e60-b13c-bd4748d72dee",
+      "name": "DRINKS",
+      "order_index": 10,
+      "items": [
+        {
+          "external_id": "ea001333-cda0-46b1-a3b2-a845aa534ae6",
+          "name": "Skol Beats Senses 269ml",
+          "description": "Drink alcoolico pronto para beber",
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "a9d916ad-c000-4e60-b13c-bd4748d72dee",
+            "id": "ea001333-cda0-46b1-a3b2-a845aa534ae6",
+            "code": "47",
+            "ean": null,
+            "priority": 1,
+            "name": "Skol Beats Senses 269ml",
+            "description": "Drink alcoolico pronto para beber",
+            "price": 9,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "fc8298c4-d3c9-4a6f-a3c7-1a64d44e9a8d",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Skol Beats Senses 269ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        }
+      ]
+    },
+    {
+      "external_id": "4d9699c2-183c-477a-9ca7-da7ba229e2a9",
+      "name": "CERVEJAS",
+      "order_index": 11,
+      "items": [
+        {
+          "external_id": "b34584f6-be3b-4492-bd0d-fe98498f0d28",
+          "name": "Budweiser Long Neck 330ml",
+          "description": "Cerveja americana classica, leve e refrescante",
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "4d9699c2-183c-477a-9ca7-da7ba229e2a9",
+            "id": "b34584f6-be3b-4492-bd0d-fe98498f0d28",
+            "code": "50",
+            "ean": null,
+            "priority": 1,
+            "name": "Budweiser Long Neck 330ml",
+            "description": "Cerveja americana classica, leve e refrescante",
+            "price": 9,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "064e20f9-fd81-4284-b8b4-9d90ad3f2c72",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Budweiser Long Neck 330ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "9382b1d5-1287-47d3-aa39-37583dce5b88",
+          "name": "Amstel Lata 350ml",
+          "description": "Cerveja holandesa premium em lata pratica",
+          "image_url": null,
+          "price": 6,
+          "price_min": 6,
+          "price_max": 6,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "4d9699c2-183c-477a-9ca7-da7ba229e2a9",
+            "id": "9382b1d5-1287-47d3-aa39-37583dce5b88",
+            "code": "49",
+            "ean": null,
+            "priority": 2,
+            "name": "Amstel Lata 350ml",
+            "description": "Cerveja holandesa premium em lata pratica",
+            "price": 6,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "5488a1be-88c5-4167-8f9d-aba76b8037a6",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Amstel Lata 350ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "27cb71c7-b3eb-454c-bd28-733c2fc2dfc9",
+          "name": "Heineken Long Neck 330ml",
+          "description": "Cerveja premium holandesa, refrescante e com sabor equilibrado",
+          "image_url": null,
+          "price": 10,
+          "price_min": 10,
+          "price_max": 10,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "4d9699c2-183c-477a-9ca7-da7ba229e2a9",
+            "id": "27cb71c7-b3eb-454c-bd28-733c2fc2dfc9",
+            "code": "48",
+            "ean": null,
+            "priority": 3,
+            "name": "Heineken Long Neck 330ml",
+            "description": "Cerveja premium holandesa, refrescante e com sabor equilibrado",
+            "price": 10,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "2997984d-fe48-4271-ad90-a8cbe2bb450f",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Heineken Long Neck 330ml",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        }
+      ]
+    },
+    {
+      "external_id": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+      "name": "GELO",
+      "order_index": 12,
+      "items": [
+        {
+          "external_id": "ce67812e-d0a4-4cb2-8976-ce572be72716",
+          "name": "Gelo saborizado (coco leve)",
+          "description": "Faz seu drink ficar ainda + gostoso",
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+            "id": "ce67812e-d0a4-4cb2-8976-ce572be72716",
+            "code": "53",
+            "ean": null,
+            "priority": 1,
+            "name": "Gelo saborizado (coco leve)",
+            "description": "Faz seu drink ficar ainda + gostoso",
+            "price": 5,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "1c107dc1-eeb3-4536-88bb-74e8c9e32b02",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Gelo saborizado (coco leve)",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "b8486c56-7407-4ded-8915-1af5353c5a56",
+          "name": "Coco",
+          "description": "Imagem do produto",
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+            "id": "b8486c56-7407-4ded-8915-1af5353c5a56",
+            "code": "54",
+            "ean": null,
+            "priority": 2,
+            "name": "Coco",
+            "description": "Imagem do produto",
+            "price": 5,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "5055d7a2-47b5-4ed0-9d78-38dc5e358203",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Coco",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        },
+        {
+          "external_id": "acb04129-becc-4283-8e9e-ef2ffce2de20",
+          "name": "Gelo Saborizado Unidade",
+          "description": "Gelo com sabor especial, unidade",
+          "image_url": null,
+          "price": 4,
+          "price_min": 4,
+          "price_max": 4,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+            "id": "acb04129-becc-4283-8e9e-ef2ffce2de20",
+            "code": "52",
+            "ean": null,
+            "priority": 3,
+            "name": "Gelo Saborizado Unidade",
+            "description": "Gelo com sabor especial, unidade",
+            "price": 4,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "041eca7b-4963-4535-a40e-3f4ebb7996d5",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Gelo Saborizado Unidade",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 3
+        },
+        {
+          "external_id": "c95759e3-05b1-4789-b699-5269d4533a40",
+          "name": "Gelo Dose 2kg",
+          "description": "Gelo em cubos, pacote de 2kg",
+          "image_url": null,
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+            "id": "c95759e3-05b1-4789-b699-5269d4533a40",
+            "code": "51",
+            "ean": null,
+            "priority": 4,
+            "name": "Gelo Dose 2kg",
+            "description": "Gelo em cubos, pacote de 2kg",
+            "price": 5,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "67b4f8b6-fa6c-46de-a3af-d09e6ad0a235",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "Gelo Dose 2kg",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 4
+        }
+      ]
+    },
+    {
+      "external_id": "82b800bb-eb5e-445b-a525-f49ffcc50600",
+      "name": "LANCHES DA NOITE",
+      "order_index": 13,
+      "items": [
+        {
+          "external_id": "3585f2c0-9757-44a7-be3e-694c39e64eaf",
+          "name": "DOGAO DO PORTO",
+          "description": "Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna.",
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "82b800bb-eb5e-445b-a525-f49ffcc50600",
+            "id": "3585f2c0-9757-44a7-be3e-694c39e64eaf",
+            "code": "55",
+            "ean": null,
+            "priority": 1,
+            "name": "DOGAO DO PORTO",
+            "description": "Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna.",
+            "price": 9,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "04ae60ce-e06c-4836-96a5-115b56b2b008",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "DOGAO DO PORTO",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "6894e94a-a8ca-4098-a7ae-af7a46a0104b",
+          "name": "SANDUBAO DE FRANGO",
+          "description": "Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho.",
+          "image_url": null,
+          "price": 9,
+          "price_min": 9,
+          "price_max": 9,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "82b800bb-eb5e-445b-a525-f49ffcc50600",
+            "id": "6894e94a-a8ca-4098-a7ae-af7a46a0104b",
+            "code": "56",
+            "ean": null,
+            "priority": 2,
+            "name": "SANDUBAO DE FRANGO",
+            "description": "Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho.",
+            "price": 9,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "3164d859-af46-4a74-a832-d9b2650f1406",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "SANDUBAO DE FRANGO",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        }
+      ]
+    },
+    {
+      "external_id": "ad38978e-1f5f-4bd5-8303-0dd5ccd47e80",
+      "name": "BOMBONIERE",
+      "order_index": 14,
+      "items": [
+        {
+          "external_id": "6aa9bdc9-11ae-4dcd-8547-4e51ceffdb01",
+          "name": "MENTOS",
+          "description": "",
+          "image_url": null,
+          "price": 3.5,
+          "price_min": 3.5,
+          "price_max": 3.5,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "ad38978e-1f5f-4bd5-8303-0dd5ccd47e80",
+            "id": "6aa9bdc9-11ae-4dcd-8547-4e51ceffdb01",
+            "code": "63",
+            "ean": null,
+            "priority": 1,
+            "name": "MENTOS",
+            "description": "",
+            "price": 3.5,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "f7a92e82-722e-4ca6-b351-24ed2e1a5890",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "MENTOS",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 1
+        },
+        {
+          "external_id": "c81ce4b7-3199-4cb0-af93-defd46ac5252",
+          "name": "HALLS",
+          "description": "",
+          "image_url": null,
+          "price": 2.5,
+          "price_min": 2.5,
+          "price_max": 2.5,
+          "price_type": "fixed",
+          "price_source": "meucarrinho.product.price",
+          "options": [],
+          "source_url": "https://meucarrinho.delivery/portodoacai",
+          "raw_data": {
+            "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+            "categoryId": "ad38978e-1f5f-4bd5-8303-0dd5ccd47e80",
+            "id": "c81ce4b7-3199-4cb0-af93-defd46ac5252",
+            "code": "64",
+            "ean": null,
+            "priority": 2,
+            "name": "HALLS",
+            "description": "",
+            "price": 2.5,
+            "availability": "AVAILABLE",
+            "availabilityOrigin": "PRODUCT",
+            "measure": null,
+            "merchantSuggestion": false,
+            "byIntegration": false,
+            "isPromotion": false,
+            "isBestSeller": false,
+            "bestSellerRank": null,
+            "promotion": null,
+            "stock": {
+              "active": false,
+              "current": 0,
+              "min": 0,
+              "orderMax": 0
+            },
+            "ship": {
+              "active": false,
+              "height": 0,
+              "width": 0,
+              "length": 0,
+              "weight": 0
+            },
+            "crossSelling": {
+              "customMessage": null,
+              "displayOnProductDetailPage": false,
+              "displayOnCartModal": false
+            },
+            "images": [
+              {
+                "id": "2d4a0432-7eee-47ee-8cc1-e1ca48e1a234",
+                "default": true,
+                "main": false,
+                "priority": 0,
+                "description": "HALLS",
+                "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+              }
+            ],
+            "variationsGrid": false,
+            "variations": [],
+            "availabilitySchedules": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false,
+          "order_index": 2
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "browserbase_structured_probe",
+    "browserbaseFullPagePath": "scratch\\structured-menu-collection\\2026-07-07T11-56-10-420Z-13404\\001-porto-do-acai\\browserbase-full-page.jpg",
+    "fullPage": true,
+    "truncated": false,
+    "domMetrics": {
+      "scrollHeight": 6883,
+      "bodyLength": 70352,
+      "imageCount": 69
+    }
+  },
+  "structuredProbe": {
+    "source": "browserbase_plus_meucarrinho_network_api",
+    "endpoint": "browserbase-network:/api/merchant/{urlcode,categories,products}",
+    "meuCarrinhoStats": {
+      "networkEntryCount": 37,
+      "categoryEntryCount": 1,
+      "productEntryCount": 35,
+      "categoryCount": 14,
+      "rawCategoryCount": 15,
+      "rawProductCount": 61,
+      "itemCount": 61,
+      "optionCount": 0
+    },
+    "meuCarrinhoSlug": "portodoacai",
+    "rawSummary": {
+      "categoryCount": 14,
+      "itemCount": 61,
+      "optionCount": 0,
+      "operationalCategoryCount": 0,
+      "operationalItemCount": 0,
+      "operationalOptionCount": 0,
+      "samples": [
+        {
+          "name": "ACAI",
+          "items": [
+            {
+              "name": "ACAI M (ACAI TRADICIONAL)",
+              "price": 18,
+              "options": []
+            },
+            {
+              "name": "ACAI G (TRADICIONAL)",
+              "price": 25,
+              "options": []
+            },
+            {
+              "name": "ACAI P (Acai com Creme de Ninho)",
+              "price": 16,
+              "options": []
+            },
+            {
+              "name": "ACAI M (Acai com Creme de Ninho)",
+              "price": 18,
+              "options": []
+            },
+            {
+              "name": "ACAI G (Acai com Creme de Ninho)",
+              "price": 25,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "GELATTOS",
+          "items": [
+            {
+              "name": "GELATTO G (Creme de Ninho)",
+              "price": 25,
+              "options": []
+            },
+            {
+              "name": "GELATTO P (Creme de Ninho)",
+              "price": 16,
+              "options": []
+            },
+            {
+              "name": "GELATTO P (Creme de Cupuacu)",
+              "price": 16,
+              "options": []
+            },
+            {
+              "name": "GELATTO M (CUPUACU)",
+              "price": 18,
+              "options": []
+            },
+            {
+              "name": "GELATTO M (Creme de Ninho)",
+              "price": 18,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "REFEICOES PRONTAS",
+          "items": [
+            {
+              "name": "Raiz do sertao",
+              "price": 15,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "SALGADOS",
+          "items": [
+            {
+              "name": "COMBO COXINHA E GUARANÁ ANTARTICA",
+              "price": 13,
+              "options": []
+            },
+            {
+              "name": "Pastel de Forno de Carne de Sol",
+              "price": 8,
+              "options": []
+            },
+            {
+              "name": "Pastel de Forno de Frango",
+              "price": 7,
+              "options": []
+            },
+            {
+              "name": "Empada de Frango",
+              "price": 7,
+              "options": []
+            },
+            {
+              "name": "Coxinha",
+              "price": 6,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "SUCOS",
+          "items": [
+            {
+              "name": "Suco Acai Mix 770ml",
+              "price": 18,
+              "options": []
+            },
+            {
+              "name": "Laranja",
+              "price": 8,
+              "options": []
+            },
+            {
+              "name": "SUCO DA POLPA",
+              "price": 7,
+              "options": []
+            },
+            {
+              "name": "Suco Acai Mix 400ml",
+              "price": 11,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "SOBREMESAS",
+          "items": [
+            {
+              "name": "Bolo no Pote",
+              "price": 10,
+              "options": []
+            },
+            {
+              "name": "Bolo Dois Amores",
+              "price": 8,
+              "options": []
+            },
+            {
+              "name": "Pudim",
+              "price": 8,
+              "options": []
+            },
+            {
+              "name": "Brownie",
+              "price": 6,
+              "options": []
+            },
+            {
+              "name": "Brownie com Gelatto de Ninho",
+              "price": 10,
+              "options": []
+            }
+          ]
+        }
+      ]
+    },
+    "sourceIdentity": {
+      "confirmed": true,
+      "pageHasName": true,
+      "urlHasName": true,
+      "pageHasPhone": true,
+      "pageHasAddress": false,
+      "pageHasCity": true,
+      "pageHasState": true,
+      "evidence": {
+        "targetName": "Porto do açaí",
+        "targetAddress": "R. Cleto Campêlo, 623",
+        "targetPhoneLast8": "93842261",
+        "targetCity": "Cabedelo",
+        "targetState": "PB"
+      }
+    }
+  },
+  "restaurant": {
+    "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "name": "Porto do açaí",
+    "address": "Rua Cleto Campelo",
+    "number": "3",
+    "neighborhood": "Camalaú",
+    "city": "Cabedelo",
+    "state": "PB",
+    "cep": "58103242",
+    "phone": "(83) 99384-2261",
+    "latitude": -6.979326299999999,
+    "longitude": -34.8348713,
+    "opening_hours": {
+      "sunday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "09:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "09:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "09:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "09:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "09:00",
+            "end": "21:00"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "09:00",
+            "end": "21:00"
+          }
+        ]
+      }
+    },
+    "image_url": "https://meucarrinhostg.blob.core.windows.net/images/logo-f256954b-098d-4c6a-affb-7fa33729a5a1.png",
+    "cover_image_url": "https://meucarrinhostg.blob.core.windows.net/images/banner-66e1022d-892e-4bea-a150-65b0332473ec.png"
+  }
+}

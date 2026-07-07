@@ -1,0 +1,171 @@
+{
+  "runId": "2026-07-06T10-41-56-585Z",
+  "apply": false,
+  "limit": 2,
+  "platform": null,
+  "targetCount": 2,
+  "processed": [
+    {
+      "restaurantId": "26796a3b-6d44-4338-b7bd-74c6e1af43a8",
+      "restaurantName": "VIKING'S BURGUER",
+      "sourceUrl": "https://cardapio.ai/vikings-burguer",
+      "platform": "cardapio.ai",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T10-41-56-585Z\\001-viking-s-burguer",
+      "openedTabId": 943016757,
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 1,
+          "scrollHeight": 674,
+          "capturedHeight": 674,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 843,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943016757,
+          "url": "https://cardapio.ai/vikings-burguer",
+          "title": "Viking's Burguer"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783334539460_8ccudnbj.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783334539460_8ccudnbj.jpg",
+          "bytes": 10297
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943016757,
+            "clientHeight": 674,
+            "maxScrollTop": 0,
+            "reachedEnd": true,
+            "scrollHeight": 674,
+            "scrollTop": 0,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783334547767_7mzb26ow.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783334547767_7mzb26ow.jpg",
+            "bytes": 10298
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016757,
+            "url": "https://cardapio.ai/vikings-burguer",
+            "title": "Viking's Burguer"
+          },
+          "error": null
+        }
+      ],
+      "extractionSummary": {
+        "success": false,
+        "platform": "visible_text",
+        "error": "Cardápio visível insuficiente; requer fallback por IA/visual.",
+        "confidence": 0.45,
+        "extractionLevel": 1,
+        "categoryCount": 0,
+        "itemCount": 0,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": []
+      },
+      "dryRun": {
+        "success": false,
+        "requiresHuman": true,
+        "message": "A evidência coletada pela extensão não atingiu confiança suficiente. Revise a aba visível; nenhum navegador oculto foi iniciado."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T10-41-56-585Z\\001-viking-s-burguer\\menu-evidence.json"
+    },
+    {
+      "restaurantId": "a5689dfa-47c7-463f-9a54-2c5802852107",
+      "restaurantName": "Bigode Pizzaria",
+      "sourceUrl": "https://cardapio.ai/pizzaria-do-bigode",
+      "platform": "cardapio.ai",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T10-41-56-585Z\\002-bigode-pizzaria",
+      "openedTabId": 943016774,
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 1,
+          "scrollHeight": 674,
+          "capturedHeight": 674,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 843,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943016774,
+          "url": "https://cardapio.ai/pizzaria-do-bigode",
+          "title": "Pizzaria do Bigode"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783334575408_5ri20s50.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783334575408_5ri20s50.jpg",
+          "bytes": 13089
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943016774,
+            "clientHeight": 674,
+            "maxScrollTop": 0,
+            "reachedEnd": true,
+            "scrollHeight": 674,
+            "scrollTop": 0,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783334583705_61frh99e.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783334583705_61frh99e.jpg",
+            "bytes": 13082
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016774,
+            "url": "https://cardapio.ai/pizzaria-do-bigode",
+            "title": "Pizzaria do Bigode"
+          },
+          "error": null
+        }
+      ],
+      "extractionSummary": {
+        "success": false,
+        "platform": "visible_text",
+        "error": "Cardápio visível insuficiente; requer fallback por IA/visual.",
+        "confidence": 0.45,
+        "extractionLevel": 1,
+        "categoryCount": 0,
+        "itemCount": 0,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": []
+      },
+      "dryRun": {
+        "success": false,
+        "requiresHuman": true,
+        "message": "A evidência coletada pela extensão não atingiu confiança suficiente. Revise a aba visível; nenhum navegador oculto foi iniciado."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T10-41-56-585Z\\002-bigode-pizzaria\\menu-evidence.json"
+    }
+  ]
+}

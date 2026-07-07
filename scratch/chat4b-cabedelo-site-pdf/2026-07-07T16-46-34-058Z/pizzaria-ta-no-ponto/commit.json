@@ -1,0 +1,30 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "message": "14 itens estruturados via menuintegrado_native_api; 0 requerem revisão de preço.",
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 2,
+      "itemCount": 14,
+      "resolvedPriceCount": 14,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "Request timed out.",
+        "deltaFixes": 6,
+        "storageFixes": 13,
+        "guardFixes": 0
+      }
+    },
+    "fallbackUsed": false
+  },
+  "stdoutTail": "[Menu V2] Normalizou 6 precos absolutos de sabores como delta sobre a base.\n[Menu V2] Normalizou 13 campos de preco de opcoes para evitar price cheio em price_delta.\n[Menu V2] Auditoria estrutural: {\"approved\":true,\"confidence\":0.98,\"categoryCount\":2,\"itemCount\":14,\"resolvedPriceCount\":14,\"unresolvedPriceCount\":0,\"fullPriceDeltaAnomalyCount\":0,\"fullPriceDeltaAnomalies\":[],\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"Request timed out.\",\"deltaFixes\":6,\"storageFixes\":13,\"guardFixes\":0}}\nRESULT:{\"success\":true,\"message\":\"14 itens estruturados via menuintegrado_native_api; 0 requerem revisão de preço.\",\"audit\":{\"approved\":true,\"confidence\":0.98,\"categoryCount\":2,\"itemCount\":14,\"resolvedPriceCount\":14,\"unresolvedPriceCount\":0,\"fullPriceDeltaAnomalyCount\":0,\"fullPriceDeltaAnomalies\":[],\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"Request timed out.\",\"deltaFixes\":6,\"storageFixes\":13,\"guardFixes\":0}},\"fallbackUsed\":false}\n",
+  "stderrTail": "[Menu V2] IA de semântica falhou; mantendo heurística: Request timed out.\n"
+}

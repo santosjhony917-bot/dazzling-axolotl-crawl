@@ -1,0 +1,92 @@
+{
+  "runId": "2026-07-07T09-05-06-676Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T09-05-06-676Z",
+  "scope": {
+    "ids": [
+      "e6fc253f-7f28-47f8-891f-df98848adda0"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 1,
+  "issueCounts": {
+    "delta_sabor_parece_preco_cheio": 2
+  },
+  "audits": [
+    {
+      "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "name": "Center Pizza Cabedelo",
+      "readiness": "blocked",
+      "redCount": 2,
+      "yellowCount": 0,
+      "issueCount": 2,
+      "categoryCount": 2,
+      "itemCount": 12,
+      "optionCount": 101,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "12 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+        "instagram": "https://www.instagram.com/centerpizza_cabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:11.540Z",
+          "status": "enriched",
+          "username": "centerpizza_cabedelo",
+          "followers": 3390,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": "189",
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98629-0531",
+        "latitude": -6.9721724,
+        "longitude": -34.8343388,
+        "followers": 3390
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Grande",
+          "itemPrice": 50,
+          "group": "Sabor Grande",
+          "option": "Camarão aos 4 queijos PREMIUM",
+          "delta": 25
+        },
+        {
+          "severity": "red",
+          "code": "delta_sabor_parece_preco_cheio",
+          "item": "Pequena",
+          "itemPrice": 30,
+          "group": "Sabor Pequena",
+          "option": "Camarão aos 4 queijos PREMIUM",
+          "delta": 25
+        }
+      ]
+    }
+  ]
+}

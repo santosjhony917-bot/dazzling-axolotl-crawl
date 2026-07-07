@@ -1,0 +1,16 @@
+[
+  {
+    "restaurantId": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+    "restaurantName": "Tia Graça Cafeteria e Doceria",
+    "platform": "goomer",
+    "sourceUrl": "https://tia-graa-doces-e-salgados.goomer.app",
+    "score": 38,
+    "tier": "green",
+    "flags": [],
+    "nextAction": "fast_visual_review_then_import",
+    "category": "Cafeteria",
+    "address": "R. Golfo da China",
+    "phone": null,
+    "instagram": "https://www.instagram.com/tiagracadocesesalgados/"
+  }
+]

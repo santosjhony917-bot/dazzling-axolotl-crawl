@@ -1,0 +1,12 @@
+{
+  "contexts": {
+    "instagram": {
+      "contextId": "d2e333e9-d1e6-411c-bf32-1108549ad9aa",
+      "site": "instagram",
+      "lastSessionId": "e58010a5-b01f-4467-a098-47522595ada0",
+      "lastSessionUrl": "https://browserbase.com/sessions/e58010a5-b01f-4467-a098-47522595ada0",
+      "lastLiveViewUrl": "https://www.browserbase.com/devtools-fullscreen/inspector.html?wss=connect.browserbase.com/debug/e58010a5-b01f-4467-a098-47522595ada0/devtools/page/E3AF16BD619456716EE677EB4BEB5B03?debug=true",
+      "updatedAt": "2026-07-06T23:47:41.600Z"
+    }
+  }
+}

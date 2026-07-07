@@ -1,0 +1,114 @@
+{
+  "network": [
+    {
+      "url": "https://menu.brendi.com.br/oxiburguercabedelo",
+      "status": 302,
+      "contentType": "text/html; charset=utf-8",
+      "resourceType": "document",
+      "method": "GET",
+      "readError": "Response body is unavailable for redirect responses"
+    },
+    {
+      "url": "https://pedido.brendi.com.br/_nuxt/builds/meta/f6f0b47f-1184-480d-b373-2f5bf12f6562.json",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "other",
+      "method": "GET",
+      "textLength": 139,
+      "textSample": "{\"id\":\"f6f0b47f-1184-480d-b373-2f5bf12f6562\",\"timestamp\":1783365905156,\"matcher\":{\"static\":{},\"wildcard\":{},\"dynamic\":{}},\"prerendered\":[]}",
+      "jsonKeys": [
+        "id",
+        "timestamp",
+        "matcher",
+        "prerendered"
+      ],
+      "savedJsonFile": "network-002.json"
+    },
+    {
+      "url": "https://pedido.brendi.com.br/api/oxiburguercabedelo/analytics/events",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "POST",
+      "textLength": 64,
+      "textSample": "{\"success\":true,\"data\":{\"message\":\"Event tracked successfully\"}}",
+      "jsonKeys": [
+        "success",
+        "data"
+      ],
+      "savedJsonFile": "network-003.json"
+    },
+    {
+      "url": "https://us.i.posthog.com/flags/?v=2&config=true&ip=0&_=1783387771594&ver=1.310.1&compression=base64",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "POST",
+      "textLength": 1157,
+      "textSample": "{\"errorsWhileComputingFlags\":false,\"flags\":{},\"requestId\":\"eb337683-8e4f-40b5-9a03-cd857d57df20\",\"evaluatedAt\":1783387771771,\"capturePerformance\":{\"network_timing\":true,\"web_vitals\":false,\"web_vitals_allowed_metrics\":null},\"hasFeatureFlags\":false,\"sessionRecording\":{\"canvasFps\":null,\"canvasQuality\":null,\"consoleLogRecordingEnabled\":true,\"endpoint\":\"/s/\",\"eventTriggers\":[],\"linkedFlag\":null,\"masking\":null,\"minimumDurationMilliseconds\":null,\"networkPayloadCapture\":null,\"recordCanvas\":false,\"recorderVersion\":\"v2\",\"sampleRate\":null,\"scriptConfig\":{\"script\":\"posthog-recorder\"},\"triggerMatchType\":null,\"urlBlocklist\":[],\"urlTriggers\":[],\"version\":1},\"productTours\":false,\"token\":\"phc_rizS6FzmnsL5mYcTYVB8c2oRdiPzUGVqZ8J4RKSXhm9N\",\"errorTracking\":{\"autocaptureExceptions\":false,\"suppressionRules\":[]},\"elementsChainAsString\":true,\"logs\":{\"captureConsoleLogs\":false},\"sdkVersion\":{\"requested\":\"1\"},\"surveys\":false,\"siteApps\":[],\"autocaptureExceptions\":false,\"captureDeadClicks\":false,\"defaultIdentifiedOnly\":true,\"autocapture_opt_out\":false,\"heatmaps\":false,\"analytics\":{\"endpoint\":\"/i/v0/e/\"},\"conversations\":false,\"supportedCompression\":[\"gzip\",\"gzip-js\"]}",
+      "jsonKeys": [
+        "errorsWhileComputingFlags",
+        "flags",
+        "requestId",
+        "evaluatedAt",
+        "capturePerformance",
+        "hasFeatureFlags",
+        "sessionRecording",
+        "productTours",
+        "token",
+        "errorTracking",
+        "elementsChainAsString",
+        "logs",
+        "sdkVersion",
+        "surveys",
+        "siteApps",
+        "autocaptureExceptions",
+        "captureDeadClicks",
+        "defaultIdentifiedOnly",
+        "autocapture_opt_out",
+        "heatmaps",
+        "analytics",
+        "conversations",
+        "supportedCompression"
+      ],
+      "savedJsonFile": "network-004.json"
+    },
+    {
+      "url": "https://pedido.brendi.com.br/api/oxiburguercabedelo/analytics/events/batch",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "POST",
+      "textLength": 55,
+      "textSample": "{\"success\":true,\"eventsReceived\":8,\"eventsPublished\":8}",
+      "jsonKeys": [
+        "success",
+        "eventsReceived",
+        "eventsPublished"
+      ],
+      "savedJsonFile": "network-005.json"
+    },
+    {
+      "url": "https://pedido.brendi.com.br/api/oxiburguercabedelo/analytics/events/batch",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "POST",
+      "textLength": 57,
+      "textSample": "{\"success\":true,\"eventsReceived\":10,\"eventsPublished\":10}",
+      "jsonKeys": [
+        "success",
+        "eventsReceived",
+        "eventsPublished"
+      ],
+      "savedJsonFile": "network-006.json"
+    }
+  ],
+  "failedRequests": [
+    {
+      "url": "https://pedido.brendi.com.br/favicon.ico",
+      "resourceType": "other",
+      "failure": "net::ERR_ABORTED"
+    }
+  ]
+}

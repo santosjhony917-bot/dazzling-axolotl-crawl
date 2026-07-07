@@ -1,0 +1,1033 @@
+{
+  "restaurantId": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+  "restaurantName": "Ilovepizzapb",
+  "sourceUrl": "https://app.cardapioweb.com/ilove_pizza",
+  "platform": "cardapioweb",
+  "reviewsCount": null,
+  "address": "R. Duque de Caxias - Centro",
+  "phone": "(83) 99631-6245",
+  "startedAt": "2026-07-07T01:28:32.548Z",
+  "finishedAt": "2026-07-07T01:28:45.766Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\002-ilovepizzapb",
+  "finalUrl": "https://app.cardapioweb.com/ilove_pizza",
+  "title": "Ilove Pizza",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 1100,
+    "bodyLength": 65301,
+    "anchorCount": 4,
+    "imageCount": 13
+  },
+  "priceCountInVisibleText": 24,
+  "menuWords": [
+    "cardapio",
+    "cardápio",
+    "pedido",
+    "combo",
+    "pizza",
+    "bebida"
+  ],
+  "networkInterestingCount": 30,
+  "failedRequestCount": 2,
+  "directProbe": {
+    "platform": "cardapioweb",
+    "success": true,
+    "source": "cardapioweb_native_api",
+    "endpoint": "https://integracao.cardapioweb.com/api/menu/company/categories?only_available_for=delivery&origin=catalogo",
+    "details": {
+      "companyId": "40575",
+      "companySlug": "ilove_pizza"
+    },
+    "categoryCount": 4,
+    "itemCount": 22,
+    "optionCount": 388,
+    "optionGroupCount": 16,
+    "realOptionCount": 388,
+    "realOptionGroupCount": 16,
+    "requiredOptionGroupCount": 0,
+    "optionalOptionGroupCount": 16,
+    "groupsWithExplicitRuleCount": 0,
+    "groupsWithInferredRuleCount": 0,
+    "detailCompleteness": {
+      "hasItems": true,
+      "hasOptionGroups": true,
+      "hasRealOptions": true,
+      "hasRules": false,
+      "hasOperationalCleanupNeed": false
+    },
+    "operationalOptionCount": 0,
+    "operationalSample": [],
+    "groupSamples": [
+      {
+        "category": "😱 PROMOÇÕES 😱",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Escolha sua Pizza Grande",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 66,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Mussarela",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango Catupiry",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango e Milho",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cream Cheese",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cheddar",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Barbecue",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Calabresa",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Calabresa com Catupiry",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "😱 PROMOÇÕES 😱",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Borda Recheada",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 8,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Borda Cheddar",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Cream Cheese",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Catupiry",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Chocolate Branco",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Chocolate ao Leite",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Ovomaltine",
+            "price": 20,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Nutella",
+            "price": 20,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Creme de Ninho Original",
+            "price": 20,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "😱 PROMOÇÕES 😱",
+        "item": "COMBO IRRESISTÍVEL 🤤",
+        "group": "Refrigerante 1L",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 5,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Guaraná antartica 1L",
+            "price": 5,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Coca cola 1L",
+            "price": 12,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Coca cola 2L",
+            "price": 18,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "coca cola lata zero",
+            "price": 7,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "coca cola lata original",
+            "price": 7,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "😱 PROMOÇÕES 😱",
+        "item": "COMBO NETFLIX 🎬",
+        "group": "Escolha sua Pizza Grande",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 66,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Mussarela",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango Catupiry",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango e Milho",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cream Cheese",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cheddar",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Barbecue",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Calabresa",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Calabresa com Catupiry",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "😱 PROMOÇÕES 😱",
+        "item": "COMBO NETFLIX 🎬",
+        "group": "Refrigerante 1L",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 5,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Guaraná antartica 1L",
+            "price": 5,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Coca cola 1L",
+            "price": 12,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Coca cola 2L",
+            "price": 18,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "coca cola lata zero",
+            "price": 7,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "coca cola lata original",
+            "price": 7,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "😱 PROMOÇÕES 😱",
+        "item": "COMBO NETFLIX 🎬",
+        "group": "Borda Recheada",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 8,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Borda Cheddar",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Cream Cheese",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Catupiry",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Chocolate Branco",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Chocolate ao Leite",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Ovomaltine",
+            "price": 20,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Nutella",
+            "price": 20,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Creme de Ninho Original",
+            "price": 20,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "😱 PROMOÇÕES 😱",
+        "item": "COMBO NETFLIX 🎬",
+        "group": "Escolha sua Pizza Pequena",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 67,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Mussarela",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango Catupiry",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango e Milho",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cream Cheese",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cheddar",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "A moda da casa",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Barbecue",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Calabresa",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Pizzas",
+        "item": "Pizza Pequena",
+        "group": "Escolha sua Pizza Pequena",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 67,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Mussarela",
+            "price": 35,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango Catupiry",
+            "price": 35,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango e Milho",
+            "price": 35,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cream Cheese",
+            "price": 35,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cheddar",
+            "price": 35,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "A moda da casa",
+            "price": 35,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Barbecue",
+            "price": 35,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Calabresa",
+            "price": 35,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Pizzas",
+        "item": "Pizza Pequena",
+        "group": "Borda Recheada",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 8,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Borda Cheddar",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Cream Cheese",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Catupiry",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Chocolate Branco",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Chocolate ao Leite",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Ovomaltine",
+            "price": 20,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Nutella",
+            "price": 20,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Creme de Ninho Original",
+            "price": 20,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Pizzas",
+        "item": "Pizza Grande",
+        "group": "Escolha sua Pizza Grande",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 66,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Mussarela",
+            "price": 55,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Maria bonita",
+            "price": 55,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango Catupiry",
+            "price": 55,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango e Milho",
+            "price": 55,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Bacon aos 4 queijos",
+            "price": 65,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cream Cheese",
+            "price": 55,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Cheddar",
+            "price": 55,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Frango com Barbecue",
+            "price": 55,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Pizzas",
+        "item": "Pizza Grande",
+        "group": "Borda Recheada",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 8,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Borda Cheddar",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Cream Cheese",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Catupiry",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Chocolate Branco",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Chocolate ao Leite",
+            "price": 15,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Ovomaltine",
+            "price": 20,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Nutella",
+            "price": 20,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Borda Creme de Ninho Original",
+            "price": 20,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Bebidas",
+        "item": "Coca cola Lata 350ml",
+        "group": "Escolha o sabor",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 1,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Sabor não especificado",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Bebidas",
+        "item": "Coca cola 1L",
+        "group": "Escolha o sabor",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 1,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Sabor não especificado",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Bebidas",
+        "item": "Coca cola 2L",
+        "group": "Escolha o sabor",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 1,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Sabor não especificado",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Bebidas",
+        "item": "H2O",
+        "group": "Escolha o sabor",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 1,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Sabor não especificado",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Bebidas",
+        "item": "Suco",
+        "group": "Escolha o sabor",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 10,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Acerola",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Maracujá",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Cajá",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Uva",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Mangaba",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Graviola",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Manga",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Caju",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "name": "😱 PROMOÇÕES 😱",
+        "items": [
+          {
+            "name": "COMBO IRRESISTÍVEL 🤤",
+            "price": 54.9,
+            "optionSample": [
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Mussarela",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango Catupiry",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango e Milho",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Cream Cheese",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Cheddar",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Barbecue",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Calabresa",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Calabresa com Catupiry",
+                "price": 0
+              }
+            ]
+          },
+          {
+            "name": "COMBO NETFLIX 🎬",
+            "price": 84.9,
+            "optionSample": [
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Mussarela",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango Catupiry",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango e Milho",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Cream Cheese",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Cheddar",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Barbecue",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Calabresa",
+                "price": 0
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Calabresa com Catupiry",
+                "price": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pizzas",
+        "items": [
+          {
+            "name": "Pizza Pequena",
+            "price": 0,
+            "optionSample": [
+              {
+                "group": "Escolha sua Pizza Pequena",
+                "name": "Mussarela",
+                "price": 35
+              },
+              {
+                "group": "Escolha sua Pizza Pequena",
+                "name": "Frango Catupiry",
+                "price": 35
+              },
+              {
+                "group": "Escolha sua Pizza Pequena",
+                "name": "Frango e Milho",
+                "price": 35
+              },
+              {
+                "group": "Escolha sua Pizza Pequena",
+                "name": "Frango com Cream Cheese",
+                "price": 35
+              },
+              {
+                "group": "Escolha sua Pizza Pequena",
+                "name": "Frango com Cheddar",
+                "price": 35
+              },
+              {
+                "group": "Escolha sua Pizza Pequena",
+                "name": "A moda da casa",
+                "price": 35
+              },
+              {
+                "group": "Escolha sua Pizza Pequena",
+                "name": "Frango com Barbecue",
+                "price": 35
+              },
+              {
+                "group": "Escolha sua Pizza Pequena",
+                "name": "Calabresa",
+                "price": 35
+              }
+            ]
+          },
+          {
+            "name": "Pizza Grande",
+            "price": 0,
+            "optionSample": [
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Mussarela",
+                "price": 55
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Maria bonita",
+                "price": 55
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango Catupiry",
+                "price": 55
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango e Milho",
+                "price": 55
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Bacon aos 4 queijos",
+                "price": 65
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Cream Cheese",
+                "price": 55
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Cheddar",
+                "price": 55
+              },
+              {
+                "group": "Escolha sua Pizza Grande",
+                "name": "Frango com Barbecue",
+                "price": 55
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Coca cola Lata 350ml",
+            "price": 7,
+            "optionSample": [
+              {
+                "group": "Escolha o sabor",
+                "name": "Sabor não especificado",
+                "price": 0
+              }
+            ]
+          },
+          {
+            "name": "Coca cola zero lata 350ml",
+            "price": 7,
+            "optionSample": []
+          },
+          {
+            "name": "Guaraná antártica lata 350ml",
+            "price": 7,
+            "optionSample": []
+          },
+          {
+            "name": "Guaraná antártica zero lata 350ml",
+            "price": 7,
+            "optionSample": []
+          },
+          {
+            "name": "Guaraná antartica 1L",
+            "price": 12,
+            "optionSample": []
+          },
+          {
+            "name": "Coca cola 1L",
+            "price": 12,
+            "optionSample": [
+              {
+                "group": "Escolha o sabor",
+                "name": "Sabor não especificado",
+                "price": 0
+              }
+            ]
+          },
+          {
+            "name": "Coca cola zero 1L",
+            "price": 12,
+            "optionSample": []
+          },
+          {
+            "name": "Coca cola 2L",
+            "price": 18,
+            "optionSample": [
+              {
+                "group": "Escolha o sabor",
+                "name": "Sabor não especificado",
+                "price": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "EMBALAGEM",
+        "items": [
+          {
+            "name": "Embalagens",
+            "price": 2,
+            "optionSample": []
+          }
+        ]
+      }
+    ],
+    "lesson": "CardapioWeb exposes structured categories/items/add-ons through integracao.cardapioweb.com when company/company-id are known."
+  },
+  "lessonFlags": [
+    "structured_api_available",
+    "short_fullpage_snapshot_should_be_valid"
+  ],
+  "error": null
+}

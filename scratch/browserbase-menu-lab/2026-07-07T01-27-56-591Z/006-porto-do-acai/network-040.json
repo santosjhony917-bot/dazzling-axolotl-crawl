@@ -1,0 +1,27 @@
+{
+  "url": "https://api.meucarrinho.delivery/orders/merchants/loyalty/cards/default?merchantId=4c801932-2485-4f56-a90e-d089fac73b4c",
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 267,
+  "textSample": "{\"errors\":{\"merchantId\":[\"QueroBonus service not configured for merchant\"]},\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\"title\":\"One or more validation errors occurred.\",\"status\":400,\"traceId\":\"00-5089ef30af18498e4f6f693de430a7f6-2d77c7ae6f16348f-00\"}",
+  "jsonKeys": [
+    "errors",
+    "type",
+    "title",
+    "status",
+    "traceId"
+  ],
+  "json": {
+    "errors": {
+      "merchantId": [
+        "QueroBonus service not configured for merchant"
+      ]
+    },
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "00-5089ef30af18498e4f6f693de430a7f6-2d77c7ae6f16348f-00"
+  }
+}

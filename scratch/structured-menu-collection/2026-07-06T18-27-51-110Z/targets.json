@@ -1,0 +1,62 @@
+[
+  {
+    "restaurantId": "395c5d1a-99f7-40e3-82f3-af6e22406e75",
+    "restaurantName": "Bar da Curva - Sandro's Bar",
+    "sourceUrl": "https://app.cardapioweb.com/sandros_bar?s=cb",
+    "platform": "cardapioweb",
+    "reviewsCount": 2635,
+    "address": "R. Profa. Severina Ramos da Silva, 27",
+    "city": "Campina Grande",
+    "state": "PB",
+    "phone": null,
+    "queueEntry": {
+      "restaurant_id": "395c5d1a-99f7-40e3-82f3-af6e22406e75",
+      "name": "Bar da Curva - Sandro's Bar",
+      "platform": "cardapioweb",
+      "tier": "green",
+      "priority_score": 0,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://app.cardapioweb.com/sandros_bar?s=cb",
+      "raw_source_url": "https://app.cardapioweb.com/sandros_bar?s=cb",
+      "other_url": "https://app.cardapioweb.com/sandros_bar?s=cb",
+      "external_url": "https://app.cardapioweb.com/sandros_bar?s=cb",
+      "other_url_label": "Cardapio Web",
+      "category": "",
+      "address": "R. Profa. Severina Ramos da Silva, 27",
+      "neighborhood": "Sandra Cavalcante",
+      "city": "Campina Grande",
+      "state": "PB",
+      "rating": 4.5,
+      "reviews_count": 2635,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte publica de cardapio encontrada no link da bio do Instagram (Cardapio Web); aguardando coleta estruturada.",
+      "menu_last_checked_at": "2026-07-06T04:40:30.656+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://app.cardapioweb.com/sandros_bar?s=cb",
+          "canonical_url": "https://app.cardapioweb.com/sandros_bar?s=cb",
+          "platform": "cardapioweb",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        },
+        {
+          "field": "external_url",
+          "raw": "https://app.cardapioweb.com/sandros_bar?s=cb",
+          "canonical_url": "https://app.cardapioweb.com/sandros_bar?s=cb",
+          "platform": "cardapioweb",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "cardapioweb_fast_path",
+      "rank": 1
+    }
+  }
+]

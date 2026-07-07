@@ -1,0 +1,90 @@
+{
+  "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+  "name": "Restaurante Pôr do Sol",
+  "instagram": "https://www.instagram.com/bar_restaurantepordosol/",
+  "followers": 1193,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://pedido.anota.ai/loja/restaurante-por-do-sol-5?f=msa"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "ae86c28d-ce4a-4700-8708-31ddabd8e09e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/eeb4213a-a5a1-4286-a33f-b6fea80cb891/instagram_1783384846538_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "b37b7c30-4c9a-4f0d-8641-d00ac8549883",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/eeb4213a-a5a1-4286-a33f-b6fea80cb891/instagram_1783384847994_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "f5f43fd5-af95-4bf3-8798-d0104d1bf6ed",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/eeb4213a-a5a1-4286-a33f-b6fea80cb891/instagram_1783384848710_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "bc861677-99a7-4f18-bc7c-93e5d57e75c9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/eeb4213a-a5a1-4286-a33f-b6fea80cb891/instagram_1783384849388_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "9470cc21-1ae8-4d6f-9c0f-46bce3c7bf5d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/eeb4213a-a5a1-4286-a33f-b6fea80cb891/instagram_1783384850019_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "72397dd0-7119-4ab8-b075-ac9e00deabbc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/eeb4213a-a5a1-4286-a33f-b6fea80cb891/instagram_1783384851413_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "c108045d-1500-481b-bd44-278f2c29d051",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/eeb4213a-a5a1-4286-a33f-b6fea80cb891/instagram_1783384852723_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "cb4d4609-9f8e-457d-86a8-4c83c4c9e98a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/eeb4213a-a5a1-4286-a33f-b6fea80cb891/instagram_1783384853499_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,227 @@
+{
+  "id": "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6",
+  "name": "Pizzaria 1000Graus",
+  "instagram": "https://www.instagram.com/1000grauspizzaria_/",
+  "followers": 9164,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_profile_1783385951461.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385956607_1.jpg",
+      "score": 43,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385958690_2.jpg",
+      "score": 40,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385959483_3.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385960269_4.jpg",
+      "score": 31,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385966089_5.jpg",
+      "score": 30,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385969109_6.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385973408_7.jpg",
+      "score": 29,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385977022_8.jpg",
+      "score": 29,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "2756e243-4429-419d-9196-663d6144011c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385956607_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "7aa70ee1-6265-4edc-887e-f6fb63f564a8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385958690_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "56232d80-1653-461d-a89d-27c8ae8815c5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385959483_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "4ad09600-3810-4134-a635-23bc01d1c6d4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385960269_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "d8b0a535-205f-4b0b-a226-276fd1a71cd4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385966089_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "2d1f6ac4-22e4-4b3c-aa70-dc6711dfe213",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385969109_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "eeec5b30-dfa8-426d-acdc-38e3c6c591ed",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385973408_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "c92e42a7-61a4-498f-8c6d-7446b302780f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6e42a0fb-9793-4d47-9a12-c5c5a6df86d6/instagram_1783385977022_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 43,
+      "caption": "Seu voto, sua fome! Participe e peça sua jantar! ❤️🍕 Quinta combina com pizza 🍕 🤤 Família e amigos unidos combina com pizza 🍕🤤 Vem para 1000graus💥 Atendimento no Salão e Deli",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 40,
+      "caption": "DOMINGOUU📢 Domingo combina com pizza 🍕 🤤 Família e amigos unidos combina com pizza 🍕🤤 Vem para 1000graus💥 Atendimento no salão 👩🏻‍💻 Delivery do centro até intermares 🛵🫶\ud83c",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 34,
+      "caption": "DOMINGOUU📢 Domingo combina com pizza 🍕 🤤 Família e amigos unidos combina com pizza 🍕🤤 Vem para 1000graus💥 Atendimento no salão 👩🏻‍💻 Delivery do centro até intermares 🛵🫶\ud83c",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 31,
+      "caption": "\"1000graus feita pra quem ama pizza!\" Faça seu pedido sem sair de casa, através do: WhatsApp, ☎️ ligação, ou através do nosso link.",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 30,
+      "caption": "\"1000graus feita pra quem ama pizza!\" Faça seu pedido sem sair de casa, através do: WhatsApp, ☎️ ligação, ou através do nosso link.",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "DOMINGOU, e no domingo é de lei uma pizza! Tá esperando o que? Pede logo a sua! A melhor pizza a lenha da cidade😍 Cabedelo- PB Atendimento 18h às 23:30h Whats: (83)993291827",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "Pizza de banana nevada e dois amores! Explosão de sabores em uma única fatia! Tá esperando o que? Pede já a sua!🤤😍 #pizzasóna1000graus❤️ #explosaodesabor",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "\"1000graus feita pra quem ama pizza!\" Faça seu pedido sem sair de casa, através do: WhatsApp, ☎️ ligação, ou através do nosso link.",
+      "vision": null
+    }
+  ]
+}

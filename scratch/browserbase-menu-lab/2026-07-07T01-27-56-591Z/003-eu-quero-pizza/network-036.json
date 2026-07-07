@@ -1,0 +1,21 @@
+{
+  "url": "https://api.fstr.rocks/v1/event",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 78,
+  "textSample": "{\"successfulTrackingCount\":2,\"errors\":[],\"failureCount\":0,\"hasFailures\":false}",
+  "jsonKeys": [
+    "successfulTrackingCount",
+    "errors",
+    "failureCount",
+    "hasFailures"
+  ],
+  "json": {
+    "successfulTrackingCount": 2,
+    "errors": [],
+    "failureCount": 0,
+    "hasFailures": false
+  }
+}

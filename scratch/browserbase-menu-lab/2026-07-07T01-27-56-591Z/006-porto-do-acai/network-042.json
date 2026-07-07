@@ -1,0 +1,117 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 1851,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"ad38978e-1f5f-4bd5-8303-0dd5ccd47e80\",\"id\":\"6aa9bdc9-11ae-4dcd-8547-4e51ceffdb01\",\"code\":\"63\",\"ean\":null,\"priority\":1,\"name\":\"MENTOS\",\"description\":\"\",\"price\":3.5,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"f7a92e82-722e-4ca6-b351-24ed2e1a5890\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"MENTOS\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"ad38978e-1f5f-4bd5-8303-0dd5ccd47e80\",\"id\":\"c81ce4b7-3199-4cb0-af93-defd46ac5252\",\"code\":\"64\",\"ean\":null,\"priority\":2,\"name\":\"HALLS\",\"description\":\"\",\"price\":2.5,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"2d4a0432-7eee-47ee-8cc1-e1ca48e1a234\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"HALLS\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "2"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "ad38978e-1f5f-4bd5-8303-0dd5ccd47e80",
+      "id": "6aa9bdc9-11ae-4dcd-8547-4e51ceffdb01",
+      "code": "63",
+      "ean": null,
+      "priority": 1,
+      "name": "MENTOS",
+      "description": "",
+      "price": 3.5,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "f7a92e82-722e-4ca6-b351-24ed2e1a5890",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "MENTOS",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "ad38978e-1f5f-4bd5-8303-0dd5ccd47e80",
+      "id": "c81ce4b7-3199-4cb0-af93-defd46ac5252",
+      "code": "64",
+      "ean": null,
+      "priority": 2,
+      "name": "HALLS",
+      "description": "",
+      "price": 2.5,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "2d4a0432-7eee-47ee-8cc1-e1ca48e1a234",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "HALLS",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

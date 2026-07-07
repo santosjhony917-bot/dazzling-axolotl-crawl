@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="pt">
+     <head>
+			<!-- Impedir Dark Mode automático Xiaomi/Samsung -->
+	<meta name="color-scheme" content="only light">
+	<meta name="supported-color-schemes" content="light">
+	<meta name="forced-color-adjust" content="none">
+	<!-- Samsung Internet: desabilita auto dark mode -->
+	<meta name="samsung-internet-disable-dark-mode" content="true">
+	<!-- Xiaomi MIUI Browser: desabilita auto dark mode -->
+	<meta name="MobileOptimized" content="320">
+	<meta name="HandheldFriendly" content="true">
+	<meta name="night-mode-enable" content="false">
+	<style>
+		:root { color-scheme: light only; forced-color-adjust: none; }
+		html { color-scheme: light only; }
+	</style>
+
+
+     <meta name="theme-color" content="#411CBE">
+	 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#411CBE">
+	 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#411CBE">
+	 <meta name="apple-mobile-web-app-capable" content="yes">
+	 <meta name="apple-mobile-web-app-title" content="">
+	 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">  
+	 <!-- <link rel="apple-touch-startup-image" href="https://ccmpedidoonline.com.br/cdn/logoesfields4.png"> -->
+
+	  
+	 <link rel="apple-touch-icon" href="https://ccmpecdn.s3.sa-east-1.amazonaws.com/imagenspedidoonline/icon512esfields.png"/>
+     <link rel="shortcut icon" type="image/png" href="https://ccmpecdn.s3.sa-east-1.amazonaws.com/imagenspedidoonline/icon512esfields.png"/>
+	 	
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content=""/>
+
+     
+    <meta property="og:image:type" content="image/jpeg">
+	<meta property="og:image" content="https://ccmpecdn.s3.sa-east-1.amazonaws.com/imagenspedidoonline/faceesfields.png"/>
+    <meta property="og:image:width" content="1200"> 
+    <meta property="og:image:height" content="675"> 
+    
+
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content="Faça seu pedido online"/>
+	<meta property="og:locale" content="pt-BR"/>
+	<meta property="fb:app_id" content="1030631416997458"/>
+	<meta property="og:url" content="https://ligesfihacaririoca.ccmpedidoonline.com.br"/>
+
+    <link rel="manifest" href="manifest.json.php">
+	
+
+	<!-- Google tag (gtag.js) - GA4 -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){ dataLayer.push(arguments); }
+
+	gtag('js', new Date());
+
+	// Inicializa o GA4
+	gtag('config', 'G-LVSK7PW80R');
+	</script>
+
+	
+	 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700" />
+		
+	<script src="https://ccmpedidoonline.com.br/cdn/app/jquery.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="//code.jquery.com/jquery-2.1.0.min.js"%3E%3C/script%3E'))</script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"%3E%3C/script%3E'))</script>
+	   <script type="text/javascript" charset="utf-8">
+		function abrir(nometela) {
+			navegarComOverlay(nometela, true);
+        }
+		function enviar()
+		{
+      mostrarOverlayCarregando();
+			document.getElementById("formcad").submit();
+		}
+     </script>
+	 	 <link rel="stylesheet" href="ccm-files/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+	 	 <link rel="stylesheet" href="koba_referencia/koba.css">
+		 
+	
+		
+		
+	  <!-- Font Awesome Pro -->
+  <link rel="preload" as="style" href="https://ccmpedidoonline.com.br/cdn/app/fa-pro/css/all.min.css" onload="this.onload=null;this.rel='stylesheet';" />
+  <noscript><link rel="stylesheet" href="https://ccmpedidoonline.com.br/cdn/app/fa-pro/css/all.min.css" /></noscript>
+	 	
+<style>
+:root {
+  --primary-color: #411CBE;
+  --secondary-color: #411CBE;
+  --text-color: #333;
+  --background-color: #ffffff;
+  --light-gray: #f0f2f5;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.swal-button, .swal-button:focus {
+  padding: 10px 24px;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  background-color: var(--secondary-color);
+  transition: var(--transition);
+}
+
+.swal-button:hover {
+  background-color: var(--secondary-color) !important;
+  opacity: 0.9;
+}
+
+.btn-primary-outline {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.btn-primary-outline:hover, 
+.btn-primary-outline:focus {
+  background-color: rgba(0,0,0,0.05);
+  color: var(--primary-color);
+}
+
+.alert .glyphicon {
+  float: left;
+  margin-right: 12px;
+}
+
+.alert div {
+  overflow: hidden;
+}
+
+.painelGeral {
+  width: 100%;
+  max-width: 450px;
+  margin: 1rem auto;
+  padding: 1.5rem;
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  /* NAO usar margin-top aqui: como .painelGeral eh o 1o filho do body, o
+     margin-top colapsa para fora do body (margin collapse), empurrando o
+     body inteiro e criando espaco branco + scroll no topo do WKWebView.
+     O deslocamento abaixo da barra fixa eh feito via padding-top no body. */
+}
+
+@media (max-width: 480px) {
+  .painelGeral {
+    padding: 1.5rem 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: calc(100% - 2rem);
+  }
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+@media (max-width: 480px) {
+  .login-title {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+}
+
+.login-input {
+  display: block;
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  margin-bottom: 1rem;
+  font-size: 16px;
+  color: var(--text-color);
+  border: 1px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  background-color: var(--light-gray);
+  transition: var(--transition);
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: white;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+}
+
+.login-btn {
+  display: block;
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  margin: 1.5rem 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.login-btn:hover, .login-btn:focus {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.login-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  margin: 0.75rem 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.login-link:hover, 
+.login-link:active, 
+.login-link:focus {
+  text-decoration: none;
+}
+
+.link-primary {
+  color: white;
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+}
+
+.link-primary:hover, 
+.link-primary:active {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+}
+
+.link-secondary {
+  color: #343a40;
+  background-color: transparent;
+  border: 2px solid #343a40;
+  cursor: pointer;
+}
+
+.link-secondary:hover, 
+.link-secondary:active {
+  background-color: rgba(0,0,0,0.05);
+  transform: translateY(-1px);
+  color: #000;
+  text-decoration: none;
+}
+
+.link-tertiary {
+  color: #666;
+  background-color: transparent;
+  border: 2px solid #ddd;
+  cursor: pointer;
+}
+
+.link-tertiary:hover, 
+.link-tertiary:active {
+  border-color: #bbb;
+  color: #333;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.link-highlight {
+  color: white;
+  background-color: #2ecc71;
+  border: 2px solid #2ecc71;
+  font-weight: 700;
+  box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
+}
+
+.link-highlight:hover, .link-highlight:active, .link-highlight:focus {
+  color: white;
+  background-color: #27ae60;
+  border-color: #27ae60;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(46, 204, 113, 0.3);
+}
+
+.strike {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 1.5rem 0;
+}
+
+.strike > span {
+  position: relative;
+  display: inline-block;
+  color: #999;
+  font-size: 14px;
+}
+
+.strike > span:before,
+.strike > span:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 100px;
+  height: 1px;
+  background: #ddd;
+}
+
+@media (max-width: 480px) {
+  .strike > span:before,
+  .strike > span:after {
+    width: 70px;
+  }
+}
+
+.strike > span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+
+.strike > span:after {
+  left: 100%;
+  margin-left: 15px;
+}
+
+.privacy-notice {
+  font-size: 13px;
+  color: #777;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.privacy-notice u {
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+/* Modal customization */
+.modal-content {
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.modal-header {
+  border-bottom: 1px solid #eee;
+  padding: 1rem 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid #eee;
+  padding: 1rem 1.5rem;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Elementos para transição - versão simplificada */
+.hidden {
+  display: none !important;
+}
+
+#login-form-container, #initial-buttons {
+  width: 100%;
+}
+
+.view-transition {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.back-button:hover {
+  background-color: rgba(0,0,0,0.05);
+  color: #333;
+}
+
+.back-button i {
+  margin-right: 5px;
+}
+
+/* Touch friendly tweaks */
+@media (max-width: 768px) {
+  .login-link, .login-btn, .back-button {
+    cursor: default;
+  }
+  
+  .login-btn {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  .login-input {
+    font-size: 16px; /* Prevent zoom on focus in iOS */
+  }
+}
+
+/* Badge de recomendado */
+.badge-recommended {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #ff5722;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Garantir que o botão com badge tenha posição relativa */
+.has-badge {
+  position: relative;
+}
+
+/* Elemento importante que estava faltando */
+.login-link i {
+  margin-right: 8px;
+}
+
+/* Todos os elementos clicáveis devem ter cursor pointer */
+button, 
+a, 
+.login-link, 
+.link-primary, 
+.link-secondary,
+.link-tertiary,
+.link-highlight,
+.login-btn,
+.back-button,
+[onClick] {
+  cursor: pointer !important;
+}
+
+/* Medida extra para mobile */
+@media (hover: hover) {
+  button:hover, 
+  a:hover, 
+  .login-link:hover, 
+  .link-primary:hover, 
+  .link-secondary:hover,
+  .link-tertiary:hover,
+  .link-highlight:hover,
+  .login-btn:hover,
+  .back-button:hover,
+  [onClick]:hover {
+    cursor: pointer !important;
+  }
+}
+
+/* Fix para espaço extra no topo em WebViews iOS.
+   Receita replicada de cadastro.php (que NAO apresenta a linha branca no topo
+   no WKWebView): body usa min-height:100vh, SEM position:relative e SEM
+   height:100% -- esses, combinados com o margin-top do .painelGeral e a
+   box-shadow da barra fixa, produziam a linha fina branca no topo do app. */
+html {
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  /* padding-top desloca o conteudo para baixo da barra fixa (44px) E impede o
+     margin collapse do .painelGeral -- por isso NAO ha scroll/faixa branca.
+     Sem min-height:100vh para o body nao exceder a viewport sem necessidade. */
+  padding-top: 44px;
+  padding-bottom: 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* iOS WebView: alem dos 44px da barra, soma a safe-area (notch/status bar),
+   que tambem eh pintada pela propria barra fixa (top:0). */
+@supports (-webkit-touch-callout: none) {
+  body {
+    padding-top: calc(44px + env(safe-area-inset-top, 0px));
+  }
+}
+</style>
+     <title>CCM Pedido Online - Login</title>
+
+     <meta charset="utf-8">
+     <meta name = "format-detection" content = "telephone=no" />
+	 <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+
+</head>
+<body>
+
+<div class="painelGeral">
+  
+  <form id='form1' name='form1' method='post' action='index.php' onSubmit="return Validar()">
+  
+      <div id="divloginnormal" style="">
+        <!-- Botões iniciais -->
+        <div id="initial-buttons">
+            
+            <a onClick="fCadastrar();" class="login-link link-secondary">
+              <i class="fal fa-user-plus"></i> Fazer novo cadastro
+                          </a>
+            
+            <button type="button" id="btn-entrar-conta" onClick="showLoginForm()" class="login-link link-secondary">
+              <i class="fal fa-sign-in"></i> Entrar na minha conta
+            </button>
+        </div>
+        
+        <!-- Formulário de login (inicialmente oculto) -->
+        <div id="login-form-container" class="hidden">
+            <button type="button" class="back-button" onClick="hideLoginForm()">
+              <i class="fal fa-arrow-left"></i> Voltar
+            </button>
+            
+            <input class="login-input" autocomplete="on" type="email" name="usuario" id="usuario" value="" tabindex="1" size="30" MAXLENGTH=50 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Digite seu e-mail" required/>
+            <input class="login-input" autocomplete="on" type="password" name="senha" id="senha" value="" tabindex="2" size="30" MAXLENGTH=15 placeholder="Digite sua senha" required/>
+            
+            <button type="submit" class="login-btn">
+              Entrar
+            </button>
+
+            <a onClick="entrar('recuperasenha.php');" class="login-link link-tertiary">
+              <span class="fal fa-key"></span> Esqueci minha senha
+            </a>
+            
+        </div>
+
+        <div class="privacy-notice">
+          <span data-toggle="modal" data-target="#myModal">
+            Ao se cadastrar você concorda com a <u>política de privacidade</u> da plataforma.
+          </span>
+        </div>
+    </div>
+	   
+	<script>
+	 function fCadastrar() {
+		entrar('cadastro.php');
+	 }
+     
+     // Variável para controlar o estado atual
+     var loginFormVisible = false;
+     
+     function showLoginForm() {
+        if (loginFormVisible) return;
+        
+        // Mostrar login, esconder botões - sem animações
+        document.getElementById('initial-buttons').classList.add('hidden');
+        document.getElementById('login-form-container').classList.remove('hidden');
+        
+        // Focar no campo de email após a transição
+        document.getElementById('usuario').focus();
+        
+        loginFormVisible = true;
+     }
+     
+     function hideLoginForm() {
+        if (!loginFormVisible) return;
+        
+        // Mostrar botões, esconder login - sem animações
+        document.getElementById('login-form-container').classList.add('hidden');
+        document.getElementById('initial-buttons').classList.remove('hidden');
+        
+        loginFormVisible = false;
+     }
+     
+     // Detectar se é dispositivo móvel
+     function isMobileDevice() {
+         return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+     }
+     
+     // Aplicar ajustes específicos para mobile
+     document.addEventListener('DOMContentLoaded', function() {
+         if (isMobileDevice()) {
+             document.querySelector('meta[name=viewport]').setAttribute(
+                 'content',
+                 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover'
+             );
+         }
+         
+         // Configuração inicial
+         loginFormVisible = false;
+         document.getElementById('login-form-container').classList.add('hidden');
+         document.getElementById('initial-buttons').classList.remove('hidden');
+     });
+	</script>	
+
+  </form>
+</div>		
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="z-index: 9999999;">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Política de privacidade</h4>
+      </div>
+      <div class="modal-body">
+        <iframe frameBorder="0" src="https://ccmpedidoonline.com.br/politica-de-privacidade.php" style="width: 100%; height: 400px;"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+
+  </div>
+</div>  
+
+
+	<style>
+.barracimaccm
+{
+	/* max-width: 500px; */
+	z-index: 9999;
+	position:fixed;
+	width:100%;
+	
+	height:44px;
+	line-height: 44px;
+	background-color:#411CBE;
+	top:0 !important;
+	margin-top: 0 !important;
+    padding-top: 0 !important;
+	color: #fff;
+	left: 0;
+
+	/* Modernização Junho 2025 */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.icobarracima
+{
+	margin-left: 10px;
+	height: 44px;
+	line-height: 44px;
+	padding-left: 16px;
+	color: #fff;
+	margin: 0px;
+	cursor: pointer;
+}
+.icobarracima_direita
+{
+	margin-right: 10px;
+	float: right;
+	height: 44px;
+	line-height: 44px;
+	cursor: pointer;
+}
+
+.txtbarracima
+{
+	margin-left: 5px;
+
+}
+</style>
+	<div class="barracimaccm" style = "text-align: center;">
+		
+		
+		
+		
+		<span id = "tituloBarra" class="txtbarracima">Login</span>
+
+	</div>
+	
+	
+	<div class=""  style = "
+	position: fixed; top: 0; left: 0; z-index: 99999;
+	text-align: left;">
+		
+		
+		
+		<i onClick = "abrir('index.php');" class="fal fa-arrow-left icobarracima"></i>
+
+	</div>
+	
+	
+<!-- (Removido script de "correcao" iOS: ele buscava .barracima/.barra-superior/
+     .barrasuperior, que nao existem nesta pagina, e nunca executava. A faixa
+     branca eh tratada via CSS @supports em .barracimaccm, acima.) -->
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
+	 
+
+		
+		<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+		
+		<script>
+		if (typeof $.LoadingOverlay === "function") {
+			console.log("Overlay Não Carregado");
+		}
+		else
+		{
+			document.write(unescape('%3Cscript src="//cdnjs.cloudflare.com/ajax/libs/jquery-loading-overlay/2.1.7/loadingoverlay.min.js"%3E%3C/script%3E'))
+		}
+		</script>
+		
+		<style>
+    /* Loading moderno - anel girando com a cor da barra do app */
+    .ccm-spinner {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, .25);
+        border-top-color: #411CBE;
+        border-right-color: #411CBE;
+        -webkit-animation: ccm-spin .8s linear infinite;
+        animation: ccm-spin .8s linear infinite;
+        box-sizing: border-box;
+    }
+
+    @-webkit-keyframes ccm-spin {
+        to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+    @keyframes ccm-spin {
+        to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+    }
+</style>
+<script>
+
+    // Loading moderno reutilizável (anel girando com a cor da barra)
+    function ccmShowLoading() {
+        $.LoadingOverlay("show", {
+            image: "",
+            custom: '<div class="ccm-spinner"></div>',
+            // No Safari/iOS o auto-resize do plugin mede o elemento antes do
+            // layout e acaba zerando o tamanho do spinner (fica invisível).
+            // Desligamos para respeitar o tamanho fixo definido no CSS.
+            customAutoResize: false,
+            // Sem fade-in: por padrão o plugin faz fadeTo(400ms). Como a
+            // navegação ocorre logo em seguida, no Safari o overlay congelava
+            // quase transparente e parecia não aparecer. Exibe instantâneo.
+            fade: false,
+            background: "rgba(23,23,23,.65)",
+            zIndex: 99999999
+        });
+    }
+
+    function navegarComOverlay(url, replace = false)
+    {
+        // Quando é App nativo - já tem um Loading
+        if (inWebviewJs() == false)
+        {
+            ccmShowLoading();
+        }
+
+        var irPara = function () {
+            if (replace)
+                window.location.replace(url);
+            else
+                window.location.href = url;
+        };
+
+        // Safari/iOS descarta o frame de paint pendente ao iniciar a navegação,
+        // então o requestAnimationFrame não chega a pintar o spinner. Nesses
+        // browsers usamos um pequeno timeout (suficiente para pintar, bem menor
+        // que os 225ms antigos). Nos demais, 2x rAF navega assim que o spinner
+        // é pintado (~16-33ms), mantendo o clique bem responsivo.
+        if (isAppleWebKit) {
+            setTimeout(irPara, 60);
+        } else {
+            requestAnimationFrame(function () {
+                requestAnimationFrame(irPara);
+            });
+        }
+
+        setTimeout(function(){
+            $.LoadingOverlay("hide");
+        }, 3000);
+    }
+
+    function showOverlayCarregando()
+    {
+        // Quando é App nativo - já tem um Loading
+        if (inWebviewJs() == false)
+        {
+            ccmShowLoading();
+        }
+
+        setTimeout(function(){
+            $.LoadingOverlay("hide");
+        }, 3000);
+    }
+
+    // Detecta iOS Safari
+    var isIOSSafari = /iPad|iPhone|iPod/.test(navigator.userAgent) && /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+
+    // Detecta qualquer browser WebKit no iOS/iPadOS (Safari, Chrome/CriOS,
+    // Firefox/FxiOS e iPadOS 13+ que se reporta como Mac com touch). Todos
+    // descartam o frame de paint ao navegar, então o spinner precisa de um
+    // pequeno timeout em vez do requestAnimationFrame.
+    var isAppleWebKit = /iPad|iPhone|iPod/.test(navigator.userAgent)
+        || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    // Função para esconder overlay de forma robusta
+    function hideOverlayRobust() {
+        try {
+            if (typeof $.LoadingOverlay !== 'undefined') {
+                $.LoadingOverlay("hide");
+            }
+        } catch(e) {
+            console.log('Erro ao esconder overlay:', e);
+        }
+    }
+
+    // Detecta quando a página é carregada via history back
+    window.addEventListener('pageshow', function(event) {
+        hideOverlayRobust();
+        
+        // Para iOS Safari, adiciona um delay extra
+        if (isIOSSafari) {
+            setTimeout(hideOverlayRobust, 100);
+        }
+    });
+
+    // Detecta mudanças de visibilidade (importante para iOS)
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            hideOverlayRobust();
+        }
+    });
+
+    // Detecta quando a página recebe foco (fallback para iOS)
+    window.addEventListener('focus', function() {
+        hideOverlayRobust();
+    });
+
+    // Limpa o overlay quando sair da página
+    window.addEventListener('pagehide', function() {
+        hideOverlayRobust();
+    });
+
+    // Esconde overlay quando a página carrega completamente
+    function onDocumentReady(callback) {
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            callback();
+        } else {
+            document.addEventListener('DOMContentLoaded', callback);
+        }
+    }
+    
+    onDocumentReady(function() {
+        hideOverlayRobust();
+        
+        // Para iOS Safari, adiciona verificações extras
+        if (isIOSSafari) {
+            setTimeout(hideOverlayRobust, 500);
+            setTimeout(hideOverlayRobust, 1000);
+        }
+    });
+
+
+    function inWebviewJs() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+        // iOS WebView (WKWebView/UIWebView não exibem “Safari/” no UA)
+        const isIOSWebView =
+            /iPad|iPhone|iPod/.test(ua) && /Mobile\/\w+/.test(ua) && !/Safari/.test(ua);
+
+        // Android WebView (UA contém “wv” ou “Version/… Chrome/…”)
+        const isAndroidWebView =
+            /Android/.test(ua) && /(wv|Version\/[\d.]+).*Chrome\/[\d.]+/.test(ua);
+
+        // Detecta browsers internos do Facebook/Instagram
+        const isFacebookInApp = /FB_IAB|FB4A|Instagram|FBAV/.test(ua);
+
+        // Regra final
+        return (isIOSWebView || isAndroidWebView) && !isFacebookInApp;
+    }
+</script>
+
+
+
+<script>
+  function gtm_ClickOutrasFormas() {
+    gtag('event', 'click_outras_formas');
+  }
+</script></body>
+
+
+<script>
+var permite_navegar;
+permite_navegar = true;
+</script>
+	 
+<script type="text/javascript" charset="utf-8">
+	function entrar(nometela) {
+	 if (permite_navegar == true)
+	 {
+      navegarComOverlay(nometela, true);
+	 }
+	else
+	{
+		sweetAlert("Falha na conexão", "Você está com problemas em sua conexão com a Internet, verifique a rede de dados e tente novamente", "error");
+	}
+	}
+</script>
+
+<script>
+function Validar()
+{
+  if (permite_navegar == true)
+  {
+    return (true);
+  }
+  else
+  {
+    sweetAlert("Falha na conexão", "Você está com problemas em sua conexão com a Internet, verifique a rede de dados e tente novamente", "error");
+    return (false);
+  }
+}
+</script>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65563026-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>

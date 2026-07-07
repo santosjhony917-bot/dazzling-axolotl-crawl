@@ -1,0 +1,82 @@
+{
+  "runId": "2026-07-06T13-38-04-193Z",
+  "apply": false,
+  "limit": 3,
+  "platform": null,
+  "status": "needs_recollection",
+  "targetCount": 3,
+  "targetQueueCounts": {
+    "green": 3,
+    "yellow": 0,
+    "red": 0
+  },
+  "processed": [
+    {
+      "restaurantId": "7a564e31-faab-4bf2-9c1a-791be4da2968",
+      "restaurantName": "DinDin Alegria",
+      "sourceUrl": "https://app.cardapioweb.com/dindin_alegria",
+      "platform": "cardapioweb",
+      "queue": {
+        "restaurantId": "7a564e31-faab-4bf2-9c1a-791be4da2968",
+        "restaurantName": "DinDin Alegria",
+        "platform": "cardapioweb",
+        "sourceUrl": "https://app.cardapioweb.com/dindin_alegria",
+        "score": 7,
+        "tier": "green",
+        "flags": [],
+        "nextAction": "fast_visual_review_then_import",
+        "category": "Sorveteria·",
+        "address": "R. Odon Bezerra",
+        "phone": "(83) 99834-7369",
+        "instagram": "https://www.instagram.com/dindinalegria/"
+      },
+      "review": {
+        "tier": "red",
+        "restaurantId": "7a564e31-faab-4bf2-9c1a-791be4da2968",
+        "restaurantName": "DinDin Alegria",
+        "platform": "cardapioweb",
+        "sourceUrl": "https://app.cardapioweb.com/dindin_alegria",
+        "score": 7,
+        "sourceTier": "green",
+        "sourceFlags": [],
+        "itemCount": 0,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "dryRunApproved": false,
+        "confidence": 0,
+        "pricedRatio": 0,
+        "unresolvedPriceCount": 0,
+        "committed": false,
+        "flags": [
+          "collector_error",
+          "no_extension_print",
+          "no_structured_items",
+          "insufficient_visual_menu_evidence",
+          "price_coverage_review"
+        ],
+        "nextAction": "reject_or_rediscover_source",
+        "snapshotPath": null,
+        "viewportSnapshotPaths": [],
+        "evidencePath": null,
+        "error": "Timeout aguardando extensao para open_url"
+      },
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T13-38-04-193Z\\001-dindin-alegria",
+      "openedTabId": null,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": null,
+      "verificationSnapshots": [],
+      "verificationSnapshotError": null,
+      "extractionSummary": null,
+      "dryRun": null,
+      "committed": false,
+      "visualBlock": null,
+      "error": "Timeout aguardando extensao para open_url"
+    }
+  ],
+  "reviewCounts": {
+    "green": 0,
+    "yellow": 0,
+    "red": 1
+  }
+}

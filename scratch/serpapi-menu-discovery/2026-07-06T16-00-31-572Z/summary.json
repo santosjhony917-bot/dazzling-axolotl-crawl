@@ -1,0 +1,97 @@
+{
+  "runId": "2026-07-06T16-00-31-572Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "menu",
+  "apply": false,
+  "processed": 3,
+  "foundGreen": 1,
+  "foundYellow": 2,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "anota_ai": 1,
+    "instagram": 2
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-00-31-572Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-00-31-572Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-00-31-572Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": "b9232f4a-86ea-44a4-9a27-8471c5403d5d",
+        "name": "Necão Restaurante",
+        "category": "",
+        "address": "R. Santarém, 368",
+        "neighborhood": "Malvinas",
+        "rating": 4.8,
+        "reviews_count": 3560
+      },
+      "query": "Necão Restaurante Malvinas R. Santarém (83) 98838-0726 Campina Grande PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Necão Restaurante | Delivery em CAMPINA GRANDE",
+        "link": "https://pedido.anota.ai/loja/neco-restaurante",
+        "snippet": "Faça seu pedido online agora mesmo no Necão Restaurante! Seu delivery em CAMPINA GRANDE. Acesse a loja através do Cardápio Digital da Anota AI.",
+        "displayedLink": "https://pedido.anota.ai › loja › neco-restaurante",
+        "platform": "anota_ai",
+        "score": 116,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "395c5d1a-99f7-40e3-82f3-af6e22406e75",
+        "name": "Bar da Curva - Sandro's Bar",
+        "category": "",
+        "address": "R. Profa. Severina Ramos da Silva, 27",
+        "neighborhood": "Sandra Cavalcante",
+        "rating": 4.5,
+        "reviews_count": 2635
+      },
+      "query": "Bar da Curva - Sandro's Bar Sandra Cavalcante R. Profa. Severina Ramos da Silva (83) 3331-8121 Campina Grande PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "O Bar da Curva (@sandrosbaroficial) · Campina Grande, PB",
+        "link": "https://instagram.com/sandrosbaroficial",
+        "snippet": "A curva mais charmosa de Campina! São João, música e cerveja gelada Campina Grande/PB (83) 3331-8121 Faça o seu pedido ⬇️.",
+        "displayedLink": "Mais de 35,6 mil seguidores",
+        "platform": "instagram",
+        "score": 71,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "da007ce7-a9f7-48d9-adca-e2a683e47d4a",
+        "name": "Bododromo Lá em Mãe - Restaurante e Bar Campina Grande",
+        "category": "Restaurante·",
+        "address": "R. Tito Sodré, 79",
+        "neighborhood": "José Pinheiro",
+        "rating": 4.5,
+        "reviews_count": 2437
+      },
+      "query": "Bododromo Lá em Mãe - Restaurante e Bar Campina Grande José Pinheiro R. Tito Sodré (83) 2154-7597 Campina Grande PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Hoje foi dia de conhecer o restaurante @laemmae.cg, que faz ...",
+        "link": "https://instagram.com/reel/DQecpjtDUsj",
+        "snippet": "Rua Tito Sobre, 79 – Bairro José Pinheiro, Campina Grande Também têm cardápio digital e delivery E já estão com ...",
+        "displayedLink": "Mais de 1,2 mil marcações \"Gostei\" · há 8 meses",
+        "platform": "instagram",
+        "score": 69,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    }
+  ]
+}

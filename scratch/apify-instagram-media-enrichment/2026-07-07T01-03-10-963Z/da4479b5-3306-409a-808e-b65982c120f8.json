@@ -1,0 +1,86 @@
+{
+  "id": "da4479b5-3306-409a-808e-b65982c120f8",
+  "name": "Sonne Haus Hambúrgueria",
+  "instagram": "https://www.instagram.com/sonnehaushamburgueria/",
+  "followers": 3073,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "e1262abe-c32d-4d9e-a2b4-18dafabfcddd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385250261_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "32999939-cb9b-41a9-848d-d2bd22bfed1a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385251292_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "274c39d1-fbf4-4421-800a-6b1602af2d3d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385252357_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "8a340710-ccc6-457b-b068-ea20ea3e035e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385252977_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "f4d23657-041a-400d-98fa-8bbfc3bb1468",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385255068_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "bc194f2d-365d-46ba-b8ab-0cba090cb322",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385256352_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "31738d98-ddab-4671-ae8f-0e2ff3f4df7a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385257095_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "cda40dbc-aefc-4f74-bf00-a5d975a2648f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385257696_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

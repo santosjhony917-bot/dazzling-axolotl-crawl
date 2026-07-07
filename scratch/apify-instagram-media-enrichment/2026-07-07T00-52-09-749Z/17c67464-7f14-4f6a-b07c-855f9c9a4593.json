@@ -1,0 +1,227 @@
+{
+  "id": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+  "name": "Manguinhos Burguer",
+  "instagram": "https://www.instagram.com/manguinhosburguer/",
+  "followers": 1850,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_profile_1783385937209.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385941716_1.jpg",
+      "score": 39,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385943319_2.jpg",
+      "score": 38,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385945262_3.jpg",
+      "score": 35,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385946215_4.jpg",
+      "score": 33,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385946911_5.jpg",
+      "score": 22,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385948489_6.jpg",
+      "score": 19,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385949102_7.jpg",
+      "score": 18,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385949886_8.jpg",
+      "score": 17,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "8d0c8ceb-e172-40ec-9d3b-2d95cc94b55f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385941716_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "5fff2869-a1bc-4e2c-8578-3f4ef05c706b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385943319_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "d1ba2c51-ff68-4a60-9e44-e2df4c1122a2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385945262_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "8a52107d-7906-4c70-b06d-52e38c4cf348",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385946215_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "31360b86-4504-4385-b1d6-af15ea4c7b95",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385946911_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "4c3177d8-089c-44fa-9d3d-e92b545a27a0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385948489_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "0d2b59f1-d9a6-44e5-b00e-ccbdc109ce12",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385949102_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "3acd1acc-45c0-47a0-a4a4-0b8392e77138",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/17c67464-7f14-4f6a-b07c-855f9c9a4593/instagram_1783385949886_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 39,
+      "caption": "🍔🔥 DIA MUNDIAL DO HAMBÚRGUER — 28 DE MAIO! 🔥🍔 Amanhã é dia de comemorar do jeito certo na Manguinhos Burguer! 😍 Preparamos uma super novidade pra você: o nosso irresistível Ha",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 38,
+      "caption": "🔥 NOVIDADE NO MANGUINHOS BURGUER! 🔥 Agora o seu lanche favorito ficou ainda melhor! 🍔🥤 Chegou a linha Pepsi pra acompanhar nossos burgers com muito mais sabor e refrescância! \ud83d",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 35,
+      "caption": "🍔🔥 Cabedelo, chegou o Manguinhos Burguer! Dia 17 de março acontece nossa grande inauguração. 🔥 Hambúrguer com sabor de churrasco que você precisa provar. 📍 Rua Débora Borges Xa",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 33,
+      "caption": "🔥 NOVIDADE NO MANGUINHOS BURGUER! 🍟🤤 Agora o sabor ficou ainda mais irresistível! Chegaram nossas novas porções turbinadas pra acompanhar seu hambúrguer favorito: - Batata com B",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "Nossa hamburgueria abriu as portas e o coração de cada um que esteve aqui para celebrar com a gente! A energia foi maravilhosa e estamos apenas começando. 🍔💛🖤 Agradecemos de cor",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 19,
+      "caption": "",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 18,
+      "caption": "",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 17,
+      "caption": "",
+      "vision": null
+    }
+  ]
+}

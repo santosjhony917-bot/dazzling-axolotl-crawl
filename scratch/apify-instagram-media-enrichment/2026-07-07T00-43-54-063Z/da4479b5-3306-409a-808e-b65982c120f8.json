@@ -1,0 +1,228 @@
+{
+  "id": "da4479b5-3306-409a-808e-b65982c120f8",
+  "name": "Sonne Haus Hambúrgueria",
+  "instagram": "https://www.instagram.com/sonnehaushamburgueria/",
+  "followers": 3073,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/da4479b5-3306-409a-808e-b65982c120f8/instagram_profile_1783385245974.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385250261_1.jpg",
+      "score": 30,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385251292_2.jpg",
+      "score": 24,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385252357_3.jpg",
+      "score": 22,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385252977_4.jpg",
+      "score": 17,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385255068_5.jpg",
+      "score": 16,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385256352_6.jpg",
+      "score": 14,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385257095_7.jpg",
+      "score": 13,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385257696_8.jpg",
+      "score": 13,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "e1262abe-c32d-4d9e-a2b4-18dafabfcddd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385250261_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "32999939-cb9b-41a9-848d-d2bd22bfed1a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385251292_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "274c39d1-fbf4-4421-800a-6b1602af2d3d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385252357_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "8a340710-ccc6-457b-b068-ea20ea3e035e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385252977_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "f4d23657-041a-400d-98fa-8bbfc3bb1468",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385255068_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "bc194f2d-365d-46ba-b8ab-0cba090cb322",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385256352_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "31738d98-ddab-4671-ae8f-0e2ff3f4df7a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385257095_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "cda40dbc-aefc-4f74-bf00-a5d975a2648f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/da4479b5-3306-409a-808e-b65982c120f8/instagram_1783385257696_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 30,
+      "caption": "Sextou? Ainda não, mas dia 22/05 vai ser! 🤘🔥 Sheyla & Banda invade a Erste Sonne na Sonne Haus Hamburgueria pra uma noite de puro rock! Cerveja boa, muito hambúrguer, som alto e ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "O brabo tá de volta em Agosto e os ingressos já estão á venda link disponível. Corre que vai esgotar rápido!",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "O grupo Neurodivertidos chega aos palcos com uma proposta única: rir das nossas próprias mentes, transformando os desafios da saúde mental em piadas leves, inteligentes e, acima de",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 17,
+      "caption": "Salveee! Dia 24 de julho, pela primeira vez na Sonne Haus Comedy,vou fazer meu show solo de stand-up, \" O Pai Que Nunca Fui\". Ser pai é uma das maiores aventuras da vida… Entre dúv",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 16,
+      "caption": "22/05 • 19:30 • O VOLUME VAI SUBIR Uma noite de rock do jeito que tem que ser: guitarra no talo, voz rasgando e vocês cantando junto até ficar sem ar. Setlist afiado, luz baixa, co",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 14,
+      "caption": "Dia 23 quem chega no nosso palco é @leandro.leitte . Vem curtir essa noite com o hetero mais afeminado da Internet!!! Corre que os ingressos estão voando !!!",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 13,
+      "caption": "Invejosos dirão que é IA. Não acreditem, estamos ensaiando há meses pra esse momento 😌🤌🏽 Quer conferir ao vivo? Cola com a gente, 05/06, estaremos na @cervejariaerstesonne . 20h",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 13,
+      "caption": "No próximo dia 29 quem comanda o palco é @osannymachado com seu show \"Além da Realidade Uma Comédia Hipnótica \" Hipnose com humor! Vem curtir com a gente !",
+      "vision": null
+    }
+  ]
+}

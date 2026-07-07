@@ -1,0 +1,227 @@
+{
+  "id": "e445b317-ad12-4b4f-ab07-1289037cd322",
+  "name": "Restaurante Self Sabor",
+  "instagram": "https://www.instagram.com/_selfsabor/",
+  "followers": 359,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_profile_1783386022706.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386027959_1.jpg",
+      "score": 42,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386029954_2.jpg",
+      "score": 36,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386031097_3.jpg",
+      "score": 36,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386032181_4.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386033397_5.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386036553_6.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386037419_7.jpg",
+      "score": 28,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386038319_8.jpg",
+      "score": 28,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "30e76990-36c9-4de8-955e-bf80acde876d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386027959_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "17536634-17c1-48dc-bc95-d68b97e780e5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386029954_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "e0522383-ae3c-42a6-86c5-585e77f55933",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386031097_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "1e5017ed-8669-45a5-89d5-a3e25f410703",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386032181_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "2ff85377-de49-4bf4-83b6-216c3ce169fc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386033397_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "ca71ac9a-45d3-494c-9841-bfcd35d5250a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386036553_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "3dd70974-5976-46f3-b471-e20971b875bf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386037419_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "0d6c01ee-3b56-4e96-8039-44e391da71d9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e445b317-ad12-4b4f-ab07-1289037cd322/instagram_1783386038319_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 42,
+      "caption": "A combinação perfeita para o seu almoço está aqui no Self Sabor! 🍽️✨ Do arroz soltinho e aquela farofa caprichada, passando por uma salada super fresca e colorida, até chegar naqu",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 36,
+      "caption": "A combinação perfeita para o seu almoço está aqui no Self Sabor! 🍽️✨ Do arroz soltinho e aquela farofa caprichada, passando por uma salada super fresca e colorida, até chegar naqu",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 36,
+      "caption": "A combinação perfeita para o seu almoço está aqui no Self Sabor! 🍽️✨ Do arroz soltinho e aquela farofa caprichada, passando por uma salada super fresca e colorida, até chegar naqu",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "Sabe aquele cheirinho de comida caseira que dá um quentinho no coração? É o que te espera aqui todos os dias! ❤️ Preparamos um buffet completo, com aquela variedade que você ama: s",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 28,
+      "caption": "Sabe aquele cheirinho de comida caseira que dá um quentinho no coração? É o que te espera aqui todos os dias! ❤️ Preparamos um buffet completo, com aquela variedade que você ama: s",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 28,
+      "caption": "Sabe aquele cheirinho de comida caseira que dá um quentinho no coração? É o que te espera aqui todos os dias! ❤️ Preparamos um buffet completo, com aquela variedade que você ama: s",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 28,
+      "caption": "Sabe aquele cheirinho de comida caseira que dá um quentinho no coração? É o que te espera aqui todos os dias! ❤️ Preparamos um buffet completo, com aquela variedade que você ama: s",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Expectativa: manter a pose para a foto. 📸 Realidade: focada totalmente no que interessa Felicidade em formato de almoço. 🍽️✨ Nada supera uma comida feita com carinho e aquele chu",
+      "vision": null
+    }
+  ]
+}

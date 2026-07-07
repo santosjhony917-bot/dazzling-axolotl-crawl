@@ -1,0 +1,89 @@
+{
+  "id": "b95fcf06-a8e5-43ff-b86f-7770d2759908",
+  "name": "Mirante Lounge",
+  "instagram": "https://www.instagram.com/miranteloungepb/",
+  "followers": 2398,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://www.google.com/maps/place//data=!4m2!3m1!1s0x7acdfba35163a85:0xb17c5397b9241085?entry=s&sa=X&ved=1t%253A8290&hl=pt-br&ictx=111"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "f2648163-f13b-4a66-bb64-66b7b7a2642c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/b95fcf06-a8e5-43ff-b86f-7770d2759908/instagram_1783385764476_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "082d60c3-3b05-4021-9a65-a3595659a479",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/b95fcf06-a8e5-43ff-b86f-7770d2759908/instagram_1783385765354_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "4cfe663a-16f2-46be-be53-0c4d5286170f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/b95fcf06-a8e5-43ff-b86f-7770d2759908/instagram_1783385766933_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "b7f6bce7-4a76-42f2-97bc-4625a1d8f7b1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/b95fcf06-a8e5-43ff-b86f-7770d2759908/instagram_1783385767873_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "75c77944-5514-466a-beef-f372d6606381",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/b95fcf06-a8e5-43ff-b86f-7770d2759908/instagram_1783385769107_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "621738ec-90b5-484a-93a9-50d2d1b96a0d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/b95fcf06-a8e5-43ff-b86f-7770d2759908/instagram_1783385770077_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "7eb13d77-3d7e-4cb8-8e84-c5b9917160e4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/b95fcf06-a8e5-43ff-b86f-7770d2759908/instagram_1783385772202_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "21f72fee-26b1-4774-a0b6-a33810e29c5f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/b95fcf06-a8e5-43ff-b86f-7770d2759908/instagram_1783385772859_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

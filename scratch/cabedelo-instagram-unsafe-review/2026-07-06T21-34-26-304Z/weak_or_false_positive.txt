@@ -1,0 +1,56 @@
+1c95b48d-3189-4496-8e70-4e9167967964	La casa de pastel e La Pizza Premium	79	weak_single_brand_token	https://instagram.com/lacasadepastelpbof	lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB
+72606188-4454-4890-a671-a65d4d08f024	Casa Do Pastel	79	weak_single_brand_token	https://instagram.com/lacasadepastelpbof	lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB
+de5e3f48-dddc-4872-823a-71ba50fe51ab	Caldinho Prime Formosa	75	weak_single_brand_token	https://instagram.com/caldinhoprimeformosa	Cabedelo (@caldinhoprimeformosa) - Praia Formosa
+d05af6c4-cbfa-4c6a-9d95-be4bc952d3d9	Cantinho do açaí	65	weak_single_brand_token	https://instagram.com/cantinhodoacaiedocess	CANTINHO DO AÇAÍ E DOCES
+799763e1-04c1-495d-a7ea-5489a0897da8	A Casa do Lanche	61	weak_single_brand_token	https://instagram.com/casadolanche_sl	CASA DO LANCHE DELIVERY 🛵 (@casadolanche_sl)
+7c405790-3fe5-455d-9a65-8d12b2236e50	Sorveteria glacial	13	location_conflict:manaus, am	https://instagram.com/sorveteriaglacial	Sorveteria Glacial (@sorveteriaglacial) · Manaus, AM
+6e248922-94fd-4138-86a0-92c7a04fcfff	cabe 1one açaí	1	brand_not_confirmed	https://instagram.com/danieldoacai	Daniel Do Açaí (@danieldoacai)
+f90edcb3-31a7-4922-9bdd-930817bba3c9	Espetinho da praia Intermares	-2	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/numarbarintermares	Numar Bar e Restaurante (@numarbarintermares)
+4afb52ad-1fa0-493f-be6c-8275d6664324	Galeteria D'intermares	-2	brand_not_confirmed	https://instagram.com/numarbarintermares	Numar Bar e Restaurante (@numarbarintermares)
+04f7bdf2-230d-4224-99d5-aea50cefc56f	Mary Refeições	-2	brand_not_confirmed	https://instagram.com/numarbarintermares	Numar Bar e Restaurante (@numarbarintermares)
+133c9168-09a2-4fbc-b42e-af5ac51d23cb	Bom Tempero Restaurante	-2	brand_not_confirmed	https://instagram.com/primoricopb	PRIMO RICO (@primoricopb) • Instagram photos and videos
+2b235799-a9b7-4b5b-b754-6aced57e707b	Atlântico bar, cabedelo	-2	brand_not_confirmed	https://instagram.com/gigantedomaroficial	gigantedomaroficial • Instagram photos and videos
+3a22854f-4f10-4a9c-9bdc-cd40abef570e	Tapiocaria da Edna Paraiba	-2	brand_not_confirmed	https://instagram.com/casadonordestejp	A loja da Castanha (@casadonordestejp) · Cabedelo, PB
+98181d40-599b-4cb9-89c9-d65dca257d97	Pastelão da BR	-2	brand_not_confirmed	https://instagram.com/lacasadepastelpbof	lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB
+fa5d1264-03c0-491d-a52a-4bad168948b0	JKZ Alimentos (AÇAÍto)	-2	brand_not_confirmed	https://instagram.com/k2_sorveteria	K2 sorveteria (@k2_sorveteria)
+436f9cd0-dff9-44c9-b070-180629e7a50e	Acai	-2	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/danieldoacai	Daniel Do Açaí (@danieldoacai)
+80b5f0be-adea-4b91-8b8e-ee162f79f973	M E Refeição	-2	brand_not_confirmed	https://instagram.com/eldoradogourmetof	Panificadora Eldorado Gourmet (@eldoradogourmetof)
+fee9720d-1e25-487a-9a73-df9e407e73a6	Restaurante	-2	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/gigantedomaroficial	gigantedomaroficial • Instagram photos and videos
+6e42a0fb-9793-4d47-9a12-c5c5a6df86d6	Pizzaria 1000Graus	-2	brand_not_confirmed	https://instagram.com/ilovepizzapb	I ❤️ Pizza (@ilovepizzapb)
+56b08e89-b750-4ec9-9497-21900cf3d823	Bar E Restaurante Do Nal	-2	brand_not_confirmed	https://instagram.com/meninasbar	Meninas Bar e Restaurante (@meninasbar) · Cabedelos, PB
+ca0f0788-f272-4859-826e-38af8e426eef	Caribe burger	-2	brand_not_confirmed	https://instagram.com/gigantedomaroficial	gigantedomaroficial • Instagram photos and videos
+9092bbb6-9b7e-4aff-a990-7edecd6f155b	Bebel & Jó Pizzaria	-2	brand_not_confirmed	https://instagram.com/bellapizza.en	Bella Pizza (@bellapizza.en)
+352e2216-3bb5-4742-9960-374c9ca64e13	Açai	-2	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/danieldoacai	Daniel Do Açaí (@danieldoacai)
+942e480f-7b67-4aae-9967-e795bdf7502d	Therê Açaí e Sorvete	-2	brand_not_confirmed	https://instagram.com/danieldoacai	Daniel Do Açaí (@danieldoacai)
+0e3f0746-de34-4715-93fc-06a1b5c10e2b	D Lay Refeições - Marmitaria	-2	brand_not_confirmed	https://instagram.com/cantinhodoreallanches	Cantinho do Real lanches (@cantinhodoreallanches)
+725b6497-4be9-4426-a2c0-dd3b55ff7956	Espetinho Pé na Areia	-2	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/veranopraiabar	Verano Praia Bar (@veranopraiabar)
+d8c6249e-fab7-4e9b-a189-861ea7d8d40a	Toca da Árvore	-3	brand_not_confirmed	https://instagram.com/treehouse.pb	treehouse.pb
+b37d1742-e516-4b41-9c93-8d64ef33f9c2	Tapiocaria da moça	-5	brand_not_confirmed	https://instagram.com/tapiocariadojucapb	Instagram profile @tapiocariadojucapb
+538d1975-cdfa-4c9f-97f6-ddee94efc67b	Meio Quilo	-6	brand_not_confirmed	https://instagram.com/secultcabedelo	SECULT Cabedelo/PB - Brasil (@secultcabedelo)
+4f71666b-ecb6-4963-9201-86bcc7d29c66	churrascaria do biu	-6	brand_not_confirmed	https://instagram.com/bar_restaurantepordosol	RESTAURANTE POR DO SOL • (@bar_restaurantepordosol)
+e88b7772-a307-4cca-a7b8-e3c7f6502788	Pizzaria Jacaré	-6	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/pizzariabomsaborpb	Pizzaria Bom Sabor🍕 (@pizzariabomsaborpb)
+2386896b-b1f2-4d3a-9a12-edb93d96a24f	Tapiocaria da zeti	-6	brand_not_confirmed	https://instagram.com/tapiocariadinho	TAPIOCARIA DO DINHO 🔥 (@tapiocariadinho)
+3e32d9c6-3c16-47a9-912a-b3627b13088d	Bonitinha das tapiocas	-6	brand_not_confirmed	https://instagram.com/tapiocadaleuda	Tapioca da Leuda (@tapiocadaleuda)
+37ab4f58-d719-4d80-a795-591129dcd723	RESTAURANTE DA WILMA	-6	brand_not_confirmed	https://instagram.com/cibellymarr	Cibelly Mar | Restaurante Flutuante (@cibellymarr)
+0160d19f-be11-446b-a6c5-5048889fff57	Pizzaria nock_nhock	-6	brand_not_confirmed	https://instagram.com/euqueropizzafoodtruck	Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)
+7c7122af-3461-4317-853e-634eaadcc895	Espetinho lá Brasil	-6	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/ropeespetos	Rope Espetos (@ropeespetos) · Cabedelo, PB
+e3acb420-5c76-4087-a1a7-0de39e4e3162	Açaí do Pará Intermares	-6	brand_not_confirmed	https://instagram.com/pracaiintermares	Praçaí Intermares (@pracaiintermares) · Cabedelo, PB
+4fbc3698-a161-4c24-b3ff-4ed4a22e2b41	Sorv&cia	-6	brand_not_confirmed	https://instagram.com/sorvecia_sorveteria	Sorv&cia (@sorvecia_sorveteria)
+e744a813-7f24-4f4c-a422-d54e2c0ab2ff	Juci	-6	brand_not_confirmed	https://instagram.com/prefeituradecabedelo	Prefeitura de Cabedelo (@prefeituradecabedelo)
+743c1d75-28df-42ef-ba44-663a736f9783	Sabor da infância no pôr do sol	-6	brand_not_confirmed	https://instagram.com/pordosoldojacare	Pôr do Sol do Jacaré (@pordosoldojacare) · Cabedelo, PB
+8fb49605-7614-4c27-9a31-406de6240e2d	Espetinho da Praça	-6	brand_not_confirmed	https://instagram.com/prefeituradecabedelo	Prefeitura de Cabedelo (@prefeituradecabedelo)
+3d145fe5-ceba-49ab-9b1d-50b6c19118de	Café Cabedelo	-6	brand_not_confirmed	https://instagram.com/prefeituradecabedelo	Prefeitura de Cabedelo (@prefeituradecabedelo)
+07528f63-3aed-4cf0-b1cc-81f762be4c00	Alfa	-6	brand_not_confirmed	https://instagram.com/prefeituradecabedelo	Prefeitura de Cabedelo (@prefeituradecabedelo)
+a62661ec-86ed-4ed2-8144-f105736312ad	food service	-6	brand_not_confirmed	https://instagram.com/prefeituradecabedelo	Prefeitura de Cabedelo (@prefeituradecabedelo)
+9aad8169-49b0-4726-9924-14ec8b6f9d38	Nossa Pizza	-6	brand_not_confirmed	https://instagram.com/centerpizza_cabedelo	Center Pizza Cabedelo PB (@centerpizza_cabedelo)
+6315b5cf-756f-416b-b698-4b1c081c6366	Biruta Burger	-6	brand_not_confirmed	https://instagram.com/bigburgerof	Big Burger | Hamburgueria Artesanal (@bigburgerof)
+d6f9c697-1969-49b6-8f3e-737b9f74ea23	Pizzaria NEVARE	-6	brand_not_confirmed	https://instagram.com/centerpizza_cabedelo	Center Pizza Cabedelo PB (@centerpizza_cabedelo)
+1d3e88fe-546d-4e89-a3e5-0ab54670cfea	Cafeteria Deus Seja Louvado	-6	brand_not_confirmed	https://instagram.com/saxcafe	saxcafe · Cabedelo, PB
+393e1305-e40d-4281-99c5-ebe01cc24c27	Açaí Jacaré Beach	-12	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/acaijacarebeach	Instagram profile @acaijacarebeach
+e4463ab8-c32d-4e3e-aa0c-b93e2a9f7015	Triniity Burguer	-17	brand_not_confirmed	https://instagram.com/trinity.burger	T R I N I T Y B U R G E R 🔺 (@trinity.burger)
+e6b82c85-d208-4590-8889-6aa3de57c7a5	Açaí da Cris	-20	brand_not_confirmed	https://instagram.com/meuacaicity	AçaiCity - Acaiteria - Sorveteria🍦 (@meuacaicity)
+7ea72c68-7a72-41e1-89e4-ecabaf00d859	ML Açaíteria	-26	no_distinctive_restaurant_token,brand_not_confirmed	https://instagram.com/maiaacaioficial	Instagram profile @maiaacaioficial
+4990a612-f3ae-4ca1-959b-694fc7d59b9e	Pastelaria em família	-30	brand_not_confirmed,weak_single_brand_token	https://instagram.com/lacasadepastelpbof	lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB
+f5973934-5e9b-463c-9d2a-a7342c3041e5	CASA DA PIZZA	-30	brand_not_confirmed,weak_single_brand_token	https://instagram.com/centerpizza_cabedelo	Center Pizza Cabedelo PB (@centerpizza_cabedelo)
+28b2ef44-31b3-47b1-bd94-5c69a5a42f17	Lanchonete e Pizzaria Popular	-34	brand_not_confirmed,weak_single_brand_token	https://instagram.com/euqueropizzafoodtruck	Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)
+f193a559-db9e-4530-be1f-889d9cd213ae	Burger Prime	-34	brand_not_confirmed,weak_single_brand_token	https://instagram.com/homesmashburguer	HAMBURGUERIA ARTESANAL (@homesmashburguer)

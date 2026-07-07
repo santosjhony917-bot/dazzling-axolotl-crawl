@@ -1,0 +1,226 @@
+{
+  "id": "63e642dd-ed66-42a7-ae08-d395f8110b6d",
+  "name": "Tempero De Casa",
+  "instagram": "https://www.instagram.com/marmitaria_temperodecasa/",
+  "followers": 2105,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_profile_1783385070748.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385075602_1.jpg",
+      "score": 23,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385076908_2.jpg",
+      "score": 23,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385077880_3.jpg",
+      "score": 22,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385078633_4.jpg",
+      "score": 21,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385079270_5.jpg",
+      "score": 20,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385079952_6.jpg",
+      "score": 18,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385080669_7.jpg",
+      "score": 16,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385081303_8.jpg",
+      "score": 16,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "bbdbdfe8-9a0e-40ca-a347-e414f3da8990",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385075602_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "a2bfd6d6-9620-4801-a6a6-306d066023ff",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385076908_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "6c174ecb-54c5-4b1f-a051-049112674d7d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385077880_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "74f00412-b641-41f3-bc7a-a45a074f60cd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385078633_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "166860c0-38a1-4ac9-9788-f3b566ba8b10",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385079270_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "0a7bc217-b752-4462-890d-8a0803a54e2d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385079952_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "671d387e-8122-48d8-bbf6-84922577dbbd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385080669_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "d0d4154d-1674-40b7-88b0-3b95deee632a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/63e642dd-ed66-42a7-ae08-d395f8110b6d/instagram_1783385081303_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "Marmitaria tempero de casa 83998403817",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "Parmegiana de bife alemão",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 21,
+      "caption": "Parmegiana de frango",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 20,
+      "caption": "",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 18,
+      "caption": "",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 16,
+      "caption": "",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 16,
+      "caption": "",
+      "vision": null
+    }
+  ]
+}

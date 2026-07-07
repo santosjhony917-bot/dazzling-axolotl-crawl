@@ -1,0 +1,52 @@
+{
+  "url": "https://api.anota.ai/clientauth/items-analytics/items/carousel?slug=anotaai-item-patrocinado-homedestaque&latitude=-7.044925399999999&longitude=-34.8416297",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 444,
+  "textSample": "{\"success\":true,\"message\":\"Itens listados com sucesso\",\"promoItems\":{\"items\":[],\"type\":\"promo_items\"},\"mostOrdered\":{\"items\":[{\"item_id\":\"69079b59b09ad95e8bf84403\",\"count\":7},{\"item_id\":\"69079b59b09ad95e8bf8440b\",\"count\":2},{\"item_id\":\"69079b59b09ad95e8bf84406\",\"count\":2},{\"item_id\":\"69079b59b09ad95e8bf84404\",\"count\":2},{\"item_id\":\"69079b59b09ad95e8bf84407\",\"count\":1},{\"item_id\":\"69079b59b09ad95e8bf8440a\",\"count\":1}],\"type\":\"most_ordered\"}}",
+  "jsonKeys": [
+    "success",
+    "message",
+    "promoItems",
+    "mostOrdered"
+  ],
+  "json": {
+    "success": true,
+    "message": "Itens listados com sucesso",
+    "promoItems": {
+      "items": [],
+      "type": "promo_items"
+    },
+    "mostOrdered": {
+      "items": [
+        {
+          "item_id": "69079b59b09ad95e8bf84403",
+          "count": 7
+        },
+        {
+          "item_id": "69079b59b09ad95e8bf8440b",
+          "count": 2
+        },
+        {
+          "item_id": "69079b59b09ad95e8bf84406",
+          "count": 2
+        },
+        {
+          "item_id": "69079b59b09ad95e8bf84404",
+          "count": 2
+        },
+        {
+          "item_id": "69079b59b09ad95e8bf84407",
+          "count": 1
+        },
+        {
+          "item_id": "69079b59b09ad95e8bf8440a",
+          "count": 1
+        }
+      ],
+      "type": "most_ordered"
+    }
+  }
+}

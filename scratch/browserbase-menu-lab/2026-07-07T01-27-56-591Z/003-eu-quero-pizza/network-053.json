@@ -1,0 +1,498 @@
+{
+  "url": "https://api.lab.amplitude.com/sdk/v2/vardata?v=0",
+  "status": 200,
+  "contentType": "application/json;charset=utf-8",
+  "resourceType": "fetch",
+  "method": "GET",
+  "textLength": 9480,
+  "textSample": "{\"ab_change_placeholder_title_comments_check_out\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"ab_test_clone_collapse_payment_methods\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"ab_test_copy_of_take_and_local_delivery_methods\":{\"key\":\"variant_c\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"variant_c\"},\"ab_test_copy_time_expired_nupay_ifp\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"change-the-copy-of-the-finalize-order-button-ifp\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"change-to-the-delivery-method-listing\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-3\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_a\"},\"change_button_hierarchy\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"checkout_pol_badge_copies\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"copy-the-delivery-option-in-the-delivery-format\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_a\"},\"copy_multiple_payments\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"copy_to_pix_payment\":{\"key\":\"variant2\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"variant2\"},\"cta_pix_to_offline_card_payment\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"digital_wallet_separated_methods\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"disable_offline_payment_method_autofill_renewed\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"equivalent_checkouts\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"expand-item-additional-clickable-area\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"extra_padding_online_methods\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"improved-signage-for-delivery-and-pickup-times\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"improvements_to_coupon_and_observation\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"increase-order-status-button\":{\"key\":\"variant_c\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-4\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_c\"},\"mandatory_addons_counter\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-8\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_a\"},\"mandatory_field_feedbacks\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"manual_address_registration_modal\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"modification-of-titles-and-placeholders-in-the-product-note\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"nupay_clock_variation\":{\"key\":\"variant_c\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"variant_c\"},\"nupay_cpf_autofill\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-4\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"nupay_order_details_collapse\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"offline_payment_friction_modal\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-5\",\"segmentName\":\"Segment 2\"},\"value\":\"treatment\"},\"offline_payment_icons_remove\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"online_method_suggestion_card_brand\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"online_payment_coupon_v2\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"ordering_of_payment_methods_at_checkout\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"ordering_of_payment_methods_ifood\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"variant_a\"},\"ordering_of_payment_methods_tuna\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"pay_with_pix_and_wallets_alerts\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"payment_visual_for_take_selection\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"default\",\"testInstrumentation\":true}},\"pix_fast_delivery_badge\":{\"key\":\"variant_b\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"Segment 1\"},\"value\":\"variant_b\"},\"pol-safety-information-modal-click-logo\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"pol_ifp_credit_page_allowlist\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"payload\":{\"allowed_page_ids\":[]},\"value\":\"treatment\"},\"pol_security_badge\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}},\"remove-offline-header-subtitle\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"remove_back_button_to_pol\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-4\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"removing_pol_checkout_suppliers\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"review_user_experience_pix_expiration_page\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"review_user_experience_pix_expiration_page_renewed\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"save_ifp_card\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"experimentKey\":\"exp-3\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"suitability-of-the-delivery-method-selection-standard\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"texts-and-presentation-of-client-identification\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"default\",\"testInstrumentation\":true}},\"the-change-in-the-name-to-nupay-occurred-throughout-the-journey\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"view_checkout_coupon_carousel\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"weekly_autofill_model\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"flag-dependencies\"}},\"world_cup_menu_mode\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1226341580097_1783387733965_324156071\",\"segmentName\":\"All Other Users\"}}}",
+  "jsonKeys": [
+    "ab_change_placeholder_title_comments_check_out",
+    "ab_test_clone_collapse_payment_methods",
+    "ab_test_copy_of_take_and_local_delivery_methods",
+    "ab_test_copy_time_expired_nupay_ifp",
+    "change-the-copy-of-the-finalize-order-button-ifp",
+    "change-to-the-delivery-method-listing",
+    "change_button_hierarchy",
+    "checkout_pol_badge_copies",
+    "copy-the-delivery-option-in-the-delivery-format",
+    "copy_multiple_payments",
+    "copy_to_pix_payment",
+    "cta_pix_to_offline_card_payment",
+    "digital_wallet_separated_methods",
+    "disable_offline_payment_method_autofill_renewed",
+    "equivalent_checkouts",
+    "expand-item-additional-clickable-area",
+    "extra_padding_online_methods",
+    "improved-signage-for-delivery-and-pickup-times",
+    "improvements_to_coupon_and_observation",
+    "increase-order-status-button",
+    "mandatory_addons_counter",
+    "mandatory_field_feedbacks",
+    "manual_address_registration_modal",
+    "modification-of-titles-and-placeholders-in-the-product-note",
+    "nupay_clock_variation",
+    "nupay_cpf_autofill",
+    "nupay_order_details_collapse",
+    "offline_payment_friction_modal",
+    "offline_payment_icons_remove",
+    "online_method_suggestion_card_brand",
+    "online_payment_coupon_v2",
+    "ordering_of_payment_methods_at_checkout",
+    "ordering_of_payment_methods_ifood",
+    "ordering_of_payment_methods_tuna",
+    "pay_with_pix_and_wallets_alerts",
+    "payment_visual_for_take_selection",
+    "pix_fast_delivery_badge",
+    "pol-safety-information-modal-click-logo",
+    "pol_ifp_credit_page_allowlist",
+    "pol_security_badge"
+  ],
+  "json": {
+    "ab_change_placeholder_title_comments_check_out": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "ab_test_clone_collapse_payment_methods": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "ab_test_copy_of_take_and_local_delivery_methods": {
+      "key": "variant_c",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "Segment 1"
+      },
+      "value": "variant_c"
+    },
+    "ab_test_copy_time_expired_nupay_ifp": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "change-the-copy-of-the-finalize-order-button-ifp": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "change-to-the-delivery-method-listing": {
+      "key": "variant_a",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-3",
+        "segmentName": "All Other Users"
+      },
+      "value": "variant_a"
+    },
+    "change_button_hierarchy": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "checkout_pol_badge_copies": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "copy-the-delivery-option-in-the-delivery-format": {
+      "key": "variant_a",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "variant_a"
+    },
+    "copy_multiple_payments": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "All Other Users"
+      }
+    },
+    "copy_to_pix_payment": {
+      "key": "variant2",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "variant2"
+    },
+    "cta_pix_to_offline_card_payment": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "digital_wallet_separated_methods": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "disable_offline_payment_method_autofill_renewed": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "equivalent_checkouts": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "Segment 1"
+      },
+      "value": "treatment"
+    },
+    "expand-item-additional-clickable-area": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "extra_padding_online_methods": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "improved-signage-for-delivery-and-pickup-times": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "improvements_to_coupon_and_observation": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "All Other Users"
+      }
+    },
+    "increase-order-status-button": {
+      "key": "variant_c",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-4",
+        "segmentName": "All Other Users"
+      },
+      "value": "variant_c"
+    },
+    "mandatory_addons_counter": {
+      "key": "variant_a",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-8",
+        "segmentName": "All Other Users"
+      },
+      "value": "variant_a"
+    },
+    "mandatory_field_feedbacks": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "manual_address_registration_modal": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "modification-of-titles-and-placeholders-in-the-product-note": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "All Other Users"
+      }
+    },
+    "nupay_clock_variation": {
+      "key": "variant_c",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "Segment 1"
+      },
+      "value": "variant_c"
+    },
+    "nupay_cpf_autofill": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-4",
+        "segmentName": "Segment 1"
+      },
+      "value": "treatment"
+    },
+    "nupay_order_details_collapse": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "offline_payment_friction_modal": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-5",
+        "segmentName": "Segment 2"
+      },
+      "value": "treatment"
+    },
+    "offline_payment_icons_remove": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "online_method_suggestion_card_brand": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "online_payment_coupon_v2": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "ordering_of_payment_methods_at_checkout": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "ordering_of_payment_methods_ifood": {
+      "key": "variant_a",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "Segment 1"
+      },
+      "value": "variant_a"
+    },
+    "ordering_of_payment_methods_tuna": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "pay_with_pix_and_wallets_alerts": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "All Other Users"
+      }
+    },
+    "payment_visual_for_take_selection": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "default",
+        "testInstrumentation": true
+      }
+    },
+    "pix_fast_delivery_badge": {
+      "key": "variant_b",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "Segment 1"
+      },
+      "value": "variant_b"
+    },
+    "pol-safety-information-modal-click-logo": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "pol_ifp_credit_page_allowlist": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "payload": {
+        "allowed_page_ids": []
+      },
+      "value": "treatment"
+    },
+    "pol_security_badge": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "All Other Users"
+      }
+    },
+    "remove-offline-header-subtitle": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "remove_back_button_to_pol": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-4",
+        "segmentName": "Segment 1"
+      },
+      "value": "treatment"
+    },
+    "removing_pol_checkout_suppliers": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "review_user_experience_pix_expiration_page": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "review_user_experience_pix_expiration_page_renewed": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-1",
+        "segmentName": "All Other Users"
+      },
+      "value": "treatment"
+    },
+    "save_ifp_card": {
+      "key": "treatment",
+      "metadata": {
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "experimentKey": "exp-3",
+        "segmentName": "Segment 1"
+      },
+      "value": "treatment"
+    },
+    "suitability-of-the-delivery-method-selection-standard": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "texts-and-presentation-of-client-identification": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "default",
+        "testInstrumentation": true
+      }
+    },
+    "the-change-in-the-name-to-nupay-occurred-throughout-the-journey": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "view_checkout_coupon_carousel": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "weekly_autofill_model": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "flag-dependencies"
+      }
+    },
+    "world_cup_menu_mode": {
+      "key": "off",
+      "metadata": {
+        "default": true,
+        "evaluationId": "1226341580097_1783387733965_324156071",
+        "segmentName": "All Other Users"
+      }
+    }
+  }
+}

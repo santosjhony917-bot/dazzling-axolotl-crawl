@@ -1,0 +1,85 @@
+{
+  "id": "dce45040-f5ad-45a1-9029-04e65ce13e78",
+  "name": "Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB",
+  "instagram": "https://www.instagram.com/saxcafe/",
+  "followers": 499,
+  "match": {
+    "score": 115,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "1257a4b4-dff3-48f2-9116-8dfbc95142b0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dce45040-f5ad-45a1-9029-04e65ce13e78/instagram_1783384859829_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "3ff2841a-80d3-498f-b3f4-be0dda567c07",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dce45040-f5ad-45a1-9029-04e65ce13e78/instagram_1783384862230_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "4970f5e9-77ee-4f6a-9542-e0c201fc7ff4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dce45040-f5ad-45a1-9029-04e65ce13e78/instagram_1783384863529_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "7915e9e5-f1b7-452c-8574-8fd4495ea78f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dce45040-f5ad-45a1-9029-04e65ce13e78/instagram_1783384864461_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "0d07a88e-e8f6-48a7-985c-b3ac06c9c861",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dce45040-f5ad-45a1-9029-04e65ce13e78/instagram_1783384865745_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "556c2783-e5ad-4e25-b04e-a14eb2ed6c0a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dce45040-f5ad-45a1-9029-04e65ce13e78/instagram_1783384866620_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "99eee010-3ac2-4123-9fec-19c2229c5d2d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dce45040-f5ad-45a1-9029-04e65ce13e78/instagram_1783384867297_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "3a4100ef-194a-4c0e-b33f-fb2d41871c7a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/dce45040-f5ad-45a1-9029-04e65ce13e78/instagram_1783384868158_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

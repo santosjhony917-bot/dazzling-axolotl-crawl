@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-07-07T06:32:17.554Z",
+  "city": "Cabedelo",
+  "state": "PB",
+  "counts": {
+    "total": 218,
+    "active": 206,
+    "unpublished": 206,
+    "ready": 6,
+    "published": 0,
+    "pending": 200,
+    "review": 0,
+    "noMenu": 0,
+    "withInstagram": 101,
+    "withAnySource": 69,
+    "withPublicMenuSource": 40,
+    "withHours": 171,
+    "withMojibake": 0,
+    "mediaBaseComplete": 99,
+    "withGalleryMin3": 99,
+    "withMenuItems": 6
+  },
+  "menuStatusCounts": {
+    "unknown": 200,
+    "found": 6
+  },
+  "sourceClassCounts": {
+    "none": 137,
+    "own_site_or_other": 18,
+    "structured_platform": 18,
+    "google": 4,
+    "whatsapp": 25,
+    "linkhub": 4
+  },
+  "latestAudit": {
+    "file": "scratch\\restaurant-structural-ready-audit\\2026-07-07T06-31-31-323Z\\summary.json",
+    "runId": "2026-07-07T06-31-31-323Z",
+    "restaurants": 1,
+    "ready": 1,
+    "needsReview": 0,
+    "blocked": 0,
+    "issueCounts": {}
+  },
+  "nextBatchFile": "scratch/chat-mae-batches/cabedelo-next-scored-menu-batch.json",
+  "nextBatch": [
+    {
+      "id": "49423823-d994-4263-9597-cb829e208129",
+      "name": "Home Smash Burger",
+      "score": 86,
+      "source": "delivery.yooga.app",
+      "risks": []
+    },
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "score": 86,
+      "source": "whatsmenu.com.br",
+      "risks": []
+    },
+    {
+      "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+      "name": "Primo Rico",
+      "score": 86,
+      "source": "delivery.yooga.app",
+      "risks": []
+    },
+    {
+      "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+      "name": "Restaurante Pôr do Sol",
+      "score": 86,
+      "source": "pedido.anota.ai",
+      "risks": []
+    },
+    {
+      "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "score": 86,
+      "source": "delivery.yooga.app",
+      "risks": []
+    },
+    {
+      "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "name": "Espaço Do Sushi",
+      "score": 78,
+      "source": "delivery.yooga.app",
+      "risks": []
+    },
+    {
+      "id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+      "name": "PARCEIRO Rosa Lanches",
+      "score": 76,
+      "source": "pedido.anota.ai",
+      "risks": []
+    },
+    {
+      "id": "0a91fc09-ad7d-4141-8d4d-82a732b61565",
+      "name": "Ethic Alimentos",
+      "score": 74,
+      "source": "ethicalimentos.com.br",
+      "risks": [
+        "site_proprio_precisa_confirmar_cardapio_e_unidade"
+      ]
+    },
+    {
+      "id": "1a2bf81d-2228-463f-ab7a-0dbf5ee3d27c",
+      "name": "Marcos Lanches",
+      "score": 74,
+      "source": "menuchef.com.br",
+      "risks": [
+        "site_proprio_precisa_confirmar_cardapio_e_unidade"
+      ]
+    },
+    {
+      "id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "score": 74,
+      "source": "menu.brendi.com.br",
+      "risks": [
+        "site_proprio_precisa_confirmar_cardapio_e_unidade"
+      ]
+    }
+  ]
+}

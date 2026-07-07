@@ -1,0 +1,226 @@
+{
+  "id": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+  "name": "Empadinhas Barnabé - Intermares",
+  "instagram": "https://www.instagram.com/empbarnabe/",
+  "followers": 46495,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_profile_1783384448597.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384453098_1.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384454231_2.jpg",
+      "score": 27,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384454933_3.jpg",
+      "score": 24,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384455686_4.jpg",
+      "score": 24,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384456469_5.jpg",
+      "score": 23,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384457359_6.jpg",
+      "score": 22,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384458540_7.jpg",
+      "score": 22,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384459387_8.jpg",
+      "score": 22,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "0a72fa85-a03e-4f68-93df-2ec166c41db0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384453098_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "860062d0-9c6d-4377-b4fe-c5d62ac8eb48",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384454231_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "a091bba8-be31-4873-a52a-d42311f1a7c1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384454933_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "84d87502-e5f4-4413-95c9-65c24bcba36e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384455686_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "7119a6f2-4748-4d2e-8e5d-48f4d408cf40",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384456469_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "a24cc0fe-ae37-49b0-8ddd-4403315a5797",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384457359_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "3a4c3d9c-e294-4463-93a7-2c901728aecf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384458540_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "2cb4f7e4-04b7-4a56-8ffb-70d7818866d7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5b44780e-f9ff-4d05-a95c-4fd998039b2d/instagram_1783384459387_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "🐶✨ Eles também merecem! A Empadinha Pet Barnabé foi criada com todo carinho para os nossos amigos de quatro patas, porque sabemos que amor também se demonstra em forma de cuidado ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "30 anos de tradição têm sabor. 💙💛 Tem coisas que o tempo só faz melhorar. Há 30 anos, a Empadinhas Barnabé faz parte dos melhores momentos dos nossos clientes, sempre com a mesma",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "🏠✨ Bateu aquela vontade de comer uma empadinha? A gente leva até você! Peça agora pelo nosso delivery e receba a sua caixinha de empadinhas quentinhas no conforto da sua casa. 😍\ud83e",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "🚨 A Empadinhas Barnabé vai marcar presença na Multifeira Brasil Mostra Brasil 2026! 💙💛 📍 Centro de Convenções de João Pessoa 📅 De 03 a 12 de julho 🕓 Das 16h às 22h Durante to",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "Tem lugar que você vai… e tem lugar que você quer ficar. 😎✨ Na Empadinhas Barnabé, a resenha é boa, o café tá sempre quentinho e as empadinhas… nem precisa falar! 🤤🥟 Chama a gal",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "Três décadas que só foram possíveis porque vocês nos acolheram, experimentaram, recomendaram, voltaram e fizeram da Empadinhas Barnabé parte da rotina, das celebrações e das memóri",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "Tá com fome e quer praticidade? 🍽️ Com o delivery da Empadinhas Barnabé, suas empadinhas favoritas chegam quentinhas e prontas para você! 🚚✨ É só fazer seu pedido e relaxar. Do n",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "🌍🏆 Aqui, o sabor não tem fronteiras! Das cores do Brasil às bandeiras do mundo, uma coisa é certa: empadinha boa conquista qualquer torcida! 🇧🇷💚💛 Seja qual for o seu time ou ",
+      "vision": null
+    }
+  ]
+}

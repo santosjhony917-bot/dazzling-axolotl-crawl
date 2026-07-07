@@ -1,0 +1,923 @@
+{
+  "apply": true,
+  "overwrite": false,
+  "safeOnly": true,
+  "minScore": 100,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\2026-07-06T21-08-39-432Z",
+  "processed": 80,
+  "approved": 26,
+  "baseApproved": 56,
+  "safe": 26,
+  "rejected": 54,
+  "applied": 26,
+  "failures": [],
+  "reasonCounts": {
+    "score_below_100": 19,
+    "approved_safe": 26,
+    "no_location_or_phone_support": 6,
+    "brand_not_confirmed": 13,
+    "weak_handle_evidence": 5,
+    "no_distinctive_restaurant_token,brand_not_confirmed": 4,
+    "not_profile,brand_not_confirmed": 2,
+    "weak_single_brand_token": 1,
+    "brand_not_confirmed,weak_single_brand_token": 2,
+    "no_instagram_candidate": 2
+  },
+  "approvedSamples": [
+    {
+      "name": "I love burguer",
+      "instagram": "https://instagram.com/iloveburguerpb",
+      "score": 156,
+      "phoneCandidate": "(83) 99311-5016",
+      "openingHoursText": "I ❤ Burguer (@iloveburguerpb). ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️.. https://instagram.com/iloveburguerpb"
+    },
+    {
+      "name": "NutriFit Marmita Fitness Congeladas",
+      "instagram": "https://instagram.com/marmita_nutrifit",
+      "score": 169,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Pizza Família Cipriano",
+      "instagram": "https://instagram.com/pizzariafamiliacipriano",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": "Família Cipriano (@pizzariafamiliacipriano). Pizzaria familiar, artesanal em Cabedelo quinta à domingo das 18h às 22h · A autentica pizza da família Cipriano ✓ · Não é só pizza, é sobre família, história e .... https://instagram.com/pizzariafamiliacipriano"
+    },
+    {
+      "name": "Seu Jerônimo",
+      "instagram": "https://instagram.com/seujeronimo_",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Rope Espetos",
+      "instagram": "https://instagram.com/ropespetos",
+      "score": 138,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "ESFIELDS",
+      "instagram": "https://instagram.com/esfieldsjp",
+      "score": 107,
+      "phoneCandidate": "(83) 99856-6447",
+      "openingHoursText": null
+    },
+    {
+      "name": "Pizza do Paulinho",
+      "instagram": "https://instagram.com/pizzadopaulinhopb",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Eu Quero Burguer",
+      "instagram": "https://instagram.com/euqueroburguerartesanal",
+      "score": 138,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Sushiyaki Restaurante",
+      "instagram": "https://instagram.com/sushiyaki_restaurante",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "Sushiyaki Culinária Oriental (@sushiyaki_restaurante). Sushis a partir de R$ 2,00. Fechado apenas na terça | 18h30 às 23h. Villa porto de Cabedelo Link para pedidos · Temaki hot, crocante e saboroso! · Tá em .... https://instagram.com/sushiyaki_restaurante"
+    },
+    {
+      "name": "Villa Porto",
+      "instagram": "https://instagram.com/villaportocabedelo",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": "VILLA PORTO | FOOD PARK 🌟 (@villaportocabedelo). FOOD PARK EM CABEDELO ⏰ Quarta à Segunda (fechamos às terças) 18h às 23h Música ao vivo | programação no story. Conheça nosso time nos destaques.. https://instagram.com/villaportocabedelo"
+    },
+    {
+      "name": "Self-service da nany",
+      "instagram": "https://instagram.com/selfservicedanany_",
+      "score": 156,
+      "phoneCandidate": "(83) 99101-1680",
+      "openingHoursText": null
+    },
+    {
+      "name": "Pastelle (Pastelaria artesanal)",
+      "instagram": "https://instagram.com/pastelleofc",
+      "score": 120,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Marcos Lanches",
+      "instagram": "https://instagram.com/marcoslanchess_",
+      "score": 107,
+      "phoneCandidate": "(83) 98850-6708",
+      "openingHoursText": "Marcos Lanches - Cabedelo PB (@marcoslanchess_). Terça a Domingo - 18h às 00h (83) 98850-6708 BR - Em frente à delegacia da mulher. ⬇️ FAÇA SEU PEDIDO AQUI.. https://instagram.com/marcoslanchess_"
+    },
+    {
+      "name": "Vanda da coxinha cabedelo PB",
+      "instagram": "https://instagram.com/vandada_coxinha_cabedelo",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Espetinho do xandao",
+      "instagram": "https://instagram.com/petiscariadoxandao",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Mirante Lounge",
+      "instagram": "https://instagram.com/miranteloungepb",
+      "score": 146,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "China Mix e Pizzaria",
+      "instagram": "https://instagram.com/chinamix_jp",
+      "score": 142,
+      "phoneCandidate": "(83) 98612-9540",
+      "openingHoursText": "China Mix & pizzaria (@chinamix_jp). ☎️ (83) 98612-9540 Culinária Chinesa Pizzaria Delivery Domingo à domingo das: 11h às 15h e das 18h às 23h. Clica no link e faz o seu pedido.. https://instagram.com/chinamix_jp"
+    },
+    {
+      "name": "Lanchonete por do sol",
+      "instagram": "https://instagram.com/bar_restaurantepordosol",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Daniel do Açaí",
+      "instagram": "https://instagram.com/danieldoacai",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "D'gust Lanchonete",
+      "instagram": "https://instagram.com/dgust0402",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "ᴅ'ɢᴜsᴛ ʟᴀɴᴄʜᴏɴᴇᴛᴇ (@dgust0402) · Cabedelo, PB. 4.6K+ followers · 557 posts · • Fazemos Delivery. • De segunda a segunda: 18h30 até 00h. ⏰ • Formas de pagamento: pix, dinheiro e cartão.. https://instagram.com/dgust0402"
+    },
+    {
+      "name": "Mimu's da Geisi confeitaria",
+      "instagram": "https://instagram.com/mimusdageisi",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Bonna Gelateria Ponta de Campina",
+      "instagram": "https://instagram.com/bonnagelateria",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "KIOSQUE CANTINHO DA PRAÇA",
+      "instagram": "https://instagram.com/cantinho_da_praca_kiosque",
+      "score": 187,
+      "phoneCandidate": null,
+      "openingHoursText": "kiosque Cantinho da praça (@cantinho_da_praca_kiosque). Rua Golfo de Oman ponta de Campina. Funcionamos diariamente de segunda a sexta a partir das 11 horas. Almoço no local e retirada de marmitex.. https://instagram.com/cantinho_da_praca_kiosque"
+    },
+    {
+      "name": "Messe Cafeteria",
+      "instagram": "https://instagram.com/messecafeteria",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Manguinhos Burguer",
+      "instagram": "https://instagram.com/manguinhosburguer",
+      "score": 156,
+      "phoneCandidate": "(83) 99673-9986",
+      "openingHoursText": "Manguinhos Burguer (@manguinhosburguer). Hambúrguer com Sabor de Churrasco ⏰ Segunda a Domingo 19h30 às 00h00 Jardim Manguinhos - Cabedelo (83) 99673-9986 Cardápio.. https://instagram.com/manguinhosburguer"
+    },
+    {
+      "name": "Zhu Burguer",
+      "instagram": "https://instagram.com/zhuburguer",
+      "score": 142,
+      "phoneCandidate": "(83) 99652-4815",
+      "openingHoursText": "Zhu Burguer ❤️‍🔥 (@zhuburguer). Hamburgueria artesanal e espetaria • Aposentada Etelvina Alves de Oliveira - José Américo • Seg à segunda • 18h às 01h • WhatsApp (83) 99652.4815.. https://instagram.com/zhuburguer"
+    }
+  ],
+  "rejectedSamples": [
+    {
+      "name": "Center Pizza Cabedelo",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/centerpizza_cabedelo",
+        "title": "Instagram profile @centerpizza_cabedelo",
+        "score": 97,
+        "tokens": [
+          "center"
+        ],
+        "handleMatches": [
+          "center"
+        ],
+        "textMatches": [
+          "center"
+        ]
+      }
+    },
+    {
+      "name": "Melhor Sabor - Churrascaria e Self-Service",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/melhor_sabor01",
+        "title": "RESTAURANTE MELHOR SABOR PRIME ...",
+        "score": 138,
+        "tokens": [
+          "melhor",
+          "sabor",
+          "selfservice"
+        ],
+        "handleMatches": [
+          "melhor",
+          "sabor"
+        ],
+        "textMatches": [
+          "melhor",
+          "sabor"
+        ]
+      }
+    },
+    {
+      "name": "Bom Tempero Restaurante",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/primoricopb",
+        "title": "PRIMO RICO (@primoricopb) • Instagram photos and videos",
+        "score": -2,
+        "tokens": [
+          "bom",
+          "tempero"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Sorveteria Tropical",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/jjsorveteriatropical",
+        "title": "Sorveteria Tropical | RJ (@jjsorveteriatropical)",
+        "score": 89,
+        "tokens": [
+          "tropical"
+        ],
+        "handleMatches": [
+          "tropical"
+        ],
+        "textMatches": [
+          "tropical"
+        ]
+      }
+    },
+    {
+      "name": "Na brasa hambúrgueria",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/nabrasa_burg",
+        "title": "NA BRASA / HAMBÚRGUERIA ARTESANAL ...",
+        "score": 93,
+        "tokens": [
+          "brasa"
+        ],
+        "handleMatches": [
+          "brasa"
+        ],
+        "textMatches": [
+          "brasa"
+        ]
+      }
+    },
+    {
+      "name": "Restaurante da Helena",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/helenarizzo",
+        "title": "Instagram profile @helenarizzo",
+        "score": 83,
+        "tokens": [
+          "helena"
+        ],
+        "handleMatches": [
+          "helena"
+        ],
+        "textMatches": [
+          "helena"
+        ]
+      }
+    },
+    {
+      "name": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/thecheeseburguerfactory",
+        "title": "The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory)",
+        "score": 187,
+        "tokens": [
+          "tcf",
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "handleMatches": [
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "textMatches": [
+          "the",
+          "cheeseburguer",
+          "factory"
+        ]
+      }
+    },
+    {
+      "name": "Hora Da Pizza",
+      "reason": "weak_handle_evidence",
+      "best": {
+        "url": "https://instagram.com/horadapizzaa_",
+        "title": "HoradaPizzaDelivery (@horadapizzaa_)",
+        "score": 103,
+        "tokens": [
+          "hora"
+        ],
+        "handleMatches": [
+          "hora"
+        ],
+        "textMatches": [
+          "hora"
+        ]
+      }
+    },
+    {
+      "name": "Açaí Jacaré Beach",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/acaijacarebeach",
+        "title": "Instagram profile @acaijacarebeach",
+        "score": -12,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Barraca Do Anão",
+      "reason": "not_profile,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/p/CT-kzWIJ8Xr/?hl=pt",
+        "title": "PRAIA PONTA DE MATOS, em Cabedelo, bem pertinho ...",
+        "score": -83,
+        "tokens": [
+          "barraca",
+          "anao"
+        ],
+        "handleMatches": [],
+        "textMatches": [
+          "barraca"
+        ]
+      }
+    },
+    {
+      "name": "A Casa do Lanche",
+      "reason": "weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/casadolanche_sl",
+        "title": "CASA DO LANCHE DELIVERY 🛵 (@casadolanche_sl)",
+        "score": 61,
+        "tokens": [
+          "casa"
+        ],
+        "handleMatches": [
+          "casa"
+        ],
+        "textMatches": [
+          "casa"
+        ]
+      }
+    },
+    {
+      "name": "Guaiamum & Cia - Cabedelo PB",
+      "reason": "weak_handle_evidence",
+      "best": {
+        "url": "https://instagram.com/gigantedomaroficial",
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "score": 107,
+        "tokens": [
+          "guaiamum",
+          "cia"
+        ],
+        "handleMatches": [
+          "cia"
+        ],
+        "textMatches": [
+          "cia"
+        ]
+      }
+    },
+    {
+      "name": "Açaí da Hill Point",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/acaidahillpoint",
+        "title": "Açaí da Hill Point - Refrescant (@acaidahillpoint)",
+        "score": 138,
+        "tokens": [
+          "hill",
+          "point"
+        ],
+        "handleMatches": [
+          "hill",
+          "point"
+        ],
+        "textMatches": [
+          "hill",
+          "point"
+        ]
+      }
+    },
+    {
+      "name": "Pastel do Thiago",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/thiago_pasteis",
+        "title": "O melhor pastel do mundo (@thiago_pasteis)",
+        "score": 89,
+        "tokens": [
+          "thiago"
+        ],
+        "handleMatches": [
+          "thiago"
+        ],
+        "textMatches": [
+          "thiago"
+        ]
+      }
+    },
+    {
+      "name": "Bonitinha das tapiocas",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/tapiocadaleuda",
+        "title": "Tapioca da Leuda (@tapiocadaleuda)",
+        "score": -6,
+        "tokens": [
+          "bonitinha",
+          "tapiocas"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Atlântico bar, cabedelo",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/gigantedomaroficial",
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "score": -2,
+        "tokens": [
+          "atlantico"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Tapiocaria da Edna Paraiba",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/casadonordestejp",
+        "title": "A loja da Castanha (@casadonordestejp) · Cabedelo, PB",
+        "score": -2,
+        "tokens": [
+          "edna"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "RESTAURANTE DA WILMA",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/cibellymarr",
+        "title": "Cibelly Mar | Restaurante Flutuante (@cibellymarr)",
+        "score": -6,
+        "tokens": [
+          "wilma"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Davi do Coco",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/cocointermares",
+        "title": "Instagram profile @cocointermares",
+        "score": 97,
+        "tokens": [
+          "davi",
+          "coco"
+        ],
+        "handleMatches": [
+          "coco"
+        ],
+        "textMatches": [
+          "coco"
+        ]
+      }
+    },
+    {
+      "name": "JKZ Alimentos (AÇAÍto)",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/k2_sorveteria",
+        "title": "K2 sorveteria (@k2_sorveteria)",
+        "score": -2,
+        "tokens": [
+          "jkz",
+          "alimentos",
+          "acaito"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Pastelão da BR",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/lacasadepastelpbof",
+        "title": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB",
+        "score": -2,
+        "tokens": [
+          "pastelao"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Manos Burger Cabedelo",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/manosburgercabedelo",
+        "title": "Instagram profile @manosburgercabedelo",
+        "score": 97,
+        "tokens": [
+          "manos"
+        ],
+        "handleMatches": [
+          "manos"
+        ],
+        "textMatches": [
+          "manos"
+        ]
+      }
+    },
+    {
+      "name": "Big lanches camboinha",
+      "reason": "weak_handle_evidence",
+      "best": {
+        "url": "https://instagram.com/biglanchescamboinha",
+        "title": "BIG LANCHES (@biglanchescamboinha) · Cabedelo, PB",
+        "score": 103,
+        "tokens": [
+          "big"
+        ],
+        "handleMatches": [
+          "big"
+        ],
+        "textMatches": [
+          "big"
+        ]
+      }
+    },
+    {
+      "name": "Porto do Café",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/portodocafe__",
+        "title": "CAFETERIA | PORTO DO CAFÉ (@portodocafe__)",
+        "score": 138,
+        "tokens": [
+          "porto",
+          "cafe"
+        ],
+        "handleMatches": [
+          "porto",
+          "cafe"
+        ],
+        "textMatches": [
+          "porto",
+          "cafe"
+        ]
+      }
+    },
+    {
+      "name": "Pizzaria nock_nhock",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/euqueropizzafoodtruck",
+        "title": "Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)",
+        "score": -6,
+        "tokens": [
+          "nocknhock"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Cosmo Lanches",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/cosmolanchesoficial",
+        "title": "Cosmo Lanches (@cosmolanchesoficial)",
+        "score": 89,
+        "tokens": [
+          "cosmo"
+        ],
+        "handleMatches": [
+          "cosmo"
+        ],
+        "textMatches": [
+          "cosmo"
+        ]
+      }
+    },
+    {
+      "name": "Varanda da pizza Delivery",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/varanda.gourmetsh",
+        "title": "Varanda Gourmet (@varanda.gourmetsh)",
+        "score": 93,
+        "tokens": [
+          "varanda"
+        ],
+        "handleMatches": [
+          "varanda"
+        ],
+        "textMatches": [
+          "varanda"
+        ]
+      }
+    },
+    {
+      "name": "JL Bolos",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/jlbolosetortas",
+        "title": "JL BOLOS E TORTAS (@jlbolosetortas)",
+        "score": 89,
+        "tokens": [
+          "bolos"
+        ],
+        "handleMatches": [
+          "bolos"
+        ],
+        "textMatches": [
+          "bolos"
+        ]
+      }
+    },
+    {
+      "name": "Ravellas - Food Truck",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/ravellasjp",
+        "title": "(@ravellasjp) • Instagram photos and videos",
+        "score": 89,
+        "tokens": [
+          "ravellas",
+          "food",
+          "truck"
+        ],
+        "handleMatches": [
+          "ravellas"
+        ],
+        "textMatches": [
+          "ravellas"
+        ]
+      }
+    },
+    {
+      "name": "Toca da Árvore",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/treehouse.pb",
+        "title": "treehouse.pb",
+        "score": -3,
+        "tokens": [
+          "toca",
+          "arvore"
+        ],
+        "handleMatches": [],
+        "textMatches": [
+          "arvore"
+        ]
+      }
+    }
+  ],
+  "updates": [
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "instagram": "https://instagram.com/iloveburguerpb",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "bd7494af-1c04-49da-973a-f9de6dafe780",
+      "name": "NutriFit Marmita Fitness Congeladas",
+      "instagram": "https://instagram.com/marmita_nutrifit",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "35c95d02-3a7b-480d-8061-b276ee281fca",
+      "name": "Pizza Família Cipriano",
+      "instagram": "https://instagram.com/pizzariafamiliacipriano",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "a6bf4269-0471-4d9f-b207-0adfc6308285",
+      "name": "Seu Jerônimo",
+      "instagram": "https://instagram.com/seujeronimo_",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "0f0b83e3-c399-4f1a-89d6-34cf485b2608",
+      "name": "Rope Espetos",
+      "instagram": "https://instagram.com/ropespetos",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "0ca69331-2d1e-48f9-8401-dffb785df697",
+      "name": "ESFIELDS",
+      "instagram": "https://instagram.com/esfieldsjp",
+      "phoneFilled": true,
+      "whatsappFilled": true
+    },
+    {
+      "id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+      "name": "Pizza do Paulinho",
+      "instagram": "https://instagram.com/pizzadopaulinhopb",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "0f02c321-43d9-480f-be67-bc650e00d0d2",
+      "name": "Eu Quero Burguer",
+      "instagram": "https://instagram.com/euqueroburguerartesanal",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "instagram": "https://instagram.com/sushiyaki_restaurante",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e",
+      "name": "Villa Porto",
+      "instagram": "https://instagram.com/villaportocabedelo",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "a9904835-65ca-4efd-9caf-c8c7354f9ee5",
+      "name": "Self-service da nany",
+      "instagram": "https://instagram.com/selfservicedanany_",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "0ea2219a-fb1e-47e2-9e40-7da6a335dbd6",
+      "name": "Pastelle (Pastelaria artesanal)",
+      "instagram": "https://instagram.com/pastelleofc",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "1a2bf81d-2228-463f-ab7a-0dbf5ee3d27c",
+      "name": "Marcos Lanches",
+      "instagram": "https://instagram.com/marcoslanchess_",
+      "phoneFilled": true,
+      "whatsappFilled": true
+    },
+    {
+      "id": "63b2f87b-0602-47f2-85ac-a7a3ab040621",
+      "name": "Vanda da coxinha cabedelo PB",
+      "instagram": "https://instagram.com/vandada_coxinha_cabedelo",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "ee3d9e13-53b5-4288-a5e0-e2b421049135",
+      "name": "Espetinho do xandao",
+      "instagram": "https://instagram.com/petiscariadoxandao",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "b95fcf06-a8e5-43ff-b86f-7770d2759908",
+      "name": "Mirante Lounge",
+      "instagram": "https://instagram.com/miranteloungepb",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "17948cd2-fa0d-4c8a-a785-6dfa92101d75",
+      "name": "China Mix e Pizzaria",
+      "instagram": "https://instagram.com/chinamix_jp",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "e9ce78de-b4a7-4532-a778-a7807dc0dabe",
+      "name": "Lanchonete por do sol",
+      "instagram": "https://instagram.com/bar_restaurantepordosol",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "799a8b26-d8ce-4820-b94c-d6589a8507b4",
+      "name": "Daniel do Açaí",
+      "instagram": "https://instagram.com/danieldoacai",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "9b42e70d-f7a8-4db1-bc19-83d935d84b55",
+      "name": "D'gust Lanchonete",
+      "instagram": "https://instagram.com/dgust0402",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "51776391-e0c6-4348-a640-b35b4fb34bb2",
+      "name": "Mimu's da Geisi confeitaria",
+      "instagram": "https://instagram.com/mimusdageisi",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "68fc5124-13a8-4ec7-a2da-164074c0ea76",
+      "name": "Bonna Gelateria Ponta de Campina",
+      "instagram": "https://instagram.com/bonnagelateria",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "98e8a6d7-3943-47e6-8b2c-491972c7e4f1",
+      "name": "KIOSQUE CANTINHO DA PRAÇA",
+      "instagram": "https://instagram.com/cantinho_da_praca_kiosque",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "c7306a7c-c69a-413e-b196-29a7847f29c7",
+      "name": "Messe Cafeteria",
+      "instagram": "https://instagram.com/messecafeteria",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+      "name": "Manguinhos Burguer",
+      "instagram": "https://instagram.com/manguinhosburguer",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "e20c7fe6-1563-45fc-9a60-96d75acdaa2b",
+      "name": "Zhu Burguer",
+      "instagram": "https://instagram.com/zhuburguer",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    }
+  ]
+}

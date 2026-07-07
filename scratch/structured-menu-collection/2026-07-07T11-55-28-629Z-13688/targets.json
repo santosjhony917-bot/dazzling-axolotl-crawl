@@ -1,0 +1,54 @@
+[
+  {
+    "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "restaurantName": "Porto do açaí",
+    "sourceUrl": "https://meucarrinho.delivery/portodoacai",
+    "platform": "meucarrinho",
+    "reviewsCount": 1,
+    "address": "R. Cleto Campêlo, 623",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 99384-2261",
+    "queueEntry": {
+      "restaurant_id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "platform": "meucarrinho",
+      "tier": "green",
+      "priority_score": 50,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://meucarrinho.delivery/portodoacai",
+      "raw_source_url": "https://meucarrinho.delivery/portodoacai",
+      "other_url": "https://meucarrinho.delivery/portodoacai",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Lanchonete",
+      "address": "R. Cleto Campêlo, 623",
+      "neighborhood": "Camalaú",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99384-2261",
+      "rating": 5,
+      "reviews_count": 1,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://meucarrinho.delivery/portodoacai",
+          "canonical_url": "https://meucarrinho.delivery/portodoacai",
+          "platform": "meucarrinho",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 2
+    }
+  }
+]

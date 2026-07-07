@@ -1,0 +1,219 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 3895,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"2bec111d-cfc3-4a46-b282-8f22f5710695\",\"id\":\"ce67812e-d0a4-4cb2-8976-ce572be72716\",\"code\":\"53\",\"ean\":null,\"priority\":1,\"name\":\"Gelo saborizado (coco leve)\",\"description\":\"Faz seu drink ficar ainda + gostoso\",\"price\":5,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"1c107dc1-eeb3-4536-88bb-74e8c9e32b02\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Gelo saborizado (coco leve)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"2bec111d-cfc3-4a46-b282-8f22f5710695\",\"id\":\"b8486c56-7407-4ded-8915-1af5353c5a56\",\"code\":\"54\",\"ean\":null,\"priority\":2,\"name\":\"Coco\",\"description\":\"Imagem do produto\",\"price\":5,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"5055d7a2-47b5-4ed0-9d78-38dc5e358203\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Coco\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"2bec111d-cfc3-4a46-b282-8f22f5710695\",\"id\":\"acb04129-becc-4283-8e9e-ef2ffce2de20\",\"code\":\"52\",\"ean\":null,\"priority\":3,\"name\":\"Gelo Saborizado Unidade\",\"description\":\"Gelo com sabor especial, unidade\",\"price\":4,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"041eca7b-4963-4535-a40e-3f4ebb7996d5\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Gelo Saborizado Unidade\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"2bec111d-cfc3-4a46-b282-8f22f5710695\",\"id\":\"c95759e3-05b1-4789-b699-5269d4533a40\",\"code\":\"51\",\"ean\":null,\"priority\":4,\"name\":\"Gelo Dose 2kg\",\"description\":\"Gelo em cubos, pacote de 2kg\",\"price\":5,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"67b4f8b6-fa6c-46de-a3af-d09e6ad0a235\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Gelo Dose 2kg\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "4"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+      "id": "ce67812e-d0a4-4cb2-8976-ce572be72716",
+      "code": "53",
+      "ean": null,
+      "priority": 1,
+      "name": "Gelo saborizado (coco leve)",
+      "description": "Faz seu drink ficar ainda + gostoso",
+      "price": 5,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "1c107dc1-eeb3-4536-88bb-74e8c9e32b02",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Gelo saborizado (coco leve)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+      "id": "b8486c56-7407-4ded-8915-1af5353c5a56",
+      "code": "54",
+      "ean": null,
+      "priority": 2,
+      "name": "Coco",
+      "description": "Imagem do produto",
+      "price": 5,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "5055d7a2-47b5-4ed0-9d78-38dc5e358203",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Coco",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+      "id": "acb04129-becc-4283-8e9e-ef2ffce2de20",
+      "code": "52",
+      "ean": null,
+      "priority": 3,
+      "name": "Gelo Saborizado Unidade",
+      "description": "Gelo com sabor especial, unidade",
+      "price": 4,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "041eca7b-4963-4535-a40e-3f4ebb7996d5",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Gelo Saborizado Unidade",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+      "id": "c95759e3-05b1-4789-b699-5269d4533a40",
+      "code": "51",
+      "ean": null,
+      "priority": 4,
+      "name": "Gelo Dose 2kg",
+      "description": "Gelo em cubos, pacote de 2kg",
+      "price": 5,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "67b4f8b6-fa6c-46de-a3af-d09e6ad0a235",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Gelo Dose 2kg",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

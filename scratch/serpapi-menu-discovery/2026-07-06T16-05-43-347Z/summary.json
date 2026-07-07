@@ -1,0 +1,46 @@
+{
+  "runId": "2026-07-06T16-05-43-347Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "menu",
+  "apply": false,
+  "processed": 1,
+  "foundGreen": 0,
+  "foundYellow": 1,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "instagram": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-05-43-347Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-05-43-347Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-05-43-347Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": null,
+        "name": "Bododromo La em Mae Campina Grande cardapio instagram",
+        "category": null,
+        "address": "",
+        "neighborhood": null,
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Bododromo La em Mae Campina Grande cardapio instagram",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Forró Bode | Bodódromo (@forrobode.oficial)",
+        "link": "https://instagram.com/forrobode.oficial",
+        "snippet": "oficial comida regional, forró pé de serra, área kids pra criança e muita animação até o dia 14 de Julho entre Campina Grande Lagoa Seca a animação vai começar ...",
+        "displayedLink": "Mais de 13 mil seguidores",
+        "platform": "instagram",
+        "score": 55,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 11
+    }
+  ]
+}

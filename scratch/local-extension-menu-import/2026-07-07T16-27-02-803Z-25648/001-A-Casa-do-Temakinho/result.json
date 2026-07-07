@@ -1,0 +1,29 @@
+{
+  "restaurantId": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+  "restaurantName": "A Casa do Temakinho",
+  "platform": "anota_ai",
+  "sourceUrl": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+  "address": null,
+  "city": "Cabedelo",
+  "state": "PB",
+  "phone": "(83) 99944-9296",
+  "queueEntry": {
+    "restaurant_id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+    "name": "A Casa do Temakinho",
+    "platform": "anota_ai",
+    "tier": "green",
+    "source_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 99944-9296"
+  },
+  "evidenceDir": "scratch\\local-extension-menu-import\\2026-07-07T16-27-02-803Z-25648\\001-A-Casa-do-Temakinho",
+  "extraction": null,
+  "rawSummary": null,
+  "evidencePath": null,
+  "dryRun": null,
+  "review": null,
+  "committed": false,
+  "commit": null,
+  "error": "Runtime.callFunctionOn timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed."
+}

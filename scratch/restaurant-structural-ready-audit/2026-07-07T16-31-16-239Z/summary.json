@@ -1,0 +1,264 @@
+{
+  "runId": "2026-07-07T16-31-16-239Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T16-31-16-239Z",
+  "scope": {
+    "ids": [
+      "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+      "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "2ed733a0-a4c7-4bb4-b280-21d7752c0409"
+    ]
+  },
+  "options": {
+    "includePublished": true,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 4,
+  "ready": 3,
+  "needsReview": 0,
+  "blocked": 1,
+  "issueCounts": {
+    "numero_vazio": 1,
+    "item_nome_instrucao_interface": 5,
+    "display_name_instrucao_interface": 5
+  },
+  "audits": [
+    {
+      "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 17,
+      "optionCount": 492,
+      "galleryCount": 4,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "17 itens estruturados via instadelivery_native_api; fonte validada por nome, Instagram, telefone e link; midia completa.",
+      "source": {
+        "menu": "https://instadelivery.com.br/FornoBrasilExpress",
+        "instagram": "https://www.instagram.com/forneria_brasilexpress/",
+        "mediaLog": {
+          "source": "instadelivery_menu_images + instagram/apify identity + manual visual QA",
+          "status": "media_repaired_ready",
+          "applied": true,
+          "checkedAt": "2026-07-07T16:25:50.55304+00:00",
+          "forceMedia": true,
+          "menuTouched": false,
+          "galleryCount": 4,
+          "rejectPolicy": "no people main subject, no poster/promo/collage/print/logo-alone/video/blur/bad crop"
+        }
+      },
+      "fields": {
+        "address": "R. João Galdino de Barros",
+        "number": "12B",
+        "neighborhood": "Monte Castelo",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58101-038",
+        "phone": "(83) 98653-8522",
+        "latitude": -7.0311464,
+        "longitude": -34.84656,
+        "followers": 15551
+      },
+      "issues": []
+    },
+    {
+      "id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+      "name": "Pipa Sushi & Temakeria",
+      "readiness": "blocked",
+      "redCount": 11,
+      "yellowCount": 0,
+      "issueCount": 11,
+      "categoryCount": 11,
+      "itemCount": 80,
+      "optionCount": 1098,
+      "galleryCount": 5,
+      "aiValidated": false,
+      "menuStatus": "found",
+      "menuStatusReason": "80 itens estruturados via anota_ai_network; fonte validada por nome, Cabedelo/Intermares, telefone e Instagram; midia completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+        "instagram": "https://www.instagram.com/pipatemaki/",
+        "mediaLog": {
+          "source": "anota_ai_menu_images + instagram/apify identity + manual visual QA",
+          "status": "media_repaired_ready",
+          "applied": true,
+          "checkedAt": "2026-07-07T16:25:50.55304+00:00",
+          "forceMedia": true,
+          "menuTouched": false,
+          "galleryCount": 5,
+          "rejectPolicy": "no people main subject, no poster/promo/collage/print/logo-alone/video/blur/bad crop"
+        }
+      },
+      "fields": {
+        "address": "Av. Mar das Antilhas",
+        "number": null,
+        "neighborhood": "Intermares",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 3248-4251",
+        "latitude": -7.0444444,
+        "longitude": -34.8447222,
+        "followers": 8064
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "numero_vazio"
+        },
+        {
+          "severity": "red",
+          "code": "item_nome_instrucao_interface",
+          "itemId": "9600ec9e-aa87-4dc6-bce4-bffbec575edb",
+          "item": "Monte Seu Poke!"
+        },
+        {
+          "severity": "red",
+          "code": "display_name_instrucao_interface",
+          "itemId": "9600ec9e-aa87-4dc6-bce4-bffbec575edb",
+          "displayName": "Monte Seu Poke!"
+        },
+        {
+          "severity": "red",
+          "code": "item_nome_instrucao_interface",
+          "itemId": "63e94116-362a-459e-8842-a732a185a914",
+          "item": "Monte Seu Combinado!"
+        },
+        {
+          "severity": "red",
+          "code": "display_name_instrucao_interface",
+          "itemId": "63e94116-362a-459e-8842-a732a185a914",
+          "displayName": "Monte Seu Combinado!"
+        },
+        {
+          "severity": "red",
+          "code": "item_nome_instrucao_interface",
+          "itemId": "e5d6f1df-76c6-4df6-9137-67ea30f7a109",
+          "item": "Monte Seu Combinado!"
+        },
+        {
+          "severity": "red",
+          "code": "display_name_instrucao_interface",
+          "itemId": "e5d6f1df-76c6-4df6-9137-67ea30f7a109",
+          "displayName": "Monte Seu Combinado!"
+        },
+        {
+          "severity": "red",
+          "code": "item_nome_instrucao_interface",
+          "itemId": "e0dba39b-3901-42fd-97e7-3789ef24a07c",
+          "item": "Monte Seu Poke!"
+        },
+        {
+          "severity": "red",
+          "code": "display_name_instrucao_interface",
+          "itemId": "e0dba39b-3901-42fd-97e7-3789ef24a07c",
+          "displayName": "Monte Seu Poke!"
+        },
+        {
+          "severity": "red",
+          "code": "item_nome_instrucao_interface",
+          "itemId": "b0995188-ab2f-4cba-b764-435b62aabf7c",
+          "item": "Monte seu Sushi Hot Dog"
+        },
+        {
+          "severity": "red",
+          "code": "display_name_instrucao_interface",
+          "itemId": "b0995188-ab2f-4cba-b764-435b62aabf7c",
+          "displayName": "Monte seu Sushi Hot Dog"
+        }
+      ]
+    },
+    {
+      "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 14,
+      "itemCount": 60,
+      "optionCount": 150,
+      "galleryCount": 4,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "60 itens estruturados via meucarrinho_native_api; 30 grupos e 150 opcoes; midia completa.",
+      "source": {
+        "menu": "https://meucarrinho.delivery/portodoacai",
+        "instagram": "https://www.instagram.com/portodoacai01/",
+        "mediaLog": {
+          "source": "instagram/apify existing gallery + manual visual QA",
+          "status": "media_repaired_ready",
+          "applied": true,
+          "checkedAt": "2026-07-07T14:42:46.747447+00:00",
+          "forceMedia": true,
+          "menuTouched": false,
+          "galleryCount": 4,
+          "rejectPolicy": "no people main subject, no poster/promo/collage/print/logo-alone/video/blur/bad crop",
+          "sushiyakiOptionsNote": null
+        }
+      },
+      "fields": {
+        "address": "R. Cleto Campêlo",
+        "number": "623",
+        "neighborhood": "Camalaú",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99384-2261",
+        "latitude": -6.9791672,
+        "longitude": -34.8348377,
+        "followers": 962
+      },
+      "issues": []
+    },
+    {
+      "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 6,
+      "itemCount": 34,
+      "optionCount": 0,
+      "galleryCount": 5,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "34 itens estruturados via yooga_native_api; choices vazios e observacoes textuais sem adicionais estruturaveis; midia completa.",
+      "source": {
+        "menu": "https://delivery.yooga.app/sushiyaki",
+        "instagram": "https://www.instagram.com/sushiyaki_restaurante/",
+        "mediaLog": {
+          "source": "instagram/apify existing gallery + manual visual QA",
+          "status": "media_repaired_ready",
+          "applied": true,
+          "checkedAt": "2026-07-07T14:42:46.747447+00:00",
+          "forceMedia": true,
+          "menuTouched": false,
+          "galleryCount": 5,
+          "rejectPolicy": "no people main subject, no poster/promo/collage/print/logo-alone/video/blur/bad crop",
+          "sushiyakiOptionsNote": "yooga raw choices are empty; fry preference appears only as observation/instruction, not structured addon"
+        }
+      },
+      "fields": {
+        "address": "R. Ten. Antônio Pontes",
+        "number": "381",
+        "neighborhood": "Ponta de Matos",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-645",
+        "phone": "(83) 98684-5886",
+        "latitude": -6.969481699999999,
+        "longitude": -34.832150899999995,
+        "followers": 3651
+      },
+      "issues": []
+    }
+  ]
+}

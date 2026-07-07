@@ -1,0 +1,1127 @@
+{
+  "network": [
+    {
+      "url": "https://whatsmenu.com.br/pastelarialitoranea",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "resourceType": "document",
+      "method": "GET",
+      "textLength": 10761,
+      "textSample": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>PASTELARIA LITORANEA</title>\n    <meta property=\"og:title\" content=\"PASTELARIA LITORANEA\">\n    <meta property=\"og:description\" content=\"AQUI SE FAZ O MELHOR PASTEL!\">\n    <meta property=\"og:url\" content=\"https://whatsmenu.com.br/pastelarialitoranea/\">\n    <meta property=\"og:image\" content=\"https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/tLOGO.jpeg\">\n    <meta property=\"og:image:alt\" content=\"https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/tLOGO.jpeg\">\n\n  <meta property=\"og:type\" content=\"website\">\n  <meta name=\"theme-color\" content=\"#e7fd3f\">\n  <base href=\"/\">\n  <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"icon\" type=\"image/x-icon\" href=\"0\">\n  <style type=\"text/css\">@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc-.woff) format('woff');}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxM.woff) format('woff');}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc-.woff) format('woff');}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCRc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fABc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCBc4AMP6lbBP.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fChc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCRc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fABc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCBc4AMP6lbBP.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fChc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}</style>\n  <style type=\"text/css\">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v70/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.woff) format('woff');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;font-feature-settings:'liga';}@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v70/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>\n  <link rel=\"stylesheet\" href=\"/main/styles.b94c17d249295817.css?v=1783049737573\">\n\n\n\n\n\n<script>localStorage.ip = '104.23.160.98' // 44.227.81.61, 104.23.160.98</script>\n</head>\n<body class=\"mat-typography\">\n  <script>localStorage.removeItem('pastelarialitoranea')</script>\n  <script>localStorage.removeItem('pastelarialitoranea_packageDate')</script>\n  <script>localStorage.removeItem('P_cart_pastelarialitoranea')</script>\n  <script>\n      localStorage.i18nextLng = 'pt-BR'\n      localStorage.lang = 'pt-BR'\n      localStorage.currency = 'BRL'\n  </script>\n  <app-root></app-root>\n  <script src=\"/main/runtime.54840b9c8400eda2.js?v=1783049737573\" type=\"module\"></script><script src=\"/main/polyfills.b8ac1829b498097d.js?v=1783049737573\" type=\"module\"></script><script src=\"/main/scripts.35badfddaa3dde26.js?v=1783049737573\" defer></script><script src=\"/main/main.19ce91ca788e3366.js?v=1783049737573\" type=\"module\"></script>\n<!-- Global site tag (gtag.js) - Google Analytics -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-3MM7ZK08LW\"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'G-3MM7ZK08LW');\n</script>\n<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML=\"window.__CF$cv$params={r:'a17543d6ec91aee3',t:'MTc4MzQxMDY5Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);\";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src=\"https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496\" integrity=\"sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==\" data-cf-beacon='{\"version\":\"2024.11.0\",\"token\":\"a6b052d8c58e4b989ac988450eb52c93\",\"server_timing\":{\"name\":{\"cfCacheStatus\":true,\"cfEdge\":true,\"cfExtPri\":true,\"cfL4\":true,\"cfOrigin\":true,\"cfSpeedBrain\":true},\"location_startswith\":null}}' crossorigin=\"anonymous\"></script>\n</body>\n</html>\n"
+    },
+    {
+      "url": "https://whatsmenu.com.br/cdn-cgi/challenge-platform/scripts/jsd/main.js",
+      "status": 302,
+      "contentType": "",
+      "resourceType": "script",
+      "method": "GET",
+      "readError": "Response body is unavailable for redirect responses"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/runtime.54840b9c8400eda2.js?v=1783049737573",
+      "status": 200,
+      "contentType": "application/javascript",
+      "resourceType": "script",
+      "method": "GET",
+      "textLength": 3438,
+      "textSample": "(()=>{\"use strict\";var e,h={},v={};function r(e){var n=v[e];if(void 0!==n)return n.exports;var t=v[e]={id:e,loaded:!1,exports:{}};return h[e].call(t.exports,t,t.exports,r),t.loaded=!0,t.exports}r.m=h,e=[],r.O=(n,t,f,i)=>{if(!t){var a=1/0;for(o=0;o<e.length;o++){for(var[t,f,i]=e[o],u=!0,d=0;d<t.length;d++)(!1&i||a>=i)&&Object.keys(r.O).every(b=>r.O[b](t[d]))?t.splice(d--,1):(u=!1,i<a&&(a=i));if(u){e.splice(o--,1);var s=f();void 0!==s&&(n=s)}}return n}i=i||0;for(var o=e.length;o>0&&e[o-1][2]>i;o--)e[o]=e[o-1];e[o]=[t,f,i]},r.n=e=>{var n=e&&e.__esModule?()=>e.default:()=>e;return r.d(n,{a:n}),n},(()=>{var n,e=Object.getPrototypeOf?t=>Object.getPrototypeOf(t):t=>t.__proto__;r.t=function(t,f){if(1&f&&(t=this(t)),8&f||\"object\"==typeof t&&t&&(4&f&&t.__esModule||16&f&&\"function\"==typeof t.then))return t;var i=Object.create(null);r.r(i);var o={};n=n||[null,e({}),e([]),e(e)];for(var a=2&f&&t;\"object\"==typeof a&&!~n.indexOf(a);a=e(a))Object.getOwnPropertyNames(a).forEach(u=>o[u]=()=>t[u]);return o.default=()=>t,r.d(i,o),i}})(),r.d=(e,n)=>{for(var t in n)r.o(n,t)&&!r.o(e,t)&&Object.defineProperty(e,t,{enumerable:!0,get:n[t]})},r.f={},r.e=e=>Promise.all(Object.keys(r.f).reduce((n,t)=>(r.f[t](e,n),n),[])),r.u=e=>e+\".\"+{126:\"7089b8f82b3df4e0\",268:\"444dd7be2196e539\",289:\"24ccdc97a25d2f14\",472:\"e942bcd65af9c882\",647:\"167d1cd1169100c8\"}[e]+\".js\",r.miniCssF=e=>{},r.o=(e,n)=>Object.prototype.hasOwnProperty.call(e,n),(()=>{var e={},n=\"whatsmenu:\";r.l=(t,f,i,o)=>{if(e[t])e[t].push(f);else{var a,u;if(void 0!==i)for(var d=document.getElementsByTagName(\"script\"),s=0;s<d.length;s++){var c=d[s];if(c.getAttribute(\"src\")==t||c.getAttribute(\"data-webpack\")==n+i){a=c;break}}a||(u=!0,(a=document.createElement(\"script\")).type=\"module\",a.charset=\"utf-8\",a.timeout=120,r.nc&&a.setAttribute(\"nonce\",r.nc),a.setAttribute(\"data-webpack\",n+i),a.src=r.tu(t)),e[t]=[f];var l=(g,b)=>{a.onerror=a.onload=null,clearTimeout(p);var _=e[t];if(delete e[t],a.parentNode&&a.parentNode.removeChild(a),_&&_.forEach(m=>m(b)),g)return g(b)},p=setTimeout(l.bind(null,void 0,{type:\"timeout\",target:a}),12e4);a.onerror=l.bind(null,a.onerror),a.onload=l.bind(null,a.onload),u&&document.head.appendChild(a)}}})(),r.r=e=>{typeof Symbol<\"u\"&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\"Module\"}),Object.defineProperty(e,\"__esModule\",{value:!0})},r.nmd=e=>(e.paths=[],e.children||(e.children=[]),e),(()=>{var e;r.tt=()=>(void 0===e&&(e={createScriptURL:n=>n},typeof trustedTypes<\"u\"&&trustedTypes.createPolicy&&(e=trustedTypes.createPolicy(\"angular#bundler\",e))),e)})(),r.tu=e=>r.tt().createScriptURL(e),r.p=\"\",(()=>{r.b=document.baseURI||self.location.href;var e={666:0};r.f.j=(f,i)=>{var o=r.o(e,f)?e[f]:void 0;if(0!==o)if(o)i.push(o[2]);else if(666!=f){var a=new Promise((c,l)=>o=e[f]=[c,l]);i.push(o[2]=a);var u=r.p+r.u(f),d=new Error;r.l(u,c=>{if(r.o(e,f)&&(0!==(o=e[f])&&(e[f]=void 0),o)){var l=c&&(\"load\"===c.type?\"missing\":c.type),p=c&&c.target&&c.target.src;d.message=\"Loading chunk \"+f+\" failed.\\n(\"+l+\": \"+p+\")\",d.name=\"ChunkLoadError\",d.type=l,d.request=p,o[1](d)}},\"chunk-\"+f,f)}else e[f]=0},r.O.j=f=>0===e[f];var n=(f,i)=>{var d,s,[o,a,u]=i,c=0;if(o.some(p=>0!==e[p])){for(d in a)r.o(a,d)&&(r.m[d]=a[d]);if(u)var l=u(r)}for(f&&f(i);c<o.length;c++)r.o(e,s=o[c])&&e[s]&&e[s][0](),e[s]=0;return r.O(l)},t=self.webpackChunkwhatsmenu=self.webpackChunkwhatsmenu||[];t.forEach(n.bind(null,0)),t.push=n.bind(null,t.push.bind(t))})()})();"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/polyfills.b8ac1829b498097d.js?v=1783049737573",
+      "status": 200,
+      "contentType": "application/javascript",
+      "resourceType": "script",
+      "method": "GET",
+      "textLength": 34732,
+      "textSample": "\"use strict\";(self.webpackChunkwhatsmenu=self.webpackChunkwhatsmenu||[]).push([[429],{3443:(ce,ke,fe)=>{fe(1321),fe(8583)},8583:()=>{!function(e){const r=e.performance;function i(H){r&&r.mark&&r.mark(H)}function o(H,w){r&&r.measure&&r.measure(H,w)}i(\"Zone\");const a=e.__Zone_symbol_prefix||\"__zone_symbol__\";function h(H){return a+H}const g=!0===e[h(\"forceDuplicateZoneCheck\")];if(e.Zone){if(g||\"function\"!=typeof e.Zone.__symbol__)throw new Error(\"Zone already loaded.\");return e.Zone}let p=(()=>{class H{constructor(t,c){this._parent=t,this._name=c?c.name||\"unnamed\":\"<root>\",this._properties=c&&c.properties||{},this._zoneDelegate=new m(this,this._parent&&this._parent._zoneDelegate,c)}static assertZonePatched(){if(e.Promise!==pe.ZoneAwarePromise)throw new Error(\"Zone.js has detected that ZoneAwarePromise `(window|global).Promise` has been overwritten.\\nMost likely cause is that a Promise polyfill has been loaded after Zone.js (Polyfilling Promise api is not necessary when zone.js is loaded. If you must load one, do so before loading zone.js.)\")}static get root(){let t=H.current;for(;t.parent;)t=t.parent;return t}static get current(){return Y.zone}static get currentTask(){return _e}static __load_patch(t,c,C=!1){if(pe.hasOwnProperty(t)){if(!C&&g)throw Error(\"Already loaded patch: \"+t)}else if(!e[\"__Zone_disable_\"+t]){const M=\"Zone:\"+t;i(M),pe[t]=c(e,H,ee),o(M,M)}}get parent(){return this._parent}get name(){return this._name}get(t){const c=this.getZoneWith(t);if(c)return c._properties[t]}getZoneWith(t){let c=this;for(;c;){if(c._properties.hasOwnProperty(t))return c;c=c._parent}return null}fork(t){if(!t)throw new Error(\"ZoneSpec required!\");return this._zoneDelegate.fork(this,t)}wrap(t,c){if(\"function\"!=typeof t)throw new Error(\"Expecting function got: \"+t);const C=this._zoneDelegate.intercept(this,t,c),M=this;return function(){return M.runGuarded(C,this,arguments,c)}}run(t,c,C,M){Y={parent:Y,zone:this};try{return this._zoneDelegate.invoke(this,t,c,C,M)}finally{Y=Y.parent}}runGuarded(t,c=null,C,M){Y={parent:Y,zone:this};try{try{return this._zoneDelegate.invoke(this,t,c,C,M)}catch(te){if(this._zoneDelegate.handleError(this,te))throw te}}finally{Y=Y.parent}}runTask(t,c,C){if(t.zone!=this)throw new Error(\"A task can only be run in the zone of creation! (Creation: \"+(t.zone||ne).name+\"; Execution: \"+this.name+\")\");if(t.state===z&&(t.type===oe||t.type===I))return;const M=t.state!=P;M&&t._transitionTo(P,V),t.runCount++;const te=_e;_e=t,Y={parent:Y,zone:this};try{t.type==I&&t.data&&!t.data.isPeriodic&&(t.cancelFn=void 0);try{return this._zoneDelegate.invokeTask(this,t,c,C)}catch(d){if(this._zoneDelegate.handleError(this,d))throw d}}finally{t.state!==z&&t.state!==y&&(t.type==oe||t.data&&t.data.isPeriodic?M&&t._transitionTo(V,P):(t.runCount=0,this._updateTaskCount(t,-1),M&&t._transitionTo(z,P,z))),Y=Y.parent,_e=te}}scheduleTask(t){if(t.zone&&t.zone!==this){let C=this;for(;C;){if(C===t.zone)throw Error(`can not reschedule task to ${this.name} which is descendants of the original zone ${t.zone.name}`);C=C.parent}}t._transitionTo(Q,z);const c=[];t._zoneDelegates=c,t._zone=this;try{t=this._zoneDelegate.scheduleTask(this,t)}catch(C){throw t._transitionTo(y,Q,z),this._zoneDelegate.handleError(this,C),C}return t._zoneDelegates===c&&this._updateTaskCount(t,1),t.state==Q&&t._transitionTo(V,Q),t}scheduleMicroTask(t,c,C,M){return this.scheduleTask(new k($,t,c,C,M,void 0))}scheduleMacroTask(t,c,C,M,te){return this.scheduleTask(new k(I,t,c,C,M,te))}scheduleEventTask(t,c,C,M,te){return this.scheduleTask(new k(oe,t,c,C,M,te))}cancelTask(t){if(t.zone!=this)throw new Error(\"A task can only be cancelled in the zone of creation! (Creation: \"+(t.zone||ne).name+\"; Execution: \"+this.name+\")\");t._transitionTo(F,V,P);try{this._zoneDelegate.cancelTask(this,t)}catch(c){throw t._transitionTo(y,F),this._zoneDelegate.handleError(this,c),c}return this._updateTaskCount(t,-1),t._transitionTo(z,F),t.runCount=0,t}_updateTaskCount(t,c){const C=t._zoneDelegates;-1==c&&(t._zoneDelegates=null);for(let M=0;M<C.length;M++)C[M]._updateTaskCount(t.type,c)}}return H.__symbol__=h,H})();const R={name:\"\",onHasTask:(H,w,t,c)=>H.hasTask(t,c),onScheduleTask:(H,w,t,c)=>H.scheduleTask(t,c),onInvokeTask:(H,w,t,c,C,M)=>H.invokeTask(t,c,C,M),onCancelTask:(H,w,t,c)=>H.cancelTask(t,c)};class m{constructor(w,t,c){this._taskCounts={microTask:0,macroTask:0,eventTask:0},this.zone=w,this._parentDelegate=t,this._forkZS=c&&(c&&c.onFork?c:t._forkZS),this._forkDlgt=c&&(c.onFork?t:t._forkDlgt),this._forkCurrZone=c&&(c.onFork?this.zone:t._forkCurrZone),this._interceptZS=c&&(c.onIntercept?c:t._interceptZS),this._interceptDlgt=c&&(c.onIntercept?t:t._interceptDlgt),this._interceptCurrZone=c&&(c.onIntercept?this.zone:t._interceptCurrZone),this._invokeZS=c&&(c.onInvoke?c:t._invokeZS),this._invokeDlgt=c&&(c.onInvoke?t:t._invokeDlgt),this._invokeCurrZone=c&&(c.onInvoke?this.zone:t._invokeCurrZone),this._handleErrorZS=c&&(c.onHandleError?c:t._handleErrorZS),this._handleErrorDlgt=c&&(c.onHandleError?t:t._handleErrorDlgt),this._handleErrorCurrZone=c&&(c.onHandleError?this.zone:t._handleErrorCurrZone),this._scheduleTaskZS=c&&(c.onScheduleTask?c:t._scheduleTaskZS),this._scheduleTaskDlgt=c&&(c.onScheduleTask?t:t._scheduleTaskDlgt),this._scheduleTaskCurrZone=c&&(c.onScheduleTask?this.zone:t._scheduleTaskCurrZone),this._invokeTaskZS=c&&(c.onInvokeTask?c:t._invokeTaskZS),this._invokeTaskDlgt=c&&(c.onInvokeTask?t:t._invokeTaskDlgt),this._invokeTaskCurrZone=c&&(c.onInvokeTask?this.zone:t._invokeTaskCurrZone),this._cancelTaskZS=c&&(c.onCancelTask?c:t._cancelTaskZS),this._cancelTaskDlgt=c&&(c.onCancelTask?t:t._cancelTaskDlgt),this._cancelTaskCurrZone=c&&(c.onCancelTask?this.zone:t._cancelTaskCurrZone),this._hasTaskZS=null,this._hasTaskDlgt=null,this._hasTaskDlgtOwner=null,this._hasTaskCurrZone=null;const C=c&&c.onHasTask;(C||t&&t._hasTaskZS)&&(this._hasTaskZS=C?c:R,this._hasTaskDlgt=t,this._hasTaskDlgtOwner=this,this._hasTaskCurrZone=w,c.onScheduleTask||(this._scheduleTaskZS=R,this._scheduleTaskDlgt=t,this._scheduleTaskCurrZone=this.zone),c.onInvokeTask||(this._invokeTaskZS=R,this._invokeTaskDlgt=t,this._invokeTaskCurrZone=this.zone),c.onCancelTask||(this._cancelTaskZS=R,this._cancelTaskDlgt=t,this._cancelTaskCurrZone=this.zone))}fork(w,t){return this._forkZS?this._forkZS.onFork(this._forkDlgt,this.zone,w,t):new p(w,t)}intercept(w,t,c){return this._interceptZS?this._interceptZS.onIntercept(this._interceptDlgt,this._interceptCurrZone,w,t,c):t}invoke(w,t,c,C,M){return this._invokeZS?this._invokeZS.onInvoke(this._invokeDlgt,this._invokeCurrZone,w,t,c,C,M):t.apply(c,C)}handleError(w,t){return!this._handleErrorZS||this._handleErrorZS.onHandleError(this._handleErrorDlgt,this._handleErrorCurrZone,w,t)}scheduleTask(w,t){let c=t;if(this._scheduleTaskZS)this._hasTaskZS&&c._zoneDelegates.push(this._hasTaskDlgtOwner),c=this._scheduleTaskZS.onScheduleTask(this._scheduleTaskDlgt,this._scheduleTaskCurrZone,w,t),c||(c=t);else if(t.scheduleFn)t.scheduleFn(t);else{if(t.type!=$)throw new Error(\"Task is missing scheduleFn.\");Z(t)}return c}invokeTask(w,t,c,C){return this._invokeTaskZS?this._invokeTaskZS.onInvokeTask(this._invokeTaskDlgt,this._invokeTaskCurrZone,w,t,c,C):t.callback.apply(c,C)}cancelTask(w,t){let c;if(this._cancelTaskZS)c=this._cancelTaskZS.onCancelTask(this._cancelTaskDlgt,this._cancelTaskCurrZone,w,t);else{if(!t.cancelFn)throw Error(\"Task is not cancelable\");c=t.cancelFn(t)}return c}hasTask(w,t){try{this._hasTaskZS&&this._hasTaskZS.onHasTask(this._hasTaskDlgt,this._hasTaskCurrZone,w,t)}catch(c){this.handleError(w,c)}}_updateTaskCount(w,t){const c=this._taskCounts,C=c[w],M=c[w]=C+t;if(M<0)throw new Error(\"More tasks executed then were scheduled.\");0!=C&&0!=M||this.hasTask(this.zone,{microTask:c.microTask>0,macroTask:c.macroTask>0,eventTask:c.eventTask>0,change:w})}}class k{constructor(w,t,c,C,M,te){if(this._zone=null,this.runCount=0,this._zoneDelegates=null,this._state=\"notScheduled\",this.type=w,this.source=t,this.data=C,this.scheduleFn=M,this.cancelFn=te,!c)throw new Error(\"callback is not defined\");this.callback=c;const d=this;this.invoke=w===oe&&C&&C.useG?k.invokeTask:function(){return k.invokeTask.call(e,d,this,arguments)}}static invokeTask(w,t,c){w||(w=this),ie++;try{return w.runCount++,w.zone.runTask(w,t,c)}finally{1==ie&&v(),ie--}}get zone(){return this._zone}get state(){return this._state}cancelScheduleRequest(){this._transitionTo(z,Q)}_transitionTo(w,t,c){if(this._state!==t&&this._state!==c)throw new Error(`${this.type} '${this.source}': can not transition to '${w}', expecting state '${t}'${c?\" or '\"+c+\"'\":\"\"}, was '${this._state}'.`);this._state=w,w==z&&(this._zoneDelegates=null)}toString(){return this.data&&typeof this.data.handleId<\"u\"?this.data.handleId.toString():Object.prototype.toString.call(this)}toJSON(){return{type:this.type,state:this.state,source:this.source,zone:this.zone.name,runCount:this.runCount}}}const S=h(\"setTimeout\"),N=h(\"Promise\"),j=h(\"then\");let re,G=[],U=!1;function J(H){if(re||e[N]&&(re=e[N].resolve(0)),re){let w=re[j];w||(w=re.then),w.call(re,H)}else e[S](H,0)}function Z(H){0===ie&&0===G.length&&J(v),H&&G.push(H)}function v(){if(!U){for(U=!0;G.length;){const H=G;G=[];for(let w=0;w<H.length;w++){const t=H[w];try{t.zone.runTask(t,null,null)}catch(c){ee.onUnhandledError(c)}}}ee.microtaskDrainDone(),U=!1}}const ne={name:\"NO ZONE\"},z=\"notScheduled\",Q=\"scheduling\",V=\"scheduled\",P=\"running\",F=\"canceling\",y=\"unknown\",$=\"microTask\",I=\"macroTask\",oe=\"eventTask\",pe={},ee={symbol:h,currentZoneFrame:()=>Y,onUnhandledError:K,microtaskDrainDone:K,scheduleMicroTask:Z,showUncaughtError:()=>!p[h(\"ignoreConsoleErrorUncaughtError\")],patchEventTarget:()=>[],patchOnProperties:K,patchMethod:()=>K,bindArguments:()=>[],patchThen:()=>K,patchMacroTask:()=>K,patchEventPrototype:()=>K,isIEOrEdge:()=>!1,getGlobalObjects:()=>{},ObjectDefineProperty:()=>K,ObjectGetOwnPropertyDescriptor:()=>{},ObjectCreate:()=>{},ArraySlice:()=>[],patchClass:()=>K,wrapWithCurrentZone:()=>K,filterProperties:()=>[],attachOriginToPatched:()=>K,_redefineProperty:()=>K,patchCallbacks:()=>K,nativeScheduleMicroTask:J};let Y={parent:null,zone:new p(null,null)},_e=null,ie=0;function K(){}o(\"Zone\",\"Zone\"),e.Zone=p}(typeof window<\"u\"&&window||typeof self<\"u\"&&self||global);const ce=Object.getOwnPropertyDescriptor,ke=Object.defineProperty,fe=Object.getPrototypeOf,De=Object.create,Te=Array.prototype.slice,Pe=\"addEventListener\",xe=\"removeEventListener\",Ee=Zone.__symbol__(Pe),We=Zone.__symbol__(xe),he=\"true\",ge=\"false\",Oe=Zone.__symbol__(\"\");function je(e,r){return Zone.current.wrap(e,r)}function $e(e,r,i,o,a){return Zone.current.scheduleMacroTask(e,r,i,o,a)}const B=Zone.__symbol__,Ie=typeof window<\"u\",ve=Ie?window:void 0,q=Ie&&ve||\"object\"==typeof self&&self||global,st=\"removeAttribute\";function Ne(e,r){for(let i=e.length-1;i>=0;i--)\"function\"==typeof e[i]&&(e[i]=je(e[i],r+\"_\"+i));return e}function He(e){return!e||!1!==e.writable&&!(\"function\"==typeof e.get&&typeof e.set>\"u\")}const Be=typeof WorkerGlobalScope<\"u\"&&self instanceof WorkerGlobalScope,Se=!(\"nw\"in q)&&typeof q.process<\"u\"&&\"[object process]\"==={}.toString.call(q.process),le=!Se&&!Be&&!(!Ie||!ve.HTMLElement),Ue=typeof q.process<\"u\"&&\"[object process]\"==={}.toString.call(q.process)&&!Be&&!(!Ie||!ve.HTMLElement),Ze={},Me=function(e){if(!(e=e||q.event))return;let r=Ze[e.type];r||(r=Ze[e.type]=B(\"ON_PROPERTY\"+e.type));const i=this||e.target||q,o=i[r];let a;return le&&i===ve&&\"error\"===e.type?(a=o&&o.call(this,e.message,e.filename,e.lineno,e.colno,e.error),!0===a&&e.preventDefault()):(a=o&&o.apply(this,arguments),null!=a&&!a&&e.preventDefault()),a};function qe(e,r,i){let o=ce(e,r);if(!o&&i&&ce(i,r)&&(o={enumerable:!0,configurable:!0}),!o||!o.configurable)return;const a=B(\"on\"+r+\"patched\");if(e.hasOwnProperty(a)&&e[a])return;delete o.writable,delete o.value;const h=o.get,g=o.set,p=r.slice(2);let R=Ze[p];R||(R=Ze[p]=B(\"ON_PROPERTY\"+p)),o.set=function(m){let k=this;!k&&e===q&&(k=q),k&&(\"function\"==typeof k[R]&&k.removeEventListener(p,Me),g&&g.call(k,nul"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/styles.b94c17d249295817.css?v=1783049737573",
+      "status": 200,
+      "contentType": "text/css",
+      "resourceType": "stylesheet",
+      "method": "GET",
+      "textLength": 422429,
+      "textSample": ".mat-ripple{overflow:hidden;position:relative}.mat-ripple:not(:empty){transform:translateZ(0)}.mat-ripple.mat-ripple-unbounded{overflow:visible}.mat-ripple-element{position:absolute;border-radius:50%;pointer-events:none;transition:opacity,transform 0ms cubic-bezier(0,0,.2,1);transform:scale3d(0,0,0)}.cdk-high-contrast-active .mat-ripple-element{display:none}.cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}.cdk-overlay-container,.cdk-global-overlay-wrapper{pointer-events:none;top:0;left:0;height:100%;width:100%}.cdk-overlay-container{position:fixed;z-index:1000}.cdk-overlay-container:empty{display:none}.cdk-global-overlay-wrapper{display:flex;position:absolute;z-index:1000}.cdk-overlay-pane{position:absolute;pointer-events:auto;box-sizing:border-box;z-index:1000;display:flex;max-width:100%;max-height:100%}.cdk-overlay-backdrop{position:absolute;inset:0;z-index:1000;pointer-events:auto;-webkit-tap-highlight-color:rgba(0,0,0,0);transition:opacity .4s cubic-bezier(.25,.8,.25,1);opacity:0}.cdk-overlay-backdrop.cdk-overlay-backdrop-showing{opacity:1}.cdk-high-contrast-active .cdk-overlay-backdrop.cdk-overlay-backdrop-showing{opacity:.6}.cdk-overlay-dark-backdrop{background:rgba(0,0,0,.32)}.cdk-overlay-transparent-backdrop{transition:visibility 1ms linear,opacity 1ms linear;visibility:hidden;opacity:1}.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing{opacity:0;visibility:visible}.cdk-overlay-backdrop-noop-animation{transition:none}.cdk-overlay-connected-position-bounding-box{position:absolute;z-index:1000;display:flex;flex-direction:column;min-width:1px;min-height:1px}.cdk-global-scrollblock{position:fixed;width:100%;overflow-y:scroll}textarea.cdk-textarea-autosize{resize:none}textarea.cdk-textarea-autosize-measuring{padding:2px 0!important;box-sizing:content-box!important;height:auto!important;overflow:hidden!important}textarea.cdk-textarea-autosize-measuring-firefox{padding:2px 0!important;box-sizing:content-box!important;height:0!important}@keyframes cdk-text-field-autofill-start{}@keyframes cdk-text-field-autofill-end{}.cdk-text-field-autofill-monitored:-webkit-autofill{animation:cdk-text-field-autofill-start 0s 1ms}.cdk-text-field-autofill-monitored:not(:-webkit-autofill){animation:cdk-text-field-autofill-end 0s 1ms}.mat-focus-indicator{position:relative}.mat-focus-indicator:before{inset:0;position:absolute;box-sizing:border-box;pointer-events:none;display:var(--mat-focus-indicator-display, none);border:var(--mat-focus-indicator-border-width, 3px) var(--mat-focus-indicator-border-style, solid) var(--mat-focus-indicator-border-color, transparent);border-radius:var(--mat-focus-indicator-border-radius, 4px)}.mat-focus-indicator:focus:before{content:\"\"}.cdk-high-contrast-active{--mat-focus-indicator-display: block}.mat-mdc-focus-indicator{position:relative}.mat-mdc-focus-indicator:before{inset:0;position:absolute;box-sizing:border-box;pointer-events:none;display:var(--mat-mdc-focus-indicator-display, none);border:var(--mat-mdc-focus-indicator-border-width, 3px) var(--mat-mdc-focus-indicator-border-style, solid) var(--mat-mdc-focus-indicator-border-color, transparent);border-radius:var(--mat-mdc-focus-indicator-border-radius, 4px)}.mat-mdc-focus-indicator:focus:before{content:\"\"}.cdk-high-contrast-active{--mat-mdc-focus-indicator-display: block}.mat-ripple-element{background-color:#0000001a}.mat-mdc-option{color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, .87))}.mat-mdc-option:hover:not(.mdc-list-item--disabled),.mat-mdc-option:focus:not(.mdc-list-item--disabled),.mat-mdc-option.mat-mdc-option-active,.mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mdc-list-item--disabled){background:rgba(0,0,0,.04)}.mat-primary .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text{color:var(--mdc-theme-primary, #3f51b5)}.mat-accent .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text{color:var(--mdc-theme-secondary, #ff4081)}.mat-warn .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text{color:var(--mdc-theme-error, #f44336)}.mat-mdc-optgroup-label{color:var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, .87))}.mat-pseudo-checkbox-full{color:#0000008a}.mat-pseudo-checkbox-full.mat-pseudo-checkbox-disabled{color:#b0b0b0}.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal:after,.mat-primary .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-minimal:after{color:#3f51b5}.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full,.mat-primary .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full{background:#3f51b5}.mat-primary .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full:after,.mat-primary .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full:after{color:#fafafa}.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal:after,.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-minimal:after{color:#ff4081}.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full,.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full{background:#ff4081}.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full:after,.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full:after{color:#fafafa}.mat-accent .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal:after,.mat-accent .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-minimal:after{color:#ff4081}.mat-accent .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full,.mat-accent .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full{background:#ff4081}.mat-accent .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full:after,.mat-accent .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full:after{color:#fafafa}.mat-warn .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal:after,.mat-warn .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-minimal:after{color:#f44336}.mat-warn .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full,.mat-warn .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full{background:#f44336}.mat-warn .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full:after,.mat-warn .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full:after{color:#fafafa}.mat-pseudo-checkbox-disabled.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal:after,.mat-pseudo-checkbox-disabled.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-minimal:after{color:#b0b0b0}.mat-pseudo-checkbox-disabled.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-full,.mat-pseudo-checkbox-disabled.mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-full{background:#b0b0b0}.mat-app-background{background-color:#fafafa;color:#000000de}.mat-elevation-z0,.mat-mdc-elevation-specific.mat-elevation-z0{box-shadow:0 0 #0003,0 0 #00000024,0 0 #0000001f}.mat-elevation-z1,.mat-mdc-elevation-specific.mat-elevation-z1{box-shadow:0 2px 1px -1px #0003,0 1px 1px #00000024,0 1px 3px #0000001f}.mat-elevation-z2,.mat-mdc-elevation-specific.mat-elevation-z2{box-shadow:0 3px 1px -2px #0003,0 2px 2px #00000024,0 1px 5px #0000001f}.mat-elevation-z3,.mat-mdc-elevation-specific.mat-elevation-z3{box-shadow:0 3px 3px -2px #0003,0 3px 4px #00000024,0 1px 8px #0000001f}.mat-elevation-z4,.mat-mdc-elevation-specific.mat-elevation-z4{box-shadow:0 2px 4px -1px #0003,0 4px 5px #00000024,0 1px 10px #0000001f}.mat-elevation-z5,.mat-mdc-elevation-specific.mat-elevation-z5{box-shadow:0 3px 5px -1px #0003,0 5px 8px #00000024,0 1px 14px #0000001f}.mat-elevation-z6,.mat-mdc-elevation-specific.mat-elevation-z6{box-shadow:0 3px 5px -1px #0003,0 6px 10px #00000024,0 1px 18px #0000001f}.mat-elevation-z7,.mat-mdc-elevation-specific.mat-elevation-z7{box-shadow:0 4px 5px -2px #0003,0 7px 10px 1px #00000024,0 2px 16px 1px #0000001f}.mat-elevation-z8,.mat-mdc-elevation-specific.mat-elevation-z8{box-shadow:0 5px 5px -3px #0003,0 8px 10px 1px #00000024,0 3px 14px 2px #0000001f}.mat-elevation-z9,.mat-mdc-elevation-specific.mat-elevation-z9{box-shadow:0 5px 6px -3px #0003,0 9px 12px 1px #00000024,0 3px 16px 2px #0000001f}.mat-elevation-z10,.mat-mdc-elevation-specific.mat-elevation-z10{box-shadow:0 6px 6px -3px #0003,0 10px 14px 1px #00000024,0 4px 18px 3px #0000001f}.mat-elevation-z11,.mat-mdc-elevation-specific.mat-elevation-z11{box-shadow:0 6px 7px -4px #0003,0 11px 15px 1px #00000024,0 4px 20px 3px #0000001f}.mat-elevation-z12,.mat-mdc-elevation-specific.mat-elevation-z12{box-shadow:0 7px 8px -4px #0003,0 12px 17px 2px #00000024,0 5px 22px 4px #0000001f}.mat-elevation-z13,.mat-mdc-elevation-specific.mat-elevation-z13{box-shadow:0 7px 8px -4px #0003,0 13px 19px 2px #00000024,0 5px 24px 4px #0000001f}.mat-elevation-z14,.mat-mdc-elevation-specific.mat-elevation-z14{box-shadow:0 7px 9px -4px #0003,0 14px 21px 2px #00000024,0 5px 26px 4px #0000001f}.mat-elevation-z15,.mat-mdc-elevation-specific.mat-elevation-z15{box-shadow:0 8px 9px -5px #0003,0 15px 22px 2px #00000024,0 6px 28px 5px #0000001f}.mat-elevation-z16,.mat-mdc-elevation-specific.mat-elevation-z16{box-shadow:0 8px 10px -5px #0003,0 16px 24px 2px #00000024,0 6px 30px 5px #0000001f}.mat-elevation-z17,.mat-mdc-elevation-specific.mat-elevation-z17{box-shadow:0 8px 11px -5px #0003,0 17px 26px 2px #00000024,0 6px 32px 5px #0000001f}.mat-elevation-z18,.mat-mdc-elevation-specific.mat-elevation-z18{box-shadow:0 9px 11px -5px #0003,0 18px 28px 2px #00000024,0 7px 34px 6px #0000001f}.mat-elevation-z19,.mat-mdc-elevation-specific.mat-elevation-z19{box-shadow:0 9px 12px -6px #0003,0 19px 29px 2px #00000024,0 7px 36px 6px #0000001f}.mat-elevation-z20,.mat-mdc-elevation-specific.mat-elevation-z20{box-shadow:0 10px 13px -6px #0003,0 20px 31px 3px #00000024,0 8px 38px 7px #0000001f}.mat-elevation-z21,.mat-mdc-elevation-specific.mat-elevation-z21{box-shadow:0 10px 13px -6px #0003,0 21px 33px 3px #00000024,0 8px 40px 7px #0000001f}.mat-elevation-z22,.mat-mdc-elevation-specific.mat-elevation-z22{box-shadow:0 10px 14px -6px #0003,0 22px 35px 3px #00000024,0 8px 42px 7px #0000001f}.mat-elevation-z23,.mat-mdc-elevation-specific.mat-elevation-z23{box-shadow:0 11px 14px -7px #0003,0 23px 36px 3px #00000024,0 9px 44px 8px #0000001f}.mat-elevation-z24,.mat-mdc-elevation-specific.mat-elevation-z24{box-shadow:0 11px 15px -7px #0003,0 24px 38px 3px #00000024,0 9px 46px 8px #0000001f}.mat-theme-loaded-marker{display:none}.mat-mdc-option{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:var(--mdc-typography-body1-font-size, 16px);line-height:var(--mdc-typography-body1-line-height, 24px);font-weight:var(--mdc-typography-body1-font-weight, 400);letter-spacing:var(--mdc-typography-body1-letter-spacing, .03125em)}.mat-mdc-card{box-shadow:0 2px 1px -1px #0003,0 1px 1px #00000024,0 1px 3px #0000001f;--mdc-elevated-card-container-color:#fff}.mat-mdc-card-outlined{box-shadow:0 0 #0003,0 0 #00000024,0 0 #0000001f;--mdc-outlined-card-outline-color:#e0e0e0}.mat-mdc-card-subtitle{color:#0000008a}.mat-mdc-card-title{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:var(--mdc-typography-headline6-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));font-size:var(--mdc-typography-headline6-font-size, 20px);line-height:var(--mdc-typography-headline6-line-height, 32px);font-weight:var(--mdc-typography-headline6-font-weight, 500);letter-spacing:var(--mdc-typography-headline6-letter-spacing, .0125em);-webkit-text-decoration:var(--mdc-typography-headline6-text-decoration, inherit);text-decoration:var(--mdc-typography-headline6-text-decoration, inherit);text-transform:var(--mdc-typography-headline6-text-transform, none)}.mat-mdc-card-subtitle{-moz-osx-font-smoothing:grayscale;-webkit-"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/scripts.35badfddaa3dde26.js?v=1783049737573",
+      "status": 200,
+      "contentType": "application/javascript",
+      "resourceType": "script",
+      "method": "GET",
+      "textLength": 101126,
+      "textSample": "!function n(u,s,r){function e(o,c){if(!s[o]){if(!u[o]){var a=\"function\"==typeof require&&require;if(!c&&a)return a(o,!0);if(i)return i(o,!0);var l=new Error(\"Cannot find module '\"+o+\"'\");throw l.code=\"MODULE_NOT_FOUND\",l}var f=s[o]={exports:{}};u[o][0].call(f.exports,function(h){return e(u[o][1][h]||h)},f,f.exports,n,u,s,r)}return s[o].exports}for(var i=\"function\"==typeof require&&require,t=0;t<r.length;t++)e(r[t]);return e}({1:[function(n,u,s){(function(r){\"use strict\";function e(t,o,c){t[o]||Object[i](t,o,{writable:!0,configurable:!0,value:c})}if(n(327),n(328),n(2),r._babelPolyfill)throw new Error(\"only one instance of babel-polyfill is allowed\");r._babelPolyfill=!0;var i=\"defineProperty\";e(String.prototype,\"padLeft\",\"\".padStart),e(String.prototype,\"padRight\",\"\".padEnd),\"pop,reverse,shift,keys,values,entries,indexOf,every,some,forEach,map,filter,find,findIndex,includes,join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill\".split(\",\").forEach(function(t){[][t]&&e(Array,t,Function.call.bind([][t]))})}).call(this,typeof global<\"u\"?global:typeof self<\"u\"?self:typeof window<\"u\"?window:{})},{2:2,327:327,328:328}],2:[function(n,u,s){n(130),u.exports=n(23).RegExp.escape},{130:130,23:23}],3:[function(n,u,s){u.exports=function(r){if(\"function\"!=typeof r)throw TypeError(r+\" is not a function!\");return r}},{}],4:[function(n,u,s){var r=n(18);u.exports=function(e,i){if(\"number\"!=typeof e&&\"Number\"!=r(e))throw TypeError(i);return+e}},{18:18}],5:[function(n,u,s){var r=n(128)(\"unscopables\"),e=Array.prototype;null==e[r]&&n(42)(e,r,{}),u.exports=function(i){e[r][i]=!0}},{128:128,42:42}],6:[function(n,u,s){u.exports=function(r,e,i,t){if(!(r instanceof e)||void 0!==t&&t in r)throw TypeError(i+\": incorrect invocation!\");return r}},{}],7:[function(n,u,s){var r=n(51);u.exports=function(e){if(!r(e))throw TypeError(e+\" is not an object!\");return e}},{51:51}],8:[function(n,u,s){\"use strict\";var r=n(119),e=n(114),i=n(118);u.exports=[].copyWithin||function(o,c){var a=r(this),l=i(a.length),f=e(o,l),h=e(c,l),v=arguments.length>2?arguments[2]:void 0,g=Math.min((void 0===v?l:e(v,l))-h,l-f),p=1;for(h<f&&f<h+g&&(p=-1,h+=g-1,f+=g-1);g-- >0;)h in a?a[f]=a[h]:delete a[f],f+=p,h+=p;return a}},{114:114,118:118,119:119}],9:[function(n,u,s){\"use strict\";var r=n(119),e=n(114),i=n(118);u.exports=function(o){for(var c=r(this),a=i(c.length),l=arguments.length,f=e(l>1?arguments[1]:void 0,a),h=l>2?arguments[2]:void 0,v=void 0===h?a:e(h,a);v>f;)c[f++]=o;return c}},{114:114,118:118,119:119}],10:[function(n,u,s){var r=n(39);u.exports=function(e,i){var t=[];return r(e,!1,t.push,t,i),t}},{39:39}],11:[function(n,u,s){var r=n(117),e=n(118),i=n(114);u.exports=function(t){return function(o,c,a){var l,f=r(o),h=e(f.length),v=i(a,h);if(t&&c!=c){for(;h>v;)if((l=f[v++])!=l)return!0}else for(;h>v;v++)if((t||v in f)&&f[v]===c)return t||v||0;return!t&&-1}}},{114:114,117:117,118:118}],12:[function(n,u,s){var r=n(25),e=n(47),i=n(119),t=n(118),o=n(15);u.exports=function(c,a){var l=1==c,f=2==c,h=3==c,v=4==c,g=6==c,p=5==c||g,E=a||o;return function(m,d,x){for(var S,P,b=i(m),_=e(b),M=r(d,x,3),A=t(_.length),L=0,W=l?E(m,A):f?E(m,0):void 0;A>L;L++)if((p||L in _)&&(P=M(S=_[L],L,b),c))if(l)W[L]=P;else if(P)switch(c){case 3:return!0;case 5:return S;case 6:return L;case 2:W.push(S)}else if(v)return!1;return g?-1:h||v?v:W}}},{118:118,119:119,15:15,25:25,47:47}],13:[function(n,u,s){var r=n(3),e=n(119),i=n(47),t=n(118);u.exports=function(o,c,a,l,f){r(c);var h=e(o),v=i(h),g=t(h.length),p=f?g-1:0,E=f?-1:1;if(a<2)for(;;){if(p in v){l=v[p],p+=E;break}if(p+=E,f?p<0:g<=p)throw TypeError(\"Reduce of empty array with no initial value\")}for(;f?p>=0:g>p;p+=E)p in v&&(l=c(l,v[p],p,h));return l}},{118:118,119:119,3:3,47:47}],14:[function(n,u,s){var r=n(51),e=n(49),i=n(128)(\"species\");u.exports=function(t){var o;return e(t)&&(\"function\"!=typeof(o=t.constructor)||o!==Array&&!e(o.prototype)||(o=void 0),r(o)&&null===(o=o[i])&&(o=void 0)),void 0===o?Array:o}},{128:128,49:49,51:51}],15:[function(n,u,s){var r=n(14);u.exports=function(e,i){return new(r(e))(i)}},{14:14}],16:[function(n,u,s){\"use strict\";var r=n(3),e=n(51),i=n(46),t=[].slice,o={},c=function(a,l,f){if(!(l in o)){for(var h=[],v=0;v<l;v++)h[v]=\"a[\"+v+\"]\";o[l]=Function(\"F,a\",\"return new F(\"+h.join(\",\")+\")\")}return o[l](a,f)};u.exports=Function.bind||function(l){var f=r(this),h=t.call(arguments,1),v=function(){var g=h.concat(t.call(arguments));return this instanceof v?c(f,g.length,g):i(f,g,l)};return e(f.prototype)&&(v.prototype=f.prototype),v}},{3:3,46:46,51:51}],17:[function(n,u,s){var r=n(18),e=n(128)(\"toStringTag\"),i=\"Arguments\"==r(function(){return arguments}());u.exports=function(o){var c,a,l;return void 0===o?\"Undefined\":null===o?\"Null\":\"string\"==typeof(a=function(o,c){try{return o[c]}catch{}}(c=Object(o),e))?a:i?r(c):\"Object\"==(l=r(c))&&\"function\"==typeof c.callee?\"Arguments\":l}},{128:128,18:18}],18:[function(n,u,s){var r={}.toString;u.exports=function(e){return r.call(e).slice(8,-1)}},{}],19:[function(n,u,s){\"use strict\";var r=n(72).f,e=n(71),i=n(93),t=n(25),o=n(6),c=n(39),a=n(55),l=n(57),f=n(100),h=n(29),v=n(66).fastKey,g=n(125),p=h?\"_s\":\"size\",E=function(m,d){var x,S=v(d);if(\"F\"!==S)return m._i[S];for(x=m._f;x;x=x.n)if(x.k==d)return x};u.exports={getConstructor:function(m,d,x,S){var P=m(function(b,_){o(b,P,d,\"_i\"),b._t=d,b._i=e(null),b._f=void 0,b._l=void 0,b[p]=0,null!=_&&c(_,x,b[S],b)});return i(P.prototype,{clear:function(){for(var _=g(this,d),M=_._i,A=_._f;A;A=A.n)A.r=!0,A.p&&(A.p=A.p.n=void 0),delete M[A.i];_._f=_._l=void 0,_[p]=0},delete:function(b){var _=g(this,d),M=E(_,b);if(M){var A=M.n,L=M.p;delete _._i[M.i],M.r=!0,L&&(L.n=A),A&&(A.p=L),_._f==M&&(_._f=A),_._l==M&&(_._l=L),_[p]--}return!!M},forEach:function(_){g(this,d);for(var M,A=t(_,arguments.length>1?arguments[1]:void 0,3);M=M?M.n:this._f;)for(A(M.v,M.k,this);M&&M.r;)M=M.p},has:function(_){return!!E(g(this,d),_)}}),h&&r(P.prototype,\"size\",{get:function(){return g(this,d)[p]}}),P},def:function(m,d,x){var S,P,b=E(m,d);return b?b.v=x:(m._l=b={i:P=v(d,!0),k:d,v:x,p:S=m._l,n:void 0,r:!1},m._f||(m._f=b),S&&(S.n=b),m[p]++,\"F\"!==P&&(m._i[P]=b)),m},getEntry:E,setStrong:function(m,d,x){a(m,d,function(S,P){this._t=g(S,d),this._k=P,this._l=void 0},function(){for(var S=this,P=S._k,b=S._l;b&&b.r;)b=b.p;return S._t&&(S._l=b=b?b.n:S._t._f)?l(0,\"keys\"==P?b.k:\"values\"==P?b.v:[b.k,b.v]):(S._t=void 0,l(1))},x?\"entries\":\"values\",!x,!0),f(d)}}},{100:100,125:125,25:25,29:29,39:39,55:55,57:57,6:6,66:66,71:71,72:72,93:93}],20:[function(n,u,s){var r=n(17),e=n(10);u.exports=function(i){return function(){if(r(this)!=i)throw TypeError(i+\"#toJSON isn't generic\");return e(this)}}},{10:10,17:17}],21:[function(n,u,s){\"use strict\";var r=n(93),e=n(66).getWeak,i=n(7),t=n(51),o=n(6),c=n(39),a=n(12),l=n(41),f=n(125),h=a(5),v=a(6),g=0,p=function(d){return d._l||(d._l=new E)},E=function(){this.a=[]},m=function(d,x){return h(d.a,function(S){return S[0]===x})};E.prototype={get:function(d){var x=m(this,d);if(x)return x[1]},has:function(d){return!!m(this,d)},set:function(d,x){var S=m(this,d);S?S[1]=x:this.a.push([d,x])},delete:function(d){var x=v(this.a,function(S){return S[0]===d});return~x&&this.a.splice(x,1),!!~x}},u.exports={getConstructor:function(d,x,S,P){var b=d(function(_,M){o(_,b,x,\"_i\"),_._t=x,_._i=g++,_._l=void 0,null!=M&&c(M,S,_[P],_)});return r(b.prototype,{delete:function(_){if(!t(_))return!1;var M=e(_);return!0===M?p(f(this,x)).delete(_):M&&l(M,this._i)&&delete M[this._i]},has:function(M){if(!t(M))return!1;var A=e(M);return!0===A?p(f(this,x)).has(M):A&&l(A,this._i)}}),b},def:function(d,x,S){var P=e(i(x),!0);return!0===P?p(d).set(x,S):P[d._i]=S,d},ufstore:p}},{12:12,125:125,39:39,41:41,51:51,6:6,66:66,7:7,93:93}],22:[function(n,u,s){\"use strict\";var r=n(40),e=n(33),i=n(94),t=n(93),o=n(66),c=n(39),a=n(6),l=n(51),f=n(35),h=n(56),v=n(101),g=n(45);u.exports=function(p,E,m,d,x,S){var P=r[p],b=P,_=x?\"set\":\"add\",M=b&&b.prototype,A={},L=function(G){var X=M[G];i(M,G,\"delete\"==G?function(J){return!(S&&!l(J))&&X.call(this,0===J?0:J)}:\"has\"==G?function(Z){return!(S&&!l(Z))&&X.call(this,0===Z?0:Z)}:\"get\"==G?function(Z){return S&&!l(Z)?void 0:X.call(this,0===Z?0:Z)}:\"add\"==G?function(Z){return X.call(this,0===Z?0:Z),this}:function(Z,vn){return X.call(this,0===Z?0:Z,vn),this})};if(\"function\"==typeof b&&(S||M.forEach&&!f(function(){(new b).entries().next()}))){var W=new b,$=W[_](S?{}:-0,1)!=W,z=f(function(){W.has(1)}),tn=h(function(G){new b(G)}),D=!S&&f(function(){for(var G=new b,X=5;X--;)G[_](X,X);return!G.has(-0)});tn||((b=E(function(G,X){a(G,b,p);var J=g(new P,G,b);return null!=X&&c(X,x,J[_],J),J})).prototype=M,M.constructor=b),(z||D)&&(L(\"delete\"),L(\"has\"),x&&L(\"get\")),(D||$)&&L(_),S&&M.clear&&delete M.clear}else b=d.getConstructor(E,p,x,_),t(b.prototype,m),o.NEED=!0;return v(b,p),A[p]=b,e(e.G+e.W+e.F*(b!=P),A),S||d.setStrong(b,p,x),b}},{101:101,33:33,35:35,39:39,40:40,45:45,51:51,56:56,6:6,66:66,93:93,94:94}],23:[function(n,u,s){var r=u.exports={version:\"2.5.0\"};\"number\"==typeof __e&&(__e=r)},{}],24:[function(n,u,s){\"use strict\";var r=n(72),e=n(92);u.exports=function(i,t,o){t in i?r.f(i,t,e(0,o)):i[t]=o}},{72:72,92:92}],25:[function(n,u,s){var r=n(3);u.exports=function(e,i,t){if(r(e),void 0===i)return e;switch(t){case 1:return function(o){return e.call(i,o)};case 2:return function(o,c){return e.call(i,o,c)};case 3:return function(o,c,a){return e.call(i,o,c,a)}}return function(){return e.apply(i,arguments)}}},{3:3}],26:[function(n,u,s){\"use strict\";var r=n(35),e=Date.prototype.getTime,i=Date.prototype.toISOString,t=function(o){return o>9?o:\"0\"+o};u.exports=r(function(){return\"0385-07-25T07:06:39.999Z\"!=i.call(new Date(-50000000000001))})||!r(function(){i.call(new Date(NaN))})?function(){if(!isFinite(e.call(this)))throw RangeError(\"Invalid time value\");var c=this,a=c.getUTCFullYear(),l=c.getUTCMilliseconds(),f=a<0?\"-\":a>9999?\"+\":\"\";return f+(\"00000\"+Math.abs(a)).slice(f?-6:-4)+\"-\"+t(c.getUTCMonth()+1)+\"-\"+t(c.getUTCDate())+\"T\"+t(c.getUTCHours())+\":\"+t(c.getUTCMinutes())+\":\"+t(c.getUTCSeconds())+\".\"+(l>99?l:\"0\"+t(l))+\"Z\"}:i},{35:35}],27:[function(n,u,s){\"use strict\";var r=n(7),e=n(120);u.exports=function(i){if(\"string\"!==i&&\"number\"!==i&&\"default\"!==i)throw TypeError(\"Incorrect hint\");return e(r(this),\"number\"!=i)}},{120:120,7:7}],28:[function(n,u,s){u.exports=function(r){if(null==r)throw TypeError(\"Can't call method on  \"+r);return r}},{}],29:[function(n,u,s){u.exports=!n(35)(function(){return 7!=Object.defineProperty({},\"a\",{get:function(){return 7}}).a})},{35:35}],30:[function(n,u,s){var r=n(51),e=n(40).document,i=r(e)&&r(e.createElement);u.exports=function(t){return i?e.createElement(t):{}}},{40:40,51:51}],31:[function(n,u,s){u.exports=\"constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf\".split(\",\")},{}],32:[function(n,u,s){var r=n(81),e=n(78),i=n(82);u.exports=function(t){var o=r(t),c=e.f;if(c)for(var a,l=c(t),f=i.f,h=0;l.length>h;)f.call(t,a=l[h++])&&o.push(a);return o}},{78:78,81:81,82:82}],33:[function(n,u,s){var r=n(40),e=n(23),i=n(42),t=n(94),o=n(25),c=function(a,l,f){var h,v,g,p,E=a&c.F,m=a&c.G,x=a&c.P,S=a&c.B,P=m?r:a&c.S?r[l]||(r[l]={}):(r[l]||{}).prototype,b=m?e:e[l]||(e[l]={}),_=b.prototype||(b.prototype={});for(h in m&&(f=l),f)g=((v=!E&&P&&void 0!==P[h])?P:f)[h],p=S&&v?o(g,r):x&&\"function\"==typeof g?o(Function.call,g):g,P&&t(P,h,g,a&c.U),b[h]!=g&&i(b,h,p),x&&_[h]!=g&&(_[h]=g)};r.core=e,c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,u.exports=c},{23:23,25:25,40:40,42:42,94:94}],34:[function(n,u,s){var r=n(128)(\"match\");u.exports=function(e){var i=/./;try{\"/./\"[e](i)}catch{try{return i[r]=!1,!\"/./\"[e](i)}catch{}}return!0}},{128:128}],35:[function(n,u,s){u.exports=function(r){try{return!!r()}catch{return!0}}},{}],36:[function(n,u,s){\"use strict\";var r=n(42),e=n(94),i=n(35),t=n(28),o=n(128);u.exports=function(c,a,l){var f=o(c),h=l(t,f,\"\"[c]),v=h[0],g=h[1];i(function(){var p={};return p[f]=function(){return 7},7!=\"\"[c](p)})&&(e(String.prototype,c,v),r(RegExp.prototype,f,2==a?function(p,"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/main.19ce91ca788e3366.js?v=1783049737573",
+      "status": 200,
+      "contentType": "application/javascript",
+      "resourceType": "script",
+      "method": "GET",
+      "textLength": 4326236,
+      "textSample": "(self.webpackChunkwhatsmenu=self.webpackChunkwhatsmenu||[]).push([[179],{4538:(cn,yt,z)=>{\"use strict\";z.d(yt,{M:()=>Y});var M,n=z(6895),C=z(4650);function N(G,le){if(1&G&&(C.TgZ(0,\"div\",1),C.O4$(),C.TgZ(1,\"svg\",3),C._UZ(2,\"circle\",4)(3,\"circle\",5),C.qZA()()),2&G){const e=C.oxw();C.xp6(3),C.uIk(\"stroke-dasharray\",e.circumference)(\"stroke-dashoffset\",e.progressOffset)}}function R(G,le){if(1&G&&(C.TgZ(0,\"div\",1),C.O4$(),C.TgZ(1,\"svg\",3),C._UZ(2,\"circle\",5)(3,\"circle\",4),C.qZA()()),2&G){const e=C.oxw();C.xp6(3),C.uIk(\"stroke-dasharray\",e.circumference)(\"stroke-dashoffset\",e.progressOffset)}}class Y{constructor(){this.minutes=5,this.seconds=0,this.radius=45,this.totalSeconds=0,this.elapsedSeconds=0,this.circumference=0,this.progressOffset=0}ngOnInit(){this.totalSeconds=60*this.minutes,this.circumference=2*Math.PI*this.radius,this.userAgent=window.navigator.userAgent.split(\";\")[0].split(\"(\")[1],this.startTimer()}startTimer(){this.stopTimer(),this.progressOffset=0,this.elapsedSeconds=0,this.timer=setInterval(()=>{this.elapsedSeconds++,this.calculateTime(),this.calculateProgressOffset(),this.elapsedSeconds>=this.totalSeconds&&this.stopTimer()},1e3)}stopTimer(){clearInterval(this.timer)}calculateTime(){this.minutes=Math.floor((this.totalSeconds-this.elapsedSeconds)/60),this.seconds=(this.totalSeconds-this.elapsedSeconds)%60}calculateProgressOffset(){this.progressOffset=this.elapsedSeconds/this.totalSeconds*-this.circumference}}(M=Y).\\u0275fac=function(le){return new(le||M)},M.\\u0275cmp=C.Xpm({type:M,selectors:[[\"app-countdown\"]],inputs:{minutes:\"minutes\",seconds:\"seconds\",radius:\"radius\"},standalone:!0,features:[C.jDz],decls:6,vars:4,consts:[[1,\"position-relative\",2,\"min-height\",\"150px\"],[1,\"position-absolute\",\"top-50\",\"start-50\",\"translate-middle\"],[\"class\",\"position-absolute top-50 start-50 translate-middle\",4,\"ngIf\"],[\"width\",\"100\",\"height\",\"100\"],[\"cx\",\"50\",\"cy\",\"50\",\"r\",\"45\",\"stroke\",\"#ff4757\",\"stroke-width\",\"10\",\"fill\",\"none\"],[\"cx\",\"50\",\"cy\",\"50\",\"r\",\"45\",\"stroke\",\"#ccc\",\"stroke-width\",\"10\",\"fill\",\"none\"]],template:function(le,e){1&le&&(C.TgZ(0,\"div\")(1,\"div\",0)(2,\"h2\",1),C._uU(3),C.qZA(),C.YNc(4,N,4,2,\"div\",2),C.YNc(5,R,4,2,\"div\",2),C.qZA()()),2&le&&(C.xp6(3),C.AsE(\" \",e.minutes,\":\",e.seconds<10?\"0\"+e.seconds:e.seconds,\" \"),C.xp6(1),C.Q6J(\"ngIf\",\"iPhone\"===e.userAgent),C.xp6(1),C.Q6J(\"ngIf\",\"iPhone\"!==e.userAgent))},dependencies:[n.ez,n.O5]})},6831:(cn,yt,z)=>{\"use strict\";z.d(yt,{N:()=>R});var M,n=z(4650),C=z(9875);const N=[\"loading_container\"];class R{constructor(G){this.i18n=G}ngOnInit(){}ngAfterViewInit(){this.backdrop&&(this.container.nativeElement.style.backgroundColor=\"#0000000b\")}}(M=R).\\u0275fac=function(G){return new(G||M)(n.Y36(C.D))},M.\\u0275cmp=n.Xpm({type:M,selectors:[[\"app-loading\"]],viewQuery:function(G,le){if(1&G&&n.Gf(N,5),2&G){let e;n.iGM(e=n.CRH())&&(le.container=e.first)}},inputs:{backdrop:\"backdrop\"},standalone:!0,features:[n.jDz],decls:9,vars:1,consts:[[1,\"loading-container\",\"bg-white\"],[\"loading_container\",\"\"],[\"className\",\"text-capitalize\"],[1,\"lds-ellipsis\"]],template:function(G,le){1&G&&(n.TgZ(0,\"div\",0,1)(2,\"p\",2),n._uU(3),n.qZA(),n.TgZ(4,\"div\",3),n._UZ(5,\"div\")(6,\"div\")(7,\"div\")(8,\"div\"),n.qZA()()),2&G&&(n.xp6(3),n.Oqu(le.i18n.t(\"loading_page\")))},styles:[\".loading-container[_ngcontent-%COMP%]{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;position:absolute;inset:0;z-index:9999}.loading-container[_ngcontent-%COMP%]   p[_ngcontent-%COMP%]{font-weight:700;font-size:1.25rem}.lds-ellipsis[_ngcontent-%COMP%]{display:inline-block;position:relative;width:80px;height:80px;margin-top:-1.75rem}.lds-ellipsis[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]{position:absolute;top:33px;width:13px;height:13px;border-radius:50%;background-color:var(--wm-green-500);animation-timing-function:cubic-bezier(0,1,1,0)}.lds-ellipsis[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:nth-child(1){left:8px;animation:_ngcontent-%COMP%_lds-ellipsis1 .6s infinite}.lds-ellipsis[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:nth-child(2){left:8px;animation:_ngcontent-%COMP%_lds-ellipsis2 .6s infinite}.lds-ellipsis[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:nth-child(3){left:32px;animation:_ngcontent-%COMP%_lds-ellipsis2 .6s infinite}.lds-ellipsis[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:nth-child(4){left:56px;animation:_ngcontent-%COMP%_lds-ellipsis3 .6s infinite}@keyframes _ngcontent-%COMP%_lds-ellipsis1{0%{transform:scale(0)}to{transform:scale(1)}}@keyframes _ngcontent-%COMP%_lds-ellipsis3{0%{transform:scale(1)}to{transform:scale(0)}}@keyframes _ngcontent-%COMP%_lds-ellipsis2{0%{transform:translate(0)}to{transform:translate(24px)}}\"]})},3370:(cn,yt,z)=>{\"use strict\";z.r(yt),z.d(yt,{HomeComponent:()=>Z1});var n=z(5861),C=z(6895),M=z(5938),N=z(7122),R=z(8549),Y=z(4766),G=z(4006),le=z(7330),e=z(4650),oe=z(4859),ye=z(8407);class K{static mapToArray(y){const d=[];for(const V in y)y.hasOwnProperty(V)&&d.push(y[V]);return d}static handleEvent(y,d,V){0<d.observers.length&&y.run(()=>{d.emit(V)})}}let ae=(()=>{class I{constructor(d,V){this.element=d,this.zone=V,this.DEFAULT_ZOOM=1,this.DEFAULT_CENTER=(0,ye.latLng)(38.907192,-77.036871),this.DEFAULT_FPZ_OPTIONS={},this.fitBoundsOptions=this.DEFAULT_FPZ_OPTIONS,this.panOptions=this.DEFAULT_FPZ_OPTIONS,this.zoomOptions=this.DEFAULT_FPZ_OPTIONS,this.zoomPanOptions=this.DEFAULT_FPZ_OPTIONS,this.options={},this.mapReady=new e.vpe,this.zoomChange=new e.vpe,this.centerChange=new e.vpe,this.onClick=new e.vpe,this.onDoubleClick=new e.vpe,this.onMouseDown=new e.vpe,this.onMouseUp=new e.vpe,this.onMouseMove=new e.vpe,this.onMouseOver=new e.vpe,this.onMouseOut=new e.vpe,this.onMapMove=new e.vpe,this.onMapMoveStart=new e.vpe,this.onMapMoveEnd=new e.vpe,this.onMapZoom=new e.vpe,this.onMapZoomStart=new e.vpe,this.onMapZoomEnd=new e.vpe}ngOnInit(){this.zone.runOutsideAngular(()=>{this.map=(0,ye.map)(this.element.nativeElement,this.options),this.addMapEventListeners()}),null!=this.center&&null!=this.zoom&&this.setView(this.center,this.zoom),null!=this.fitBounds&&this.setFitBounds(this.fitBounds),null!=this.maxBounds&&this.setMaxBounds(this.maxBounds),null!=this.minZoom&&this.setMinZoom(this.minZoom),null!=this.maxZoom&&this.setMaxZoom(this.maxZoom),this.doResize(),this.mapReady.emit(this.map)}ngOnChanges(d){d.zoom&&d.center&&null!=this.zoom&&null!=this.center?this.setView(d.center.currentValue,d.zoom.currentValue):d.zoom?this.setZoom(d.zoom.currentValue):d.center&&this.setCenter(d.center.currentValue),d.fitBounds&&this.setFitBounds(d.fitBounds.currentValue),d.maxBounds&&this.setMaxBounds(d.maxBounds.currentValue),d.minZoom&&this.setMinZoom(d.minZoom.currentValue),d.maxZoom&&this.setMaxZoom(d.maxZoom.currentValue)}ngOnDestroy(){null!=this.map&&this.map.remove()}getMap(){return this.map}onResize(){this.delayResize()}addMapEventListeners(){const d=(J,qe)=>{this.map.on(J,qe)};d(\"click\",J=>K.handleEvent(this.zone,this.onClick,J)),d(\"dblclick\",J=>K.handleEvent(this.zone,this.onDoubleClick,J)),d(\"mousedown\",J=>K.handleEvent(this.zone,this.onMouseDown,J)),d(\"mouseup\",J=>K.handleEvent(this.zone,this.onMouseUp,J)),d(\"mouseover\",J=>K.handleEvent(this.zone,this.onMouseOver,J)),d(\"mouseout\",J=>K.handleEvent(this.zone,this.onMouseOut,J)),d(\"mousemove\",J=>K.handleEvent(this.zone,this.onMouseMove,J)),d(\"zoomstart\",J=>K.handleEvent(this.zone,this.onMapZoomStart,J)),d(\"zoom\",J=>K.handleEvent(this.zone,this.onMapZoom,J)),d(\"zoomend\",J=>K.handleEvent(this.zone,this.onMapZoomEnd,J)),d(\"movestart\",J=>K.handleEvent(this.zone,this.onMapMoveStart,J)),d(\"move\",J=>K.handleEvent(this.zone,this.onMapMove,J)),d(\"moveend\",J=>K.handleEvent(this.zone,this.onMapMoveEnd,J));const V=()=>{const J=this.map.getZoom();J!==this.zoom&&(this.zoom=J,K.handleEvent(this.zone,this.zoomChange,J));const qe=this.map.getCenter();(null!=qe||null!=this.center)&&((null==qe||null==this.center)&&qe!==this.center||qe.lat!==this.center.lat||qe.lng!==this.center.lng)&&(this.center=qe,K.handleEvent(this.zone,this.centerChange,qe))};d(\"moveend\",V),d(\"zoomend\",V)}doResize(){this.zone.runOutsideAngular(()=>{null!=this.map&&this.map.invalidateSize({})})}delayResize(){null!=this.resizeTimer&&clearTimeout(this.resizeTimer),this.resizeTimer=setTimeout(this.doResize.bind(this),200)}setView(d,V){null!=this.map&&null!=d&&null!=V&&this.map.setView(d,V,this.zoomPanOptions)}setZoom(d){null!=this.map&&null!=d&&this.map.setZoom(d,this.zoomOptions)}setCenter(d){null!=this.map&&null!=d&&this.map.panTo(d,this.panOptions)}setFitBounds(d){null!=this.map&&null!=d&&this.map.fitBounds(d,this.fitBoundsOptions)}setMaxBounds(d){null!=this.map&&null!=d&&this.map.setMaxBounds(d)}setMinZoom(d){null!=this.map&&null!=d&&this.map.setMinZoom(d)}setMaxZoom(d){null!=this.map&&null!=d&&this.map.setMaxZoom(d)}}return I.\\u0275fac=function(d){return new(d||I)(e.Y36(e.SBq),e.Y36(e.R0b))},I.\\u0275dir=e.lG2({type:I,selectors:[[\"\",\"leaflet\",\"\"]],hostBindings:function(d,V){1&d&&e.NdJ(\"resize\",function(){return V.onResize()},!1,e.Jf7)},inputs:{fitBoundsOptions:[\"leafletFitBoundsOptions\",\"fitBoundsOptions\"],panOptions:[\"leafletPanOptions\",\"panOptions\"],zoomOptions:[\"leafletZoomOptions\",\"zoomOptions\"],zoomPanOptions:[\"leafletZoomPanOptions\",\"zoomPanOptions\"],options:[\"leafletOptions\",\"options\"],zoom:[\"leafletZoom\",\"zoom\"],center:[\"leafletCenter\",\"center\"],fitBounds:[\"leafletFitBounds\",\"fitBounds\"],maxBounds:[\"leafletMaxBounds\",\"maxBounds\"],minZoom:[\"leafletMinZoom\",\"minZoom\"],maxZoom:[\"leafletMaxZoom\",\"maxZoom\"]},outputs:{mapReady:\"leafletMapReady\",zoomChange:\"leafletZoomChange\",centerChange:\"leafletCenterChange\",onClick:\"leafletClick\",onDoubleClick:\"leafletDoubleClick\",onMouseDown:\"leafletMouseDown\",onMouseUp:\"leafletMouseUp\",onMouseMove:\"leafletMouseMove\",onMouseOver:\"leafletMouseOver\",onMouseOut:\"leafletMouseOut\",onMapMove:\"leafletMapMove\",onMapMoveStart:\"leafletMapMoveStart\",onMapMoveEnd:\"leafletMapMoveEnd\",onMapZoom:\"leafletMapZoom\",onMapZoomStart:\"leafletMapZoomStart\",onMapZoomEnd:\"leafletMapZoomEnd\"},features:[e.TTD]}),I})(),Oe=(()=>{class I{}return I.\\u0275fac=function(d){return new(d||I)},I.\\u0275mod=e.oAB({type:I}),I.\\u0275inj=e.cJS({}),I})();var jt,xt=z(529);class Pt{constructor(){this.http=(0,e.f3M)(xt.eN)}getCurrentPosition(){return(0,n.Z)(function*(){return new Promise(y=>{navigator.geolocation?navigator.geolocation.getCurrentPosition(d=>{y({latitude:d.coords.latitude,longitude:d.coords.longitude})},d=>{console.error(\"Error getting geolocation:\",d),y(null)}):(console.error(\"Geolocation is not supported by this browser.\"),y(null))})})()}revertGeolocation(y,d){var V=this;return(0,n.Z)(function*(){return V.http.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${y}&lon=${d}`).toPromise().then(J=>({street:J.address.road||\"\",number:J.address.house_number||\"\",city:J.address.city||J.address.town||J.address.village||\"\",neighborhood:J.address.suburb||\"\",uf:V.getUfAbreviation(J.address.state)||\"\",zipcode:J.address.postcode||\"\",latitude:y,longitude:d,distance:0}),J=>(console.error(\"Error in reverse geolocation:\",J),null))})()}getUfAbreviation(y){return new Map([[\"Acre\",\"AC\"],[\"Alagoas\",\"AL\"],[\"Amap\\xe1\",\"AP\"],[\"Amazonas\",\"AM\"],[\"Bahia\",\"BA\"],[\"Cear\\xe1\",\"CE\"],[\"Distrito Federal\",\"DF\"],[\"Esp\\xedrito Santo\",\"ES\"],[\"Goi\\xe1s\",\"GO\"],[\"Maranh\\xe3o\",\"MA\"],[\"Mato Grosso\",\"MT\"],[\"Mato Grosso do Sul\",\"MS\"],[\"Minas Gerais\",\"MG\"],[\"Par\\xe1\",\"PA\"],[\"Para\\xedba\",\"PB\"],[\"Paran\\xe1\",\"PR\"],[\"Pernambuco\",\"PE\"],[\"Piau\\xed\",\"PI\"],[\"Rio de Janeiro\",\"RJ\"],[\"Rio Grande do Norte\",\"RN\"],[\"Rio Grande do Sul\",\"RS\"],[\"Rond\\xf4nia\",\"RO\"],[\"Roraima\",\"RR\"],[\"Santa Catarina\",\"SC\"],[\"S\\xe3o Paulo\",\"SP\"],[\"Sergipe\",\"SE\"],[\"Tocantins\",\"TO\"]]).get(y)||null}}(jt=Pt).\\u0275fac=function(y){return new(y||jt)},jt.\\u0275prov=e.Yz7({token:jt,factory:jt.\\u0275fac,providedIn:\"root\"});var yn,$t=z(9875);function Xt(I,y){if(1&I&&(e.TgZ(0,\"div\",8),e._UZ(1,\"div\",9),e.TgZ(2,\"p\"),e._uU(3),e.qZA()()),2&I){const d=e.oxw();e.xp6(3),e.Oqu(d.i18n.t(\"loading\"))}}function p(I,y){if(1&I){const d=e.EpF();e.TgZ(0,\"div\",10)(1,\"div\",11)(2,\"h2\"),e._uU(3),e"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/proximanova-regular-webfont.0e51e75652556a1b.woff2",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "resourceType": "font",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/proximanova-bold-webfont.1095392df8c4e508.woff2",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "resourceType": "font",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.com.br/cdn-cgi/challenge-platform/h/b/scripts/jsd/80a697ecdece/main.js?",
+      "status": 200,
+      "contentType": "application/javascript; charset=UTF-8",
+      "resourceType": "script",
+      "method": "GET",
+      "textLength": 20929,
+      "textSample": "window._cf_chl_opt = {JPsB0:'b'};~function(rB,O,Q,R,n,l,C,x,h,y,b,J,c,V,g){rB=L,function(s,Z,Pa,rh,a,K){for(Pa={s:573,Z:636,a:658,K:539,G:457,Y:532,m:693,N:578},rh=L,a=s();!![];)try{if(K=parseInt(rh(Pa.s))/1+-parseInt(rh(Pa.Z))/2+parseInt(rh(Pa.a))/3+parseInt(rh(Pa.K))/4+-parseInt(rh(Pa.G))/5+parseInt(rh(Pa.Y))/6+-parseInt(rh(Pa.m))/7*(parseInt(rh(Pa.N))/8),Z===K)break;else a.push(a.shift())}catch(G){a.push(a.shift())}}(P,493018),O=this||self,Q=O[rB(473)],R=function(Pc,PJ,Pk,Pb,PM,PA,PW,Po,PD,rp,s,Z,a,K,G,Y,m,S,T,j){for(Pc={s:434,Z:434,a:644,K:493},PJ={s:522,Z:603,a:527,K:434,G:681,Y:434,m:563,N:436,S:493,T:519,j:666},Pk={s:510},Pb={s:585,Z:583,a:554},PM={s:603,Z:507,a:493,K:563,G:493,Y:552,m:556},PA={s:544},PW={s:519},Po={s:627},PD={s:540},rp=rB,s={\"PbYHG\":function(r0,r1){return r0(r1)},\"xaPWs\":function(r0,r1){return r0+r1},\"lnpUZ\":function(r0,r1){return r0-r1},\"Rmtoj\":function(r0,r1){return r0<<r1},\"LopLV\":function(r0,r1,r2){return r0(r1,r2)},\"vVazl\":function(r0,r1){return r1&r0},\"teOxT\":function(r0,r1,r2){return r0(r1,r2)},\"zxaEd\":function(r0,r1){return r0(r1)},\"fdnxd\":function(r0,r1,r2){return r0(r1,r2)},\"WnNbr\":function(r0,r1){return r0+r1},\"WANpQ\":function(r0,r1){return r0<r1},\"arhvA\":function(r0,r1){return r0<r1},\"mlwKI\":function(r0,r1){return r0<=r1},\"rwpDR\":function(r0,r1){return r0>r1},\"ZYKBD\":function(r0,r1){return r0-r1}},Z=[],a=[],K=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258],G=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0],Y=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577],m=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13],S=0;S<288;s[rp(Pc.s)](S,144)?(T=48+S,j=8):s[rp(Pc.Z)](S,256)?(T=s[rp(Pc.a)](s[rp(Pc.K)](400,S),144),j=9):S<280?(T=S-256,j=7):(T=-88+S,j=8),Z[S]=N(T,j),a[S]=j,S++);return function(r0,Pz,Pe,rz,r1,r2,r3,r4,r5,r6,r7,rs,rZ,rt,ra,rq,rO,rQ,rR,rn){for(Pz={s:603,Z:594},Pe={s:552},rz=rp,r1={\"NNbTy\":function(rv,rl,rU){return rU=L,s[rU(PD.s)](rv,rl)},\"DXVZf\":function(rv,rl,rC,rf){return rf=L,s[rf(Po.s)](rv,rl,rC)},\"dluBQ\":function(rv,rl){return rv>>>rl},\"vRrGf\":function(rv,rl){return rl^rv},\"WLpiF\":function(rv,rl,ry){return ry=L,s[ry(Pe.s)](rv,rl)},\"LHezE\":function(rv,rl,rD){return rD=L,s[rD(PW.s)](rv,rl)}},r2=[],r3=0,r4=0,r5=new Int32Array(8192),r6=new Int32Array(32768),r7=8191,s[rz(PJ.s)](r8,1,1),r8(1,2),rs=0,rZ=r0[rz(PJ.Z)];rs<rZ;){if(rt=0,ra=0,s[rz(PJ.a)](rs,3)<=rZ){for(rq=rL(rs),rO=0;rq>=0&&s[rz(PJ.K)](rq,rs)&&rs-rq<=32768&&s[rz(PJ.G)](rO,2);rO++){for(rQ=rZ-rs,rQ>258&&(rQ=258),rR=0;s[rz(PJ.Y)](rR,rQ)&&r0[rq+rR]===r0[rs+rR];rR++);rq=(rR>rt&&rR>2&&(rt=rR,ra=s[rz(PJ.m)](rs,rq),rR===rQ&&(rO=2)),r6[32767&rq]-1)}}if(rt>2){for(rr(rt,ra),rn=1;rn<rt&&s[rz(PJ.N)](s[rz(PJ.S)](rs+rn,3),rZ);rL(s[rz(PJ.a)](rs,rn)),rn++);rs+=rt}else r9(r0[rs++])}return s[rz(PJ.T)](r9,256),s[rz(PJ.j)](r4,0)&&(r2[r2[rz(PJ.Z)]]=255&r3),r2;function rP(rv,re){return re=L,r1[re(Pb.s)]((r1[re(Pb.Z)](r0[rv]<<5.43,r1[re(Pb.a)](r0[rv+1],2))^r0[rv+2])&r7,0)}function rL(rv,rW,rl,rC){return rW=L,rl=r1[rW(Pk.s)](rP,rv),rC=r5[rl]-1,r6[32767&rv]=rC+1,r5[rl]=rv+1,rC}function rr(rv,rl,rI,rC,rw,rx){for(rI=L,rC=0,rx=0;rC<K[rI(PM.s)];rC++)if(rw=K[rC]+(1<<G[rC])-1,rv<=rw){rx=rC;break}for(s[rI(PM.Z)](r9,s[rI(PM.a)](257,rx)),G[rx]&&r8(s[rI(PM.K)](rv,K[rx]),G[rx]),rC=0;rC<Y[rI(PM.s)];rC++)if(rw=s[rI(PM.G)](Y[rC],s[rI(PM.Y)](1,m[rC]))-1,rl<=rw){r8(s[rI(PM.m)](N,rC,5),5),m[rC]&&r8(rl-Y[rC],m[rC]);break}}function r9(rv,rE){rE=L,r1[rE(PA.s)](r8,Z[rv],a[rv])}function r8(rv,rl,ro){for(ro=L,r3|=rv<<r4,r4+=rl;r4>=8;r2[r2[ro(Pz.s)]]=r1[ro(Pz.Z)](r3,255),r3>>>=8,r4-=8);}};function N(r0,r1,r2){for(r2=0;r1>0;r2=r0&1.04|r2<<1,r0>>>=1,r1--);return r2}}(),n=function(LO,Lq,La,Lt,LZ,Ls,LL,rA,Z,K,j){return LO={s:564,Z:696},Lq={s:546,Z:637,a:486,K:603,G:586,Y:603,m:518,N:437},La={s:590,Z:603,a:501,K:553,G:562,Y:641,m:601,N:445,S:501,T:597,j:479,r0:465,r1:456,r2:631,r3:692,r4:536,r5:692},Lt={s:603,Z:645,a:640,K:469,G:679,Y:642,m:535,N:514,S:479,T:465,j:448,r0:535,r1:535,r2:639,r3:448,r4:535,r5:535,r6:606,r7:435,r8:586,r9:535,rr:494},LZ={s:437,Z:603,a:437,K:479,G:501},Ls={s:448,Z:630},LL={s:595,Z:603,a:501,K:479,G:478},rA=rB,Z={\"GGhzJ\":function(r0,r1){return r0<r1},\"AtDsE\":function(r0,r1){return r0>>>r1},\"HYwOq\":function(r0,r1){return r0<<r1},\"UOUti\":function(r0,r1){return r0>>>r1},\"kZioD\":function(r0,r1){return r0(r1)},\"ONFrB\":function(r0,r1){return r0*r1},\"qvcVj\":function(r0,r1){return r0+r1},\"tvimD\":function(r0,r1){return r0<r1},\"FMFJG\":rA(LO.s),\"poBNN\":function(r0,r1){return r0&r1},\"TqJog\":function(r0,r1){return r0|r1},\"sSljf\":function(r0,r1){return r1===r0},\"xUqyp\":function(r0,r1){return r1===r0},\"mAPwi\":function(r0,r1){return r0<<r1},\"aBEVv\":function(r0,r1){return r0+r1},\"Zjdwe\":function(r0,r1){return r0<r1},\"rjZHh\":function(r0,r1){return r0<r1},\"jmbCR\":function(r0,r1){return r0|r1},\"hySLj\":function(r0,r1){return r1|r0},\"eXqJj\":function(r0,r1){return r0<r1},\"oxgPB\":function(r0,r1){return r0+r1},\"ethSa\":function(r0,r1){return r0|r1},\"niOdV\":function(r0,r1){return r0&r1},\"kQkWu\":function(r0,r1){return r0>>>r1},\"OWnjB\":function(r0,r1){return r0&r1},\"YztcV\":function(r0,r1){return r0>>>r1},\"nxPxS\":function(r0,r1){return r0(r1)},\"lTxKT\":function(r0,r1){return r1==r0},\"YbRFz\":function(r0,r1){return r0>=r1}},K=`Pcs6ktpurIK8XBNbdz7yaA23gRWwHiT9J-ShEm0MjGU+YVLvZF1noQxOfClDe5$q4`,j={},j[rA(LO.Z)]=T,j;function T(r0,rd,r1,r2,r3,r4){(rd=rA,r0=Z[rd(Lq.s)](S,Z[rd(Lq.Z)](r0,null)?``:r0),r1=r0,r2=0,Z[rd(Lq.a)](r0[rd(Lq.K)],128))&&(r3=R(r0),r3[rd(Lq.K)]<r0[rd(Lq.K)]&&(r1=r3,r2=1));return r4=new Uint8Array(Z[rd(Lq.G)](r1[rd(Lq.Y)],3)),r4[0]=253,r4[1]=1,r4[2]=r2,r4[rd(Lq.m)](r1,3),N(Z[rd(Lq.N)](m,r4))}function m(r0,rk,r1,r2){for(rk=rA,r1=Z[rk(LZ.s)](G,K),r2=0;r2<r0[rk(LZ.Z)];r1=Z[rk(LZ.a)](Y,r1),r0[r2]^=Z[rk(LZ.K)](r1,24)^K[rk(LZ.G)](r2%64),r2++);return r0}function Y(r0,rb){return rb=rA,r0^=Z[rb(Ls.s)](r0,13),r0^=Z[rb(Ls.Z)](r0,17),r0^=r0<<5,r0>>>0}function G(r0,rM,r1,r2){for(rM=rA,r1=2166136261,r2=0;Z[rM(LL.s)](r2,r0[rM(LL.Z)]);r1=(r1^=r0[rM(LL.a)](r2),Z[rM(LL.K)](Math[rM(LL.G)](r1,16777619),0)),r2++);return 0===r1?2779062077:r1}function N(r0,rJ,r1,r2,r3,r4,r5,r6,r7,r8,r9){for(rJ=rA,r1=[],r2=0,r3=r0[rJ(Lt.s)],r4=r3%3,r5=r3-r4,r1[rJ(Lt.s)]=Z[rJ(Lt.Z)](r5/3,4)+(r4?Z[rJ(Lt.a)](r4,1):0),r6=0;Z[rJ(Lt.K)](r6,r5);r6+=3)for(r7=Z[rJ(Lt.G)][rJ(Lt.Y)](`|`),r8=0;!![];){switch(r7[r8++]){case`0`:r1[r2++]=K[rJ(Lt.m)](Z[rJ(Lt.N)](r9,63));continue;case`1`:r1[r2++]=K[rJ(Lt.m)](Z[rJ(Lt.N)](Z[rJ(Lt.S)](r9,18),63));continue;case`2`:r9=Z[rJ(Lt.T)](Z[rJ(Lt.T)](Z[rJ(Lt.j)](r0[r6],16),r0[Z[rJ(Lt.a)](r6,1)]<<8),r0[r6+2]);continue;case`3`:r1[r2++]=K[rJ(Lt.r0)](Z[rJ(Lt.N)](r9>>>12.92,63));continue;case`4`:r1[r2++]=K[rJ(Lt.r1)](r9>>>6.97&63);continue}break}return Z[rJ(Lt.r2)](r4,1)?(r9=Z[rJ(Lt.r3)](r0[r5],16),r1[r2++]=K[rJ(Lt.r4)](63.5&r9>>>18.78),r1[r2++]=K[rJ(Lt.r5)](63.3&r9>>>12)):Z[rJ(Lt.r6)](r4,2)&&(r9=Z[rJ(Lt.r7)](r0[r5],16)|r0[Z[rJ(Lt.r8)](r5,1)]<<8.7,r1[r2++]=K[rJ(Lt.r9)](63.28&r9>>>18.65),r1[r2++]=K[rJ(Lt.r4)](63.66&r9>>>12),r1[r2++]=K[rJ(Lt.m)](63&r9>>>6.28)),r1[rJ(Lt.rr)](``)}function S(r0,rc,r1,r2,r3,r4,r5){for(rc=rA,r1=[],r2=0,r3=0;Z[rc(La.s)](r3,r0[rc(La.Z)]);r4=r0[rc(La.a)](r3),r4<128?r1[r2++]=r4:Z[rc(La.K)](r4,2048)?(r1[r2++]=Z[rc(La.G)](192,r4>>>6),r1[r2++]=Z[rc(La.Y)](128,63.74&r4)):r4>=55296&&r4<=56319&&Z[rc(La.m)](Z[rc(La.N)](r3,1),r0[rc(La.Z)])?(r5=r0[rc(La.S)](++r3),r4=65536+((r4&1023)<<10)+(r5&1023.07),r1[r2++]=Z[rc(La.T)](240,Z[rc(La.j)](r4,18)),r1[r2++]=Z[rc(La.r0)](128,Z[rc(La.r1)](r4>>>12,63)),r1[r2++]=128|Z[rc(La.r2)](r4,6)&63.79,r1[r2++]=128.26|Z[rc(La.r3)](r4,63)):(r1[r2++]=224|Z[rc(La.r4)](r4,12),r1[r2++]=128.42|Z[rc(La.r5)](r4>>>6.05,63),r1[r2++]=128|r4&63.11),r3++);return r1}}(),l=30,C=null,h=![],y=f(),x={\"interval\":p(y&&y.i),\"updates\":0},O[rB(672)]&&(h=!![],x=O[rB(672)],delete O[rB(672)],x[rB(528)]=x[rB(528)]||0),b=M(),J={},J[rB(442)]=`o`,J[rB(495)]=`s`,J[rB(497)]=`u`,J[rB(500)]=`z`,J[rB(625)]=`n`,J[rB(621)]=`I`,c=J,O[rB(662)]=function(s,Z,K,G,sL,sP,sr,P7,Y,S,T,j,r0,r1,r2,r3){if(sL={s:584,Z:659,a:560,K:655,G:452,Y:623,m:655,N:452,S:487,T:611,j:643,r0:611,r1:484,r2:542,r3:603,r4:686,r5:610,r6:577,r7:561,r8:686},sP={s:506,Z:603,a:577,K:557,G:492},sr={s:669,Z:475,a:462,K:508},P7=rB,Y={\"MveGj\":function(r4,r5){return r4===r5},\"lGIRq\":function(r4,r5){return r4+r5},\"LFtsV\":function(r4,r5){return r5===r4},\"jqPDO\":function(r4,r5){return r4(r5)},\"FBSps\":function(r4,r5,r6){return r4(r5,r6)},\"dASIO\":function(r4,r5){return r5===r4},\"fVgcE\":P7(sL.s)},Z===null||Y[P7(sL.Z)](Z,void 0))return G;for(S=Y[P7(sL.a)](F,Z),s[P7(sL.K)][P7(sL.G)]&&(S=S[P7(sL.Y)](s[P7(sL.m)][P7(sL.N)](Z))),S=s[P7(sL.S)][P7(sL.T)]&&s[P7(sL.j)]?s[P7(sL.S)][P7(sL.r0)](new s[P7(sL.j)](S)):function(r4,P9,r5){for(P9=P7,r4[P9(sP.s)](),r5=0;r5<r4[P9(sP.Z)];Y[P9(sP.a)](r4[r5],r4[r5+1])?r4[P9(sP.K)](Y[P9(sP.G)](r5,1),1):r5+=1);return r4}(S),T=`nAsAa`.split(`A`),T=T[P7(sL.r1)][P7(sL.r2)](T),j=0;j<S[P7(sL.r3)];j++){r1=(r0=S[j],K+r0);try{r2=Z[r0],r3=Y[P7(sL.r4)](d,s,r2),T(r3)?(r0=+r2,r0=Y[P7(sL.r5)](r3,`s`)&&Y[P7(sL.r6)](r0,r0),r1===Y[P7(sL.r7)]?N(r1,r3):r0||N(r1,r2)):Y[P7(sL.r8)](N,r1,r3)}catch(r4){N(r1,`i`)}}return G;function N(r4,r5,P8){P8=P7,Object[P8(sr.s)][P8(sr.Z)][P8(sr.a)](G,r5)||(G[r5]=[]),G[r5][P8(sr.K)](r4)}},V=[rB(451),rB(672),rB(432),rB(545),rB(593),rB(660),rB(596),rB(460),rB(496),rB(525),rB(549),rB(447),rB(690),rB(533),rB(661),rB(580),rB(662),rB(461),rB(471),rB(474),rB(489)],g=V[rB(484)][rB(542)](V),O[rB(461)]=function(Z,K,st,Pr,G,Y,m,N,S,T,j,r0){for(st={s:608,Z:618,a:516,K:603,G:608,Y:521,m:508},Pr=rB,G={},G[Pr(st.s)]=function(r1,r2){return r1<r2},G[Pr(st.Z)]=function(r1,r2){return r1+r2},Y=G,m=Object[Pr(st.a)](K),N=0;N<m[Pr(st.K)];N++)for(S=m[N],T=S===`f`?`N`:S,T=Z[T]||(Z[T]=[]),S=K[S],j=0;Y[Pr(st.G)](j,S[Pr(st.K)]);r0=S[j],T[Pr(st.Y)](r0)!==-1||g(r0)||T[Pr(st.m)](Y[Pr(st.Z)](`o.`,r0)),j++);},X();function f(Ly,rK){return Ly={s:663,Z:451},rK=rB,O[rK(Ly.s)]||O[rK(Ly.Z)]&&O[rK(Ly.Z)].pp}function U(Lf,rH,s,Z){return Lf={s:538,Z:664,a:675},rH=rB,s={\"ueNfL\":function(a){return a()}},Z=s[rH(Lf.s)](f),Z&&Z[rH(Lf.Z)]?![]:x[rH(Lf.a)]>0}function L(r,s,Z,t){return r=r-432,Z=P(),t=Z[r],t}function i(sq,PP,a,K,G,Y,m,N){a=(sq={s:673,Z:481,a:541,K:458,G:581,Y:491,m:605,N:670,S:443,T:453,j:684,r0:612,r1:685,r2:605,r3:652},PP=rB,{\"ehiGf\":function(S,T,j,r0,r1){return S(T,j,r0,r1)},\"iCSoB\":PP(sq.s)});try{return K=Q[PP(sq.Z)](PP(sq.a)),K[PP(sq.K)]=PP(sq.G),K[PP(sq.Y)]=`-1`,Q[PP(sq.m)][PP(sq.N)](K),G=K[PP(sq.S)],Y={},Y=wffQc7(G,G,``,Y),Y=a[PP(sq.T)](wffQc7,G,G[PP(sq.j)]||G[PP(sq.r0)],`n.`,Y),Y=wffQc7(G,K[a[PP(sq.r1)]],`d.`,Y),Q[PP(sq.r2)][PP(sq.r3)](K),m={},m[`r`]=Y,m[`e`]=null,m}catch(S){return N={},N[`r`]={},N[`e`]=S,N}}function B(s,Lh,Lx,Lw,LC,rF,Z,a,K,G,Y){for(Lh={s:520,Z:629,a:642,K:572,G:483,Y:454},Lx={s:671,Z:632,a:463,K:676,G:609,Y:526},Lw={s:592},LC={s:467},rF=rB,Z={\"azhpL\":function(m){return m()},\"YdlJL\":function(m,N){return m===N},\"tQXwz\":rF(Lh.s),\"IQjIe\":function(m){return m()},\"XWpio\":function(m,N,S){return m(N,S)}},a=rF(Lh.Z)[rF(Lh.a)](`|`),K=0;!![];){switch(a[K++]){case`0`:G={\"mjAeW\":function(m,N){return m(N)},\"xxnwW\":function(m,rV){return rV=rF,Z[rV(LC.s)](m)},\"blMCm\":function(m,N,rg){return rg=rF,Z[rg(Lw.s)](m,N)}};continue;case`1`:Y=i();continue;case`2`:Y.e&&k(Z[rF(Lh.K)],Y.e);continue;case`3`:Z[rF(Lh.G)](I);continue;case`4`:Z[rF(Lh.Y)](A,Y.r,function(m,N,ri,S){ri=rF,S=G[ri(Lx.s)](D,N),S[ri(Lx.Z)]&&G[ri(Lx.a)](I),G[ri(Lx.K)](typeof s,ri(Lx.G))&&s(m),S[ri(Lx.Y)]&&G[ri(Lx.a)](U)&&E()});continue}break}}function z(LF,rT,Z,a,K,G,Y){return LF={s:582,Z:691,a:439},rT=rB,Z={},Z[rT(LF.s)]=function(m,N){return m/N},a=Z,K=3600,G=W(),Y=Math[rT(LF.Z)](a[rT(LF.s)](Date[rT(LF.a)](),1e3)),Y-G>K?![]:!![]}function F(s,s3,P6,Z){for(s3={s:623,Z:516,a:654},P6=rB,Z=[];s!==null;Z=Z[P6(s3.s)](Object[P6(s3.Z)](s)),s=Object[P6(s3.a)](s));return Z}function E(LW,rY,s,Z,a,K,G){if(LW={s:568,Z:513,a:528,K:672,G:680,Y:650,m:515,N:518,S:528,T:515,j:518,r0:677,r1:624,r2:439,r3:481,r4:548,r5:587,r6:680,r7:650,r8:622,r9:512},rY=rB,s={\"UkLEX\":rY(LW.s),\"coSMR\":function(Y,m"
+    },
+    {
+      "url": "https://api2.whatsmenu.com.br/api/v2/business/pastelarialitoranea/profile/",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 313780,
+      "textSample": "{\"id\":15970,\"userId\":12013,\"name\":\"PASTELARIA LITORANEA\",\"slug\":\"pastelarialitoranea\",\"typeStore\":null,\"status\":1,\"deliveryLocal\":1,\"showTotal\":1,\"description\":\"AQUI SE FAZ O MELHOR PASTEL!\",\"whatsapp\":\"5583988079929\",\"typeDelivery\":\"neighborhood\",\"taxDelivery\":[{\"city\":\"Cabedelo\",\"code\":\"44522b\",\"type\":\"neighborhood\",\"neighborhoods\":[{\"code\":\"b85890\",\"name\":\"AREIA DOURADA\",\"time\":\"50\",\"value\":6},{\"code\":\"7ec6c0\",\"name\":\"CAMALAU\",\"time\":\"50\",\"value\":6},{\"code\":\"f5a8e2\",\"name\":\"CAMBOINHA\",\"time\":\"60\",\"value\":9},{\"code\":\"8734ad\",\"name\":\"CENTRO\",\"time\":\"50\",\"value\":6},{\"code\":\"793176\",\"name\":\"FORMOSA\",\"time\":\"50\",\"value\":6},{\"code\":\"df3c3e\",\"name\":\"INTERMARES\",\"time\":\"60\",\"value\":15},{\"code\":\"665600\",\"name\":\"JARDIM BRASILIA\",\"time\":\"50\",\"value\":6},{\"code\":\"b15cf1\",\"name\":\"JARDIM MANGUINHOS\",\"time\":\"60\",\"value\":6},{\"code\":\"fda5cb\",\"name\":\"MONTE CASTELO\",\"time\":\"50\",\"value\":6},{\"code\":\"6cd797\",\"name\":\"PONTA DE MATOS\",\"time\":\"50\",\"value\":6},{\"code\":\"129ea5\",\"name\":\"POÇO\",\"time\":\"60\",\"value\":10},{\"code\":\"894a17\",\"name\":\"RECANTO DO POÇO\",\"time\":\"60\",\"value\":10},{\"code\":\"e22ac0\",\"name\":\"SANTA CATARINA\",\"time\":\"50\",\"value\":6}]},{\"city\":\"cabedelo\",\"code\":\"7d0217\",\"type\":\"neighborhood\",\"neighborhoods\":[{\"code\":\"a8c0fc\",\"name\":\"jardim brasilia\",\"time\":\"50\",\"value\":5}]}],\"address\":{\"city\":\"Cabedelo\",\"state\":\"PB\",\"number\":\"19\",\"street\":\"Rua Solon de Lucena\",\"zipcode\":\"58100-570\",\"latitude\":-6.97054,\"longitude\":-34.83668,\"complement\":\"PROXIMO A PRAÇA GETULIO VARGAS\",\"neigborhood\":\"Ponta de Matos\"},\"formsPayment\":[{\"addon\":{\"type\":\"fee\",\"value\":0,\"status\":false,\"valueType\":\"fixed\"},\"flags\":[],\"label\":\"Dinheiro\",\"status\":true,\"payment\":\"money\"},{\"key\":{\"name\":\"MERCADO PAGO -SAFIRA\",\"type\":\"Telefone\",\"value\":\"83988079929\"},\"addon\":{\"type\":\"fee\",\"value\":0,\"status\":false,\"valueType\":\"fixed\"},\"label\":\"Pix\",\"status\":true,\"payment\":\"pix\",\"statusPdv\":true},{\"key\":{\"type\":\"email\",\"value\":\"\"},\"addon\":{\"type\":\"fee\",\"value\":0,\"status\":false,\"valueType\":\"fixed\"},\"label\":\"PicPay\",\"status\":false,\"payment\":\"picpay\"},{\"addon\":{\"type\":\"fee\",\"value\":0,\"status\":false,\"valueType\":\"fixed\"},\"flags\":[],\"label\":\"Crédito\",\"status\":true,\"payment\":\"credit\"},{\"addon\":{\"type\":\"fee\",\"value\":0,\"status\":false,\"valueType\":\"fixed\"},\"flags\":[],\"label\":\"Débito\",\"status\":true,\"payment\":\"debit\"},{\"addon\":{\"type\":\"fee\",\"value\":10,\"status\":false,\"valueType\":\"percentage\"},\"flags\":[{\"code\":\"f7bd49\",\"name\":\"VALE REFEIÇÃO \",\"image\":\"\"},{\"code\":\"7c37db\",\"name\":\"ALELO\",\"image\":\"\"},{\"code\":\"4f104f\",\"name\":\"VR REFEÇÃO\",\"image\":\"\"}],\"label\":\"Vale Refeição\",\"status\":false,\"payment\":\"snack\"},{\"addon\":{\"type\":\"fee\",\"value\":0,\"status\":false,\"valueType\":\"fixed\"},\"flags\":[],\"label\":\"Vale Alimentação\",\"status\":false,\"payment\":\"food\"}],\"week\":{\"friday\":[{\"code\":\"cQRTna\",\"open\":\"17:45\",\"close\":\"23:00\",\"active\":true,\"weekDay\":5}],\"monday\":[],\"sunday\":[{\"code\":\"ZRiTNf\",\"open\":\"17:45\",\"close\":\"23:00\",\"active\":true,\"weekDay\":7}],\"tuesday\":[{\"code\":\"W2FVlK\",\"open\":\"17:45\",\"close\":\"22:45\",\"active\":true,\"weekDay\":2}],\"saturday\":[{\"code\":\"hVAP0y\",\"open\":\"17:45\",\"close\":\"23:00\",\"active\":true,\"weekDay\":6}],\"thursday\":[{\"code\":\"aP5qdF\",\"open\":\"17:45\",\"close\":\"23:45\",\"active\":true,\"weekDay\":4}],\"wednesday\":[{\"code\":\"nl3Fe3\",\"open\":\"17:45\",\"close\":\"22:45\",\"active\":true,\"weekDay\":3}]},\"timeZone\":\"America/Sao_Paulo\",\"options\":{\"bot\":{\"whatsapp\":{\"welcomeMessage\":{\"status\":true,\"alwaysSend\":false}}},\"pdv\":{\"clientConfig\":{\"required\":false,\"birthDate\":false},\"sendWhatsMessage\":true,\"cashierManagement\":false},\"beta\":false,\"order\":\"none\",\"pizza\":{\"higherValue\":true,\"multipleBorders\":false,\"multipleComplements\":true},\"print\":{\"app\":false,\"web\":null,\"width\":\"219px\",\"active\":true,\"copies\":1,\"fontSize\":7,\"proPrint\":false,\"textOnly\":false,\"groupItems\":true},\"store\":{\"catalogMode\":{\"table\":false,\"delivery\":false},\"productModal\":{\"imgFull\":false,\"infoPosition\":\"first\"}},\"table\":{\"callBartender\":true,\"persistBartender\":true},\"locale\":{\"currency\":\"BRL\",\"language\":\"pt-BR\"},\"queues\":{\"bartender\":[]},\"desktop\":{\"lastAccess\":\"2026-07-06 10:59:12\",\"shouldUpdate\":true,\"currentVersion\":\"2.8.9\"},\"favicon\":0,\"package\":{\"week\":{\"friday\":[{\"code\":\"ce7558\",\"open\":\"17:00\",\"close\":\"23:20\"}],\"monday\":[],\"sunday\":[{\"code\":\"e3a007\",\"open\":\"17:00\",\"close\":\"23:20\"}],\"tuesday\":[{\"code\":\"5d4eae\",\"open\":\"17:00\",\"close\":\"22:00\"}],\"saturday\":[{\"code\":\"0a5204\",\"open\":\"17:00\",\"close\":\"23:20\"}],\"thursday\":[{\"code\":\"0b3c0b\",\"open\":\"17:00\",\"close\":\"23:20\"}],\"wednesday\":[{\"code\":\"d6bdd2\",\"open\":\"17:00\",\"close\":\"23:20\"}]},\"active\":false,\"minValue\":0,\"hoursBlock\":[],\"maxPackage\":30,\"distanceDays\":{\"end\":21,\"start\":0},\"intervalTime\":30,\"minValueLocal\":0,\"shippingLocal\":{\"active\":false},\"specialsDates\":[],\"maxPackageHour\":1,\"shippingDelivery\":{\"active\":false}},\"voucher\":[{\"status\":true,\"created_at\":\"2025-12-21T17:58:00.705-03:00\",\"percentage\":10,\"expirationDays\":7},{\"status\":true,\"created_at\":\"2025-12-03T18:57:40.688-03:00\",\"percentage\":5,\"expirationDays\":3},{\"status\":true,\"created_at\":\"2025-07-24T22:15:34.449-03:00\",\"percentage\":5,\"expirationDays\":5},{\"status\":false,\"created_at\":\"2025-07-24T22:15:31.785-03:00\",\"percentage\":5,\"expirationDays\":5},{\"status\":true,\"created_at\":\"2025-07-24T18:46:39.700-03:00\",\"percentage\":5,\"expirationDays\":5},{\"status\":true,\"created_at\":\"2025-07-12T17:53:57.900-03:00\",\"percentage\":5,\"expirationDays\":3},{\"status\":true,\"created_at\":\"2025-07-12T17:53:54.496-03:00\",\"percentage\":5,\"expirationDays\":3},{\"status\":false,\"created_at\":\"2025-05-06T17:53:43.854-03:00\",\"percentage\":5,\"expirationDays\":3},{\"status\":true,\"created_at\":\"2025-04-24T16:03:19.757-03:00\",\"percentage\":5,\"expirationDays\":3},{\"status\":true,\"created_at\":\"2024-12-05T21:17:24.421-03:00\",\"percentage\":5,\"expirationDays\":3},{\"status\":true,\"created_at\":\"2024-12-03T17:55:04.278-03:00\",\"percentage\":10,\"expirationDays\":20},{\"status\":true,\"created_at\":\"2024-06-05T11:56:45.174-03:00\",\"percentage\":10,\"expirationDays\":20}],\"delivery\":{\"enableKm\":true,\"disableDelivery\":false},\"minValue\":null,\"tracking\":{\"pixel\":0},\"highlight\":{\"title\":\"OS MAIS PEDIDOS\",\"description\":\"Confira nossos produtos mais populares!\"},\"legacyPix\":true,\"forceClose\":null,\"hoursBlock\":[],\"onlineCard\":false,\"activeCupom\":true,\"forceLogout\":null,\"grovePayKey\":{\"created_on\":1692999921,\"access_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoibWFyY2VsbG9nLmNAaG90bWFpbC5jb20iLCJ1c2VybmFtZSI6Im1hcmNlbGxvX3doYXRzbWVudSIsImlhdCI6MTY5Mjk5OTkyMSwiZXhwIjoxNjkzMDg2MzIxfQ.eC2rdub_G-Cb49mKgJfWvm62qNb_wAqAednQENPfavo\"},\"integrations\":{},\"linkWhatsapp\":true,\"placeholders\":{\"pizzaObs\":\"Deixe aqui qualquer observação no produto.\",\"clientText\":\"Olá [NOME], Tudo bem?\",\"productObs\":\"Ex.: Sem maionese, sem salada, etc...\",\"statusSend\":\"Opa [NOME] seu pedido já está a caminho, obrigado!\",\"statusToRemove\":\"Opa, [NOME] seu pedido já está pronto para retirada!\",\"welcomeMessage\":\"Olá *[NOME]!*\\n\\nSeja bem vindo ao PASTELARIA LITORANEA\\n\\nVeja o nosso cardápio para fazer seu pedido\\n\\nhttps://www.whatsmenu.com.br/pastelarialitoranea\\n\\n *Ofertas exclusivas para pedidos no link* \\n\\nEquipe PASTELARIA LITORANEA\",\"sendWhatsMessage\":\"[NOME] pedido efetuado com sucesso, acompanhe o status do seu pedido abaixo!\",\"statusProduction\":\"[NOME] seu pedido já está em produção!\",\"cupomFirstMessage\":\"Olá *[NOME]!*\\n\\nSeja bem vindo ao PASTELARIA LITORANEA\\n\\nÉ sua primeira vez aqui, separei um cupom especial para você\"},\"playSoundPdv\":true,\"disponibility\":{\"showProductsWhenPaused\":true},\"minValueLocal\":null,\"activeDiscount\":true,\"routerMapsAlert\":false,\"whatsappVersion\":[2,3000,1033893291],\"hideSecretNumber\":true,\"playSoundPackage\":false,\"playSoundDelivery\":true,\"newValuePlanMessage\":false},\"minval\":15,\"minvalLocal\":0,\"request\":15021,\"command\":1,\"logo\":\"https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/tLOGO.jpeg\",\"background\":\"https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/tbWhatsApp Image 2022-12-07 at 21.25.26 (1).jpeg\",\"color\":\"#e7fd3f\",\"created_at\":\"2022-08-19 11:24:23\",\"updated_at\":\"2026-07-06 10:59:11\",\"plans\":[{\"id\":20,\"name\":\"Mesa\",\"type\":\"upgrade\",\"category\":\"table\",\"status\":1,\"monthly\":0,\"semester\":0,\"yearly\":0,\"deleted_at\":null,\"created_at\":\"2021-09-21 00:00:00\",\"updated_at\":\"2021-09-21 00:00:00\",\"pivot\":{\"flexPlanId\":20,\"userId\":12013}},{\"id\":21,\"name\":\"Encomenda\",\"type\":\"upgrade\",\"category\":\"package\",\"status\":1,\"monthly\":0,\"semester\":0,\"yearly\":0,\"deleted_at\":null,\"created_at\":\"2021-09-21 00:00:00\",\"updated_at\":\"2021-09-21 00:00:00\",\"pivot\":{\"flexPlanId\":21,\"userId\":12013}},{\"id\":24,\"name\":\"Gestão Completa WhatsMenu\",\"type\":\"register\",\"category\":\"basic\",\"status\":1,\"monthly\":97,\"semester\":582,\"yearly\":1164,\"deleted_at\":null,\"created_at\":\"2021-09-21 00:00:00\",\"updated_at\":\"2021-09-21 00:00:00\",\"pivot\":{\"flexPlanId\":24,\"userId\":12013}}],\"version\":2,\"fuso\":\"2026-07-07T04:51:37.717-03:00\",\"categories\":[{\"id\":146478,\"profileId\":15970,\"name\":\"TOP MAIS PEDIDOS---DESCONTOS NA 2 UNIDADE\",\"order\":0,\"status\":1,\"type\":\"default\",\"icon_label\":null,\"disponibility\":{\"store\":{\"table\":true,\"package\":true,\"delivery\":true}},\"options\":{\"week\":{\"friday\":[{\"code\":\"8sKaBD\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":5}],\"monday\":[{\"code\":\"dgvcrE\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":1}],\"sunday\":[{\"code\":\"rc3N7U\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":7}],\"tuesday\":[{\"code\":\"XrW1bi\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":2}],\"saturday\":[{\"code\":\"sFRZUo\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":6}],\"thursday\":[{\"code\":\"1lMpOn\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":4}],\"wednesday\":[{\"code\":\"NXOYke\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":3}]}},\"deleted_at\":null,\"created_at\":\"2023-04-13 13:39:56\",\"updated_at\":\"2026-06-02 17:51:14\",\"products\":[{\"id\":697841,\"product_code\":null,\"profileId\":null,\"categoryId\":146478,\"status\":1,\"order\":0,\"name\":\"LOMBO CANADENSE\",\"description\":\"E ESSA DELICIOSA COMBINAÇÃO!\\nLOMBO CANADENSE COM UM TOQUE DE CREAM CHEESE E MUSSARELA!\\n\\nNAO ACOMPANHA REFIGERANTE\",\"bypass_amount\":1,\"amount_alert\":0,\"amount\":0,\"value\":15,\"promoteValue\":0,\"promoteStatus\":0,\"valueTable\":0,\"cost_value\":null,\"cost_value_table\":null,\"promoteValueTable\":0,\"promoteStatusTable\":0,\"countRequests\":0,\"image\":\"https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/697841/LOMBO\",\"highlight\":0,\"disponibility\":{\"week\":{\"friday\":[{\"code\":\"wwnxzr\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":5}],\"monday\":[{\"code\":\"alvir4\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":1}],\"sunday\":[{\"code\":\"32lwss\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":7}],\"tuesday\":[{\"code\":\"52krmq\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":2}],\"saturday\":[{\"code\":\"gmgu63\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":6}],\"thursday\":[{\"code\":\"s9uczi\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":4}],\"wednesday\":[{\"code\":\"ofmw2f\",\"open\":\"00:00\",\"close\":\"23:59\",\"active\":true,\"weekDay\":3}]},\"store\":{\"table\":true,\"package\":false,\"delivery\":true}},\"promotionTime\":null,\"ncm_code\":null,\"cfop\":\"5102\",\"csosn\":\"102\",\"cest\":null,\"type\":\"default\",\"unit\":\"weight\",\"unit_value\":null,\"bar_code\":null,\"controls\":null,\"deleted_at\":null,\"created_at\":\"2022-08-19 13:31:02\",\"updated_at\":\"2026-06-12 15:51:43\",\"badge\":null,\"complements\":[{\"id\":6539476,\"name\":\"DESCONTO NA 2° UNIDADE - 3,00R$\",\"type\":\"default\",\"order\":0,\"min\":0,\"max\":1,\"required\":0,\"itens\":[{\"code\":\"QeWoxE\",\"name\":\"LOMBO CANADENSE\",\"value\":12,\"amount\":0,\"status\":true,\"description\":\"\",\"amount_alert\":0,\"bypass_amount\":false,\"quantity\":0}],\"created_at\":\"2026-02-08 17:29:32\",\"updated_at\":\"2026-06-12 15:51:43\",\"pivot\":{\"complementId\":6539476,\"productId\":697841}},{\"id\":303639,\"name\":\"ADICIONE MAIS SABOR\",\"type\":\"default\",\"order\":1,\"min\":1,\"max\":3,\"required\":0,\"itens\":[{\"code\":\"3d8dbd\",\"name\":\"AUTENTICO CATUPIRY\",\"value\":5,\"amount\":0,\"status\":true,\"description\":\"\",\"amount_alert\":0,\"bypass_amount\":true,\"quantity\":0},{\"code\":\"813783\",\"name\":\"CREAM CHEESE\",\"value\":5,\"am",
+      "jsonKeys": [
+        "id",
+        "userId",
+        "name",
+        "slug",
+        "typeStore",
+        "status",
+        "deliveryLocal",
+        "showTotal",
+        "description",
+        "whatsapp",
+        "typeDelivery",
+        "taxDelivery",
+        "address",
+        "formsPayment",
+        "week",
+        "timeZone",
+        "options",
+        "minval",
+        "minvalLocal",
+        "request",
+        "command",
+        "logo",
+        "background",
+        "color",
+        "created_at",
+        "updated_at",
+        "plans",
+        "version",
+        "fuso",
+        "categories"
+      ],
+      "savedJsonFile": "network-011.json"
+    },
+    {
+      "url": "https://whatsmenu.com.br/assets2/big_shadow_full.png",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.com.br/cdn-cgi/challenge-platform/h/b/jsd/oneshot/80a697ecdece/0.8382256736236003:1783407932:cygPDBGBwcv5A4yVGBc0HNNynqIrCUpTtM0ndGHH4JA/a17543d6ec91aee3",
+      "status": 200,
+      "contentType": "text/plain; charset=UTF-8",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-3MM7ZK08LW&gtm=45je6760h2v874820382za200zd874820382&_p=1783410696945&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=743413557.1783410698&frm=0&pscdl=noapi&rcb=19&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938469~119027224~119576881~119576885~119576891~119576895&sid=1783410697&sct=1&seg=0&dl=https%3A%2F%2Fwhatsmenu.com.br%2Fpastelarialitoranea&dt=PASTELARIA%20LITORANEA&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=1146",
+      "status": 204,
+      "contentType": "text/plain",
+      "resourceType": "fetch",
+      "method": "POST",
+      "readError": "Protocol error (Network.getResponseBody): No data found for resource with given identifier"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/proximanova-semibold-webfont.7db5a0639df479f0.woff2",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "resourceType": "font",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.com.br/main/bootstrap-icons.bfa90bda92a84a6a.woff2?dd67030699838ea613ee6dbda90effa6",
+      "status": 200,
+      "contentType": "application/octet-stream",
+      "resourceType": "font",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://api3.whatsmenu.com.br/api/v3/business/profileFees/15970",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 11,
+      "textSample": "{\"fees\":[]}",
+      "jsonKeys": [
+        "fees"
+      ],
+      "savedJsonFile": "network-017.json"
+    },
+    {
+      "url": "https://whatsmenu.com.br/cdn-cgi/rum?",
+      "status": 204,
+      "contentType": "text/plain",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/tLOGO.jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/tbWhatsApp%20Image%202022-12-07%20at%2021.25.26%20(1).jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://api3.whatsmenu.com.br/api/v3/business/pastelarialitoranea/cupons",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 513,
+      "textSample": "[{\"id\":3164237,\"profileId\":15970,\"code\":\"8709-6577\",\"type\":\"value\",\"value\":5,\"minValue\":0,\"status\":1,\"firstOnly\":0,\"controls\":{},\"progressive\":0,\"deleted_at\":null,\"created_at\":\"2026-05-31T22:41:13.000-03:00\",\"updated_at\":\"2026-05-31T22:41:13.000-03:00\"},{\"id\":3162794,\"profileId\":15970,\"code\":\"PRIMEIRACOMPRA\",\"type\":\"value\",\"value\":10,\"minValue\":0,\"status\":1,\"firstOnly\":0,\"controls\":{},\"progressive\":0,\"deleted_at\":null,\"created_at\":\"2026-04-26T18:07:32.000-03:00\",\"updated_at\":\"2026-04-26T18:07:32.000-03:00\"}]",
+      "jsonKeys": [
+        "array",
+        "2"
+      ],
+      "savedJsonFile": "network-021.json"
+    },
+    {
+      "url": "https://whatsmenu.com.br/0",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "resourceType": "other",
+      "method": "GET",
+      "textLength": 31,
+      "textSample": "<h1>Página não encontrada!</h1>"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/1002376/pastelarialitoraneaMqujODTb7M7oW7Twebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/1083013/pastelarialitoraneap7BgTIuarprRlfSwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/697875/SOLECHARQUE",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/1002373/pastelarialitoraneaAiii4aBmBijR67Ewebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/697898/CUPIM",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2827637/WhatsAppImage20260602at17",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2893000/CAPA",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2827641/qwqw",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697949/pastelarialitoraneapubdeox2hntcxedwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697846/pastelarialitoraneafrbzxfpwgk0vv7wwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/717652/pastelarialitoranea8oofz5uhjksluszwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697807/tq1jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/697950/CAMARAO1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/697962/CAMARAO2",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697803/tq1jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697815/tmis.jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697637/tFRA.jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/697953/IMPERIAL",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697818/tpi.jpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/697856/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/697841/LOMBO",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2973337/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697793/pastelarialitoraneaieuu1yvev16fjojwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/1002381/WhatsAppImage20240524at16",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2285948/pastelarialitoraneaMenVKLreGeo8h2Dwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2973339/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697798/tcajpeg",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2973338/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/1241536/pastelarialitoranealjuxqiwxbklsalewebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/704546/WhatsAppImage20250828at18",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2973340/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/1002384/LOMBO",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/697854/pastelarialitoraneavwv6k7n8tn6gt6bwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2973329/SOLECHARQUE",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2285950/pastelarialitoraneasovMHo0gzMZUuMCwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2293406/pastelarialitoraneamsC8ELgXIkNFqBjwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2973328/SOLECHARQUE",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/910916/pastelarialitoraneaa7eOLKAY9WeYuKHwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/1002380/SOLECHARQUE",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2289697/pastelarialitoraneagCM0q9dk2bRfMwrwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2973332/SOLECHARQUE",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2973330/SOLECHARQUE",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/1241558/SOLECHARQUE",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2289698/pastelarialitoraneaogeTpaFDhRE7atzwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2293408/pastelarialitoranea53OZ1RRtNSL4WqZwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/1043004/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698141/pastelarialitoraneav0w8axscibl1isxwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/3244374/WhatsAppImage20260325at18",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698142/pastelarialitoraneadpl7z0209bg138dwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/3244374/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932514/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932513/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698143/pastelarialitoranea4hfgpflcnf0a0h8webp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698145/pastelarialitoraneailain3iwvq8o2k8webp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698149/pastelarialitoraneaemygnd6yh7cediuwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2944285/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698146/pastelarialitoranearfssmilvpwurwbawebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932531/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932532/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932529/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932534/WhatsAppImage20250714at21",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932578/PASTE1",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698153/pastelarialitoranea6h8daovliqdfkz0webp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/910661/pastelarialitoraneaLswt05CdBPtYf5Rwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698150/pastelarialitoraneaqql40kvhg4uytxhwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932546/WhatsAppImage20250714at21",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932581/MMS",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932585/OVOMALTIUNE",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2932584/NUTELLA",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/910662/pastelarialitoraneayWHpEqz3QmueTUCwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/3303280/AAAA",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/910678/pastelarialitoraneaSYTywDrGUGbCNLxwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/911067/pastelarialitoranea8SplEbNS6o72tzvwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/698122/batata",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/3138074/KITKJAT",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/910679/pastelarialitoranea8fXx1VmhR3cEMvtwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2825961/CHURROS",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/3247762/WhatsAppImage20260407at19",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2257535/pastelarialitoraneavheoYu0XQjk4NSywebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/3247773/WhatsAppImage20260407at19",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/3302859/SUP",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2257537/pastelarialitoraneawljiaxv8woc8uajwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/2955446/batata",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/3308019/WhatsAppImage20260410at20",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698157/pastelarialitoraneaoubqgerju6moww6webp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2268771/pastelarialitoranea34WYlsC9TiKG8rBwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://whatsmenu.s3.amazonaws.com/production/pastelarialitoranea/products/1043066/COCA600",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698158/pastelarialitoraneanilvb4ufinpowyrwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698160/pastelarialitoraneaxzqioac6tgrorrwwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/2293409/pastelarialitoraneaijLKYKvnN9fpR4Iwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698161/pastelarialitoraneanr2j8zijroclex4webp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698163/pastelarialitoraneafs0ufwyxkm9b4izwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698165/pastelarialitoraneakwszyp6u8mjvq5zwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698172/pastelarialitoraneatcammqabpc7iyrtwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698171/pastelarialitoraneaui7om1oq5i1yamxwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698169/pastelarialitoranea4wrddapiqfiuh0rwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698166/pastelarialitoraneahps7rdqexlrcz6zwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698175/pastelarialitoraneahp0oac5wxbrjf98webp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698180/pastelarialitoraneamh9airibyodnzmewebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698176/pastelarialitoraneawyj1wglpipujxiqwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698177/pastelarialitoranea6cobn5j2abjuqubwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698182/pastelarialitoraneagkcxjwd7i8enhlawebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698178/pastelarialitoraneawha7qcp2dqelv0awebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698181/pastelarialitoraneaz0iy5oqdblntk75webp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698183/pastelarialitoranealhzeuewrbnmlvjswebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698184/pastelarialitoranea3pl6ywdglznw0y5webp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698187/pastelarialitoraneaknzphzpiotrmabuwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698185/pastelarialitoranea8lcycvr0iaw0n5jwebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://s3.us-west-2.amazonaws.com/whatsmenu/production/pastelarialitoranea/products/698189/pastelarialitoraneagu36r8xkis5l9gewebp",
+      "status": 200,
+      "contentType": "image/jpeg",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-3MM7ZK08LW&gtm=45je6760h2v874820382za200zd874820382&_p=1783410696945&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=743413557.1783410698&frm=0&pscdl=noapi&rcb=19&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=2&tag_exp=115938465~115938469~119027224~119576881~119576885~119576891~119576895&sid=1783410697&sct=1&seg=0&dl=https%3A%2F%2Fwhatsmenu.com.br%2Fpastelarialitoranea&dt=PASTELARIA%20LITORANEA&en=scroll&epn.percent_scrolled=90&_et=280&tfd=6441",
+      "status": 204,
+      "contentType": "text/plain",
+      "resourceType": "fetch",
+      "method": "POST",
+      "readError": "Protocol error (Network.getResponseBody): No data found for resource with given identifier"
+    }
+  ],
+  "failedRequests": [
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-3MM7ZK08LW&gtm=45je6760h2v874820382za200zd874820382&_p=1783410696945&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=743413557.1783410698&frm=0&pscdl=noapi&rcb=19&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938469~119027224~119576881~119576885~119576891~119576895&sid=1783410697&sct=1&seg=0&dl=https%3A%2F%2Fwhatsmenu.com.br%2Fpastelarialitoranea&dt=PASTELARIA%20LITORANEA&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=1146",
+      "resourceType": "fetch",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-3MM7ZK08LW&gtm=45je6760h2v874820382za200zd874820382&_p=1783410696945&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=743413557.1783410698&frm=0&pscdl=noapi&rcb=19&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=2&tag_exp=115938465~115938469~119027224~119576881~119576885~119576891~119576895&sid=1783410697&sct=1&seg=0&dl=https%3A%2F%2Fwhatsmenu.com.br%2Fpastelarialitoranea&dt=PASTELARIA%20LITORANEA&en=scroll&epn.percent_scrolled=90&_et=280&tfd=6441",
+      "resourceType": "fetch",
+      "failure": "net::ERR_ABORTED"
+    }
+  ]
+}

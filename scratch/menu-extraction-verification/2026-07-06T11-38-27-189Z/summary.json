@@ -1,0 +1,1109 @@
+{
+  "runId": "2026-07-06T11-38-27-189Z",
+  "apply": false,
+  "limit": 2,
+  "platform": null,
+  "targetCount": 2,
+  "processed": [
+    {
+      "restaurantId": "51833be8-0d3a-4f3b-b44d-689a2ff34897",
+      "restaurantName": "Super Burger e Petiscos",
+      "sourceUrl": "https://superpetiscos.com.br/super_petiscos?s=insta",
+      "platform": "superpetiscos.com.br",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-38-27-189Z\\001-super-burger-e-petiscos",
+      "openedTabId": 943017141,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 1,
+          "scrollHeight": 674,
+          "capturedHeight": 674,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 843,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943017141,
+          "url": "https://superpetiscos.com.br/super_petiscos",
+          "title": "Super Burger e Petiscos"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783337914306_h1xzz4h0.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337914306_h1xzz4h0.jpg",
+          "bytes": 188196
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943017141,
+            "clientHeight": 674,
+            "maxScrollTop": 6008,
+            "reachedEnd": false,
+            "scrollHeight": 6682,
+            "scrollTop": 0,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337922667_0uteif5q.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337922667_0uteif5q.jpg",
+            "bytes": 228205
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017141,
+            "url": "https://superpetiscos.com.br/super_petiscos",
+            "title": "Super Burger e Petiscos"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.22,
+          "scroll": {
+            "tabId": 943017141,
+            "clientHeight": 674,
+            "maxScrollTop": 6008,
+            "reachedEnd": false,
+            "scrollHeight": 6682,
+            "scrollTop": 1322,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337928988_uftnc2g6.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337928988_uftnc2g6.jpg",
+            "bytes": 117015
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017141,
+            "url": "https://superpetiscos.com.br/super_petiscos",
+            "title": "Super Burger e Petiscos"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.45,
+          "scroll": {
+            "tabId": 943017141,
+            "clientHeight": 674,
+            "maxScrollTop": 6008,
+            "reachedEnd": false,
+            "scrollHeight": 6682,
+            "scrollTop": 2704,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337936241_nngekdl9.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337936241_nngekdl9.jpg",
+            "bytes": 146520
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017141,
+            "url": "https://superpetiscos.com.br/super_petiscos",
+            "title": "Super Burger e Petiscos"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.68,
+          "scroll": {
+            "tabId": 943017141,
+            "clientHeight": 674,
+            "maxScrollTop": 6008,
+            "reachedEnd": false,
+            "scrollHeight": 6682,
+            "scrollTop": 4085,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337942501_brby9fgf.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337942501_brby9fgf.jpg",
+            "bytes": 123969
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017141,
+            "url": "https://superpetiscos.com.br/super_petiscos",
+            "title": "Super Burger e Petiscos"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.9,
+          "scroll": {
+            "tabId": 943017141,
+            "clientHeight": 674,
+            "maxScrollTop": 6008,
+            "reachedEnd": false,
+            "scrollHeight": 6682,
+            "scrollTop": 5407,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337949759_wlm6w89y.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337949759_wlm6w89y.jpg",
+            "bytes": 129683
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017141,
+            "url": "https://superpetiscos.com.br/super_petiscos",
+            "title": "Super Burger e Petiscos"
+          },
+          "error": null
+        },
+        {
+          "ratio": 1,
+          "scroll": {
+            "tabId": 943017141,
+            "clientHeight": 674,
+            "maxScrollTop": 6008,
+            "reachedEnd": true,
+            "scrollHeight": 6682,
+            "scrollTop": 6008,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337957018_9yk1dfdt.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337957018_9yk1dfdt.jpg",
+            "bytes": 97530
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017141,
+            "url": "https://superpetiscos.com.br/super_petiscos",
+            "title": "Super Burger e Petiscos"
+          },
+          "error": null
+        }
+      ],
+      "verificationSnapshotError": null,
+      "extractionSummary": {
+        "success": true,
+        "platform": "visible_text",
+        "error": null,
+        "confidence": 0.74,
+        "extractionLevel": 1,
+        "categoryCount": 2,
+        "itemCount": 40,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": [
+          {
+            "name": "Promoções",
+            "count": 25,
+            "items": [
+              {
+                "name": "Caixa Arretado",
+                "price": 84.9,
+                "optionCount": 0
+              },
+              {
+                "name": "Caixa Deu Aquela Fome",
+                "price": 86.9,
+                "optionCount": 0
+              },
+              {
+                "name": "A partir de",
+                "price": 77.4,
+                "optionCount": 0
+              },
+              {
+                "name": "EDIÇÃO LIMITADA",
+                "price": 109.9,
+                "optionCount": 0
+              },
+              {
+                "name": "-15%",
+                "price": 62.9,
+                "optionCount": 0
+              }
+            ]
+          },
+          {
+            "name": "Porções",
+            "count": 15,
+            "items": [
+              {
+                "name": "A partir de",
+                "price": 15,
+                "optionCount": 0
+              },
+              {
+                "name": "A partir de",
+                "price": 18,
+                "optionCount": 0
+              },
+              {
+                "name": "Bomboniere",
+                "price": 5,
+                "optionCount": 0
+              },
+              {
+                "name": "Trident Sabores",
+                "price": 3,
+                "optionCount": 0
+              },
+              {
+                "name": "Halls Sabores",
+                "price": 2.5,
+                "optionCount": 0
+              }
+            ]
+          }
+        ]
+      },
+      "dryRun": {
+        "success": true,
+        "dryRun": true,
+        "audit": {
+          "approved": false,
+          "confidence": 0.661,
+          "categoryCount": 4,
+          "itemCount": 38,
+          "resolvedPriceCount": 38,
+          "unresolvedPriceCount": 0,
+          "optionPriceCount": 0,
+          "pricedRatio": 1,
+          "issues": [
+            "itens_duplicados"
+          ],
+          "optionSemanticAI": {
+            "used": false,
+            "reason": "no_groups"
+          }
+        },
+        "preview": [
+          {
+            "name": "Pratos Principais",
+            "count": 3,
+            "samples": [
+              {
+                "name": "Caixa Arretado",
+                "price": 84.9,
+                "kind": "simple_item",
+                "description": "Calabresa Acebolada, Mini Pasteizinhos Carne com Açúcar, Fritas, Isca de Frango, Mini Coxinhas e Mini Pasteizinhos de Carne Serve até 5 Pessoas - Caixa de 30 cm"
+              },
+              {
+                "name": "Super Duplo BACON",
+                "price": 38.9,
+                "kind": "simple_item",
+                "description": "Pão brioche artesanal, duas carnes de 150gr, 2x queijo cheddar, molho especial, picles e bacon."
+              },
+              {
+                "name": "Super Duplo SALADA",
+                "price": 38.9,
+                "kind": "simple_item",
+                "description": "Pão brioche artesanal, duas carnes de 150gr, 2x queijo cheddar, molho especial, picles e salada ( cebola roxa, alface e tomate )."
+              }
+            ]
+          },
+          {
+            "name": "Combos",
+            "count": 20,
+            "samples": [
+              {
+                "name": "Caixa Deu Aquela Fome",
+                "price": 86.9,
+                "kind": "simple_item",
+                "description": ""
+              },
+              {
+                "name": "A partir de",
+                "price": 77.4,
+                "kind": "simple_item",
+                "description": "Aqui você consegue montar o seu próprio petisco.:) - Acompanha dois deliciosos molho da casa ( Barbecue ) Copo de 100ml - Os petiscos vai em uma caixa de 30Cm Obs: Essa montagem - Serve de 4 a 5 Pessoas"
+              },
+              {
+                "name": "EDIÇÃO LIMITADA",
+                "price": 109.9,
+                "kind": "simple_item",
+                "description": "Johnnie Walker Red Label 1 Litro, você ganha 1 Copo Personalizado Johnnie Walker de 300ml ✅ Na compra do Johnnie Walker Red Label 1 Litro, você ganha 1 Copo Personalizado Johnnie Walker de 300ml totalmente GRÁTIS!"
+              },
+              {
+                "name": "Combo CASAL Coxinhas, Nuggets e Fritas",
+                "price": 64.9,
+                "kind": "combo_builder",
+                "description": ""
+              },
+              {
+                "name": "Combo AMIGOS Turbinado",
+                "price": 84.9,
+                "kind": "combo_builder",
+                "description": ""
+              }
+            ]
+          },
+          {
+            "name": "Sanduíches",
+            "count": 1,
+            "samples": [
+              {
+                "name": "Burgers",
+                "price": 26.9,
+                "kind": "simple_item",
+                "description": "Cheeseburger Pão brioche artesanal, BLEND DE 150g, queijo cheddar, molho especial da casa, cebola refogada ao molho shoyu e picles."
+              }
+            ]
+          },
+          {
+            "name": "Porções",
+            "count": 14,
+            "samples": [
+              {
+                "name": "A partir de",
+                "price": 15,
+                "kind": "simple_item",
+                "description": "Porção de Batata Frita"
+              },
+              {
+                "name": "A partir de",
+                "price": 18,
+                "kind": "simple_item",
+                "description": "Porção de Onion Rings"
+              },
+              {
+                "name": "Bomboniere",
+                "price": 5,
+                "kind": "simple_item",
+                "description": "KitKat 41,5gr"
+              },
+              {
+                "name": "Trident Sabores",
+                "price": 3,
+                "kind": "simple_item",
+                "description": ""
+              },
+              {
+                "name": "Halls Sabores",
+                "price": 2.5,
+                "kind": "simple_item",
+                "description": ""
+              }
+            ]
+          }
+        ],
+        "categories": [
+          {
+            "name": "Pratos Principais",
+            "items": [
+              {
+                "name": "Caixa Arretado",
+                "description": "Calabresa Acebolada, Mini Pasteizinhos Carne com Açúcar, Fritas, Isca de Frango, Mini Coxinhas e Mini Pasteizinhos de Carne Serve até 5 Pessoas - Caixa de 30 cm",
+                "price": 84.9,
+                "display_price": 84.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Super Duplo BACON",
+                "description": "Pão brioche artesanal, duas carnes de 150gr, 2x queijo cheddar, molho especial, picles e bacon.",
+                "price": 38.9,
+                "display_price": 38.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Super Duplo SALADA",
+                "description": "Pão brioche artesanal, duas carnes de 150gr, 2x queijo cheddar, molho especial, picles e salada ( cebola roxa, alface e tomate ).",
+                "price": 38.9,
+                "display_price": 38.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "Combos",
+            "items": [
+              {
+                "name": "Caixa Deu Aquela Fome",
+                "description": "",
+                "price": 86.9,
+                "display_price": 86.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Aqui você consegue montar o seu próprio petisco.:) - Acompanha dois deliciosos molho da casa ( Barbecue ) Copo de 100ml - Os petiscos vai em uma caixa de 30Cm Obs: Essa montagem - Serve de 4 a 5 Pessoas",
+                "price": 77.4,
+                "display_price": 77.4,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "EDIÇÃO LIMITADA",
+                "description": "Johnnie Walker Red Label 1 Litro, você ganha 1 Copo Personalizado Johnnie Walker de 300ml ✅ Na compra do Johnnie Walker Red Label 1 Litro, você ganha 1 Copo Personalizado Johnnie Walker de 300ml totalmente GRÁTIS!",
+                "price": 109.9,
+                "display_price": 109.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Combo CASAL Coxinhas, Nuggets e Fritas",
+                "description": "",
+                "price": 64.9,
+                "display_price": 64.9,
+                "price_type": "fixed",
+                "commercial_type": "combo_builder",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Combo AMIGOS Turbinado",
+                "description": "",
+                "price": 84.9,
+                "display_price": 84.9,
+                "price_type": "fixed",
+                "commercial_type": "combo_builder",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Combo MEGA FAMINTOS",
+                "description": "",
+                "price": 124.9,
+                "display_price": 124.9,
+                "price_type": "fixed",
+                "commercial_type": "combo_builder",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Cheesesalada",
+                "description": "Pão brioche artesanal, BLEND DE 150g, queijo cheddar, alface, cebola roxa, tomate e picles.",
+                "price": 29.9,
+                "display_price": 29.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Cheesebacon",
+                "description": "Pão brioche artesanal, BLEND 150g, queijo cheddar, molho especial da casa, bacon crocante, cebola refogada ao molho shoyu e picles.",
+                "price": 29.9,
+                "display_price": 29.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Super Clássico",
+                "description": "Pão artesanal, BLEND 150g, Cream Cheese, salada fresca, picles, molho especial e generosas fatias de bacon crocante.",
+                "price": 32.9,
+                "display_price": 32.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Super Reino 1.0",
+                "description": "Pão brioche macio, Blend 150g, queijo do reino derretido, Cream cheese, bacon crocante e geleia de pimenta.",
+                "price": 34.9,
+                "display_price": 34.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Super Explosão Tropical",
+                "description": "",
+                "price": 34.9,
+                "display_price": 34.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Caixa Explosão",
+                "description": "",
+                "price": 98.9,
+                "display_price": 98.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Já experimentou os nossos combos? Não sabe o que está esperando! 😍 Somos referência em combos na caixa, perfeitos para matar a fome de verdade. Combo CASAL Industrializados",
+                "price": 62.9,
+                "display_price": 62.9,
+                "price_type": "fixed",
+                "commercial_type": "combo_builder",
+                "image_url": null,
+                "combo_components": [
+                  {
+                    "type": "fixed_item",
+                    "name": "Itens inclusos",
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "price_behavior": "included",
+                    "items": [
+                      {
+                        "name": "Já experimentou os nossos combos? Não sabe o que está esperando! 😍 Somos referência em combos na caixa, perfeitos para matar a fome de verdade.  CASAL Industrializados",
+                        "price": null,
+                        "price_delta": null,
+                        "price_behavior": "included",
+                        "is_searchable_variant": true,
+                        "order_index": 0
+                      }
+                    ]
+                  }
+                ],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "",
+                "price": 82.9,
+                "display_price": 82.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "",
+                "price": 98.9,
+                "display_price": 98.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "",
+                "price": 124.9,
+                "display_price": 124.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Combo Familia 6 Lanches",
+                "description": "👉 6 X-Burger's, Porção de fritas com bacon e cheddar. Cebola Onion e Mini coxinhas",
+                "price": 129.9,
+                "display_price": 129.9,
+                "price_type": "fixed",
+                "commercial_type": "combo_builder",
+                "image_url": null,
+                "combo_components": [
+                  {
+                    "type": "fixed_item",
+                    "name": "Itens inclusos",
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "price_behavior": "included",
+                    "items": [
+                      {
+                        "name": "👉 6 X-Burger's, Porção de fritas com bacon e cheddar. Cebola Onion e Mini coxinhas",
+                        "price": null,
+                        "price_delta": null,
+                        "price_behavior": "included",
+                        "is_searchable_variant": true,
+                        "order_index": 0
+                      }
+                    ]
+                  }
+                ],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Box Artesanais",
+                "description": "Box CASAL Artesanal",
+                "price": 74.9,
+                "display_price": 74.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Box AMIGOS Artesanal",
+                "description": "",
+                "price": 104.9,
+                "display_price": 104.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Box FAMILIA Artesanal",
+                "description": "",
+                "price": 118.9,
+                "display_price": 118.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "Sanduíches",
+            "items": [
+              {
+                "name": "Burgers",
+                "description": "Cheeseburger Pão brioche artesanal, BLEND DE 150g, queijo cheddar, molho especial da casa, cebola refogada ao molho shoyu e picles.",
+                "price": 26.9,
+                "display_price": 26.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "Porções",
+            "items": [
+              {
+                "name": "A partir de",
+                "description": "Porção de Batata Frita",
+                "price": 15,
+                "display_price": 15,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Porção de Onion Rings",
+                "price": 18,
+                "display_price": 18,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Bomboniere",
+                "description": "KitKat 41,5gr",
+                "price": 5,
+                "display_price": 5,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Trident Sabores",
+                "description": "",
+                "price": 3,
+                "display_price": 3,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Halls Sabores",
+                "description": "",
+                "price": 2.5,
+                "display_price": 2.5,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "CHOCOLATE MEIO AMARGO GAROTO",
+                "description": "",
+                "price": 10,
+                "display_price": 10,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Serenata Garoto",
+                "description": "",
+                "price": 2,
+                "display_price": 2,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Gomets Frutas",
+                "description": "",
+                "price": 1,
+                "display_price": 1,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Refrigerante Lata Refrigerantes na temperatura certa para você",
+                "price": 6,
+                "display_price": 6,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Refrigerantes na temperatura certa para você",
+                "price": 10,
+                "display_price": 10,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Clique para escolher!",
+                "price": 20,
+                "display_price": 20,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "EDIÇÃO LIMITADA",
+                "description": "Johnnie Walker Red Label 1 Litro, você ganha 1 Copo Personalizado Johnnie Walker de 300ml ✅ Na compra do Johnnie Walker Red Label 1 Litro, você ganha 1 Copo Personalizado Johnnie Walker de 300ml totalmente GRÁTIS!",
+                "price": 109.9,
+                "display_price": 109.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Temperos Temperos - Feira Central Os melhores temperos da Feira Central de CG você encontra aqui! Qualidade, variedade e aquele sabor especial para transformar suas receitas.",
+                "price": 4.99,
+                "display_price": 4.99,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "CNPJ: 27.22",
+                "description": "4/0001-34 | R. Vig. Virgínio, 19, Jardim Tavares, Campina Grande/PB | (83) 98658-5409",
+                "price": 6.33,
+                "display_price": 6.33,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          }
+        ],
+        "message": "Prévia estruturada com 38 itens via visible_text."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T11-38-27-189Z\\001-super-burger-e-petiscos\\menu-evidence.json"
+    },
+    {
+      "restaurantId": "9af73997-5cdb-4586-8533-3f50d530beea",
+      "restaurantName": "Lupe Pizzas",
+      "sourceUrl": "https://accon.ai/lupepizzas",
+      "platform": "accon.ai",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-38-27-189Z\\002-lupe-pizzas",
+      "openedTabId": 943017177,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 2,
+          "scrollHeight": 691,
+          "capturedHeight": 691,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 864,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943017177,
+          "url": "https://accon.ai/lupepizzas",
+          "title": "Cardápio Digital - Lupe Pizzas"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783337980764_4lpjbdtq.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337980764_4lpjbdtq.jpg",
+          "bytes": 68748
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943017177,
+            "clientHeight": 674,
+            "maxScrollTop": 0,
+            "reachedEnd": true,
+            "scrollHeight": 674,
+            "scrollTop": 0,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337989006_kur205e2.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337989006_kur205e2.jpg",
+            "bytes": 77988
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017177,
+            "url": "https://accon.ai/lupepizzas",
+            "title": "Cardápio Digital - Lupe Pizzas"
+          },
+          "error": null
+        }
+      ],
+      "verificationSnapshotError": null,
+      "extractionSummary": {
+        "success": false,
+        "platform": "visible_text",
+        "error": "Cardápio visível insuficiente; requer fallback por IA/visual.",
+        "confidence": 0.45,
+        "extractionLevel": 1,
+        "categoryCount": 1,
+        "itemCount": 1,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": [
+          {
+            "name": "Cardápio",
+            "count": 1,
+            "items": [
+              {
+                "name": "LUPE PIZZAS LTDA - 30.27",
+                "price": 8.72,
+                "optionCount": 0
+              }
+            ]
+          }
+        ]
+      },
+      "dryRun": {
+        "success": true,
+        "dryRun": true,
+        "audit": {
+          "approved": false,
+          "confidence": 0.45,
+          "categoryCount": 1,
+          "itemCount": 1,
+          "resolvedPriceCount": 1,
+          "unresolvedPriceCount": 0,
+          "optionPriceCount": 0,
+          "pricedRatio": 1,
+          "issues": [
+            "baixa_densidade_cardapio"
+          ],
+          "optionSemanticAI": {
+            "used": false,
+            "reason": "no_groups"
+          }
+        },
+        "preview": [
+          {
+            "name": "Pizzas",
+            "count": 1,
+            "samples": [
+              {
+                "name": "LUPE PIZZAS LTDA - 30.27",
+                "price": 8.72,
+                "kind": "simple_item",
+                "description": "3/0001-18"
+              }
+            ]
+          }
+        ],
+        "categories": [
+          {
+            "name": "Pizzas",
+            "items": [
+              {
+                "name": "LUPE PIZZAS LTDA - 30.27",
+                "description": "3/0001-18",
+                "price": 8.72,
+                "display_price": 8.72,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          }
+        ],
+        "message": "Prévia estruturada com 1 itens via visible_text."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T11-38-27-189Z\\002-lupe-pizzas\\menu-evidence.json"
+    }
+  ]
+}

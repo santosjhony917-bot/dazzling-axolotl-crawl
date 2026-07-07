@@ -1,0 +1,30 @@
+[
+  {
+    "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+    "name": "Center Pizza Cabedelo",
+    "redCount": 2,
+    "issueCodes": [
+      "delta_sabor_parece_preco_cheio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "delta_sabor_parece_preco_cheio",
+        "item": "Grande",
+        "itemPrice": 50,
+        "group": "Sabor Grande",
+        "option": "Camarão aos 4 queijos PREMIUM",
+        "delta": 25
+      },
+      {
+        "severity": "red",
+        "code": "delta_sabor_parece_preco_cheio",
+        "item": "Pequena",
+        "itemPrice": 30,
+        "group": "Sabor Pequena",
+        "option": "Camarão aos 4 queijos PREMIUM",
+        "delta": 25
+      }
+    ]
+  }
+]

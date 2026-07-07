@@ -1,0 +1,20 @@
+[
+  {
+    "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+    "name": "Eu Quero Pizza",
+    "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+    "username": "euqueropizzafoodtruck",
+    "mediaStatusBefore": {
+      "complete": false,
+      "missing": [
+        "logo",
+        "capa",
+        "galeria_min_3"
+      ],
+      "galleryCount": 0,
+      "galleryRows": [],
+      "hasLogo": false,
+      "hasCover": false
+    }
+  }
+]

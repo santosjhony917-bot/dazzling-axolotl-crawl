@@ -1,0 +1,52 @@
+{
+  "id": "27f1b5b7-56c6-49dd-80b5-4273a1dc3761",
+  "name": "Rainha da tapioca",
+  "category": "Cafeteria",
+  "neighborhood": "Cabedelo",
+  "reviews_count": null,
+  "rating": null,
+  "instagramCandidate": "https://instagram.com/rainhadatapioca",
+  "score": 65,
+  "title": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca)",
+  "queries": [
+    "Rainha da tapioca rainhadatapioca Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support",
+    "nearby_unit_conflict:tambau|tambaú|ruy carneiro"
+  ],
+  "evidenceSample": "https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://www.instagram.com/rainhadatapioca/reels/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://instagram.com/rainhadatapioca | Reel by Rainha da Tapioca Nordestina (@rainhadatapioca ... Na Peixada e Restaurante Rainha da Tapioca, você aproveita um self-service sem balança, com comida caseira, variedade, sabor e aquele tempero ... https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordestino que já mora no coração da Paraíba. ❤️ ... https://www.instagram.com/rainhadatapioca/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordesti",
+  "rowName": "Rainha da tapioca",
+  "status": "hold",
+  "best": {
+    "status": "hold",
+    "score": 64,
+    "url": "https://instagram.com/rainhadatapioca",
+    "handle": "rainhadatapioca",
+    "tokens": [
+      "rainha",
+      "tapioca"
+    ],
+    "handleMatches": [
+      "rainha",
+      "tapioca"
+    ],
+    "textMatches": [
+      "rainha",
+      "tapioca"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": false,
+    "evidenceSample": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://www.instagram.com/rainhadatapioca/reels/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://instagram.com/rainhadatapioca | Reel by Rainha da Tapioca Nordestina (@rainhadatapioca ... Na Peixada e Restaurante Rainha da Tapioca, você aproveita um self-service sem balança, com comida caseira, variedade, sabor e aquele tempero ... https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordestino que já mora no coração da Paraíba. ❤️ ... https://www.instagram.com/rainhadatapioca/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordesti Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελλη",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Frainhadatapioca%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "d8854d41-bec5-4a35-8fc0-cb3ac0a3e38e"
+}

@@ -1,0 +1,56 @@
+{
+  "id": "2ebf5453-9be4-469d-afd8-be3ac7833f00",
+  "name": "Restaurante e pizzaria chapa quente",
+  "category": "Pizzaria",
+  "neighborhood": "Centro",
+  "reviews_count": 26,
+  "rating": 4.7,
+  "instagramCandidate": "https://instagram.com/chapaquenteviamao",
+  "score": 120,
+  "title": "Chapa Quente - Restaurante & bar (@chapaquenteviamao)",
+  "queries": [
+    "Restaurante e pizzaria chapa quente chapaquenteviamao Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/chapaquenteviamao | Chapa Quente - Restaurante & bar (@chapaquenteviamao) Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ... https://www.instagram.com/chapaquenteviamao/ | Chapa Quente - Restaurante & bar (@chapaquenteviamao) Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ... https://instagram.com/chapaquenteviamao | Chapa Quente - Restaurante & bar | Sexta-feira pede pizza ... Chapa Quente - Restaurante & bar | Sexta-feira pede pizza no Chapa! Chama os amigos, escolhe o sabor e vem curtir aquela noite leve, com ... https://www.instagram.com/chapaquenteviamao/p/DJux6nLy9wE/?hl=kn",
+  "rowName": "Restaurante e pizzaria chapa quente",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": -36,
+    "url": "https://instagram.com/chapaquenteviamao",
+    "handle": "chapaquenteviamao",
+    "tokens": [
+      "chapa",
+      "quente"
+    ],
+    "handleMatches": [
+      "chapa",
+      "quente"
+    ],
+    "textMatches": [
+      "chapa",
+      "quente"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [
+      "(51) 3046-5510"
+    ],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [
+      "viamao",
+      "viamão"
+    ],
+    "outOfScope": false,
+    "evidenceSample": "Chapa Quente - Restaurante & bar (@chapaquenteviamao) https://instagram.com/chapaquenteviamao | Chapa Quente - Restaurante & bar (@chapaquenteviamao) Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ... https://www.instagram.com/chapaquenteviamao/ | Chapa Quente - Restaurante & bar (@chapaquenteviamao) Desde 2015. Pratos • Petiscos • Lanches • Drinks ☎️ 51 3046-5510 Música ao vivo ⏰Aberto todos os dias Estacionamento gratuito · Promoções imperdíveis para ... https://instagram.com/chapaquenteviamao | Chapa Quente - Restaurante & bar | Sexta-feira pede pizza ... Chapa Quente - Restaurante & bar | Sexta-feira pede pizza no Chapa! Chama os amigos, escolhe o sabor e vem curtir aquela noite leve, com ... https://www.instagram.com/chapaquenteviamao/p/DJux6nLy9wE/?hl=kn Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Българ",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fchapaquenteviamao%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "597538a5-3457-4de0-8649-17b1d8778564"
+}

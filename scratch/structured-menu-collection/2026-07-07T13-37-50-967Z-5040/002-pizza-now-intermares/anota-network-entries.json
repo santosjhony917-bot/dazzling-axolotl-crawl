@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 204,
+    "contentType": "",
+    "capturedAt": "2026-07-07T13:37:56.195Z",
+    "body": null,
+    "error": "Could not load response body for this request. This might happen if the request is a preflight request."
+  },
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "capturedAt": "2026-07-07T13:37:56.364Z",
+    "body": {
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"66042d390db8190019cb6256\",\"webview\":{\"accept_multiple_payments\":false,\"multiple_payments_quantity\":2,\"waiter_accept_tip\":true,\"waiter_tip_percent\":10,\"waiter_order_delivery\":true,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"address_manual\":false,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"8184210041615449\",\"repeat_order_enabled\":true,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"hide_google_search\":false,\"add_disposable\":false,\"color_primary\":\"#FA170C\",\"description\":\"\",\"footer_description\":\"\",\"items_carousel\":\"promo_items\"},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":true},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":true,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"images\":[{\"caption\":\"Pizza 3 Sabores \",\"promotion\":true,\"active_weekday\":4,\"_id\":\"6891ff408d774d0019376448\",\"url\":\"https://s3-us-west-2.amazonaws.com/staginganotaai/establishment/img-1754398526514\"}]},\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"sound_1\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":false},\"cashback\":{\"cashback_by_weekday\":[],\"active\":true,\"cashback_by_category_item\":{\"_id\":\"6946edefbc9238c908731902\",\"categories\":[{\"category_id\":\"6946ed3d23e9a809b40e1627\",\"category_title\":\"Pizzas\",\"category_type\":\"simple_item\",\"percentage\":null,\"mode\":\"item\",\"items\":[{\"item_id\":\"6946ed3d23e9a809b40e1642\",\"item_title\":\"Pizza Individual\",\"category_item_id\":\"6946ed3f23e9a809b40e2f6f\",\"percentage\":5,\"_id\":\"6946edefbc9238c908731904\"}],\"_id\":\"6946edefbc9238c908731903\"},{\"category_id\":\"6946ed3d23e9a809b40e1633\",\"category_title\":\"Pizzas Doces\",\"category_type\":\"simple_item\",\"percentage\":5,\"mode\":\"category\",\"items\":[],\"_id\":\"6946edefbc9238c908731905\"},{\"category_id\":\"6946ed3d23e9a809b40e163a\",\"category_title\":\"Snack | Sanduiche\",\"category_type\":\"simple_item\",\"percentage\":3,\"mode\":\"category\",\"items\":[],\"_id\":\"6946edefbc9238c908731906\"}]},\"mode\":\"category_item\",\"percentage\":5,\"time_to_expire_credits\":30,\"cashback_for_online_payments\":false},\"page_is_online\":true,\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"66042d39a4d6bf0019e044c3\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"name\":\"AVENIDA LITORANEA\",\"num\":\"1592\",\"neighborhood\":\"PONTA DE CAMPINA\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.8340343,-7.031556699999999]},\"postal_code\":\"58.101-650\",\"city\":\"CABEDELO\",\"state\":\"PB\",\"country\":\"BR\",\"complement\":\"Loja 14\",\"reference\":\"GetMall\",\"addressFormated\":\"AVENIDA LITORANEA, 1592 - PONTA DE CAMPINA, CABEDELO - PB, 58.101-650, Brasil\"},\"payment_method\":{\"creditcard\":true,\"money\":false,\"question_card\":true,\"debit\":false,\"online_credit\":false,\"online_tuna\":false,\"pix\":false,\"whatsapp_pay\":false,\"tuna_digital_wallets\":false,\"ifood_payin\":true,\"ifood_payin_credit\":true,\"ifood_payin_debit\":false},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tu"
+    },
+    "error": null,
+    "textLength": 216885
+  }
+]

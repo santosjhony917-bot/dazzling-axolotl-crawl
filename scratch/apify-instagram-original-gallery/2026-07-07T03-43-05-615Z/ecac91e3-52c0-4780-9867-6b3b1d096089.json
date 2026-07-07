@@ -1,0 +1,583 @@
+{
+  "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+  "name": "I love burguer",
+  "username": "iloveburguerpb",
+  "instagram": "https://www.instagram.com/iloveburguerpb/",
+  "applied": false,
+  "forceMedia": false,
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_post_image_api",
+      "postUrl": "https://www.instagram.com/p/DZs93ClBcNM/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 90,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e bem apresentada"
+      }
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_post_image_api",
+      "postUrl": "https://www.instagram.com/p/DYdHWMsmqVr/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e atraente"
+      }
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_post_image_api",
+      "postUrl": "https://www.instagram.com/p/DXP69-Xkfzr/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e bonita"
+      }
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_post_image_api",
+      "postUrl": "https://www.instagram.com/p/DX5EMo1kYNE/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e bem apresentada"
+      }
+    }
+  ],
+  "skipped": [],
+  "profile": {
+    "username": "iloveburguerpb",
+    "followers": 9915,
+    "posts": 121,
+    "profilePic": true,
+    "biography": "🏆 ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO🥇 ABERTO DE QUARTA À SEG - 18h à 01h 📍Praça Getúlio Vargas, 107 📞(83) 99311-5016 ⬇️ Peça no site ⬇️"
+  },
+  "postCount": 32,
+  "candidates": [
+    {
+      "source": "instagram_post_image_api",
+      "score": 106,
+      "postIndex": 8,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZs93ClBcNM/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 90,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e bem apresentada"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 98,
+      "postIndex": 17,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYdHWMsmqVr/",
+      "sourceType": "Image",
+      "width": 936,
+      "height": 1170,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e atraente"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 97,
+      "postIndex": 23,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXP69-Xkfzr/",
+      "sourceType": "Image",
+      "width": 1200,
+      "height": 1500,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e bonita"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 97,
+      "postIndex": 24,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DX5EMo1kYNE/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e bem apresentada"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -118,
+      "postIndex": 2,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZLduKqmnzz/",
+      "sourceType": "Image",
+      "width": 1346,
+      "height": 1683,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com pessoa"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -118,
+      "postIndex": 6,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZf0CC1GgWs/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": true,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "texto dominante"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -120,
+      "postIndex": 0,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZTKjO0mgOD/",
+      "sourceType": "Image",
+      "width": 1039,
+      "height": 1298,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": true,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com mãos segurando comida e rosto como assunto"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -121,
+      "postIndex": 1,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZdfMQAGsKJ/",
+      "sourceType": "Image",
+      "width": 1448,
+      "height": 1931,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -122,
+      "postIndex": 3,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C6RZyKtLHax/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 960,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -123,
+      "postIndex": 7,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DY8G3RbmmNS/",
+      "sourceType": "Image",
+      "width": 1052,
+      "height": 1315,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -124,
+      "postIndex": 4,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZnn98TBrky/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -125,
+      "postIndex": 5,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DaTYQbjBmb-/",
+      "sourceType": "Image",
+      "width": 1876,
+      "height": 2290,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com pessoa/rosto"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -126,
+      "postIndex": 10,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYKO3avDtsr/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -129,
+      "postIndex": 9,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DY29J0mmjIb/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -132,
+      "postIndex": 12,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DaAxiI1hUic/",
+      "sourceType": "Image",
+      "width": 1013,
+      "height": 1266,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -134,
+      "postIndex": 18,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXcyUklDf5B/",
+      "sourceType": "Image",
+      "width": 1200,
+      "height": 1500,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -134,
+      "postIndex": 26,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXz880rGlZG/",
+      "sourceType": "Image",
+      "width": 1347,
+      "height": 1684,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -135,
+      "postIndex": 15,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYk1vXAkZx6/",
+      "sourceType": "Image",
+      "width": 950,
+      "height": 1187,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -136,
+      "postIndex": 16,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYX90IimhAe/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": true,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com rosto/pessoa como assunto"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -138,
+      "postIndex": 19,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYvNtMGmo9i/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": true,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com mãos segurando comida e pessoas como assunto"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -138,
+      "postIndex": 20,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXVD_D-DThq/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -138,
+      "postIndex": 21,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXuxCgemlMa/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -138,
+      "postIndex": 22,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYAypX3EVe-/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1109. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -138,
+      "postIndex": 27,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXnE7Grmrg9/",
+      "sourceType": "Image",
+      "width": 1013,
+      "height": 1266,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": true,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com rosto/pessoa como assunto"
+      }
+    }
+  ],
+  "approvedCount": 4,
+  "after": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "promotion": null,
+  "status": "media_incomplete"
+}

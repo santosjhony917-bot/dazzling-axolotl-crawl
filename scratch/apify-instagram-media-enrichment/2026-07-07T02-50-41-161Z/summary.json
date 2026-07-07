@@ -1,0 +1,15 @@
+{
+  "summary": {
+    "city": "Cabedelo",
+    "state": "PB",
+    "apply": true,
+    "selected": 0,
+    "ok": 0,
+    "rejected": 0,
+    "failed": 0,
+    "promoted": 0,
+    "completedMedia": 0,
+    "outDir": "scratch\\apify-instagram-media-enrichment\\2026-07-07T02-50-41-161Z"
+  },
+  "results": []
+}

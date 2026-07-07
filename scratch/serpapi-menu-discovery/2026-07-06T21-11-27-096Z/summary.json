@@ -1,0 +1,1080 @@
+{
+  "runId": "2026-07-06T21-11-27-096Z",
+  "city": "Cabedelo",
+  "state": "PB",
+  "mode": "instagram",
+  "apply": false,
+  "offset": 160,
+  "delayMs": 350,
+  "complete": true,
+  "processed": 40,
+  "foundGreen": 0,
+  "foundYellow": 37,
+  "foundRedOrNone": 3,
+  "byPlatform": {
+    "instagram": 40
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-11-27-096Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-11-27-096Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-11-27-096Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": "d03f3aca-7cdf-4227-b701-fd1a439be3c5",
+        "name": "Piratas Burger",
+        "category": "Hamburgueria",
+        "address": "Av. Oceano Atlântico, 55",
+        "neighborhood": "Intermares",
+        "rating": 1,
+        "reviews_count": 1
+      },
+      "query": "Piratas Burger Intermares Av. Oceano Atlântico (83) 98155-6636 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 5,
+        "title": "Piratas Art Burger (@piratasartburger)",
+        "link": "https://instagram.com/piratasartburger",
+        "snippet": "O melhor Burger dos 7 mares ‍☠️ Carne fresca grelhada na parrilha Todos os dias a partir das 18h Méier e Jacarepaguá Wathsapp: 21 3449-7944. Follow.",
+        "displayedLink": "Mais de 20 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+        "name": "Pizzaria tá no ponto",
+        "category": "Pizzaria",
+        "address": "R. Ten. Antônio Pontes, 236",
+        "neighborhood": "Vila Sao Joao",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Pizzaria tá no ponto Vila Sao Joao R. Ten. Antônio Pontes Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Pizzaria tá no ponto (@pizzariatanoponto)",
+        "link": "https://instagram.com/pizzariatanoponto",
+        "snippet": "EAI, CLIENTELA ❤️ Delivery e retirada à partir das 17:30. Tenha essa experiência em casa 83 99608-4407. Follow. Message ...",
+        "displayedLink": "Mais de 6,2 mil seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "e445b317-ad12-4b4f-ab07-1289037cd322",
+        "name": "Restaurante Self Sabor",
+        "category": "Restaurante self-service",
+        "address": "R. Carolino Cardoso, 361",
+        "neighborhood": "Lot. Vitorino Cardoso",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Restaurante Self Sabor Lot. Vitorino Cardoso R. Carolino Cardoso Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Restaurante Self Sabor (@_selfsabor) · Cabedelo, PB",
+        "link": "https://instagram.com/_selfsabor",
+        "snippet": "360 followers · 35 posts · 🍽️ Self Sabor Self-service com churrasco Variedade, sabor e capricho ⏱️ Chegou, montou, comeu Praia do Poço – Cabedelo.",
+        "displayedLink": "Mais de 360 seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "fee9720d-1e25-487a-9a73-df9e407e73a6",
+        "name": "Restaurante",
+        "category": "Churrascaria",
+        "address": "R. Cel. José Téles - Vila Sao Joao",
+        "neighborhood": "Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Restaurante Cabedelo R. Cel. José Téles - Vila Sao Joao Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Cibelly Mar | Restaurante Flutuante (@cibellymarr)",
+        "link": "https://instagram.com/cibellymarr",
+        "snippet": "79K followers · 245 posts · Restaurante Flutuante Praia do Jacaré, Cabedelo-PB Frutos do mar e comidas típicas ⏰ Terça a Domingo - das 12h às 20h.",
+        "displayedLink": "Mais de 78,9 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "637f341e-c8bb-4c2d-8ac6-1ffc96d4b2ce",
+        "name": "Restaurante mar de amor",
+        "category": "Restaurante",
+        "address": "Av. Pôr do Sol - Portal do Poço",
+        "neighborhood": "Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Restaurante mar de amor Cabedelo Av. Pôr do Sol - Portal do Poço Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Cibelly Mar | Restaurante Flutuante (@cibellymarr)",
+        "link": "https://instagram.com/cibellymarr",
+        "snippet": "79K followers · 245 posts · Restaurante Flutuante Praia do Jacaré, Cabedelo-PB Frutos do mar e comidas típicas ⏰ Terça a Domingo - das 12h às 20h.",
+        "displayedLink": "Mais de 78,9 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "62958074-8ac2-487e-9cde-9b6c018c34dc",
+        "name": "Empório Do Sabor",
+        "category": "Restaurante",
+        "address": "R. Milton Macedo da Cruz, 222",
+        "neighborhood": "Lot. Oceania VI",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Empório Do Sabor Lot. Oceania VI R. Milton Macedo da Cruz Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Empório do Sabor (@emporio_do_sabor_oficial)",
+        "link": "https://instagram.com/emporio_do_sabor_oficial",
+        "snippet": "Empório do Sabor ✨ Doces & refeições artesanais. Qualidade, sabor e carinho em cada pedido Icó-Ce | Encomendas no Direct ou no whatsapp ...",
+        "displayedLink": "Mais de 1,7 mil seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "e744a813-7f24-4f4c-a422-d54e2c0ab2ff",
+        "name": "Juci",
+        "category": "Cafeteria",
+        "address": "R. Golfo de Cadis, 470",
+        "neighborhood": "Intermares",
+        "rating": 1,
+        "reviews_count": 1
+      },
+      "query": "Juci Intermares R. Golfo de Cadis Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "Chegou o Cabedelo em 1 Minuto! Agora você tem um jeito rápido de ficar por dentro das principais novidades da nossa cidade. Toda semana, um resumo com as ...",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+        "name": "Manguinhos Burguer",
+        "category": "Hamburgueria",
+        "address": "R. Débora Borges Xavier, 29",
+        "neighborhood": "Vila Sao Joao",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Manguinhos Burguer Vila Sao Joao R. Débora Borges Xavier (83) 99831-1272 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Manguinhos Burguer (@manguinhosburguer)",
+        "link": "https://instagram.com/manguinhosburguer",
+        "snippet": "Hambúrguer com Sabor de Churrasco ⏰ Segunda a Domingo 19h30 às 00h00 Jardim Manguinhos - Cabedelo (83) 99673-9986 Cardápio.",
+        "displayedLink": "Mais de 1,8 mil seguidores",
+        "platform": "instagram",
+        "score": 134,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6",
+        "name": "Pizzaria 1000Graus",
+        "category": "Pizzaria",
+        "address": "R. Duque de Caxias, 60",
+        "neighborhood": "Centro",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Pizzaria 1000Graus Centro R. Duque de Caxias (83) 99329-1827 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "I ❤️ Pizza (@ilovepizzapb)",
+        "link": "https://instagram.com/ilovepizzapb",
+        "snippet": "A MELHOR PIZZA DA SUA VIDA ABERTO DE QUARTA À SEG - 18h à 01h R Duque de Caxias, 141 Cabedelo, Paraíba 83 99631-6245",
+        "displayedLink": "Mais de 3,1 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "56b08e89-b750-4ec9-9497-21900cf3d823",
+        "name": "Bar E Restaurante Do Nal",
+        "category": "Restaurante",
+        "address": "R. Cel. José Téles - praia miramar",
+        "neighborhood": "Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Bar E Restaurante Do Nal Cabedelo R. Cel. José Téles - praia miramar (83) 98706-1375 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 6,
+        "title": "Meninas Bar e Restaurante (@meninasbar) · Cabedelos, PB",
+        "link": "https://instagram.com/meninasbar",
+        "snippet": "5.5K+ followers · 53 posts · CONTA OFICIAL Cabedelo - PB Aceitamos todos os cartões Contato: 83 98715-5110 Funcionamos de Domingo a domingo!",
+        "displayedLink": "Mais de 5,5 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "d05af6c4-cbfa-4c6a-9d95-be4bc952d3d9",
+        "name": "Cantinho do açaí",
+        "category": "Sorveteria",
+        "address": "R. Vinicius de Morais - Recanto do Poço",
+        "neighborhood": "Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Cantinho do açaí Cabedelo R. Vinicius de Morais - Recanto do Poço (83) 98621-5532 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 7,
+        "title": "CANTINHO DO AÇAÍ E DOCES",
+        "link": "https://instagram.com/cantinhodoacaiedocess",
+        "snippet": "A combinação perfeita de açaí, creme especial, granola crocante e pitaya fresquinha! ✨ Peça já o seu no Cantinho do Açaí e Doces (83) 99336-0059 ...",
+        "displayedLink": "Mais de 290 seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "c0081954-6410-42be-9abd-96c4300b6ec5",
+        "name": "Cantinho Bom",
+        "category": "Sorveteria",
+        "address": "R. Santa Rita de Cássia, 42",
+        "neighborhood": "Jardim Camboinha",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Cantinho Bom Jardim Camboinha R. Santa Rita de Cássia (83) 99376-7145 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 5,
+        "title": "Cantinho do Pão | Padaria (@cantinhodopaoofc)",
+        "link": "https://instagram.com/cantinhodopaoofc",
+        "snippet": "6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ...",
+        "displayedLink": "Mais de 6,4 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "dfb456d7-1841-474d-bb54-fd442af3e295",
+        "name": "Burguer Hall",
+        "category": "Hamburgueria",
+        "address": "R. Maurício de Alençar Cavalcante - bessa",
+        "neighborhood": "Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Burguer Hall Cabedelo R. Maurício de Alençar Cavalcante - bessa (83) 99382-3317 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Burguer Hall - Bessa📍 (@burguerhall)",
+        "link": "https://instagram.com/burguerhall",
+        "snippet": "| | Hamburgueria Clássica e Artesanal | | Hamburgueria Delivery | ⏰️ | ter. a Dom. | Das 18:00 às 23:00 | | Cardápio via direct.",
+        "displayedLink": "Mais de 390 seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "e20c7fe6-1563-45fc-9a60-96d75acdaa2b",
+        "name": "Zhu Burguer",
+        "category": "Hamburgueria",
+        "address": "Rua em frente à Cardiologica, R. Antônio Dornelas Bezerra - Centro",
+        "neighborhood": "Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Zhu Burguer Cabedelo Rua em frente à Cardiologica, R. Antônio Dornelas Bezerra - Centro (83) 99652-4815 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 5,
+        "title": "I ❤ Burguer (@iloveburguerpb)",
+        "link": "https://instagram.com/iloveburguerpb",
+        "snippet": "ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️. Follow. Message ...",
+        "displayedLink": "Mais de 9,9 mil seguidores",
+        "platform": "instagram",
+        "score": 116,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "667aba33-ec9a-46e2-a5a9-9730071371c3",
+        "name": "Kioske Cantinho do Sabor",
+        "category": "Restaurante",
+        "address": "R. Cleto Campêlo - Vila Sao Joao",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Kioske Cantinho do Sabor Cabedelo R. Cleto Campêlo - Vila Sao Joao Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Kioske Cantinho Do Sabor (@kioskecantinhodosabor)",
+        "link": "https://instagram.com/kioskecantinhodosabor",
+        "snippet": "998 followers · 45 posts · Almoço Jantar Bar Horário: 11:00 às 15:00 Segunda a Sábado 83999161306 Cabedelo-PB Rua Cleto Campelo próx. a balsa.",
+        "displayedLink": "Mais de 990 seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "07528f63-3aed-4cf0-b1cc-81f762be4c00",
+        "name": "Alfa",
+        "category": "Hamburgueria",
+        "address": "R. Dr. Lima Neto, 2008",
+        "neighborhood": "Lot. Nazareth",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Alfa Lot. Nazareth R. Dr. Lima Neto Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 6,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "78K followers · 2.1K+ following · 4879 posts · @prefeituradecabedelo: “Perfil Oficial da Prefeitura Municipal de Cabedelo ⤵️ Acesse:”",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "a4f66e28-5f08-468c-b552-1c96d59744e2",
+        "name": "BIG BURGUER",
+        "category": "Hamburgueria",
+        "address": "R. Duque de Caxias - Vila Sao Joao",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "BIG BURGUER Cabedelo R. Duque de Caxias - Vila Sao Joao Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Big Burger | Hamburgueria Artesanal (@bigburgerof)",
+        "link": "https://instagram.com/bigburgerof",
+        "snippet": "Pioneira em hambúrguer artesanal em Cabedelo desde 2016. Villa do Porto • Box 7 ⏱️ QUA Á SEG 18H ÁS 23H Faça seu pedido e sinta a diferença.",
+        "displayedLink": "Mais de 2 mil seguidores",
+        "platform": "instagram",
+        "score": 134,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+        "name": "Ilovepizzapb",
+        "category": "Pizzaria",
+        "address": "R. Duque de Caxias - Centro",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Ilovepizzapb Cabedelo R. Duque de Caxias - Centro (83) 99631-6245 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "I ❤️ Pizza (@ilovepizzapb)",
+        "link": "https://instagram.com/ilovepizzapb",
+        "snippet": "A MELHOR PIZZA DA SUA VIDA ABERTO DE QUARTA À SEG - 18h à 01h R Duque de Caxias, 141 Cabedelo, Paraíba 83 99631-6245",
+        "displayedLink": "Mais de 3,1 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 13
+    },
+    {
+      "restaurant": {
+        "id": "6315b5cf-756f-416b-b698-4b1c081c6366",
+        "name": "Biruta Burger",
+        "category": "Hamburgueria",
+        "address": "R. Golfo Veneza - Intermares",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Biruta Burger Cabedelo R. Golfo Veneza - Intermares (83) 98176-4185 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 7,
+        "title": "Big Burger | Hamburgueria Artesanal (@bigburgerof)",
+        "link": "https://instagram.com/bigburgerof",
+        "snippet": "Pioneira em hambúrguer artesanal em Cabedelo desde 2016. Villa do Porto • Box 7 ⏱️ QUA Á SEG 18H ÁS 23H Faça seu pedido e sinta a diferença.",
+        "displayedLink": "Mais de 2 mil seguidores",
+        "platform": "instagram",
+        "score": 62,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "0e3f0746-de34-4715-93fc-06a1b5c10e2b",
+        "name": "D Lay Refeições - Marmitaria",
+        "category": "Restaurante de almoço",
+        "address": "Av. Ambrósio Miranda de Araújo - Renascer",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "D Lay Refeições - Marmitaria Cabedelo Av. Ambrósio Miranda de Araújo - Renascer (83) 98676-2921 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "TAPIOCARIA DO DINHO 🔥 (@tapiocariadinho)",
+        "link": "https://instagram.com/tapiocariadinho",
+        "snippet": "Funcionamos de Seg a dom ‼️ ⏰17:30 às 00:00. Delivery ⬇️ | Loja física Av. Ambrósio Miranda de Araújo - renascer,cabedelo. Follow. Message ...",
+        "displayedLink": "Mais de 4 mil seguidores",
+        "platform": "instagram",
+        "score": 44,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      },
+      "candidateCount": 13
+    },
+    {
+      "restaurant": {
+        "id": "78bc8cab-4471-43ea-b776-619a6778caaa",
+        "name": "Churrascaria Do Gaúcho",
+        "category": "Restaurante",
+        "address": "Ponta de Matos",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Churrascaria Do Gaúcho Cabedelo Ponta de Matos Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Rancho Do Gaúcho Cabedelo",
+        "link": "https://instagram.com/popular/rancho-do-ga%C3%BAcho-cabedelo",
+        "snippet": "Terapia Sábado é dia de almoçar o melhor churrasco da região com sua família, 2,326 · Um ano sem você Pumba, te amarei para sempre. 326. Um ano sem você ...",
+        "displayedLink": "https://www.instagram.com › popular › rancho-do-gaúc...",
+        "platform": "instagram",
+        "score": 104,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "f5973934-5e9b-463c-9d2a-a7342c3041e5",
+        "name": "CASA DA PIZZA",
+        "category": "Restaurante",
+        "address": "R. Honório Patrício dos Santos - Recanto do Poço",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "CASA DA PIZZA Cabedelo R. Honório Patrício dos Santos - Recanto do Poço Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 7,
+        "title": "Pizza do Paulinho / Pizzaria em Cabedelo ...",
+        "link": "https://instagram.com/pizzadopaulinhopb",
+        "snippet": "Pizzaria Delivery e Retirada Fechado nas terças (exceto feriados) Aberto das 18:00 as 00:00. É Recheio com força visse!!! pedidos. Follow. Message ...",
+        "displayedLink": "Mais de 3,8 mil seguidores",
+        "platform": "instagram",
+        "score": 68,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "d6f9c697-1969-49b6-8f3e-737b9f74ea23",
+        "name": "Pizzaria NEVARE",
+        "category": "Restaurante",
+        "address": "Av. Araçá - Lot. Oceania VI",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Pizzaria NEVARE Cabedelo Av. Araçá - Lot. Oceania VI Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 8,
+        "title": "Center Pizza Cabedelo PB (@centerpizza_cabedelo)",
+        "link": "https://instagram.com/centerpizza_cabedelo",
+        "snippet": "Estamos ansiosos para apresentar a Center Pizza, sua nova opção de pizza delivery! Nossa missão é oferecer pizzas de alta qualidade, feitas com amor e carinho, ...",
+        "displayedLink": "Mais de 3,4 mil seguidores",
+        "platform": "instagram",
+        "score": 68,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+        "name": "JuJuba sorvete e açaí",
+        "category": "Sorveteria",
+        "address": "R. Edson Ataíde de Lima - Vila Sao Joao",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "JuJuba sorvete e açaí Cabedelo R. Edson Ataíde de Lima - Vila Sao Joao (83) 99160-1338 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 5,
+        "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+        "link": "https://instagram.com/sorveteeacaijujuba/reels",
+        "snippet": "Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ...",
+        "displayedLink": "https://www.instagram.com › sorveteeacaijujuba",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "e4463ab8-c32d-4e3e-aa0c-b93e2a9f7015",
+        "name": "Triniity Burguer",
+        "category": "Hamburgueria",
+        "address": "Vila dos Estivadores, 73",
+        "neighborhood": "Centro",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Triniity Burguer Centro Vila dos Estivadores Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "T R I N I T Y B U R G E R 🔺 (@trinity.burger)",
+        "link": "https://instagram.com/trinity.burger/reels",
+        "snippet": "| NÃO É SOBRE HAMBÚRGUER É SOBRE PESSOAS ❤️ | A 7 anos entregando amor em forma de burger | R. Sd. Cândido da Luz Paiva,4 [MASKA].",
+        "displayedLink": "https://www.instagram.com › trinity.burger",
+        "platform": "instagram",
+        "score": 88,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "57a68170-1982-436a-a5b9-02366f6a999b",
+        "name": "Café cultural",
+        "category": "Cafeteria",
+        "address": "R. Augusto José Couto de Faria - Jardim Camboinha",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Café cultural Cabedelo R. Augusto José Couto de Faria - Jardim Camboinha Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Casa de Cultura DDD83 - Cabedelo ...",
+        "link": "https://instagram.com/casadeculturaddd83_oficial",
+        "snippet": "⭐️ Casa de shows e café cultural em Camboinha! Rua Augusto José Couto de Farias S/N. Cabedelo-PB · Quem não gosta de dar umas boas risadas, né?!",
+        "displayedLink": "Mais de 2,7 mil seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "3d145fe5-ceba-49ab-9b1d-50b6c19118de",
+        "name": "Café Cabedelo",
+        "category": "Cafeteria",
+        "address": "R. Aurélio Guedes Cavalcante - Camboinha",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Café Cabedelo Cabedelo R. Aurélio Guedes Cavalcante - Camboinha (83) 99859-1092 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "Camboinha recebendo o cuidado que merece! O projeto Cabe Mais Cuidado levou um mutirão de limpeza, manutenção, iluminação e organização para melhorar a ...",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "a9c18317-7315-45ac-b488-831923c9fd56",
+        "name": "Deu Pizza Cabedelo",
+        "category": "Pizzaria",
+        "address": "Praça Getúlio Vargas, 95",
+        "neighborhood": "Vila Sao Joao",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Deu Pizza Cabedelo Vila Sao Joao Praça Getúlio Vargas (83) 99339-5381 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 10,
+        "title": "DEU PIZZA (@deupizzacabedelo) · Cabedelo, PB",
+        "link": "https://instagram.com/deupizzacabedelo",
+        "snippet": "Praça Getúlio Vargas, 95 – Centro, Cabedelo Ao lado da Unidentis Faça a sua reserva conosco: (83) 99339-5381 #DeuPizza #AniversárioComPizza #Cabedelo # ...",
+        "displayedLink": "Mais de 1,8 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "8fb49605-7614-4c27-9a31-406de6240e2d",
+        "name": "Espetinho da Praça",
+        "category": "Churrascaria",
+        "address": "Renascer III, R. Raul Seixas - Lot. Joao Paulo",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Espetinho da Praça Cabedelo Renascer III, R. Raul Seixas - Lot. Joao Paulo (83) 98847-1337 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 10,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "Chegou o Cabedelo em 1 Minuto! Agora você tem um jeito rápido de ficar por dentro das principais novidades da nossa cidade. Toda semana, um resumo com as ...",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "6e248922-94fd-4138-86a0-92c7a04fcfff",
+        "name": "cabe 1one açaí",
+        "category": "Sorveteria",
+        "address": "Praça Venâncio Neiva, 11",
+        "neighborhood": "Lj 01 - Centro",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "cabe 1one açaí Lj 01 - Centro Praça Venâncio Neiva (83) 98229-2123 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "link": "https://instagram.com/danieldoacai",
+        "snippet": "Açaíteria & Lanchonete Eleita 4x a melhor açaíteria de Cabedelo Atendimento exclusivo por delivery Pedidos: (83) 98669-5781. Follow.",
+        "displayedLink": "Mais de 5 mil seguidores",
+        "platform": "instagram",
+        "score": 70,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "942e480f-7b67-4aae-9967-e795bdf7502d",
+        "name": "Therê Açaí e Sorvete",
+        "category": "Sorveteria",
+        "address": "R. Duque de Caxias, 489",
+        "neighborhood": "Centro",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Therê Açaí e Sorvete Centro R. Duque de Caxias (83) 99332-8972 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 7,
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "link": "https://instagram.com/danieldoacai",
+        "snippet": "Açaíteria & Lanchonete Eleita 4x a melhor açaíteria de Cabedelo Atendimento exclusivo por delivery Pedidos: (83) 98669-5781. Follow.",
+        "displayedLink": "Mais de 5 mil seguidores",
+        "platform": "instagram",
+        "score": 44,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "65ebdb63-241a-4831-8015-09a936d25b61",
+        "name": "Obra Fest Verão",
+        "category": "Hamburgueria",
+        "address": "Av. Oceano Atlântico - Intermares",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Obra Fest Verão Cabedelo Av. Oceano Atlântico - Intermares Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Fest Verão Paraíba (@festverao_pb)",
+        "link": "https://instagram.com/festverao_pb",
+        "snippet": "O verão é aqui! ☀️ ⛱️ 03 e 17 de Janeiro de 2026 Ponta de Campina, Cabedelo/PB Garanta agora o seu ingresso · 20 verões. 20 histórias. · 20 verões. · 20 anos de ...",
+        "displayedLink": "Mais de 226,1 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "a108a394-1cb3-478b-a857-2d6770d853c4",
+        "name": "Rodizio de caldo do carioca",
+        "category": "Pastelaria brasileira",
+        "address": "Rod. Br Duzentos e Trinta, 187",
+        "neighborhood": "Renascer",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Rodizio de caldo do carioca Renascer Rod. Br Duzentos e Trinta Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 8,
+        "title": "Friozinho combina com aconchego, sabor e aquela ...",
+        "link": "https://instagram.com/p/DYnSzOsIXF0",
+        "snippet": "CALDO de legumes Leve, nutritivo e cheio de sabor! PERFEITO PARA QUALQUER HORA DO DIA! DELIVERY R$ 15,00 A PARTIR DAS 18:30 RODÍZIO R$ 20,00 ...",
+        "displayedLink": "Mais de 100 marcações \"Gostei\" · há 1 mês",
+        "platform": "instagram",
+        "score": 55,
+        "tier": "yellow",
+        "flags": [
+          "instagram_p_not_profile",
+          "instagram_profile_not_canonicalizable",
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "4a19815d-0292-4285-bf3a-25df89ef2bf6",
+        "name": "Queens do Açaí",
+        "category": "Loja de açaí",
+        "address": "R. Cleto Campêlo, 832",
+        "neighborhood": "Camalaú",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Queens do Açaí Camalaú R. Cleto Campêlo (83) 99308-5560 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Queens do Açaí (@queensdoacai) - Cabedelo",
+        "link": "https://instagram.com/queensdoacai",
+        "snippet": "Cabedelo -Mãe e filhas empreendendo❤ -Açaiteria e Sorveteria -Delivery e Retirada -Todos os dias das 13h às 23h. Faça seu pedido no link abaixo ...",
+        "displayedLink": "Mais de 840 seguidores",
+        "platform": "instagram",
+        "score": 126,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "90afab4e-44eb-4068-8c16-09dc29a585c8",
+        "name": "Rua São Miguel 159",
+        "category": "Hamburgueria",
+        "address": "R. São Miguel, 159",
+        "neighborhood": "Camalaú",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Rua São Miguel 159 Camalaú R. São Miguel Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 5,
+        "title": "São Miguel Arcanjo 🙏 Enviamos para todo o Brasil. Catálogo ...",
+        "link": "https://instagram.com/reel/C-tFnmYyLSQ",
+        "snippet": "... Miguel Arcanjo Enviamos para todo o Brasil. Catálogo no link da Bio. (83) 99957-6399 ⁣ Atendimento presencial:⁣ Cabedelo/PB: Pôr do ...",
+        "displayedLink": "Mais de 160 marcações \"Gostei\" · há 1 ano",
+        "platform": "instagram",
+        "score": 57,
+        "tier": "yellow",
+        "flags": [
+          "instagram_reel_not_profile",
+          "instagram_profile_not_canonicalizable"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "b70edc4d-f352-4cc1-9680-4f5d6cd5c773",
+        "name": "gat mal ponta de campina",
+        "category": "Churrascaria",
+        "address": "Av. Oceano Atlântico - Intermares",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "gat mal ponta de campina Cabedelo Av. Oceano Atlântico - Intermares Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Get Mall | Seu Shopping em Cabedelo (@getmall.oficial)",
+        "link": "https://instagram.com/getmall.oficial",
+        "snippet": "Funcionamos todos os dias, das 11h às 23h. Parque Dino a partir das 17h. Av. Oceano Atlântico, 1592 - Ponta de Campina. Follow.",
+        "displayedLink": "Mais de 2,8 mil seguidores",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 13
+    },
+    {
+      "restaurant": {
+        "id": "9aad8169-49b0-4726-9924-14ec8b6f9d38",
+        "name": "Nossa Pizza",
+        "category": "Pizzaria",
+        "address": "Av. Maria de Oliveira Gomes - Portal do Poço",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Nossa Pizza Cabedelo Av. Maria de Oliveira Gomes - Portal do Poço (83) 99649-4684 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 8,
+        "title": "Center Pizza Cabedelo PB (@centerpizza_cabedelo)",
+        "link": "https://instagram.com/centerpizza_cabedelo",
+        "snippet": "A pizza mais comentada de Cabedelo Muito recheio + massa artesanal Villa Porto Peça agora no delivery · A mais pedida!! #pizza #pizzacabedelo # ...",
+        "displayedLink": "Mais de 3,4 mil seguidores",
+        "platform": "instagram",
+        "score": 68,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+        "name": "VITAMINA DE AÇAÍ",
+        "category": "Restaurante",
+        "address": "Av. Ambrósio Miranda de Araújo - Renascer",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "VITAMINA DE AÇAÍ Cabedelo Av. Ambrósio Miranda de Araújo - Renascer Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Vitamina de açai | 01 da city ®🥇 (@vitaminadeacai__)",
+        "link": "https://instagram.com/vitaminadeacai__",
+        "snippet": "Eleita a melhor de cabedelo Delivery mais completo da city Terça a domingo 15h30 ás 22h30 Pedido link abaixo⬇️.",
+        "displayedLink": "Mais de 1,7 mil seguidores",
+        "platform": "instagram",
+        "score": 126,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "a62661ec-86ed-4ed2-8144-f105736312ad",
+        "name": "food service",
+        "category": "Hamburgueria",
+        "address": "Muro da São Brás, R. Floresta - Camboinha",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "food service Cabedelo Muro da São Brás, R. Floresta - Camboinha (83) 99139-5546 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "Chegou o Cabedelo em 1 Minuto! Agora você tem um jeito rápido de ficar por dentro das principais novidades da nossa cidade. Toda semana, um resumo com as ...",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 32,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      },
+      "candidateCount": 12
+    },
+    {
+      "restaurant": {
+        "id": "725b6497-4be9-4426-a2c0-dd3b55ff7956",
+        "name": "Espetinho Pé na Areia",
+        "category": "Restaurante",
+        "address": "R. Gameleira, 23",
+        "neighborhood": "Amazonia Park",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Espetinho Pé na Areia Amazonia Park R. Gameleira (83) 98689-2722 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 8,
+        "title": "Verano Praia Bar (@veranopraiabar)",
+        "link": "https://instagram.com/veranopraiabar",
+        "snippet": "Bar e restaurante de praia pé na areia BR 230, Sport Marina, Cabedelo ⏰ Aberto todos os dias • 9h às 17h ☎️ 83 3206-0072 Nosso cardápio.",
+        "displayedLink": "Mais de 10,5 mil seguidores",
+        "platform": "instagram",
+        "score": 112,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 13
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "url": "https://paineln8n-webhook.remarket.softcomia.com/webhook/remarket-config?merchantId=4c801932-2485-4f56-a90e-d089fac73b4c",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 55,
+  "textSample": "{\"delay_minutes\":30,\"expiration_hours\":8,\"active\":true}",
+  "jsonKeys": [
+    "delay_minutes",
+    "expiration_hours",
+    "active"
+  ],
+  "json": {
+    "delay_minutes": 30,
+    "expiration_hours": 8,
+    "active": true
+  }
+}

@@ -1,0 +1,6389 @@
+[
+  {
+    "id": "799763e1-04c1-495d-a7ea-5489a0897da8",
+    "name": "A Casa do Lanche",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+    "name": "A Casa do Temakinho",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "436f9cd0-dff9-44c9-b070-180629e7a50e",
+    "name": "Acai",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "352e2216-3bb5-4742-9960-374c9ca64e13",
+    "name": "Açai",
+    "redCount": 7,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "935e3614-8815-4e2e-bddf-01ac5b254832",
+    "name": "Açaí Araxá",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e6b82c85-d208-4590-8889-6aa3de57c7a5",
+    "name": "Açaí da Cris",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+    "name": "Açaí da Hill Point",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e3acb420-5c76-4087-a1a7-0de39e4e3162",
+    "name": "Açaí do Pará Intermares",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "393e1305-e40d-4281-99c5-ebe01cc24c27",
+    "name": "Açaí Jacaré Beach",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "07528f63-3aed-4cf0-b1cc-81f762be4c00",
+    "name": "Alfa",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9f1c7086-a96a-49c9-b537-9fb9565841fd",
+    "name": "Ancoradouro Ponta de Campina",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "2b235799-a9b7-4b5b-b754-6aced57e707b",
+    "name": "Atlântico bar, cabedelo",
+    "redCount": 7,
+    "issueCodes": [
+      "logradouro_com_bairro_embutido",
+      "bairro_igual_cidade",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_bairro_embutido",
+        "value": "Cassiano, Av. Cassiano da Cunha Nóbrega - Ponta de Matos"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "8162456c-2817-4a8a-bbab-aa875c29419e",
+    "name": "Bar das Meninas Restaurante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+    "name": "BAR DO CHEFF RESTAURANTE",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "56b08e89-b750-4ec9-9497-21900cf3d823",
+    "name": "Bar E Restaurante Do Nal",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "10f71936-a4b9-4c9b-b2c4-d1c709081a93",
+    "name": "Bar e Restaurante do Pessoinha",
+    "redCount": 6,
+    "issueCodes": [
+      "logradouro_com_estado_ou_cep_embutido",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_estado_ou_cep_embutido",
+        "value": "PB-011"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a43626c7-89fe-497c-940e-ffeabc8475fb",
+    "name": "Bar e Restaurante do Sumé",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "90398f02-4ae4-44a1-bd64-3f008fdca37c",
+    "name": "Bar e Restaurante Solânense",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "41451228-761b-4912-a7f7-c4407a1010bd",
+    "name": "Barraca Do Anão",
+    "redCount": 3,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9092bbb6-9b7e-4aff-a990-7edecd6f155b",
+    "name": "Bebel & Jó Pizzaria",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a4f66e28-5f08-468c-b552-1c96d59744e2",
+    "name": "BIG BURGUER",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "662a40d4-3612-4ca1-ad28-615646294ea8",
+    "name": "Big Jack comida de rua com INSPIRAÇÃO texana",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "274e26ff-b503-440c-8c30-411d9d7c361f",
+    "name": "Big lanches camboinha",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "6315b5cf-756f-416b-b698-4b1c081c6366",
+    "name": "Biruta Burger",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "2e4d043d-4eae-48c9-852a-f81b7ef842f5",
+    "name": "Bom apetite",
+    "redCount": 7,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "133c9168-09a2-4fbc-b42e-af5ac51d23cb",
+    "name": "Bom Tempero Restaurante",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "3e32d9c6-3c16-47a9-912a-b3627b13088d",
+    "name": "Bonitinha das tapiocas",
+    "redCount": 7,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "68fc5124-13a8-4ec7-a2da-164074c0ea76",
+    "name": "Bonna Gelateria Ponta de Campina",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "166ab094-fea7-412e-9386-d0517895dbb4",
+    "name": "Bras Coffee",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "f193a559-db9e-4530-be1f-889d9cd213ae",
+    "name": "Burger Prime",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "dfb456d7-1841-474d-bb54-fd442af3e295",
+    "name": "Burguer Hall",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "6e248922-94fd-4138-86a0-92c7a04fcfff",
+    "name": "cabe 1one açaí",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "3d145fe5-ceba-49ab-9b1d-50b6c19118de",
+    "name": "Café Cabedelo",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "57a68170-1982-436a-a5b9-02366f6a999b",
+    "name": "Café cultural",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "1d3e88fe-546d-4e89-a3e5-0ab54670cfea",
+    "name": "Cafeteria Deus Seja Louvado",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "6b65edcc-4d44-4dd4-82c8-36291fdef22b",
+    "name": "Caiçara Bar e Restaurante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "98a3b276-2cfa-4c15-902a-aedb022cc215",
+    "name": "Caldeirão Nordestino - Caldinho e Nhoques Cabedelo",
+    "redCount": 4,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "de5e3f48-dddc-4872-823a-71ba50fe51ab",
+    "name": "Caldinho Prime Formosa",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "c0081954-6410-42be-9abd-96c4300b6ec5",
+    "name": "Cantinho Bom",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "d05af6c4-cbfa-4c6a-9d95-be4bc952d3d9",
+    "name": "Cantinho do açaí",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "ca0f0788-f272-4859-826e-38af8e426eef",
+    "name": "Caribe burger",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "f5973934-5e9b-463c-9d2a-a7342c3041e5",
+    "name": "CASA DA PIZZA",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "fd64e520-194c-4a69-a6e7-1ea6f8213889",
+    "name": "Casa de Taipa",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "26db3732-fd9f-499c-927c-dc3da2505fcb",
+    "name": "Casa Di Mainha",
+    "redCount": 8,
+    "issueCodes": [
+      "logradouro_com_bairro_embutido",
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_bairro_embutido",
+        "value": "R. Prof. João Lelis de Luna Freire - Jardim Jerico"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "72606188-4454-4890-a671-a65d4d08f024",
+    "name": "Casa Do Pastel",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+    "name": "Center Pizza Cabedelo",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "2d89c5e8-5bf4-4d1f-9720-58513e1ab377",
+    "name": "Chapa Quente Lanches e Refeições",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e794929f-0b9f-43b8-a5c6-6d37a38dcb23",
+    "name": "Chié artesanato e comedoria",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "17948cd2-fa0d-4c8a-a785-6dfa92101d75",
+    "name": "China Mix e Pizzaria",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4f71666b-ecb6-4963-9201-86bcc7d29c66",
+    "name": "churrascaria do biu",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "1eca2999-0514-4887-b108-dc65ae31e6b6",
+    "name": "Churrascaria do Caicó",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "78bc8cab-4471-43ea-b776-619a6778caaa",
+    "name": "Churrascaria Do Gaúcho",
+    "redCount": 7,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b445cc86-f4d5-43eb-84eb-d204898121d9",
+    "name": "Churrascaria do Pernambucano",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "acb457db-a5d7-408e-a3b5-c9cfb3caff7b",
+    "name": "Cibelly Bar & Restaurante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "3549abc7-3261-4ec3-af59-820112bd2358",
+    "name": "Cibelly Mar - Restaurante no Por do Sol do Jacaré",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a6c05dbd-0f69-41b7-8d08-0a9f8bcb8dc2",
+    "name": "Coffee Cake Açaiteria",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a5b3b91b-c725-4b83-8153-f16e63c9d4c4",
+    "name": "Coffee Shop São Braz",
+    "redCount": 8,
+    "issueCodes": [
+      "logradouro_vazio",
+      "bairro_vazio",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "27df6fb8-c364-4b9d-be49-8ddb961464a2",
+    "name": "Cosmo Lanches",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "d90b585e-8b14-442e-993f-457ad253dc8f",
+    "name": "CTG Saudade Da Querência",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0e3f0746-de34-4715-93fc-06a1b5c10e2b",
+    "name": "D Lay Refeições - Marmitaria",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9b42e70d-f7a8-4db1-bc19-83d935d84b55",
+    "name": "D'gust Lanchonete",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "799a8b26-d8ce-4820-b94c-d6589a8507b4",
+    "name": "Daniel do Açaí",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "738fac6b-80b9-4424-bfb2-3ae18488cfcb",
+    "name": "Davi do Coco",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a9c18317-7315-45ac-b488-831923c9fd56",
+    "name": "Deu Pizza Cabedelo",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+    "name": "Empadinhas Barnabé - Intermares",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "62958074-8ac2-487e-9cde-9b6c018c34dc",
+    "name": "Empório Do Sabor",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "80b5b1fc-6d5a-4b7d-ab56-f1aadcf1c403",
+    "name": "Erste Sonne Cervejaria Independente",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0ca69331-2d1e-48f9-8401-dffb785df697",
+    "name": "ESFIELDS",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+    "name": "Espaço Do Sushi",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "19adbb1c-6894-4306-8468-d84cba24eed6",
+    "name": "Espetinh",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "8fb49605-7614-4c27-9a31-406de6240e2d",
+    "name": "Espetinho da Praça",
+    "redCount": 7,
+    "issueCodes": [
+      "logradouro_com_bairro_embutido",
+      "bairro_igual_cidade",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_bairro_embutido",
+        "value": "Renascer III, R. Raul Seixas - Lot. Joao Paulo"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+    "name": "Espetinho da praia Intermares",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "ee3d9e13-53b5-4288-a5e0-e2b421049135",
+    "name": "Espetinho do xandao",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "7c7122af-3461-4317-853e-634eaadcc895",
+    "name": "Espetinho lá Brasil",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "725b6497-4be9-4426-a2c0-dd3b55ff7956",
+    "name": "Espetinho Pé na Areia",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4e7acf35-2f23-41de-89f6-1a98cf6e0b4b",
+    "name": "Espetinho São Paulo",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "13cacb5e-52f2-4d8c-80ed-26c53a847ea9",
+    "name": "Esquina do galeto",
+    "redCount": 7,
+    "issueCodes": [
+      "bairro_vazio",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0a91fc09-ad7d-4141-8d4d-82a732b61565",
+    "name": "Ethic Alimentos",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0f02c321-43d9-480f-be67-bc650e00d0d2",
+    "name": "Eu Quero Burguer",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "68fed341-d74c-4c02-806c-a217e74b7d2f",
+    "name": "Fatia do Céu",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a62661ec-86ed-4ed2-8144-f105736312ad",
+    "name": "food service",
+    "redCount": 7,
+    "issueCodes": [
+      "logradouro_com_bairro_embutido",
+      "bairro_igual_cidade",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_bairro_embutido",
+        "value": "Muro da São Brás, R. Floresta - Camboinha"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+    "name": "Forneria Brasil Express 🍕",
+    "redCount": 4,
+    "issueCodes": [
+      "logradouro_vazio",
+      "bairro_vazio",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4afb52ad-1fa0-493f-be6c-8275d6664324",
+    "name": "Galeteria D'intermares",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b70edc4d-f352-4cc1-9680-4f5d6cd5c773",
+    "name": "gat mal ponta de campina",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0076b4c5-2d07-416e-a1ac-3ed9e83e02e5",
+    "name": "Gigante Do Mar Beach",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "970fe52c-b7f8-46bf-a594-93b443b6d3e5",
+    "name": "Guaiamum & Cia - Cabedelo PB",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "49423823-d994-4263-9597-cb829e208129",
+    "name": "Home Smash Burger",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "67b9591e-9ba2-4db0-b81f-4cd2d45d03ad",
+    "name": "Hora Da Pizza",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "76a39b5d-8130-4119-a4a5-87e8ea3020b8",
+    "name": "Ilha Dourada Restaurante",
+    "redCount": 6,
+    "issueCodes": [
+      "logradouro_com_estado_ou_cep_embutido",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_estado_ou_cep_embutido",
+        "value": "BR -230"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "96470002-e402-4b16-aa38-565e946cd0cc",
+    "name": "Intermares",
+    "redCount": 8,
+    "issueCodes": [
+      "logradouro_vazio",
+      "bairro_vazio",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "fa5d1264-03c0-491d-a52a-4bad168948b0",
+    "name": "JKZ Alimentos (AÇAÍto)",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "6a2fdb0c-b4ce-4085-9d59-b1240d59009a",
+    "name": "JL Bolos",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e744a813-7f24-4f4c-a422-d54e2c0ab2ff",
+    "name": "Juci",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+    "name": "JuJuba sorvete e açaí",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "133ad582-46f6-4334-a2b7-34ecd3c5287b",
+    "name": "Kikão Cachorro Quente",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "667aba33-ec9a-46e2-a5a9-9730071371c3",
+    "name": "Kioske Cantinho do Sabor",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "98e8a6d7-3943-47e6-8b2c-491972c7e4f1",
+    "name": "KIOSQUE CANTINHO DA PRAÇA",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "55d451bc-f6ee-40f5-b611-7ef6158392d5",
+    "name": "Kubanacan Bar e Restaurante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "1c95b48d-3189-4496-8e70-4e9167967964",
+    "name": "La casa de pastel e La Pizza Premium",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "36ef5eca-78a6-42d3-9571-3d71148f5b13",
+    "name": "Laila Comida Oriente Médio",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "28b2ef44-31b3-47b1-bd94-5c69a5a42f17",
+    "name": "Lanchonete e Pizzaria Popular",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e9ce78de-b4a7-4532-a778-a7807dc0dabe",
+    "name": "Lanchonete por do sol",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e6406971-6d1b-4cfa-b3ea-c056097219b8",
+    "name": "LeFit - Comida Saudável",
+    "redCount": 8,
+    "issueCodes": [
+      "logradouro_com_bairro_embutido",
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_bairro_embutido",
+        "value": "Av. Oceano Pacífico - Intermares"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9488d27a-7737-4c86-b059-0e16a6fb049d",
+    "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "80b5f0be-adea-4b91-8b8e-ee162f79f973",
+    "name": "M E Refeição",
+    "redCount": 7,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b6baa6f0-a148-49d2-830d-ea22a28cfeae",
+    "name": "Magela Pizzaria",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9007523d-76dc-4621-a738-134d99dfddd1",
+    "name": "Manos Burger Cabedelo",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "c73bb2a7-5e2a-4f2e-8334-daaea6b12b84",
+    "name": "Mão Branca bar e resturante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "1a2bf81d-2228-463f-ab7a-0dbf5ee3d27c",
+    "name": "Marcos Lanches",
+    "redCount": 3,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "dcfb81cb-40ef-4a02-9e77-ef4c37a1f84f",
+    "name": "Marmitaria Jacaré",
+    "redCount": 9,
+    "issueCodes": [
+      "logradouro_com_bairro_embutido",
+      "logradouro_com_estado_ou_cep_embutido",
+      "bairro_igual_cidade",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_bairro_embutido",
+        "value": "R. Jair Cunha Cavalcanti - Lot. Oceania VI"
+      },
+      {
+        "severity": "red",
+        "code": "logradouro_com_estado_ou_cep_embutido",
+        "value": "R. Jair Cunha Cavalcanti - Lot. Oceania VI"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "04f7bdf2-230d-4224-99d5-aea50cefc56f",
+    "name": "Mary Refeições",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4ddf6e22-ced9-47e4-b213-c378d233f04d",
+    "name": "MB Marmitas | Marmitaria em João Pessoa",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b800fc7b-5bbe-44e1-b964-f96e36d4700a",
+    "name": "Me gusta Açaí",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4c1d29a3-c1f5-49a9-989e-e355727b1c0d",
+    "name": "Medellín Café(São Braz Expresso)",
+    "redCount": 8,
+    "issueCodes": [
+      "logradouro_vazio",
+      "bairro_vazio",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "f917b01d-4f06-48a7-9bba-fcb85f0201c7",
+    "name": "Mega Pizza",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "538d1975-cdfa-4c9f-97f6-ddee94efc67b",
+    "name": "Meio Quilo",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "6e825bdf-c07e-4b4c-ab3e-98d7fe713928",
+    "name": "Melhor Sabor - Churrascaria e Self-Service",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "c7306a7c-c69a-413e-b196-29a7847f29c7",
+    "name": "Messe Cafeteria",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "51776391-e0c6-4348-a640-b35b4fb34bb2",
+    "name": "Mimu's da Geisi confeitaria",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b95fcf06-a8e5-43ff-b86f-7770d2759908",
+    "name": "Mirante Lounge",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "7ea72c68-7a72-41e1-89e4-ecabaf00d859",
+    "name": "ML Açaíteria",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "ea0bb6d3-17df-4665-b715-32054f497d99",
+    "name": "Na brasa hambúrgueria",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9c83d3fb-60df-4b9a-8687-05e889cfef48",
+    "name": "Nena Doceria & Salgaderia",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9aad8169-49b0-4726-9924-14ec8b6f9d38",
+    "name": "Nossa Pizza",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "775e0a86-b7d6-48a7-a84b-619164add8f9",
+    "name": "Numar Bar e Restaurante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "bd7494af-1c04-49da-973a-f9de6dafe780",
+    "name": "NutriFit Marmita Fitness Congeladas",
+    "redCount": 3,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "65ebdb63-241a-4831-8015-09a936d25b61",
+    "name": "Obra Fest Verão",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "17a6f6c2-9f28-453f-a22d-71e7abd3dcfd",
+    "name": "Oliver Grill e Espetos",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "297a6b03-242d-4d91-9f64-73e736972946",
+    "name": "Oxi Burguer Cabedelo",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+    "name": "PARCEIRO Rosa Lanches",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "58f3eb00-556c-496a-abee-790e691903ce",
+    "name": "Pastel do Thiago",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "98181d40-599b-4cb9-89c9-d65dca257d97",
+    "name": "Pastelão da BR",
+    "redCount": 6,
+    "issueCodes": [
+      "logradouro_com_estado_ou_cep_embutido",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_estado_ou_cep_embutido",
+        "value": "BR-230"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "8d326630-6c57-4b8f-996f-f2a71d56c9a4",
+    "name": "Pastelaria Arretada",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4990a612-f3ae-4ca1-959b-694fc7d59b9e",
+    "name": "Pastelaria em família",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+    "name": "Pastelaria Litorânea",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0ea2219a-fb1e-47e2-9e40-7da6a335dbd6",
+    "name": "Pastelle (Pastelaria artesanal)",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e078124e-e310-47b9-aa46-38ea0c3b8bf1",
+    "name": "PAULISTA BURGER",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+    "name": "Pipa Sushi & Temakeria",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "d03f3aca-7cdf-4227-b701-fd1a439be3c5",
+    "name": "Piratas Burger",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+    "name": "Pizza do Paulinho",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "35c95d02-3a7b-480d-8061-b276ee281fca",
+    "name": "Pizza Família Cipriano",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+    "name": "Pizza Now - Intermares",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6",
+    "name": "Pizzaria 1000Graus",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+    "name": "Pizzaria Bom Sabor",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "eae14867-4b70-4fb0-93eb-303b35931ab3",
+    "name": "Pizzaria Bom Sabor Camboinha",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e88b7772-a307-4cca-a7b8-e3c7f6502788",
+    "name": "Pizzaria Jacaré",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "d6f9c697-1969-49b6-8f3e-737b9f74ea23",
+    "name": "Pizzaria NEVARE",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0160d19f-be11-446b-a6c5-5048889fff57",
+    "name": "Pizzaria nock_nhock",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+    "name": "Pizzaria tá no ponto",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "26a7afa5-c616-42d9-9ec1-1c6783c59832",
+    "name": "Ponta De Campina",
+    "redCount": 8,
+    "issueCodes": [
+      "logradouro_vazio",
+      "bairro_vazio",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "name": "Porto do açaí",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "afa4d143-2996-418e-af22-d839e60b546a",
+    "name": "Porto do Café",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a63697f7-4a89-48fe-a681-c5f74973b5e5",
+    "name": "Praça do açaí de Intermares",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a0f83830-77b8-4f8f-850d-be06b6658efb",
+    "name": "Praçaí - Intermares",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+    "name": "Primo Rico",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4a19815d-0292-4285-bf3a-25df89ef2bf6",
+    "name": "Queens do Açaí",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "27f1b5b7-56c6-49dd-80b5-4273a1dc3761",
+    "name": "Rainha da tapioca",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "47118179-91f8-4cd7-a84d-f015a7d6033f",
+    "name": "Ravellas - Food Truck",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b91f652e-112d-4dcf-921c-4df6c2d1700f",
+    "name": "Recanto do Pastel",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0a3b0f9a-629f-41ff-b213-eeb69d825dc2",
+    "name": "Renapizza",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487",
+    "name": "Residência do Mário",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "fee9720d-1e25-487a-9a73-df9e407e73a6",
+    "name": "Restaurante",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e3c86dc8-4ac8-4ae0-84f9-83e6167d3570",
+    "name": "Restaurante da Helena",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "37ab4f58-d719-4d80-a795-591129dcd723",
+    "name": "RESTAURANTE DA WILMA",
+    "redCount": 6,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "2ebf5453-9be4-469d-afd8-be3ac7833f00",
+    "name": "Restaurante e pizzaria chapa quente",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "637f341e-c8bb-4c2d-8ac6-1ffc96d4b2ce",
+    "name": "Restaurante mar de amor",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "59147bb0-0a1d-4493-a05a-ba54bd8cd26c",
+    "name": "Restaurante Ondas",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "5824ab85-d0ca-4987-aa50-aa45faa631ad",
+    "name": "Restaurante Recanto do Picuí Intermares",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e445b317-ad12-4b4f-ab07-1289037cd322",
+    "name": "Restaurante Self Sabor",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a108a394-1cb3-478b-a857-2d6770d853c4",
+    "name": "Rodizio de caldo do carioca",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0f0b83e3-c399-4f1a-89d6-34cf485b2608",
+    "name": "Rope Espetos",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+    "name": "Route Hot Dogs",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "90afab4e-44eb-4068-8c16-09dc29a585c8",
+    "name": "Rua São Miguel 159",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "743c1d75-28df-42ef-ba44-663a736f9783",
+    "name": "Sabor da infância no pôr do sol",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "6a5072b1-12a8-4613-be77-4d8f4f47ab48",
+    "name": "Sakê Temakeria Ponta de Campina, Cabedelo",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b8af185f-1f89-48cd-87b1-21adff9bc2cd",
+    "name": "São Braz S/A",
+    "redCount": 8,
+    "issueCodes": [
+      "logradouro_vazio",
+      "bairro_vazio",
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "38a4f9a5-b40f-4f79-b124-3dffd9f2c0c5",
+    "name": "Sarau Pizza Bar",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "dce45040-f5ad-45a1-9029-04e65ce13e78",
+    "name": "Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "26330241-3dbd-449f-ac54-9b789abc4a01",
+    "name": "Self service da GG",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a9904835-65ca-4efd-9caf-c8c7354f9ee5",
+    "name": "Self-service da nany",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a6bf4269-0471-4d9f-b207-0adfc6308285",
+    "name": "Seu Jerônimo",
+    "redCount": 3,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2",
+    "name": "Skama Bar e Restaurante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "646b1437-0afa-4aef-b8e4-7a83bce3f43f",
+    "name": "Sol e mar restaurante e self service",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "da4479b5-3306-409a-808e-b65982c120f8",
+    "name": "Sonne Haus Hambúrgueria",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "4fbc3698-a161-4c24-b3ff-4ed4a22e2b41",
+    "name": "Sorv&cia",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+    "name": "Sorveteria Frutos de Goiás - Cabedelo",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "7c405790-3fe5-455d-9a65-8d12b2236e50",
+    "name": "Sorveteria glacial",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9acd9efa-a669-453b-a548-2387fa2e7612",
+    "name": "Sorveteria Tropical",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e593d18c-792e-4c38-b9c4-4b34d62f7aa6",
+    "name": "South Beach | Açaí, Sorveteria e Cremes",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0aab67a1-5843-4fe8-933a-45b0f8a67321",
+    "name": "Sport Marina",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+    "name": "Sushiyaki Restaurante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b75a8384-f80f-4a6b-a230-d363cea67597",
+    "name": "Tapioca Sabor Natural",
+    "redCount": 6,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "3a22854f-4f10-4a9c-9bdc-cd40abef570e",
+    "name": "Tapiocaria da Edna Paraiba",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "b37d1742-e516-4b41-9c93-8d64ef33f9c2",
+    "name": "Tapiocaria da moça",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "2386896b-b1f2-4d3a-9a12-edb93d96a24f",
+    "name": "Tapiocaria da zeti",
+    "redCount": 6,
+    "issueCodes": [
+      "bairro_igual_cidade",
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "fbf76b65-220f-4ae7-89fc-fec690985eda",
+    "name": "Tapiocaria do Dinho",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "cec28f47-fb35-4c1b-af88-4af762996479",
+    "name": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "63e642dd-ed66-42a7-ae08-d395f8110b6d",
+    "name": "Tempero De Casa",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "d7d014d6-8d90-440c-a2ab-caee3b86bb0d",
+    "name": "Tenda Formosa Bar & Restaurante",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "942e480f-7b67-4aae-9967-e795bdf7502d",
+    "name": "Therê Açaí e Sorvete",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+    "name": "Tia Graça Cafeteria e Doceria",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "d8c6249e-fab7-4e9b-a189-861ea7d8d40a",
+    "name": "Toca da Árvore",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e4463ab8-c32d-4e3e-aa0c-b93e2a9f7015",
+    "name": "Triniity Burguer",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "5ba77eda-968b-407b-aaa9-4c6d641e66cb",
+    "name": "Tropical Burgz",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9caafb45-c961-481d-8261-0aea2b1e4eec",
+    "name": "Valéria Lanches Delivery",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "63b2f87b-0602-47f2-85ac-a7a3ab040621",
+    "name": "Vanda da coxinha cabedelo PB",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "74a5c779-4ae7-4e7f-a91f-372783779162",
+    "name": "Varanda da pizza Delivery",
+    "redCount": 5,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "0558e6bf-f6d6-41f5-b20d-d7adcb9dccdd",
+    "name": "Viciados em Sushi",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e",
+    "name": "Villa Porto",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+    "name": "VITAMINA DE AÇAÍ",
+    "redCount": 2,
+    "issueCodes": [
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "e20c7fe6-1563-45fc-9a60-96d75acdaa2b",
+    "name": "Zhu Burguer",
+    "redCount": 4,
+    "issueCodes": [
+      "logradouro_com_bairro_embutido",
+      "bairro_igual_cidade",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "logradouro_com_bairro_embutido",
+        "value": "Rua em frente à Cardiologica, R. Antônio Dornelas Bezerra - Centro"
+      },
+      {
+        "severity": "red",
+        "code": "bairro_igual_cidade",
+        "value": "Cabedelo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  }
+]

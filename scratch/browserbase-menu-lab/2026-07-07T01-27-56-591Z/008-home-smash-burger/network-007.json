@@ -1,0 +1,93 @@
+{
+  "url": "https://payment.yooga.com.br/payment-method/6d26399e-fed7-4799-9607-1c97b9d6309f/enabled",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 1238,
+  "textSample": "[{\"id\":1,\"methods\":[{\"id\":1,\"name\":\"PIX\",\"feeValue\":0.0,\"feeType\":\"VALUE\",\"transactionFeeValue\":1.0,\"transactionFeeType\":\"VALUE\",\"enabled\":false,\"createdAt\":\"2023-04-25T11:06:15\",\"updatedAt\":null,\"deletedAt\":null}],\"name\":\"ITAU\",\"enabled\":false,\"createdAt\":\"2023-04-25T11:05:53\",\"updatedAt\":null,\"deletedAt\":null},{\"id\":2,\"methods\":[{\"id\":2,\"name\":\"CREDIT\",\"feeValue\":0.0,\"feeType\":\"VALUE\",\"transactionFeeValue\":0.0,\"transactionFeeType\":\"VALUE\",\"enabled\":false,\"createdAt\":\"2023-10-17T14:59:23\",\"updatedAt\":\"2023-10-17T14:59:23\",\"deletedAt\":null}],\"name\":\"PAGARME\",\"enabled\":false,\"createdAt\":\"2023-10-17T14:11:20\",\"updatedAt\":\"2023-10-17T14:11:20\",\"deletedAt\":null},{\"id\":4,\"methods\":[{\"id\":6,\"name\":\"GOOGLE_PAY\",\"feeValue\":0.0,\"feeType\":\"VALUE\",\"transactionFeeValue\":0.0,\"transactionFeeType\":\"VALUE\",\"enabled\":false,\"createdAt\":\"2025-09-03T13:27:02\",\"updatedAt\":\"2025-09-03T13:27:02\",\"deletedAt\":null},{\"id\":7,\"name\":\"APPLE_PAY\",\"feeValue\":0.0,\"feeType\":\"VALUE\",\"transactionFeeValue\":0.0,\"transactionFeeType\":\"VALUE\",\"enabled\":false,\"createdAt\":\"2025-09-03T13:27:02\",\"updatedAt\":\"2025-09-03T13:27:02\",\"deletedAt\":null}],\"name\":\"TUNA\",\"enabled\":false,\"createdAt\":\"2025-09-03T13:24:57\",\"updatedAt\":\"2025-09-03T13:24:57\",\"deletedAt\":null}]",
+  "jsonKeys": [
+    "array",
+    "3"
+  ],
+  "json": [
+    {
+      "id": 1,
+      "methods": [
+        {
+          "id": 1,
+          "name": "PIX",
+          "feeValue": 0,
+          "feeType": "VALUE",
+          "transactionFeeValue": 1,
+          "transactionFeeType": "VALUE",
+          "enabled": false,
+          "createdAt": "2023-04-25T11:06:15",
+          "updatedAt": null,
+          "deletedAt": null
+        }
+      ],
+      "name": "ITAU",
+      "enabled": false,
+      "createdAt": "2023-04-25T11:05:53",
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "id": 2,
+      "methods": [
+        {
+          "id": 2,
+          "name": "CREDIT",
+          "feeValue": 0,
+          "feeType": "VALUE",
+          "transactionFeeValue": 0,
+          "transactionFeeType": "VALUE",
+          "enabled": false,
+          "createdAt": "2023-10-17T14:59:23",
+          "updatedAt": "2023-10-17T14:59:23",
+          "deletedAt": null
+        }
+      ],
+      "name": "PAGARME",
+      "enabled": false,
+      "createdAt": "2023-10-17T14:11:20",
+      "updatedAt": "2023-10-17T14:11:20",
+      "deletedAt": null
+    },
+    {
+      "id": 4,
+      "methods": [
+        {
+          "id": 6,
+          "name": "GOOGLE_PAY",
+          "feeValue": 0,
+          "feeType": "VALUE",
+          "transactionFeeValue": 0,
+          "transactionFeeType": "VALUE",
+          "enabled": false,
+          "createdAt": "2025-09-03T13:27:02",
+          "updatedAt": "2025-09-03T13:27:02",
+          "deletedAt": null
+        },
+        {
+          "id": 7,
+          "name": "APPLE_PAY",
+          "feeValue": 0,
+          "feeType": "VALUE",
+          "transactionFeeValue": 0,
+          "transactionFeeType": "VALUE",
+          "enabled": false,
+          "createdAt": "2025-09-03T13:27:02",
+          "updatedAt": "2025-09-03T13:27:02",
+          "deletedAt": null
+        }
+      ],
+      "name": "TUNA",
+      "enabled": false,
+      "createdAt": "2025-09-03T13:24:57",
+      "updatedAt": "2025-09-03T13:24:57",
+      "deletedAt": null
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "runId": "2026-07-06T23-54-23-138Z",
+  "outDir": "scratch\\browserbase-menu-lab\\2026-07-06T23-54-23-138Z",
+  "mode": "queue",
+  "platform": "anota_ai",
+  "limit": 1,
+  "targets": [
+    {
+      "restaurantId": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+      "restaurantName": "Espetinho da praia Intermares",
+      "sourceUrl": "https://pedido.anota.ai/loja/espetinho-da-praia-3",
+      "platform": "anota_ai",
+      "reviewsCount": 772,
+      "address": "Av. Oceano Atlântico, 1972",
+      "phone": "(83) 2182-4436"
+    }
+  ],
+  "browserbase": {
+    "sessionId": "ad16811f-b9ef-45c6-9aee-ba9a9ce9b69e",
+    "status": "RUNNING",
+    "keepSession": false
+  },
+  "results": [
+    {
+      "restaurantId": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+      "restaurantName": "Espetinho da praia Intermares",
+      "sourceUrl": "https://pedido.anota.ai/loja/espetinho-da-praia-3",
+      "platform": "anota_ai",
+      "reviewsCount": 772,
+      "address": "Av. Oceano Atlântico, 1972",
+      "phone": "(83) 2182-4436",
+      "startedAt": "2026-07-06T23:54:27.664Z",
+      "finishedAt": "2026-07-06T23:56:41.224Z",
+      "targetDir": "scratch\\browserbase-menu-lab\\2026-07-06T23-54-23-138Z\\001-espetinho-da-praia-intermares",
+      "finalUrl": "https://pedido.anota.ai/loja/espetinho-da-praia-3",
+      "title": "Espetinho da Praia - Anota AI",
+      "domMetrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1100,
+        "scrollHeight": 4147,
+        "bodyLength": 63780,
+        "anchorCount": 0,
+        "imageCount": 58
+      },
+      "priceCountInVisibleText": 58,
+      "menuWords": [
+        "pedido",
+        "bebida"
+      ],
+      "networkInterestingCount": 85,
+      "failedRequestCount": 4,
+      "directProbe": {
+        "platform": "anota_ai",
+        "success": false,
+        "source": "anota_ai_native_api",
+        "endpoint": "https://api.anota.ai/v1/menu/merchant?slug=espetinho-da-praia-3",
+        "payloadKeys": [],
+        "lesson": "AnotaAI endpoint was not available for this slug; use Browserbase network/DOM fallback."
+      },
+      "lessonFlags": [
+        "visible_text_fallback_possible"
+      ],
+      "error": null
+    }
+  ],
+  "release": {
+    "id": "ad16811f-b9ef-45c6-9aee-ba9a9ce9b69e",
+    "createdAt": "2026-07-06T23:54:27.316965+00:00",
+    "updatedAt": "2026-07-06T23:56:44.78+00:00",
+    "projectId": "75e35b22-44ad-42b6-b7d7-4509fa0bbfc5",
+    "status": "COMPLETED",
+    "proxyBytes": 0,
+    "keepAlive": false,
+    "region": "us-west-2",
+    "startedAt": "2026-07-06T23:54:27.306+00:00",
+    "endedAt": "2026-07-06T23:56:44.78+00:00",
+    "expiresAt": "2026-07-06T23:59:27.306+00:00"
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "runId": "2026-07-06T21-19-31-972Z",
+  "city": "Cabedelo",
+  "state": "PB",
+  "mode": "instagram",
+  "apply": false,
+  "offset": 0,
+  "delayMs": 350,
+  "complete": true,
+  "processed": 11,
+  "foundGreen": 0,
+  "foundYellow": 9,
+  "foundRedOrNone": 2,
+  "byPlatform": {
+    "instagram": 10,
+    "serpapi.com": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-19-31-972Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-19-31-972Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-19-31-972Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": "b800fc7b-5bbe-44e1-b964-f96e36d4700a",
+        "name": "Me gusta Açaí",
+        "category": "Praça de alimentação",
+        "address": "R. José Marcos de Melo Peixoto - Intermares",
+        "neighborhood": "Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Me gusta Açaí Cabedelo R. José Marcos de Melo Peixoto - Intermares (83) 99979-7906 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG",
+        "link": "https://instagram.com/acai_megusta/?__d=1%E5%86%85%E8%92%99%E5%8F%A4%E5%91%BC%E4%BC%A6%E8%B4%9D%E5%B0%94%E6%83%B3%E8%A6%81%E6%89%BE%E6%A8%A1%E7%89%B9%E9%85%92%E5%B1%80%E5%85%A8%E5%A5%97%3F%2B-%2B%E5%91%BC%E4%BC%A6%E8%B4%9D%E5%B0%94%E6%A8%A1%E7%89%B9.%E2%9C%94%EF%B8%8Fbaoyang.cyou",
+        "snippet": "Temos em nosso cardápio o Açaí Tradicional Venha nos visitar, estamos na rua José Alves 357, Jardim dos Comerciários/BH Não quer sair de casa?",
+        "displayedLink": "https://www.instagram.com › acai_megusta",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "ca0f0788-f272-4859-826e-38af8e426eef",
+        "name": "Caribe burger",
+        "category": "Lanchonete",
+        "address": "Rodovia 230 km 13, 2 anexo 1",
+        "neighborhood": "Bessa, Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Caribe burger Bessa, Cabedelo Rodovia 230 km 13 (83) 98178-9635 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Cibelly Mar | Restaurante Flutuante (@cibellymarr)",
+        "link": "https://instagram.com/cibellymarr",
+        "snippet": "Restaurante Flutuante Praia do Jacaré, Cabedelo-PB Frutos do mar e comidas típicas ⏰ Terça a Domingo - das 12h às 20h.",
+        "displayedLink": "Mais de 78,9 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "743c1d75-28df-42ef-ba44-663a736f9783",
+        "name": "Sabor da infância no pôr do sol",
+        "category": "Sorveteria",
+        "address": "Praia do jacaré Pôr do sol do",
+        "neighborhood": "jacaré",
+        "rating": 4,
+        "reviews_count": 1
+      },
+      "query": "Sabor da infância no pôr do sol jacaré Praia do jacaré Pôr do sol do (83) 98860-4213 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 5,
+        "title": "Pôr do Sol do Jacaré (@pordosoldojacare) · Cabedelo, PB",
+        "link": "https://instagram.com/pordosoldojacare",
+        "snippet": "Você já conhece o Pôr do Sol do Jacaré? Fica localizado na Paraíba, em Cabedelo. Você encontra diversas lojas e espetáculos, além dessa vista maravilhosa❤️ ...",
+        "displayedLink": "Mais de 23 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+        "name": "Porto do açaí",
+        "category": "Lanchonete",
+        "address": "R. Cleto Campêlo, 623",
+        "neighborhood": "Camalaú",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Porto do açaí Camalaú R. Cleto Campêlo (83) 99384-2261 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Porto do Açaí (@portodoacai01) · Cabedelo, PB",
+        "link": "https://instagram.com/portodoacai01",
+        "snippet": "956 followers · 81 posts · Ceo: @nazarebaracho - @leilacam26 : Rua Cleto Campelo, quiosque 3 Segunda à Sábado de 9h às 21hrs Faça seu pedido abaixo.",
+        "displayedLink": "Mais de 960 seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 12
+    },
+    {
+      "restaurant": {
+        "id": "9092bbb6-9b7e-4aff-a990-7edecd6f155b",
+        "name": "Bebel & Jó Pizzaria",
+        "category": "Restaurante",
+        "address": "Av. Ambrósio Miranda de Araújo - Renascer",
+        "neighborhood": "Cabedelo",
+        "rating": 5,
+        "reviews_count": 1
+      },
+      "query": "Bebel & Jó Pizzaria Cabedelo Av. Ambrósio Miranda de Araújo - Renascer Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Center Pizza Cabedelo PB (@centerpizza_cabedelo)",
+        "link": "https://instagram.com/centerpizza_cabedelo",
+        "snippet": "Estamos ansiosos para apresentar a Center Pizza, sua nova opção de pizza delivery! Nossa missão é oferecer pizzas de alta qualidade, feitas com amor e carinho, ...",
+        "displayedLink": "Mais de 3,4 mil seguidores",
+        "platform": "instagram",
+        "score": 68,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "352e2216-3bb5-4742-9960-374c9ca64e13",
+        "name": "Açai",
+        "category": "Loja de açaí",
+        "address": "Ponta de Campina",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Açai Cabedelo Ponta de Campina Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 5,
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "link": "https://instagram.com/danieldoacai",
+        "snippet": "Açaíteria & Lanchonete Eleita 4x a melhor açaíteria de Cabedelo Atendimento exclusivo por delivery Pedidos: (83) 98669-5781.",
+        "displayedLink": "Mais de 5 mil seguidores",
+        "platform": "instagram",
+        "score": 112,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "68fed341-d74c-4c02-806c-a217e74b7d2f",
+        "name": "Fatia do Céu",
+        "category": "Cafeteria",
+        "address": "R. Porto Marseille, 7",
+        "neighborhood": "Recanto do Poço",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Fatia do Céu Recanto do Poço R. Porto Marseille Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 7,
+        "title": "Fatia do Céu (@fatia_ceu)",
+        "link": "https://instagram.com/fatia_ceu",
+        "snippet": "Doces, Sobremesas e Bolachas Aborim, Barcelos Encomendas por mensagem privada Menu nos destaques. By: @inesmelo.07 · ✨ Massa de chocolate fofinha, ...",
+        "displayedLink": "Mais de 150 seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "8d326630-6c57-4b8f-996f-f2a71d56c9a4",
+        "name": "Pastelaria Arretada",
+        "category": "Pastelaria brasileira",
+        "address": "R. Jair Cunha Cavalcanti - Jacaré",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Pastelaria Arretada Cabedelo R. Jair Cunha Cavalcanti - Jacaré (83) 99380-1327 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Pastelaria Arretada (@pastelaria.arretadapb)",
+        "link": "https://instagram.com/pastelaria.arretadapb",
+        "snippet": "⏰| QUA/SEG 18:00h às 00:00h ❌|Fechamos na TERÇA | Pastel, Crepe, cuscuz recheado | 83 99380-1327 ⬇️ FAÇA SEU PEDIDO AGORA! ⬇️ · CURTIU? Então já marca o @ ...",
+        "displayedLink": "Mais de 970 seguidores",
+        "platform": "instagram",
+        "score": 116,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "1d3e88fe-546d-4e89-a3e5-0ab54670cfea",
+        "name": "Cafeteria Deus Seja Louvado",
+        "category": "Cafeteria",
+        "address": "R. São José - Renascer",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Cafeteria Deus Seja Louvado Cabedelo R. São José - Renascer (83) 98618-3414 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 5,
+        "title": "saxcafe · Cabedelo, PB",
+        "link": "https://instagram.com/saxcafe",
+        "snippet": "Cafés | Tapiocas | Bebidas Diariamente: das 14h às 20h · Pra ela, o Sax Café no Pôr do Sol do Jacaré, se tornou único e inesquecível. · Duas vidas, vivendo a ...",
+        "displayedLink": "Mais de 500 seguidores",
+        "platform": "instagram",
+        "score": 38,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "4e7acf35-2f23-41de-89f6-1a98cf6e0b4b",
+        "name": "Espetinho São Paulo",
+        "category": "Churrascaria",
+        "address": "R. Severina Souto Batista, 11",
+        "neighborhood": "Planta de Lucena",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Espetinho São Paulo Planta de Lucena R. Severina Souto Batista Cabedelo PB Instagram",
+      "best": {
+        "source": "local",
+        "position": 1,
+        "title": "Espetinho São Paulo",
+        "link": "https://serpapi.com/search.json?device=desktop&engine=google&gl=br&google_domain=google.com.br&hl=pt-br&ludocid=5137792283973787316&q=Espetinho+S%C3%A3o+Paulo+Planta+de+Lucena+R.+Severina+Souto+Batista+Cabedelo+PB+Instagram",
+        "snippet": "Churrasco | Lucena - PB",
+        "displayedLink": "",
+        "platform": "serpapi.com",
+        "score": 2,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      },
+      "candidateCount": 8
+    },
+    {
+      "restaurant": {
+        "id": "27f1b5b7-56c6-49dd-80b5-4273a1dc3761",
+        "name": "Rainha da tapioca",
+        "category": "Cafeteria",
+        "address": "R. Milton Macedo da Cruz - Lot. Oceania",
+        "neighborhood": "Cabedelo",
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Rainha da tapioca Cabedelo R. Milton Macedo da Cruz - Lot. Oceania (83) 98711-6152 Cabedelo PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 10,
+        "title": "TAPIOCARIA DO DINHO 🔥 (@tapiocariadinho)",
+        "link": "https://instagram.com/tapiocariadinho",
+        "snippet": "Funcionamos de Seg a dom ‼️ ⏰17:30 às 00:00. Delivery ⬇️ | Loja física Av. Ambrósio Miranda de Araújo - renascer,cabedelo. Follow. Message ...",
+        "displayedLink": "Mais de 4 mil seguidores",
+        "platform": "instagram",
+        "score": 126,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    }
+  ]
+}

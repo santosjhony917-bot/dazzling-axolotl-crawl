@@ -1,0 +1,56 @@
+{
+  "success": true,
+  "outDir": "scratch\\chat4b-cabedelo-site-pdf\\2026-07-07T16-45-32-319Z\\pizzaria-ta-no-ponto",
+  "apply": false,
+  "identity": {
+    "confirmed": true,
+    "sourceName": "Pizzaria ta no ponto",
+    "sourceAddress": "Rua Tenente Antônio Pontes 236 - Ponta de Matos, Cabedelo - PB, 58100-645",
+    "sourcePhone": "(83) 99608-4407",
+    "sourceCity": "Cabedelo"
+  },
+  "rawSummary": {
+    "categoryCount": 4,
+    "itemCount": 14,
+    "optionCount": 595
+  },
+  "priceDeltaAudit": {
+    "fullPriceDeltaAnomalyCount": 0,
+    "anomalies": []
+  },
+  "dryRun": {
+    "success": true,
+    "approved": true,
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 2,
+      "itemCount": 14,
+      "resolvedPriceCount": 14,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "Request timed out.",
+        "deltaFixes": 6,
+        "storageFixes": 13,
+        "guardFixes": 0
+      }
+    }
+  },
+  "committed": false,
+  "before": {
+    "categoryCount": 0,
+    "itemCount": 0,
+    "optionCount": 0
+  },
+  "after": {
+    "categoryCount": 0,
+    "itemCount": 0,
+    "optionCount": 0
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "url": "https://meucarrinho.delivery/site.webmanifest",
+  "status": 200,
+  "contentType": "application/manifest+json",
+  "resourceType": "manifest",
+  "method": "GET",
+  "textLength": 929,
+  "textSample": "{\r\n  \"short_name\": \"Meu Carrinho\",\r\n  \"name\": \"Meu Carrinho Home Page\",\r\n  \"icons\": [\r\n    {\r\n      \"src\": \"/android-icon-36x36.png\",\r\n      \"sizes\": \"36x36\",\r\n      \"type\": \"image/png\",\r\n      \"density\": \"0.75\"\r\n    },\r\n    {\r\n      \"src\": \"/android-icon-48x48.png\",\r\n      \"sizes\": \"48x48\",\r\n      \"type\": \"image/png\",\r\n      \"density\": \"1.0\"\r\n    },\r\n    {\r\n      \"src\": \"/android-icon-72x72.png\",\r\n      \"sizes\": \"72x72\",\r\n      \"type\": \"image/png\",\r\n      \"density\": \"1.5\"\r\n    },\r\n    {\r\n      \"src\": \"/android-icon-96x96.png\",\r\n      \"sizes\": \"96x96\",\r\n      \"type\": \"image/png\",\r\n      \"density\": \"2.0\"\r\n    },\r\n    {\r\n      \"src\": \"/android-icon-144x144.png\",\r\n      \"sizes\": \"144x144\",\r\n      \"type\": \"image/png\",\r\n      \"density\": \"3.0\"\r\n    },\r\n    {\r\n      \"src\": \"/android-icon-192x192.png\",\r\n      \"sizes\": \"192x192\",\r\n      \"type\": \"image/png\",\r\n      \"density\": \"4.0\"\r\n    }\r\n  ],\r\n  \"display\": \"standalone\"\r\n}\r\n",
+  "jsonKeys": [
+    "short_name",
+    "name",
+    "icons",
+    "display"
+  ],
+  "json": {
+    "short_name": "Meu Carrinho",
+    "name": "Meu Carrinho Home Page",
+    "icons": [
+      {
+        "src": "/android-icon-36x36.png",
+        "sizes": "36x36",
+        "type": "image/png",
+        "density": "0.75"
+      },
+      {
+        "src": "/android-icon-48x48.png",
+        "sizes": "48x48",
+        "type": "image/png",
+        "density": "1.0"
+      },
+      {
+        "src": "/android-icon-72x72.png",
+        "sizes": "72x72",
+        "type": "image/png",
+        "density": "1.5"
+      },
+      {
+        "src": "/android-icon-96x96.png",
+        "sizes": "96x96",
+        "type": "image/png",
+        "density": "2.0"
+      },
+      {
+        "src": "/android-icon-144x144.png",
+        "sizes": "144x144",
+        "type": "image/png",
+        "density": "3.0"
+      },
+      {
+        "src": "/android-icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "density": "4.0"
+      }
+    ],
+    "display": "standalone"
+  }
+}

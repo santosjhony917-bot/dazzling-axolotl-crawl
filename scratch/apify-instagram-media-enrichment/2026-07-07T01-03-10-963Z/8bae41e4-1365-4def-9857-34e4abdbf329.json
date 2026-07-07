@@ -1,0 +1,91 @@
+{
+  "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+  "name": "Eu Quero Pizza",
+  "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+  "followers": 8516,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://app.anota.ai/m/MeIU-tixw"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "cffb10ae-9140-40a7-9b4e-3dcb9877b8f6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_1783385371632_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "4218573b-e70f-4fe3-b16f-80fa36151f1a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_1783385372847_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "f5ccef39-3048-4496-bde6-9305758b404c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_1783385374073_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "40b455fb-63ac-41c3-86af-35f46d33a0e7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_1783385374664_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "45812f10-0912-4c89-9efb-0024ad881919",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_1783385375130_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "fac22c61-1c16-43b5-ad23-3b709a477ba4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_1783385375696_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "e73f7009-fddf-4746-afaa-b64a513b9ade",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_1783385376343_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "ab6389e5-35c3-4544-8926-becf3341cc65",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_1783385376940_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,89 @@
+{
+  "id": "68fc5124-13a8-4ec7-a2da-164074c0ea76",
+  "name": "Bonna Gelateria Ponta de Campina",
+  "instagram": "https://www.instagram.com/bonnagelateria/",
+  "followers": 15494,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://gelateriabonna.com.br/"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "50692a68-ca82-4c34-9137-422d5081c047",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385902132_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "da104949-4cf9-4f50-9d70-c2e23af752ec",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385903345_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "72f542b4-16d9-4701-be87-7c9dec3f5c7f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385904031_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "3131b78c-b3ad-4414-87ff-9da7969f1711",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385905085_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "2dbf52f9-ef26-4464-b722-05ddc6e4cbc1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385906082_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "3aadd2ba-024a-4c52-8577-fff9feed867b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385906961_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "981aa13d-136b-4eb2-a91f-33a9d59b0ec7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385907512_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "680a67eb-1629-45a7-9d18-5add9a8e6c06",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385908390_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

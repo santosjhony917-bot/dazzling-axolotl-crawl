@@ -1,0 +1,86 @@
+{
+  "id": "c73bb2a7-5e2a-4f2e-8334-daaea6b12b84",
+  "name": "Mão Branca bar e resturante",
+  "instagram": "https://www.instagram.com/maobrancabarerestaurante/",
+  "followers": 9213,
+  "match": {
+    "score": 150,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "2a8e706b-f24b-4130-a321-d065e979107f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385346907_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "9e8912cd-1f07-4bd6-a72f-cc1dfae94479",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385347728_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "131735c3-58c6-47c7-bb95-b6b48629e91b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385348688_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "bf8c4eaa-f165-4c52-93c3-153ffab8f48f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385349614_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "831a289a-601f-4a5c-9c95-6e0b089a9227",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385350539_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "91e0d5d2-7eff-4984-98dc-4b375d2908b0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385351105_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "f797dcd7-f375-497d-9aaf-8c9f03b6c274",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385351825_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "05ac8aa7-8971-4158-9108-ae5148a64dee",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c73bb2a7-5e2a-4f2e-8334-daaea6b12b84/instagram_1783385352586_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

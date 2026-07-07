@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-07-07T05:20:33.401Z",
+  "city": "Cabedelo",
+  "state": "PB",
+  "counts": {
+    "total": 218,
+    "active": 206,
+    "unpublished": 206,
+    "ready": 3,
+    "published": 0,
+    "pending": 203,
+    "review": 0,
+    "noMenu": 0,
+    "withInstagram": 101,
+    "withPublicMenuSource": 40,
+    "withHours": 171,
+    "mediaBaseComplete": 99,
+    "withGalleryMin3": 99,
+    "withMenuItems": 3
+  },
+  "menuStatusCounts": {
+    "unknown": 203,
+    "found": 3
+  },
+  "sourceClassCounts": {
+    "none": 137,
+    "own_site_or_other": 18,
+    "structured_platform": 18,
+    "google": 4,
+    "whatsapp": 25,
+    "linkhub": 4
+  },
+  "latestAudit": {
+    "file": "scratch\\restaurant-structural-ready-audit\\2026-07-07T05-11-27-018Z\\summary.json",
+    "runId": "2026-07-07T05-11-27-018Z",
+    "restaurants": 3,
+    "ready": 3,
+    "needsReview": 0,
+    "blocked": 0,
+    "issueCounts": {}
+  },
+  "nextBatchFile": "scratch/chat-mae-batches/cabedelo-next-scored-menu-batch.json",
+  "nextBatch": [
+    {
+      "id": "ec6b2565-934c-4278-9a8a-63168eb819f2",
+      "name": "DAWN BURGUER",
+      "score": 86,
+      "source": "pedido.anota.ai",
+      "risks": []
+    },
+    {
+      "id": "49423823-d994-4263-9597-cb829e208129",
+      "name": "Home Smash Burger",
+      "score": 86,
+      "source": "delivery.yooga.app",
+      "risks": []
+    },
+    {
+      "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+      "name": "Lary's pizzaria e lanchonete",
+      "score": 86,
+      "source": "pedido.anota.ai",
+      "risks": []
+    },
+    {
+      "id": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+      "name": "Manguinhos Burguer",
+      "score": 86,
+      "source": "pedido.anota.ai",
+      "risks": []
+    },
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "score": 86,
+      "source": "whatsmenu.com.br",
+      "risks": []
+    },
+    {
+      "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+      "name": "Primo Rico",
+      "score": 86,
+      "source": "delivery.yooga.app",
+      "risks": []
+    },
+    {
+      "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+      "name": "Restaurante Pôr do Sol",
+      "score": 86,
+      "source": "pedido.anota.ai",
+      "risks": []
+    },
+    {
+      "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "score": 86,
+      "source": "delivery.yooga.app",
+      "risks": []
+    },
+    {
+      "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "name": "Espaço Do Sushi",
+      "score": 78,
+      "source": "delivery.yooga.app",
+      "risks": []
+    },
+    {
+      "id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+      "name": "PARCEIRO Rosa Lanches",
+      "score": 76,
+      "source": "pedido.anota.ai",
+      "risks": []
+    }
+  ]
+}

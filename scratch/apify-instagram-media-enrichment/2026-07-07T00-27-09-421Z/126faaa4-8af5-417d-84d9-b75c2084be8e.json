@@ -1,0 +1,133 @@
+{
+  "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+  "name": "JuJuba sorvete e açaí",
+  "instagram": "https://www.instagram.com/sorveteeacaijujuba/",
+  "followers": 175,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "dryRunUrl": "https://scontent-ord5-2.cdninstagram.com/v/t51.2885-19/449783095_992364115759550_5175564332875271006_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby41MDAuYzIifQ&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=rvGmA770uY8Q7kNvwHdaEvB&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQAtUh4W8u2IaD5HAt5irLLWdFTmAsdLmVLYBPBBHOqEYA&oe=6A5203C9&_nc_sid=8b3546"
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-ord5-2.cdninstagram.com/v/t51.71878-15/503722695_1225755022436835_680516178051308261_n.jpg?stp=dst-jpg_e15_fr_p1080x1080_tt6&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=MNZf7CmHUIQQ7kNvwECugOr&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQAdQ3yR_AgNNpIT4Yjo-dlYEK3_zJKRv6mEPmBMO6dHKg&oe=6A52132B&_nc_sid=8b3546",
+      "score": 24,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-ord5-2.cdninstagram.com/v/t51.71878-15/472964887_502368712873025_1816812021003273101_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_cat=105&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=rn85ICj2LKUQ7kNvwG-PnIW&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQDRusBts917P4qVaxPnhf6hMweBx5-tzxsx9K_zMZAgYA&oe=6A5235C9&_nc_sid=8b3546",
+      "score": 23,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-ord5-3.cdninstagram.com/v/t51.2885-15/464376977_17864557269248628_5371315124345461666_n.webp?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-ord5-3.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=8UVBh-U4eF8Q7kNvwGf5AvQ&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzQ4NzAwNjcxNDI1ODQxMzc4NQ%3D%3D.3-ccb7-5&oh=00_AQC-TSTJBP5wPZjkuAxb1MTen_7PwY0-7Vmiv9zDjx17Tw&oe=6A520451&_nc_sid=8b3546",
+      "score": 22,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/624202155_18075206078608592_5611496981179730796_n.webp?stp=dst-jpg_e15_fr_p1080x1080_tt6&_nc_ht=scontent-ord5-1.cdninstagram.com&_nc_cat=108&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=FAdJ_5G6jrYQ7kNvwFhHzvE&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzQ1MDY4MzI3Mzk5MzU0Mzk1MQ%3D%3D.3-ccb7-5&oh=00_AQBrYWbybF2jlVvfFYS1It1Dcno5CxNCKKQ2Y1xAdKNVPg&oe=6A521C4F&_nc_sid=8b3546",
+      "score": 18,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-ord5-3.cdninstagram.com/v/t51.2885-15/463854223_17863544166248628_4360121284517617511_n.webp?stp=dst-jpg_e35_s1080x1080_sh2.08_tt6&_nc_ht=scontent-ord5-3.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=vC37hINHkHoQ7kNvwFnpu6I&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzQ4MTg5NDM3OTAyNDk0OTIwNA%3D%3D.3-ccb7-5&oh=00_AQDThj1MWjEsJ6TJWX8Xo_TrUTqdDUuxpdCeUgpkiRWdbA&oe=6A5228D2&_nc_sid=8b3546",
+      "score": 17,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-ord5-3.cdninstagram.com/v/t51.71878-15/624218399_4307538712907866_3195574215986851007_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-ord5-3.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=dNh5mby1ynIQ7kNvwEmTVVO&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQCKmrHRSy-OvUM-S10ubVhcGYFfOSR4eIzKa9b0jb5dqg&oe=6A51FF66&_nc_sid=8b3546",
+      "score": 16,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-ord5-3.cdninstagram.com/v/t51.2885-15/464680235_17864557278248628_5038737712148208244_n.webp?stp=dst-jpg_e35_s1080x1080_sh2.08_tt6&_nc_ht=scontent-ord5-3.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=otCXC-1J7sIQ7kNvwEtQwzt&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=MzQ4NzAwNjcxNDMwMDIwMzMwNA%3D%3D.3-ccb7-5&oh=00_AQBi5eYFOYqZFOFdWLjI0abU2nO-_oUx0N-2pVh98A240A&oe=6A523242&_nc_sid=8b3546",
+      "score": 16,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-ord5-3.cdninstagram.com/v/t51.71878-15/503092178_1379486679958380_517139895463875677_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-ord5-3.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gFCOnKZeDiUs1OeR5Ea_5YJf_V9_4yCzlo76d4b4geGj13LeMx9cx3nO1scorTS0nw&_nc_ohc=NmJmolHzD7AQ7kNvwE26cCU&_nc_gid=HwMTpcqnoRbur6Q3uZWRdQ&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQCvL-G6jpGmeZaN7CGMXgq0eAYHrtek78Vg4lLCOn9P2g&oe=6A520311&_nc_sid=8b3546",
+      "score": 16,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": false,
+  "status": "ok",
+  "after": null,
+  "promotion": null,
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "#sorvete #açai #deliciagelada",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "#quedeliciaoverão #deliciagelada #acailovers",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "O mais completo da cidade, pão,salsicha,carne moída, vinagrete, milho e ervilha, ovo de codorna, queijo parmesão , mostarda, catchup, maionese temperada e batata palha!!!!!!",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 18,
+      "caption": "Conta pra gente o seu sabor de sorvete favorito!!!!!",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 17,
+      "caption": "",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 16,
+      "caption": "",
+      "vision": null
+    },
+    {
+      "source": "child_post",
+      "score": 16,
+      "caption": "O mais completo da cidade, pão,salsicha,carne moída, vinagrete, milho e ervilha, ovo de codorna, queijo parmesão , mostarda, catchup, maionese temperada e batata palha!!!!!!",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 16,
+      "caption": "#açai #deliciagelada",
+      "vision": null
+    }
+  ]
+}

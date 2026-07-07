@@ -1,0 +1,173 @@
+{
+  "runId": "2026-07-07T04-48-46-606Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T04-48-46-606Z",
+  "scope": {
+    "ids": [
+      "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "ecac91e3-52c0-4780-9867-6b3b1d096089"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 3,
+  "ready": 3,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 16,
+      "optionCount": 101,
+      "galleryCount": 4,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "menuStatusReason": "Galeria removida para recoleta com fonte original/API e criterio visual premium.",
+      "source": {
+        "menu": "https://app.anota.ai/m/MeIU-tixw",
+        "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:24.855Z",
+          "status": "enriched",
+          "username": "euqueropizzafoodtruck",
+          "followers": 8518,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.anota.ai/m/MeIU-tixw",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. da Enseada",
+        "number": null,
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99857-3813",
+        "latitude": -7.0311872,
+        "longitude": -34.8335814,
+        "followers": 8518
+      },
+      "issues": []
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 11,
+      "itemCount": 133,
+      "optionCount": 752,
+      "galleryCount": 3,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "menuStatusReason": "Galeria removida para recoleta com fonte original/API e criterio visual premium.",
+      "source": {
+        "menu": "https://app.cardapioweb.com/i_loveburguer",
+        "instagram": "https://www.instagram.com/iloveburguerpb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:30.844Z",
+          "status": "enriched",
+          "username": "iloveburguerpb",
+          "followers": 9915,
+          "match": {
+            "score": 140,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/i_loveburguer",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Praça Getúlio Vargas",
+        "number": "107",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-305",
+        "phone": "(83) 99311-5016",
+        "latitude": -6.9706589,
+        "longitude": -34.8371018,
+        "followers": 9915
+      },
+      "issues": []
+    },
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 21,
+      "optionCount": 147,
+      "galleryCount": 6,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "menuStatusReason": "Galeria removida para recoleta com fonte original/API e criterio visual premium.",
+      "source": {
+        "menu": "https://app.cardapioweb.com/ilove_pizza",
+        "instagram": "https://www.instagram.com/ilovepizzapb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:24.975Z",
+          "status": "enriched",
+          "username": "ilovepizzapb",
+          "followers": 3095,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/ilove_pizza",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": null,
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-263",
+        "phone": "(83) 99631-6245",
+        "latitude": -6.9712105,
+        "longitude": -34.8370758,
+        "followers": 3095
+      },
+      "issues": []
+    }
+  ]
+}

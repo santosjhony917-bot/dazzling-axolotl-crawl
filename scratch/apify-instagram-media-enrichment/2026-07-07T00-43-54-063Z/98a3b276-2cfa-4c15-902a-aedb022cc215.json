@@ -1,0 +1,228 @@
+{
+  "id": "98a3b276-2cfa-4c15-902a-aedb022cc215",
+  "name": "Caldeirão Nordestino - Caldinho e Nhoques Cabedelo",
+  "instagram": "https://www.instagram.com/caldeirao.nordestino/",
+  "followers": 364,
+  "match": {
+    "score": 145,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_profile_1783385288199.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385292869_1.jpg",
+      "score": 45,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385294115_2.jpg",
+      "score": 40,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385294938_3.jpg",
+      "score": 39,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385295559_4.jpg",
+      "score": 39,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385296507_5.jpg",
+      "score": 39,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385297208_6.jpg",
+      "score": 39,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385297934_7.jpg",
+      "score": 34,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385298462_8.jpg",
+      "score": 34,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "cf62c6ac-79ba-4b83-8a8a-492d523b8e61",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385292869_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "864d8006-6554-45f6-9a05-b2b31b60226f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385294115_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "b2b6e919-11fe-421e-a7e0-8dacafc46151",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385294938_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "98701a7f-5345-4de3-95a2-d8bb95f77969",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385295559_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "8997a000-17dc-4f88-a2e5-fbc1169288bc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385296507_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "4bfd6ffb-b344-4113-8428-b1e807f69377",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385297208_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "ee106887-a69d-4dcf-9ed6-d7ebdfcc56d8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385297934_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "3a16d8e2-bd28-49e9-8351-b93c54e3a415",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/98a3b276-2cfa-4c15-902a-aedb022cc215/instagram_1783385298462_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 45,
+      "caption": "Tem coisa que pede o pote, gente. 🍲 NHOQUE NO POTE é massa de batata artesanal, em molho cremoso, no sabor que você escolher. Daquele que enche e abraça. 4 sabores raiz: 🟠 Bolonh",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 40,
+      "caption": "A gente coloca abóbora, carne de sol, charque, alho poró e pimenta biquinho — e o cliente coloca o nome de \"queridinho da casa\". 🧡 Doce e salgado na mesma colher. Aquele que faz q",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 39,
+      "caption": "Tem coisa que pede o pote, gente. 🍲 NHOQUE NO POTE é massa de batata artesanal, em molho cremoso, no sabor que você escolher. Daquele que enche e abraça. 4 sabores raiz: 🟠 Bolonh",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 39,
+      "caption": "Tem coisa que pede o pote, gente. 🍲 NHOQUE NO POTE é massa de batata artesanal, em molho cremoso, no sabor que você escolher. Daquele que enche e abraça. 4 sabores raiz: 🟠 Bolonh",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 39,
+      "caption": "Tem coisa que pede o pote, gente. 🍲 NHOQUE NO POTE é massa de batata artesanal, em molho cremoso, no sabor que você escolher. Daquele que enche e abraça. 4 sabores raiz: 🟠 Bolonh",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 39,
+      "caption": "Tem coisa que pede o pote, gente. 🍲 NHOQUE NO POTE é massa de batata artesanal, em molho cremoso, no sabor que você escolher. Daquele que enche e abraça. 4 sabores raiz: 🟠 Bolonh",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 34,
+      "caption": "A gente coloca abóbora, carne de sol, charque, alho poró e pimenta biquinho — e o cliente coloca o nome de \"queridinho da casa\". 🧡 Doce e salgado na mesma colher. Aquele que faz q",
+      "vision": null
+    },
+    {
+      "source": "child_post",
+      "score": 34,
+      "caption": "A gente coloca abóbora, carne de sol, charque, alho poró e pimenta biquinho — e o cliente coloca o nome de \"queridinho da casa\". 🧡 Doce e salgado na mesma colher. Aquele que faz q",
+      "vision": null
+    }
+  ]
+}

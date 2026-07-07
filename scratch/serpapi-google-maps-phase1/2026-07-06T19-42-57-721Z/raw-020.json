@@ -1,0 +1,1000 @@
+{
+  "search": {
+    "query": "japones Cabedelo PB",
+    "term": "japones",
+    "area": "Jacare",
+    "lat": -6.9987,
+    "lng": -34.8411,
+    "ll": "@-6.9987,-34.8411,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c0563cf8870ba4e862140",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/2mPyTJFKwNm1gS1m3YCFfw/6a4c0563cf8870ba4e862140.json",
+    "created_at": "2026-07-06 19:43:31 UTC",
+    "processed_at": "2026-07-06 19:43:31 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/japones+Cabedelo+PB/@-6.9987,-34.8411,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/2mPyTJFKwNm1gS1m3YCFfw/6a4c0563cf8870ba4e862140.html",
+    "prettify_html_file": "https://serpapi.com/searches/2mPyTJFKwNm1gS1m3YCFfw/6a4c0563cf8870ba4e862140.prettify",
+    "total_time_taken": 0.59
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "japones Cabedelo PB",
+    "ll": "@-6.9987,-34.8411,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "Espaço Do Sushi",
+      "place_id": "ChIJLZuM-3YgrQcRxc7_zhcQ3Y0",
+      "data_id": "0x7ad2076fb8c9b2d:0x8ddd1017ceffcec5",
+      "data_cid": "10222344423644057285",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad2076fb8c9b2d%3A0x8ddd1017ceffcec5&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad2076fb8c9b2d%3A0x8ddd1017ceffcec5&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9779893,
+        "longitude": -34.8324569
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJLZuM-3YgrQcRxc7_zhcQ3Y0",
+      "provider_id": "/g/11spp4nvnp",
+      "rating": 4.2,
+      "reviews": 33,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Juarez Távora - Camalaú, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Faz todo gosto da minha filha... Faz o sushi do jeito q ela gosta\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGrTJ6iQfqGs9ttiosSp0Zb-1S6aDq10cbKtyF079D9BpD-xy-dn46O_-CuMz9njui_SP8Jrm9Nd-lB6-V2XzXQKt0Zab88eJGqXi4nXzIkakBjHNaOf4ZIejGwlJzdu_4PDQgyfw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/-9tCxXicHcTdCoIwGADQJ_pylpgLusgky8gUI8Qb0Tn_29RNTN-wR-htgs7F-X5KKTuxU5S23KwKzouWjoIOhDNJmVwR_lKKTgARIJSD5_rNwR4ejl75eW8LLGXFRdChKAU10BOrVxFJr3I-oS22sNlZ8J4hY5p-j-E43hbM6rGKA89whhd2M2hNHZ7rcAn9q0RRkhoGdew-rDQWLpcmacz67Cb3XIsutLan1lmyMdY8yy_mfNpPKkIIyv8E2A-hxET8"
+    },
+    {
+      "position": 2,
+      "title": "Sakê Temakeria Ponta de Campina, Cabedelo",
+      "place_id": "ChIJ2Xj63j_drAcRrllAg3GcmOU",
+      "data_id": "0x7acdd3fdefa78d9:0xe5989c71834059ae",
+      "data_cid": "16544145242492787118",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd3fdefa78d9%3A0xe5989c71834059ae&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd3fdefa78d9%3A0xe5989c71834059ae&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0323072,
+        "longitude": -34.8348478
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ2Xj63j_drAcRrllAg3GcmOU",
+      "provider_id": "/g/11krtxg0gq",
+      "rating": 4.7,
+      "reviews": 261,
+      "price": "R$ 40–100",
+      "extracted_price": 40,
+      "type": "Restaurante japonês",
+      "types": [
+        "Restaurante japonês"
+      ],
+      "type_id": "japanese_restaurant",
+      "type_ids": [
+        "japanese_restaurant"
+      ],
+      "address": "Av. Oceano Atlântico, 1592 - Sl 16 E 17 - Ponta de Campina, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–23:00",
+        "terça-feira": "18:00–23:00",
+        "quarta-feira": "18:00–23:00",
+        "quinta-feira": "18:00–23:00",
+        "sexta-feira": "18:00–23:00",
+        "sábado": "18:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "phone": "(83) 98160-8378",
+      "website": "https://www.saketemaki.com/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Esportes"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Café",
+            "Cerveja",
+            "Porções pequenas",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Jantar",
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Excelente sushi, na realidade tudo é maravilhoso.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGf4mX20VCJGNKsQ7hYe-vv0su8LkkN3Zv4WZlFFsr4rGqbSLNn3H512Qd8cBJRR1UtrLaw3c5rRzLYSNdjudl_CDVrlZxUmLymBguacm1CbGpsWbWFSZISShbblNWaR4Dd12_Lz54gfoc=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/0nrYXHicHcTBboMgAADQL6KCYtos2aG10bUjZEpaVy-NoIVMEAdot37k7vubJXuH9_ujQpj8UxRplayktVL3s--dsGPox7AS1kRy8kB44KPtGy2HbXHD5j2G5-xY0FdfrtWlB8sC_bwhw0CTZsF1o_PcO-yKT84IHZOXFMVltxG7Y1WhU3CkvSciddWDXBjtPuZOX7P92enm62TIt9nJuRUGZbyYfM3rnDUHxhTnmtZthfcdiq_kkWJ5s-L5jiCEQP0vwPgHKGVHEA"
+    },
+    {
+      "position": 3,
+      "title": "Sushiyaki Restaurante",
+      "place_id": "ChIJoZsj3b7frAcRjoZUr5Cg7Uw",
+      "data_id": "0x7acdfbedd239ba1:0x4ceda090af54868e",
+      "data_cid": "5543263259640235662",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfbedd239ba1%3A0x4ceda090af54868e&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfbedd239ba1%3A0x4ceda090af54868e&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.969481699999999,
+        "longitude": -34.832150899999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJoZsj3b7frAcRjoZUr5Cg7Uw",
+      "provider_id": "/g/11qyw9_qbv",
+      "rating": 4.7,
+      "reviews": 10,
+      "type": "Restaurante japonês",
+      "types": [
+        "Restaurante japonês"
+      ],
+      "type_id": "japanese_restaurant",
+      "type_ids": [
+        "japanese_restaurant"
+      ],
+      "address": "R. Ten. Antônio Pontes, 381 - Ponta de Matos, Cabedelo - PB, 58100-645",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:00",
+      "hours": "Fechado · Abre ter. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:00–23:00",
+        "quarta-feira": "18:00–23:00",
+        "quinta-feira": "18:00–23:00",
+        "sexta-feira": "18:00–23:00",
+        "sábado": "18:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "phone": "(83) 98684-5886",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Jantar",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=eCRAY-5dJswEo3TF8mLwmQ&cb_client=search.gws-prod.gps&w=80&h=92&yaw=316.43515&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/KutezXicHc1LCsIwFADA22TXfKyVKgQR0YW4Udy4kjR9JoGkCX2x0dt4LW-jeIGZz9vmnHDFGOYRIE8OSnJP8FglRU2MxoNKDqmOgU2CZfsI3aCcXyc1RNdL2J4316rpD1h2sb7s23As4UR0d9PewZAlghq1pab8xDH21CQkRbacWLmckZcqshYLOq8b0ZDksraSk_9yj5MUnH8BXSc5OQ"
+    },
+    {
+      "position": 4,
+      "title": "Viciados em Sushi",
+      "place_id": "ChIJ_c5MVHEgrQcRB4CuNV0soio",
+      "data_id": "0x7ad2071544ccefd:0x2aa22c5d35ae8007",
+      "data_cid": "3072066674664308743",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad2071544ccefd%3A0x2aa22c5d35ae8007&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad2071544ccefd%3A0x2aa22c5d35ae8007&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9741409,
+        "longitude": -34.832850199999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ_c5MVHEgrQcRB4CuNV0soio",
+      "provider_id": "/g/11ggr5zth7",
+      "rating": 4.4,
+      "reviews": 193,
+      "price": "R$ 20–60",
+      "extracted_price": 20,
+      "type": "Restaurante japonês",
+      "types": [
+        "Restaurante japonês",
+        "Delivery de comida chinesa",
+        "Restaurante havaiano",
+        "Restaurante de sushi"
+      ],
+      "type_id": "japanese_restaurant",
+      "type_ids": [
+        "japanese_restaurant",
+        "delivery_chinese_restaurant",
+        "hawaiian_restaurant",
+        "sushi_restaurant"
+      ],
+      "address": "R. Pedro Aleixo Moura, 34 - Centro, Cabedelo - PB, 58100-210",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–15:00, 18:00–23:00",
+        "terça-feira": "11:00–15:00, 18:00–23:00",
+        "quarta-feira": "11:00–13:00, 15:00–23:00",
+        "quinta-feira": "11:00–15:00, 18:00–23:00",
+        "sexta-feira": "11:00–15:00, 18:00–23:00",
+        "sábado": "Fechado",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98704-2458",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Comida tarde da noite",
+            "Menu em braile",
+            "Opções veganas",
+            "Opções vegetarianas",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Jantar",
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Banheiro de gênero neutro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee",
+            "Ticket Restaurante",
+            "Vale refeição",
+            "VR"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Lugar aconchegante, comida ótima e funcionários bem elegantes e gentis\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEZnB7mpuib5JBP7S8i1n8wKEUsGZVCdxyzSzpHP0xEmForW5I5i4t5QMnmHVI-xyb7-tpFzeVWBdofQd7cfEoiFFJBeI3FkeKys4cSD7vqbmWoHkSu9Yenj6gCcsfXjhNc3rsQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/lUrs33icHcRLDoIwFADAE1UwiFUTF4JU0GggRFCXlPIR-5FXFLigZ_A2Js5ivp9KawUrw3hU1qSUsnywDlhLpdBM6AmV3CgVIAoIjE14ipqNdxMO5qqrM3vvhDhe1FOxeB-8M-xuiZv3wxiPyg_N3uNEtqkd2PVM29FRcD8JUD9kGGlFRpakTi6LKMe08GRNyN5hgUUadhhgRuMtfj0znkq_ibvllYn7vHQpFJd7daJWC9H6PTVNE1X_KRI_i3FFrg"
+    },
+    {
+      "position": 5,
+      "title": "A Casa do Temakinho",
+      "place_id": "ChIJK77pAsvfrAcRDJoNP1VhTVo",
+      "data_id": "0x7acdfcb02e9be2b:0x5a4d61553f0d9a0c",
+      "data_cid": "6506964055378205196",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfcb02e9be2b%3A0x5a4d61553f0d9a0c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfcb02e9be2b%3A0x5a4d61553f0d9a0c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.042580399999999,
+        "longitude": -34.8430791
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJK77pAsvfrAcRDJoNP1VhTVo",
+      "provider_id": "/g/11fslq2bgh",
+      "rating": 4.9,
+      "reviews": 150,
+      "price": "R$ 20–100",
+      "extracted_price": 20,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Av. Mar da Irlanda, 222 - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qui. às 17:30",
+      "hours": "Fechado · Abre qui. às 17:30",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "17:30–22:30",
+        "sexta-feira": "17:30–22:30",
+        "sábado": "17:30–22:30",
+        "domingo": "17:30–22:30"
+      },
+      "phone": "(83) 99944-9296",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Opções veganas",
+            "Opções vegetarianas",
+            "Porções pequenas",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Romântico",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Excelente experiência gastronômica, ambiente e atendimento.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEhm_lSAvo6eU_HIxB4YIG2Ds3NTf4BbFCxMNLPKpotu2esH30-Bq1_6qoxfo-AXe0Cf5iujtbh11NxOmorfKDlZmKYRP6sMLmsK2QSAtAsVx1eoGazRCazVs-L1mN6G2abCGJQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/R7gH5nicHcRNjoIwGADQE1VaUBYmLgqO6IAd8IfobAiQQkcpH_qVsfGCnmFuM4lv8f5eypgB547TKW_SArSdHFHea-iN7M2kBu20A5IaCTo8FdmVfyhddHv-C748FuuNDabnTeQu0ROHZhpUq9BuRZLGA5jRlbj2KAlurPBvYBsg_CRp2Mx-xoupFGPCfmm4N_Gy-9bxeZf6uE00xm6254ZjbpmEqHzuwvKZI0mYFn7kllUYfWaLB6OUEvW-Jv0_MVdEDg"
+    },
+    {
+      "position": 6,
+      "title": "Pipa Sushi & Temakeria",
+      "place_id": "ChIJm1Mywg3erAcRAs4OIMpvJqk",
+      "data_id": "0x7acde0dc232539b:0xa9266fca200ece02",
+      "data_cid": "12188552355436744194",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde0dc232539b%3A0xa9266fca200ece02&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde0dc232539b%3A0xa9266fca200ece02&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0444444,
+        "longitude": -34.8447222
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJm1Mywg3erAcRAs4OIMpvJqk",
+      "provider_id": "/g/11d_tqrm5p",
+      "rating": 4.3,
+      "reviews": 292,
+      "price": "R$ 20–100",
+      "extracted_price": 20,
+      "type": "Restaurante de sushi",
+      "types": [
+        "Restaurante de sushi",
+        "Restaurante asiático",
+        "Restaurante japonês"
+      ],
+      "type_id": "sushi_restaurant",
+      "type_ids": [
+        "sushi_restaurant",
+        "asian_restaurant",
+        "japanese_restaurant"
+      ],
+      "address": "Av. Mar das Antilhas - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:00",
+        "terça-feira": "17:00–23:00",
+        "quarta-feira": "17:00–23:00",
+        "quinta-feira": "17:00–23:00",
+        "sexta-feira": "17:00–23:00",
+        "sábado": "17:00–23:00",
+        "domingo": "17:00–23:00"
+      },
+      "phone": "(83) 3248-4251",
+      "website": "https://pedido.anota.ai/loja/pipa-sushi-temakeria?f=msa",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos",
+            "Turistas",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Ticket Restaurante",
+            "Vale refeição"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFkX3Rxcm01cBgAOgMI8A0%3D&g2lbs=AEzIGDv_XsPS0LMPIeV36XG3H6yMw80xbdBwiEFNgzfzjK1wqUSBUuh_2yXnF8NEAPymFjrteW-7&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=YwVMaq6UDsf9ptQPvo-2qQU&ei=YwVMaq6UDsf9ptQPvo-2qQU&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Serviu o propósito de comer um temaki\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAErDHYWPAc7DdFM7PbbLMyGwd0-d0H1j0ya78vEM1KVf4T3Nb8r2sA17RQAKE_ywpMOkm3zeflGDjj363PceaBqL58VLisPwK8UNfgs0Lzt3fCTtCKQe_BVPKUOLwdoR3B2BBxy=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/kEWuX3icHcTRroIgAADQLyIxKl3bfQC12kDDVraeWiJqZmLCvWQ_2Dfcv2nrPJz_d21Mr5eO09ZoUilVtfJXy0GozsjOTIS6O1WvgdBAO5gn6Q1HQ7g5HTkWXlisYo_nOYvHtS0gKODGbeB48fy_KHZpVs72KMn9Yaqx6-1STKPzaPt4e7ujlyzbddg0aIG4kBfyYHM_Y1fNLfUPSVlpyF4GlcHeBDSVZ5JxetgyW6gdIlNCnuOPdSGEoP4uQPcBlP5CzA"
+    },
+    {
+      "position": 7,
+      "title": "Novo Oriente Intermares",
+      "place_id": "ChIJN9JFAA7erAcR7c6fN6tma_g",
+      "data_id": "0x7acde0e0045d237:0xf86b66ab379fceed",
+      "data_cid": "17900514029472829165",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde0e0045d237%3A0xf86b66ab379fceed&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde0e0045d237%3A0xf86b66ab379fceed&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0450073,
+        "longitude": -34.8428325
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJN9JFAA7erAcR7c6fN6tma_g",
+      "provider_id": "/g/1s04g8x8v",
+      "rating": 4.2,
+      "reviews": 1378,
+      "price": "R$ 20–60",
+      "extracted_price": 20,
+      "type": "Restaurante de sushi",
+      "types": [
+        "Restaurante de sushi",
+        "Restaurante asiático",
+        "Restaurante brasileiro",
+        "Restaurante chinês",
+        "Restaurante japonês",
+        "Restaurante"
+      ],
+      "type_id": "sushi_restaurant",
+      "type_ids": [
+        "sushi_restaurant",
+        "asian_restaurant",
+        "brazilian_restaurant",
+        "chinese_restaurant",
+        "japanese_restaurant",
+        "restaurant"
+      ],
+      "address": "Av. Mar Vermelho, 35 - Intermares, Cabedelo - PB, 58102-120",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–15:00, 18:00–22:00",
+        "terça-feira": "11:00–15:00, 18:00–22:00",
+        "quarta-feira": "11:00–15:00, 18:00–22:00",
+        "quinta-feira": "11:00–15:00, 18:00–22:00",
+        "sexta-feira": "11:00–15:00, 18:00–23:00",
+        "sábado": "11:00–16:00, 18:00–23:00",
+        "domingo": "11:00–16:00, 18:00–22:00"
+      },
+      "phone": "(83) 3248-4000",
+      "website": "https://novoorienterestaurante.com.br/",
+      "description": "Buffet oriental em espaço contemporâneo. Self-service de pratos chineses e japoneses, com opções brasileiras, em ambiente moderno e descontraído.",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Buffet à vontade",
+            "Café",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Menu em braile",
+            "Porções pequenas",
+            "Pratos orgânicos",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Jantar",
+            "Serviço de buffet",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos",
+            "Turistas",
+            "Universitários"
+          ]
+        },
+        {
+          "planning": [
+            "Recomendação de reserva para jantar",
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "parking": [
+            "É um pouco difícil encontrar uma vaga",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "accessibility": [
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EiYKJOICITIfEhgiFtLX29IPEAoML2cvMXMwNGc4eDh2GAA6AwjwDQ%3D%3D&g2lbs=AEzIGDvzV27OmAdZpxiLAsZB6KQ9KIck589MbUWjJJVuopZ59QEeraPdut5tkOUqlxAkj1oNqzcx&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=YwVMaq6UDsf9ptQPvo-2qQU&ei=YwVMaq6UDsf9ptQPvo-2qQU&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Yakissoba delicioso, sushis muito gostoso, pizza excelente.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFfGiXuQqXCmkiS1CVfFLFwb53qjMTGm3bUVSzv2UQvMsZIH-p1UpgePL-hrdLikTSIbGctn0hUr8KMmkw6dvv5RLCYrlPDyH0oxCE-xsaKwgbMW8f26INKifWIQZ_evBp9LFKt5g=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/GUC6n3icHcTvEoEwAADwJ5qWLoc7H4jStVxJwhenWVv6s2mz8IYewdu48_vw-36YUkJODaNm1oByTmvykKTDvFWkVQPMG4MKCbAE0phHm7iau4VXHh7x_eA0VZmYzr5wkdvntnW_hTuvsfJ0n7z1MI11KE_-GggzFZRECLDuispql_i5h1ULWdqNg7Cp-tFVa3uLnGNXR8vXGvKnswJPeQl6mofZuBiO_E1QFpkfn85EL8QEuYGy6aw3IYSA_ceg_QEpM0XY"
+    }
+  ]
+}

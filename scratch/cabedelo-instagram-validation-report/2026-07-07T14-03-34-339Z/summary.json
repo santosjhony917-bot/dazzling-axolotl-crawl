@@ -1,0 +1,164 @@
+{
+  "generatedAt": "2026-07-07T14:04:19.753Z",
+  "city": "Cabedelo",
+  "state": "PB",
+  "applyDir": "scratch\\serpapi-menu-discovery\\instagram-apply-2026-07-07T13-53-00-919Z",
+  "processed": 105,
+  "withInstagramCandidate": 98,
+  "secure": 3,
+  "insecure": 95,
+  "notFound": 7,
+  "apifyProfilesFetched": 80,
+  "outDir": "scratch\\cabedelo-instagram-validation-report\\2026-07-07T14-03-34-339Z",
+  "secureItems": [
+    {
+      "name": "Bar e Restaurante do Pessoinha",
+      "instagram": "https://instagram.com/bardopessoinha",
+      "followers": 6834,
+      "bioPhone": "(83) 98730-8003",
+      "bioLink": "http://wa.me/5583987308003",
+      "bioOpeningHoursText": "🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem 📱 • https://wa.me/qr/TABUCYMLK",
+      "confidence": 100
+    },
+    {
+      "name": "Casa de Taipa",
+      "instagram": "https://instagram.com/casadetaipapb",
+      "followers": 198,
+      "bioPhone": null,
+      "bioLink": null,
+      "bioOpeningHoursText": null,
+      "confidence": 100
+    },
+    {
+      "name": "Recanto do Pastel",
+      "instagram": "https://instagram.com/recantodopastel2025",
+      "followers": 149,
+      "bioPhone": "(83) 9948-9339",
+      "bioLink": "https://wa.me/558399489339?countryCode=55&countryName=BR&phoneNumber=8399489339",
+      "bioOpeningHoursText": "📍 Recanto do Poço - Cabedelo 🥟 Pastel frito na hora 😋 das 17 as 23horas",
+      "confidence": 100
+    }
+  ],
+  "falsePositiveExamples": [
+    {
+      "name": "Espetinho da praia Intermares",
+      "candidate": "https://instagram.com/numarbarintermares",
+      "title": "Numar Bar e Restaurante (@numarbarintermares)",
+      "reason": "brand_not_confirmed"
+    },
+    {
+      "name": "Churrascaria do Caicó",
+      "candidate": "https://instagram.com/caicorestaurante",
+      "title": "Instagram profile @caicorestaurante",
+      "reason": "no_location_or_phone_support,out_of_scope_name_or_category"
+    },
+    {
+      "name": "Mega Pizza",
+      "candidate": "https://instagram.com/megapizza1",
+      "title": "Mega Pizza e Massas (@megapizza1)",
+      "reason": "brand_not_confirmed"
+    },
+    {
+      "name": "Galeteria D'intermares",
+      "candidate": "https://instagram.com/numarbarintermares",
+      "title": "Numar Bar e Restaurante (@numarbarintermares)",
+      "reason": "brand_not_confirmed"
+    },
+    {
+      "name": "Pipa Sushi & Temakeria",
+      "candidate": "https://instagram.com/pipatemaki",
+      "title": "Pipa Temaki (@pipatemaki) · Cabedelo, PB",
+      "reason": "brand_not_confirmed,out_of_scope_name_or_category"
+    },
+    {
+      "name": "Sakê Temakeria Ponta de Campina, Cabedelo",
+      "candidate": "https://instagram.com/saketemaki",
+      "title": "Sakê Temakeria Premium (@saketemaki)",
+      "reason": "brand_not_confirmed,no_location_or_phone_support,out_of_scope_name_or_category"
+    },
+    {
+      "name": "La casa de pastel e La Pizza Premium",
+      "candidate": "https://instagram.com/lacasadepastelpbof",
+      "title": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB",
+      "reason": "brand_not_confirmed,weak_single_brand_token"
+    },
+    {
+      "name": "Sorveteria glacial",
+      "candidate": "https://instagram.com/sorveteriaglacial",
+      "title": "Sorveteria Glacial (@sorveteriaglacial) · Manaus, AM",
+      "reason": "no_location_or_phone_support,location_conflict:manaus, am"
+    },
+    {
+      "name": "Açaí da Cris",
+      "candidate": "https://instagram.com/acaii_dacris",
+      "title": "Açaí da Cris (@acaii_dacris)",
+      "reason": "brand_not_confirmed,no_location_or_phone_support"
+    },
+    {
+      "name": "Pizza Now - Intermares",
+      "candidate": "https://instagram.com/pizzanowexpress",
+      "title": "Pizza Now (@pizzanowexpress)",
+      "reason": "brand_not_confirmed,no_location_or_phone_support"
+    },
+    {
+      "name": "Meio Quilo",
+      "candidate": "https://instagram.com/outletdosmoveisdb",
+      "title": "Outlet Dos Móveis (@outletdosmoveisdb) · Cabedelo, PB",
+      "reason": "brand_not_confirmed"
+    },
+    {
+      "name": "churrascaria do biu",
+      "candidate": "https://instagram.com/bar_restaurantepordosol",
+      "title": "RESTAURANTE POR DO SOL • (@bar_restaurantepordosol)",
+      "reason": "brand_not_confirmed,out_of_scope_name_or_category"
+    },
+    {
+      "name": "Pizzaria Jacaré",
+      "candidate": "https://instagram.com/pizzariabomsaborpb",
+      "title": "Pizzaria Bom Sabor🍕 (@pizzariabomsaborpb)",
+      "reason": "brand_not_confirmed"
+    },
+    {
+      "name": "Caldinho Prime Formosa",
+      "candidate": "https://instagram.com/caldinhoprimeformosa",
+      "title": "Cabedelo (@caldinhoprimeformosa) - Praia Formosa",
+      "reason": "brand_not_confirmed,weak_single_brand_token"
+    },
+    {
+      "name": "Mary Refeições",
+      "candidate": "https://instagram.com/numarbarintermares",
+      "title": "Numar Bar e Restaurante (@numarbarintermares)",
+      "reason": "brand_not_confirmed"
+    },
+    {
+      "name": "Chapa Quente Lanches e Refeições",
+      "candidate": "https://instagram.com/chapaquenteoficial1",
+      "title": "CHAPA QUENTE (@chapaquenteoficial1)",
+      "reason": "location_conflict:bessa"
+    },
+    {
+      "name": "Lanchonete e Pizzaria Popular",
+      "candidate": "https://instagram.com/euqueropizzafoodtruck",
+      "title": "Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)",
+      "reason": "brand_not_confirmed,weak_single_brand_token"
+    },
+    {
+      "name": "Restaurante e pizzaria chapa quente",
+      "candidate": "https://instagram.com/chapaquenteoficial1",
+      "title": "CHAPA QUENTE (@chapaquenteoficial1)",
+      "reason": "location_conflict:bessa"
+    },
+    {
+      "name": "Casa Do Pastel",
+      "candidate": "https://instagram.com/lacasadepastelpbof",
+      "title": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB",
+      "reason": "brand_not_confirmed,weak_single_brand_token"
+    },
+    {
+      "name": "Tapiocaria da zeti",
+      "candidate": "https://instagram.com/tapiocadaleuda",
+      "title": "Tapioca da Leuda (@tapiocadaleuda)",
+      "reason": "brand_not_confirmed"
+    }
+  ]
+}

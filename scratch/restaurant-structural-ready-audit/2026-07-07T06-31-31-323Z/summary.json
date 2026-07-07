@@ -1,0 +1,71 @@
+{
+  "runId": "2026-07-07T06-31-31-323Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T06-31-31-323Z",
+  "scope": {
+    "ids": [
+      "17c67464-7f14-4f6a-b07c-855f9c9a4593"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+      "name": "Manguinhos Burguer",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 5,
+      "itemCount": 27,
+      "optionCount": 76,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "27 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/manguinhos-burguer",
+        "instagram": "https://www.instagram.com/manguinhosburguer/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:06:03.059Z",
+          "status": "enriched",
+          "username": "manguinhosburguer",
+          "followers": 1850,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/manguinhos-burguer",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Débora Borges Xavier",
+        "number": "29",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58103-405",
+        "phone": "(83) 99831-1272",
+        "latitude": -6.989290899999999,
+        "longitude": -34.8292082,
+        "followers": 1850
+      },
+      "issues": []
+    }
+  ]
+}

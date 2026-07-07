@@ -1,0 +1,645 @@
+{
+  "mode": "apply",
+  "reportPath": "scratch/campina-visible-google-review.json",
+  "scanned": 85,
+  "remove": 46,
+  "keep": 39,
+  "removals": [
+    {
+      "name": "Magu Delivery",
+      "googleName": "Magu Delivery",
+      "category": "Delivery",
+      "reviews_count": "2",
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Zeus Empório",
+      "googleName": "Zeus Empório",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Formosa Express",
+      "googleName": "Formosa Express",
+      "category": "Restaurante fast-food",
+      "reviews_count": "6",
+      "reason": "Fechado temporaria/permanentemente no Google."
+    },
+    {
+      "name": "ESPAÇO Amigos",
+      "googleName": "ESPAÇO Amigos",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Fechado temporaria/permanentemente no Google."
+    },
+    {
+      "name": "Quinta da Colina Catolé",
+      "googleName": "Quinta da Colina Catolé",
+      "category": "Local para eventos",
+      "reviews_count": "803",
+      "reason": "Categoria/nome vetado pelo app antes do Instagram."
+    },
+    {
+      "name": "DW",
+      "googleName": "DW",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Seu evento",
+      "googleName": "Seu evento",
+      "category": "Salão de festas",
+      "reviews_count": "235",
+      "reason": "Categoria/nome vetado pelo app antes do Instagram."
+    },
+    {
+      "name": "Três Irmãs",
+      "googleName": "Três Irmãs",
+      "category": "Hotel 3 estrelas",
+      "reviews_count": null,
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Takashi House",
+      "googleName": "Takashi House",
+      "category": "Delivery",
+      "reviews_count": "16",
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "CANTINHO DA ROCA",
+      "googleName": "CANTINHO DA ROCA",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Lovecakebyana",
+      "googleName": "Lovecakebyana",
+      "category": "Confeitaria",
+      "reviews_count": "1",
+      "reason": "Categoria/nome vetado pelo app antes do Instagram."
+    },
+    {
+      "name": "Frigotil Bodocongó",
+      "googleName": "Frigotil Bodocongó",
+      "category": "Loja",
+      "reviews_count": "21",
+      "reason": "Categoria/nome vetado pelo app antes do Instagram."
+    },
+    {
+      "name": "Barzinho",
+      "googleName": "Barzinho",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Fechado temporaria/permanentemente no Google."
+    },
+    {
+      "name": "Francisca",
+      "googleName": "Francisca",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Fechado temporaria/permanentemente no Google."
+    },
+    {
+      "name": "Elanstel",
+      "googleName": "Elanstel",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Amigos da sexta",
+      "googleName": "Amigos da sexta",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Fechado temporaria/permanentemente no Google."
+    },
+    {
+      "name": "VanessaFerreiraBeauty",
+      "googleName": "VanessaFerreiraBeauty",
+      "category": "Lounge bar",
+      "reviews_count": "6",
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Jeremias",
+      "googleName": "Jeremias",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Nome e marcador de bairro/cidade/localizacao, nao restaurante."
+    },
+    {
+      "name": "Brigss",
+      "googleName": "Brigss",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Itapemirim",
+      "googleName": "Itapemirim",
+      "category": "Loja",
+      "reviews_count": "67",
+      "reason": "Fora de Campina Grande/PB (R. Vinte e Cinco de Janeiro - Jardim Panoramico, Cuité - PB, 58175-000)."
+    },
+    {
+      "name": "Coffee time",
+      "googleName": "Coffee time",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Saabordecasa",
+      "googleName": "Saabordecasa",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "ki'Ponto",
+      "googleName": "ki'Ponto",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "ARTErica",
+      "googleName": "ARTErica",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Il Barese",
+      "googleName": "Il Barese",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "3 irmão",
+      "googleName": "3 irmão",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Point do Mirante",
+      "googleName": "Point do Mirante",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Fechado temporaria/permanentemente no Google."
+    },
+    {
+      "name": "atelie joyce lima",
+      "googleName": "atelie joyce lima",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Bela Vista",
+      "googleName": "Bela Vista",
+      "category": "Hotel 3 estrelas",
+      "reviews_count": null,
+      "reason": "Nome e marcador de bairro/cidade/localizacao, nao restaurante."
+    },
+    {
+      "name": "RS copiadora CG",
+      "googleName": "RS copiadora CG",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Casa de Dinha",
+      "googleName": "Casa de Dinha",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Fechado temporaria/permanentemente no Google."
+    },
+    {
+      "name": "Kennysbar",
+      "googleName": "Kennysbar",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Fechado temporaria/permanentemente no Google."
+    },
+    {
+      "name": "UBSF do Araxá (Postinho do Araxá)",
+      "googleName": "UBSF do Araxá (Postinho do Araxá)",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Cantinho da Mirtes",
+      "googleName": "Cantinho da Mirtes",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Jeremias",
+      "googleName": "Jeremias",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Nome e marcador de bairro/cidade/localizacao, nao restaurante."
+    },
+    {
+      "name": "Nordestinos oxente",
+      "googleName": "Nordestinos oxente",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Cana Mix",
+      "googleName": "Cana Mix",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Spazzio",
+      "googleName": "Spazzio",
+      "category": "",
+      "reviews_count": "1.108",
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Vila do Artesão Campina Grande",
+      "googleName": "Vila do Artesão Campina Grande",
+      "category": "",
+      "reviews_count": "4.168",
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Casa de Cumpade",
+      "googleName": "Casa de Cumpade",
+      "category": "",
+      "reviews_count": "637",
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Fazenda Santana",
+      "googleName": "Fazenda Santana",
+      "category": "",
+      "reviews_count": "1.564",
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Fazenda Santana",
+      "googleName": "Fazenda Santana",
+      "category": "",
+      "reviews_count": "1.564",
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    },
+    {
+      "name": "Pit Stop do Mannú",
+      "googleName": "Pit Stop do Mannú",
+      "category": "",
+      "reviews_count": null,
+      "reason": "Sem sinal forte de cardapio/restaurante apos revisao por nome."
+    },
+    {
+      "name": "Recanto da Jaqueira",
+      "googleName": "Recanto da Jaqueira",
+      "category": "Restaurante",
+      "reviews_count": "32",
+      "reason": "Fora de Campina Grande/PB (Campina Grande, Lagoa Seca - PB, 58117-000)."
+    },
+    {
+      "name": "Campina Grande",
+      "googleName": "Campina Grande",
+      "category": "Hotel 3 estrelas",
+      "reviews_count": null,
+      "reason": "Nome e marcador de bairro/cidade/localizacao, nao restaurante."
+    },
+    {
+      "name": "Ideal Supermercados",
+      "googleName": "Ideal Supermercados",
+      "category": "",
+      "reviews_count": "5.304",
+      "reason": "Nome indica local/servico/evento, nao estabelecimento de comida vendavel."
+    }
+  ],
+  "kept": [
+    {
+      "name": "Pasteky",
+      "googleName": "Pasteky",
+      "category": "Pastelaria brasileira",
+      "reviews_count": "23",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Container",
+      "googleName": "Container",
+      "category": "Restaurante",
+      "reviews_count": "298",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Sr Feijão",
+      "googleName": "Sr Feijão",
+      "category": "",
+      "reviews_count": "1.369",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Caldinhodabia",
+      "googleName": "Caldinhodabia",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Google anterior indicou comida; mantido por cautela."
+    },
+    {
+      "name": "Trailer da Maga",
+      "googleName": "Trailer da Maga",
+      "category": "Restaurante",
+      "reviews_count": "1",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Trailer da Juliana",
+      "googleName": "Trailer da Juliana",
+      "category": "Lanchonete",
+      "reviews_count": "2",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Amore di Latte",
+      "googleName": "Amore di Latte",
+      "category": "Sorveteria",
+      "reviews_count": "170",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Quiosque do Marconi",
+      "googleName": "Quiosque do Marconi",
+      "category": "Bar",
+      "reviews_count": "23",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Caseirão",
+      "googleName": "Caseirão",
+      "category": "Sorveteria",
+      "reviews_count": "4",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Quitanda",
+      "googleName": "Quitanda",
+      "category": "Lanchonete",
+      "reviews_count": "3",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Crispizzacg",
+      "googleName": "Crispizzacg",
+      "category": "Pizzaria",
+      "reviews_count": "17",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Casa da buchada",
+      "googleName": "Casa da buchada",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Rasgatanga",
+      "googleName": "Rasgatanga",
+      "category": "Bar",
+      "reviews_count": "13",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Cocolokolanches",
+      "googleName": "Cocolokolanches",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Petisq - Delivery",
+      "googleName": "Petisq - Delivery",
+      "category": "Delivery",
+      "reviews_count": "1",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Bambalanche",
+      "googleName": "Bambalanche",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Google anterior indicou comida; mantido por cautela."
+    },
+    {
+      "name": "Trailer estação 2",
+      "googleName": "Trailer estação 2",
+      "category": "Lanchonete",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Tia Fatite - Unidade Alto Branco",
+      "googleName": "Tia Fatite - Unidade Alto Branco",
+      "category": "Doceria",
+      "reviews_count": "77",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "FORNODCHEF",
+      "googleName": "FORNODCHEF",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Rosasalgados",
+      "googleName": "Rosasalgados",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Tradição de Vó - La cucina",
+      "googleName": "Tradição de Vó - La cucina",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Waffle's Mania",
+      "googleName": "Waffle's Mania",
+      "category": "Bistrô",
+      "reviews_count": "22",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Janaína Lima.Jl",
+      "googleName": "Janaína Lima.Jl",
+      "category": "Lounge bar",
+      "reviews_count": "4",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Sorvemix Ponto Cem Reis",
+      "googleName": "Sorvemix Ponto Cem Reis",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Google anterior indicou comida; mantido por cautela."
+    },
+    {
+      "name": "FEIJÚ DA GIR",
+      "googleName": "FEIJÚ DA GIR",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "TKOXINHA",
+      "googleName": "TKOXINHA",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Dlburguer",
+      "googleName": "Dlburguer",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Costelaria Barba Branca",
+      "googleName": "Costelaria Barba Branca",
+      "category": "Delivery",
+      "reviews_count": "30",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "O Rancho Campina",
+      "googleName": "O Rancho Campina",
+      "category": "Restaurante",
+      "reviews_count": "1",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Malte & Brasa",
+      "googleName": "Malte & Brasa",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Subway",
+      "googleName": "Subway",
+      "category": "",
+      "reviews_count": "1.099",
+      "action": "keep",
+      "reason": "Google anterior indicou comida; mantido por cautela."
+    },
+    {
+      "name": "Phi Cafés Especiais",
+      "googleName": "Phi Cafés Especiais",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Yume.cg",
+      "googleName": "Yume.cg",
+      "category": "Delivery de comida chinesa",
+      "reviews_count": "33",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Iburgue Lachonete",
+      "googleName": "Iburgue Lachonete",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Qtalspetos",
+      "googleName": "Qtalspetos",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Índio Grills",
+      "googleName": "Índio Grills",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Rei dos Salagdos loja 3",
+      "googleName": "Rei dos Salagdos loja 3",
+      "category": "Lanchonete",
+      "reviews_count": "1",
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Sadywich",
+      "googleName": "Sadywich",
+      "category": "",
+      "reviews_count": null,
+      "action": "keep",
+      "reason": "Nome/categoria indica comida vendavel."
+    },
+    {
+      "name": "Tio Wei",
+      "googleName": "Tio Wei",
+      "category": "",
+      "reviews_count": "1.455",
+      "action": "keep_low_priority",
+      "reason": "Muitas avaliacoes e sem sinal non-app; nao remover por nome fraco."
+    }
+  ]
+}

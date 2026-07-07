@@ -1,0 +1,3630 @@
+{
+  "restaurantId": "528002c2-69ff-4e98-9646-8ed10b97ea69",
+  "restaurantName": "Restaurante Daikôn",
+  "platform": "cardapioweb",
+  "sourceUrl": "https://app.cardapioweb.com/daikon_delivery?s=pub",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-06T18-23-52-068Z\\002-restaurante-daikon",
+  "startedAt": "2026-07-06T18:23:55.684Z",
+  "details": {
+    "url": "https://app.cardapioweb.com/daikon_delivery",
+    "title": "Daikon Delivery",
+    "companyId": "16426",
+    "companySlug": "daikon_delivery",
+    "bodyTextSample": "Início Promoções Pedidos Entrar/Cadastrar Daikon Delivery Fechado • Abrimos amanhã às 18h00 Campina Grande - PB Mais informações Lista de categorias Busque por um produto Lista de categorias Busque por um produto Início Promoções Pedidos Promoções. Dupla Temaki Skin R$ 34,23 Dupla Temaki Kani R$ 34,23 Dupla Temaki Ebiten Arroz, cream cheesem, camarão empanado e cebolinha R$ 47,90 235 - yakisoba individual Macarrâo + legumes + carne + frango /no molho R$ 25,90 Duplas 300 - Dupla Niguiri Ebi Arroz e camarão fresco R$ 6,90 301 - Dupla Daikôn Shake arroz, cream cheese,,alga ,salmão e camarão R$ 6,90 302 - Dupla Filadélfia Especial arroz , salmão fresco , cream cheese e cebolinha R$ 6,90 303 - Dupla Enjoy salmão enrolado com arroz,patê de salmão, kani, cream cheese e cebolinha R$ 9,90 304 - Dupla Uramaki Skin arroz, pele de salmão frita c/ molho doce e gergelim R$ 6,90 305 - Dupla Hot Filadélfia arroz,alga empanada, salmão e cream cheese R$ 6,90 306 - Dupla Canapé Ebi arroz , cream cheese e recheio de camarão R$ 6,90 307 - Dupla Salmão Cheese enrolado de salmão com cream cheese R$ 9,90 310 - Dupla Tamago Maguru omelete,kani, salmão e patê de atum R$ 6,90 312 - Dupla Uramaki de Goiabada arroz , cream cheese e goiabada R$ 6,90 313 - Dupla Hossomaki de Kani enrolado de alga com arroz e kani R$ 6,90 309 - Dupla Tamago Sake omelete, kani, salmão fresco e salmão grelhado. R$ 6,90 314 - Dupla Canapé de Morango arroz , cream cheese, alga ,morango e gergelim R$ 6,90 315 - Dupla Uramaki de Tomate seco Especial arroz, alga,cream cheese ,tomate seco e cebolinha R$ 6,90 317 - Dupla Kani Frito arroz com kani empanado e cheddar R$ 6,90 318 - Dupla Kani Cheese enrolado de kani e cream cheese R$ 6,90 320 - Dupla Canapé Cheddar arroz , kani, cream cheese e cobertura de cheddar R$ 6,90 321 - Dupla Harumaki Romeu e Julieta harumaki com recheio de queijo e doce de goiaba R$ 6,90 322 - Dupla Canapé Kani arroz ,cream cheese e cobertura de kani R$ 6,90 323 - Dupla Ebitem arroz, camarão empanado e cream cheese R$ 6,90 324 - Dupla Ebi Furai camarão empanado, arroz ,teriake cream cheese R$ 6,90 325 - Dupla Daikôn Maki salmão, cream cheese e camarão R$ 9,90 326 - Dupla Tamago Triangular massa de omelete, cream cheese ,salmão ou atum R$ 6,90 327 - Dupla Hossomaki Especial alga , arroz recheado com pasta de atum(ou salmão fresco)e salmão fresco R$ 6,90 328 - Dupla Filadélfia de Salmão salmão cru, cream cheese e arroz R$ 6,90 Niguiri Sak Arroz e salmão fresco R$ 9,90 Shakemaki alga, recheio de arroz e salmão R$ 6,90 Sushi Skin arroz coberto com pele de salmão frita R$ 6,90 Guioza massa guioza recheada com salmão, cream cheese e cebolinha R$ 6,90 Kani Cheese hot Kani empanado com cream cheese R$ 6,90 Niguiri Sake Flambado arroz, salmão flambado e cream cheese R$ 6,90 Tamango Sake omelete, kani, salmão fresco e salmão grelhado R$ 6,90 Canapé Enjoy arroz, kani, patê de salmão com kani, cream cheese e cebolinha R$ 6,90 Hossomaki Misto arroz, alga, atum, kani salmão, e cream cheese R$ 6,90 Uramaki de Atum arroz e patê de atum R$ 6,90 Niguiri Sake Limão arroz, salmão e limão R$ 6,90 Daikon Especial arroz, salmão flambado patê de atum e cream cheese R$ 8,90 Salmão Ebi salmão, cream cheese e camarão R$ 9,90 California arroz, alga, kani, manga, pepino, maça R$ 6,90 Uramaki Misto arroz, salmão, kani, cream cheese e camarão R$ 6,90 Niguiri Tako arroz coberto com fatia de polvo e alga R$ 6,90 Niguiri de Kani arroz e kani R$ 6,90 Hossomaki de salmão salmão, cream cheese, cebolinha R$ 8,90 Retangular Misto arroz, patê de salmão, kani, cream cheese, cheddar e cebolinha R$ 6,90 Hot Roll alga, recheio de kani, salmão e cream cheese R$ 6,90 Hossomaki de Pepino arroz, alga e salada de pepino R$ 6,90 Uramaki de Tomate Seco Especial arroz, alga, cream cheese tomate seco e cebolinha R$ 6,90 Promoção (Mais Vendidos) Combo 10 peças de sushi 10 peças de sushi variados Não inclui sashimis , peças flambadas e joys R$ 23,90 Combo 20 peças de sushi- 20 peças de sushi variados Não inclui sashimis , peças flambadas e joys R$ 45,90 Combo 30 peças de sushi 30 peças de sushi variados Nãoinclui sashimis , peças flambadas e joys R$ 62,90 Combo 40 peças 40 peças de sushi variados Não inclui sashimis,peças flambadas e joys R$ 79,90 Temaki 210 - temaki de kani Arroz, cream cheese e kani R$ 21,90 211 - temaki california Arroz, manga, maçã, pepino, kani e gergilim R$ 19,90 212 - temaki skin Arroz, pele de salmão frita, cream cheese, molho teriaki e gergilim R$ 19,90 213 - temaki salmão simples Arroz, salmão fresco, cebolinha e gergilim R$ 29,90 214 - temaki polvo Arroz, cream cheese, polvo e gergelim R$ 28,90 215 - temaki prego Arroz, cream cheese e peixe prego R$ 28,90 216 - temaki ebi Arroz, camarão fresco, cream cheese e cebolinha R$ 27,90 217 - temaki ebiten Arroz, cream cheesem, camarão empanado e cebolinha R$ 27,90 218 - temaki ebi maguro Pasta de atum, cream cheese, camarão empanado e cebolinha R$ 29,90 219 - Temaki salmão grelhado Temaki salmão grelhado R$ 27,90 220 - temaki salmão flambado Arroz, salmão flambado e cream cheese R$ 32,90 221 - temaki filadelfia skin Patê de salmão grelhado, cream cheese, salmão frito R$ 26,90 222 - temaki joy Arroz, salmão fresco, kani, cream cheese e cebolinha R$ 31,90 223 - temaki haramak Arroz, cream cheese, massa chinesa, pate de camarão e cebolinha R$ 32,90 224 - temaki empanado Arroz, cream chesse, salmão e cebolinha R$ 31,90 225 - temaki salmao completo Arroz, salmão, cream cheese, cebolinha R$ 32,90 226 - temaki misto Arroz, salmão fresco, camarão, kani, cream cheese e cebolinha R$ 29,90 Pratos Individuais 230 - Prato Indivudal - Carne Carne + arroz + batata frita R$ 29,90 231 Prato Individual Frango frango + arroz + batata frita R$ 28,90 232 Prato Individual de camarão Camarão empanado/ alho e óleo/ ao molho + arroz + batata frita R$ 34,90 233 - Prato Individual de peixe Peixe branco cozido + arroz + batata frita R$ 29,90 Pratos executivos 87 executivo de carne Carne + arroz + batata frita Serve até 2 pessoas R$ 39,00 88 executivo de frango frango + arroz + batata frita Serve até 2 pessoas R$ 37,00 89 executivo de camarão Camarão empanado/ alho e óleo/ ao molho + arroz + batata frita Serve até 2 pessoas R$ 46,00 90 executivo de peixe Peixe branco cozido + arroz + batata frita Serve até 2 pessoas R$ 42,00 41 - risoto de frango Frango com arroz cozidos Serve até 2 pessoas R$ 29,00 91 arroz shop suey Arroz com cenoura, ovo e verdura R$ 12,00 Arroz branco (Porçao) Arroz branco R$ 10,00 92 risoto de carne Arroz com carne cozidos Serve até 2 pessoas R$ 31,00 93 risoto de camarão Arroz com camarão cozidos R$ 46,00 243 Bifun Especial Macarrão de arroz , legumes,frango e batata frita Serve até 2 pessoas. R$ 37,00 executivo de yakissoba batata frita+arroz +yakissoba simples R$ 40,00 Cozinha chinesa 42 - Rolinho primavera Rolinho com recheio de carne e legumes serve até 1 pessoa R$ 9,90 43 - Rolinho queijo Rolinho queijo Serve até 1 pessoa R$ 8,90 44 - Rolinho romeu e julieta Rolinho de queijo com goiabada serve até 1 pessoa R$ 8,90 45 yakisoba simples Macarrâo + legumes + carne + frango /no molho Serve até 3 pessoas R$ 47,00 46 yakisoba especial Macarrão + legumes + carne + frango + camarão /no molho Serve até 3 pessoas R$ 68,00 47 yakisoba com camarão Macarrão + legumes ,/no molho Serve até 3 pessoas R$ 69,00 48 yakisoba de carne Macarrão + legumes + carne/no molho Serve até 2 pessoas R$ 47,00 49 yakisoba família feliz Macarrão + legumes + carne + frango + camarão /no molho Serve até 4 pessoas R$ 73,00 44 batata frita Batata frita R$ 17,90 53 frango com legumes Frango + legumes cozidos Acompanha arroz e fritas Serve até 2 pessoas R$ 51,00 56 - frango empanado Frango empanado Acompanha arroz e fritas Serve até 2 pessoas R$ 52,00 55 - frango xadrez Frango xadrez, acompanha arroz e fritas Serve até 2 pessoas R$ 52,00 57 - frango sem legumes Frango sem legumes Acompanha arroz e batata frita Serve até 2 pessoas R$ 52,00 58 - frango agridoce Frango cozido no molho agridoce Acompanha arroz ",
+    "metrics": {
+      "scrollHeight": 1100,
+      "bodyLength": 157151,
+      "imageCount": 16
+    }
+  },
+  "rawSummary": {
+    "categoryCount": 10,
+    "itemCount": 141,
+    "optionCount": 20,
+    "operationalOptionCount": 0,
+    "samples": [
+      {
+        "name": "Promoções.",
+        "items": [
+          {
+            "name": "Dupla Temaki Skin",
+            "price": 34.23,
+            "options": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2,
+                "min": 0,
+                "max": null,
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "Dupla Temaki Kani",
+            "price": 34.23,
+            "options": []
+          },
+          {
+            "name": "Dupla Temaki Ebiten",
+            "price": 47.9,
+            "options": []
+          },
+          {
+            "name": "235 - yakisoba individual",
+            "price": 25.9,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Duplas",
+        "items": [
+          {
+            "name": "300 - Dupla Niguiri Ebi",
+            "price": 6.9,
+            "options": []
+          },
+          {
+            "name": "301 - Dupla Daikôn Shake",
+            "price": 6.9,
+            "options": []
+          },
+          {
+            "name": "302 - Dupla Filadélfia Especial",
+            "price": 6.9,
+            "options": []
+          },
+          {
+            "name": "303 - Dupla Enjoy",
+            "price": 9.9,
+            "options": []
+          },
+          {
+            "name": "304 - Dupla Uramaki Skin",
+            "price": 6.9,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Promoção (Mais Vendidos)",
+        "items": [
+          {
+            "name": "Combo 10 peças de sushi",
+            "price": 23.9,
+            "options": []
+          },
+          {
+            "name": "Combo 20 peças de sushi-",
+            "price": 45.9,
+            "options": []
+          },
+          {
+            "name": "Combo 30 peças de sushi",
+            "price": 62.9,
+            "options": []
+          },
+          {
+            "name": "Combo 40 peças",
+            "price": 79.9,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Temaki",
+        "items": [
+          {
+            "name": "210 - temaki de kani",
+            "price": 21.9,
+            "options": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2,
+                "min": 0,
+                "max": null,
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "211 - temaki california",
+            "price": 19.9,
+            "options": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2,
+                "min": 0,
+                "max": null,
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "212 - temaki skin",
+            "price": 19.9,
+            "options": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2,
+                "min": 0,
+                "max": null,
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "213 - temaki salmão simples",
+            "price": 29.9,
+            "options": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2,
+                "min": 0,
+                "max": null,
+                "required": false
+              }
+            ]
+          },
+          {
+            "name": "214 - temaki polvo",
+            "price": 28.9,
+            "options": [
+              {
+                "group": "Vai empanar o temaki ?",
+                "name": "Empanado",
+                "price": 2,
+                "min": 0,
+                "max": null,
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Pratos Individuais",
+        "items": [
+          {
+            "name": "230 - Prato Indivudal - Carne",
+            "price": 29.9,
+            "options": []
+          },
+          {
+            "name": "231 Prato Individual Frango",
+            "price": 28.9,
+            "options": []
+          },
+          {
+            "name": "232 Prato Individual de camarão",
+            "price": 34.9,
+            "options": []
+          },
+          {
+            "name": "233 - Prato Individual de peixe",
+            "price": 29.9,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pratos executivos",
+        "items": [
+          {
+            "name": "87 executivo de carne",
+            "price": 39,
+            "options": []
+          },
+          {
+            "name": "88 executivo de frango",
+            "price": 37,
+            "options": []
+          },
+          {
+            "name": "89 executivo de camarão",
+            "price": 46,
+            "options": []
+          },
+          {
+            "name": "90 executivo de peixe",
+            "price": 42,
+            "options": []
+          },
+          {
+            "name": "41 - risoto de frango",
+            "price": 29,
+            "options": []
+          }
+        ]
+      }
+    ]
+  },
+  "evidencePath": "scratch\\structured-menu-collection\\2026-07-06T18-23-52-068Z\\002-restaurante-daikon\\menu-evidence.json",
+  "dryRun": {
+    "code": 0,
+    "result": {
+      "success": true,
+      "dryRun": true,
+      "audit": {
+        "approved": true,
+        "confidence": 0.98,
+        "categoryCount": 8,
+        "itemCount": 141,
+        "resolvedPriceCount": 141,
+        "unresolvedPriceCount": 0,
+        "optionPriceCount": 0,
+        "pricedRatio": 1,
+        "issues": [],
+        "optionSemanticAI": {
+          "used": false,
+          "reason": "429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+        }
+      },
+      "preview": [
+        {
+          "name": "Combos",
+          "count": 6,
+          "samples": [
+            {
+              "name": "Dupla Temaki Skin",
+              "price": 34.23,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Dupla Temaki Kani",
+              "price": 34.23,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Combo 10 peças de sushi",
+              "price": 23.9,
+              "kind": "combo_builder",
+              "description": "10 peças de sushi variados Não inclui sashimis , peças flambadas e joys"
+            },
+            {
+              "name": "Combo 20 peças de sushi-",
+              "price": 45.9,
+              "kind": "combo_builder",
+              "description": "20 peças de sushi variados Não inclui sashimis , peças flambadas e joys"
+            },
+            {
+              "name": "Combo 30 peças de sushi",
+              "price": 62.9,
+              "kind": "combo_builder",
+              "description": "30 peças de sushi variados Nãoinclui sashimis , peças flambadas e joys"
+            }
+          ]
+        },
+        {
+          "name": "Pratos Principais",
+          "count": 95,
+          "samples": [
+            {
+              "name": "Dupla Temaki Ebiten",
+              "price": 47.9,
+              "kind": "simple_item",
+              "description": "Arroz, cream cheesem, camarão empanado e cebolinha"
+            },
+            {
+              "name": "300 - Dupla Niguiri Ebi",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "Arroz e camarão fresco"
+            },
+            {
+              "name": "301 - Dupla Daikôn Shake",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "arroz, cream cheese,,alga ,salmão e camarão"
+            },
+            {
+              "name": "302 - Dupla Filadélfia Especial",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "arroz , salmão fresco , cream cheese e cebolinha"
+            },
+            {
+              "name": "303 - Dupla Enjoy",
+              "price": 9.9,
+              "kind": "simple_item",
+              "description": "salmão enrolado com arroz,patê de salmão, kani, cream cheese e cebolinha"
+            }
+          ]
+        },
+        {
+          "name": "Massas",
+          "count": 10,
+          "samples": [
+            {
+              "name": "235 - yakisoba individual",
+              "price": 25.9,
+              "kind": "simple_item",
+              "description": "Macarrâo + legumes + carne + frango /no molho"
+            },
+            {
+              "name": "326 - Dupla Tamago Triangular",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "massa de omelete, cream cheese ,salmão ou atum"
+            },
+            {
+              "name": "Guioza",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "massa guioza recheada com salmão, cream cheese e cebolinha"
+            },
+            {
+              "name": "223 - temaki haramak",
+              "price": 32.9,
+              "kind": "simple_item",
+              "description": "Arroz, cream cheese, massa chinesa, pate de camarão e cebolinha"
+            },
+            {
+              "name": "243 Bifun Especial",
+              "price": 37,
+              "kind": "simple_item",
+              "description": "Macarrão de arroz , legumes,frango e batata frita Serve até 2 pessoas."
+            }
+          ]
+        },
+        {
+          "name": "Sobremesas",
+          "count": 7,
+          "samples": [
+            {
+              "name": "304 - Dupla Uramaki Skin",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "arroz, pele de salmão frita c/ molho doce e gergelim"
+            },
+            {
+              "name": "321 - Dupla Harumaki Romeu e Julieta",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "harumaki com recheio de queijo e doce de goiaba"
+            },
+            {
+              "name": "58 - frango agridoce",
+              "price": 58,
+              "kind": "simple_item",
+              "description": "Frango cozido no molho agridoce Acompanha arroz e batata frita Serve até 2 pessoas"
+            },
+            {
+              "name": "94 - banana caramelada",
+              "price": 16.9,
+              "kind": "simple_item",
+              "description": "Banana caramelada"
+            },
+            {
+              "name": "Petit gateau.",
+              "price": 18.9,
+              "kind": "simple_item",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Duplas",
+          "count": 2,
+          "samples": [
+            {
+              "name": "318 - Dupla Kani Cheese",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "enrolado de kani e cream cheese"
+            },
+            {
+              "name": "Kani Cheese hot",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": "Kani empanado com cream cheese"
+            }
+          ]
+        },
+        {
+          "name": "Cozinha chinesa",
+          "count": 4,
+          "samples": [
+            {
+              "name": "43 - Rolinho queijo",
+              "price": 8.9,
+              "kind": "simple_item",
+              "description": "Rolinho queijo Serve até 1 pessoa"
+            },
+            {
+              "name": "44 - Rolinho romeu e julieta",
+              "price": 8.9,
+              "kind": "simple_item",
+              "description": "Rolinho de queijo com goiabada serve até 1 pessoa"
+            },
+            {
+              "name": "44 batata frita",
+              "price": 17.9,
+              "kind": "simple_item",
+              "description": "Batata frita"
+            },
+            {
+              "name": "86 - barca especial (yakisoba) serve 6 pessoas",
+              "price": 129.9,
+              "kind": "simple_item",
+              "description": "Barca especial (yakisoba)"
+            }
+          ]
+        },
+        {
+          "name": "Bebidas",
+          "count": 16,
+          "samples": [
+            {
+              "name": "138 - Água mineral com gás 500ml",
+              "price": 4.9,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "139 -Água mineral sem gás 500ml",
+              "price": 3.9,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "139 - Água de coco (copo)",
+              "price": 8.9,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "136 - Água tônica Antarctica",
+              "price": 6.9,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "131 - Cerveja Budweiser",
+              "price": 9.9,
+              "kind": "simple_item",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Energetico",
+          "count": 1,
+          "samples": [
+            {
+              "name": "Red Bull ou nigth power",
+              "price": 14.9,
+              "kind": "simple_item",
+              "description": "Bebida energetica"
+            }
+          ]
+        }
+      ],
+      "categories": [
+        {
+          "name": "Combos",
+          "items": [
+            {
+              "name": "Dupla Temaki Skin",
+              "description": "",
+              "price": 34.23,
+              "display_price": 34.23,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833580/-1724791447130blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "Dupla Temaki Kani",
+              "description": "",
+              "price": 34.23,
+              "display_price": 34.23,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833581/-1724792852903blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Combo 10 peças de sushi",
+              "description": "10 peças de sushi variados Não inclui sashimis , peças flambadas e joys",
+              "price": 23.9,
+              "display_price": 23.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833636/c1a11164Combo_1.jpeg",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "10 peças de sushi variados Não inclui sashimis , peças flambadas e joys",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Combo 20 peças de sushi-",
+              "description": "20 peças de sushi variados Não inclui sashimis , peças flambadas e joys",
+              "price": 45.9,
+              "display_price": 45.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833637/f4169e0fCombo_20.jpeg",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "20 peças de sushi variados Não inclui sashimis , peças flambadas e joys",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Combo 30 peças de sushi",
+              "description": "30 peças de sushi variados Nãoinclui sashimis , peças flambadas e joys",
+              "price": 62.9,
+              "display_price": 62.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833638/80456184Combo_1.jpeg",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "30 peças de sushi variados Nãoinclui sashimis , peças flambadas e joys",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Combo 40 peças",
+              "description": "40 peças de sushi variados Não inclui sashimis,peças flambadas e joys",
+              "price": 79.9,
+              "display_price": 79.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833639/152bfb91Combo_20.jpeg",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "40 peças de sushi variados Não inclui sashimis,peças flambadas e joys",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Pratos Principais",
+          "items": [
+            {
+              "name": "Dupla Temaki Ebiten",
+              "description": "Arroz, cream cheesem, camarão empanado e cebolinha",
+              "price": 47.9,
+              "display_price": 47.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833582/-1724879028773blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "300 - Dupla Niguiri Ebi",
+              "description": "Arroz e camarão fresco",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833584/-1723575110323blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "301 - Dupla Daikôn Shake",
+              "description": "arroz, cream cheese,,alga ,salmão e camarão",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833585/-1723575212961blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "302 - Dupla Filadélfia Especial",
+              "description": "arroz , salmão fresco , cream cheese e cebolinha",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833586/-1723575148724blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "303 - Dupla Enjoy",
+              "description": "salmão enrolado com arroz,patê de salmão, kani, cream cheese e cebolinha",
+              "price": 9.9,
+              "display_price": 9.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833587/-1723574851809blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "305 - Dupla Hot Filadélfia",
+              "description": "arroz,alga empanada, salmão e cream cheese",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833589/-1723574960997blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "306 - Dupla Canapé Ebi",
+              "description": "arroz , cream cheese e recheio de camarão",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833590/-1723575249272blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "307 - Dupla Salmão Cheese",
+              "description": "enrolado de salmão com cream cheese",
+              "price": 9.9,
+              "display_price": 9.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833591/-1723574684064blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "310 - Dupla Tamago Maguru",
+              "description": "omelete,kani, salmão e patê de atum",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833593/-1723575069887blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "312 - Dupla Uramaki de Goiabada",
+              "description": "arroz , cream cheese e goiabada",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833594/-1723575302912blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "313 - Dupla Hossomaki de Kani",
+              "description": "enrolado de alga com arroz e kani",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833595/-1723575409854blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "309 - Dupla Tamago Sake",
+              "description": "omelete, kani, salmão fresco e salmão grelhado.",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833592/-1723575010350blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "314 - Dupla Canapé de Morango",
+              "description": "arroz , cream cheese, alga ,morango e gergelim",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833596/-1723575383297blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "315 - Dupla Uramaki de Tomate seco Especial",
+              "description": "arroz, alga,cream cheese ,tomate seco e cebolinha",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833597/-1723575439864blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "317 - Dupla Kani Frito",
+              "description": "arroz com kani empanado e cheddar",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833598/-1723575504381blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "320 - Dupla Canapé Cheddar",
+              "description": "arroz , kani, cream cheese e cobertura de cheddar",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833600/-1723575565664blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "322 - Dupla Canapé Kani",
+              "description": "arroz ,cream cheese e cobertura de kani",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833602/-1723575671248blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "323 - Dupla Ebitem",
+              "description": "arroz, camarão empanado e cream cheese",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833603/-1723576340538blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "324 - Dupla Ebi Furai",
+              "description": "camarão empanado, arroz ,teriake cream cheese",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833604/-1723576706980blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "325 - Dupla Daikôn Maki",
+              "description": "salmão, cream cheese e camarão",
+              "price": 9.9,
+              "display_price": 9.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833605/-1723576729675blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "327 - Dupla Hossomaki Especial",
+              "description": "alga , arroz recheado com pasta de atum(ou salmão fresco)e salmão fresco",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833607/-1723576797351blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "328 - Dupla Filadélfia de Salmão",
+              "description": "salmão cru, cream cheese e arroz",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833608/-1723576834980blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Niguiri Sak",
+              "description": "Arroz e salmão fresco",
+              "price": 9.9,
+              "display_price": 9.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833609/-1733264120242blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Shakemaki",
+              "description": "alga, recheio de arroz e salmão",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833610/-1733265298148blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Sushi Skin",
+              "description": "arroz coberto com pele de salmão frita",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833611/-1733265462266blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Niguiri Sake Flambado",
+              "description": "arroz, salmão flambado e cream cheese",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833614/-1733266174394blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Tamango Sake",
+              "description": "omelete, kani, salmão fresco e salmão grelhado",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833615/-1733266627679blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Canapé Enjoy",
+              "description": "arroz, kani, patê de salmão com kani, cream cheese e cebolinha",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833617/-1733267400019blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Hossomaki Misto",
+              "description": "arroz, alga, atum, kani salmão, e cream cheese",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833618/-1733267500686blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Uramaki de Atum",
+              "description": "arroz e patê de atum",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833619/-1733267583452blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Niguiri Sake Limão",
+              "description": "arroz, salmão e limão",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833616/-1733267286025blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Daikon Especial",
+              "description": "arroz, salmão flambado patê de atum e cream cheese",
+              "price": 8.9,
+              "display_price": 8.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833620/-1733267687564blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Salmão Ebi",
+              "description": "salmão, cream cheese e camarão",
+              "price": 9.9,
+              "display_price": 9.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833621/-1733267776514blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "California",
+              "description": "arroz, alga, kani, manga, pepino, maça",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833622/-1733267921316blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Uramaki Misto",
+              "description": "arroz, salmão, kani, cream cheese e camarão",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833623/-1733268142428blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Niguiri Tako",
+              "description": "arroz coberto com fatia de polvo e alga",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833624/-1733268214282blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Niguiri de Kani",
+              "description": "arroz e kani",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833625/-1733268281598blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Hossomaki de salmão",
+              "description": "salmão, cream cheese, cebolinha",
+              "price": 8.9,
+              "display_price": 8.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833626/-1733268358084blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Retangular Misto",
+              "description": "arroz, patê de salmão, kani, cream cheese, cheddar e cebolinha",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833627/-1733268567806blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Hot Roll",
+              "description": "alga, recheio de kani, salmão e cream cheese",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833628/-1733269045506blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Hossomaki de Pepino",
+              "description": "arroz, alga e salada de pepino",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833629/-1733269796161blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Uramaki de Tomate Seco Especial",
+              "description": "arroz, alga, cream cheese tomate seco e cebolinha",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833630/-1733270062683blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "210 - temaki de kani",
+              "description": "Arroz, cream cheese e kani",
+              "price": 21.9,
+              "display_price": 21.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833640/201911141824_nfPI_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "211 - temaki california",
+              "description": "Arroz, manga, maçã, pepino, kani e gergilim",
+              "price": 19.9,
+              "display_price": 19.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833641/201911141825_ywi3_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "212 - temaki skin",
+              "description": "Arroz, pele de salmão frita, cream cheese, molho teriaki e gergilim",
+              "price": 19.9,
+              "display_price": 19.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833642/201911141825_6Mq4_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "213 - temaki salmão simples",
+              "description": "Arroz, salmão fresco, cebolinha e gergilim",
+              "price": 29.9,
+              "display_price": 29.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833643/201911141826_oWlN_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "214 - temaki polvo",
+              "description": "Arroz, cream cheese, polvo e gergelim",
+              "price": 28.9,
+              "display_price": 28.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833644/201911141826_PqzA_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "215 - temaki prego",
+              "description": "Arroz, cream cheese e peixe prego",
+              "price": 28.9,
+              "display_price": 28.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833645/-1724790066105blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "216 - temaki ebi",
+              "description": "Arroz, camarão fresco, cream cheese e cebolinha",
+              "price": 27.9,
+              "display_price": 27.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833646/201911141828_loFC_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "217 - temaki ebiten",
+              "description": "Arroz, cream cheesem, camarão empanado e cebolinha",
+              "price": 27.9,
+              "display_price": 27.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833647/201911141828_USyG_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "218 - temaki ebi maguro",
+              "description": "Pasta de atum, cream cheese, camarão empanado e cebolinha",
+              "price": 29.9,
+              "display_price": 29.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833648/201911141829_q3wr_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "219 - Temaki salmão grelhado",
+              "description": "Temaki salmão grelhado",
+              "price": 27.9,
+              "display_price": 27.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833649/-1723816942913blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "220 - temaki salmão flambado",
+              "description": "Arroz, salmão flambado e cream cheese",
+              "price": 32.9,
+              "display_price": 32.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833650/201911141833_A5V2_s.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "221 - temaki filadelfia skin",
+              "description": "Patê de salmão grelhado, cream cheese, salmão frito",
+              "price": 26.9,
+              "display_price": 26.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833651/201911141833_A968_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "222 - temaki joy",
+              "description": "Arroz, salmão fresco, kani, cream cheese e cebolinha",
+              "price": 31.9,
+              "display_price": 31.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833652/201911141834_ujRH_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "224 - temaki empanado",
+              "description": "Arroz, cream chesse, salmão e cebolinha",
+              "price": 31.9,
+              "display_price": 31.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833654/202303172155_03KE_i.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "225 - temaki salmao completo",
+              "description": "Arroz, salmão, cream cheese, cebolinha",
+              "price": 32.9,
+              "display_price": 32.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833655/201911141832_HeeY_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "226 - temaki misto",
+              "description": "Arroz, salmão fresco, camarão, kani, cream cheese e cebolinha",
+              "price": 29.9,
+              "display_price": 29.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833656/201911141832_22pP_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Vai empanar o temaki ?",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "items": [
+                    {
+                      "external_id": "1835638",
+                      "group_name": "Vai empanar o temaki ?",
+                      "name": "Empanado",
+                      "description": null,
+                      "image_url": null,
+                      "price": 2,
+                      "price_delta": 2,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "required_choice",
+                      "price_behavior": "absolute_price",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835638",
+                  "group_name": "Vai empanar o temaki ?",
+                  "name": "Empanado",
+                  "description": null,
+                  "image_url": null,
+                  "price": 2,
+                  "price_delta": 2,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "required_choice",
+                  "price_behavior": "absolute_price",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "230 - Prato Indivudal - Carne",
+              "description": "Carne + arroz + batata frita",
+              "price": 29.9,
+              "display_price": 29.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833657/201911142114_q5sQ_e.webp",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "Carne",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "arroz",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    },
+                    {
+                      "name": "batata frita",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 2
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "231 Prato Individual Frango",
+              "description": "frango + arroz + batata frita",
+              "price": 28.9,
+              "display_price": 28.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833658/201911142115_JhyA_e.webp",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "frango",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "arroz",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    },
+                    {
+                      "name": "batata frita",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 2
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "232 Prato Individual de camarão",
+              "description": "Camarão empanado/ alho e óleo/ ao molho + arroz + batata frita",
+              "price": 34.9,
+              "display_price": 34.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833659/201911142115_Xi1v_e.webp",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "Camarão empanado/ alho e óleo/ ao molho",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "arroz",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    },
+                    {
+                      "name": "batata frita",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 2
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "233 - Prato Individual de peixe",
+              "description": "Peixe branco cozido + arroz + batata frita",
+              "price": 29.9,
+              "display_price": 29.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833660/201911142116_8Lj3_e.webp",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "Peixe branco cozido",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "arroz",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    },
+                    {
+                      "name": "batata frita",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 2
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "87 executivo de carne",
+              "description": "Carne + arroz + batata frita Serve até 2 pessoas",
+              "price": 39,
+              "display_price": 39,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833661/201911142114_q5sQ_e.webp",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "Carne",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "arroz",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    },
+                    {
+                      "name": "batata frita Serve até 2 pessoas",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 2
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "88 executivo de frango",
+              "description": "frango + arroz + batata frita Serve até 2 pessoas",
+              "price": 37,
+              "display_price": 37,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833662/201911142115_JhyA_e.webp",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "frango",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "arroz",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    },
+                    {
+                      "name": "batata frita Serve até 2 pessoas",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 2
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "89 executivo de camarão",
+              "description": "Camarão empanado/ alho e óleo/ ao molho + arroz + batata frita Serve até 2 pessoas",
+              "price": 46,
+              "display_price": 46,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833663/201911142115_Xi1v_e.webp",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "Camarão empanado/ alho e óleo/ ao molho",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "arroz",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    },
+                    {
+                      "name": "batata frita Serve até 2 pessoas",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 2
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "90 executivo de peixe",
+              "description": "Peixe branco cozido + arroz + batata frita Serve até 2 pessoas",
+              "price": 42,
+              "display_price": 42,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833664/201911142116_8Lj3_e.webp",
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "Peixe branco cozido",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "arroz",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    },
+                    {
+                      "name": "batata frita Serve até 2 pessoas",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 2
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "41 - risoto de frango",
+              "description": "Frango com arroz cozidos Serve até 2 pessoas",
+              "price": 29,
+              "display_price": 29,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833665/-1724186911148blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "91 arroz shop suey",
+              "description": "Arroz com cenoura, ovo e verdura",
+              "price": 12,
+              "display_price": 12,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833666/201911142117_XfML_a.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Arroz branco (Porçao)",
+              "description": "Arroz branco",
+              "price": 10,
+              "display_price": 10,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833667/-1723816964537blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "92 risoto de carne",
+              "description": "Arroz com carne cozidos Serve até 2 pessoas",
+              "price": 31,
+              "display_price": 31,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833668/201911142117_3XKt_r.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "93 risoto de camarão",
+              "description": "Arroz com camarão cozidos",
+              "price": 46,
+              "display_price": 46,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833669/201911042317_WTgH_r.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "executivo de yakissoba",
+              "description": "batata frita+arroz +yakissoba simples",
+              "price": 40,
+              "display_price": 40,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "42 - Rolinho primavera",
+              "description": "Rolinho com recheio de carne e legumes serve até 1 pessoa",
+              "price": 9.9,
+              "display_price": 9.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833671/201911142117_w3Pu_r.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "53 frango com legumes",
+              "description": "Frango + legumes cozidos Acompanha arroz e fritas Serve até 2 pessoas",
+              "price": 51,
+              "display_price": 51,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833680/-1723576964358blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "56 - frango empanado",
+              "description": "Frango empanado Acompanha arroz e fritas Serve até 2 pessoas",
+              "price": 52,
+              "display_price": 52,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833681/201911152229_wtOt_f.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "55 - frango xadrez",
+              "description": "Frango xadrez, acompanha arroz e fritas Serve até 2 pessoas",
+              "price": 52,
+              "display_price": 52,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833682/201911042318_Yv3X_f.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "57 - frango sem legumes",
+              "description": "Frango sem legumes Acompanha arroz e batata frita Serve até 2 pessoas",
+              "price": 52,
+              "display_price": 52,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833683/-1723816823119blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "60 - frango ao molho de gengibre",
+              "description": "Frango ao molho de gengibre Acompanha arroz e batata frita Serve até 2 pessoas",
+              "price": 53,
+              "display_price": 53,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833686/-1723816718414blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "61 - frango ao molho curry",
+              "description": "Frango ao molho curry Acompanha arroz e batata frita Serve até 2 pessoas",
+              "price": 53,
+              "display_price": 53,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833687/-1723577007617blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "66 - camarão ao molho de tomate",
+              "description": "Camarão ao molho de tomate Acompanha arroz e batata frita Serve até 2 pessoas",
+              "price": 84,
+              "display_price": 84,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833688/201911142135_rRXH_c.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "59 - frango à passarinho",
+              "description": "Frango à passarinho Acompanha arroz e batata frita Serve até 2 pessoas",
+              "price": 53,
+              "display_price": 53,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833685/-1723577024537blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "67 - camarão sem legumes",
+              "description": "Camarão sem legumes Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 87,
+              "display_price": 87,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833689/-1723816011007blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "68 - camarão com legumes",
+              "description": "Camarão com legumes Acompanha arroz e batata frita Seve até 3 pessoas",
+              "price": 84,
+              "display_price": 84,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833690/201911142134_A5FT_c.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "70 - camarão alho e óleo",
+              "description": "Camarão alho e óleo Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 84,
+              "display_price": 84,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833691/201911142134_xPqk_c.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "71 - camarão à milanesa",
+              "description": "Camarão à milanesa Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 84,
+              "display_price": 84,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833692/-1723816426436blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "72 - peixe empanado",
+              "description": "Peixe empanado Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 62,
+              "display_price": 62,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833693/201911142132_jYwN_p.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "73 - peixe ao molho de tomate",
+              "description": "Peixe ao molho de tomate Acompanha arroz e batata frita Seve até 3 pessoas",
+              "price": 65,
+              "display_price": 65,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833694/201911142132_vdpj_p.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "74 - peixe com legumes",
+              "description": "Peixe com legumes Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 65,
+              "display_price": 65,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833695/201911142131_1EQu_p.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "75 - peixe sem legumes",
+              "description": "Peixe sem legumes Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 67,
+              "display_price": 67,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833696/-1723816477985blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "80 - carne acebolada",
+              "description": "Carne acebolada ao molho Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 54,
+              "display_price": 54,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833697/201911142128_yksp_c.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "81 - carne com legumes",
+              "description": "Carne com legumes Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 56,
+              "display_price": 56,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833698/201911142128_hFqH_c.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "82 - carne sem legumes",
+              "description": "Carne sem legumes Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 59,
+              "display_price": 59,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833699/-1723816575769blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "83 - carne com brócolis",
+              "description": "Carne com brócolis",
+              "price": 56,
+              "display_price": 56,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833700/-1723816324480blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "84 - carne ao molho curry",
+              "description": "Carne ao molho curry Acompanha arroz e batata frita Serve até 3 pessoas",
+              "price": 54,
+              "display_price": 54,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833701/201911142127_GqFm_c.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "85 - carne chop suey",
+              "description": "Carne chop suey Acompanha arroz e batata frita Serve até 2 pessoas",
+              "price": 54,
+              "display_price": 54,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833702/-1723816262996blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Massas",
+          "items": [
+            {
+              "name": "235 - yakisoba individual",
+              "description": "Macarrâo + legumes + carne + frango /no molho",
+              "price": 25.9,
+              "display_price": 25.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833583/201911242057_tKLX_y.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "326 - Dupla Tamago Triangular",
+              "description": "massa de omelete, cream cheese ,salmão ou atum",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833606/-1723576769104blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Guioza",
+              "description": "massa guioza recheada com salmão, cream cheese e cebolinha",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833612/-1733265621690blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "223 - temaki haramak",
+              "description": "Arroz, cream cheese, massa chinesa, pate de camarão e cebolinha",
+              "price": 32.9,
+              "display_price": 32.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833653/201911141834_0GSm_t.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "243 Bifun Especial",
+              "description": "Macarrão de arroz , legumes,frango e batata frita Serve até 2 pessoas.",
+              "price": 37,
+              "display_price": 37,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833670/-1723816884039blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "45 yakisoba simples",
+              "description": "Macarrâo + legumes + carne + frango /no molho Serve até 3 pessoas",
+              "price": 47,
+              "display_price": 47,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833674/201911242057_tKLX_y.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "46 yakisoba especial",
+              "description": "Macarrão + legumes + carne + frango + camarão /no molho Serve até 3 pessoas",
+              "price": 68,
+              "display_price": 68,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833675/201911042318_5njU_y.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "47 yakisoba com camarão",
+              "description": "Macarrão + legumes ,/no molho Serve até 3 pessoas",
+              "price": 69,
+              "display_price": 69,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833676/201911142138_uyQ7_y.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "48 yakisoba de carne",
+              "description": "Macarrão + legumes + carne/no molho Serve até 2 pessoas",
+              "price": 47,
+              "display_price": 47,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833677/201911142141_1HzQ_y.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "49 yakisoba família feliz",
+              "description": "Macarrão + legumes + carne + frango + camarão /no molho Serve até 4 pessoas",
+              "price": 73,
+              "display_price": 73,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833678/201911142137_usZi_y.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Sobremesas",
+          "items": [
+            {
+              "name": "304 - Dupla Uramaki Skin",
+              "description": "arroz, pele de salmão frita c/ molho doce e gergelim",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833588/-1723574928607blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "321 - Dupla Harumaki Romeu e Julieta",
+              "description": "harumaki com recheio de queijo e doce de goiaba",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833601/-1723575597219blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "58 - frango agridoce",
+              "description": "Frango cozido no molho agridoce Acompanha arroz e batata frita Serve até 2 pessoas",
+              "price": 58,
+              "display_price": 58,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833684/201911042319_uLIt_f.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "94 - banana caramelada",
+              "description": "Banana caramelada",
+              "price": 16.9,
+              "display_price": 16.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833723/29257900Banana.JPG",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Petit gateau.",
+              "description": "",
+              "price": 18.9,
+              "display_price": 18.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833724/-1724187507883blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "100 - creme de papaya",
+              "description": "Creme papaya",
+              "price": 18.9,
+              "display_price": 18.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833725/-1724187102733blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "creme de papaya com cassis",
+              "description": "",
+              "price": 19.9,
+              "display_price": 19.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2061484/055087e9thumb_-1724187102733blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Duplas",
+          "items": [
+            {
+              "name": "318 - Dupla Kani Cheese",
+              "description": "enrolado de kani e cream cheese",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833599/-1723575536638blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Kani Cheese hot",
+              "description": "Kani empanado com cream cheese",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833613/-1733265880395blob_600.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Cozinha chinesa",
+          "items": [
+            {
+              "name": "43 - Rolinho queijo",
+              "description": "Rolinho queijo Serve até 1 pessoa",
+              "price": 8.9,
+              "display_price": 8.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833672/-1723816847463blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "44 - Rolinho romeu e julieta",
+              "description": "Rolinho de queijo com goiabada serve até 1 pessoa",
+              "price": 8.9,
+              "display_price": 8.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833673/201911142121_pPAK_r.webp",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "44 batata frita",
+              "description": "Batata frita",
+              "price": 17.9,
+              "display_price": 17.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833679/-1723815982047blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "86 - barca especial (yakisoba) serve 6 pessoas",
+              "description": "Barca especial (yakisoba)",
+              "price": 129.9,
+              "display_price": 129.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833704/-1723816368415blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Bebidas",
+          "items": [
+            {
+              "name": "138 - Água mineral com gás 500ml",
+              "description": "",
+              "price": 4.9,
+              "display_price": 4.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833705/-1723816117675blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "139 -Água mineral sem gás 500ml",
+              "description": "",
+              "price": 3.9,
+              "display_price": 3.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833706/-1723816032096blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "139 - Água de coco (copo)",
+              "description": "",
+              "price": 8.9,
+              "display_price": 8.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833707/-1723816059094blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "136 - Água tônica Antarctica",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833708/-1723816091026blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "131 - Cerveja Budweiser",
+              "description": "",
+              "price": 9.9,
+              "display_price": 9.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833709/-1723816151051blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "125 - Coca-Cola 350ml",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833711/-1723814974448blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "148 - Cerveja Heineken",
+              "description": "",
+              "price": 10.9,
+              "display_price": 10.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833712/-1723816174479blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "126 - Coca-Cola zero 350ml",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833713/-1723814994624blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "128 - Fanta laranja 350ml",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833714/-1723815017961blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "128 - Fanta uva 350ml",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833715/-1723815073431blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "127 - H2O! 500ml",
+              "description": "",
+              "price": 7.9,
+              "display_price": 7.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833716/-1723815044654blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "135 - Soda Antarctica 350ml",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833718/-1723815097208blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "132 - Guaraná artactica",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833719/-1723814696866blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Escolha a bebida",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "combo_component",
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "external_id": "1835640",
+                      "group_name": "Escolha a bebida",
+                      "name": "Zero",
+                      "description": null,
+                      "image_url": null,
+                      "price": 0,
+                      "price_delta": 0,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "combo_component",
+                      "price_behavior": "included",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    },
+                    {
+                      "external_id": "1835641",
+                      "group_name": "Escolha a bebida",
+                      "name": "Normal",
+                      "description": null,
+                      "image_url": null,
+                      "price": 0,
+                      "price_delta": 0,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "combo_component",
+                      "price_behavior": "included",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835640",
+                  "group_name": "Escolha a bebida",
+                  "name": "Zero",
+                  "description": null,
+                  "image_url": null,
+                  "price": 0,
+                  "price_delta": 0,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "combo_component",
+                  "price_behavior": "included",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                },
+                {
+                  "external_id": "1835641",
+                  "group_name": "Escolha a bebida",
+                  "name": "Normal",
+                  "description": null,
+                  "image_url": null,
+                  "price": 0,
+                  "price_delta": 0,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "combo_component",
+                  "price_behavior": "included",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "133 - Guaraná artactica zero",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [
+                {
+                  "name": "Escolha a bebida",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "combo_component",
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "external_id": "1835640",
+                      "group_name": "Escolha a bebida",
+                      "name": "Zero",
+                      "description": null,
+                      "image_url": null,
+                      "price": 0,
+                      "price_delta": 0,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "combo_component",
+                      "price_behavior": "included",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    },
+                    {
+                      "external_id": "1835641",
+                      "group_name": "Escolha a bebida",
+                      "name": "Normal",
+                      "description": null,
+                      "image_url": null,
+                      "price": 0,
+                      "price_delta": 0,
+                      "min_quantity": 0,
+                      "max_quantity": null,
+                      "is_required": false,
+                      "semantic_type": "combo_component",
+                      "price_behavior": "included",
+                      "is_searchable_variant": false,
+                      "search_label": null
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "external_id": "1835640",
+                  "group_name": "Escolha a bebida",
+                  "name": "Zero",
+                  "description": null,
+                  "image_url": null,
+                  "price": 0,
+                  "price_delta": 0,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "combo_component",
+                  "price_behavior": "included",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                },
+                {
+                  "external_id": "1835641",
+                  "group_name": "Escolha a bebida",
+                  "name": "Normal",
+                  "description": null,
+                  "image_url": null,
+                  "price": 0,
+                  "price_delta": 0,
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "semantic_type": "combo_component",
+                  "price_behavior": "included",
+                  "is_searchable_variant": false,
+                  "search_label": null
+                }
+              ]
+            },
+            {
+              "name": "130 - Sprite 350ml",
+              "description": "",
+              "price": 6.9,
+              "display_price": 6.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833721/-1723815223420blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "149 - Suco copo",
+              "description": "",
+              "price": 8.5,
+              "display_price": 8.5,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833722/-1723815245190blob_600.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Energetico",
+          "items": [
+            {
+              "name": "Red Bull ou nigth power",
+              "description": "Bebida energetica",
+              "price": 14.9,
+              "display_price": 14.9,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833726/-1723814614051blob.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        }
+      ],
+      "message": "Prévia estruturada com 141 itens via cardapio_web."
+    },
+    "stdoutTail": "required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"items\":[{\"external_id\":\"1835640\",\"group_name\":\"Escolha a bebida\",\"name\":\"Zero\",\"description\":null,\"image_url\":null,\"price\":0,\"price_delta\":0,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"1835641\",\"group_name\":\"Escolha a bebida\",\"name\":\"Normal\",\"description\":null,\"image_url\":null,\"price\":0,\"price_delta\":0,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]}],\"options\":[{\"external_id\":\"1835640\",\"group_name\":\"Escolha a bebida\",\"name\":\"Zero\",\"description\":null,\"image_url\":null,\"price\":0,\"price_delta\":0,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"1835641\",\"group_name\":\"Escolha a bebida\",\"name\":\"Normal\",\"description\":null,\"image_url\":null,\"price\":0,\"price_delta\":0,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]},{\"name\":\"133 - Guaraná artactica zero\",\"description\":\"\",\"price\":6.9,\"display_price\":6.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[{\"name\":\"Escolha a bebida\",\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"items\":[{\"external_id\":\"1835640\",\"group_name\":\"Escolha a bebida\",\"name\":\"Zero\",\"description\":null,\"image_url\":null,\"price\":0,\"price_delta\":0,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"1835641\",\"group_name\":\"Escolha a bebida\",\"name\":\"Normal\",\"description\":null,\"image_url\":null,\"price\":0,\"price_delta\":0,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]}],\"options\":[{\"external_id\":\"1835640\",\"group_name\":\"Escolha a bebida\",\"name\":\"Zero\",\"description\":null,\"image_url\":null,\"price\":0,\"price_delta\":0,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"1835641\",\"group_name\":\"Escolha a bebida\",\"name\":\"Normal\",\"description\":null,\"image_url\":null,\"price\":0,\"price_delta\":0,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]},{\"name\":\"130 - Sprite 350ml\",\"description\":\"\",\"price\":6.9,\"display_price\":6.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833721/-1723815223420blob.png\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"149 - Suco copo\",\"description\":\"\",\"price\":8.5,\"display_price\":8.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833722/-1723815245190blob_600.png\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Energetico\",\"items\":[{\"name\":\"Red Bull ou nigth power\",\"description\":\"Bebida energetica\",\"price\":14.9,\"display_price\":14.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1833726/-1723814614051blob.png\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 141 itens via cardapio_web.\"}\n",
+    "stderrTail": "[Menu V2] IA de semântica falhou; mantendo heurística: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.\n"
+  },
+  "review": {
+    "tier": "green",
+    "flags": [],
+    "dryRunApproved": true,
+    "dryRunOperationalOptionCount": 0,
+    "itemCount": 141,
+    "optionCount": 20,
+    "rawOperationalOptionCount": 0,
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 8,
+      "itemCount": 141,
+      "resolvedPriceCount": 141,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    }
+  },
+  "committed": false,
+  "commit": null,
+  "error": null,
+  "finishedAt": "2026-07-06T18:24:07.003Z"
+}

@@ -1,0 +1,71 @@
+{
+  "runId": "2026-07-07T06-26-36-224Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T06-26-36-224Z",
+  "scope": {
+    "ids": [
+      "ec6b2565-934c-4278-9a8a-63168eb819f2"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "ec6b2565-934c-4278-9a8a-63168eb819f2",
+      "name": "DAWN BURGUER",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 6,
+      "itemCount": 55,
+      "optionCount": 703,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "55 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/dawn-burguer?f=msa",
+        "instagram": "https://www.instagram.com/dawn.burguer/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:35.274Z",
+          "status": "enriched",
+          "username": "dawn.burguer",
+          "followers": 9786,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/dawn-burguer?f=msa",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Augusto Firmo Paulo",
+        "number": "51",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58101-015",
+        "phone": "(83) 99638-6080",
+        "latitude": -6.974396,
+        "longitude": -34.831213999999996,
+        "followers": 9786
+      },
+      "issues": []
+    }
+  ]
+}

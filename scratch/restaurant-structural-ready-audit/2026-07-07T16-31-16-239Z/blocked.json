@@ -1,0 +1,72 @@
+[
+  {
+    "id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+    "name": "Pipa Sushi & Temakeria",
+    "redCount": 11,
+    "issueCodes": [
+      "numero_vazio",
+      "item_nome_instrucao_interface",
+      "display_name_instrucao_interface"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "numero_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "item_nome_instrucao_interface",
+        "itemId": "9600ec9e-aa87-4dc6-bce4-bffbec575edb",
+        "item": "Monte Seu Poke!"
+      },
+      {
+        "severity": "red",
+        "code": "display_name_instrucao_interface",
+        "itemId": "9600ec9e-aa87-4dc6-bce4-bffbec575edb",
+        "displayName": "Monte Seu Poke!"
+      },
+      {
+        "severity": "red",
+        "code": "item_nome_instrucao_interface",
+        "itemId": "63e94116-362a-459e-8842-a732a185a914",
+        "item": "Monte Seu Combinado!"
+      },
+      {
+        "severity": "red",
+        "code": "display_name_instrucao_interface",
+        "itemId": "63e94116-362a-459e-8842-a732a185a914",
+        "displayName": "Monte Seu Combinado!"
+      },
+      {
+        "severity": "red",
+        "code": "item_nome_instrucao_interface",
+        "itemId": "e5d6f1df-76c6-4df6-9137-67ea30f7a109",
+        "item": "Monte Seu Combinado!"
+      },
+      {
+        "severity": "red",
+        "code": "display_name_instrucao_interface",
+        "itemId": "e5d6f1df-76c6-4df6-9137-67ea30f7a109",
+        "displayName": "Monte Seu Combinado!"
+      },
+      {
+        "severity": "red",
+        "code": "item_nome_instrucao_interface",
+        "itemId": "e0dba39b-3901-42fd-97e7-3789ef24a07c",
+        "item": "Monte Seu Poke!"
+      },
+      {
+        "severity": "red",
+        "code": "display_name_instrucao_interface",
+        "itemId": "e0dba39b-3901-42fd-97e7-3789ef24a07c",
+        "displayName": "Monte Seu Poke!"
+      },
+      {
+        "severity": "red",
+        "code": "item_nome_instrucao_interface",
+        "itemId": "b0995188-ab2f-4cba-b764-435b62aabf7c",
+        "item": "Monte seu Sushi Hot Dog"
+      }
+    ]
+  }
+]

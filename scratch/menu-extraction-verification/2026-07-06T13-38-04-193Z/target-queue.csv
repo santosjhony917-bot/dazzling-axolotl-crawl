@@ -1,0 +1,4 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+green,7,cardapioweb,DinDin Alegria,https://app.cardapioweb.com/dindin_alegria,,fast_visual_review_then_import,7a564e31-faab-4bf2-9c1a-791be4da2968
+green,7,cardapioweb,Doha Esfiharia - CG,https://app.cardapioweb.com/doha_esfiharia,,fast_visual_review_then_import,d716d71f-e1c9-41da-a7de-bb32b7bc5854
+green,7,cardapioweb,Dom Brie Pizzaria,https://app.cardapioweb.com/dom_brie,,fast_visual_review_then_import,a00d132c-437d-414f-8297-08b106fec9f8

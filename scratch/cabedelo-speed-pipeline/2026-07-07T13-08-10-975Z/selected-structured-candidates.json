@@ -1,0 +1,97 @@
+{
+  "queuePath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T13-08-12-163Z\\queue.json",
+  "summary": {
+    "all_active_needs_recollection": 206,
+    "queue_count": 69,
+    "excluded_count": 137,
+    "by_tier": {
+      "green": 13,
+      "yellow": 56
+    },
+    "by_platform": {
+      "cardapioweb": 2,
+      "anota_ai": 7,
+      "restaurantlogin": 1,
+      "whatsmenu": 2,
+      "instadelivery": 1,
+      "brendi": 1,
+      "meucarrinho": 1,
+      "yooga": 4,
+      "cardapiodigital": 1,
+      "unknown": 49
+    },
+    "by_tier_platform": {
+      "green": {
+        "cardapioweb": 2,
+        "anota_ai": 1,
+        "restaurantlogin": 1,
+        "whatsmenu": 2,
+        "instadelivery": 1,
+        "brendi": 1,
+        "meucarrinho": 1,
+        "yooga": 4
+      },
+      "yellow": {
+        "anota_ai": 6,
+        "cardapiodigital": 1,
+        "unknown": 49
+      }
+    },
+    "excluded_by_tier": {
+      "red": 137
+    },
+    "excluded_by_platform": {
+      "unknown": 137
+    },
+    "excluded_by_reason": {
+      "source_absent": 137
+    }
+  },
+  "selectedCount": 1,
+  "selectedByPlatform": {
+    "instadelivery": 1
+  },
+  "candidates": [
+    {
+      "restaurant_id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "platform": "instadelivery",
+      "tier": "green",
+      "priority_score": 40,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "raw_source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "other_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Delivery de Pizza",
+      "address": "Rua Monte Castelo 12b",
+      "neighborhood": "Monte Castelo",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98653-8522",
+      "rating": 3,
+      "reviews_count": 2,
+      "menu_status": "manual_required",
+      "menu_status_reason": "QA estrutural bloqueou: numero_embutido_no_logradouro, numero_vazio, cep_ausente_ou_invalido, sem_capa, galeria_menor_que_3",
+      "menu_last_checked_at": "2026-07-07T11:34:48.513+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://instadelivery.com.br/FornoBrasilExpress",
+          "canonical_url": "https://instadelivery.com.br/FornoBrasilExpress",
+          "platform": "instadelivery",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 13
+    }
+  ]
+}

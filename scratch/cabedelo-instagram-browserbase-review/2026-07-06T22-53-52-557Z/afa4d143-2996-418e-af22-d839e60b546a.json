@@ -1,0 +1,51 @@
+{
+  "id": "afa4d143-2996-418e-af22-d839e60b546a",
+  "name": "Porto do Café",
+  "category": "Cafeteria",
+  "neighborhood": "Centro",
+  "reviews_count": 6,
+  "rating": 4.7,
+  "instagramCandidate": "https://instagram.com/portodocafe__",
+  "score": 120,
+  "title": "portodocafe__",
+  "queries": [
+    "Porto do Café portodocafe__ Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/portodocafe__",
+  "rowName": "Porto do Café",
+  "status": "hold",
+  "best": {
+    "status": "hold",
+    "score": 64,
+    "url": "https://instagram.com/portodocafe__",
+    "handle": "portodocafe__",
+    "tokens": [
+      "porto",
+      "cafe"
+    ],
+    "handleMatches": [
+      "porto",
+      "cafe"
+    ],
+    "textMatches": [
+      "porto",
+      "cafe"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": false,
+    "evidenceSample": "portodocafe__ https://instagram.com/portodocafe__ Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png https://instagram.com/ 124024574287414 Create an account or log in to Instagram - Share what you're into with the people who get you. Instagram dark Forgot password? https://www.instagram.com/accounts/password/reset/?next=https%3A%2F%2Fwww.instagram.com%2Fportodocafe__%2F%3Fhl%3Dpt-br Create new account https://www.instagram.com/accounts/emailsignup/?next=https%3A%2F%2Fwww.instagram.com%2Fportodocafe__%",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fportodocafe__%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "c660bade-22d4-4175-8cfa-5e4fa056bfce"
+}

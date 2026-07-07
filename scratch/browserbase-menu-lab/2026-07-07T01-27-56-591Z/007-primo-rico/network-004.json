@@ -1,0 +1,11 @@
+{
+  "url": "https://maps.googleapis.com/maps/api/mapsjs/gen_204?csp_test=true",
+  "status": 200,
+  "contentType": "application/json; charset=UTF-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 3,
+  "textSample": "{}\n",
+  "jsonKeys": [],
+  "json": {}
+}

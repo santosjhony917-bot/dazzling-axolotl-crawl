@@ -1,0 +1,172 @@
+{
+  "apply": false,
+  "overwrite": false,
+  "safeOnly": true,
+  "skipExisting": true,
+  "minScore": 100,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\2026-07-06T21-19-31-972Z",
+  "processed": 11,
+  "approved": 3,
+  "baseApproved": 6,
+  "safe": 3,
+  "rejected": 8,
+  "applied": 0,
+  "failures": [],
+  "reasonCounts": {
+    "score_below_100": 1,
+    "brand_not_confirmed": 3,
+    "approved_safe": 3,
+    "no_distinctive_restaurant_token,brand_not_confirmed": 1,
+    "no_location_or_phone_support": 2,
+    "no_instagram_candidate": 1
+  },
+  "approvedSamples": [
+    {
+      "name": "Sabor da infância no pôr do sol",
+      "instagram": "https://instagram.com/pordosoldojacare",
+      "score": 152,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Porto do açaí",
+      "instagram": "https://instagram.com/portodoacai01",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": "Porto do Açaí (@portodoacai01) · Cabedelo, PB. 956 followers · 81 posts · Ceo: @nazarebaracho - @leilacam26 : Rua Cleto Campelo, quiosque 3 Segunda à Sábado de 9h às 21hrs Faça seu pedido abaixo.. https://instagram.com/portodoacai01"
+    },
+    {
+      "name": "Pastelaria Arretada",
+      "instagram": "https://instagram.com/pastelaria.arretadapb",
+      "score": 107,
+      "phoneCandidate": "(83) 99380-1327",
+      "openingHoursText": "Pastelaria Arretada (@pastelaria.arretadapb). ⏰| QUA/SEG 18:00h às 00:00h ❌|Fechamos na TERÇA | Pastel, Crepe, cuscuz recheado | 83 99380-1327 ⬇️ FAÇA SEU PEDIDO AGORA! ⬇️ · CURTIU? Então já marca o @ .... https://instagram.com/pastelaria.arretadapb"
+    }
+  ],
+  "rejectedSamples": [
+    {
+      "name": "Me gusta Açaí",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/acai_megusta",
+        "title": "ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG",
+        "score": 89,
+        "tokens": [
+          "gusta"
+        ],
+        "handleMatches": [
+          "gusta"
+        ],
+        "textMatches": [
+          "gusta"
+        ]
+      }
+    },
+    {
+      "name": "Caribe burger",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/gigantedomaroficial",
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "score": -2,
+        "tokens": [
+          "caribe"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Bebel & Jó Pizzaria",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/bellapizza.en",
+        "title": "Bella Pizza (@bellapizza.en)",
+        "score": -2,
+        "tokens": [
+          "bebel"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Açai",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/danieldoacai",
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "score": -2,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Fatia do Céu",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/fatia_ceu",
+        "title": "Fatia do Céu (@fatia_ceu)",
+        "score": 138,
+        "tokens": [
+          "fatia",
+          "ceu"
+        ],
+        "handleMatches": [
+          "fatia",
+          "ceu"
+        ],
+        "textMatches": [
+          "fatia",
+          "ceu"
+        ]
+      }
+    },
+    {
+      "name": "Cafeteria Deus Seja Louvado",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/saxcafe",
+        "title": "saxcafe · Cabedelo, PB",
+        "score": -6,
+        "tokens": [
+          "deus",
+          "seja",
+          "louvado"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Espetinho São Paulo",
+      "reason": "no_instagram_candidate",
+      "best": null
+    },
+    {
+      "name": "Rainha da tapioca",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/rainhadatapioca",
+        "title": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca)",
+        "score": 138,
+        "tokens": [
+          "rainha",
+          "tapioca"
+        ],
+        "handleMatches": [
+          "rainha",
+          "tapioca"
+        ],
+        "textMatches": [
+          "rainha",
+          "tapioca"
+        ]
+      }
+    }
+  ],
+  "updates": []
+}

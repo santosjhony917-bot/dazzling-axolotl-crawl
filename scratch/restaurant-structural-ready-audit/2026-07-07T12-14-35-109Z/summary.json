@@ -1,0 +1,120 @@
+{
+  "runId": "2026-07-07T12-14-35-109Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T12-14-35-109Z",
+  "scope": {
+    "ids": [
+      "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "c23b0422-4e34-43be-b07e-6a494804f6fc"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 2,
+  "ready": 2,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "name": "Center Pizza Cabedelo",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 2,
+      "itemCount": 12,
+      "optionCount": 101,
+      "galleryCount": 8,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "menuStatusReason": "QA estrutural bloqueou: opcao_price_delta_sem_delta_positivo",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+        "instagram": "https://www.instagram.com/centerpizza_cabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:11.540Z",
+          "status": "enriched",
+          "username": "centerpizza_cabedelo",
+          "followers": 3390,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": "189",
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98629-0531",
+        "latitude": -6.9721724,
+        "longitude": -34.8343388,
+        "followers": 3390
+      },
+      "issues": []
+    },
+    {
+      "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+      "name": "Lary's pizzaria e lanchonete",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 6,
+      "itemCount": 79,
+      "optionCount": 350,
+      "galleryCount": 8,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "menuStatusReason": "QA estrutural bloqueou: opcao_price_delta_sem_delta_positivo",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+        "instagram": "https://www.instagram.com/laryspizzariaoficial/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:24.228Z",
+          "status": "enriched",
+          "username": "laryspizzariaoficial",
+          "followers": 2234,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Antônia Fernandes Oliveira",
+        "number": "810",
+        "neighborhood": "Jardim Camboinha",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58103-706",
+        "phone": "(83) 98877-2470",
+        "latitude": -7.005608199999999,
+        "longitude": -34.8309231,
+        "followers": 2234
+      },
+      "issues": []
+    }
+  ]
+}

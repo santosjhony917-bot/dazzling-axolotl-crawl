@@ -1,0 +1,783 @@
+{
+  "runId": "2026-07-06T11-23-03-841Z",
+  "apply": false,
+  "limit": 2,
+  "platform": null,
+  "targetCount": 2,
+  "processed": [
+    {
+      "restaurantId": "8e74d2f0-8a72-4692-ae05-73b6e7508dcc",
+      "restaurantName": "Recanto Paraiso Da Pizza e Hamburgueria",
+      "sourceUrl": "https://whatsmenu.com.br/recantoparaisodapizzaehamburgueria",
+      "platform": "whatsmenu",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-23-03-841Z\\001-recanto-paraiso-da-pizza-e-hamburgueria",
+      "openedTabId": 943017019,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 1,
+          "scrollHeight": 674,
+          "capturedHeight": 674,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 843,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943017019,
+          "url": "https://whatsmenu.com.br/recantoparaisodapizzaehamburgueria",
+          "title": "whatsmenu.com.br/recantoparaisodapizzaehamburgueria"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783337008493_ll8jvph6.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337008493_ll8jvph6.jpg",
+          "bytes": 15793
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943017019,
+            "clientHeight": 674,
+            "maxScrollTop": 0,
+            "reachedEnd": true,
+            "scrollHeight": 674,
+            "scrollTop": 0,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337016735_cb5xm27b.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337016735_cb5xm27b.jpg",
+            "bytes": 16946
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017019,
+            "url": "https://whatsmenu.com.br/recantoparaisodapizzaehamburgueria",
+            "title": "whatsmenu.com.br/recantoparaisodapizzaehamburgueria"
+          },
+          "error": null
+        }
+      ],
+      "verificationSnapshotError": null,
+      "extractionSummary": {
+        "success": false,
+        "platform": "visible_text",
+        "error": "Cardápio visível insuficiente; requer fallback por IA/visual.",
+        "confidence": 0.45,
+        "extractionLevel": 1,
+        "categoryCount": 0,
+        "itemCount": 0,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": []
+      },
+      "dryRun": {
+        "success": false,
+        "requiresHuman": true,
+        "message": "A evidência coletada pela extensão não atingiu confiança suficiente. Revise a aba visível; nenhum navegador oculto foi iniciado."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T11-23-03-841Z\\001-recanto-paraiso-da-pizza-e-hamburgueria\\menu-evidence.json"
+    },
+    {
+      "restaurantId": "f26df9fd-52c7-41b0-b961-893396ea690a",
+      "restaurantName": "Pizza do Bosque",
+      "sourceUrl": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+      "platform": "pizzadobosquecg.com.br",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-23-03-841Z\\002-pizza-do-bosque",
+      "openedTabId": 943017037,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 1,
+          "scrollHeight": 674,
+          "capturedHeight": 674,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 843,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943017037,
+          "url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+          "title": "Pizza do Bosque"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783337044749_9mmeydg6.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337044749_9mmeydg6.jpg",
+          "bytes": 154232
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943017037,
+            "clientHeight": 674,
+            "maxScrollTop": 3501,
+            "reachedEnd": false,
+            "scrollHeight": 4175,
+            "scrollTop": 0,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337053084_wjq8abxf.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337053084_wjq8abxf.jpg",
+            "bytes": 187868
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017037,
+            "url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+            "title": "Pizza do Bosque"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.22,
+          "scroll": {
+            "tabId": 943017037,
+            "clientHeight": 674,
+            "maxScrollTop": 3501,
+            "reachedEnd": false,
+            "scrollHeight": 4175,
+            "scrollTop": 770,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337060388_vpmlfw3s.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337060388_vpmlfw3s.jpg",
+            "bytes": 145392
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017037,
+            "url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+            "title": "Pizza do Bosque"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.45,
+          "scroll": {
+            "tabId": 943017037,
+            "clientHeight": 674,
+            "maxScrollTop": 3501,
+            "reachedEnd": false,
+            "scrollHeight": 4175,
+            "scrollTop": 1575,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337067683_4ridj6j9.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337067683_4ridj6j9.jpg",
+            "bytes": 120592
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017037,
+            "url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+            "title": "Pizza do Bosque"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.68,
+          "scroll": {
+            "tabId": 943017037,
+            "clientHeight": 674,
+            "maxScrollTop": 3501,
+            "reachedEnd": false,
+            "scrollHeight": 4175,
+            "scrollTop": 2381,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337074886_7fm0fd6o.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337074886_7fm0fd6o.jpg",
+            "bytes": 86856
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017037,
+            "url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+            "title": "Pizza do Bosque"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.9,
+          "scroll": {
+            "tabId": 943017037,
+            "clientHeight": 674,
+            "maxScrollTop": 3501,
+            "reachedEnd": false,
+            "scrollHeight": 4175,
+            "scrollTop": 3151,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337081130_fp3rir3l.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337081130_fp3rir3l.jpg",
+            "bytes": 92207
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017037,
+            "url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+            "title": "Pizza do Bosque"
+          },
+          "error": null
+        },
+        {
+          "ratio": 1,
+          "scroll": {
+            "tabId": 943017037,
+            "clientHeight": 674,
+            "maxScrollTop": 3501,
+            "reachedEnd": true,
+            "scrollHeight": 4175,
+            "scrollTop": 3501,
+            "success": true,
+            "target": "div#root"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783337088396_4reqluyz.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337088396_4reqluyz.jpg",
+            "bytes": 78442
+          },
+          "result": {
+            "success": true,
+            "tabId": 943017037,
+            "url": "https://www.pizzadobosquecg.com.br/pizza_do_bosque",
+            "title": "Pizza do Bosque"
+          },
+          "error": null
+        }
+      ],
+      "verificationSnapshotError": null,
+      "extractionSummary": {
+        "success": true,
+        "platform": "visible_text",
+        "error": null,
+        "confidence": 0.74,
+        "extractionLevel": 1,
+        "categoryCount": 6,
+        "itemCount": 24,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": [
+          {
+            "name": "Pizza grande | 2 sabores | 8 fatias",
+            "count": 1,
+            "items": [
+              {
+                "name": "A partir de",
+                "price": 51.9,
+                "optionCount": 0
+              }
+            ]
+          },
+          {
+            "name": "Pizza grande | 4 sabores",
+            "count": 1,
+            "items": [
+              {
+                "name": "A partir de",
+                "price": 51.9,
+                "optionCount": 0
+              }
+            ]
+          },
+          {
+            "name": "Combo | Pra nós + Entrega grátis",
+            "count": 1,
+            "items": [
+              {
+                "name": "Pizza grande + refrigerante 1L + entrega grátis | Utilize o cupom: ENTREGA para validar a sua entrega grátis 2 Sabores | 8 fatias",
+                "price": 59.99,
+                "optionCount": 0
+              }
+            ]
+          },
+          {
+            "name": "PIZZA GRANDE 8 FATIAS 4 SABORES + ENTREGA GRÁTIS",
+            "count": 2,
+            "items": [
+              {
+                "name": "-29%",
+                "price": 10,
+                "optionCount": 0
+              },
+              {
+                "name": "ESFIHA DOCE",
+                "price": 10,
+                "optionCount": 0
+              }
+            ]
+          },
+          {
+            "name": "Combo | Pra galera",
+            "count": 1,
+            "items": [
+              {
+                "name": "2 Pizzas grandes + Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+                "price": 99.99,
+                "optionCount": 0
+              }
+            ]
+          }
+        ]
+      },
+      "dryRun": {
+        "success": true,
+        "dryRun": true,
+        "audit": {
+          "approved": false,
+          "confidence": 0.692,
+          "categoryCount": 3,
+          "itemCount": 21,
+          "resolvedPriceCount": 21,
+          "unresolvedPriceCount": 0,
+          "optionPriceCount": 0,
+          "pricedRatio": 1,
+          "issues": [
+            "itens_duplicados"
+          ],
+          "optionSemanticAI": {
+            "used": false,
+            "reason": "no_groups"
+          }
+        },
+        "preview": [
+          {
+            "name": "Pizzas",
+            "count": 10,
+            "samples": [
+              {
+                "name": "A partir de",
+                "price": 51.9,
+                "kind": "simple_item",
+                "description": ""
+              },
+              {
+                "name": "-29%",
+                "price": 10,
+                "kind": "combo_builder",
+                "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha."
+              },
+              {
+                "name": "2 Pizzas grandes + Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+                "price": 99.99,
+                "kind": "combo_builder",
+                "description": ""
+              },
+              {
+                "name": "A partir de",
+                "price": 31.9,
+                "kind": "simple_item",
+                "description": ""
+              },
+              {
+                "name": "ESFIHAS",
+                "price": 10,
+                "kind": "simple_item",
+                "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha."
+              }
+            ]
+          },
+          {
+            "name": "Sobremesas",
+            "count": 1,
+            "samples": [
+              {
+                "name": "ESFIHA DOCE",
+                "price": 10,
+                "kind": "combo_builder",
+                "description": "Descubra o verdadeiro sabor em cada esfiha."
+              }
+            ]
+          },
+          {
+            "name": "Bebidas",
+            "count": 10,
+            "samples": [
+              {
+                "name": "Bebidas",
+                "price": 5,
+                "kind": "simple_item",
+                "description": "Coca-Cola Lata"
+              },
+              {
+                "name": "Coca Zero Lata",
+                "price": 5,
+                "kind": "simple_item",
+                "description": ""
+              },
+              {
+                "name": "GUARANÁ LATA ZERO",
+                "price": 5,
+                "kind": "simple_item",
+                "description": ""
+              },
+              {
+                "name": "GUARANÁ LATA",
+                "price": 5,
+                "kind": "simple_item",
+                "description": ""
+              },
+              {
+                "name": "Coca-Cola 1L",
+                "price": 9,
+                "kind": "simple_item",
+                "description": ""
+              }
+            ]
+          }
+        ],
+        "categories": [
+          {
+            "name": "Pizzas",
+            "items": [
+              {
+                "name": "A partir de",
+                "description": "",
+                "price": 51.9,
+                "display_price": 51.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "-29%",
+                "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha.",
+                "price": 10,
+                "display_price": 10,
+                "price_type": "fixed",
+                "commercial_type": "combo_builder",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "2 Pizzas grandes + Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+                "description": "",
+                "price": 99.99,
+                "display_price": 99.99,
+                "price_type": "fixed",
+                "commercial_type": "combo_builder",
+                "image_url": null,
+                "combo_components": [
+                  {
+                    "type": "fixed_item",
+                    "name": "Itens inclusos",
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "price_behavior": "included",
+                    "items": [
+                      {
+                        "name": "2 Pizzas grandes",
+                        "price": null,
+                        "price_delta": null,
+                        "price_behavior": "included",
+                        "is_searchable_variant": true,
+                        "order_index": 0
+                      },
+                      {
+                        "name": "Guaraná 2L 8 fatias cada pizza | Até 2 sabores cada pizza",
+                        "price": null,
+                        "price_delta": null,
+                        "price_behavior": "included",
+                        "is_searchable_variant": true,
+                        "order_index": 1
+                      }
+                    ]
+                  }
+                ],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "",
+                "price": 31.9,
+                "display_price": 31.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "ESFIHAS",
+                "description": "ESFIHA SALGADA Descubra o verdadeiro sabor em cada esfiha.",
+                "price": 10,
+                "display_price": 10,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Calzones",
+                "description": "CALZONE Carnepiry Mussarela, molho de tomate, carne de sol desfiada, catupiry e orégano.",
+                "price": 39.9,
+                "display_price": 39.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "CALZONE Franpiry",
+                "description": "Mussarela, molho de tomate, frango desfiado, catupiry e orégano.",
+                "price": 31.9,
+                "display_price": 31.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "CALZONE 4 Queijos",
+                "description": "Mussarela, molho de tomate, provolone, cream cheese, parmesão e orégano.",
+                "price": 35.9,
+                "display_price": 35.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Pepsi 1L",
+                "description": "",
+                "price": 9,
+                "display_price": 9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A cada",
+                "description": "em compras você ganha 1 ponto que pode ser trocado por recompensas.",
+                "price": 1,
+                "display_price": 1,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "Sobremesas",
+            "items": [
+              {
+                "name": "ESFIHA DOCE",
+                "description": "Descubra o verdadeiro sabor em cada esfiha.",
+                "price": 10,
+                "display_price": 10,
+                "price_type": "fixed",
+                "commercial_type": "combo_builder",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "Bebidas",
+            "items": [
+              {
+                "name": "Bebidas",
+                "description": "Coca-Cola Lata",
+                "price": 5,
+                "display_price": 5,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Coca Zero Lata",
+                "description": "",
+                "price": 5,
+                "display_price": 5,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "GUARANÁ LATA ZERO",
+                "description": "",
+                "price": 5,
+                "display_price": 5,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "GUARANÁ LATA",
+                "description": "",
+                "price": 5,
+                "display_price": 5,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Coca-Cola 1L",
+                "description": "",
+                "price": 9,
+                "display_price": 9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Coca-cola sem açúcar 1L",
+                "description": "",
+                "price": 9,
+                "display_price": 9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Coca-cola original 2L",
+                "description": "COCA-COLA 2 LITROS",
+                "price": 12.9,
+                "display_price": 12.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Guaraná 1L",
+                "description": "",
+                "price": 9,
+                "display_price": 9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "GUARANA 1 LITRO ZERO",
+                "description": "",
+                "price": 9,
+                "display_price": 9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Guaraná Antarctica 2L",
+                "description": "",
+                "price": 11.9,
+                "display_price": 11.9,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          }
+        ],
+        "message": "Prévia estruturada com 21 itens via visible_text."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T11-23-03-841Z\\002-pizza-do-bosque\\menu-evidence.json"
+    }
+  ]
+}

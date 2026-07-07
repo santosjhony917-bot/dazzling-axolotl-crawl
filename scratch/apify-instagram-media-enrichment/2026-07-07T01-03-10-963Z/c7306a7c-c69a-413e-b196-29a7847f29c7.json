@@ -1,0 +1,85 @@
+{
+  "id": "c7306a7c-c69a-413e-b196-29a7847f29c7",
+  "name": "Messe Cafeteria",
+  "instagram": "https://www.instagram.com/messecafeteria/",
+  "followers": 1643,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "86a355f9-6fed-4070-b981-296d9ddc4478",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c7306a7c-c69a-413e-b196-29a7847f29c7/instagram_1783385927973_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "4feb65a5-1b4c-42a9-b10a-6c1a9d750495",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c7306a7c-c69a-413e-b196-29a7847f29c7/instagram_1783385929485_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "07e229d3-8c11-4a0d-8e9f-8a6f82b6c5cb",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c7306a7c-c69a-413e-b196-29a7847f29c7/instagram_1783385930544_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "a44c989f-6c8d-4366-82b2-cd0a6f1df2c5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c7306a7c-c69a-413e-b196-29a7847f29c7/instagram_1783385931429_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "97e6ca31-8b55-4a7f-b8fb-e4ca83d0274b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c7306a7c-c69a-413e-b196-29a7847f29c7/instagram_1783385932117_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "8e6b0b71-b8b1-4422-b495-88428d469c30",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c7306a7c-c69a-413e-b196-29a7847f29c7/instagram_1783385933527_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "2064c64b-7a38-48d3-b64b-d49c58c2ac29",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c7306a7c-c69a-413e-b196-29a7847f29c7/instagram_1783385934854_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "ef688e94-937b-4d34-9117-c155738a14cd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/c7306a7c-c69a-413e-b196-29a7847f29c7/instagram_1783385935363_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

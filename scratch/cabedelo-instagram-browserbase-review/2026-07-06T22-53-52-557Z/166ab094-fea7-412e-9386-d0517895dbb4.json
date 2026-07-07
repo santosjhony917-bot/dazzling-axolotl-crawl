@@ -1,0 +1,52 @@
+{
+  "id": "166ab094-fea7-412e-9386-d0517895dbb4",
+  "name": "Bras Coffee",
+  "category": "Lanchonete",
+  "neighborhood": "Jardim America",
+  "reviews_count": 25,
+  "rating": 5,
+  "instagramCandidate": "https://instagram.com/coffeelab_br",
+  "score": 88,
+  "title": "coffeelab (@coffeelab_br) • Instagram photos and videos",
+  "queries": [
+    "Bras Coffee coffeelab_br Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/coffeelab_br | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. Follow. Message. https://www.instagram.com/coffeelab_br/ | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. Follow. Message. https://instagram.com/coffeelab_br | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. https://www.instagram.com/coffeelab_br/reels/ | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. https://instagram.com/coffeelab_br | Coffee Lab ☕️ O @coffeelab_br é um dos cafés mais ... So Cafetina is a space where you can taste all the coffees from Café Por Elas prepared by us in two different methods, in Kalita and Gina. In ... https://instagram.com/coffeelab_br | • Coffee Lab • São Paulo • .",
+  "rowName": "Bras Coffee",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": -70,
+    "url": "https://instagram.com/coffeelab_br",
+    "handle": "coffeelab_br",
+    "tokens": [
+      "bras",
+      "coffee"
+    ],
+    "handleMatches": [
+      "coffee"
+    ],
+    "textMatches": [
+      "bras",
+      "coffee"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [
+      "sao paulo"
+    ],
+    "outOfScope": false,
+    "evidenceSample": "coffeelab (@coffeelab_br) • Instagram photos and videos https://instagram.com/coffeelab_br | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. Follow. Message. https://www.instagram.com/coffeelab_br/ | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. Follow. Message. https://instagram.com/coffeelab_br | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. https://www.instagram.com/coffeelab_br/reels/ | coffeelab (@coffeelab_br) • Instagram photos and videos Escola, torrefação e cafeteria. Coffee Lab 1: Aspicuelta 227. Coffee Lab 2: Fernão Dias 682. Loja e delivery 9h - 18h. https://instagram.com/coffeelab_br | Coffee Lab ☕️ O @coffeelab_br é um dos cafés mais ... So Cafetina is a space where you can taste all the coffees from Café Por Elas prepared by us in two different methods, in Kalita and Gina. In ... https://instagram.com/coffeelab_br | • Coffee Lab • São Paulo • . Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fcoffeelab_br%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "8c571f3c-2973-47cb-ac67-c98cd23311f9"
+}

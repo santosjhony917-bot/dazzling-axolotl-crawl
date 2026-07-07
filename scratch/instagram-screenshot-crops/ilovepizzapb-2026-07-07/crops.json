@@ -1,0 +1,156 @@
+{
+  "source": "C:\\Users\\meuno\\Downloads\\screencapture-instagram-ilovepizzapb-2026-07-07-00_08_49.png",
+  "grid": [
+    250,
+    690,
+    1668,
+    4391
+  ],
+  "cell": 354,
+  "crops": [
+    {
+      "index": 0,
+      "row": 1,
+      "col": 1,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_01_r1_c1.jpg",
+      "box": [
+        252,
+        692,
+        602,
+        1042
+      ]
+    },
+    {
+      "index": 1,
+      "row": 1,
+      "col": 2,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_02_r1_c2.jpg",
+      "box": [
+        606,
+        692,
+        956,
+        1042
+      ]
+    },
+    {
+      "index": 2,
+      "row": 1,
+      "col": 3,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_03_r1_c3.jpg",
+      "box": [
+        960,
+        692,
+        1310,
+        1042
+      ]
+    },
+    {
+      "index": 3,
+      "row": 1,
+      "col": 4,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_04_r1_c4.jpg",
+      "box": [
+        1314,
+        692,
+        1664,
+        1042
+      ]
+    },
+    {
+      "index": 4,
+      "row": 2,
+      "col": 1,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_05_r2_c1.jpg",
+      "box": [
+        252,
+        1046,
+        602,
+        1396
+      ]
+    },
+    {
+      "index": 5,
+      "row": 2,
+      "col": 2,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_06_r2_c2.jpg",
+      "box": [
+        606,
+        1046,
+        956,
+        1396
+      ]
+    },
+    {
+      "index": 6,
+      "row": 2,
+      "col": 3,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_07_r2_c3.jpg",
+      "box": [
+        960,
+        1046,
+        1310,
+        1396
+      ]
+    },
+    {
+      "index": 7,
+      "row": 2,
+      "col": 4,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_08_r2_c4.jpg",
+      "box": [
+        1314,
+        1046,
+        1664,
+        1396
+      ]
+    },
+    {
+      "index": 8,
+      "row": 3,
+      "col": 1,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_09_r3_c1.jpg",
+      "box": [
+        252,
+        1400,
+        602,
+        1750
+      ]
+    },
+    {
+      "index": 9,
+      "row": 3,
+      "col": 2,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_10_r3_c2.jpg",
+      "box": [
+        606,
+        1400,
+        956,
+        1750
+      ]
+    },
+    {
+      "index": 10,
+      "row": 3,
+      "col": 3,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_11_r3_c3.jpg",
+      "box": [
+        960,
+        1400,
+        1310,
+        1750
+      ]
+    },
+    {
+      "index": 11,
+      "row": 3,
+      "col": 4,
+      "file": "scratch/instagram-screenshot-crops/ilovepizzapb-2026-07-07/post_12_r3_c4.jpg",
+      "box": [
+        1314,
+        1400,
+        1664,
+        1750
+      ]
+    }
+  ]
+}

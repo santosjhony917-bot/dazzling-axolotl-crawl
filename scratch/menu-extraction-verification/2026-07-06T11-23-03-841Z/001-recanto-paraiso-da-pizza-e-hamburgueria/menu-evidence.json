@@ -1,0 +1,41 @@
+{
+  "success": false,
+  "sourceUrl": "https://whatsmenu.com.br/recantoparaisodapizzaehamburgueria",
+  "finalUrl": "https://whatsmenu.com.br/recantoparaisodapizzaehamburgueria",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.45,
+  "categories": [],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "verificationSnapshotError": null,
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337008493_ll8jvph6.jpg",
+    "snapshotFile": "cmd_1783337008493_ll8jvph6.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 0,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337016735_cb5xm27b.jpg",
+        "snapshotFile": "cmd_1783337016735_cb5xm27b.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 1,
+    "capturedHeight": 674,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "8e74d2f0-8a72-4692-ae05-73b6e7508dcc",
+    "name": "Recanto Paraiso Da Pizza e Hamburgueria",
+    "category": "Pizzaria·",
+    "address": "R. das Umburanas",
+    "phone": "(83) 98839-7511",
+    "instagram": "https://www.instagram.com/r_paraisodapizzaehamburgueria/"
+  }
+}

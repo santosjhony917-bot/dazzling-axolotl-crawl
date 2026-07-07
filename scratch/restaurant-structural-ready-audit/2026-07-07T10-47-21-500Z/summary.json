@@ -1,0 +1,24 @@
+{
+  "runId": "2026-07-07T10-47-21-500Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T10-47-21-500Z",
+  "scope": {
+    "ids": [
+      "1653a7ff-e4d1-4f2d-8e0a-e931e3a40411",
+      "49423823-bd06-43f2-9337-2131176a7d0e",
+      "3efd7101-bad3-4b29-9ec6-2677ffb9b4f8",
+      "2ed733a0-062c-4939-aa05-1f7d0a4c2497"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 0,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": []
+}

@@ -1,0 +1,59 @@
+{
+  "url": "https://delivery2.yooga.com.br/payment-methods?idi=2063",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 772,
+  "textSample": "[{\"id\":5810,\"idi\":2063,\"origin_id\":9662,\"name\":\"Dinheiro\",\"description\":\"https://raw.githubusercontent.com/vcslima/bd_img/master/cash.png\",\"type\":1,\"active\":1,\"ifood_payment\":0,\"store_id\":null},{\"id\":5811,\"idi\":2063,\"origin_id\":9993,\"name\":\"Crédito\",\"description\":\"https://raw.githubusercontent.com/vcslima/bd_img/master/credit.png\",\"type\":3,\"active\":1,\"ifood_payment\":0,\"store_id\":null},{\"id\":5812,\"idi\":2063,\"origin_id\":9663,\"name\":\"Débito\",\"description\":\"https://raw.githubusercontent.com/vcslima/bd_img/master/credit.png\",\"type\":4,\"active\":1,\"ifood_payment\":0,\"store_id\":null},{\"id\":17272,\"idi\":2063,\"origin_id\":25477,\"name\":\"Pix\",\"description\":\"https://cdn-production.yooga.com.br/12020111608435362GpkwiJW.png\",\"type\":17,\"active\":1,\"ifood_payment\":0,\"store_id\":null}]",
+  "jsonKeys": [
+    "array",
+    "4"
+  ],
+  "json": [
+    {
+      "id": 5810,
+      "idi": 2063,
+      "origin_id": 9662,
+      "name": "Dinheiro",
+      "description": "https://raw.githubusercontent.com/vcslima/bd_img/master/cash.png",
+      "type": 1,
+      "active": 1,
+      "ifood_payment": 0,
+      "store_id": null
+    },
+    {
+      "id": 5811,
+      "idi": 2063,
+      "origin_id": 9993,
+      "name": "Crédito",
+      "description": "https://raw.githubusercontent.com/vcslima/bd_img/master/credit.png",
+      "type": 3,
+      "active": 1,
+      "ifood_payment": 0,
+      "store_id": null
+    },
+    {
+      "id": 5812,
+      "idi": 2063,
+      "origin_id": 9663,
+      "name": "Débito",
+      "description": "https://raw.githubusercontent.com/vcslima/bd_img/master/credit.png",
+      "type": 4,
+      "active": 1,
+      "ifood_payment": 0,
+      "store_id": null
+    },
+    {
+      "id": 17272,
+      "idi": 2063,
+      "origin_id": 25477,
+      "name": "Pix",
+      "description": "https://cdn-production.yooga.com.br/12020111608435362GpkwiJW.png",
+      "type": 17,
+      "active": 1,
+      "ifood_payment": 0,
+      "store_id": null
+    }
+  ]
+}

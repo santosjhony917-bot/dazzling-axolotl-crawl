@@ -1,0 +1,15 @@
+{
+  "runId": "2026-07-06T23-04-35-766Z",
+  "outDir": "scratch\\serpapi-menu-discovery\\2026-07-06T23-04-35-766Z",
+  "complete": false,
+  "processed": 201,
+  "totalTargets": 206,
+  "offset": 0,
+  "lastRestaurant": "Cafeteria Deus Seja Louvado",
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T23-04-35-766Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T23-04-35-766Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T23-04-35-766Z\\candidates.csv"
+  },
+  "updatedAt": "2026-07-06T23:42:41.449Z"
+}

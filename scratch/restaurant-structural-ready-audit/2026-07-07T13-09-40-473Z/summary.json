@@ -1,0 +1,95 @@
+{
+  "runId": "2026-07-07T13-09-40-473Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T13-09-40-473Z",
+  "scope": {
+    "ids": [
+      "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": true
+  },
+  "restaurants": 1,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 1,
+  "issueCounts": {
+    "numero_embutido_no_logradouro": 1,
+    "numero_vazio": 1,
+    "cep_ausente_ou_invalido": 1,
+    "galeria_menor_que_3": 1
+  },
+  "audits": [
+    {
+      "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "readiness": "blocked",
+      "redCount": 4,
+      "yellowCount": 0,
+      "issueCount": 4,
+      "categoryCount": 3,
+      "itemCount": 17,
+      "optionCount": 492,
+      "galleryCount": 0,
+      "aiValidated": false,
+      "menuStatus": "manual_required",
+      "menuStatusReason": "17 itens estruturados via instadelivery_native_api; aguardando mídia antes de Prontos p/ App: capa, galeria_min_3.",
+      "source": {
+        "menu": "https://instadelivery.com.br/FornoBrasilExpress",
+        "instagram": "https://www.instagram.com/forneria_brasilexpress/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:54.930Z",
+          "status": "enriched",
+          "username": "forneria_brasilexpress",
+          "followers": 15556,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://instadelivery.com.br/FornoBrasilExpress",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Rua Monte Castelo 12b",
+        "number": null,
+        "neighborhood": "Monte Castelo",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": null,
+        "phone": "(83) 98653-8522",
+        "latitude": -7.0311464,
+        "longitude": -34.84656,
+        "followers": 15556
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "numero_embutido_no_logradouro",
+          "value": "Rua Monte Castelo 12b"
+        },
+        {
+          "severity": "red",
+          "code": "numero_vazio"
+        },
+        {
+          "severity": "red",
+          "code": "cep_ausente_ou_invalido",
+          "value": null
+        },
+        {
+          "severity": "red",
+          "code": "galeria_menor_que_3",
+          "count": 0
+        }
+      ]
+    }
+  ]
+}

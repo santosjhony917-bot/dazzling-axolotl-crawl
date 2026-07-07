@@ -1,0 +1,17 @@
+{
+  "url": "https://c.go-mpulse.net/api/config.json?key=8A7M7-VW2NE-2SHNU-6N4YN-MNE7V&d=www.restaurantlogin.com&t=5944756&v=1.720.0&sl=0&si=f6e153b4-98ba-44ac-88a7-7bde55e2fa68-tht0vl&plugins=AK,ConfigOverride,Continuity,PageParams,IFrameDelay,AutoXHR,SPA,History,Angular,Backbone,Ember,RT,CrossDomain,BW,PaintTiming,NavigationTiming,ResourceTiming,Memory,CACHE_RELOAD,Errors,TPAnalytics,UserTiming,Akamai,Early,EventTiming,LOGN&acao=&ak.ai=761672",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 51,
+  "textSample": "{\"site_domain\":\"arlid:761672\",\"rate_limited\":true}\n",
+  "jsonKeys": [
+    "site_domain",
+    "rate_limited"
+  ],
+  "json": {
+    "site_domain": "arlid:761672",
+    "rate_limited": true
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "success": false,
+  "sourceUrl": "https://pedido.anota.ai/loja/the-brothers-cg",
+  "finalUrl": "https://pedido.anota.ai/loja/the-brothers-cg",
+  "platform": "anota_ai",
+  "extractionLevel": 0,
+  "confidence": 0.95,
+  "categories": [],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "verificationSnapshotError": null,
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335821084_e7unof7w.jpg",
+    "snapshotFile": "cmd_1783335821084_e7unof7w.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 3280,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335836576_8bdn93of.jpg",
+        "snapshotFile": "cmd_1783335836576_8bdn93of.jpg"
+      },
+      {
+        "ratio": 0.22,
+        "target": "document",
+        "scrollTop": 722,
+        "maxScrollTop": 3280,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335843902_k4213iwm.jpg",
+        "snapshotFile": "cmd_1783335843902_k4213iwm.jpg"
+      },
+      {
+        "ratio": 0.45,
+        "target": "document",
+        "scrollTop": 1476,
+        "maxScrollTop": 3280,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335851176_i0qi9391.jpg",
+        "snapshotFile": "cmd_1783335851176_i0qi9391.jpg"
+      },
+      {
+        "ratio": 0.68,
+        "target": "document",
+        "scrollTop": 2230,
+        "maxScrollTop": 3280,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335859431_cmrm12zb.jpg",
+        "snapshotFile": "cmd_1783335859431_cmrm12zb.jpg"
+      },
+      {
+        "ratio": 0.9,
+        "target": "document",
+        "scrollTop": 2952,
+        "maxScrollTop": 3280,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335885412_tcktq486.jpg",
+        "snapshotFile": "cmd_1783335885412_tcktq486.jpg"
+      },
+      {
+        "ratio": 1,
+        "target": "document",
+        "scrollTop": 3280,
+        "maxScrollTop": 3280,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335892657_vet7iire.jpg",
+        "snapshotFile": "cmd_1783335892657_vet7iire.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 7,
+    "capturedHeight": 3954,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "608a2a3a-2d5f-47c5-b393-a7ea461008a4",
+    "name": "THE BROTHERS GRILL",
+    "category": "Pendente validação",
+    "address": "R. Gregório Lourenço Bezerra - Três Irmãs",
+    "phone": null,
+    "instagram": null
+  }
+}

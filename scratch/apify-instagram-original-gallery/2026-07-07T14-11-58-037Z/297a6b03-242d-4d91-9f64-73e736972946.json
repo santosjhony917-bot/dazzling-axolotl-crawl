@@ -1,0 +1,221 @@
+{
+  "id": "297a6b03-242d-4d91-9f64-73e736972946",
+  "name": "Oxi Burguer Cabedelo",
+  "username": "oxicabedelo",
+  "instagram": "https://www.instagram.com/oxicabedelo/",
+  "applied": false,
+  "forceMedia": false,
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "galleryRows": [
+      {
+        "id": "1a741a5b-73aa-4873-b60e-472db719879c",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385278641_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "3e5d9b58-2136-4381-a2b1-eb370c5089f3",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385280370_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "460fc115-8c7d-42f5-8444-a57c7c4450e6",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385282129_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "dac9d53f-7668-4c90-b0f0-7d2cb769cde8",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385283380_4.jpg",
+        "order_index": 3
+      },
+      {
+        "id": "e976e58e-ac53-4107-9278-bb6361bfa30e",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385284124_5.jpg",
+        "order_index": 4
+      },
+      {
+        "id": "a3faf0b8-d555-4a45-9a46-ace392e05788",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385284890_6.jpg",
+        "order_index": 5
+      },
+      {
+        "id": "189ce291-2ded-409a-a152-f4128e5a4854",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385285794_7.jpg",
+        "order_index": 6
+      },
+      {
+        "id": "6138fb5c-3ed0-40b6-aaa5-c450a130d5bd",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385286640_8.jpg",
+        "order_index": 7
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "profile": {
+    "username": "oxicabedelo",
+    "followers": 888,
+    "posts": 14,
+    "profilePic": true,
+    "biography": "O sabor da terra Vai Brasil!🇧🇷 📍Ponta de Campina - Cabedelo/PB Faça aqui seu pedido👇🏼"
+  },
+  "postCount": 14,
+  "candidates": [
+    {
+      "source": "instagram_post_image_api",
+      "score": 103,
+      "postIndex": 7,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXKDXOmDlq8/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "gridNumber": 2,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "aprovadas",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\297a6b03-242d-4d91-9f64-73e736972946-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 102,
+      "postIndex": 13,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXKDn9pDlID/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "gridNumber": 5,
+        "kind": "food",
+        "score": 90,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "aprovadas",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\297a6b03-242d-4d91-9f64-73e736972946-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -95,
+      "postIndex": 0,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXKDLhfjo3V/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "gridNumber": 1,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "aprovadas",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\297a6b03-242d-4d91-9f64-73e736972946-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -106,
+      "postIndex": 10,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DWg9aO0geha/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "gridNumber": 3,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "aprovadas",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\297a6b03-242d-4d91-9f64-73e736972946-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -108,
+      "postIndex": 12,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DVRqFSHEt7y/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "gridNumber": 4,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "aprovadas",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-11-58-037Z\\297a6b03-242d-4d91-9f64-73e736972946-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    }
+  ],
+  "approvedCount": 2,
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "galleryRows": [
+      {
+        "id": "1a741a5b-73aa-4873-b60e-472db719879c",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385278641_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "3e5d9b58-2136-4381-a2b1-eb370c5089f3",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385280370_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "460fc115-8c7d-42f5-8444-a57c7c4450e6",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385282129_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "dac9d53f-7668-4c90-b0f0-7d2cb769cde8",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385283380_4.jpg",
+        "order_index": 3
+      },
+      {
+        "id": "e976e58e-ac53-4107-9278-bb6361bfa30e",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385284124_5.jpg",
+        "order_index": 4
+      },
+      {
+        "id": "a3faf0b8-d555-4a45-9a46-ace392e05788",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385284890_6.jpg",
+        "order_index": 5
+      },
+      {
+        "id": "189ce291-2ded-409a-a152-f4128e5a4854",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385285794_7.jpg",
+        "order_index": 6
+      },
+      {
+        "id": "6138fb5c-3ed0-40b6-aaa5-c450a130d5bd",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/297a6b03-242d-4d91-9f64-73e736972946/instagram_1783385286640_8.jpg",
+        "order_index": 7
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "promotion": null,
+  "status": "media_complete"
+}

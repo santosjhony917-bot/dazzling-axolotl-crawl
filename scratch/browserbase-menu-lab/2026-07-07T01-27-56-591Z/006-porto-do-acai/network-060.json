@@ -1,0 +1,93 @@
+{
+  "url": "https://api.meucarrinho.delivery/merchants/4c801932-2485-4f56-a90e-d089fac73b4c/delivery/areas/geolocalization",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 1689,
+  "textSample": "[{\"id\":\"8806c66a-179a-4bfb-8f89-4c045521cf97\",\"shapeCategory\":\"DELIVERY_RADIUS\",\"availability\":\"AVAILABLE\",\"description\":\"\",\"deliveryFee\":6.00,\"deliveryTime\":35,\"deliveryRadius\":1,\"typeDrawShape\":\"POINT\",\"deliveryFreeActive\":false,\"deliveryFreeMinOrderValue\":0.00,\"coordinates\":[]},{\"id\":\"e44fc528-5b06-4867-883c-fda31014e387\",\"shapeCategory\":\"DELIVERY_RADIUS\",\"availability\":\"AVAILABLE\",\"description\":\"\",\"deliveryFee\":6.00,\"deliveryTime\":35,\"deliveryRadius\":2,\"typeDrawShape\":\"POINT\",\"deliveryFreeActive\":false,\"deliveryFreeMinOrderValue\":0.00,\"coordinates\":[]},{\"id\":\"132b3125-c47c-4d2b-a3a0-c8b9aadf6803\",\"shapeCategory\":\"DELIVERY_RADIUS\",\"availability\":\"AVAILABLE\",\"description\":\"\",\"deliveryFee\":8.00,\"deliveryTime\":45,\"deliveryRadius\":3,\"typeDrawShape\":\"POINT\",\"deliveryFreeActive\":false,\"deliveryFreeMinOrderValue\":0.00,\"coordinates\":[]},{\"id\":\"e90bc20f-95fc-4483-a96f-310ce5538571\",\"shapeCategory\":\"DELIVERY_RADIUS\",\"availability\":\"AVAILABLE\",\"description\":\"\",\"deliveryFee\":8.00,\"deliveryTime\":45,\"deliveryRadius\":4,\"typeDrawShape\":\"POINT\",\"deliveryFreeActive\":false,\"deliveryFreeMinOrderValue\":0.00,\"coordinates\":[]},{\"id\":\"b85bafc5-8013-4888-b9ca-2e2d809fb3ea\",\"shapeCategory\":\"DELIVERY_RADIUS\",\"availability\":\"AVAILABLE\",\"description\":\"\",\"deliveryFee\":10.00,\"deliveryTime\":50,\"deliveryRadius\":5,\"typeDrawShape\":\"POINT\",\"deliveryFreeActive\":false,\"deliveryFreeMinOrderValue\":0.00,\"coordinates\":[]},{\"id\":\"7e3c3a01-7e1f-40d5-bcc4-dffbc6fdedf7\",\"shapeCategory\":\"DELIVERY_RADIUS\",\"availability\":\"AVAILABLE\",\"description\":\"\",\"deliveryFee\":10.00,\"deliveryTime\":50,\"deliveryRadius\":6,\"typeDrawShape\":\"POINT\",\"deliveryFreeActive\":false,\"deliveryFreeMinOrderValue\":0.00,\"coordinates\":[]}]",
+  "jsonKeys": [
+    "array",
+    "6"
+  ],
+  "json": [
+    {
+      "id": "8806c66a-179a-4bfb-8f89-4c045521cf97",
+      "shapeCategory": "DELIVERY_RADIUS",
+      "availability": "AVAILABLE",
+      "description": "",
+      "deliveryFee": 6,
+      "deliveryTime": 35,
+      "deliveryRadius": 1,
+      "typeDrawShape": "POINT",
+      "deliveryFreeActive": false,
+      "deliveryFreeMinOrderValue": 0,
+      "coordinates": []
+    },
+    {
+      "id": "e44fc528-5b06-4867-883c-fda31014e387",
+      "shapeCategory": "DELIVERY_RADIUS",
+      "availability": "AVAILABLE",
+      "description": "",
+      "deliveryFee": 6,
+      "deliveryTime": 35,
+      "deliveryRadius": 2,
+      "typeDrawShape": "POINT",
+      "deliveryFreeActive": false,
+      "deliveryFreeMinOrderValue": 0,
+      "coordinates": []
+    },
+    {
+      "id": "132b3125-c47c-4d2b-a3a0-c8b9aadf6803",
+      "shapeCategory": "DELIVERY_RADIUS",
+      "availability": "AVAILABLE",
+      "description": "",
+      "deliveryFee": 8,
+      "deliveryTime": 45,
+      "deliveryRadius": 3,
+      "typeDrawShape": "POINT",
+      "deliveryFreeActive": false,
+      "deliveryFreeMinOrderValue": 0,
+      "coordinates": []
+    },
+    {
+      "id": "e90bc20f-95fc-4483-a96f-310ce5538571",
+      "shapeCategory": "DELIVERY_RADIUS",
+      "availability": "AVAILABLE",
+      "description": "",
+      "deliveryFee": 8,
+      "deliveryTime": 45,
+      "deliveryRadius": 4,
+      "typeDrawShape": "POINT",
+      "deliveryFreeActive": false,
+      "deliveryFreeMinOrderValue": 0,
+      "coordinates": []
+    },
+    {
+      "id": "b85bafc5-8013-4888-b9ca-2e2d809fb3ea",
+      "shapeCategory": "DELIVERY_RADIUS",
+      "availability": "AVAILABLE",
+      "description": "",
+      "deliveryFee": 10,
+      "deliveryTime": 50,
+      "deliveryRadius": 5,
+      "typeDrawShape": "POINT",
+      "deliveryFreeActive": false,
+      "deliveryFreeMinOrderValue": 0,
+      "coordinates": []
+    },
+    {
+      "id": "7e3c3a01-7e1f-40d5-bcc4-dffbc6fdedf7",
+      "shapeCategory": "DELIVERY_RADIUS",
+      "availability": "AVAILABLE",
+      "description": "",
+      "deliveryFee": 10,
+      "deliveryTime": 50,
+      "deliveryRadius": 6,
+      "typeDrawShape": "POINT",
+      "deliveryFreeActive": false,
+      "deliveryFreeMinOrderValue": 0,
+      "coordinates": []
+    }
+  ]
+}

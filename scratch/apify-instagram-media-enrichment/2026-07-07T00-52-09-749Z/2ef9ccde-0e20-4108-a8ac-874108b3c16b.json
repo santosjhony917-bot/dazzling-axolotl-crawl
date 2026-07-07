@@ -1,0 +1,226 @@
+{
+  "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+  "name": "Porto do açaí",
+  "instagram": "https://www.instagram.com/portodoacai01/",
+  "followers": 962,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_profile_1783386007867.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386012614_1.jpg",
+      "score": 37,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386015296_2.jpg",
+      "score": 35,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386016217_3.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386016956_4.jpg",
+      "score": 33,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386017620_5.jpg",
+      "score": 33,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386018457_6.jpg",
+      "score": 30,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386019644_7.jpg",
+      "score": 24,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386020647_8.jpg",
+      "score": 24,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "b03938b0-5530-4998-90e6-5a58a3858c9e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386012614_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "3623a6ad-003f-4097-b50e-403cd48f3026",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386015296_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "2d6f34b1-7921-48b6-9e92-d5971def56d5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386016217_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "23ace1c6-7598-482c-b870-10662a337b90",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386016956_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "a2e15520-5fbc-46ea-b288-904a472d28cc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386017620_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "619f2503-4c73-4f6b-a546-fc851012e7fa",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386018457_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "f2196514-c67b-4e7a-8deb-7d7da9937282",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386019644_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "01c053d2-33dd-4724-83a2-7bc306ef2243",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386020647_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 37,
+      "caption": "⚓ O sabor que te leva direto pro paraíso! ⚓ 🥣 Açaí cremoso, geladinho e recheado do jeito que você gosta! Temos tamanhos P, M e G para matar qualquer vontade 😋 ✨ Monte seu combo ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 35,
+      "caption": "💜 Já provou o nosso irresistível Suco de Açaí? 💜 Cremoso, refrescante e com aquele sabor intenso que só o verdadeiro açaí tem! 😍 Perfeito para recarregar as energias, matar a vo",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "🌸💜 Dia das Mães no Porto do Açaí 💜🌸 Mamãe merece um momento especial… e a gente preparou tudo com muito carinho! 💖 No dia 09 de maio, convidamos você para um delicioso Chá da ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 33,
+      "caption": "Venha garantir o seu Dogão do Porto 🫠 🔥 O melhor da região!!📍 #portodoaçaí #cachorroquente #cabedelo #açaí #fypage",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 33,
+      "caption": "Tem dias que tudo o que a gente precisa é de um açaí bem caprichado 😍🍧 Geladinho, cremoso e cheio de sabor pra deixar seu dia muito mais leve. Vem garantir o seu e se apaixonar a",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 30,
+      "caption": "Hoje foi dia dessa galera conhecer o sabor e a qualidade do Porto do Açaí 💜🥤 Levando energia, sabor e aquela experiência que só o Porto do Açaí tem! #PortoDoAçaí #Açaí #Delivery ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "💜💜💜💜😍😍😍😍",
+      "vision": null
+    },
+    {
+      "source": "child_post",
+      "score": 24,
+      "caption": "Hoje foi dia dessa galera conhecer o sabor e a qualidade do Porto do Açaí 💜🥤 Levando energia, sabor e aquela experiência que só o Porto do Açaí tem! #PortoDoAçaí #Açaí #Delivery ",
+      "vision": null
+    }
+  ]
+}

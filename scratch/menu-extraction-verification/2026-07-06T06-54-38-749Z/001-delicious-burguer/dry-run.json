@@ -1,0 +1,2904 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": true,
+      "confidence": 0.97,
+      "categoryCount": 8,
+      "itemCount": 21,
+      "resolvedPriceCount": 21,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "Request timed out."
+      }
+    },
+    "preview": [
+      {
+        "name": "Mais Vendidos",
+        "count": 3,
+        "samples": [
+          {
+            "name": "2 Ultra smash Bacon",
+            "price": 29.9,
+            "kind": "simple_item",
+            "description": "Pão, 1x Smash 60g, 1x queijo cheddar, bacon em cubos e maionese chimichurri."
+          },
+          {
+            "name": "Duplo Cheddar",
+            "price": 21.9,
+            "kind": "simple_item",
+            "description": "Pão, 2x Smash De 60g, 2x Queijo Cheddar, Maionese Da Casa"
+          },
+          {
+            "name": "Duplo Bacon",
+            "price": 25.9,
+            "kind": "simple_item",
+            "description": "Pão, 2x Smash De 60g, 2x Bacon, 2x Queijo Cheddar, Cebola Caramelizada No Açúcar Mascavo E Barbecue Artesanal, Maionese Da Casa."
+          }
+        ]
+      },
+      {
+        "name": "Sanduíches",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Escolha 2 Hamburgueres Com (Super Desconto)",
+            "price": 39.9,
+            "kind": "configurable_item",
+            "description": "2 Burguers 120g Com Desconto"
+          }
+        ]
+      },
+      {
+        "name": "Smash Burguer",
+        "count": 5,
+        "samples": [
+          {
+            "name": "Ultra smash bacon",
+            "price": 17.9,
+            "kind": "simple_with_addons",
+            "description": "Pão, 1x Smash 60g, 1x queijo cheddar, bacon em cubos e maionese chimichurri."
+          },
+          {
+            "name": "Duplo Cheddar",
+            "price": 21.9,
+            "kind": "simple_with_addons",
+            "description": "Pão, 2x Smash 80g, 2x queijo cheddar e maionese da casa."
+          },
+          {
+            "name": "Duplo Oklahoma",
+            "price": 25.9,
+            "kind": "simple_with_addons",
+            "description": "Pão, 2x Smash 80g com cebola prensado na chapa, 2x queijo cheddar e maionese da casa."
+          },
+          {
+            "name": "Duplo Salada",
+            "price": 25.9,
+            "kind": "simple_with_addons",
+            "description": "Pão, 2x Smash 60g, 2x queijo cheddar, cebola roxa, tomate, alface e maionese da casa."
+          },
+          {
+            "name": "Duplo Bacon",
+            "price": 25.9,
+            "kind": "simple_with_addons",
+            "description": "Pão, 2x Smash 60g, 2x queijo cheddar, 2x bacon, cebola caramelizada e maionese da casa."
+          }
+        ]
+      },
+      {
+        "name": "Seleção Delicious Burguer",
+        "count": 3,
+        "samples": [
+          {
+            "name": "Cheeseburguer",
+            "price": 22.9,
+            "kind": "simple_item",
+            "description": "Pão, 1x Blend 180g, 1x queijo cheddar e maionese da casa"
+          },
+          {
+            "name": "Cheese bacon",
+            "price": 25.9,
+            "kind": "simple_item",
+            "description": "Pão, 1x blend 180g, queijo cheddar, bacon crocante e maionese da casa"
+          },
+          {
+            "name": "Cheese Bacon 1.0",
+            "price": 25.9,
+            "kind": "simple_item",
+            "description": "Pão, 1x Blend 180g, Queijo cheddar, 2x bacon, cebola caramelizada no açúcar mascavo e molho barbercue artesanal, maionese da casa"
+          }
+        ]
+      },
+      {
+        "name": "Monstrão - O burguer que desafia sua fome !",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Monstrão",
+            "price": 39.9,
+            "kind": "simple_item",
+            "description": "Pão, 2x Blend 180g, 2x queijo cheddar, 2x bacon, cebola caramelizada no açúcar mascavo e molho barbercue artesanal, maionese da casa"
+          }
+        ]
+      },
+      {
+        "name": "Combos",
+        "count": 2,
+        "samples": [
+          {
+            "name": "Duplo cheddar + Batata M + Refri 350ml",
+            "price": 34.9,
+            "kind": "combo_builder",
+            "description": "Duplo Cheddar, 150g de Batata frita e um refri 350ml"
+          },
+          {
+            "name": "1 Burguer de 120g + Batata Frita + Refri Lata 350ml",
+            "price": 35.9,
+            "kind": "combo_builder",
+            "description": "1 Burguer De 120g Da Sua Escolha, 150g De Batata Frita (In Natura), E Um Refri 350ml"
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "count": 5,
+        "samples": [
+          {
+            "name": "2 Ultra smash Bacon + Batata Frita + 2x Refri lata",
+            "price": 48.9,
+            "kind": "combo_builder",
+            "description": "Pão, 1x Smash 60g, 1x queijo cheddar, bacon em cubos e maionese chimichurri. + Batata Frita + 1x Refri lata"
+          },
+          {
+            "name": "2 Burguer de 120g + 2 Batata frita 150g (in natura) + 2 Refri lata 350ml",
+            "price": 65.9,
+            "kind": "combo_builder",
+            "description": "2x Burguer Duplo, 2x Batata frita de 150g (in natura) e 2x Refri 350ml"
+          },
+          {
+            "name": "Refrigerante Pepsi Black sem Açúcar 350ml",
+            "price": 5.9,
+            "kind": "simple_item",
+            "description": "Lata 350ml"
+          },
+          {
+            "name": "Refrigerante Guaraná Antarctica 350ml",
+            "price": 5.9,
+            "kind": "simple_item",
+            "description": "Embalagem 350 Ml"
+          },
+          {
+            "name": "Refriegerante Soda Limonada Antarctica 350ml",
+            "price": 5.9,
+            "kind": "simple_item",
+            "description": "Lata 350ml"
+          }
+        ]
+      },
+      {
+        "name": "Acompanhamento",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Batata Frita P",
+            "price": 12.9,
+            "kind": "simple_item",
+            "description": "150g de Batata frita (in natura) sequinha e crocante"
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Mais Vendidos",
+        "items": [
+          {
+            "name": "2 Ultra smash Bacon",
+            "description": "Pão, 1x Smash 60g, 1x queijo cheddar, bacon em cubos e maionese chimichurri.",
+            "price": 29.9,
+            "display_price": 29.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3274655/3aaf21618F71C60D-CF0D-4396-80F3-52FFC9D12294.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Duplo Cheddar",
+            "description": "Pão, 2x Smash De 60g, 2x Queijo Cheddar, Maionese Da Casa",
+            "price": 21.9,
+            "display_price": 21.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4082446/b4fe3afbIMG_6464.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Duplo Bacon",
+            "description": "Pão, 2x Smash De 60g, 2x Bacon, 2x Queijo Cheddar, Cebola Caramelizada No Açúcar Mascavo E Barbecue Artesanal, Maionese Da Casa.",
+            "price": 25.9,
+            "display_price": 25.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4082470/3b1c10bcIMG_6822.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Sanduíches",
+        "items": [
+          {
+            "name": "Escolha 2 Hamburgueres Com (Super Desconto)",
+            "description": "2 Burguers 120g Com Desconto",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "configurable_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4082430/798d977bAF0736AF-FD9C-4157-9BC3-459C28FA915A.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha Seu Burguer Favorito",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "2230551",
+                    "group_name": "Escolha Seu Burguer Favorito",
+                    "name": "DUPLO BACON",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "2230549",
+                    "group_name": "Escolha Seu Burguer Favorito",
+                    "name": "DUPLO CHEDDAR",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "2621392",
+                    "group_name": "Escolha Seu Burguer Favorito",
+                    "name": "DUPLO OKLAHOMA",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "2621393",
+                    "group_name": "Escolha Seu Burguer Favorito",
+                    "name": "DUPLO SALADA",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "2230551",
+                "group_name": "Escolha Seu Burguer Favorito",
+                "name": "DUPLO BACON",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2230549",
+                "group_name": "Escolha Seu Burguer Favorito",
+                "name": "DUPLO CHEDDAR",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2621392",
+                "group_name": "Escolha Seu Burguer Favorito",
+                "name": "DUPLO OKLAHOMA",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2621393",
+                "group_name": "Escolha Seu Burguer Favorito",
+                "name": "DUPLO SALADA",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Smash Burguer",
+        "items": [
+          {
+            "name": "Ultra smash bacon",
+            "description": "Pão, 1x Smash 60g, 1x queijo cheddar, bacon em cubos e maionese chimichurri.",
+            "price": 17.9,
+            "display_price": 17.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3852485/ee2210baIMG_5717(2).jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicional",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629421",
+                    "group_name": "Adicional",
+                    "name": "1x smash de 80g + 1x cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 6,
+                    "price_delta": 6,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629419",
+                    "group_name": "Adicional",
+                    "name": "Bacon",
+                    "description": null,
+                    "image_url": null,
+                    "price": 3,
+                    "price_delta": 3,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629420",
+                    "group_name": "Adicional",
+                    "name": "Cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629423",
+                    "group_name": "Adicional",
+                    "name": "Alface, tomate e cebola",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629422",
+                    "group_name": "Adicional",
+                    "name": "Maionese Extra - Chimichurri",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "1629421",
+                "group_name": "Adicional",
+                "name": "1x smash de 80g + 1x cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 6,
+                "price_delta": 6,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629419",
+                "group_name": "Adicional",
+                "name": "Bacon",
+                "description": null,
+                "image_url": null,
+                "price": 3,
+                "price_delta": 3,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629420",
+                "group_name": "Adicional",
+                "name": "Cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629423",
+                "group_name": "Adicional",
+                "name": "Alface, tomate e cebola",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629422",
+                "group_name": "Adicional",
+                "name": "Maionese Extra - Chimichurri",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Duplo Cheddar",
+            "description": "Pão, 2x Smash 80g, 2x queijo cheddar e maionese da casa.",
+            "price": 21.9,
+            "display_price": 21.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2156215/a3ed2a0b510ab31b-cf86-4224-88af-eab8a96096b1.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicional",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629421",
+                    "group_name": "Adicional",
+                    "name": "1x smash de 80g + 1x cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 6,
+                    "price_delta": 6,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629419",
+                    "group_name": "Adicional",
+                    "name": "Bacon",
+                    "description": null,
+                    "image_url": null,
+                    "price": 3,
+                    "price_delta": 3,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629420",
+                    "group_name": "Adicional",
+                    "name": "Cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629423",
+                    "group_name": "Adicional",
+                    "name": "Alface, tomate e cebola",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629422",
+                    "group_name": "Adicional",
+                    "name": "Maionese Extra - Chimichurri",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "Acompanhamento",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "2621601",
+                    "group_name": "Acompanhamento",
+                    "name": "Batata frita P",
+                    "description": null,
+                    "image_url": null,
+                    "price": 10.9,
+                    "price_delta": 10.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "bebida",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629427",
+                    "group_name": "bebida",
+                    "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629426",
+                    "group_name": "bebida",
+                    "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629429",
+                    "group_name": "bebida",
+                    "name": "Refrigerante de Laranja Sukita 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "1629421",
+                "group_name": "Adicional",
+                "name": "1x smash de 80g + 1x cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 6,
+                "price_delta": 6,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629419",
+                "group_name": "Adicional",
+                "name": "Bacon",
+                "description": null,
+                "image_url": null,
+                "price": 3,
+                "price_delta": 3,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629420",
+                "group_name": "Adicional",
+                "name": "Cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629423",
+                "group_name": "Adicional",
+                "name": "Alface, tomate e cebola",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629422",
+                "group_name": "Adicional",
+                "name": "Maionese Extra - Chimichurri",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2621601",
+                "group_name": "Acompanhamento",
+                "name": "Batata frita P",
+                "description": null,
+                "image_url": null,
+                "price": 10.9,
+                "price_delta": 10.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629427",
+                "group_name": "bebida",
+                "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629426",
+                "group_name": "bebida",
+                "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629429",
+                "group_name": "bebida",
+                "name": "Refrigerante de Laranja Sukita 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Duplo Oklahoma",
+            "description": "Pão, 2x Smash 80g com cebola prensado na chapa, 2x queijo cheddar e maionese da casa.",
+            "price": 25.9,
+            "display_price": 25.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2610965/98128952IMG_4338.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicional",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629421",
+                    "group_name": "Adicional",
+                    "name": "1x smash de 80g + 1x cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 6,
+                    "price_delta": 6,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629419",
+                    "group_name": "Adicional",
+                    "name": "Bacon",
+                    "description": null,
+                    "image_url": null,
+                    "price": 3,
+                    "price_delta": 3,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629420",
+                    "group_name": "Adicional",
+                    "name": "Cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629423",
+                    "group_name": "Adicional",
+                    "name": "Alface, tomate e cebola",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629422",
+                    "group_name": "Adicional",
+                    "name": "Maionese Extra - Chimichurri",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "Acompanhamento",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "2621601",
+                    "group_name": "Acompanhamento",
+                    "name": "Batata frita P",
+                    "description": null,
+                    "image_url": null,
+                    "price": 10.9,
+                    "price_delta": 10.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "bebida",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629427",
+                    "group_name": "bebida",
+                    "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629426",
+                    "group_name": "bebida",
+                    "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629429",
+                    "group_name": "bebida",
+                    "name": "Refrigerante de Laranja Sukita 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "1629421",
+                "group_name": "Adicional",
+                "name": "1x smash de 80g + 1x cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 6,
+                "price_delta": 6,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629419",
+                "group_name": "Adicional",
+                "name": "Bacon",
+                "description": null,
+                "image_url": null,
+                "price": 3,
+                "price_delta": 3,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629420",
+                "group_name": "Adicional",
+                "name": "Cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629423",
+                "group_name": "Adicional",
+                "name": "Alface, tomate e cebola",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629422",
+                "group_name": "Adicional",
+                "name": "Maionese Extra - Chimichurri",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2621601",
+                "group_name": "Acompanhamento",
+                "name": "Batata frita P",
+                "description": null,
+                "image_url": null,
+                "price": 10.9,
+                "price_delta": 10.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629427",
+                "group_name": "bebida",
+                "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629426",
+                "group_name": "bebida",
+                "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629429",
+                "group_name": "bebida",
+                "name": "Refrigerante de Laranja Sukita 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Duplo Salada",
+            "description": "Pão, 2x Smash 60g, 2x queijo cheddar, cebola roxa, tomate, alface e maionese da casa.",
+            "price": 25.9,
+            "display_price": 25.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592480/caf52e05fbe9be49-ccf2-4ca1-bba8-1ce733f21e8c.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicional",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629421",
+                    "group_name": "Adicional",
+                    "name": "1x smash de 80g + 1x cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 6,
+                    "price_delta": 6,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629419",
+                    "group_name": "Adicional",
+                    "name": "Bacon",
+                    "description": null,
+                    "image_url": null,
+                    "price": 3,
+                    "price_delta": 3,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629420",
+                    "group_name": "Adicional",
+                    "name": "Cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629423",
+                    "group_name": "Adicional",
+                    "name": "Alface, tomate e cebola",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629422",
+                    "group_name": "Adicional",
+                    "name": "Maionese Extra - Chimichurri",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "Acompanhamento",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "2621601",
+                    "group_name": "Acompanhamento",
+                    "name": "Batata frita P",
+                    "description": null,
+                    "image_url": null,
+                    "price": 10.9,
+                    "price_delta": 10.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "bebida",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629427",
+                    "group_name": "bebida",
+                    "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629426",
+                    "group_name": "bebida",
+                    "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629429",
+                    "group_name": "bebida",
+                    "name": "Refrigerante de Laranja Sukita 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "1629421",
+                "group_name": "Adicional",
+                "name": "1x smash de 80g + 1x cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 6,
+                "price_delta": 6,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629419",
+                "group_name": "Adicional",
+                "name": "Bacon",
+                "description": null,
+                "image_url": null,
+                "price": 3,
+                "price_delta": 3,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629420",
+                "group_name": "Adicional",
+                "name": "Cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629423",
+                "group_name": "Adicional",
+                "name": "Alface, tomate e cebola",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629422",
+                "group_name": "Adicional",
+                "name": "Maionese Extra - Chimichurri",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2621601",
+                "group_name": "Acompanhamento",
+                "name": "Batata frita P",
+                "description": null,
+                "image_url": null,
+                "price": 10.9,
+                "price_delta": 10.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629427",
+                "group_name": "bebida",
+                "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629426",
+                "group_name": "bebida",
+                "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629429",
+                "group_name": "bebida",
+                "name": "Refrigerante de Laranja Sukita 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Duplo Bacon",
+            "description": "Pão, 2x Smash 60g, 2x queijo cheddar, 2x bacon, cebola caramelizada e maionese da casa.",
+            "price": 25.9,
+            "display_price": 25.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_with_addons",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592479/c2a0e682IMG_6821.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Adicional",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629421",
+                    "group_name": "Adicional",
+                    "name": "1x smash de 80g + 1x cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 6,
+                    "price_delta": 6,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629419",
+                    "group_name": "Adicional",
+                    "name": "Bacon",
+                    "description": null,
+                    "image_url": null,
+                    "price": 3,
+                    "price_delta": 3,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629420",
+                    "group_name": "Adicional",
+                    "name": "Cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629423",
+                    "group_name": "Adicional",
+                    "name": "Alface, tomate e cebola",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629422",
+                    "group_name": "Adicional",
+                    "name": "Maionese Extra - Chimichurri",
+                    "description": null,
+                    "image_url": null,
+                    "price": 2,
+                    "price_delta": 2,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "addon",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "Acompanhamento",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "2621601",
+                    "group_name": "Acompanhamento",
+                    "name": "Batata frita P",
+                    "description": null,
+                    "image_url": null,
+                    "price": 10.9,
+                    "price_delta": 10.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "bebida",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629427",
+                    "group_name": "bebida",
+                    "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629426",
+                    "group_name": "bebida",
+                    "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629429",
+                    "group_name": "bebida",
+                    "name": "Refrigerante de Laranja Sukita 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": 5.9,
+                    "price_delta": 5.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "1629421",
+                "group_name": "Adicional",
+                "name": "1x smash de 80g + 1x cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 6,
+                "price_delta": 6,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629419",
+                "group_name": "Adicional",
+                "name": "Bacon",
+                "description": null,
+                "image_url": null,
+                "price": 3,
+                "price_delta": 3,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629420",
+                "group_name": "Adicional",
+                "name": "Cheddar",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629423",
+                "group_name": "Adicional",
+                "name": "Alface, tomate e cebola",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629422",
+                "group_name": "Adicional",
+                "name": "Maionese Extra - Chimichurri",
+                "description": null,
+                "image_url": null,
+                "price": 2,
+                "price_delta": 2,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "addon",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2621601",
+                "group_name": "Acompanhamento",
+                "name": "Batata frita P",
+                "description": null,
+                "image_url": null,
+                "price": 10.9,
+                "price_delta": 10.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629427",
+                "group_name": "bebida",
+                "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629426",
+                "group_name": "bebida",
+                "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629429",
+                "group_name": "bebida",
+                "name": "Refrigerante de Laranja Sukita 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": 5.9,
+                "price_delta": 5.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Seleção Delicious Burguer",
+        "items": [
+          {
+            "name": "Cheeseburguer",
+            "description": "Pão, 1x Blend 180g, 1x queijo cheddar e maionese da casa",
+            "price": 22.9,
+            "display_price": 22.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2436883/35db47ddIMG_3920.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "FRITAS",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "1907094",
+                    "group_name": "FRITAS",
+                    "name": "BATATA FRITA MÉDIA",
+                    "description": null,
+                    "image_url": null,
+                    "price": 10.9,
+                    "price_delta": 10.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1907095",
+                    "group_name": "FRITAS",
+                    "name": "BATATA FRITA GRANDE",
+                    "description": null,
+                    "image_url": null,
+                    "price": 16.9,
+                    "price_delta": 16.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "1907094",
+                "group_name": "FRITAS",
+                "name": "BATATA FRITA MÉDIA",
+                "description": null,
+                "image_url": null,
+                "price": 10.9,
+                "price_delta": 10.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1907095",
+                "group_name": "FRITAS",
+                "name": "BATATA FRITA GRANDE",
+                "description": null,
+                "image_url": null,
+                "price": 16.9,
+                "price_delta": 16.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Cheese bacon",
+            "description": "Pão, 1x blend 180g, queijo cheddar, bacon crocante e maionese da casa",
+            "price": 25.9,
+            "display_price": 25.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2758013/93eb9063IMG_4601.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Cheese Bacon 1.0",
+            "description": "Pão, 1x Blend 180g, Queijo cheddar, 2x bacon, cebola caramelizada no açúcar mascavo e molho barbercue artesanal, maionese da casa",
+            "price": 25.9,
+            "display_price": 25.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2334066/07d417faIMG_3724.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Monstrão - O burguer que desafia sua fome !",
+        "items": [
+          {
+            "name": "Monstrão",
+            "description": "Pão, 2x Blend 180g, 2x queijo cheddar, 2x bacon, cebola caramelizada no açúcar mascavo e molho barbercue artesanal, maionese da casa",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4082612/6a2f78af2092EBCC-0B51-4D94-8974-200B1ADBD096.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Combos",
+        "items": [
+          {
+            "name": "Duplo cheddar + Batata M + Refri 350ml",
+            "description": "Duplo Cheddar, 150g de Batata frita e um refri 350ml",
+            "price": 34.9,
+            "display_price": 34.9,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2156182/ccebc27a1FD85A90-604A-4E47-B717-65EB1A41BFFF.png",
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "Duplo cheddar",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Batata M",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  },
+                  {
+                    "name": "Refri 350ml",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 2
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Acompanhamentos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "1629426",
+                    "group_name": "Acompanhamentos",
+                    "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629427",
+                    "group_name": "Acompanhamentos",
+                    "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "1629426",
+                "group_name": "Acompanhamentos",
+                "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629427",
+                "group_name": "Acompanhamentos",
+                "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "1 Burguer de 120g + Batata Frita + Refri Lata 350ml",
+            "description": "1 Burguer De 120g Da Sua Escolha, 150g De Batata Frita (In Natura), E Um Refri 350ml",
+            "price": 35.9,
+            "display_price": 35.9,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592484/190b9ebe14334E31-89C4-4BB2-A64A-6382D20CB136.png",
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "1 Burguer de 120g",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Batata Frita",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  },
+                  {
+                    "name": "Refri Lata 350ml",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 2
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "ESCOLHA SEU BURGUER FAVORITO",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "4172585",
+                    "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                    "name": "Duplo bacon",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4172586",
+                    "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                    "name": "Duplo cheddar",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4172587",
+                    "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                    "name": "Duplo Oklahoma",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4172588",
+                    "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                    "name": "Duplo Salada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "Acompanhamentos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "1629426",
+                    "group_name": "Acompanhamentos",
+                    "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629427",
+                    "group_name": "Acompanhamentos",
+                    "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4172585",
+                "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                "name": "Duplo bacon",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4172586",
+                "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                "name": "Duplo cheddar",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4172587",
+                "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                "name": "Duplo Oklahoma",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4172588",
+                "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                "name": "Duplo Salada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629426",
+                "group_name": "Acompanhamentos",
+                "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629427",
+                "group_name": "Acompanhamentos",
+                "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "2 Ultra smash Bacon + Batata Frita + 2x Refri lata",
+            "description": "Pão, 1x Smash 60g, 1x queijo cheddar, bacon em cubos e maionese chimichurri. + Batata Frita + 1x Refri lata",
+            "price": 48.9,
+            "display_price": 48.9,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3505480/f57df52989257E28-1223-4073-963F-7B17995FD160.png",
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "2 Ultra smash Bacon",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Batata Frita",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  },
+                  {
+                    "name": "2x Refri lata",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 2
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Refrigerante",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629427",
+                    "group_name": "Refrigerante",
+                    "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629426",
+                    "group_name": "Refrigerante",
+                    "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "1629427",
+                "group_name": "Refrigerante",
+                "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629426",
+                "group_name": "Refrigerante",
+                "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "2 Burguer de 120g + 2 Batata frita 150g (in natura) + 2 Refri lata 350ml",
+            "description": "2x Burguer Duplo, 2x Batata frita de 150g (in natura) e 2x Refri 350ml",
+            "price": 65.9,
+            "display_price": 65.9,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2636944/542a6b76ED7171F1-65E0-4594-80EE-C1118805DFD0.png",
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "2 Burguer de 120g",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "2 Batata frita 150g (in natura)",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  },
+                  {
+                    "name": "2 Refri lata 350ml",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 2
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "ESCOLHA SEU BURGUER FAVORITO",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "2230551",
+                    "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                    "name": "DUPLO BACON",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "2230549",
+                    "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                    "name": "DUPLO CHEDDAR",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "2621392",
+                    "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                    "name": "DUPLO OKLAHOMA",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "2621393",
+                    "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                    "name": "DUPLO SALADA",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              },
+              {
+                "name": "BEBIDA",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "items": [
+                  {
+                    "external_id": "1629427",
+                    "group_name": "BEBIDA",
+                    "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1629426",
+                    "group_name": "BEBIDA",
+                    "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                    "description": "Lata 350ml",
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "combo_component",
+                    "price_behavior": "price_delta",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "2230551",
+                "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                "name": "DUPLO BACON",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2230549",
+                "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                "name": "DUPLO CHEDDAR",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2621392",
+                "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                "name": "DUPLO OKLAHOMA",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "2621393",
+                "group_name": "ESCOLHA SEU BURGUER FAVORITO",
+                "name": "DUPLO SALADA",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629427",
+                "group_name": "BEBIDA",
+                "name": "Refrigerante Black sem Açúcar Pepsi 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1629426",
+                "group_name": "BEBIDA",
+                "name": "Refriegerante Soda Limonada Antarctica 350ml",
+                "description": "Lata 350ml",
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "combo_component",
+                "price_behavior": "price_delta",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Refrigerante Pepsi Black sem Açúcar 350ml",
+            "description": "Lata 350ml",
+            "price": 5.9,
+            "display_price": 5.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592498/202310021845_zjmm7thwir.webp",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Refrigerante Guaraná Antarctica 350ml",
+            "description": "Embalagem 350 Ml",
+            "price": 5.9,
+            "display_price": 5.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592499/202310041124_i3hh9ks5rim.webp",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Refriegerante Soda Limonada Antarctica 350ml",
+            "description": "Lata 350ml",
+            "price": 5.9,
+            "display_price": 5.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592500/202210200318_3cd2kfq88im.webp",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Acompanhamento",
+        "items": [
+          {
+            "name": "Batata Frita P",
+            "description": "150g de Batata frita (in natura) sequinha e crocante",
+            "price": 12.9,
+            "display_price": 12.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2596172/0610536dcd5c53b3-57da-4353-88eb-7b07e92accd8.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 21 itens via cardapio_web."
+  },
+  "stdoutTail": "search_label\":null},{\"external_id\":\"1629426\",\"group_name\":\"BEBIDA\",\"name\":\"Refriegerante Soda Limonada Antarctica 350ml\",\"description\":\"Lata 350ml\",\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"price_delta\",\"is_searchable_variant\":false,\"search_label\":null}]}],\"options\":[{\"external_id\":\"2230551\",\"group_name\":\"ESCOLHA SEU BURGUER FAVORITO\",\"name\":\"DUPLO BACON\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"required_choice\",\"price_behavior\":\"absolute_price\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"2230549\",\"group_name\":\"ESCOLHA SEU BURGUER FAVORITO\",\"name\":\"DUPLO CHEDDAR\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"required_choice\",\"price_behavior\":\"absolute_price\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"2621392\",\"group_name\":\"ESCOLHA SEU BURGUER FAVORITO\",\"name\":\"DUPLO OKLAHOMA\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"required_choice\",\"price_behavior\":\"absolute_price\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"2621393\",\"group_name\":\"ESCOLHA SEU BURGUER FAVORITO\",\"name\":\"DUPLO SALADA\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"required_choice\",\"price_behavior\":\"absolute_price\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"1629427\",\"group_name\":\"BEBIDA\",\"name\":\"Refrigerante Black sem Açúcar Pepsi 350ml\",\"description\":\"Lata 350ml\",\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"price_delta\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"1629426\",\"group_name\":\"BEBIDA\",\"name\":\"Refriegerante Soda Limonada Antarctica 350ml\",\"description\":\"Lata 350ml\",\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":0,\"max_quantity\":null,\"is_required\":false,\"semantic_type\":\"combo_component\",\"price_behavior\":\"price_delta\",\"is_searchable_variant\":false,\"search_label\":null}]},{\"name\":\"Refrigerante Pepsi Black sem Açúcar 350ml\",\"description\":\"Lata 350ml\",\"price\":5.9,\"display_price\":5.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592498/202310021845_zjmm7thwir.webp\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Refrigerante Guaraná Antarctica 350ml\",\"description\":\"Embalagem 350 Ml\",\"price\":5.9,\"display_price\":5.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592499/202310041124_i3hh9ks5rim.webp\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Refriegerante Soda Limonada Antarctica 350ml\",\"description\":\"Lata 350ml\",\"price\":5.9,\"display_price\":5.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/1592500/202210200318_3cd2kfq88im.webp\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Acompanhamento\",\"items\":[{\"name\":\"Batata Frita P\",\"description\":\"150g de Batata frita (in natura) sequinha e crocante\",\"price\":12.9,\"display_price\":12.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/2596172/0610536dcd5c53b3-57da-4353-88eb-7b07e92accd8.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 21 itens via cardapio_web.\"}\n",
+  "stderrTail": "[Menu V2] IA de semântica falhou; mantendo heurística: Request timed out.\n"
+}

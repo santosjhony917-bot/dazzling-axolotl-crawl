@@ -1,0 +1,236 @@
+{
+  "runId": "2026-07-07T16-26-08-951Z",
+  "outDir": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T16-26-08-951Z",
+  "results": [
+    {
+      "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T16-26-08-951Z\\forneria-brasil-express-0b4eb55c.png",
+      "galleryCount": 4,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 130189,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/stores/logo/1752030377686ddca953151.jpeg"
+        },
+        {
+          "label": "1",
+          "caption": "Fonte cardapio validado Instadelivery (food)",
+          "kind": "gallery",
+          "bytes": 116779,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/170543460065a6dde8ba530.jpeg"
+        },
+        {
+          "label": "2",
+          "caption": "Fonte cardapio validado Instadelivery (food)",
+          "kind": "gallery",
+          "bytes": 92574,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/170543460365a6ddebd17f2.jpeg"
+        },
+        {
+          "label": "3 CAPA",
+          "caption": "Fonte cardapio validado Instadelivery (food)",
+          "kind": "gallery",
+          "bytes": 106291,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/itens/170543461965a6ddfb7dd82.jpeg"
+        },
+        {
+          "label": "4",
+          "caption": "Fonte cardapio validado Instadelivery (food)",
+          "kind": "gallery",
+          "bytes": 50124,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://instadelivery-public.nyc3.cdn.digitaloceanspaces.com/complements/17336071836754bf0fb5d61.jpeg"
+        }
+      ]
+    },
+    {
+      "id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+      "name": "Pipa Sushi & Temakeria",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T16-26-08-951Z\\pipa-sushi-temakeria-60d131e5.png",
+      "galleryCount": 5,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 7369,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_profile_apify_1783435432621.jpg"
+        },
+        {
+          "label": "1",
+          "caption": "Fonte cardapio validado Anota AI (food)",
+          "kind": "gallery",
+          "bytes": 79738,
+          "contentType": "image/png",
+          "error": null,
+          "url": "https://client-assets.anota.ai/produtos/65e72226a5761d0011317119/202103231646_rltb_blob"
+        },
+        {
+          "label": "2",
+          "caption": "Fonte cardapio validado Anota AI (food)",
+          "kind": "gallery",
+          "bytes": 110927,
+          "contentType": "image/png",
+          "error": null,
+          "url": "https://client-assets.anota.ai/produtos/65e72226a5761d0011317119/202403111645_7R07_blob"
+        },
+        {
+          "label": "3 CAPA",
+          "caption": "Fonte cardapio validado Anota AI (food)",
+          "kind": "gallery",
+          "bytes": 98867,
+          "contentType": "image/png",
+          "error": null,
+          "url": "https://client-assets.anota.ai/produtos/65e72226a5761d0011317119/202403261347_0TD2_iblob"
+        },
+        {
+          "label": "4",
+          "caption": "Fonte cardapio validado Anota AI (food)",
+          "kind": "gallery",
+          "bytes": 113972,
+          "contentType": "image/png",
+          "error": null,
+          "url": "https://client-assets.anota.ai/produtos/65e72226a5761d0011317119/202405291228_8F11_iblob"
+        },
+        {
+          "label": "5",
+          "caption": "Fonte cardapio validado Anota AI (food)",
+          "kind": "gallery",
+          "bytes": 108290,
+          "contentType": "image/png",
+          "error": null,
+          "url": "https://client-assets.anota.ai/produtos/65e72226a5761d0011317119/202411181156_C6O1_iblob"
+        }
+      ]
+    },
+    {
+      "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T16-26-08-951Z\\porto-do-acai-2ef9ccde.png",
+      "galleryCount": 4,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 123775,
+          "contentType": "application/octet-stream",
+          "error": null,
+          "url": "https://meucarrinhostg.blob.core.windows.net/images/logo-f256954b-098d-4c6a-affb-7fa33729a5a1.png"
+        },
+        {
+          "label": "1",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 193636,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386012614_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 99498,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386016956_4.jpg"
+        },
+        {
+          "label": "3 CAPA",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 93926,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386017620_5.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 52448,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ef9ccde-0e20-4108-a8ac-874108b3c16b/instagram_1783386019644_7.jpg"
+        }
+      ]
+    },
+    {
+      "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "sheet": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\final-media-qa-sheets\\2026-07-07T16-26-08-951Z\\sushiyaki-restaurante-2ed733a0.png",
+      "galleryCount": 5,
+      "loaded": [
+        {
+          "label": "LOGO",
+          "caption": "image_url",
+          "kind": "logo",
+          "bytes": 15822,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://cdn-production.yooga.com.br/5333920221112175004IfJbypwPf.jpeg"
+        },
+        {
+          "label": "1 CAPA",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 133182,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385664450_1.jpg"
+        },
+        {
+          "label": "2",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 85450,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385666394_2.jpg"
+        },
+        {
+          "label": "3",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 132397,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385667097_3.jpg"
+        },
+        {
+          "label": "4",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 119065,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385668429_4.jpg"
+        },
+        {
+          "label": "5",
+          "caption": "Foto do Instagram",
+          "kind": "gallery",
+          "bytes": 168098,
+          "contentType": "image/jpeg",
+          "error": null,
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385669380_5.jpg"
+        }
+      ]
+    }
+  ]
+}

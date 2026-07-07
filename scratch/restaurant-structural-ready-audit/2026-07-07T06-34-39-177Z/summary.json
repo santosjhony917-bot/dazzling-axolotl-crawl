@@ -1,0 +1,71 @@
+{
+  "runId": "2026-07-07T06-34-39-177Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T06-34-39-177Z",
+  "scope": {
+    "ids": [
+      "eeb4213a-a5a1-4286-a33f-b6fea80cb891"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+      "name": "Restaurante Pôr do Sol",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 32,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "32 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/restaurante-por-do-sol-5?f=msa",
+        "instagram": "https://www.instagram.com/bar_restaurantepordosol/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:22.539Z",
+          "status": "enriched",
+          "username": "bar_restaurantepordosol",
+          "followers": 1193,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/restaurante-por-do-sol-5?f=msa",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Pres. João Pessoa",
+        "number": "1",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99672-7835",
+        "latitude": -6.978891099999999,
+        "longitude": -34.8350216,
+        "followers": 1193
+      },
+      "issues": []
+    }
+  ]
+}

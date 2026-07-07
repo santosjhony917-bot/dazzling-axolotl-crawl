@@ -1,0 +1,102 @@
+[
+  {
+    "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+    "name": "Lary's pizzaria e lanchonete",
+    "redCount": 284,
+    "issueCodes": [
+      "opcao_price_delta_com_price_preenchido"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Americana",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Baiana",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Basca",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Brasileira",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Calabresa",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Calabresa Especial",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Carne de Sol Com Catupiry",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Cartola",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Charge",
+        "price": 0,
+        "priceDelta": 0
+      },
+      {
+        "severity": "red",
+        "code": "opcao_price_delta_com_price_preenchido",
+        "item": "Pequena 25cm",
+        "group": "Sabor Pequena 25cm",
+        "option": "Chilena",
+        "price": 0,
+        "priceDelta": 0
+      }
+    ]
+  }
+]

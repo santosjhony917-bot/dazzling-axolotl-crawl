@@ -1,0 +1,90 @@
+{
+  "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+  "name": "I love burguer",
+  "instagram": "https://www.instagram.com/iloveburguerpb/",
+  "followers": 9915,
+  "match": {
+    "score": 140,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://app.cardapioweb.com/i_loveburguer"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "d1c40902-595a-41ef-81ee-614bf68455c3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_1783385408310_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "fd061ccf-9328-4c09-93a6-6f6fea3ac315",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_1783385409989_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "0bf38343-ab5d-4aee-909e-af2e5c925fc5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_1783385410793_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "ddc1c098-b981-46d7-8423-44d59bee6305",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_1783385411625_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "84f57f52-31e6-4d66-9610-64146c132f6d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_1783385412360_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "f763512d-a48a-4af0-bcb3-564849638274",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_1783385412936_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "b227852f-5b19-4e65-9398-a4fa51593dfd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_1783385413620_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "b4d659e1-8670-4f49-9fd9-a6abb2afdc7f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_1783385414567_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

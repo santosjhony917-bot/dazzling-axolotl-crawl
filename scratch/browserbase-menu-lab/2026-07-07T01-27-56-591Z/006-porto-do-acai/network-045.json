@@ -1,0 +1,372 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 7582,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"e949f97f-cad6-4bee-bd6c-b20261991e01\",\"id\":\"be079b87-2c5c-4550-b59b-641503ceaa8e\",\"code\":\"4\",\"ean\":null,\"priority\":1,\"name\":\"ACAI M (ACAI TRADICIONAL)\",\"description\":\"Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas.\",\"price\":18,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"128e5d98-e2d5-422f-8125-758f8a10b2b0\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"ACAI M (ACAI TRADICIONAL)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-be079b87-2c5c-4550-b59b-641503ceaa8e_069ba222-8bd0-4bcb-9735-5c1ad6055d1c.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"e949f97f-cad6-4bee-bd6c-b20261991e01\",\"id\":\"a8c2f1a9-0e71-4487-84e8-d60b91913b17\",\"code\":\"5\",\"ean\":null,\"priority\":2,\"name\":\"ACAI G (TRADICIONAL)\",\"description\":\"Escolha ate tres opcoes de frutas.\",\"price\":25,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"cd7a9167-85fc-4503-a20a-754539a985dd\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"ACAI G (TRADICIONAL)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-a8c2f1a9-0e71-4487-84e8-d60b91913b17_8e61f416-9f3c-4901-a9f1-9a7e16b217fa.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"e949f97f-cad6-4bee-bd6c-b20261991e01\",\"id\":\"956bdd65-290f-4e20-94d6-d9dcdf3247f5\",\"code\":\"6\",\"ean\":null,\"priority\":3,\"name\":\"ACAI P (Acai com Creme de Ninho)\",\"description\":\"Acai cremoso com uma opcao de fruta.\",\"price\":16,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"c09662ab-a9b9-439d-9570-0058767cb6c0\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"ACAI P (Acai com Creme de Ninho)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-956bdd65-290f-4e20-94d6-d9dcdf3247f5_6488bd0a-c5e0-4c3c-95c0-a72fc06d812d.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"e949f97f-cad6-4bee-bd6c-b20261991e01\",\"id\":\"04860d22-4fda-4c1a-b869-9692d4c24046\",\"code\":\"7\",\"ean\":null,\"priority\":4,\"name\":\"ACAI M (Acai com Creme de Ninho)\",\"description\":\"Acai cremoso, escolha ate duas opcoes de frutas.\",\"price\":18,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"d4e738df-b3fb-4668-85c2-5215c8c06512\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"ACAI M (Acai com Creme de Ninho)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-04860d22-4fda-4c1a-b869-9692d4c24046_07615423-9d67-450c-9766-9862415446a9.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"e949f97f-cad6-4bee-bd6c-b20261991e01\",\"id\":\"5e83213e-a1d3-4ca0-bdfd-86b29533937f\",\"code\":\"8\",\"ean\":null,\"priority\":5,\"name\":\"ACAI G (Acai com Creme de Ninho)\",\"description\":\"Acai cremoso, tres opcoes de frutas.\",\"price\":25,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"54378d0c-e0ec-46c2-80b0-0adb674c5095\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"ACAI G (Acai com Creme de Ninho)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-5e83213e-a1d3-4ca0-bdfd-86b29533937f_f32397e1-2045-42be-8f59-401e7d3fc3c1.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"e949f97f-cad6-4bee-bd6c-b20261991e01\",\"id\":\"c8b7c6f4-62bf-4c20-8fcb-3561b307b57b\",\"code\":\"9\",\"ean\":null,\"priority\":6,\"name\":\"ACAI P (Acai com Cupuacu)\",\"description\":\"Acai com Cupuacu cremoso, escolha uma opcao de fruta.\",\"price\":16,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"47882ce8-c22a-4158-a3da-8bdab8d39591\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"ACAI P (Acai com Cupuacu)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-c8b7c6f4-62bf-4c20-8fcb-3561b307b57b_8fad64eb-1ac9-4eb5-8555-412a0006ce82.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"e949f97f-cad6-4bee-bd6c-b20261991e01\",\"id\":\"f5311252-d8bb-43eb-b8fb-d0354af009b9\",\"code\":\"10\",\"ean\":null,\"priority\":7,\"name\":\"ACAI M (Acai com Cupuacu)\",\"description\":\"Gelatto de cupuacu cremoso e saboroso, escolha duas opcoes de frutas.\",\"price\":18,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"bf569079-c6a9-4032-b349-5b238be3f178\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"ACAI M (Acai com Cupuacu)\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-f5311252-d8bb-43eb-b8fb-d0354af009b9_a140b451-e69c-4565-b1ab-9f47dd7c30ad.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "7"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "id": "be079b87-2c5c-4550-b59b-641503ceaa8e",
+      "code": "4",
+      "ean": null,
+      "priority": 1,
+      "name": "ACAI M (ACAI TRADICIONAL)",
+      "description": "Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas.",
+      "price": 18,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "128e5d98-e2d5-422f-8125-758f8a10b2b0",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "ACAI M (ACAI TRADICIONAL)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-be079b87-2c5c-4550-b59b-641503ceaa8e_069ba222-8bd0-4bcb-9735-5c1ad6055d1c.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "id": "a8c2f1a9-0e71-4487-84e8-d60b91913b17",
+      "code": "5",
+      "ean": null,
+      "priority": 2,
+      "name": "ACAI G (TRADICIONAL)",
+      "description": "Escolha ate tres opcoes de frutas.",
+      "price": 25,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "cd7a9167-85fc-4503-a20a-754539a985dd",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "ACAI G (TRADICIONAL)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a8c2f1a9-0e71-4487-84e8-d60b91913b17_8e61f416-9f3c-4901-a9f1-9a7e16b217fa.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "id": "956bdd65-290f-4e20-94d6-d9dcdf3247f5",
+      "code": "6",
+      "ean": null,
+      "priority": 3,
+      "name": "ACAI P (Acai com Creme de Ninho)",
+      "description": "Acai cremoso com uma opcao de fruta.",
+      "price": 16,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "c09662ab-a9b9-439d-9570-0058767cb6c0",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "ACAI P (Acai com Creme de Ninho)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-956bdd65-290f-4e20-94d6-d9dcdf3247f5_6488bd0a-c5e0-4c3c-95c0-a72fc06d812d.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "id": "04860d22-4fda-4c1a-b869-9692d4c24046",
+      "code": "7",
+      "ean": null,
+      "priority": 4,
+      "name": "ACAI M (Acai com Creme de Ninho)",
+      "description": "Acai cremoso, escolha ate duas opcoes de frutas.",
+      "price": 18,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "d4e738df-b3fb-4668-85c2-5215c8c06512",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "ACAI M (Acai com Creme de Ninho)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-04860d22-4fda-4c1a-b869-9692d4c24046_07615423-9d67-450c-9766-9862415446a9.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "id": "5e83213e-a1d3-4ca0-bdfd-86b29533937f",
+      "code": "8",
+      "ean": null,
+      "priority": 5,
+      "name": "ACAI G (Acai com Creme de Ninho)",
+      "description": "Acai cremoso, tres opcoes de frutas.",
+      "price": 25,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "54378d0c-e0ec-46c2-80b0-0adb674c5095",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "ACAI G (Acai com Creme de Ninho)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-5e83213e-a1d3-4ca0-bdfd-86b29533937f_f32397e1-2045-42be-8f59-401e7d3fc3c1.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "id": "c8b7c6f4-62bf-4c20-8fcb-3561b307b57b",
+      "code": "9",
+      "ean": null,
+      "priority": 6,
+      "name": "ACAI P (Acai com Cupuacu)",
+      "description": "Acai com Cupuacu cremoso, escolha uma opcao de fruta.",
+      "price": 16,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "47882ce8-c22a-4158-a3da-8bdab8d39591",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "ACAI P (Acai com Cupuacu)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c8b7c6f4-62bf-4c20-8fcb-3561b307b57b_8fad64eb-1ac9-4eb5-8555-412a0006ce82.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "id": "f5311252-d8bb-43eb-b8fb-d0354af009b9",
+      "code": "10",
+      "ean": null,
+      "priority": 7,
+      "name": "ACAI M (Acai com Cupuacu)",
+      "description": "Gelatto de cupuacu cremoso e saboroso, escolha duas opcoes de frutas.",
+      "price": 18,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "bf569079-c6a9-4032-b349-5b238be3f178",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "ACAI M (Acai com Cupuacu)",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-f5311252-d8bb-43eb-b8fb-d0354af009b9_a140b451-e69c-4565-b1ab-9f47dd7c30ad.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

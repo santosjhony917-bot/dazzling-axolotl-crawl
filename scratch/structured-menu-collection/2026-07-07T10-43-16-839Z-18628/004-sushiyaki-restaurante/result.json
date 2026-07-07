@@ -1,0 +1,1072 @@
+{
+  "restaurantId": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+  "restaurantName": "Sushiyaki Restaurante",
+  "platform": "yooga",
+  "sourceUrl": "https://delivery.yooga.app/sushiyaki",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T10-43-16-839Z-18628\\004-sushiyaki-restaurante",
+  "startedAt": "2026-07-07T10:46:42.900Z",
+  "details": {
+    "url": "https://delivery.yooga.app/sushiyaki/tabs/home",
+    "title": "Sushiyaki Delivery | Vila São João - Cabedelo | Faça seu pedido.",
+    "companySlug": "sushiyaki",
+    "bodyTextSample": "Sushiyaki | O melhor sushi feito para você! | O melhor sushi feito para você! | Fechado agora | Abre amanhã às | Rua duque de caxias , 104 - No Villa porto de cabedelo, ao lado do cabedelo clube - Vila São João - Cabedelo / PB | 58100645 | Cabedelo | PB | Domingo: 21:30-01:20; Segunda-feira: 21:30-01:25; Terça-feira: fechado; Quarta-feira: 21:30-01:30; Quinta-feira: 21:30-01:30; Sexta-feira: 21:30-01:30; Sábado: 21:30-01:30 | Loja fechada - Abre amanhã às 18:30 Sushiyaki O melhor sushi feito para você! Mín. R$ 15,00 40 - 50 min Produtos em destaque Oferta Temaki frito de camarão empanado R$ 29,00 Oferta Big hot de camarão empanado R$ 32,00 Oferta Sushiburguer de camarão cozido R$ 35,00 Combos (Temaki) 2 Temaki de kani Se desejar frito, por favor colocar na observação. R$ 25,00 2 Temaki frito de camarão empanado R$ 55,00 1 Temaki de camarão empanado frito + coca lata R$ 33,00 1 Temaki de kani e 1 Temaki de camarão empanado se desejar frito, informar na observação por favor R$ 47,00 2 Temaki pasta de salmão Se desejar frito, por favor colocar na observação. R$ 65,90 2 Temaki de atum Se desejar frito, por favor colocar na observação. R$ 52,00 1 Temaki de camarão empanado e 1 Temaki de pasta de salmão Se desejar frito, por favor colocar na observação. R$ 57,00 Rolinho Rolinho de chocolate ao leite R$ 8,50 Temaki Temaki de kani Se desejar frito, só colocar observação. R$ 23,00 Temaki pasta de atum Se desejar frito, só colocar observação. R$ 27,00 Temaki pasta de salmão Se desejar frito, colocar na observação por favor R$ 37,00 Temaki de salmão Se desejar frito colocar na observação por favor R$ 42,00 Temaki natural de camarão empanado Temaki natural com camarão empanado R$ 29,00 Temaki de camarão cozido Se desejar frito, só colocar observação. R$ 32,00 Temaki de kani kama hot R$ 27,00 Temaki frito de camarão empanado R$ 29,00 Temaki mix Arroz, Kani, salmão, camarão e creme cheese. Se desejar frito, colocar na observação por favor R$ 38,00 Temaki salmão flambado R$ 45,00 Big hot Big hot pasta de salmão com camarão empanado R$ 52,00 Big hot camarão cozido R$ 37,00 Big hot de camarão empanado R$ 32,00 Big hot de kani R$ 25,00 Big hot pasta de atum R$ 29,00 Big hot pasta de salmão R$ 37,00 Big hot de salmão R$ 42,00 Sushiburguer Sushiburguer pasta de atum R$ 29,00 Sushiburguer de kani R$ 23,00 Sushiburguer de camarão cozido R$ 35,00 Sushiburguer de camarão empanado R$ 29,00 Sushiburguer pasta de salmão Arroz, pasta de salmão grelhado com creme cheese. R$ 37,00 Bebidas Coca Cola Lata R$ 7,00 Água com gás R$ 5,00 Coca lata zero R$ 7,00 Coca cola 1 litro R$ 12,00 Com a tecnologia v2026.8.6 Início Pedidos Perfil",
+    "yoogaStore": {
+      "id": 16215,
+      "idi": 53339,
+      "name": "Sushiyaki",
+      "slug": "sushiyaki",
+      "image": "https://cdn-production.yooga.com.br/5333920221112175004IfJbypwPf.jpeg",
+      "latitude": -6.9695874,
+      "longitude": -34.832167,
+      "minimumOrder": 15,
+      "formattedAddress": "Rua duque de caxias , 104 - No Villa porto de cabedelo, ao lado do cabedelo clube - Vila São João - Cabedelo / PB",
+      "address": {
+        "store_id": 16215,
+        "address": "Rua duque de caxias ",
+        "cep": "58100645",
+        "number": "104",
+        "additional_address": "No Villa porto de cabedelo, ao lado do cabedelo clube",
+        "neighbourhood": "Vila São João ",
+        "city": "Cabedelo",
+        "state": "PB",
+        "country": "Brasil",
+        "addressFormatted": "Rua duque de caxias , 104 - No Villa porto de cabedelo, ao lado do cabedelo clube - Vila São João  - Cabedelo / PB"
+      },
+      "hours": "Domingo: 21:30-01:20; Segunda-feira: 21:30-01:25; Terça-feira: fechado; Quarta-feira: 21:30-01:30; Quinta-feira: 21:30-01:30; Sexta-feira: 21:30-01:30; Sábado: 21:30-01:30",
+      "openingHours": {
+        "sunday": {
+          "isOpen": true,
+          "slots": [
+            {
+              "start": "21:30",
+              "end": "01:20"
+            }
+          ]
+        },
+        "monday": {
+          "isOpen": true,
+          "slots": [
+            {
+              "start": "21:30",
+              "end": "01:25"
+            }
+          ]
+        },
+        "tuesday": {
+          "isOpen": false,
+          "slots": []
+        },
+        "wednesday": {
+          "isOpen": true,
+          "slots": [
+            {
+              "start": "21:30",
+              "end": "01:30"
+            }
+          ]
+        },
+        "thursday": {
+          "isOpen": true,
+          "slots": [
+            {
+              "start": "21:30",
+              "end": "01:30"
+            }
+          ]
+        },
+        "friday": {
+          "isOpen": true,
+          "slots": [
+            {
+              "start": "21:30",
+              "end": "01:30"
+            }
+          ]
+        },
+        "saturday": {
+          "isOpen": true,
+          "slots": [
+            {
+              "start": "21:30",
+              "end": "01:30"
+            }
+          ]
+        }
+      },
+      "menuEndpoint": "https://delivery2.yooga.com.br/v2/stores/sushiyaki/menu?type_query=null"
+    },
+    "metrics": {
+      "scrollHeight": 1100,
+      "bodyLength": 40406,
+      "imageCount": 29
+    }
+  },
+  "rawSummary": {
+    "categoryCount": 6,
+    "itemCount": 34,
+    "optionCount": 0,
+    "operationalCategoryCount": 0,
+    "operationalItemCount": 0,
+    "operationalOptionCount": 0,
+    "samples": [
+      {
+        "name": "Combos (Temaki)",
+        "items": [
+          {
+            "name": "2 Temaki de kani",
+            "price": 25,
+            "options": []
+          },
+          {
+            "name": "2 Temaki frito de camarão empanado",
+            "price": 55,
+            "options": []
+          },
+          {
+            "name": "1 Temaki de camarão empanado frito + coca lata",
+            "price": 33,
+            "options": []
+          },
+          {
+            "name": "1 Temaki de kani e 1 Temaki de camarão empanado",
+            "price": 47,
+            "options": []
+          },
+          {
+            "name": "2 Temaki pasta de salmão",
+            "price": 65.9,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Rolinho",
+        "items": [
+          {
+            "name": "Rolinho de chocolate ao leite",
+            "price": 8.5,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Temaki",
+        "items": [
+          {
+            "name": "Temaki de kani",
+            "price": 23,
+            "options": []
+          },
+          {
+            "name": "Temaki pasta de atum",
+            "price": 27,
+            "options": []
+          },
+          {
+            "name": "Temaki pasta de salmão",
+            "price": 37,
+            "options": []
+          },
+          {
+            "name": "Temaki de salmão",
+            "price": 42,
+            "options": []
+          },
+          {
+            "name": "Temaki natural de camarão empanado",
+            "price": 29,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Big hot",
+        "items": [
+          {
+            "name": "Big hot pasta de salmão com camarão empanado",
+            "price": 52,
+            "options": []
+          },
+          {
+            "name": "Big hot camarão cozido",
+            "price": 37,
+            "options": []
+          },
+          {
+            "name": "Big hot de camarão empanado",
+            "price": 32,
+            "options": []
+          },
+          {
+            "name": "Big hot de kani",
+            "price": 25,
+            "options": []
+          },
+          {
+            "name": "Big hot pasta de atum",
+            "price": 29,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Sushiburguer",
+        "items": [
+          {
+            "name": "Sushiburguer pasta de atum",
+            "price": 29,
+            "options": []
+          },
+          {
+            "name": "Sushiburguer de kani",
+            "price": 23,
+            "options": []
+          },
+          {
+            "name": "Sushiburguer de camarão cozido",
+            "price": 35,
+            "options": []
+          },
+          {
+            "name": "Sushiburguer de camarão empanado",
+            "price": 29,
+            "options": []
+          },
+          {
+            "name": "Sushiburguer pasta de salmão",
+            "price": 37,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Coca Cola Lata",
+            "price": 7,
+            "options": []
+          },
+          {
+            "name": "Água com gás",
+            "price": 5,
+            "options": []
+          },
+          {
+            "name": "Coca lata zero",
+            "price": 7,
+            "options": []
+          },
+          {
+            "name": "Coca cola 1 litro",
+            "price": 12,
+            "options": []
+          }
+        ]
+      }
+    ]
+  },
+  "evidencePath": "scratch\\structured-menu-collection\\2026-07-07T10-43-16-839Z-18628\\004-sushiyaki-restaurante\\menu-evidence.json",
+  "dryRun": {
+    "code": 0,
+    "result": {
+      "success": true,
+      "dryRun": true,
+      "audit": {
+        "approved": true,
+        "confidence": 0.98,
+        "categoryCount": 6,
+        "itemCount": 34,
+        "resolvedPriceCount": 34,
+        "unresolvedPriceCount": 0,
+        "fullPriceDeltaAnomalyCount": 0,
+        "fullPriceDeltaAnomalies": [],
+        "optionPriceCount": 0,
+        "pricedRatio": 1,
+        "issues": [],
+        "optionSemanticAI": {
+          "used": false,
+          "reason": "no_groups",
+          "deltaFixes": 0,
+          "storageFixes": 0,
+          "guardFixes": 0
+        }
+      },
+      "preview": [
+        {
+          "name": "Combos (Temaki)",
+          "count": 7,
+          "samples": [
+            {
+              "name": "2 Temaki de kani",
+              "price": 25,
+              "kind": "combo_builder",
+              "description": "Se desejar frito, por favor colocar na observação."
+            },
+            {
+              "name": "2 Temaki frito de camarão empanado",
+              "price": 55,
+              "kind": "combo_builder",
+              "description": ""
+            },
+            {
+              "name": "1 Temaki de camarão empanado frito + coca lata",
+              "price": 33,
+              "kind": "combo_builder",
+              "description": ""
+            },
+            {
+              "name": "1 Temaki de kani e 1 Temaki de camarão empanado",
+              "price": 47,
+              "kind": "combo_builder",
+              "description": "se desejar frito, informar na observação por favor"
+            },
+            {
+              "name": "2 Temaki pasta de salmão",
+              "price": 65.9,
+              "kind": "combo_builder",
+              "description": "Se desejar frito, por favor colocar na observação."
+            }
+          ]
+        },
+        {
+          "name": "Rolinho",
+          "count": 1,
+          "samples": [
+            {
+              "name": "Rolinho de chocolate ao leite",
+              "price": 8.5,
+              "kind": "simple_item",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Temaki",
+          "count": 10,
+          "samples": [
+            {
+              "name": "Temaki de kani",
+              "price": 23,
+              "kind": "simple_item",
+              "description": "Se desejar frito, só colocar observação."
+            },
+            {
+              "name": "Temaki pasta de atum",
+              "price": 27,
+              "kind": "simple_item",
+              "description": "Se desejar frito, só colocar observação."
+            },
+            {
+              "name": "Temaki pasta de salmão",
+              "price": 37,
+              "kind": "simple_item",
+              "description": "Se desejar frito, colocar na observação por favor"
+            },
+            {
+              "name": "Temaki de salmão",
+              "price": 42,
+              "kind": "simple_item",
+              "description": "Se desejar frito colocar na observação por favor"
+            },
+            {
+              "name": "Temaki natural de camarão empanado",
+              "price": 29,
+              "kind": "simple_item",
+              "description": "Temaki natural com camarão empanado"
+            }
+          ]
+        },
+        {
+          "name": "Big hot",
+          "count": 7,
+          "samples": [
+            {
+              "name": "Big hot pasta de salmão com camarão empanado",
+              "price": 52,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Big hot camarão cozido",
+              "price": 37,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Big hot de camarão empanado",
+              "price": 32,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Big hot de kani",
+              "price": 25,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Big hot pasta de atum",
+              "price": 29,
+              "kind": "simple_item",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Sushiburguer",
+          "count": 5,
+          "samples": [
+            {
+              "name": "Sushiburguer pasta de atum",
+              "price": 29,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Sushiburguer de kani",
+              "price": 23,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Sushiburguer de camarão cozido",
+              "price": 35,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Sushiburguer de camarão empanado",
+              "price": 29,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Sushiburguer pasta de salmão",
+              "price": 37,
+              "kind": "simple_item",
+              "description": "Arroz, pasta de salmão grelhado com creme cheese."
+            }
+          ]
+        },
+        {
+          "name": "Bebidas",
+          "count": 4,
+          "samples": [
+            {
+              "name": "Coca Cola Lata",
+              "price": 7,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Água com gás",
+              "price": 5,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Coca lata zero",
+              "price": 7,
+              "kind": "simple_item",
+              "description": ""
+            },
+            {
+              "name": "Coca cola 1 litro",
+              "price": 12,
+              "kind": "simple_item",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "categories": [
+        {
+          "name": "Combos (Temaki)",
+          "items": [
+            {
+              "name": "2 Temaki de kani",
+              "description": "Se desejar frito, por favor colocar na observação.",
+              "price": 25,
+              "display_price": 25,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://cdn-production.yooga.com.br/c9f27b3702e5886e07d403f5bdc51802.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "2 Temaki frito de camarão empanado",
+              "description": "",
+              "price": 55,
+              "display_price": 55,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://cdn-production.yooga.com.br/cc56e9809e475478eb6fe550da48e67b.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "1 Temaki de camarão empanado frito + coca lata",
+              "description": "",
+              "price": 33,
+              "display_price": 33,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": null,
+              "combo_components": [
+                {
+                  "type": "fixed_item",
+                  "name": "Itens inclusos",
+                  "min_quantity": 0,
+                  "max_quantity": null,
+                  "is_required": false,
+                  "price_behavior": "included",
+                  "items": [
+                    {
+                      "name": "1 Temaki de camarão empanado frito",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 0
+                    },
+                    {
+                      "name": "coca lata",
+                      "price": null,
+                      "price_delta": null,
+                      "price_behavior": "included",
+                      "is_searchable_variant": true,
+                      "order_index": 1
+                    }
+                  ]
+                }
+              ],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "1 Temaki de kani e 1 Temaki de camarão empanado",
+              "description": "se desejar frito, informar na observação por favor",
+              "price": 47,
+              "display_price": 47,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "2 Temaki pasta de salmão",
+              "description": "Se desejar frito, por favor colocar na observação.",
+              "price": 65.9,
+              "display_price": 65.9,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://cdn-production.yooga.com.br/a932284703103f62fc06618d7649a006.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "2 Temaki de atum",
+              "description": "Se desejar frito, por favor colocar na observação.",
+              "price": 52,
+              "display_price": 52,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": "https://cdn-production.yooga.com.br/a932284703103f62fc06618d7649a006.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "1 Temaki de camarão empanado e 1 Temaki de pasta de salmão",
+              "description": "Se desejar frito, por favor colocar na observação.",
+              "price": 57,
+              "display_price": 57,
+              "price_type": "fixed",
+              "commercial_type": "combo_builder",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Rolinho",
+          "items": [
+            {
+              "name": "Rolinho de chocolate ao leite",
+              "description": "",
+              "price": 8.5,
+              "display_price": 8.5,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/5333920221112171521bE0AHXmcr.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Temaki",
+          "items": [
+            {
+              "name": "Temaki de kani",
+              "description": "Se desejar frito, só colocar observação.",
+              "price": 23,
+              "display_price": 23,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/5333920221112170524SA3yKeY8T.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki pasta de atum",
+              "description": "Se desejar frito, só colocar observação.",
+              "price": 27,
+              "display_price": 27,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/5333920221112170543AsnBgey7j.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki pasta de salmão",
+              "description": "Se desejar frito, colocar na observação por favor",
+              "price": 37,
+              "display_price": 37,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki de salmão",
+              "description": "Se desejar frito colocar na observação por favor",
+              "price": 42,
+              "display_price": 42,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/5333920221112170619zY86Mh6hK.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki natural de camarão empanado",
+              "description": "Temaki natural com camarão empanado",
+              "price": 29,
+              "display_price": 29,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/5333920221112170641W0JFCuSGX.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki de camarão cozido",
+              "description": "Se desejar frito, só colocar observação.",
+              "price": 32,
+              "display_price": 32,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/5333920221112170658jnmE0G2e2.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki de kani kama hot",
+              "description": "",
+              "price": 27,
+              "display_price": 27,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/4aaa67e45206279c3d4009cd3681e489.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki frito de camarão empanado",
+              "description": "",
+              "price": 29,
+              "display_price": 29,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/4904015b9abfc4053aaea476e669710f.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki mix",
+              "description": "Arroz, Kani, salmão, camarão e creme cheese. Se desejar frito, colocar na observação por favor",
+              "price": 38,
+              "display_price": 38,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Temaki salmão flambado",
+              "description": "",
+              "price": 45,
+              "display_price": 45,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Big hot",
+          "items": [
+            {
+              "name": "Big hot pasta de salmão com camarão empanado",
+              "description": "",
+              "price": 52,
+              "display_price": 52,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/9803db6adf88dc25f1f4b0afce1c51c6.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Big hot camarão cozido",
+              "description": "",
+              "price": 37,
+              "display_price": 37,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/eeab39b94184384fbbf2a8ecb7e252a5.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Big hot de camarão empanado",
+              "description": "",
+              "price": 32,
+              "display_price": 32,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/947be7b9214e7ad73a5bea1de1163af8.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Big hot de kani",
+              "description": "",
+              "price": 25,
+              "display_price": 25,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/34f4dddc97679b75aefe684540596195.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Big hot pasta de atum",
+              "description": "",
+              "price": 29,
+              "display_price": 29,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/de467bb48d3389ec0e13a5e222dd38cd.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Big hot pasta de salmão",
+              "description": "",
+              "price": 37,
+              "display_price": 37,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/de467bb48d3389ec0e13a5e222dd38cd.png",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Big hot de salmão",
+              "description": "",
+              "price": 42,
+              "display_price": 42,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/fa90ebd2e5f3b70e9d78427eb0e6bedb.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Sushiburguer",
+          "items": [
+            {
+              "name": "Sushiburguer pasta de atum",
+              "description": "",
+              "price": 29,
+              "display_price": 29,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/5333920221112171231LARBg1Wvt.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de kani",
+              "description": "",
+              "price": 23,
+              "display_price": 23,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/5333920221112171335cExnwwKyZ.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de camarão cozido",
+              "description": "",
+              "price": 35,
+              "display_price": 35,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/bbeb07b5b816a5ba14ea9eb557f4e1f5.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de camarão empanado",
+              "description": "",
+              "price": 29,
+              "display_price": 29,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Sushiburguer pasta de salmão",
+              "description": "Arroz, pasta de salmão grelhado com creme cheese.",
+              "price": 37,
+              "display_price": 37,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Bebidas",
+          "items": [
+            {
+              "name": "Coca Cola Lata",
+              "description": "",
+              "price": 7,
+              "display_price": 7,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/53339202211121710083oAR29nLH.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Água com gás",
+              "description": "",
+              "price": 5,
+              "display_price": 5,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://raw.githubusercontent.com/vcslima/banco_de_imagens/master/agua_com_gas.jpg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Coca lata zero",
+              "description": "",
+              "price": 7,
+              "display_price": 7,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": "https://cdn-production.yooga.com.br/ab7f82ee1e41d4ab6c60205526bae635.jpeg",
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            },
+            {
+              "name": "Coca cola 1 litro",
+              "description": "",
+              "price": 12,
+              "display_price": 12,
+              "price_type": "fixed",
+              "commercial_type": "simple_item",
+              "image_url": null,
+              "combo_components": [],
+              "combo_rules": null,
+              "option_groups": [],
+              "options": []
+            }
+          ]
+        }
+      ],
+      "message": "Prévia estruturada com 34 itens via yooga_native_api."
+    },
+    "stdoutTail": "rice\":32,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/947be7b9214e7ad73a5bea1de1163af8.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Big hot de kani\",\"description\":\"\",\"price\":25,\"display_price\":25,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/34f4dddc97679b75aefe684540596195.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Big hot pasta de atum\",\"description\":\"\",\"price\":29,\"display_price\":29,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/de467bb48d3389ec0e13a5e222dd38cd.png\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Big hot pasta de salmão\",\"description\":\"\",\"price\":37,\"display_price\":37,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/de467bb48d3389ec0e13a5e222dd38cd.png\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Big hot de salmão\",\"description\":\"\",\"price\":42,\"display_price\":42,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/fa90ebd2e5f3b70e9d78427eb0e6bedb.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Sushiburguer\",\"items\":[{\"name\":\"Sushiburguer pasta de atum\",\"description\":\"\",\"price\":29,\"display_price\":29,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/5333920221112171231LARBg1Wvt.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Sushiburguer de kani\",\"description\":\"\",\"price\":23,\"display_price\":23,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/5333920221112171335cExnwwKyZ.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Sushiburguer de camarão cozido\",\"description\":\"\",\"price\":35,\"display_price\":35,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/bbeb07b5b816a5ba14ea9eb557f4e1f5.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Sushiburguer de camarão empanado\",\"description\":\"\",\"price\":29,\"display_price\":29,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Sushiburguer pasta de salmão\",\"description\":\"Arroz, pasta de salmão grelhado com creme cheese.\",\"price\":37,\"display_price\":37,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Bebidas\",\"items\":[{\"name\":\"Coca Cola Lata\",\"description\":\"\",\"price\":7,\"display_price\":7,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/53339202211121710083oAR29nLH.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Água com gás\",\"description\":\"\",\"price\":5,\"display_price\":5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://raw.githubusercontent.com/vcslima/banco_de_imagens/master/agua_com_gas.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca lata zero\",\"description\":\"\",\"price\":7,\"display_price\":7,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://cdn-production.yooga.com.br/ab7f82ee1e41d4ab6c60205526bae635.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coca cola 1 litro\",\"description\":\"\",\"price\":12,\"display_price\":12,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 34 itens via yooga_native_api.\"}\n",
+    "stderrTail": ""
+  },
+  "review": {
+    "tier": "green",
+    "flags": [],
+    "dryRunApproved": true,
+    "dryRunOperationalEntityCount": 0,
+    "dryRunOperationalCategoryCount": 0,
+    "dryRunOperationalItemCount": 0,
+    "dryRunOperationalOptionCount": 0,
+    "itemCount": 34,
+    "optionCount": 0,
+    "rawOperationalCategoryCount": 0,
+    "rawOperationalItemCount": 0,
+    "rawOperationalOptionCount": 0,
+    "identity": {
+      "confirmed": true,
+      "pageHasName": true,
+      "urlHasName": true,
+      "pageHasPhone": false,
+      "pageHasAddress": false,
+      "pageHasCity": true,
+      "pageHasState": true,
+      "evidence": {
+        "targetName": "Sushiyaki Restaurante",
+        "targetAddress": "R. Ten. Antônio Pontes, 381",
+        "targetPhoneLast8": "86845886",
+        "targetCity": "Cabedelo",
+        "targetState": "PB"
+      }
+    },
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 6,
+      "itemCount": 34,
+      "resolvedPriceCount": 34,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "no_groups",
+        "deltaFixes": 0,
+        "storageFixes": 0,
+        "guardFixes": 0
+      }
+    }
+  },
+  "committed": true,
+  "commit": {
+    "code": 0,
+    "result": {
+      "success": true,
+      "message": "34 itens estruturados via yooga_native_api; 0 requerem revisão de preço.",
+      "audit": {
+        "approved": true,
+        "confidence": 0.98,
+        "categoryCount": 6,
+        "itemCount": 34,
+        "resolvedPriceCount": 34,
+        "unresolvedPriceCount": 0,
+        "fullPriceDeltaAnomalyCount": 0,
+        "fullPriceDeltaAnomalies": [],
+        "optionPriceCount": 0,
+        "pricedRatio": 1,
+        "issues": [],
+        "optionSemanticAI": {
+          "used": false,
+          "reason": "no_groups",
+          "deltaFixes": 0,
+          "storageFixes": 0,
+          "guardFixes": 0
+        }
+      },
+      "fallbackUsed": false
+    },
+    "stdoutTail": "[Menu V2] Semântica de opções via heurística (no_groups).\n[Menu V2] Auditoria estrutural: {\"approved\":true,\"confidence\":0.98,\"categoryCount\":6,\"itemCount\":34,\"resolvedPriceCount\":34,\"unresolvedPriceCount\":0,\"fullPriceDeltaAnomalyCount\":0,\"fullPriceDeltaAnomalies\":[],\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\",\"deltaFixes\":0,\"storageFixes\":0,\"guardFixes\":0}}\nRESULT:{\"success\":true,\"message\":\"34 itens estruturados via yooga_native_api; 0 requerem revisão de preço.\",\"audit\":{\"approved\":true,\"confidence\":0.98,\"categoryCount\":6,\"itemCount\":34,\"resolvedPriceCount\":34,\"unresolvedPriceCount\":0,\"fullPriceDeltaAnomalyCount\":0,\"fullPriceDeltaAnomalies\":[],\"optionPriceCount\":0,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":false,\"reason\":\"no_groups\",\"deltaFixes\":0,\"storageFixes\":0,\"guardFixes\":0}},\"fallbackUsed\":false}\n",
+    "stderrTail": ""
+  },
+  "error": null,
+  "finishedAt": "2026-07-07T10:46:55.128Z"
+}

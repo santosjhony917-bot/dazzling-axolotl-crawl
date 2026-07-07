@@ -1,0 +1,3151 @@
+{
+  "success": true,
+  "sourceUrl": "https://napolespizzaria.saipos.com/",
+  "finalUrl": "https://napolespizzaria.saipos.com/",
+  "platform": "saipos",
+  "extractionLevel": 0,
+  "confidence": 0.97,
+  "categories": [
+    {
+      "name": "Bebidas",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": "31634046",
+          "name": "Água com gás",
+          "description": "",
+          "image_url": null,
+          "price": 3.5,
+          "price_min": 3.5,
+          "price_max": 3.5,
+          "price_type": "fixed",
+          "price_source": "api.item",
+          "options": [
+            {
+              "external_id": "31634046",
+              "group_name": "Variações",
+              "name": "Único",
+              "price": 3.5,
+              "price_delta": null,
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "enabled": "Y",
+                "id_store_item": 31634046,
+                "id_store_item_variation": 31634063,
+                "id_store_variation": 157247,
+                "integration_code": 31634063,
+                "order": 0,
+                "price": 3.5,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            }
+          ],
+          "source_url": "https://napolespizzaria.saipos.com/",
+          "raw_data": {
+            "availability": [],
+            "categories": [],
+            "category_item": {
+              "availability": [],
+              "desc_store_category_item": "Bebidas",
+              "enabled": "Y",
+              "id_store_category_item": 1000669,
+              "id_store_item_required": null,
+              "order": 4,
+              "print_type": 3,
+              "updated_at": "2026-01-20T20:35:19.000Z"
+            },
+            "choices": [
+              {
+                "id_store_choice": 2437258,
+                "id_store_item": 31634046,
+                "id_store_item_choice": 31634061,
+                "order": 0
+              }
+            ],
+            "desc_store_item": "Água com gás",
+            "desc_store_item_delivery": null,
+            "detail": "",
+            "id_store_category_item": 1000669,
+            "id_store_item": 31634046,
+            "identifier_number": "",
+            "img_path": null,
+            "order": 0,
+            "print_type": 1,
+            "updated_at": "2026-06-10T15:20:55.000Z",
+            "variations": [
+              {
+                "enabled": "Y",
+                "id_store_item": 31634046,
+                "id_store_item_variation": 31634063,
+                "id_store_variation": 157247,
+                "integration_code": 31634063,
+                "order": 0,
+                "price": 3.5,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "31916283",
+          "name": "Funada guaraná 1,5L",
+          "description": "",
+          "image_url": null,
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "api.item",
+          "options": [
+            {
+              "external_id": "31916283",
+              "group_name": "Variações",
+              "name": "Único",
+              "price": 8,
+              "price_delta": null,
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "enabled": "Y",
+                "id_store_item": 31916283,
+                "id_store_item_variation": 31916285,
+                "id_store_variation": 157247,
+                "integration_code": 31916285,
+                "order": 0,
+                "price": 8,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            }
+          ],
+          "source_url": "https://napolespizzaria.saipos.com/",
+          "raw_data": {
+            "availability": [],
+            "categories": [],
+            "category_item": {
+              "availability": [],
+              "desc_store_category_item": "Bebidas",
+              "enabled": "Y",
+              "id_store_category_item": 1000669,
+              "id_store_item_required": null,
+              "order": 4,
+              "print_type": 3,
+              "updated_at": "2026-01-20T20:35:19.000Z"
+            },
+            "choices": [
+              {
+                "id_store_choice": 2437258,
+                "id_store_item": 31916283,
+                "id_store_item_choice": 31916284,
+                "order": 0
+              }
+            ],
+            "desc_store_item": "Funada guaraná 1,5L",
+            "desc_store_item_delivery": null,
+            "detail": null,
+            "id_store_category_item": 1000669,
+            "id_store_item": 31916283,
+            "identifier_number": null,
+            "img_path": null,
+            "order": 1,
+            "print_type": 1,
+            "updated_at": "2026-06-26T21:15:02.000Z",
+            "variations": [
+              {
+                "enabled": "Y",
+                "id_store_item": 31916283,
+                "id_store_item_variation": 31916285,
+                "id_store_variation": 157247,
+                "integration_code": 31916285,
+                "order": 0,
+                "price": 8,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "31634053",
+          "name": "Água sem gás",
+          "description": "",
+          "image_url": null,
+          "price": 3,
+          "price_min": 3,
+          "price_max": 3,
+          "price_type": "fixed",
+          "price_source": "api.item",
+          "options": [
+            {
+              "external_id": "31634053",
+              "group_name": "Variações",
+              "name": "Único",
+              "price": 3,
+              "price_delta": null,
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "enabled": "Y",
+                "id_store_item": 31634053,
+                "id_store_item_variation": 31634093,
+                "id_store_variation": 157247,
+                "integration_code": 31634093,
+                "order": 0,
+                "price": 3,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            }
+          ],
+          "source_url": "https://napolespizzaria.saipos.com/",
+          "raw_data": {
+            "availability": [],
+            "categories": [],
+            "category_item": {
+              "availability": [],
+              "desc_store_category_item": "Bebidas",
+              "enabled": "Y",
+              "id_store_category_item": 1000669,
+              "id_store_item_required": null,
+              "order": 4,
+              "print_type": 3,
+              "updated_at": "2026-01-20T20:35:19.000Z"
+            },
+            "choices": [
+              {
+                "id_store_choice": 2437258,
+                "id_store_item": 31634053,
+                "id_store_item_choice": 31634091,
+                "order": 0
+              }
+            ],
+            "desc_store_item": "Água sem gás",
+            "desc_store_item_delivery": null,
+            "detail": "",
+            "id_store_category_item": 1000669,
+            "id_store_item": 31634053,
+            "identifier_number": "",
+            "img_path": null,
+            "order": 1,
+            "print_type": 1,
+            "updated_at": "2026-06-10T15:20:55.000Z",
+            "variations": [
+              {
+                "enabled": "Y",
+                "id_store_item": 31634053,
+                "id_store_item_variation": 31634093,
+                "id_store_variation": 157247,
+                "integration_code": 31634093,
+                "order": 0,
+                "price": 3,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "31719052",
+          "name": "Guaraná Antarctica 1,5 litros",
+          "description": "",
+          "image_url": "https://static.saipos.com/saipos-estatico/img-items/80514/store_item/913cae154d230c23ce54db5f4bfc2a01.jpeg",
+          "price": 8,
+          "price_min": 8,
+          "price_max": 8,
+          "price_type": "fixed",
+          "price_source": "api.item",
+          "options": [
+            {
+              "external_id": "31719052",
+              "group_name": "Variações",
+              "name": "Único",
+              "price": 8,
+              "price_delta": null,
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "enabled": "Y",
+                "id_store_item": 31719052,
+                "id_store_item_variation": 31719054,
+                "id_store_variation": 157247,
+                "integration_code": 31719054,
+                "order": 0,
+                "price": 8,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            }
+          ],
+          "source_url": "https://napolespizzaria.saipos.com/",
+          "raw_data": {
+            "availability": [],
+            "categories": [],
+            "category_item": {
+              "availability": [],
+              "desc_store_category_item": "Bebidas",
+              "enabled": "Y",
+              "id_store_category_item": 1000669,
+              "id_store_item_required": null,
+              "order": 4,
+              "print_type": 3,
+              "updated_at": "2026-01-20T20:35:19.000Z"
+            },
+            "choices": [
+              {
+                "id_store_choice": 2437258,
+                "id_store_item": 31719052,
+                "id_store_item_choice": 31719053,
+                "order": 0
+              }
+            ],
+            "desc_store_item": "Guaraná Antarctica 1,5 litros",
+            "desc_store_item_delivery": null,
+            "detail": null,
+            "id_store_category_item": 1000669,
+            "id_store_item": 31719052,
+            "identifier_number": null,
+            "img_path": "saipos-estatico/img-items/80514/store_item/913cae154d230c23ce54db5f4bfc2a01.jpeg",
+            "order": 5,
+            "print_type": 1,
+            "updated_at": "2026-06-27T21:24:48.000Z",
+            "variations": [
+              {
+                "enabled": "Y",
+                "id_store_item": 31719052,
+                "id_store_item_variation": 31719054,
+                "id_store_variation": 157247,
+                "integration_code": 31719054,
+                "order": 0,
+                "price": 8,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "name": "Pizzas",
+      "order_index": 1,
+      "items": [
+        {
+          "external_id": "31634045",
+          "name": "Pizza Broto",
+          "description": "Escolha até 2 sabores.",
+          "image_url": "https://static.saipos.com/saipos-estatico/img-items/80514/store_item/498b104bca48bab4969d3dc3551a2f60.jpeg",
+          "price": null,
+          "price_min": 44,
+          "price_max": 62,
+          "price_type": "range",
+          "price_source": "api.options",
+          "options": [
+            {
+              "external_id": "31634045",
+              "group_name": "Variações",
+              "name": "Único",
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "enabled": "Y",
+                "id_store_item": 31634045,
+                "id_store_item_variation": 31634066,
+                "id_store_variation": 157247,
+                "integration_code": 31634066,
+                "order": 0,
+                "price": 0,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            },
+            {
+              "external_id": "22053014",
+              "group_name": "Sabores Pizza Broto",
+              "name": "3 Queijos",
+              "description": "Molho de tomate especial, mussarela, catupiry, orégano e azeitonas 1",
+              "price": 44,
+              "price_delta": 44,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "desc_store_choice_item": "3 Queijos",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, orégano e azeitonas 1",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053014,
+                "img_path": null,
+                "integration_code": 22053014,
+                "order": 0,
+                "updated_at": "2026-01-22T20:32:52.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 44,
+                    "id_store_choice_item": 22053014,
+                    "id_store_choice_item_variation": 23645019,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053015",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Lombo",
+              "description": "Molho de tomate especial, mussarela, lombo canadense, cebola, orégano e azeitonas 2",
+              "price": 44,
+              "price_delta": 44,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "desc_store_choice_item": "Lombo",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, lombo canadense, cebola, orégano e azeitonas 2",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053015,
+                "img_path": null,
+                "integration_code": 22053015,
+                "order": 1,
+                "updated_at": "2026-01-22T20:32:53.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 44,
+                    "id_store_choice_item": 22053015,
+                    "id_store_choice_item_variation": 23645021,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053017",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Marguerita",
+              "description": "Molho de tomate especial, mussarela, tomate, parmesão, manjericão e azeitonas 3",
+              "price": 44,
+              "price_delta": 44,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 2,
+              "raw_data": {
+                "desc_store_choice_item": "Marguerita",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, tomate, parmesão, manjericão e azeitonas 3",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053017,
+                "img_path": null,
+                "integration_code": 22053017,
+                "order": 2,
+                "updated_at": "2026-01-22T20:32:53.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 44,
+                    "id_store_choice_item": 22053017,
+                    "id_store_choice_item_variation": 23645023,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053019",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Milho Verde c/ Catupiry",
+              "description": "Molho de tomate especial, mussarela, catupiry, milho, orégano e azeitonas 4",
+              "price": 44,
+              "price_delta": 44,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 3,
+              "raw_data": {
+                "desc_store_choice_item": "Milho Verde c/ Catupiry",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, milho, orégano e azeitonas 4",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053019,
+                "img_path": null,
+                "integration_code": 22053019,
+                "order": 3,
+                "updated_at": "2026-01-22T20:32:53.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 44,
+                    "id_store_choice_item": 22053019,
+                    "id_store_choice_item_variation": 23645025,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053020",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Baiana",
+              "description": "Molho de tomate especial, mussarela, calabresa moída, ovo, pimenta, cebola, orégano e azeitonas 5",
+              "price": 44,
+              "price_delta": 44,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 4,
+              "raw_data": {
+                "desc_store_choice_item": "Baiana",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa moída, ovo, pimenta, cebola, orégano e azeitonas 5",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053020,
+                "img_path": null,
+                "integration_code": 22053020,
+                "order": 4,
+                "updated_at": "2026-01-22T20:32:53.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 44,
+                    "id_store_choice_item": 22053020,
+                    "id_store_choice_item_variation": 23645026,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053022",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Baicatu",
+              "description": "Molho de tomate especial, mussarela, catupiry, calabresa moída, pimenta, orégano e azeitonas 6",
+              "price": 49,
+              "price_delta": 49,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 5,
+              "raw_data": {
+                "desc_store_choice_item": "Baicatu",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, calabresa moída, pimenta, orégano e azeitonas 6",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053022,
+                "img_path": null,
+                "integration_code": 22053022,
+                "order": 5,
+                "updated_at": "2026-01-22T20:32:53.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 49,
+                    "id_store_choice_item": 22053022,
+                    "id_store_choice_item_variation": 23645028,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053024",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Frango c/ Milho",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, milho, orégano e azeitonas 7",
+              "price": 49,
+              "price_delta": 49,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 6,
+              "raw_data": {
+                "desc_store_choice_item": "Frango c/ Milho",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, milho, orégano e azeitonas 7",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053024,
+                "img_path": null,
+                "integration_code": 22053024,
+                "order": 6,
+                "updated_at": "2026-01-22T20:32:54.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 49,
+                    "id_store_choice_item": 22053024,
+                    "id_store_choice_item_variation": 23645030,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053026",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Mussarela",
+              "description": "Molho de tomate especial, mussarela, orégano e azeitonas 8",
+              "price": 49,
+              "price_delta": 49,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 7,
+              "raw_data": {
+                "desc_store_choice_item": "Mussarela",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, orégano e azeitonas 8",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053026,
+                "img_path": null,
+                "integration_code": 22053026,
+                "order": 7,
+                "updated_at": "2026-01-22T20:32:54.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 49,
+                    "id_store_choice_item": 22053026,
+                    "id_store_choice_item_variation": 23645031,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053027",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Lombo ao Creme",
+              "description": "Molho de tomate especial, mussarela, lombo canadense, catupiry, cebola, orégano e azeitonas 9",
+              "price": 49,
+              "price_delta": 49,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 8,
+              "raw_data": {
+                "desc_store_choice_item": "Lombo ao Creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, lombo canadense, catupiry, cebola, orégano e azeitonas 9",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053027,
+                "img_path": null,
+                "integration_code": 22053027,
+                "order": 8,
+                "updated_at": "2026-01-22T20:32:54.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 49,
+                    "id_store_choice_item": 22053027,
+                    "id_store_choice_item_variation": 23645033,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053028",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Portuguesa",
+              "description": "Molho de tomate especial, mussarela, presunto, ervilha, ovo, cebola, orégano e azeitonas 10",
+              "price": 49,
+              "price_delta": 49,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 9,
+              "raw_data": {
+                "desc_store_choice_item": "Portuguesa",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, presunto, ervilha, ovo, cebola, orégano e azeitonas 10",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053028,
+                "img_path": null,
+                "integration_code": 22053028,
+                "order": 9,
+                "updated_at": "2026-01-22T20:32:55.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 49,
+                    "id_store_choice_item": 22053028,
+                    "id_store_choice_item_variation": 23645034,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053030",
+              "group_name": "Sabores Pizza Broto",
+              "name": "4 Queijos",
+              "description": "Molho de tomate especial, mussarela, catupiry, provolone, gorgonzola, orégano e azeitonas 11",
+              "price": 49,
+              "price_delta": 49,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 10,
+              "raw_data": {
+                "desc_store_choice_item": "4 Queijos",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, provolone, gorgonzola, orégano e azeitonas 11",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053030,
+                "img_path": null,
+                "integration_code": 22053030,
+                "order": 10,
+                "updated_at": "2026-01-22T20:32:55.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 49,
+                    "id_store_choice_item": 22053030,
+                    "id_store_choice_item_variation": 23645035,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053031",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Mineira",
+              "description": "Molho de tomate especial, mussarela, calabresa moída, ovo, milho, orégano e azeitonas 12",
+              "price": 49,
+              "price_delta": 49,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 11,
+              "raw_data": {
+                "desc_store_choice_item": "Mineira",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa moída, ovo, milho, orégano e azeitonas 12",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053031,
+                "img_path": null,
+                "integration_code": 22053031,
+                "order": 11,
+                "updated_at": "2026-01-22T20:32:55.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 49,
+                    "id_store_choice_item": 22053031,
+                    "id_store_choice_item_variation": 23645037,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053033",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Presunto",
+              "description": "Molho de tomate especial, mussarela, presunto, cebola, orégano e azeitonas 13",
+              "price": 49,
+              "price_delta": 49,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 12,
+              "raw_data": {
+                "desc_store_choice_item": "Presunto",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, presunto, cebola, orégano e azeitonas 13",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053033,
+                "img_path": null,
+                "integration_code": 22053033,
+                "order": 12,
+                "updated_at": "2026-01-22T20:32:55.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 49,
+                    "id_store_choice_item": 22053033,
+                    "id_store_choice_item_variation": 23645039,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053035",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Alemã",
+              "description": "Molho de tomate especial, mussarela, bacon frito, parmesão, orégano e azeitonas 14",
+              "price": 53,
+              "price_delta": 53,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 13,
+              "raw_data": {
+                "desc_store_choice_item": "Alemã",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, bacon frito, parmesão, orégano e azeitonas 14",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053035,
+                "img_path": null,
+                "integration_code": 22053035,
+                "order": 13,
+                "updated_at": "2026-01-22T20:32:55.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 53,
+                    "id_store_choice_item": 22053035,
+                    "id_store_choice_item_variation": 23645041,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053038",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Calabresa",
+              "description": "Molho de tomate especial, mussarela, calabresa, cebola, orégano e azeitonas 16",
+              "price": 53,
+              "price_delta": 53,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 15,
+              "raw_data": {
+                "desc_store_choice_item": "Calabresa",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, cebola, orégano e azeitonas 16",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053038,
+                "img_path": null,
+                "integration_code": 22053038,
+                "order": 15,
+                "updated_at": "2026-02-17T23:50:35.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 53,
+                    "id_store_choice_item": 22053038,
+                    "id_store_choice_item_variation": 23645044,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053040",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Frango ao Creme",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, catupiry, orégano e azeitonas 17",
+              "price": 53,
+              "price_delta": 53,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 16,
+              "raw_data": {
+                "desc_store_choice_item": "Frango ao Creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, catupiry, orégano e azeitonas 17",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053040,
+                "img_path": null,
+                "integration_code": 22053040,
+                "order": 16,
+                "updated_at": "2026-01-22T20:32:56.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 53,
+                    "id_store_choice_item": 22053040,
+                    "id_store_choice_item_variation": 23645046,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053042",
+              "group_name": "Sabores Pizza Broto",
+              "name": "La Grazia",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, bacon frito, orégano e azeitonas 18",
+              "price": 53,
+              "price_delta": 53,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 17,
+              "raw_data": {
+                "desc_store_choice_item": "La Grazia",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, bacon frito, orégano e azeitonas 18",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053042,
+                "img_path": null,
+                "integration_code": 22053042,
+                "order": 17,
+                "updated_at": "2026-01-22T20:32:56.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 53,
+                    "id_store_choice_item": 22053042,
+                    "id_store_choice_item_variation": 23645048,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053044",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Bacon",
+              "description": "Molho de tomate especial, mussarela, bacon frito, orégano e azeitonas 19",
+              "price": 53,
+              "price_delta": 53,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 18,
+              "raw_data": {
+                "desc_store_choice_item": "Bacon",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, bacon frito, orégano e azeitonas 19",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053044,
+                "img_path": null,
+                "integration_code": 22053044,
+                "order": 18,
+                "updated_at": "2026-01-22T20:32:56.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 53,
+                    "id_store_choice_item": 22053044,
+                    "id_store_choice_item_variation": 23645049,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053045",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Calabresa ao Creme",
+              "description": "Molho de tomate especial, mussarela, calabresa, catupiry, cebola, orégano e azeitonas 20",
+              "price": 53,
+              "price_delta": 53,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 19,
+              "raw_data": {
+                "desc_store_choice_item": "Calabresa ao Creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, catupiry, cebola, orégano e azeitonas 20",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053045,
+                "img_path": null,
+                "integration_code": 22053045,
+                "order": 19,
+                "updated_at": "2026-02-17T22:30:41.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 53,
+                    "id_store_choice_item": 22053045,
+                    "id_store_choice_item_variation": 23645051,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053047",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Siciliana",
+              "description": "Molho de tomate especial, mussarela, calabresa, tomate, orégano e azeitonas 21",
+              "price": 53,
+              "price_delta": 53,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 20,
+              "raw_data": {
+                "desc_store_choice_item": "Siciliana",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, tomate, orégano e azeitonas 21",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053047,
+                "img_path": null,
+                "integration_code": 22053047,
+                "order": 20,
+                "updated_at": "2026-02-17T22:30:43.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 53,
+                    "id_store_choice_item": 22053047,
+                    "id_store_choice_item_variation": 23645053,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053049",
+              "group_name": "Sabores Pizza Broto",
+              "name": "5 Queijos",
+              "description": "Molho de tomate especial, mussarela, catupiry, provolone, parmesão, gorgonzola, orégano e azeitonas 22",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 21,
+              "raw_data": {
+                "desc_store_choice_item": "5 Queijos",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, provolone, parmesão, gorgonzola, orégano e azeitonas 22",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053049,
+                "img_path": null,
+                "integration_code": 22053049,
+                "order": 21,
+                "updated_at": "2026-01-22T20:32:57.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053049,
+                    "id_store_choice_item_variation": 23645055,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053054",
+              "group_name": "Sabores Pizza Broto",
+              "name": "A Moda Pizzaiolo",
+              "description": "Molho de tomate especial, mussarela, presunto, milho, palmito, cebola, orégano e azeitonas 24",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 23,
+              "raw_data": {
+                "desc_store_choice_item": "A Moda Pizzaiolo",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, presunto, milho, palmito, cebola, orégano e azeitonas 24",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053054,
+                "img_path": null,
+                "integration_code": 22053054,
+                "order": 23,
+                "updated_at": "2026-01-22T20:32:57.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053054,
+                    "id_store_choice_item_variation": 23645060,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053058",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Bagunça",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, bacon frito, ovo, calabresa, orégano e azeitonas 26",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 25,
+              "raw_data": {
+                "desc_store_choice_item": "Bagunça",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, bacon frito, ovo, calabresa, orégano e azeitonas 26",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053058,
+                "img_path": null,
+                "integration_code": 22053058,
+                "order": 25,
+                "updated_at": "2026-02-17T22:30:46.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053058,
+                    "id_store_choice_item_variation": 23645063,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053059",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Bacon ao creme",
+              "description": "Molho de tomate especial, mussarela, bacon frito, catupiry, orégano e azeitonas 27",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 26,
+              "raw_data": {
+                "desc_store_choice_item": "Bacon ao creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, bacon frito, catupiry, orégano e azeitonas 27",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053059,
+                "img_path": null,
+                "integration_code": 22053059,
+                "order": 26,
+                "updated_at": "2026-01-22T20:32:58.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053059,
+                    "id_store_choice_item_variation": 23645064,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053060",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Caprichosa",
+              "description": "Molho de tomate especial, mussarela, calabresa, milho, bacon frito, orégano e azeitonas 28",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 27,
+              "raw_data": {
+                "desc_store_choice_item": "Caprichosa",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, milho, bacon frito, orégano e azeitonas 28",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053060,
+                "img_path": null,
+                "integration_code": 22053060,
+                "order": 27,
+                "updated_at": "2026-02-17T22:30:49.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053060,
+                    "id_store_choice_item_variation": 23645066,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053062",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Carijó",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, palmito, milho, alho, orégano e azeitonas 29",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 28,
+              "raw_data": {
+                "desc_store_choice_item": "Carijó",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, palmito, milho, alho, orégano e azeitonas 29",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053062,
+                "img_path": null,
+                "integration_code": 22053062,
+                "order": 28,
+                "updated_at": "2026-01-22T20:32:58.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053062,
+                    "id_store_choice_item_variation": 23645068,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053064",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Itália",
+              "description": "Molho de tomate especial, mussarela, calabresa, bacon, tomate, cebola, orégano e azeitonas 30",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 29,
+              "raw_data": {
+                "desc_store_choice_item": "Itália",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, bacon, tomate, cebola, orégano e azeitonas 30",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053064,
+                "img_path": null,
+                "integration_code": 22053064,
+                "order": 29,
+                "updated_at": "2026-01-22T20:32:59.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053064,
+                    "id_store_choice_item_variation": 23645070,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053066",
+              "group_name": "Sabores Pizza Broto",
+              "name": "La Grazia ao Creme",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, creme de leite, bacon frito, orégano e azeitonas 31",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 30,
+              "raw_data": {
+                "desc_store_choice_item": "La Grazia ao Creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, creme de leite, bacon frito, orégano e azeitonas 31",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053066,
+                "img_path": null,
+                "integration_code": 22053066,
+                "order": 30,
+                "updated_at": "2026-01-22T20:32:59.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053066,
+                    "id_store_choice_item_variation": 23645072,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053068",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Suspiro de Fada",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, creme de leite, orégano e azeitonas 32",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 31,
+              "raw_data": {
+                "desc_store_choice_item": "Suspiro de Fada",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, creme de leite, orégano e azeitonas 32",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053068,
+                "img_path": null,
+                "integration_code": 22053068,
+                "order": 31,
+                "updated_at": "2026-01-22T20:32:59.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053068,
+                    "id_store_choice_item_variation": 23645073,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053069",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Vendramel",
+              "description": "Molho de tomate especial, mussarela, tomate, bacon frito, champignon, azeitona picada, orégano e azeitonas 33",
+              "price": 57,
+              "price_delta": 57,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 32,
+              "raw_data": {
+                "desc_store_choice_item": "Vendramel",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, tomate, bacon frito, champignon, azeitona picada, orégano e azeitonas 33",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053069,
+                "img_path": null,
+                "integration_code": 22053069,
+                "order": 32,
+                "updated_at": "2026-01-22T20:32:59.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 57,
+                    "id_store_choice_item": 22053069,
+                    "id_store_choice_item_variation": 23645075,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053071",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Bobó de Frango",
+              "description": "Molho de tomate especial, mussarela, bobó de frango, batata palha, orégano e azeitonas 34",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 33,
+              "raw_data": {
+                "desc_store_choice_item": "Bobó de Frango",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, bobó de frango, batata palha, orégano e azeitonas 34",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053071,
+                "img_path": null,
+                "integration_code": 22053071,
+                "order": 33,
+                "updated_at": "2026-02-17T22:30:52.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053071,
+                    "id_store_choice_item_variation": 23645077,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053077",
+              "group_name": "Sabores Pizza Broto",
+              "name": "Requinte",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, catupiry, milho, bacon, cebola, orégano e azeitonas 37",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 36,
+              "raw_data": {
+                "desc_store_choice_item": "Requinte",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, catupiry, milho, bacon, cebola, orégano e azeitonas 37",
+                "enabled": "Y",
+                "id_store_choice": 2438185,
+                "id_store_choice_item": 22053077,
+                "img_path": null,
+                "integration_code": 22053077,
+                "order": 36,
+                "updated_at": "2026-04-04T23:16:32.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053077,
+                    "id_store_choice_item_variation": 23645083,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22908880",
+              "group_name": "Borda Pizza Broto",
+              "name": "COM BORDA TRADICIONAL",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 1,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "desc_store_choice_item": "COM BORDA TRADICIONAL ",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2543351,
+                "id_store_choice_item": 22908880,
+                "img_path": null,
+                "integration_code": 22908880,
+                "order": 0,
+                "updated_at": "2026-03-06T14:34:18.000Z",
+                "variations": []
+              }
+            },
+            {
+              "external_id": "22908881",
+              "group_name": "Borda Pizza Broto",
+              "name": "SEM BORDA",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 1,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "desc_store_choice_item": "SEM BORDA ",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2543351,
+                "id_store_choice_item": 22908881,
+                "img_path": null,
+                "integration_code": 22908881,
+                "order": 1,
+                "updated_at": "2026-03-06T14:34:18.000Z",
+                "variations": []
+              }
+            }
+          ],
+          "source_url": "https://napolespizzaria.saipos.com/",
+          "raw_data": {
+            "availability": [],
+            "categories": [],
+            "category_item": {
+              "availability": [],
+              "desc_store_category_item": "Pizzas",
+              "enabled": "Y",
+              "id_store_category_item": 1000671,
+              "id_store_item_required": null,
+              "order": 3,
+              "print_type": 2,
+              "updated_at": "2026-01-20T20:35:19.000Z"
+            },
+            "choices": [
+              {
+                "id_store_choice": 2437258,
+                "id_store_item": 31634045,
+                "id_store_item_choice": 31634062,
+                "order": 0
+              },
+              {
+                "id_store_choice": 2438185,
+                "id_store_item": 31634045,
+                "id_store_item_choice": 31634072,
+                "order": 0
+              },
+              {
+                "id_store_choice": 2543351,
+                "id_store_item": 31634045,
+                "id_store_item_choice": 33551736,
+                "order": 1
+              }
+            ],
+            "desc_store_item": "Pizza Broto",
+            "desc_store_item_delivery": null,
+            "detail": "Escolha até 2 sabores.",
+            "id_store_category_item": 1000671,
+            "id_store_item": 31634045,
+            "identifier_number": "",
+            "img_path": "saipos-estatico/img-items/80514/store_item/498b104bca48bab4969d3dc3551a2f60.jpeg",
+            "order": 0,
+            "print_type": 1,
+            "updated_at": "2026-03-06T14:34:23.000Z",
+            "variations": [
+              {
+                "enabled": "Y",
+                "id_store_item": 31634045,
+                "id_store_item_variation": 31634066,
+                "id_store_variation": 157247,
+                "integration_code": 31634066,
+                "order": 0,
+                "price": 0,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "31634055",
+          "name": "Pizza Grande",
+          "description": "Escolha até 2 sabores.",
+          "image_url": "https://static.saipos.com/saipos-estatico/img-items/80514/store_item/55c3c4956cbcc0714b32876cbfd7fc8d.jpeg",
+          "price": null,
+          "price_min": 48,
+          "price_max": 71,
+          "price_type": "range",
+          "price_source": "api.options",
+          "options": [
+            {
+              "external_id": "31634055",
+              "group_name": "Variações",
+              "name": "Único",
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "enabled": "Y",
+                "id_store_item": 31634055,
+                "id_store_item_variation": 31634076,
+                "id_store_variation": 157247,
+                "integration_code": 31634076,
+                "order": 0,
+                "price": 0,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            },
+            {
+              "external_id": "22053013",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "3 Queijos",
+              "description": "Molho de tomate especial, mussarela, catupiry, orégano e azeitonas 57",
+              "price": 48,
+              "price_delta": 48,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "desc_store_choice_item": "3 Queijos",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, orégano e azeitonas 57",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053013,
+                "img_path": null,
+                "integration_code": 22053013,
+                "order": 0,
+                "updated_at": "2026-04-27T16:14:17.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 48,
+                    "id_store_choice_item": 22053013,
+                    "id_store_choice_item_variation": 23645020,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053016",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Lombo",
+              "description": "Molho de tomate especial, mussarela, lombo canadense, cebola, orégano e azeitonas 58",
+              "price": 48,
+              "price_delta": 48,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "desc_store_choice_item": "Lombo",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, lombo canadense, cebola, orégano e azeitonas 58",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053016,
+                "img_path": null,
+                "integration_code": 22053016,
+                "order": 1,
+                "updated_at": "2026-04-27T16:14:17.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 48,
+                    "id_store_choice_item": 22053016,
+                    "id_store_choice_item_variation": 23645022,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053018",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Marguerita",
+              "description": "Molho de tomate especial, mussarela, tomate, parmesão, manjericão e azeitonas 59",
+              "price": 48,
+              "price_delta": 48,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 2,
+              "raw_data": {
+                "desc_store_choice_item": "Marguerita",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, tomate, parmesão, manjericão e azeitonas 59",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053018,
+                "img_path": null,
+                "integration_code": 22053018,
+                "order": 2,
+                "updated_at": "2026-04-27T16:14:17.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 48,
+                    "id_store_choice_item": 22053018,
+                    "id_store_choice_item_variation": 23645024,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053021",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Milho Verde c/ Catupiry",
+              "description": "Molho de tomate especial, mussarela, catupiry, milho, orégano e azeitonas 60",
+              "price": 48,
+              "price_delta": 48,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 3,
+              "raw_data": {
+                "desc_store_choice_item": "Milho Verde c/ Catupiry",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, milho, orégano e azeitonas 60",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053021,
+                "img_path": null,
+                "integration_code": 22053021,
+                "order": 3,
+                "updated_at": "2026-04-27T16:14:17.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 48,
+                    "id_store_choice_item": 22053021,
+                    "id_store_choice_item_variation": 23645027,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053023",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Baiana",
+              "description": "Molho de tomate especial, mussarela, calabresa moída, ovo, pimenta, cebola, orégano e azeitonas 61",
+              "price": 48,
+              "price_delta": 48,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 4,
+              "raw_data": {
+                "desc_store_choice_item": "Baiana",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa moída, ovo, pimenta, cebola, orégano e azeitonas 61",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053023,
+                "img_path": null,
+                "integration_code": 22053023,
+                "order": 4,
+                "updated_at": "2026-04-27T16:14:17.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 48,
+                    "id_store_choice_item": 22053023,
+                    "id_store_choice_item_variation": 23645029,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053025",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Baicatu",
+              "description": "Molho de tomate especial, mussarela, catupiry, calabresa moída, pimenta, orégano e azeitonas 62",
+              "price": 54,
+              "price_delta": 54,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 5,
+              "raw_data": {
+                "desc_store_choice_item": "Baicatu",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, calabresa moída, pimenta, orégano e azeitonas 62",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053025,
+                "img_path": null,
+                "integration_code": 22053025,
+                "order": 5,
+                "updated_at": "2026-04-27T16:14:17.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 54,
+                    "id_store_choice_item": 22053025,
+                    "id_store_choice_item_variation": 23645032,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053029",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Frango c/ Milho",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, milho, orégano e azeitonas 63",
+              "price": 54,
+              "price_delta": 54,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 6,
+              "raw_data": {
+                "desc_store_choice_item": "Frango c/ Milho",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, milho, orégano e azeitonas 63",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053029,
+                "img_path": null,
+                "integration_code": 22053029,
+                "order": 6,
+                "updated_at": "2026-04-27T16:14:18.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 54,
+                    "id_store_choice_item": 22053029,
+                    "id_store_choice_item_variation": 23645036,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053032",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Mussarela",
+              "description": "Molho de tomate especial, mussarela, orégano e azeitonas 64",
+              "price": 54,
+              "price_delta": 54,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 7,
+              "raw_data": {
+                "desc_store_choice_item": "Mussarela",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, orégano e azeitonas 64",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053032,
+                "img_path": null,
+                "integration_code": 22053032,
+                "order": 7,
+                "updated_at": "2026-04-27T16:14:18.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 54,
+                    "id_store_choice_item": 22053032,
+                    "id_store_choice_item_variation": 23645038,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053034",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Lombo ao Creme",
+              "description": "Molho de tomate especial, mussarela, lombo canadense, catupiry, cebola, orégano e azeitonas 65",
+              "price": 54,
+              "price_delta": 54,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 8,
+              "raw_data": {
+                "desc_store_choice_item": "Lombo ao Creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, lombo canadense, catupiry, cebola, orégano e azeitonas 65",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053034,
+                "img_path": null,
+                "integration_code": 22053034,
+                "order": 8,
+                "updated_at": "2026-04-27T16:14:19.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 54,
+                    "id_store_choice_item": 22053034,
+                    "id_store_choice_item_variation": 23645040,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053036",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Portuguesa",
+              "description": "Molho de tomate especial, mussarela, presunto, ervilha, ovo, cebola, orégano e azeitonas 66",
+              "price": 54,
+              "price_delta": 54,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 9,
+              "raw_data": {
+                "desc_store_choice_item": "Portuguesa",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, presunto, ervilha, ovo, cebola, orégano e azeitonas 66",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053036,
+                "img_path": null,
+                "integration_code": 22053036,
+                "order": 9,
+                "updated_at": "2026-04-27T16:14:19.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 54,
+                    "id_store_choice_item": 22053036,
+                    "id_store_choice_item_variation": 23645042,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053039",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "4 Queijos",
+              "description": "Molho de tomate especial, mussarela, catupiry, provolone, gorgonzola, orégano e azeitonas 67",
+              "price": 54,
+              "price_delta": 54,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 10,
+              "raw_data": {
+                "desc_store_choice_item": "4 Queijos",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, provolone, gorgonzola, orégano e azeitonas 67",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053039,
+                "img_path": null,
+                "integration_code": 22053039,
+                "order": 10,
+                "updated_at": "2026-04-27T16:14:19.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 54,
+                    "id_store_choice_item": 22053039,
+                    "id_store_choice_item_variation": 23645045,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053041",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Mineira",
+              "description": "Molho de tomate especial, mussarela, calabresa moída, ovo, milho, orégano e azeitonas 68",
+              "price": 54,
+              "price_delta": 54,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 11,
+              "raw_data": {
+                "desc_store_choice_item": "Mineira",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa moída, ovo, milho, orégano e azeitonas 68",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053041,
+                "img_path": null,
+                "integration_code": 22053041,
+                "order": 11,
+                "updated_at": "2026-04-27T16:14:19.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 54,
+                    "id_store_choice_item": 22053041,
+                    "id_store_choice_item_variation": 23645047,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053043",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Presunto",
+              "description": "Molho de tomate especial, mussarela, presunto, cebola, orégano e azeitonas 69",
+              "price": 54,
+              "price_delta": 54,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 12,
+              "raw_data": {
+                "desc_store_choice_item": "Presunto",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, presunto, cebola, orégano e azeitonas 69",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053043,
+                "img_path": null,
+                "integration_code": 22053043,
+                "order": 12,
+                "updated_at": "2026-04-27T16:14:19.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 54,
+                    "id_store_choice_item": 22053043,
+                    "id_store_choice_item_variation": 23645050,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053046",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Alemã",
+              "description": "Molho de tomate especial, mussarela, bacon frito, parmesão, orégano e azeitonas 70",
+              "price": 58,
+              "price_delta": 58,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 13,
+              "raw_data": {
+                "desc_store_choice_item": "Alemã",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, bacon frito, parmesão, orégano e azeitonas 70",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053046,
+                "img_path": null,
+                "integration_code": 22053046,
+                "order": 13,
+                "updated_at": "2026-04-27T16:14:19.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 58,
+                    "id_store_choice_item": 22053046,
+                    "id_store_choice_item_variation": 23645052,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053050",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Calabresa",
+              "description": "Molho de tomate especial, mussarela, calabresa, cebola, orégano e azeitonas 72",
+              "price": 58,
+              "price_delta": 58,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 15,
+              "raw_data": {
+                "desc_store_choice_item": "Calabresa",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, cebola, orégano e azeitonas 72",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053050,
+                "img_path": null,
+                "integration_code": 22053050,
+                "order": 15,
+                "updated_at": "2026-04-27T16:14:20.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 58,
+                    "id_store_choice_item": 22053050,
+                    "id_store_choice_item_variation": 23645056,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053052",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Frango ao Creme",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, catupiry, orégano e azeitonas 73",
+              "price": 58,
+              "price_delta": 58,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 16,
+              "raw_data": {
+                "desc_store_choice_item": "Frango ao Creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, catupiry, orégano e azeitonas 73",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053052,
+                "img_path": null,
+                "integration_code": 22053052,
+                "order": 16,
+                "updated_at": "2026-04-27T16:14:20.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 58,
+                    "id_store_choice_item": 22053052,
+                    "id_store_choice_item_variation": 23645057,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053053",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "La Grazia",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, bacon frito, orégano e azeitonas 74",
+              "price": 58,
+              "price_delta": 58,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 17,
+              "raw_data": {
+                "desc_store_choice_item": "La Grazia",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, bacon frito, orégano e azeitonas 74",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053053,
+                "img_path": null,
+                "integration_code": 22053053,
+                "order": 17,
+                "updated_at": "2026-04-27T16:14:20.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 58,
+                    "id_store_choice_item": 22053053,
+                    "id_store_choice_item_variation": 23645059,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053055",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Bacon",
+              "description": "Molho de tomate especial, mussarela, bacon frito, orégano e azeitonas 75",
+              "price": 58,
+              "price_delta": 58,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 18,
+              "raw_data": {
+                "desc_store_choice_item": "Bacon",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, bacon frito, orégano e azeitonas 75",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053055,
+                "img_path": null,
+                "integration_code": 22053055,
+                "order": 18,
+                "updated_at": "2026-04-27T16:14:20.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 58,
+                    "id_store_choice_item": 22053055,
+                    "id_store_choice_item_variation": 23645061,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053057",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Calabresa ao Creme",
+              "description": "Molho de tomate especial, mussarela, calabresa, catupiry, cebola, orégano e azeitonas 76",
+              "price": 58,
+              "price_delta": 58,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 19,
+              "raw_data": {
+                "desc_store_choice_item": "Calabresa ao Creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, catupiry, cebola, orégano e azeitonas 76",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053057,
+                "img_path": null,
+                "integration_code": 22053057,
+                "order": 19,
+                "updated_at": "2026-04-27T16:14:20.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 58,
+                    "id_store_choice_item": 22053057,
+                    "id_store_choice_item_variation": 23645065,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053061",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Siciliana",
+              "description": "Molho de tomate especial, mussarela, calabresa, tomate, orégano e azeitonas 77",
+              "price": 58,
+              "price_delta": 58,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 20,
+              "raw_data": {
+                "desc_store_choice_item": "Siciliana",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, tomate, orégano e azeitonas 77",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053061,
+                "img_path": null,
+                "integration_code": 22053061,
+                "order": 20,
+                "updated_at": "2026-04-27T16:14:20.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 58,
+                    "id_store_choice_item": 22053061,
+                    "id_store_choice_item_variation": 23645067,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053063",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "5 Queijos",
+              "description": "Molho de tomate especial, mussarela, catupiry, provolone, parmesão, gorgonzola, orégano e azeitonas 78",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 21,
+              "raw_data": {
+                "desc_store_choice_item": "5 Queijos",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, catupiry, provolone, parmesão, gorgonzola, orégano e azeitonas 78",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053063,
+                "img_path": null,
+                "integration_code": 22053063,
+                "order": 21,
+                "updated_at": "2026-04-27T16:14:21.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053063,
+                    "id_store_choice_item_variation": 23645069,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053067",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "A Moda Pizzaiolo",
+              "description": "Molho de tomate especial, mussarela, presunto, milho, palmito, cebola, orégano e azeitonas 80",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 23,
+              "raw_data": {
+                "desc_store_choice_item": "A Moda Pizzaiolo",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, presunto, milho, palmito, cebola, orégano e azeitonas 80",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053067,
+                "img_path": null,
+                "integration_code": 22053067,
+                "order": 23,
+                "updated_at": "2026-04-27T16:14:21.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053067,
+                    "id_store_choice_item_variation": 23645074,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053072",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Bagunça",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, bacon frito, ovo, calabresa, orégano e azeitonas 82",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 25,
+              "raw_data": {
+                "desc_store_choice_item": "Bagunça",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, bacon frito, ovo, calabresa, orégano e azeitonas 82",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053072,
+                "img_path": null,
+                "integration_code": 22053072,
+                "order": 25,
+                "updated_at": "2026-04-27T16:14:21.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053072,
+                    "id_store_choice_item_variation": 23645078,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053074",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Bacon ao creme",
+              "description": "Molho de tomate especial, mussarela, bacon frito, catupiry, orégano e azeitonas 83",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 26,
+              "raw_data": {
+                "desc_store_choice_item": "Bacon ao creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, bacon frito, catupiry, orégano e azeitonas 83",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053074,
+                "img_path": null,
+                "integration_code": 22053074,
+                "order": 26,
+                "updated_at": "2026-04-27T16:14:22.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053074,
+                    "id_store_choice_item_variation": 23645080,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053076",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Caprichosa",
+              "description": "Molho de tomate especial, mussarela, calabresa, milho, bacon frito, orégano e azeitonas 84",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 27,
+              "raw_data": {
+                "desc_store_choice_item": "Caprichosa",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, milho, bacon frito, orégano e azeitonas 84",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053076,
+                "img_path": null,
+                "integration_code": 22053076,
+                "order": 27,
+                "updated_at": "2026-04-27T16:14:22.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053076,
+                    "id_store_choice_item_variation": 23645082,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053078",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Carijó",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, palmito, milho, alho, orégano e azeitonas 85",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 28,
+              "raw_data": {
+                "desc_store_choice_item": "Carijó",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, palmito, milho, alho, orégano e azeitonas 85",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053078,
+                "img_path": null,
+                "integration_code": 22053078,
+                "order": 28,
+                "updated_at": "2026-04-27T16:14:22.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053078,
+                    "id_store_choice_item_variation": 23645084,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053080",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Itália",
+              "description": "Molho de tomate especial, mussarela, calabresa, bacon, tomate, cebola, orégano e azeitonas 86",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 29,
+              "raw_data": {
+                "desc_store_choice_item": "Itália",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, calabresa, bacon, tomate, cebola, orégano e azeitonas 86",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053080,
+                "img_path": null,
+                "integration_code": 22053080,
+                "order": 29,
+                "updated_at": "2026-04-27T16:14:22.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053080,
+                    "id_store_choice_item_variation": 23645086,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053082",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "La Grazia ao Creme",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, creme de leite, bacon frito, orégano e azeitonas 87",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 30,
+              "raw_data": {
+                "desc_store_choice_item": "La Grazia ao Creme",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, creme de leite, bacon frito, orégano e azeitonas 87",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053082,
+                "img_path": null,
+                "integration_code": 22053082,
+                "order": 30,
+                "updated_at": "2026-04-27T16:14:22.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053082,
+                    "id_store_choice_item_variation": 23645088,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053084",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Suspiro de Fada",
+              "description": "Molho de tomate especial, mussarela, frango desfiado, creme de leite, orégano e azeitonas 88",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 31,
+              "raw_data": {
+                "desc_store_choice_item": "Suspiro de Fada",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, frango desfiado, creme de leite, orégano e azeitonas 88",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053084,
+                "img_path": null,
+                "integration_code": 22053084,
+                "order": 31,
+                "updated_at": "2026-04-27T16:14:22.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053084,
+                    "id_store_choice_item_variation": 23645090,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053087",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Vendramel",
+              "description": "Molho de tomate especial, mussarela, tomate, bacon frito, champignon, azeitona picada, orégano e azeitonas 89",
+              "price": 62,
+              "price_delta": 62,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 32,
+              "raw_data": {
+                "desc_store_choice_item": "Vendramel",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, tomate, bacon frito, champignon, azeitona picada, orégano e azeitonas 89",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053087,
+                "img_path": null,
+                "integration_code": 22053087,
+                "order": 32,
+                "updated_at": "2026-04-27T16:14:22.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 62,
+                    "id_store_choice_item": 22053087,
+                    "id_store_choice_item_variation": 23645093,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22053089",
+              "group_name": "- Para pizza Inteira escolher 2x o mesmo sabor -",
+              "name": "Bobó de Frango",
+              "description": "Molho de tomate especial, mussarela, bobó de frango, batata palha, orégano e azeitonas 90",
+              "price": 71,
+              "price_delta": 71,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 33,
+              "raw_data": {
+                "desc_store_choice_item": "Bobó de Frango",
+                "desc_store_choice_item_deli": null,
+                "detail": "Molho de tomate especial, mussarela, bobó de frango, batata palha, orégano e azeitonas 90",
+                "enabled": "Y",
+                "id_store_choice": 2438186,
+                "id_store_choice_item": 22053089,
+                "img_path": null,
+                "integration_code": 22053089,
+                "order": 33,
+                "updated_at": "2026-06-07T22:51:10.000Z",
+                "variations": [
+                  {
+                    "aditional_price": 71,
+                    "id_store_choice_item": 22053089,
+                    "id_store_choice_item_variation": 23645095,
+                    "id_store_variation": 157247
+                  }
+                ]
+              }
+            },
+            {
+              "external_id": "22909060",
+              "group_name": "Bordas Recheadas",
+              "name": "Borda Tradicional",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 1,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "desc_store_choice_item": "Borda Tradicional ",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2543361,
+                "id_store_choice_item": 22909060,
+                "img_path": null,
+                "integration_code": 22909060,
+                "order": 0,
+                "updated_at": "2026-03-05T17:34:41.000Z",
+                "variations": []
+              }
+            },
+            {
+              "external_id": "22909061",
+              "group_name": "Bordas Recheadas",
+              "name": "Sem Borda",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 1,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "desc_store_choice_item": "Sem Borda",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2543361,
+                "id_store_choice_item": 22909061,
+                "img_path": null,
+                "integration_code": 22909061,
+                "order": 1,
+                "updated_at": "2026-03-05T17:34:42.000Z",
+                "variations": []
+              }
+            }
+          ],
+          "source_url": "https://napolespizzaria.saipos.com/",
+          "raw_data": {
+            "availability": [],
+            "categories": [],
+            "category_item": {
+              "availability": [],
+              "desc_store_category_item": "Pizzas",
+              "enabled": "Y",
+              "id_store_category_item": 1000671,
+              "id_store_item_required": null,
+              "order": 3,
+              "print_type": 2,
+              "updated_at": "2026-01-20T20:35:19.000Z"
+            },
+            "choices": [
+              {
+                "id_store_choice": 2437258,
+                "id_store_item": 31634055,
+                "id_store_item_choice": 31634071,
+                "order": 0
+              },
+              {
+                "id_store_choice": 2438186,
+                "id_store_item": 31634055,
+                "id_store_item_choice": 31634089,
+                "order": 0
+              },
+              {
+                "id_store_choice": 2543361,
+                "id_store_item": 31634055,
+                "id_store_item_choice": 33488874,
+                "order": 1
+              }
+            ],
+            "desc_store_item": "Pizza Grande",
+            "desc_store_item_delivery": null,
+            "detail": "Escolha até 2 sabores.",
+            "id_store_category_item": 1000671,
+            "id_store_item": 31634055,
+            "identifier_number": "",
+            "img_path": "saipos-estatico/img-items/80514/store_item/55c3c4956cbcc0714b32876cbfd7fc8d.jpeg",
+            "order": 1,
+            "print_type": 1,
+            "updated_at": "2026-04-27T16:15:34.000Z",
+            "variations": [
+              {
+                "enabled": "Y",
+                "id_store_item": 31634055,
+                "id_store_item_variation": 31634076,
+                "id_store_variation": 157247,
+                "integration_code": 31634076,
+                "order": 0,
+                "price": 0,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "name": "Promoção",
+      "order_index": 2,
+      "items": [
+        {
+          "external_id": "31731978",
+          "name": "Pizzas Promoção Broto",
+          "description": "",
+          "image_url": null,
+          "price": 19.9,
+          "price_min": 19.9,
+          "price_max": 19.9,
+          "price_type": "fixed",
+          "price_source": "api.item",
+          "options": [
+            {
+              "external_id": "31731978",
+              "group_name": "Variações",
+              "name": "Único",
+              "price": 19.9,
+              "price_delta": null,
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "enabled": "Y",
+                "id_store_item": 31731978,
+                "id_store_item_variation": 31731980,
+                "id_store_variation": 157247,
+                "integration_code": 31731980,
+                "order": 0,
+                "price": 19.9,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            },
+            {
+              "external_id": "22092423",
+              "group_name": "Pizzas Broto",
+              "name": "Frango Catupiry",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "desc_store_choice_item": " Frango Catupiry ",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2443425,
+                "id_store_choice_item": 22092423,
+                "img_path": null,
+                "integration_code": 22092423,
+                "order": 0,
+                "updated_at": "2026-01-19T14:55:31.000Z",
+                "variations": []
+              }
+            },
+            {
+              "external_id": "22092424",
+              "group_name": "Pizzas Broto",
+              "name": "Marguerita",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "desc_store_choice_item": "Marguerita ",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2443425,
+                "id_store_choice_item": 22092424,
+                "img_path": null,
+                "integration_code": 22092424,
+                "order": 1,
+                "updated_at": "2026-01-19T14:55:31.000Z",
+                "variations": []
+              }
+            },
+            {
+              "external_id": "22092425",
+              "group_name": "Pizzas Broto",
+              "name": "Mussarela",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 2,
+              "raw_data": {
+                "desc_store_choice_item": "Mussarela",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2443425,
+                "id_store_choice_item": 22092425,
+                "img_path": null,
+                "integration_code": 22092425,
+                "order": 2,
+                "updated_at": "2026-01-19T14:55:31.000Z",
+                "variations": []
+              }
+            },
+            {
+              "external_id": "22092426",
+              "group_name": "Pizzas Broto",
+              "name": "Calabresa",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 3,
+              "raw_data": {
+                "desc_store_choice_item": "Calabresa",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2443425,
+                "id_store_choice_item": 22092426,
+                "img_path": null,
+                "integration_code": 22092426,
+                "order": 3,
+                "updated_at": "2026-02-17T22:31:54.000Z",
+                "variations": []
+              }
+            }
+          ],
+          "source_url": "https://napolespizzaria.saipos.com/",
+          "raw_data": {
+            "availability": [],
+            "categories": [],
+            "category_item": {
+              "availability": [],
+              "desc_store_category_item": "Promoção ",
+              "enabled": "Y",
+              "id_store_category_item": 1004077,
+              "id_store_item_required": null,
+              "order": 1,
+              "print_type": 3,
+              "updated_at": "2026-02-16T01:31:14.000Z"
+            },
+            "choices": [
+              {
+                "id_store_choice": 2443425,
+                "id_store_item": 31731978,
+                "id_store_item_choice": 31743682,
+                "order": 0
+              },
+              {
+                "id_store_choice": 2437258,
+                "id_store_item": 31731978,
+                "id_store_item_choice": 31731979,
+                "order": 0
+              }
+            ],
+            "desc_store_item": "Pizzas Promoção Broto ",
+            "desc_store_item_delivery": null,
+            "detail": null,
+            "id_store_category_item": 1004077,
+            "id_store_item": 31731978,
+            "identifier_number": null,
+            "img_path": null,
+            "order": 1,
+            "print_type": 1,
+            "updated_at": "2026-02-04T18:59:54.000Z",
+            "variations": [
+              {
+                "enabled": "Y",
+                "id_store_item": 31731978,
+                "id_store_item_variation": 31731980,
+                "id_store_variation": 157247,
+                "integration_code": 31731980,
+                "order": 0,
+                "price": 19.9,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "31809481",
+          "name": "Pizza Grande + Refrigerante 1,5L",
+          "description": "",
+          "image_url": null,
+          "price": 59.9,
+          "price_min": 59.9,
+          "price_max": 59.9,
+          "price_type": "fixed",
+          "price_source": "api.item",
+          "options": [
+            {
+              "external_id": "31809481",
+              "group_name": "Variações",
+              "name": "Único",
+              "price": 59.9,
+              "price_delta": null,
+              "min_quantity": 0,
+              "max_quantity": 1,
+              "is_required": false,
+              "order_index": 0,
+              "raw_data": {
+                "enabled": "Y",
+                "id_store_item": 31809481,
+                "id_store_item_variation": 31809483,
+                "id_store_variation": 157247,
+                "integration_code": 31809483,
+                "order": 0,
+                "price": 59.9,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            },
+            {
+              "external_id": "22092454",
+              "group_name": "Sabo de pizza da promoção",
+              "name": "Frango Catupiry",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 0,
+              "raw_data": {
+                "desc_store_choice_item": "Frango Catupiry ",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2443431,
+                "id_store_choice_item": 22092454,
+                "img_path": null,
+                "integration_code": 22092454,
+                "order": 0,
+                "updated_at": "2026-01-19T15:11:29.000Z",
+                "variations": []
+              }
+            },
+            {
+              "external_id": "22092455",
+              "group_name": "Sabo de pizza da promoção",
+              "name": "Calabresa",
+              "description": null,
+              "price": null,
+              "price_delta": null,
+              "min_quantity": 1,
+              "max_quantity": 2,
+              "is_required": true,
+              "order_index": 1,
+              "raw_data": {
+                "desc_store_choice_item": "Calabresa ",
+                "desc_store_choice_item_deli": null,
+                "detail": null,
+                "enabled": "Y",
+                "id_store_choice": 2443431,
+                "id_store_choice_item": 22092455,
+                "img_path": null,
+                "integration_code": 22092455,
+                "order": 1,
+                "updated_at": "2026-02-17T22:31:46.000Z",
+                "variations": []
+              }
+            }
+          ],
+          "source_url": "https://napolespizzaria.saipos.com/",
+          "raw_data": {
+            "availability": [],
+            "categories": [],
+            "category_item": {
+              "availability": [],
+              "desc_store_category_item": "Promoção ",
+              "enabled": "Y",
+              "id_store_category_item": 1004077,
+              "id_store_item_required": null,
+              "order": 1,
+              "print_type": 3,
+              "updated_at": "2026-02-16T01:31:14.000Z"
+            },
+            "choices": [
+              {
+                "id_store_choice": 2443431,
+                "id_store_item": 31809481,
+                "id_store_item_choice": 31809484,
+                "order": 0
+              },
+              {
+                "id_store_choice": 2437258,
+                "id_store_item": 31809481,
+                "id_store_item_choice": 31809482,
+                "order": 0
+              }
+            ],
+            "desc_store_item": "Pizza Grande + Refrigerante 1,5L",
+            "desc_store_item_delivery": null,
+            "detail": null,
+            "id_store_category_item": 1004077,
+            "id_store_item": 31809481,
+            "identifier_number": null,
+            "img_path": null,
+            "order": 1,
+            "print_type": 1,
+            "updated_at": "2026-03-08T23:08:01.000Z",
+            "variations": [
+              {
+                "enabled": "Y",
+                "id_store_item": 31809481,
+                "id_store_item_variation": 31809483,
+                "id_store_variation": 157247,
+                "integration_code": 31809483,
+                "order": 0,
+                "price": 59.9,
+                "promotions": [],
+                "variation": {
+                  "desc_store_variation": "Único",
+                  "desc_store_variation_delivery": null,
+                  "id_store_variation": 157247,
+                  "updated_at": "2026-01-14T17:53:52.000Z"
+                }
+              }
+            ]
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "verificationSnapshotError": null,
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337409709_4jex9mqf.jpg",
+    "snapshotFile": "cmd_1783337409709_4jex9mqf.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 699,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337420045_r06jt8j0.jpg",
+        "snapshotFile": "cmd_1783337420045_r06jt8j0.jpg"
+      },
+      {
+        "ratio": 0.22,
+        "target": "document",
+        "scrollTop": 154,
+        "maxScrollTop": 699,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337427286_upoblqd9.jpg",
+        "snapshotFile": "cmd_1783337427286_upoblqd9.jpg"
+      },
+      {
+        "ratio": 0.45,
+        "target": "document",
+        "scrollTop": 315,
+        "maxScrollTop": 699,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337434518_dqajmq3e.jpg",
+        "snapshotFile": "cmd_1783337434518_dqajmq3e.jpg"
+      },
+      {
+        "ratio": 0.68,
+        "target": "document",
+        "scrollTop": 475,
+        "maxScrollTop": 699,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337441797_as94n60t.jpg",
+        "snapshotFile": "cmd_1783337441797_as94n60t.jpg"
+      },
+      {
+        "ratio": 0.9,
+        "target": "document",
+        "scrollTop": 629,
+        "maxScrollTop": 699,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337450050_dvw30z71.jpg",
+        "snapshotFile": "cmd_1783337450050_dvw30z71.jpg"
+      },
+      {
+        "ratio": 1,
+        "target": "document",
+        "scrollTop": 699,
+        "maxScrollTop": 699,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783337456282_bm4jjxnd.jpg",
+        "snapshotFile": "cmd_1783337456282_bm4jjxnd.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 3,
+    "capturedHeight": 1373,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "85cb6c83-caa6-4417-b91f-a305585b79bc",
+    "name": "Pizzaria Napoles Campina Grande",
+    "category": "Pizzaria",
+    "address": "Av. Manoel Tavares",
+    "phone": "(83) 99617-9445",
+    "instagram": "https://www.instagram.com/napolesoriginal/"
+  }
+}

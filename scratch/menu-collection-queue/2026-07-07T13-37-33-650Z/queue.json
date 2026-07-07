@@ -1,0 +1,635 @@
+{
+  "generated_at": "2026-07-07T13:37:33.650Z",
+  "filters": {
+    "city": "Cabedelo",
+    "state": "PB",
+    "active": "is_deleted is false or null",
+    "menu_status": "needs_recollection",
+    "queue_source_rule": "other_url or external_url present and selected source is non-iFood",
+    "note": "The raw fetch includes missing-source and iFood-only rows so the pre-audit can classify them as red exclusions."
+  },
+  "output_paths": {
+    "directory": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T13-37-33-650Z",
+    "json": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T13-37-33-650Z\\queue.json",
+    "csv": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T13-37-33-650Z\\queue.csv"
+  },
+  "summary": {
+    "all_active_needs_recollection": 10,
+    "queue_count": 10,
+    "excluded_count": 0,
+    "by_tier": {
+      "yellow": 8,
+      "green": 2
+    },
+    "by_platform": {
+      "anota_ai": 8,
+      "goomer": 1,
+      "menudino": 1
+    },
+    "by_tier_platform": {
+      "yellow": {
+        "anota_ai": 8
+      },
+      "green": {
+        "goomer": 1,
+        "menudino": 1
+      }
+    },
+    "excluded_by_tier": {},
+    "excluded_by_platform": {},
+    "excluded_by_reason": {}
+  },
+  "top50": [
+    {
+      "rank": 1,
+      "restaurant_id": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+      "name": "Espetinho da praia Intermares",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 772,
+      "rating": 4.4,
+      "source_url": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 2,
+      "restaurant_id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+      "name": "Pipa Sushi & Temakeria",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 292,
+      "rating": 4.3,
+      "source_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 3,
+      "restaurant_id": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+      "name": "Pizza Now - Intermares",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 200,
+      "rating": 4.5,
+      "source_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 4,
+      "restaurant_id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+      "name": "A Casa do Temakinho",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 150,
+      "rating": 4.9,
+      "source_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 5,
+      "restaurant_id": "4f71666b-ecb6-4963-9201-86bcc7d29c66",
+      "name": "churrascaria do biu",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 142,
+      "rating": 4.2,
+      "source_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 6,
+      "restaurant_id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+      "name": "Route Hot Dogs",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 45,
+      "rating": 5,
+      "source_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 7,
+      "restaurant_id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+      "name": "Pizza do Paulinho",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 11,
+      "rating": 5,
+      "source_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 8,
+      "restaurant_id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+      "name": "Açaí da Hill Point",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "reviews_count": 9,
+      "rating": 4.6,
+      "source_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "collection_hint": "anota_ai_fast_path"
+    },
+    {
+      "rank": 9,
+      "restaurant_id": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+      "name": "Tia Graça Cafeteria e Doceria",
+      "platform": "goomer",
+      "tier": "green",
+      "priority_score": 44,
+      "reviews_count": 67,
+      "rating": 4.5,
+      "source_url": "https://tia-graa-doces-e-salgados.goomer.app",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    },
+    {
+      "rank": 10,
+      "restaurant_id": "72606188-4454-4890-a671-a65d4d08f024",
+      "name": "Casa Do Pastel",
+      "platform": "menudino",
+      "tier": "green",
+      "priority_score": 48,
+      "reviews_count": 20,
+      "rating": 4.2,
+      "source_url": "https://lacasadepastelpb.menudino.com.br",
+      "risk_flags": [],
+      "collection_hint": "structured_source_ready"
+    }
+  ],
+  "queue": [
+    {
+      "restaurant_id": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+      "name": "Espetinho da praia Intermares",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+      "raw_source_url": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+      "other_url": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Restaurante",
+      "address": "Av. Oceano Atlântico, 1972",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 2182-4436",
+      "rating": 4.4,
+      "reviews_count": 772,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 129.",
+      "menu_last_checked_at": "2026-07-07T13:12:58.677+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+          "canonical_url": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 1
+    },
+    {
+      "restaurant_id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+      "name": "Pipa Sushi & Temakeria",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+      "raw_source_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+      "other_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Restaurante de sushi",
+      "address": "Av. Mar das Antilhas",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 3248-4251",
+      "rating": 4.3,
+      "reviews_count": 292,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 143.",
+      "menu_last_checked_at": "2026-07-07T13:16:09.428+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+          "canonical_url": "https://pedido.anota.ai/loja/pipa-sushi-temakeria",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 2
+    },
+    {
+      "restaurant_id": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+      "name": "Pizza Now - Intermares",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+      "raw_source_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+      "other_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Delivery de Pizza",
+      "address": "Av. Oceano Atlântico, 1592",
+      "neighborhood": "Lj 14 - Ponta de Campina",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "0800 012 2000",
+      "rating": 4.5,
+      "reviews_count": 200,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 129.",
+      "menu_last_checked_at": "2026-07-07T13:16:22.665+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/pizza-now-intermares",
+          "canonical_url": "https://pedido.anota.ai/loja/pizza-now-intermares",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 3
+    },
+    {
+      "restaurant_id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+      "name": "A Casa do Temakinho",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+      "raw_source_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+      "other_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Restaurante",
+      "address": "Av. Mar da Irlanda, 222",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99944-9296",
+      "rating": 4.9,
+      "reviews_count": 150,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 136.",
+      "menu_last_checked_at": "2026-07-07T13:16:21.181+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+          "canonical_url": "https://pedido.anota.ai/loja/a-casa-do-temakinho",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 4
+    },
+    {
+      "restaurant_id": "4f71666b-ecb6-4963-9201-86bcc7d29c66",
+      "name": "churrascaria do biu",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+      "raw_source_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+      "other_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Churrascaria",
+      "address": "R. Carolino Cardoso, 248-328",
+      "neighborhood": "Lot. Vitorino Cardoso",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98752-5897",
+      "rating": 4.2,
+      "reviews_count": 142,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 142.",
+      "menu_last_checked_at": "2026-07-07T13:16:21.705+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+          "canonical_url": "https://pedido.anota.ai/loja/pizzaria-do-biu",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 5
+    },
+    {
+      "restaurant_id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+      "name": "Route Hot Dogs",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+      "raw_source_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+      "other_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Hamburgueria",
+      "address": "Av. Mar das Antilhas",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99878-4228",
+      "rating": 5,
+      "reviews_count": 45,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 143.",
+      "menu_last_checked_at": "2026-07-07T13:16:45.854+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/route-hot-dogs",
+          "canonical_url": "https://pedido.anota.ai/loja/route-hot-dogs",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 6
+    },
+    {
+      "restaurant_id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+      "name": "Pizza do Paulinho",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+      "raw_source_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+      "other_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Pizzaria",
+      "address": "Av. Monsenhor José da Silva Coutinho, 113",
+      "neighborhood": "Vila Sao Joao",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98852-8675",
+      "rating": 5,
+      "reviews_count": 11,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 129.",
+      "menu_last_checked_at": "2026-07-07T13:17:30.213+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+          "canonical_url": "https://pedido.anota.ai/loja/pizza-do-paulinho?referer=gbp_anota",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 7
+    },
+    {
+      "restaurant_id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+      "name": "Açaí da Hill Point",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+      "raw_source_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+      "other_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (anota_ai)",
+      "category": "Loja de açaí",
+      "address": "Trailer",
+      "neighborhood": "Rua Mar das Antilhas",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 2178-3682",
+      "rating": 4.6,
+      "reviews_count": 9,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: anota_ai score 143.",
+      "menu_last_checked_at": "2026-07-07T13:17:12.283+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/aai-da-hill-point",
+          "canonical_url": "https://pedido.anota.ai/loja/aai-da-hill-point",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 8
+    },
+    {
+      "restaurant_id": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+      "name": "Tia Graça Cafeteria e Doceria",
+      "platform": "goomer",
+      "tier": "green",
+      "priority_score": 44,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://tia-graa-doces-e-salgados.goomer.app",
+      "raw_source_url": "https://tia-graa-doces-e-salgados.goomer.app",
+      "other_url": "https://tia-graa-doces-e-salgados.goomer.app",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (goomer)",
+      "category": "Cafeteria",
+      "address": "R. Golfo da China, 326",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "",
+      "rating": 4.5,
+      "reviews_count": 67,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: goomer score 143.",
+      "menu_last_checked_at": "2026-07-07T13:16:26.414+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://tia-graa-doces-e-salgados.goomer.app",
+          "canonical_url": "https://tia-graa-doces-e-salgados.goomer.app",
+          "platform": "goomer",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 9
+    },
+    {
+      "restaurant_id": "72606188-4454-4890-a671-a65d4d08f024",
+      "name": "Casa Do Pastel",
+      "platform": "menudino",
+      "tier": "green",
+      "priority_score": 48,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://lacasadepastelpb.menudino.com.br",
+      "raw_source_url": "https://lacasadepastelpb.menudino.com.br",
+      "other_url": "https://lacasadepastelpb.menudino.com.br",
+      "external_url": "",
+      "other_url_label": "SerpApi menu discovery (menudino)",
+      "category": "Pastelaria brasileira",
+      "address": "R. Honório Patrício dos Santos, 328",
+      "neighborhood": "Recanto do Poço",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98663-1487",
+      "rating": 4.2,
+      "reviews_count": 20,
+      "menu_status": "needs_recollection",
+      "menu_status_reason": "Fonte de cardapio encontrada via SerpApi: menudino score 142.",
+      "menu_last_checked_at": "2026-07-07T13:16:52.533+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://lacasadepastelpb.menudino.com.br",
+          "canonical_url": "https://lacasadepastelpb.menudino.com.br",
+          "platform": "menudino",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 10
+    }
+  ],
+  "excluded": []
+}

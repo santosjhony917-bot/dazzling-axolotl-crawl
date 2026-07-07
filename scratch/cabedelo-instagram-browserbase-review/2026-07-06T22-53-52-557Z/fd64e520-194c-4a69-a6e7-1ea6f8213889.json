@@ -1,0 +1,49 @@
+{
+  "id": "fd64e520-194c-4a69-a6e7-1ea6f8213889",
+  "name": "Casa de Taipa",
+  "category": "Restaurante",
+  "neighborhood": "Praia do poço",
+  "reviews_count": 58,
+  "rating": 4.5,
+  "instagramCandidate": "https://instagram.com/taipa_arquitetura",
+  "score": 80,
+  "title": "Taipa Arquitetura (@taipa_arquitetura)",
+  "queries": [
+    "Casa de Taipa casacombr Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://www.instagram.com/taipa_arquitetura/ | Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://instagram.com/taipa_arquitetura | Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://instagram.com/taipa_arquitetura",
+  "rowName": "Casa de Taipa",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": -78,
+    "url": "https://instagram.com/taipa_arquitetura",
+    "handle": "taipa_arquitetura",
+    "tokens": [
+      "casa",
+      "taipa"
+    ],
+    "handleMatches": [
+      "taipa"
+    ],
+    "textMatches": [
+      "taipa"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": true,
+    "evidenceSample": "Taipa Arquitetura (@taipa_arquitetura) Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://www.instagram.com/taipa_arquitetura/ | Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://instagram.com/taipa_arquitetura | Taipa Arquitetura (@taipa_arquitetura) 16K followers · 1.4K+ following · 712 posts · @taipa_arquitetura: “Arquitetura e Design de Interiores Projetos e consultorias - Presenciais e à distância” https://instagram.com/taipa_arquitetura Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=dev",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Ftaipa_arquitetura%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "20e29fe1-2981-43f9-ac9c-c0b73654ac77"
+}

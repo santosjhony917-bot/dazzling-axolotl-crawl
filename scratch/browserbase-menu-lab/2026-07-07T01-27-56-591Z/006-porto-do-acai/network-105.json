@@ -1,0 +1,219 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 3996,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"529736cc-5e77-4d15-ba4e-20ee608b25ef\",\"code\":\"24\",\"ean\":null,\"priority\":8,\"name\":\"Empada de Carne de Sol\",\"description\":\"\",\"price\":8,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"4ddc0910-5e40-4981-935d-0ffc1fce5082\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Empada de Carne de Sol\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-529736cc-5e77-4d15-ba4e-20ee608b25ef_5fca821c-068d-4851-a78c-eda09a6b1541.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"fadbc064-efaa-4de7-9f68-4da936140a7f\",\"code\":\"22\",\"ean\":null,\"priority\":9,\"name\":\"Empada LEITE CONDENSADO\",\"description\":\"\",\"price\":6,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"1449bd90-da05-41f1-aee3-f0ecf0f5694c\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Empada LEITE CONDENSADO\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-fadbc064-efaa-4de7-9f68-4da936140a7f_3642748f-29fd-49e1-b48d-8af0e83284c5.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"81af78b3-16e7-4499-a041-a394c50462cf\",\"code\":\"82\",\"ean\":null,\"priority\":10,\"name\":\"Pastel de Queijo\",\"description\":\"\",\"price\":7,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":\"\",\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":\"\",\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"82a73f1a-54c1-4eae-9f2f-9d109dd7a292\",\"default\":false,\"main\":true,\"priority\":1,\"description\":\"Pastel de Queijo\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-81af78b3-16e7-4499-a041-a394c50462cf_b14dafda-b14c-452d-9017-dd0d1470abf7.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"f20f975a-744f-49a1-969c-9520609a48d7\",\"code\":\"4\",\"ean\":null,\"priority\":11,\"name\":\"Empada de Queijo\",\"description\":\"\",\"price\":7,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":\"\",\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":\"\",\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"fa1e1272-fd72-4466-b74d-65d785fb9eea\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Empada de Queijo\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "4"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "529736cc-5e77-4d15-ba4e-20ee608b25ef",
+      "code": "24",
+      "ean": null,
+      "priority": 8,
+      "name": "Empada de Carne de Sol",
+      "description": "",
+      "price": 8,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "4ddc0910-5e40-4981-935d-0ffc1fce5082",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Empada de Carne de Sol",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-529736cc-5e77-4d15-ba4e-20ee608b25ef_5fca821c-068d-4851-a78c-eda09a6b1541.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "fadbc064-efaa-4de7-9f68-4da936140a7f",
+      "code": "22",
+      "ean": null,
+      "priority": 9,
+      "name": "Empada LEITE CONDENSADO",
+      "description": "",
+      "price": 6,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "1449bd90-da05-41f1-aee3-f0ecf0f5694c",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Empada LEITE CONDENSADO",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-fadbc064-efaa-4de7-9f68-4da936140a7f_3642748f-29fd-49e1-b48d-8af0e83284c5.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "81af78b3-16e7-4499-a041-a394c50462cf",
+      "code": "82",
+      "ean": null,
+      "priority": 10,
+      "name": "Pastel de Queijo",
+      "description": "",
+      "price": 7,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": "",
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": "",
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "82a73f1a-54c1-4eae-9f2f-9d109dd7a292",
+          "default": false,
+          "main": true,
+          "priority": 1,
+          "description": "Pastel de Queijo",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-81af78b3-16e7-4499-a041-a394c50462cf_b14dafda-b14c-452d-9017-dd0d1470abf7.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "f20f975a-744f-49a1-969c-9520609a48d7",
+      "code": "4",
+      "ean": null,
+      "priority": 11,
+      "name": "Empada de Queijo",
+      "description": "",
+      "price": 7,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": "",
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": "",
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "fa1e1272-fd72-4466-b74d-65d785fb9eea",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Empada de Queijo",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

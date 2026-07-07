@@ -1,0 +1,2967 @@
+{
+  "url": "https://flag.lab.amplitude.com/sdk/v2/flags",
+  "status": 200,
+  "contentType": "application/json;charset=utf-8",
+  "resourceType": "fetch",
+  "method": "GET",
+  "textLength": 32340,
+  "textSample": "[{\"key\":\"payment_visual_for_take_selection\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":4,\"testInstrumentation\":true},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-n5yguhpe\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":1},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"441303\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"441305\"]},\"value\":\"slot-2\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-n5yguhpe\"],\"key\":\"remove-offline-header-subtitle\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"cta_pix_to_offline_card_payment\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"world_cup_menu_mode\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":6},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"disable_offline_payment_method_autofill_renewed\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":11},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-muazdlhr\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"540872\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"531985\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"531984\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-muazdlhr\"],\"key\":\"extra_padding_online_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-2\",\"flagType\":\"experiment\",\"flagVersion\":27},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mandatory_field_feedbacks\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"ab_test_clone_collapse_payment_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":15},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"remove_back_button_to_pol\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":32},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-jgxqaury\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"616735\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"614006\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"616734\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-jgxqaury\"],\"key\":\"nupay_clock_variation\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":16},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"offline_payment_friction_modal\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-5\",\"flagType\":\"experiment\",\"flagVersion\":38},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-mqkt6wvs\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"429700\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"429703\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"429762\"]},\"value\":\"slot-4\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-mqkt6wvs\"],\"key\":\"checkout_pol_badge_copies\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":24},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"mandatory_addons_counter\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-8\",\"flagType\":\"experiment\",\"flagVersion\":43},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"}}},{\"key\":\"mutex-tqk5fw03\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"1208588\"]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1259639\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1203314\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"1145631\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1176139\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[\"1091418\"]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[\"1120152\"]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-tqk5fw03\"],\"key\":\"change-the-copy-of-the-finalize-order-button-ifp\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":34},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"digital_wallet_separated_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"online_payment_coupon_v2\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-xmphq1fi\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":10},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-11\":{\"key\":\"slot-11\",\"payload\":{\"flagIds\":[\"1120316\"]},\"value\":\"slot-11\"},\"slot-12\":{\"key\":\"slot-12\",\"payload\":{\"flagIds\":[\"816463\"]},\"value\":\"slot-12\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1174404\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1120405\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"913034\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1124378\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[\"1130151\"]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-xmphq1fi\"],\"key\":\"suitability-of-the-delivery-method-selection-standard\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-3\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-8ezdc7vz\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"",
+  "jsonKeys": [
+    "array",
+    "66"
+  ],
+  "json": [
+    {
+      "key": "payment_visual_for_take_selection",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 4,
+        "testInstrumentation": true
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-n5yguhpe",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 1
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "441303"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "441305"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-n5yguhpe"
+      ],
+      "key": "remove-offline-header-subtitle",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 13
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "cta_pix_to_offline_card_payment",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 18
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "world_cup_menu_mode",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 6
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "disable_offline_payment_method_autofill_renewed",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 11
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-muazdlhr",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 2
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "540872"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "531985"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "531984"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-muazdlhr"
+      ],
+      "key": "extra_padding_online_methods",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-2",
+        "flagType": "experiment",
+        "flagVersion": 27
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mandatory_field_feedbacks",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 18
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "ab_test_clone_collapse_payment_methods",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 15
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "remove_back_button_to_pol",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-4",
+        "flagType": "experiment",
+        "flagVersion": 32
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-jgxqaury",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 2
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "616735"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "614006"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "616734"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-jgxqaury"
+      ],
+      "key": "nupay_clock_variation",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 16
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        },
+        "variant_c": {
+          "key": "variant_c",
+          "value": "variant_c"
+        }
+      }
+    },
+    {
+      "key": "offline_payment_friction_modal",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-5",
+        "flagType": "experiment",
+        "flagVersion": 38
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-mqkt6wvs",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 2
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "429700"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "429703"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "slot-4": {
+          "key": "slot-4",
+          "payload": {
+            "flagIds": [
+              "429762"
+            ]
+          },
+          "value": "slot-4"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-mqkt6wvs"
+      ],
+      "key": "checkout_pol_badge_copies",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 24
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        },
+        "variant_c": {
+          "key": "variant_c",
+          "value": "variant_c"
+        }
+      }
+    },
+    {
+      "key": "mandatory_addons_counter",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-8",
+        "flagType": "experiment",
+        "flagVersion": 43
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "key": "mutex-tqk5fw03",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 3
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "1208588"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-10": {
+          "key": "slot-10",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-10"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "1259639"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "1203314"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "slot-4": {
+          "key": "slot-4",
+          "payload": {
+            "flagIds": [
+              "1145631"
+            ]
+          },
+          "value": "slot-4"
+        },
+        "slot-5": {
+          "key": "slot-5",
+          "payload": {
+            "flagIds": [
+              "1176139"
+            ]
+          },
+          "value": "slot-5"
+        },
+        "slot-6": {
+          "key": "slot-6",
+          "payload": {
+            "flagIds": [
+              "1091418"
+            ]
+          },
+          "value": "slot-6"
+        },
+        "slot-7": {
+          "key": "slot-7",
+          "payload": {
+            "flagIds": [
+              "1120152"
+            ]
+          },
+          "value": "slot-7"
+        },
+        "slot-8": {
+          "key": "slot-8",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-8"
+        },
+        "slot-9": {
+          "key": "slot-9",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-9"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-tqk5fw03"
+      ],
+      "key": "change-the-copy-of-the-finalize-order-button-ifp",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-4",
+        "flagType": "experiment",
+        "flagVersion": 34
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        },
+        "variant_c": {
+          "key": "variant_c",
+          "value": "variant_c"
+        }
+      }
+    },
+    {
+      "key": "digital_wallet_separated_methods",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 13
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "online_payment_coupon_v2",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 13
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-xmphq1fi",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 10
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-1"
+        },
+        "slot-10": {
+          "key": "slot-10",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-10"
+        },
+        "slot-11": {
+          "key": "slot-11",
+          "payload": {
+            "flagIds": [
+              "1120316"
+            ]
+          },
+          "value": "slot-11"
+        },
+        "slot-12": {
+          "key": "slot-12",
+          "payload": {
+            "flagIds": [
+              "816463"
+            ]
+          },
+          "value": "slot-12"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "1174404"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "1120405"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "slot-4": {
+          "key": "slot-4",
+          "payload": {
+            "flagIds": [
+              "913034"
+            ]
+          },
+          "value": "slot-4"
+        },
+        "slot-5": {
+          "key": "slot-5",
+          "payload": {
+            "flagIds": [
+              "1124378"
+            ]
+          },
+          "value": "slot-5"
+        },
+        "slot-6": {
+          "key": "slot-6",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-6"
+        },
+        "slot-7": {
+          "key": "slot-7",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-7"
+        },
+        "slot-8": {
+          "key": "slot-8",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-8"
+        },
+        "slot-9": {
+          "key": "slot-9",
+          "payload": {
+            "flagIds": [
+              "1130151"
+            ]
+          },
+          "value": "slot-9"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-xmphq1fi"
+      ],
+      "key": "suitability-of-the-delivery-method-selection-standard",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-3",
+        "flagType": "experiment",
+        "flagVersion": 18
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-8ezdc7vz",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 3
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "716245"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "748678"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-3"
+        },
+        "slot-4": {
+          "key": "slot-4",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-4"
+        },
+        "slot-5": {
+          "key": "slot-5",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-5"
+        },
+        "slot-6": {
+          "key": "slot-6",
+          "payload": {
+            "flagIds": [
+              "739413"
+            ]
+          },
+          "value": "slot-6"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-8ezdc7vz"
+      ],
+      "key": "removing_pol_checkout_suppliers",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-2",
+        "flagType": "experiment",
+        "flagVersion": 21
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-tqk5fw03"
+      ],
+      "key": "improved-signage-for-delivery-and-pickup-times",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-2",
+        "flagType": "experiment",
+        "flagVersion": 19
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "key": "increase-order-status-button",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-4",
+        "flagType": "experiment",
+        "flagVersion": 44
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        },
+        "variant_c": {
+          "key": "variant_c",
+          "value": "variant_c"
+        },
+        "variant_d": {
+          "key": "variant_d",
+          "value": "variant_d"
+        }
+      }
+    },
+    {
+      "key": "pix_fast_delivery_badge",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 12
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-muazdlhr"
+      ],
+      "key": "ordering_of_payment_methods_ifood",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 18
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        }
+      }
+    },
+    {
+      "key": "review_user_experience_pix_expiration_page_renewed",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 11
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-1kmqi5t9",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 3
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "897670"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "slot-3"
+        },
+        "slot-4": {
+          "key": "slot-4",
+          "payload": {
+            "flagIds": [
+              "884582"
+            ]
+          },
+          "value": "slot-4"
+        },
+        "slot-5": {
+          "key": "slot-5",
+          "payload": {
+            "flagIds": [
+              "917739"
+            ]
+          },
+          "value": "slot-5"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "key": "mutex-bzxb0gue",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 4
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "884582"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "884581"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "886784"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "slot-4": {
+          "key": "slot-4",
+          "payload": {
+            "flagIds": [
+              "884576",
+              "893889"
+            ]
+          },
+          "value": "slot-4"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-1kmqi5t9",
+        "mutex-bzxb0gue"
+      ],
+      "key": "change-to-the-delivery-method-listing",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-3",
+        "flagType": "experiment",
+        "flagVersion": 26
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "key": "save_ifp_card",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-3",
+        "flagType": "experiment",
+        "flagVersion": 25
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "copy_to_pix_payment",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 15
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant1": {
+          "key": "variant1",
+          "value": "variant1"
+        },
+        "variant2": {
+          "key": "variant2",
+          "value": "variant2"
+        },
+        "variant3": {
+          "key": "variant3",
+          "value": "variant3"
+        },
+        "variant4": {
+          "key": "variant4",
+          "value": "variant4"
+        }
+      }
+    },
+    {
+      "key": "mutex-vveis0yo",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 1
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "411523"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "411525"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-vveis0yo"
+      ],
+      "key": "change_button_hierarchy",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 17
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "pol_ifp_credit_page_allowlist",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 5
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "payload": {
+            "allowed_page_ids": []
+          },
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "equivalent_checkouts",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 23
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "pay_with_pix_and_wallets_alerts",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 16
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-mqkt6wvs"
+      ],
+      "key": "offline_payment_icons_remove",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 20
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "texts-and-presentation-of-client-identification",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 4,
+        "testInstrumentation": true
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        },
+        "variant_c": {
+          "key": "variant_c",
+          "value": "variant_c"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-tqk5fw03"
+      ],
+      "key": "modification-of-titles-and-placeholders-in-the-product-note",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 7
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-oytxv6ng",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 2
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "493604"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "480760"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "485156"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-oytxv6ng"
+      ],
+      "key": "online_method_suggestion_card_brand",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 13
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-vveis0yo"
+      ],
+      "key": "improvements_to_coupon_and_observation",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 24
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        },
+        "variant_c": {
+          "key": "variant_c",
+          "value": "variant_c"
+        },
+        "variant_d": {
+          "key": "variant_d",
+          "value": "variant_d"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-bzxb0gue"
+      ],
+      "key": "expand-item-additional-clickable-area",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-2",
+        "flagType": "experiment",
+        "flagVersion": 17
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-tqk5fw03"
+      ],
+      "key": "weekly_autofill_model",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-2",
+        "flagType": "experiment",
+        "flagVersion": 31
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "key": "pol_security_badge",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 16
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "mutex-ed7cvosb",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 2
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "964030"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "914088"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "884581"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-ed7cvosb"
+      ],
+      "key": "view_checkout_coupon_carousel",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 17
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "review_user_experience_pix_expiration_page",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 20
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-tqk5fw03"
+      ],
+      "key": "ordering_of_payment_methods_at_checkout",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-7",
+        "flagType": "experiment",
+        "flagVersion": 49
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-xmphq1fi"
+      ],
+      "key": "the-change-in-the-name-to-nupay-occurred-throughout-the-journey",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-3",
+        "flagType": "experiment",
+        "flagVersion": 27
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-muazdlhr"
+      ],
+      "key": "ordering_of_payment_methods_tuna",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 14
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        }
+      }
+    },
+    {
+      "key": "copy-the-delivery-option-in-the-delivery-format",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 14
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "key": "mutex-mroftz5t",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 1
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "785946"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "794736"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "slot-3": {
+          "key": "slot-3",
+          "payload": {
+            "flagIds": [
+              "816463"
+            ]
+          },
+          "value": "slot-3"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-mroftz5t"
+      ],
+      "key": "nupay_order_details_collapse",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-4",
+        "flagType": "experiment",
+        "flagVersion": 44
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-xmphq1fi"
+      ],
+      "key": "pol-safety-information-modal-click-logo",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-3",
+        "flagType": "experiment",
+        "flagVersion": 25
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-tqk5fw03"
+      ],
+      "key": "manual_address_registration_modal",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 15
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        }
+      }
+    },
+    {
+      "key": "copy_multiple_payments",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 10
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        },
+        "variant_c": {
+          "key": "variant_c",
+          "value": "variant_c"
+        }
+      }
+    },
+    {
+      "key": "mutex-g3trpg2x",
+      "metadata": {
+        "deployed": false,
+        "evaluationMode": "remote",
+        "flagType": "mutual-exclusion-group",
+        "flagVersion": 3
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "slot-1": {
+          "key": "slot-1",
+          "payload": {
+            "flagIds": [
+              "571346"
+            ]
+          },
+          "value": "slot-1"
+        },
+        "slot-2": {
+          "key": "slot-2",
+          "payload": {
+            "flagIds": [
+              "553840",
+              "578894"
+            ]
+          },
+          "value": "slot-2"
+        },
+        "unallocated": {
+          "key": "unallocated",
+          "payload": {
+            "flagIds": []
+          },
+          "value": "unallocated"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-g3trpg2x"
+      ],
+      "key": "ab_test_copy_time_expired_nupay_ifp",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 12
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        }
+      }
+    },
+    {
+      "dependencies": [
+        "mutex-mroftz5t"
+      ],
+      "key": "nupay_cpf_autofill",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-4",
+        "flagType": "experiment",
+        "flagVersion": 39
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "ab_change_placeholder_title_comments_check_out",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 5
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "treatment": {
+          "key": "treatment",
+          "value": "treatment"
+        }
+      }
+    },
+    {
+      "key": "ab_test_copy_of_take_and_local_delivery_methods",
+      "metadata": {
+        "deployed": true,
+        "evaluationMode": "remote",
+        "experimentKey": "exp-1",
+        "flagType": "experiment",
+        "flagVersion": 12
+      },
+      "segments": [
+        {
+          "metadata": {
+            "segmentName": "default"
+          },
+          "variant": "off"
+        }
+      ],
+      "variants": {
+        "control": {
+          "key": "control",
+          "value": "control"
+        },
+        "off": {
+          "key": "off",
+          "metadata": {
+            "default": true
+          }
+        },
+        "variant_a": {
+          "key": "variant_a",
+          "value": "variant_a"
+        },
+        "variant_b": {
+          "key": "variant_b",
+          "value": "variant_b"
+        },
+        "variant_c": {
+          "key": "variant_c",
+          "value": "variant_c"
+        }
+      }
+    }
+  ]
+}

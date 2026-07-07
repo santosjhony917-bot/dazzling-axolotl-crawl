@@ -1,0 +1,107 @@
+{
+  "runId": "2026-07-07T12-36-09-569Z-2808",
+  "outDir": "scratch\\structured-menu-collection\\2026-07-07T12-36-09-569Z-2808",
+  "queuePath": "scratch\\menu-collection-queue\\2026-07-07T12-35-44-754Z\\queue.json",
+  "platform": "restaurantlogin",
+  "apply": false,
+  "concurrency": 1,
+  "targetCount": 1,
+  "browserbase": {
+    "sessionId": "5c425ddf-aea3-4113-839f-df64e10699ce",
+    "keepSession": false
+  },
+  "targets": [
+    {
+      "restaurantId": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+      "restaurantName": "Pizzaria Bom Sabor",
+      "sourceUrl": "https://pizzariabomsaborpb.com.br",
+      "platform": "restaurantlogin",
+      "reviewsCount": 134,
+      "address": "R. Jair Cunha Cavalcanti, 248",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98762-6366",
+      "queueEntry": {
+        "restaurant_id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+        "name": "Pizzaria Bom Sabor",
+        "platform": "restaurantlogin",
+        "tier": "green",
+        "priority_score": 2,
+        "risk_flags": [],
+        "source_field": "other_url",
+        "source_url": "https://pizzariabomsaborpb.com.br",
+        "raw_source_url": "https://pizzariabomsaborpb.com.br/",
+        "other_url": "https://pizzariabomsaborpb.com.br/",
+        "external_url": "",
+        "other_url_label": "Link da bio do Instagram",
+        "category": "Pizzaria",
+        "address": "R. Jair Cunha Cavalcanti, 248",
+        "neighborhood": "Lot. Oceania",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 98762-6366",
+        "rating": 4,
+        "reviews_count": 134,
+        "menu_status": "unknown",
+        "menu_status_reason": "",
+        "menu_last_checked_at": null,
+        "is_published": false,
+        "ai_validated": false,
+        "source_candidates": [
+          {
+            "field": "other_url",
+            "raw": "https://pizzariabomsaborpb.com.br/",
+            "canonical_url": "https://pizzariabomsaborpb.com.br",
+            "platform": "restaurantlogin",
+            "is_ifood": false,
+            "parse_error": false,
+            "canonical_flags": []
+          }
+        ],
+        "eligible_for_queue": true,
+        "collection_hint": "structured_source_ready",
+        "rank": 1
+      }
+    }
+  ],
+  "processed": [
+    {
+      "restaurantId": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+      "restaurantName": "Pizzaria Bom Sabor",
+      "platform": "restaurantlogin",
+      "sourceUrl": "https://pizzariabomsaborpb.com.br",
+      "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T12-36-09-569Z-2808\\001-pizzaria-bom-sabor",
+      "startedAt": "2026-07-07T12:36:12.679Z",
+      "details": null,
+      "rawSummary": null,
+      "evidencePath": null,
+      "dryRun": null,
+      "review": null,
+      "committed": false,
+      "commit": null,
+      "error": "RestaurantLogin nao encontrado em https://pizzariabomsaborpb.com.br",
+      "finishedAt": "2026-07-07T12:36:15.542Z"
+    }
+  ],
+  "release": {
+    "id": "5c425ddf-aea3-4113-839f-df64e10699ce",
+    "createdAt": "2026-07-07T12:36:13.285911+00:00",
+    "updatedAt": "2026-07-07T12:36:18.817+00:00",
+    "projectId": "75e35b22-44ad-42b6-b7d7-4509fa0bbfc5",
+    "status": "COMPLETED",
+    "proxyBytes": 0,
+    "keepAlive": false,
+    "region": "us-west-2",
+    "startedAt": "2026-07-07T12:36:13.282+00:00",
+    "endedAt": "2026-07-07T12:36:18.817+00:00",
+    "expiresAt": "2026-07-07T12:41:13.282+00:00"
+  },
+  "counts": {
+    "processed": 1,
+    "committed": 0,
+    "errors": 1,
+    "green": 0,
+    "yellow": 0,
+    "red": 0
+  }
+}

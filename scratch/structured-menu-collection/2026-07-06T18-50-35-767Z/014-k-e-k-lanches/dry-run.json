@@ -1,0 +1,800 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 7,
+      "itemCount": 38,
+      "resolvedPriceCount": 38,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "no_groups"
+      }
+    },
+    "preview": [
+      {
+        "name": "Combos",
+        "count": 1,
+        "samples": [
+          {
+            "name": "K-Salada + batata 100g + coca cola 250 ml",
+            "price": 25.99,
+            "kind": "combo_builder",
+            "description": "Pão tasteful, 2x smash bovino de 45g, queijo prato, creme cheddar, salada (alface, tomate, cebola) e maionese verde."
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "count": 16,
+        "samples": [
+          {
+            "name": "2 K - Barbecue + Guaraná de 1L",
+            "price": 40.99,
+            "kind": "combo_builder",
+            "description": ""
+          },
+          {
+            "name": "Coca 250 ml",
+            "price": 4,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Fanta 250 ml",
+            "price": 3,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Guaraná 200 ml",
+            "price": 3,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Indaiá Refri Guaraná 250 ml",
+            "price": 2.5,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Sanduíches",
+        "count": 6,
+        "samples": [
+          {
+            "name": "K-Burguer",
+            "price": 15.99,
+            "kind": "simple_item",
+            "description": "Pão tasteful, 2x smash bovino de 45g, queijo cheddar, creme cheddar e maionese verde."
+          },
+          {
+            "name": "K-Salada",
+            "price": 16.99,
+            "kind": "simple_item",
+            "description": "Pão tasteful, 2x smash bovino de 50g, 2x queijo prato, salada (alface, tomate, cebola) e maionese verde."
+          },
+          {
+            "name": "Kuarteirão",
+            "price": 16.99,
+            "kind": "simple_item",
+            "description": "Pão tasteful, 2x smash bovino de 50g, 2x queijo cheddar, cebola, picles e molho especial."
+          },
+          {
+            "name": "K- Salada&Bacon",
+            "price": 18.99,
+            "kind": "simple_item",
+            "description": "Pão tasteful, 2x smash bovino de 50g, 2x queijo prato, bacon, salada (Alface, tomate e cebola) e maionese de bacon."
+          },
+          {
+            "name": "K - Barbecue Oklahoma",
+            "price": 18.99,
+            "kind": "simple_item",
+            "description": "Pão tasteful, 2x smash bovino de 50g, queijo cheddar, creme cheddar, cebola dourada na chapa, bacon e molho barbecue."
+          }
+        ]
+      },
+      {
+        "name": "Salgados",
+        "count": 8,
+        "samples": [
+          {
+            "name": "Coxinha de frango (unidade)",
+            "price": 2.5,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Coxinha de frango com calabresa (unidade)",
+            "price": 2.5,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Bolinha de queijo (unidade)",
+            "price": 2.5,
+            "kind": "simple_item",
+            "description": "Queijo mussarela"
+          },
+          {
+            "name": "Risole misto (unidade)",
+            "price": 2.5,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Enroladinho (unidade)",
+            "price": 2.5,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "count": 2,
+        "samples": [
+          {
+            "name": "Empada de frango",
+            "price": 2.5,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Empada de Carne do sol com Cream Cheese",
+            "price": 3.5,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Empadas",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Empada de leite condensado",
+            "price": 2.5,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Extras",
+        "count": 4,
+        "samples": [
+          {
+            "name": "Batata Frita 100g",
+            "price": 8.99,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Batata Frita 200g",
+            "price": 16.99,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Maionese Verde",
+            "price": 2,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Maionese de Bacon",
+            "price": 3,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Combos",
+        "items": [
+          {
+            "name": "K-Salada + batata 100g + coca cola 250 ml",
+            "description": "Pão tasteful, 2x smash bovino de 45g, queijo prato, creme cheddar, salada (alface, tomate, cebola) e maionese verde.",
+            "price": 25.99,
+            "display_price": 25.99,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387156/-1742939806206blob_600.png",
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "K-Salada",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "batata 100g",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  },
+                  {
+                    "name": "coca cola 250 ml",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 2
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "2 K - Barbecue + Guaraná de 1L",
+            "description": "",
+            "price": 40.99,
+            "display_price": 40.99,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387161/-1761866802625blob_600.jpg",
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "2 K - Barbecue",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Guaraná de 1L",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca 250 ml",
+            "description": "",
+            "price": 4,
+            "display_price": 4,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387259/-1731367927901blob_600.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Fanta 250 ml",
+            "description": "",
+            "price": 3,
+            "display_price": 3,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387261/-1731367992544blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná 200 ml",
+            "description": "",
+            "price": 3,
+            "display_price": 3,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387263/-1731368293884blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Indaiá Refri Guaraná 250 ml",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Indaiá Refri Cola 250 ml",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca lata 350 ml",
+            "description": "",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387269/-1731377277792blob_600.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca lata 350 ml zero",
+            "description": "",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387270/-1731377277792blob_600.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Fanta lata 350 ml",
+            "description": "",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387275/-1731377297680blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná lata 350 ml",
+            "description": "",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387278/-1731377385556blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca 1L",
+            "description": "",
+            "price": 9.99,
+            "display_price": 9.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387281/-1731377510449blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca zero 1L",
+            "description": "",
+            "price": 9.99,
+            "display_price": 9.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387283/-1731377534027blob_600.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná 1L",
+            "description": "",
+            "price": 9.99,
+            "display_price": 9.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387284/-1731377563513blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Indaiá Refri Guaraná 1L",
+            "description": "",
+            "price": 6,
+            "display_price": 6,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca 2L",
+            "description": "",
+            "price": 15,
+            "display_price": 15,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387289/-1731438872142blob_600.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Indaiá Refri Guaraná 2L",
+            "description": "",
+            "price": 9,
+            "display_price": 9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Sanduíches",
+        "items": [
+          {
+            "name": "K-Burguer",
+            "description": "Pão tasteful, 2x smash bovino de 45g, queijo cheddar, creme cheddar e maionese verde.",
+            "price": 15.99,
+            "display_price": 15.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387162/-1724501354268blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "K-Salada",
+            "description": "Pão tasteful, 2x smash bovino de 50g, 2x queijo prato, salada (alface, tomate, cebola) e maionese verde.",
+            "price": 16.99,
+            "display_price": 16.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387163/d08f9f2eb8c962f1-ae46-4630-ab0c-34ecaad403b7.jfif",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Kuarteirão",
+            "description": "Pão tasteful, 2x smash bovino de 50g, 2x queijo cheddar, cebola, picles e molho especial.",
+            "price": 16.99,
+            "display_price": 16.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3620709/7372a85eff70a11f-3d9b-4086-9484-a44867f405d3.jfif",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "K- Salada&Bacon",
+            "description": "Pão tasteful, 2x smash bovino de 50g, 2x queijo prato, bacon, salada (Alface, tomate e cebola) e maionese de bacon.",
+            "price": 18.99,
+            "display_price": 18.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3620674/20520d70c5b7a6ac-c8ae-4a85-a830-29f8292b66a2.jfif",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "K - Barbecue Oklahoma",
+            "description": "Pão tasteful, 2x smash bovino de 50g, queijo cheddar, creme cheddar, cebola dourada na chapa, bacon e molho barbecue.",
+            "price": 18.99,
+            "display_price": 18.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3620678/e7c07925WhatsApp_Image_2026-02-12_at_21.41.05.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "K-Nordestino",
+            "description": "Pão tasteful, 2x smash bovino de 50g, queijo prato, queijo coalho, carne de sol desfiada, salada (cebola, pimentão e tomate) e molho barbecue.",
+            "price": 24.99,
+            "display_price": 24.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387168/-1724501389401blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Salgados",
+        "items": [
+          {
+            "name": "Coxinha de frango (unidade)",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387169/-1724805188250blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coxinha de frango com calabresa (unidade)",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387171/-1724804109109blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Bolinha de queijo (unidade)",
+            "description": "Queijo mussarela",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387173/-1724805659118blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Risole misto (unidade)",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387175/-1724804250497blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Enroladinho (unidade)",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387179/-1724813481314blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Travesseirinho de carne (unidade)",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387177/-1724805104561blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Pastel de frango",
+            "description": "",
+            "price": 2.99,
+            "display_price": 2.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387187/-1740172305287blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Pastel misto",
+            "description": "",
+            "price": 2.99,
+            "display_price": 2.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387190/-1740172385718blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "items": [
+          {
+            "name": "Empada de frango",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387196/-1745530330022blob_600.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Empada de Carne do sol com Cream Cheese",
+            "description": "",
+            "price": 3.5,
+            "display_price": 3.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4293819/bd50b840WhatsApp_Image_2026-05-30_at_17.29.30.jpeg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Empadas",
+        "items": [
+          {
+            "name": "Empada de leite condensado",
+            "description": "",
+            "price": 2.5,
+            "display_price": 2.5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387199/-1745530298997blob_600.png",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Extras",
+        "items": [
+          {
+            "name": "Batata Frita 100g",
+            "description": "",
+            "price": 8.99,
+            "display_price": 8.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387251/-1731458892736blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Batata Frita 200g",
+            "description": "",
+            "price": 16.99,
+            "display_price": 16.99,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387253/-1731458914074blob_600.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Maionese Verde",
+            "description": "",
+            "price": 2,
+            "display_price": 2,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Maionese de Bacon",
+            "description": "",
+            "price": 3,
+            "display_price": 3,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 38 itens via cardapio_web."
+  },
+  "stdoutTail": "age/3387173/-1724805659118blob_600.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Risole misto (unidade)\",\"description\":\"\",\"price\":2.5,\"display_price\":2.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387175/-1724804250497blob_600.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Enroladinho (unidade)\",\"description\":\"\",\"price\":2.5,\"display_price\":2.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387179/-1724813481314blob_600.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Travesseirinho de carne (unidade)\",\"description\":\"\",\"price\":2.5,\"display_price\":2.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387177/-1724805104561blob_600.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Pastel de frango\",\"description\":\"\",\"price\":2.99,\"display_price\":2.99,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387187/-1740172305287blob_600.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Pastel misto\",\"description\":\"\",\"price\":2.99,\"display_price\":2.99,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387190/-1740172385718blob_600.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Pratos Principais\",\"items\":[{\"name\":\"Empada de frango\",\"description\":\"\",\"price\":2.5,\"display_price\":2.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387196/-1745530330022blob_600.png\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Empada de Carne do sol com Cream Cheese\",\"description\":\"\",\"price\":3.5,\"display_price\":3.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/4293819/bd50b840WhatsApp_Image_2026-05-30_at_17.29.30.jpeg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Empadas\",\"items\":[{\"name\":\"Empada de leite condensado\",\"description\":\"\",\"price\":2.5,\"display_price\":2.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387199/-1745530298997blob_600.png\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Extras\",\"items\":[{\"name\":\"Batata Frita 100g\",\"description\":\"\",\"price\":8.99,\"display_price\":8.99,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387251/-1731458892736blob_600.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Batata Frita 200g\",\"description\":\"\",\"price\":16.99,\"display_price\":16.99,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3387253/-1731458914074blob_600.jpg\",\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Maionese Verde\",\"description\":\"\",\"price\":2,\"display_price\":2,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Maionese de Bacon\",\"description\":\"\",\"price\":3,\"display_price\":3,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 38 itens via cardapio_web.\"}\n",
+  "stderrTail": ""
+}

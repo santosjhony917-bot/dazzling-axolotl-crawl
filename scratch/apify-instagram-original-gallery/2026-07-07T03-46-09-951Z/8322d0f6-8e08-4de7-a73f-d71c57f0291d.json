@@ -1,0 +1,470 @@
+{
+  "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+  "name": "Ilovepizzapb",
+  "username": "ilovepizzapb",
+  "instagram": "https://www.instagram.com/ilovepizzapb/",
+  "applied": true,
+  "forceMedia": true,
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396118475_1.jpg",
+      "source": "instagram_post_image_api",
+      "postUrl": "https://www.instagram.com/p/DaAwoDdxumw/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e bem apresentada"
+      }
+    },
+    {
+      "kind": "cover",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396118475_1.jpg",
+      "source": "best_approved_instagram_api_image"
+    }
+  ],
+  "skipped": [
+    {
+      "kind": "logo",
+      "reason": "imagem_muito_pequena_ou_baixa_qualidade"
+    }
+  ],
+  "profile": {
+    "username": "ilovepizzapb",
+    "followers": 3095,
+    "posts": 31,
+    "profilePic": true,
+    "biography": "A MELHOR PIZZA DA SUA VIDA 🍕😍 ABERTO DE QUARTA À SEG - 18h à 01h 📍R Duque de Caxias, 141 Cabedelo, Paraíba 📲 83 99631-6245 PEÇA NO LINK A BAIXO👇🏻"
+  },
+  "postCount": 31,
+  "candidates": [
+    {
+      "source": "instagram_post_image_api",
+      "score": 114,
+      "postIndex": 1,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DaAwoDdxumw/",
+      "sourceType": "Image",
+      "width": 1148,
+      "height": 1434,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de comida nítida e bem apresentada"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -116,
+      "postIndex": 0,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZnnk9thHRw/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": true,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "texto dominante"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -122,
+      "postIndex": 2,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZs-WjhvQAu/",
+      "sourceType": "Image",
+      "width": 1349,
+      "height": 1686,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com pessoa"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -122,
+      "postIndex": 6,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZTJu2Yh4Gm/",
+      "sourceType": "Image",
+      "width": 1189,
+      "height": 1486,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -123,
+      "postIndex": 3,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DaTZnSkBgWG/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -124,
+      "postIndex": 8,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZLdnzHmgIz/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -127,
+      "postIndex": 7,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZdfUKNtkI6/",
+      "sourceType": "Image",
+      "width": 1347,
+      "height": 1684,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -127,
+      "postIndex": 11,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXz87hEGo_K/",
+      "sourceType": "Image",
+      "width": 1243,
+      "height": 1554,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -128,
+      "postIndex": 12,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYk1uBHEefg/",
+      "sourceType": "Image",
+      "width": 1013,
+      "height": 1266,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -129,
+      "postIndex": 13,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYp_SP9kfUp/",
+      "sourceType": "Image",
+      "width": 1347,
+      "height": 1684,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -130,
+      "postIndex": 14,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DY29vbnpXPt/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -130,
+      "postIndex": 25,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXuxGO4mtRG/",
+      "sourceType": "Sidecar",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -131,
+      "postIndex": 25,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/DXuxGO4mtRG/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com pessoa"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -131,
+      "postIndex": 25,
+      "childIndex": 2,
+      "postUrl": "https://www.instagram.com/p/DXuxGO4mtRG/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": false,
+        "has_people_or_faces": true,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com pessoa/rosto"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -132,
+      "postIndex": 16,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYX6W58mg1p/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": true,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com pessoas e rostos como assunto"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -134,
+      "postIndex": 18,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYLFv3gkZvx/",
+      "sourceType": "Image",
+      "width": 1347,
+      "height": 1684,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -134,
+      "postIndex": 21,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYvNLZRu_BQ/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -134,
+      "postIndex": 22,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXP65XxkbjV/",
+      "sourceType": "Image",
+      "width": 1347,
+      "height": 1684,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -134,
+      "postIndex": 23,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXVD_Dnjc5g/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -134,
+      "postIndex": 26,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DX5ER_Ulm1B/",
+      "sourceType": "Image",
+      "width": 1347,
+      "height": 1684,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -134,
+      "postIndex": 30,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DXcyYncDfoL/",
+      "sourceType": "Image",
+      "width": 1347,
+      "height": 1684,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -138,
+      "postIndex": 19,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DY8HGCpP6iV/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1775,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -138,
+      "postIndex": 20,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYAyq9qkcaS/",
+      "sourceType": "Image",
+      "width": 1347,
+      "height": 1684,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    }
+  ],
+  "approvedCount": 1,
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 1,
+    "galleryRows": [
+      {
+        "id": "8847a358-a9d2-4620-8879-cc3e3b16c371",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396118475_1.jpg",
+        "order_index": 0
+      }
+    ],
+    "complete": false,
+    "missing": [
+      "galeria_min_3"
+    ]
+  },
+  "promotion": null,
+  "status": "media_incomplete"
+}

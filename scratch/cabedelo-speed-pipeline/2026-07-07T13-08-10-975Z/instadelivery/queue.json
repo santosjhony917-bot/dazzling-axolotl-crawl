@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-07-07T13:08:12.375Z",
+  "source": "cabedelo-speed-pipeline",
+  "queue": [
+    {
+      "restaurant_id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "platform": "instadelivery",
+      "tier": "green",
+      "priority_score": 40,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "raw_source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "other_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Delivery de Pizza",
+      "address": "Rua Monte Castelo 12b",
+      "neighborhood": "Monte Castelo",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98653-8522",
+      "rating": 3,
+      "reviews_count": 2,
+      "menu_status": "manual_required",
+      "menu_status_reason": "QA estrutural bloqueou: numero_embutido_no_logradouro, numero_vazio, cep_ausente_ou_invalido, sem_capa, galeria_menor_que_3",
+      "menu_last_checked_at": "2026-07-07T11:34:48.513+00:00",
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://instadelivery.com.br/FornoBrasilExpress",
+          "canonical_url": "https://instadelivery.com.br/FornoBrasilExpress",
+          "platform": "instadelivery",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 13
+    }
+  ]
+}

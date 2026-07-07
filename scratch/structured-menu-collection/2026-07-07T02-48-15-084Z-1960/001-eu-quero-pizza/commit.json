@@ -1,0 +1,29 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "message": "16 itens estruturados via anota_ai_network; 0 requerem revisão de preço.",
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 3,
+      "itemCount": 16,
+      "resolvedPriceCount": 16,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 2,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": true,
+        "groups": 10,
+        "model": "gpt-4o-mini",
+        "deltaFixes": 82
+      }
+    },
+    "fallbackUsed": false
+  },
+  "stdoutTail": "[Menu V2] IA classificou semântica de opções: 10 grupos via gpt-4o-mini.\n[Menu V2] Normalizou 82 precos absolutos de sabores como delta sobre a base.\n[Menu V2] Auditoria estrutural: {\"approved\":true,\"confidence\":0.98,\"categoryCount\":3,\"itemCount\":16,\"resolvedPriceCount\":16,\"unresolvedPriceCount\":0,\"fullPriceDeltaAnomalyCount\":0,\"fullPriceDeltaAnomalies\":[],\"optionPriceCount\":2,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":true,\"groups\":10,\"model\":\"gpt-4o-mini\",\"deltaFixes\":82}}\nRESULT:{\"success\":true,\"message\":\"16 itens estruturados via anota_ai_network; 0 requerem revisão de preço.\",\"audit\":{\"approved\":true,\"confidence\":0.98,\"categoryCount\":3,\"itemCount\":16,\"resolvedPriceCount\":16,\"unresolvedPriceCount\":0,\"fullPriceDeltaAnomalyCount\":0,\"fullPriceDeltaAnomalies\":[],\"optionPriceCount\":2,\"pricedRatio\":1,\"issues\":[],\"optionSemanticAI\":{\"used\":true,\"groups\":10,\"model\":\"gpt-4o-mini\",\"deltaFixes\":82}},\"fallbackUsed\":false}\n",
+  "stderrTail": ""
+}

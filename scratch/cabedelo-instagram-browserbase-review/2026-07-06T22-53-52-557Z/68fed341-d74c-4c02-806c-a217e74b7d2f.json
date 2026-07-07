@@ -1,0 +1,54 @@
+{
+  "id": "68fed341-d74c-4c02-806c-a217e74b7d2f",
+  "name": "Fatia do Céu",
+  "category": "Cafeteria",
+  "neighborhood": "Recanto do Poço",
+  "reviews_count": null,
+  "rating": null,
+  "instagramCandidate": "https://instagram.com/fatiadoceu_",
+  "score": 120,
+  "title": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ",
+  "queries": [
+    "Fatia do Céu fatia_ceu Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU ☁️ | Doceria e Sorveteria ✨ desde 2023. Descubra o céu em cada mordida. Feito com amor e açúcar, porque a vida é mais doce conosco. https://www.instagram.com/fatiadoceu_/",
+  "rowName": "Fatia do Céu",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": -136,
+    "url": "https://instagram.com/fatiadoceu_",
+    "handle": "fatiadoceu_",
+    "tokens": [
+      "fatia",
+      "ceu"
+    ],
+    "handleMatches": [
+      "fatia",
+      "ceu"
+    ],
+    "textMatches": [
+      "fatia",
+      "ceu"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [
+      "sao goncalo",
+      "são gonçalo"
+    ],
+    "outOfScope": true,
+    "evidenceSample": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU ☁️ | Doceria e Sorveteria ✨ desde 2023. Descubra o céu em cada mordida. Feito com amor e açúcar, porque a vida é mais doce conosco. https://www.instagram.com/fatiadoceu_/ Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png https://instagram.com/ 124024574287414 Create an account or log in to Instagram - Share what you're into with the people who get you. Instagram dark Forgot password? ",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Ffatiadoceu_%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "685fad2e-ec67-47d0-9b29-d9766ac60461"
+}

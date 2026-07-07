@@ -1,0 +1,84 @@
+{
+  "id": "a43626c7-89fe-497c-940e-ffeabc8475fb",
+  "name": "Bar e Restaurante do Sumé",
+  "instagram": "https://www.instagram.com/bardosumepb/",
+  "followers": 5857,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "507b01f5-3644-45ae-ba2f-6cd869848ef2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a43626c7-89fe-497c-940e-ffeabc8475fb/instagram_1783384479106_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "840abd44-6a06-4643-8942-76e7b4b323c8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a43626c7-89fe-497c-940e-ffeabc8475fb/instagram_1783384480832_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "748ee459-0446-44b2-8068-cdc5141cee86",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a43626c7-89fe-497c-940e-ffeabc8475fb/instagram_1783384482754_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "e57e9e8d-095a-4c58-9073-287dea802570",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a43626c7-89fe-497c-940e-ffeabc8475fb/instagram_1783384483931_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "398cb487-70fd-43ab-bd57-054a50acf328",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a43626c7-89fe-497c-940e-ffeabc8475fb/instagram_1783384485121_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "3373213f-3d5b-4e59-95ae-87cb083de9ac",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a43626c7-89fe-497c-940e-ffeabc8475fb/instagram_1783384485897_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "b169fd73-0cdd-489b-9105-182442238165",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a43626c7-89fe-497c-940e-ffeabc8475fb/instagram_1783384486793_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "e1e7f4f3-b013-4711-a485-cc5d55317b65",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a43626c7-89fe-497c-940e-ffeabc8475fb/instagram_1783384487538_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

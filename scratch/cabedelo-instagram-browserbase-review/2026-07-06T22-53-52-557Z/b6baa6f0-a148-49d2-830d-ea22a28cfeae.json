@@ -1,0 +1,50 @@
+{
+  "id": "b6baa6f0-a148-49d2-830d-ea22a28cfeae",
+  "name": "Magela Pizzaria",
+  "category": "Pizzaria",
+  "neighborhood": "Intermares",
+  "reviews_count": 2,
+  "rating": 5,
+  "instagramCandidate": "https://instagram.com/magelapizzaria",
+  "score": 80,
+  "title": "encerramos as atividades (@magelapizzaria)",
+  "queries": [
+    "Magela Pizzaria magelapizzaria Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/magelapizzaria | encerramos as atividades (@magelapizzaria) Pizza artesanal feita na hora! Trailer em Intermares Delivery | Ter–Dom • 18h–22h30 Peça agora!! · Do forno direto pra sua fome Magela Pizzaria te ... https://www.instagram.com/magelapizzaria/ | encerramos as atividades (@magelapizzaria) Pizza artesanal feita na hora! Trailer em Intermares Delivery | Ter–Dom • 18h–22h30 Peça agora!! · Do forno direto pra sua fome Magela Pizzaria te ... https://instagram.com/magelapizzaria | PIZZAS ESTUPIDAMENTE RECHEADAS POR APENAS R ... Pedi na @magelapizzaria , que faz uma pizza deliciosa em JP! São deliciosas opções à la carte! Pequena: R$29,90 | Média: R$49,90 | Grande ... https://instagram.com/magelapizzaria | @forno39pizza 🍕🔥 Recém inaugurada em Maceió 😮‍💨✨ ... Pedi na @magelapizzaria , que faz uma pizza deliciosa em JP! ... Hoje a pedida é a Pizzaria Magela — sabor que conquista desde a primeira mordida! https://instagram.com/magelapizzaria",
+  "rowName": "Magela Pizzaria",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": -78,
+    "url": "https://instagram.com/magelapizzaria",
+    "handle": "magelapizzaria",
+    "tokens": [
+      "magela"
+    ],
+    "handleMatches": [
+      "magela"
+    ],
+    "textMatches": [
+      "magela"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [
+      "maceio"
+    ],
+    "outOfScope": false,
+    "evidenceSample": "encerramos as atividades (@magelapizzaria) https://instagram.com/magelapizzaria | encerramos as atividades (@magelapizzaria) Pizza artesanal feita na hora! Trailer em Intermares Delivery | Ter–Dom • 18h–22h30 Peça agora!! · Do forno direto pra sua fome Magela Pizzaria te ... https://www.instagram.com/magelapizzaria/ | encerramos as atividades (@magelapizzaria) Pizza artesanal feita na hora! Trailer em Intermares Delivery | Ter–Dom • 18h–22h30 Peça agora!! · Do forno direto pra sua fome Magela Pizzaria te ... https://instagram.com/magelapizzaria | PIZZAS ESTUPIDAMENTE RECHEADAS POR APENAS R ... Pedi na @magelapizzaria , que faz uma pizza deliciosa em JP! São deliciosas opções à la carte! Pequena: R$29,90 | Média: R$49,90 | Grande ... https://instagram.com/magelapizzaria | @forno39pizza 🍕🔥 Recém inaugurada em Maceió 😮‍💨✨ ... Pedi na @magelapizzaria , que faz uma pizza deliciosa em JP! ... Hoje a pedida é a Pizzaria Magela — sabor que conquista desde a primeira mordida! https://instagram.com/magelapizzaria Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fmagelapizzaria%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "597538a5-3457-4de0-8649-17b1d8778564"
+}

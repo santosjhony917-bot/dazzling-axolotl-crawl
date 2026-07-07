@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-06T15:28:43.384Z",
+  "queueFile": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-06T13-08-08-820Z\\queue.json",
+  "sourceQueueGeneratedAt": "2026-07-06T13:08:08.820Z",
+  "summary": {
+    "runId": "2026-07-06T15-28-43-351Z",
+    "queueCount": 186,
+    "lanes": 1,
+    "assignedCount": 5,
+    "activeLeaseCount": 5,
+    "dryRun": false,
+    "ttlHours": 18,
+    "limitPerLane": 5,
+    "globalPlatforms": [
+      "anota_ai",
+      "cardapioweb"
+    ],
+    "globalTiers": [
+      "green",
+      "yellow"
+    ],
+    "byLane": {
+      "test-lane": {
+        "port": "9331",
+        "platforms": [
+          "anota_ai",
+          "cardapioweb"
+        ],
+        "count": 5,
+        "items": [
+          {
+            "id": "a7e0b267-8b70-4488-b548-dcee41bce76f",
+            "name": "Bar da Queda",
+            "platform": "anota_ai",
+            "tier": "green",
+            "reviews_count": 790
+          },
+          {
+            "id": "624a1b1d-80ea-4c9c-a5ed-a1cb81702e16",
+            "name": "Bebelu Sanduíches Centro",
+            "platform": "anota_ai",
+            "tier": "green",
+            "reviews_count": 359
+          },
+          {
+            "id": "d0c129b8-27e9-4f49-9085-c17f06b5c307",
+            "name": "Gigantão Lanches",
+            "platform": "anota_ai",
+            "tier": "green",
+            "reviews_count": 239
+          },
+          {
+            "id": "919558fb-f07f-44e4-86ab-19cd34f76364",
+            "name": "La Casa da Pizza",
+            "platform": "anota_ai",
+            "tier": "green",
+            "reviews_count": 83
+          },
+          {
+            "id": "c98bf942-43f3-4c5c-9bf3-57f4567e53f1",
+            "name": "Bebelu Sanduíches - Dinamérica / Campina Grande-PB",
+            "platform": "anota_ai",
+            "tier": "green",
+            "reviews_count": 68
+          }
+        ]
+      }
+    }
+  },
+  "laneOutputs": [
+    {
+      "laneId": "test-lane",
+      "port": "9331",
+      "platforms": [
+        "anota_ai",
+        "cardapioweb"
+      ],
+      "count": 5,
+      "laneDir": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-28-43-351Z\\test-lane",
+      "idsPath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-28-43-351Z\\test-lane\\ids.txt",
+      "queuePath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-28-43-351Z\\test-lane\\queue.json",
+      "csvPath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-28-43-351Z\\test-lane\\queue.csv",
+      "promptPath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-28-43-351Z\\test-lane\\prompt.md",
+      "commandsPath": "scratch\\menu-orchestrator\\runs\\2026-07-06T15-28-43-351Z\\test-lane\\commands.ps1"
+    }
+  ]
+}

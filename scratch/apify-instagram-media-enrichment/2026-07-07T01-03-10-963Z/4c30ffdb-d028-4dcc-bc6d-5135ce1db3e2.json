@@ -1,0 +1,90 @@
+{
+  "id": "4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2",
+  "name": "Skama Bar e Restaurante",
+  "instagram": "https://www.instagram.com/skamabar_restaurante/",
+  "followers": 1069,
+  "match": {
+    "score": 140,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "http://www.skamabarerestaurante.com.br/"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "2702255c-e285-43c8-83dd-cfd1fe5f2422",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2/instagram_1783384648784_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "ffa8034b-aa37-4e1d-8d67-a38268ab8f6c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2/instagram_1783384650776_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "8dceba2d-e611-44ba-8683-417e002274ec",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2/instagram_1783384651365_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "f719852e-cb73-4c9d-8586-4554826ad805",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2/instagram_1783384651933_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "ef308074-0abd-430f-bbbb-70c4df547c28",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2/instagram_1783384652648_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "091aa258-d467-4f9c-97dc-d81ee600ec01",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2/instagram_1783384653340_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "20e15dcd-4d26-4cc6-b9aa-69b05c900f80",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2/instagram_1783384654096_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "8568dbec-f5e3-4571-abe9-c2f9986c3604",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2/instagram_1783384654584_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

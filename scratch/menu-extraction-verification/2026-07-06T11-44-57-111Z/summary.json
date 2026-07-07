@@ -1,0 +1,144 @@
+{
+  "runId": "2026-07-06T11-44-57-111Z",
+  "apply": false,
+  "limit": 1,
+  "platform": null,
+  "targetCount": 1,
+  "processed": [
+    {
+      "restaurantId": "9af73997-5cdb-4586-8533-3f50d530beea",
+      "restaurantName": "Lupe Pizzas",
+      "sourceUrl": "https://accon.ai/lupepizzas",
+      "platform": "accon.ai",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-44-57-111Z\\001-lupe-pizzas",
+      "openedTabId": 943017195,
+      "profileSnapshot": null,
+      "preCaptureActions": [
+        {
+          "type": "click_text",
+          "text": "Retirar na loja",
+          "success": true,
+          "result": {
+            "tabId": 943017195,
+            "clickedText": "Retirar na loja\nAgendar",
+            "matched": "retirar na loja agendar",
+            "success": true,
+            "tag": "A"
+          },
+          "error": null
+        }
+      ],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 4,
+          "scrollHeight": 2219,
+          "capturedHeight": 2219,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 2774,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943017195,
+          "url": "https://accon.ai/lupepizzas/takeout",
+          "title": "Cardápio Digital - Lupe Pizzas"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783338312719_4808v1yl.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783338312719_4808v1yl.jpg",
+          "bytes": 351429
+        }
+      },
+      "verificationSnapshots": [],
+      "verificationSnapshotError": "Timeout aguardando extensao para snapshot",
+      "extractionSummary": {
+        "success": false,
+        "platform": "visible_text",
+        "error": "Cardápio visível insuficiente; requer fallback por IA/visual.",
+        "confidence": 0.45,
+        "extractionLevel": 1,
+        "categoryCount": 1,
+        "itemCount": 1,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": [
+          {
+            "name": "Cardápio",
+            "count": 1,
+            "items": [
+              {
+                "name": "LUPE PIZZAS LTDA - 30.27",
+                "price": 8.72,
+                "optionCount": 0
+              }
+            ]
+          }
+        ]
+      },
+      "dryRun": {
+        "success": true,
+        "dryRun": true,
+        "audit": {
+          "approved": false,
+          "confidence": 0.45,
+          "categoryCount": 1,
+          "itemCount": 1,
+          "resolvedPriceCount": 1,
+          "unresolvedPriceCount": 0,
+          "optionPriceCount": 0,
+          "pricedRatio": 1,
+          "issues": [
+            "baixa_densidade_cardapio"
+          ],
+          "optionSemanticAI": {
+            "used": false,
+            "reason": "no_groups"
+          }
+        },
+        "preview": [
+          {
+            "name": "Pizzas",
+            "count": 1,
+            "samples": [
+              {
+                "name": "LUPE PIZZAS LTDA - 30.27",
+                "price": 8.72,
+                "kind": "simple_item",
+                "description": "3/0001-18"
+              }
+            ]
+          }
+        ],
+        "categories": [
+          {
+            "name": "Pizzas",
+            "items": [
+              {
+                "name": "LUPE PIZZAS LTDA - 30.27",
+                "description": "3/0001-18",
+                "price": 8.72,
+                "display_price": 8.72,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          }
+        ],
+        "message": "Prévia estruturada com 1 itens via visible_text."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T11-44-57-111Z\\001-lupe-pizzas\\menu-evidence.json"
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "id": "49423823-d994-4263-9597-cb829e208129",
+  "name": "Home Smash Burger",
+  "instagram": "https://www.instagram.com/homesmashburguer/",
+  "followers": 8859,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/49423823-d994-4263-9597-cb829e208129/instagram_profile_1783385137547.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385142168_1.jpg",
+      "score": 32,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385143705_2.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385144590_3.jpg",
+      "score": 27,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385145490_4.jpg",
+      "score": 25,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385146255_5.jpg",
+      "score": 23,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385147452_6.jpg",
+      "score": 22,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385148190_7.jpg",
+      "score": 21,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385149069_8.jpg",
+      "score": 19,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "287d77f7-2ec1-433c-be07-391f5a0d687d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385142168_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "a1f6de5c-a7c9-4b83-98c2-b3465c697f1d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385143705_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "df201733-b849-4cbf-87a2-1a52a04eac4e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385144590_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "11a6e974-9a5e-4e97-97bd-7fa6625ab90c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385145490_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "5fd04c66-38ce-492f-bb45-c238c93dbf70",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385146255_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "34ce1779-17b8-4532-ab32-8fa757fa12d7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385147452_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "448bfaa0-572d-4af4-835b-c70e1ad784b1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385148190_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "95988be4-d2a8-4e0a-804a-9e023d922ce6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/49423823-d994-4263-9597-cb829e208129/instagram_1783385149069_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 32,
+      "caption": "Nós da Home Smash, usamos sempre o que há de melhor em carne bovina. Todo o preparo e conservação das carnes, segue um rigoroso padrão de qualidade e higiene. Garantindo assim, um ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "DIQUE LINE🍍🌊 Doce, salgado, crocante e viciante🔥 O Dique Line é a prova que o agridoce é um combo perfeito !!! #diqueline #hmarburguer #hamburg",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "Oiii, tudo bom? Passando com essa delícia na sua telinha para te lembrar que estamos funcionando até as 23:15, te aguardamos no delivery ou retirada!🍔❤️ click feito por nossa clie",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 25,
+      "caption": "Quando nós falamos em QUALIDADE, estamos falando disso aqui.☝🏻🤩 Aqui mostramos a REALIDADE e não vídeos e fotos copiados.🤪 Nós da @homesmashburguer sempre priorizamos a melhor e",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "Nossa novidade COSTELINHA😮‍💨 Exclusividade da casa, brota na Home!🤤😍 #deliveryemcabedelo #hamburgueriaartesanal #deliverycabedelo #delivery",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "SABADOUU!!! E para os amantes de Cream Chesse, aqui na Home temos a combinação PERFEITA!🤩 🍔🤤💥 #hamburger #hamburguerartesanal",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 21,
+      "caption": "Sabadou com muito sabor na HOME🍔🔥 Ja estamos funcionando, presencial e delivery, até as 23:15, faz teu pedido!!!!!🤤",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 19,
+      "caption": "Novidade na Home, SMASH CHICKEN🍔🍗🔥 Uma combinação absurda de sabor que chegou pra conquistar de vez!!🥵 Smash suculento 90g, queijo mussarela, frango desfiado temperado, cream c",
+      "vision": null
+    }
+  ]
+}

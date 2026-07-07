@@ -1,0 +1,187 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+green,7,cardapioweb,American Pizza,https://app.cardapioweb.com/american_pizza_,,fast_visual_review_then_import,a81c3a0c-9b26-4a55-bc13-dc8406cbe384
+green,7,cardapioweb,Bar da Curva - Sandro's Bar,https://app.cardapioweb.com/sandros_bar?s=cb,,fast_visual_review_then_import,395c5d1a-99f7-40e3-82f3-af6e22406e75
+green,7,cardapioweb,Bom Sabor Pizzaria,https://app.cardapioweb.com/pizzaria_bomsabor?s=insta,,fast_visual_review_then_import,a270e4fe-e0a7-4c8e-8213-8766bbb053c6
+green,7,cardapioweb,Chinatown Campina Grande,https://app.cardapioweb.com/_chinatown,,fast_visual_review_then_import,8911ead0-193d-403a-8728-d857bc9e0df5
+green,7,cardapioweb,Dan Pizza,https://app.cardapioweb.com/dan_pizza?s=cb,,fast_visual_review_then_import,2fa16117-987d-414e-bb67-9e73fc568007
+green,7,cardapioweb,DinDin Alegria,https://app.cardapioweb.com/dindin_alegria,,fast_visual_review_then_import,7a564e31-faab-4bf2-9c1a-791be4da2968
+green,7,cardapioweb,Doha Esfiharia - CG,https://app.cardapioweb.com/doha_esfiharia,,fast_visual_review_then_import,d716d71f-e1c9-41da-a7de-bb32b7bc5854
+green,7,cardapioweb,Dom Brie Pizzaria,https://app.cardapioweb.com/dom_brie,,fast_visual_review_then_import,a00d132c-437d-414f-8297-08b106fec9f8
+green,7,cardapioweb,Don Lisita,https://app.cardapioweb.com/don_lisita,,fast_visual_review_then_import,86800c1f-985b-413a-b0b4-a9272d46ea77
+green,7,cardapioweb,FG Restaurante,https://app.cardapioweb.com/fg_restaurante?s=cb,,fast_visual_review_then_import,d5fa8d11-c3bd-448a-880a-595ee6bfbdcd
+green,7,cardapioweb,Flex Burger,https://app.cardapioweb.com/flex_burguer,,fast_visual_review_then_import,96cc6118-2391-436a-819d-0489f904c3a3
+green,7,cardapioweb,Gullas Açai cg,https://app.cardapioweb.com/gullas_acai,,fast_visual_review_then_import,8ead78d8-948d-4ddb-97d4-8094272c3028
+green,7,cardapioweb,Ingrid Lanches,https://app.cardapioweb.com/ingrid_lanches?s=cb,,fast_visual_review_then_import,33ac9b4c-1a97-45e8-9392-6dfb8bee9184
+green,7,cardapioweb,JBR Açaí,https://app.cardapioweb.com/jbr_acai,,fast_visual_review_then_import,60c0c73c-1a0f-4123-8122-a09cf623c51f
+green,7,cardapioweb,Kilomarmita,https://app.cardapioweb.com/kilomarmita,,fast_visual_review_then_import,d53ffbac-d8cb-4a8b-bc58-43c3a6f76841
+green,7,cardapioweb,lenha steak,https://app.cardapioweb.com/lenha_steak,,fast_visual_review_then_import,9289d682-9aee-4573-be1b-8a4fedec8b14
+green,7,cardapioweb,Mega Lanche - UND 02,https://app.cardapioweb.com/mega_lanche_delivery_unidade_1,,fast_visual_review_then_import,0f37ebd7-3f00-4394-9d3f-bb2099bef1ae
+green,7,cardapioweb,Mestre Burger,https://app.cardapioweb.com/mestre_burger,,fast_visual_review_then_import,d8d17641-31ee-4b8f-831b-09bcfd507d5a
+green,7,cardapioweb,Na'vi Rooftop,https://app.cardapioweb.com/navi_rooftop,,fast_visual_review_then_import,52e4f7dc-a4b3-4c03-b71b-ad4737294ff5
+green,7,cardapioweb,Pastel da Galega,https://app.cardapioweb.com/pasteldagalega,,fast_visual_review_then_import,4a4b47e4-4a99-46ae-ad9e-ffb8d3411b86
+green,7,cardapioweb,Restaurante Daikôn,https://app.cardapioweb.com/daikon_delivery?s=pub,,fast_visual_review_then_import,528002c2-69ff-4e98-9646-8ed10b97ea69
+green,7,cardapioweb,Restaurante Itararé Campina Grande,https://app.cardapioweb.com/itarare_restaurante,,fast_visual_review_then_import,19405c6d-3344-4e65-93de-8338c908335f
+green,7,cardapioweb,Santhiago coxinhas gourmet,https://app.cardapioweb.com/santhiago_coxinhas,,fast_visual_review_then_import,5f736ed2-ba89-4d77-9a13-005bca09ee47
+green,7,cardapioweb,Seu Bibi Pastelaria,https://app.cardapioweb.com/seubibi_pastelaria,,fast_visual_review_then_import,838f1dd1-a1a6-4969-ae6f-e3af43e66f96
+green,7,cardapioweb,Sítio do Milho,https://app.cardapioweb.com/sitio_do_milho,,fast_visual_review_then_import,3f146632-b53f-4bb5-8e76-1b5346edc923
+green,7,cardapioweb,Só burritos cg,https://app.cardapioweb.com/so_burritos?s=cb,,fast_visual_review_then_import,8c70dd03-b9ef-4b9e-8208-082eb662d413
+green,7,cardapioweb,Sorvemix Liberdade,https://app.cardapioweb.com/sorvemix_liberdade,,fast_visual_review_then_import,3fa865fb-9e06-4a48-bd3c-2a52035b5703
+green,7,cardapioweb,Sweet Gelatus,https://app.cardapioweb.com/sweet_gelatus,,fast_visual_review_then_import,c194276a-dda6-4d26-b629-871f28bbd1bd
+green,7,cardapioweb,Uai Pizza,https://app.cardapioweb.com/uai_pizza?s=insta,,fast_visual_review_then_import,95a286ad-62ac-46b1-a946-0399167b3801
+green,7,cardapioweb,We Go Pizza,https://app.cardapioweb.com/wegopizza,,fast_visual_review_then_import,d17b37a1-5328-46e3-ac3e-31cce290f252
+green,8,cardapioweb,Capitão salgados,https://app.cardapioweb.com/capitao_salgados,,fast_visual_review_then_import,62f432e9-4c8e-4cf3-bfba-0679da508ff0
+green,8,cardapioweb,Dona Chica • Restaurante e Cafeteria,https://app.cardapioweb.com/donachicarestauranteecafeteria,,fast_visual_review_then_import,bd288ecd-1eb8-44ea-8920-21de8b235792
+green,8,cardapioweb,Giba Burguer,https://app.cardapioweb.com/giba_burguer,,fast_visual_review_then_import,f38d8018-e746-4e4d-8dc1-d4c953032dcc
+green,8,cardapioweb,Jaba pizzas e massas,https://app.cardapioweb.com/jabapizzas_e_massas?s=cb,,fast_visual_review_then_import,37a86011-a5d5-4b64-a95b-4b9047eeec9c
+green,8,cardapioweb,Restaurante Bom Sabor,https://app.cardapioweb.com/pizzaria_bomsabor?s=insta,,fast_visual_review_then_import,2bedb529-8d56-45e2-b0a1-98ea200ad27c
+green,8,cardapioweb,Seu Espeto Bar e Pesticaria,https://app.cardapioweb.com/seuespeto_,,fast_visual_review_then_import,cb172090-7a99-49be-a5da-5ea4ef1f5a4c
+green,17,anota_ai,Alexandre Restaurante,https://pedido.anota.ai/loja/alexandre-restaurante?f=msa,,fast_visual_review_then_import,eea035c3-ab24-4d02-998a-88854e5450f7
+green,17,anota_ai,Bar da Queda,https://anota.ai/bar-da-queda-1,,fast_visual_review_then_import,a7e0b267-8b70-4488-b548-dcee41bce76f
+green,17,anota_ai,Bebelu Sanduíches - Dinamérica / Campina Grande-PB,https://app.anota.ai/Bebelucg,,fast_visual_review_then_import,c98bf942-43f3-4c5c-9bf3-57f4567e53f1
+green,17,anota_ai,Bebelu Sanduíches Partage Shopping Campina Grande/PB,https://app.anota.ai/Bebelucg,,fast_visual_review_then_import,dfbe0e07-bd3f-4e8f-9ff1-ec412619330e
+green,17,anota_ai,Bompescado Sushi Home,https://pedido.anota.ai/loja/bompescado-sushi-home-1?f=msa,,fast_visual_review_then_import,fae32436-66fd-42bd-b346-cabdf1440c24
+green,17,anota_ai,Campina Pizza,https://pedido.anota.ai/loja/campina-pizza?f=msa,,fast_visual_review_then_import,df32d6b7-9e6e-438e-9b53-f8fff02908cd
+green,17,anota_ai,Campina SeaFood - A Casa do Caranguejo,https://pedido.anota.ai/loja/campina-seafood-1?f=msa,,fast_visual_review_then_import,6dd9120c-1d37-4b63-82ed-e56a836f00f6
+green,17,anota_ai,Dalijapa Campina Grande,https://pedido.anota.ai/loja/dalijapa-restaurante-ltda-1,,fast_visual_review_then_import,9e62de28-08df-4361-a632-31eae168d26b
+green,17,anota_ai,Delegas Restaurante,https://pedido.anota.ai/loja/delegas-restaurante,,fast_visual_review_then_import,587998d2-2b52-4823-8821-2faa90294d8e
+green,17,anota_ai,Fornalha Pizzaria CG,https://pedido.anota.ai/loja/fornalha-pizzaria-14?f=msa,,fast_visual_review_then_import,177eedb9-5801-4e9f-b353-30404f9c987a
+green,17,anota_ai,Gigantão Lanches,https://anota.ai/p/gigantao-lanches-e-restaurante,,fast_visual_review_then_import,d0c129b8-27e9-4f49-9085-c17f06b5c307
+green,17,anota_ai,Gulas Restaurante,https://pedido.anota.ai/loja/restaurante-gulas,,fast_visual_review_then_import,918ae01a-d7d3-4414-962e-585625c0c62a
+green,17,anota_ai,Henrique Lanches,https://pedido.anota.ai/loja/henrique-pizzas-e-lanches?f=msa,,fast_visual_review_then_import,454a71e4-f461-4d12-a9c3-7b8418d0f419
+green,17,anota_ai,Henrique Pizzas e Lanches,https://pedido.anota.ai/loja/henrique-pizzas-e-lanches?f=msa,,fast_visual_review_then_import,5d9dc8a1-f113-4dd7-94a2-88fdb4dd0454
+green,17,anota_ai,Joy Sushi House,https://pedido.anota.ai/loja/joy-sushi-house-1?f=msa,,fast_visual_review_then_import,d9567f23-f2c8-4911-9b62-980f06e57a3b
+green,17,anota_ai,Joy Sushi House,https://pedido.anota.ai/loja/joy-sushi-house-1?f=msa,,fast_visual_review_then_import,aee07ea0-0c82-4a90-85be-c09cb66ed0c6
+green,17,anota_ai,La Casa da Pizza,https://anota.ai/m/9yUn8x5kl,,fast_visual_review_then_import,919558fb-f07f-44e4-86ab-19cd34f76364
+green,17,anota_ai,La Paloma Restaurante,https://pedido.anota.ai/loja/la-paloma-restaurante,,fast_visual_review_then_import,19753013-293e-46f9-b3ca-04b2611ecee3
+green,17,anota_ai,Mais Sabor,https://pedido.anota.ai/loja/pizzaria-mais-sabor-campina-grande?f=msa,,fast_visual_review_then_import,287b90be-0d24-4add-ad22-125e56f35007
+green,17,anota_ai,Mais Sushi,https://pedido.anota.ai/loja/maissushicg?f=msa,,fast_visual_review_then_import,e16a7a26-2a1f-4621-9a70-e245c092981b
+green,17,anota_ai,Manu's Smash Burger,https://pedido.anota.ai/loja/manus-smash-burger?f=msa,,fast_visual_review_then_import,c2ccfba5-c332-4a00-9454-91cd5d2d30b8
+green,17,anota_ai,Necão Restaurante,https://pedido.anota.ai/loja/neco-restaurante,,fast_visual_review_then_import,b9232f4a-86ea-44a4-9a27-8471c5403d5d
+green,17,anota_ai,O Senhor dos Cafés Cafeteria e Restaurante,https://pedido.anota.ai/loja/o-senhor-dos-cafes-campina-grande?f=msa,,fast_visual_review_then_import,c0e015c8-194a-4bc7-b6b4-9a20487dbb68
+green,17,anota_ai,oxente tapiocaria,https://pedido.anota.ai/loja/oxente-tapiocaria-1?f=msa,,fast_visual_review_then_import,43f5d6eb-8984-403b-bf4c-225abc0649ce
+green,17,anota_ai,Pajé Burger,https://pedido.anota.ai/loja/hamburgueria-paje,,fast_visual_review_then_import,05284e1c-56ac-4be4-879c-129559c3f2b1
+green,17,anota_ai,Paraizo Cozinha,https://pedido.anota.ai/loja/paraizo-cozinha,,fast_visual_review_then_import,a46c3952-11c5-43ee-b189-86910059dfeb
+green,17,anota_ai,Pizzaria Mais Sabor - Campina Grande,https://pedido.anota.ai/loja/pizzaria-mais-sabor-campina-grande?f=msa,,fast_visual_review_then_import,1049c632-8c5f-4aa7-b36f-5075bec1e92f
+green,17,anota_ai,Q'Pirão Restaurante (Pirão de Macaxeira),https://pedido.anota.ai/loja/qpirao-restaurante?f=msa,,fast_visual_review_then_import,4a03380c-a361-4c07-b744-2f8073f0f396
+green,17,anota_ai,Restaurante China Kame,https://pedido.anota.ai/loja/china-kame?from=menu-share-adm&referer=https%3A%2F%2Fl.facebook.com%2F,,fast_visual_review_then_import,f32de17a-7391-4cc9-83eb-d3172df5409b
+green,17,anota_ai,SK Restaurante,https://pedido.anota.ai/loja/sk-restaurante?f=msa,,fast_visual_review_then_import,749ae810-4c16-40ed-b2dd-141bf090db80
+green,17,anota_ai,sorveteria maná,https://pedido.anota.ai/loja/sorveteria-mana?f=msa,,fast_visual_review_then_import,6e23d990-4f37-4963-ab45-e8be25505e4e
+green,17,anota_ai,Tapioca Dourada,https://pedido.anota.ai/loja/tapioca-dourada-shopping-partage-1?f=msa,,fast_visual_review_then_import,5c79d325-9fe6-41ff-acce-20823de01937
+green,17,anota_ai,Tchê Costelaria,https://pedido.anota.ai/loja/tche-costela-e-vinhos?f=msa,,fast_visual_review_then_import,07925905-2691-4f71-b3a2-dc8fa614a2f0
+green,17,anota_ai,Terraço da Liberdade (Panquecaria da Liberdade),https://pedido.anota.ai/loja/terrao-da-liberdade,,fast_visual_review_then_import,da7496f3-50f8-4bdb-8c9f-e146ea91eb91
+green,17,anota_ai,The House Food,https://pedido.anota.ai/loja/the-house-pizzaria-1?f=msa,,fast_visual_review_then_import,b180a38e-c067-482a-acbe-db0c177e01ef
+green,17,anota_ai,The Woods Restô Bar,https://pedido.anota.ai/loja/the-woods-rb?f=msa,,fast_visual_review_then_import,3a679d0f-256e-489d-aa62-d985f36a121b
+green,17,anota_ai,Ulin Lanches,https://pedido.anota.ai/loja/ulin-lanches?f=msa,,fast_visual_review_then_import,df756b30-aa88-44a9-8696-849af835b933
+green,17,anota_ai,Varanda Pizzaria,https://pedido.anota.ai/loja/varanda-pizzaria-cg?f=msa,,fast_visual_review_then_import,8cd09e66-60a7-4b90-ac63-97b3b21f2c3b
+green,17,anota_ai,Villa Pizza,https://pedido.anota.ai/loja/villa-pizza-delivery?f=msa,,fast_visual_review_then_import,dc94c164-d2d1-463f-8b60-8474d35ae1cc
+green,18,anota_ai,Bebelu Sanduíches Centro,https://app.anota.ai/Bebelucg,,fast_visual_review_then_import,624a1b1d-80ea-4c9c-a5ed-a1cb81702e16
+green,18,anota_ai,Laluca Doceria,https://pedido.anota.ai/loja/laluca-doceria?f=msa,,fast_visual_review_then_import,d7888d9e-574b-4bb0-a2c9-0e3a33c79b2b
+green,18,anota_ai,Ôxente coxinha,https://pedido.anota.ai/loja/oxente-coxinha?f=msa,,fast_visual_review_then_import,cf74a254-e6c6-4643-95d1-5a7c04c74c40
+green,27,instadelivery,Açaí de ouro Br,https://instadelivery.com.br/acaideourobr,,fast_visual_review_then_import,346e840a-9bb1-4239-993c-9149be6c3117
+green,27,instadelivery,Amigo Burger CG,https://instadelivery.com.br/amigoburgercg,,fast_visual_review_then_import,a16cac18-56d2-45a7-b008-2daa12e35a44
+green,27,instadelivery,BURGUER BRUTUS,https://instadelivery.com.br/burguerbrutus,,fast_visual_review_then_import,5e6bc05b-d9be-4907-82eb-49e256970fef
+green,27,instadelivery,Casa de Marmitex,https://instadelivery.com.br/marmitexdeliveryPB,,fast_visual_review_then_import,a8990615-c31f-4264-831b-ef5fda8a6274
+green,27,instadelivery,Flames Pizzaria Italiana,https://instadelivery.com.br/flamespizzariagastronomia,,fast_visual_review_then_import,5f9cb8ca-5f52-4d0c-8d8f-61042b33d8ce
+green,27,instadelivery,Flames Pizzaria Italiana,https://instadelivery.com.br/flamespizzariagastronomia,,fast_visual_review_then_import,e1a67051-bcfa-457f-9faf-1922c49019c0
+green,27,instadelivery,Gloria Nascimento Doces,https://instadelivery.com.br/glorianascimentodoces,,fast_visual_review_then_import,d176eb07-f728-4150-8ec7-bb9600afa96f
+green,27,instadelivery,La Francesa,https://instadelivery.com.br/pizzariaesfiharialafrancesa,,fast_visual_review_then_import,de753100-ea4a-4b56-bf2e-4c780015e8f6
+green,27,instadelivery,Okay sushi delivery cg,https://instadelivery.com.br/okaysushidelivery,,fast_visual_review_then_import,6866361f-dbf4-4244-9c05-c55e077d0439
+green,27,instadelivery,Puro sabor lanchonet,https://instadelivery.com.br/purosaborhamburgueria,,fast_visual_review_then_import,54c8a6e5-2bc6-4645-8530-51b0e6f7fd5b
+green,27,instadelivery,Sabor Gelado's,https://instadelivery.com.br/saborgelados,,fast_visual_review_then_import,f766567e-5825-49c1-852b-bf0fda1a0341
+green,27,instadelivery,Sushi like,https://instadelivery.com.br/sushilike,,fast_visual_review_then_import,82dfbc86-213f-40cb-98c3-a53becba6831
+green,27,instadelivery,Top Sushi Japanfood,https://instadelivery.com.br/topsushijapanfood,,fast_visual_review_then_import,53225174-8ebc-41d8-9cf6-463f14300e7d
+green,27,instadelivery,Vila’s burguer,https://instadelivery.com.br/vilasburguer,,fast_visual_review_then_import,1e79c945-219b-4bb4-92e1-a50f1195b8c6
+green,28,instadelivery,Pare aqui Pastelaria,https://instadelivery.com.br/pareaquipastelaria,,fast_visual_review_then_import,a51f068e-8df6-453f-944e-7d6f1c0b4884
+green,28,instadelivery,Tonkatsu sushi,https://instadelivery.com.br/tonkatsusushi,,fast_visual_review_then_import,cd2d856b-948f-473a-866c-993c6194b756
+green,32,brendi,HOME Dogueria Artesanal,https://pedido.brendi.com.br/home-dogueria-artesanal-tres-irmas,,fast_visual_review_then_import,40bac8f6-849c-483e-86d0-0bc9ee9163ab
+green,32,brendi,O Assadão Hamburgueria,https://pedido.brendi.com.br/o-assadao-hamburgueria/,,fast_visual_review_then_import,f9e04cf7-e4a2-4b8b-8cef-95ae468484d2
+green,32,brendi,Portuga lanches,https://pedido.brendi.com.br/portuga-lanches,,fast_visual_review_then_import,9873b489-9006-4b63-9eef-02399ebc9fa1
+green,32,brendi,Vamp Burguer,https://menu.brendi.com.br/vamp-burguer-liberdade/,,fast_visual_review_then_import,ab396c02-0a54-4480-bf3b-fddacc7401bf
+green,33,brendi,Gastrô da Débora,https://menu.brendi.com.br/gastro-da-debora,,fast_visual_review_then_import,f8e00a9a-5c34-4f9d-bdfa-a7920af75131
+green,37,goomer,Glacê Real Confeitaria,https://glace-real-encomendas.goomer.app/,,fast_visual_review_then_import,19ab266f-229c-4492-af45-0a94d956bc17
+green,38,goomer,Iná Confeitaria Vegana,https://ina-confeitaria-vegana.goomer.app/,,fast_visual_review_then_import,d2e8faf7-0bf5-4f7e-b18a-a832fb0c0a75
+green,42,saipos,AllanGrill,http://allangrill.saipos.com/,,fast_visual_review_then_import,43058685-2b9d-4667-a5cc-074beb23d260
+green,42,saipos,Cachorro Quente do Zé CG,https://cachorroquentedozecg.saipos.com/home,,fast_visual_review_then_import,2a0a758c-6e69-44bb-b555-8f04b4011b3f
+green,42,saipos,Domini Pizzas,https://dominipizzas.saipos.com/home,,fast_visual_review_then_import,186b7902-c9ee-486c-a2f8-87f30dfe1a34
+green,42,saipos,Espetinho da Liberdade,https://espetinhodaliberdade.saipos.com/home,,fast_visual_review_then_import,7623f92f-a6a0-45bb-a8c0-cee9531c1b11
+green,42,saipos,Espetinho da Liberdade,https://espetinhodaliberdade.saipos.com/home,,fast_visual_review_then_import,d4d12c20-422d-4cfb-8083-966fc95dcb53
+green,42,saipos,Imaginário Gastrobar,https://imaginario.saipos.com/home,,fast_visual_review_then_import,a9194b61-39f8-4230-9031-92d438103df3
+green,42,saipos,"Pariocas Bar e Restaurante – Almoço, Jantar, Petiscos, Sinuca e Karaokê em Campina Grande",https://pariocasbar.saipos.com/home,,fast_visual_review_then_import,63e25475-b2c2-4624-9a6d-0c9b39cdf930
+green,42,saipos,Toriba Grill Restaurante,http://toribagrill.saipos.com/,,fast_visual_review_then_import,62f84182-e795-4e9b-893a-bc2bea9409ce
+green,42,saipos,Yoi Expresso,https://yoiexpresso.saipos.com/home,,fast_visual_review_then_import,603961e5-9087-4991-9b98-e122443ed589
+green,47,olaclick,A Doceria,https://adoceriacg.ola.click/products,,fast_visual_review_then_import,1d7aae77-7ce0-4542-a2fa-13b2faefc7fa
+green,47,olaclick,Açai da Yasmin,https://acai-da-yasmin.ola.click/products,,fast_visual_review_then_import,3b9a1be3-8e16-455f-a295-99786cfb4fff
+green,47,olaclick,Casa do Macarrão,https://casa-do-macarrao-2.ola.click/products,,fast_visual_review_then_import,3f264362-db7e-4c00-aa63-581f80561f30
+green,47,olaclick,Costelaria Barba Branca,https://costelaria-barba-branca.ola.click/,,fast_visual_review_then_import,5c9a01c7-d5fb-4be4-ad1f-66ac323c384c
+green,47,olaclick,Espetinho da Sol,https://espetinho-da-sol.ola.click/products,,fast_visual_review_then_import,0d43fc32-0e02-4f7a-8b59-67cb4a4e6869
+green,47,olaclick,Espeto E Panela,https://espeto-e-panela.ola.click/products,,fast_visual_review_then_import,1597a59b-e778-40e8-87ca-ddb22107169d
+green,47,olaclick,Hot Burguer,https://hot-burguer-10.ola.click/,,fast_visual_review_then_import,52dfbab4-7041-41fc-af14-cfe80928463e
+green,47,olaclick,itachi temakeria,https://itachitemakeria.ola.click/,,fast_visual_review_then_import,184cf5e5-4f31-43f7-a46f-744bd78c1664
+green,47,olaclick,itachi temakeria,https://itachitemakeria.ola.click/,,fast_visual_review_then_import,03e6e0c8-d8df-4b80-8b22-86c4de18471b
+green,47,olaclick,Marmitaria da Sandra,https://marmitaria-da-sandra.ola.click/,,fast_visual_review_then_import,6c988159-745e-4578-81ea-33b762c46e38
+green,47,olaclick,Restaurante e Delivery - O Assadão Grill,https://o-assadao-grill-delivery.ola.click/products,,fast_visual_review_then_import,6b83f8a5-8518-4653-ae48-18fc7d3436dd
+green,57,deliverydireto,Mania Lanches,https://deliverymuch.com.br/inicio/lista-restaurantes/campina-grande-pb/mania-lanches-6e4mk,,fast_visual_review_then_import,a3a6b94f-2635-4908-b06d-424a5a76f6de
+green,57,deliverydireto,Picuí Sopas,https://www.deliverymuch.com.br/inicio/lista-lojas/campina-grande-pb/picui-sopas-n5gqx,,fast_visual_review_then_import,4c187e30-5b49-4de7-8a54-3d88fcc6e3cc
+green,57,deliverydireto,The Poke - Campina Grande,https://deliverydireto.com.br/virtual-menu/thepokefastfoodhavaiano/thepoke-campina/menu?dd=menu,,fast_visual_review_then_import,c3e0f402-0ae0-455b-bacf-d01a89b7738f
+green,62,menudino,Casa Gramado,https://casagramado.menudino.com/?rwg_token=AE37R_gcy3XNwihIrbxHtBbgFTzMpfh1yz41zIpIsaYRZqHx8u5umB80tKAwOeT9fNfGjDisLfkRJJ7lfoZjZEHdRHWu_7OAPIQ_sGB2QRv0nPQGx7viBgE%3D,,fast_visual_review_then_import,68770e3d-01e7-4d13-811b-412d3452ef20
+green,62,menudino,O Líder Lanches,https://oliderlanches.menudino.com/,,fast_visual_review_then_import,a42bb046-fe4d-4dd9-8cc1-0e871a5ed583
+green,62,menudino,Temppero,https://temppero.menudino.com/,,fast_visual_review_then_import,e4da25d1-4b30-4591-b6fe-92d62033c181
+green,63,menudino,Batata + Sabor,http://saborbatata.menudino.com/,,fast_visual_review_then_import,270401cf-ad75-412b-b51d-8a5bbbb04bca
+green,67,diggy,explosão do Sabor Açaí e lanches,https://diggy.menu/explosaodosabor,,fast_visual_review_then_import,a6f07143-eeb5-45fc-a1ab-a0a4262725d7
+green,67,diggy,Sakura,https://diggy.menu/sakura,,fast_visual_review_then_import,fc6676a6-e37a-43c2-b634-c707fc42e830
+green,67,diggy,Tacho de Ouro culinária oriental,https://diggy.menu/624043a47127656d51d4317e,,fast_visual_review_then_import,3d44262c-b470-46d4-8664-106397b6e364
+green,67,diggy,Yume.cg,https://diggy.menu/yumecg,,fast_visual_review_then_import,012a8706-e4cf-4060-837f-b7081c70621d
+green,72,meucarrinho,Dvino Restaurante,https://meucarrinho.delivery/dvinorestaurante,,fast_visual_review_then_import,b29609fb-49cf-411f-ba85-727fc81044c0
+green,72,meucarrinho,Restaurante Tanika,https://meucarrinho.delivery/restaurantetanika,,fast_visual_review_then_import,0b51039b-e7eb-40ba-a262-573ff1e55aec
+green,72,meucarrinho,Top pizza,https://meucarrinho.delivery/toppizzacampinagrande,,fast_visual_review_then_import,2c5f3b7b-1744-4cc9-97d4-baaedab8584c
+green,77,yooga,Divina sopa,https://delivery.yooga.app/divina-sopa,,fast_visual_review_then_import,9c793450-9978-4284-a413-de7a290f33bd
+green,77,yooga,Rose Restaurante,https://delivery.yooga.app/restaurante-da-rose-,,fast_visual_review_then_import,5b0bef57-eb3a-45ae-b84a-4845bb1bbb03
+green,82,pedir,Divina Culinária,http://pedir.to/divinaculinaria,,fast_visual_review_then_import,d73e7d90-dcd9-4659-834c-6d00dbc8e409
+green,82,pedir,Divina Culinária,http://pedir.to/divinaculinaria,,fast_visual_review_then_import,5b941194-b8e0-46e5-8286-4bcfa7a7a11b
+green,82,pedir,Restaurante Tábua de Carne,https://pedir.delivery/app/tabuadecarne-cg/menu,,fast_visual_review_then_import,286e622d-dee5-4b0c-9414-5a364c0f2b89
+green,82,pedir,Tempero D'Casa Self-service,https://pedir.delivery/app/temperodecasa/menu,,fast_visual_review_then_import,456e95ae-d09e-42f3-b16f-73f87cbde1a8
+yellow,107,cardapio_ai,Churras Grego,https://cardapio.ai/churras-grego,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,7d46ac1a-8be4-49b3-9aae-8e73a0f56de3
+yellow,107,cardapio_ai,Devory Empadas,https://cardapio.ai/devory-empadas,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,fe4dd04f-a7dc-4d45-a28e-171a597707fa
+yellow,107,cardapio_ai,HOMER LANCHES,https://cardapio.ai/homer-burguer,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,ea4e1c7e-22c8-47ec-a501-6920c00a830a
+yellow,107,cardapio_ai,Tapiocaria da lu,https://cardapio.ai/tapiocaria-da-lu,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,6331be79-b127-4998-b145-88ec4b232039
+yellow,108,cardapio_ai,Império Açaíteria,https://cardapio.ai/imprioaaiteria,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,d1765c1c-6c22-43d5-8a01-e4bcb3fabc53
+yellow,117,whatsmenu,Colher De Sopa Restaurante,https://www.whatsmenu.com.br/sopariacolherdesopa,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,1d083362-69ed-4542-ac9e-54616f56c3bf
+yellow,117,whatsmenu,Family Burguer,https://whatsmenu.com.br/familyburguer,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,9e7335f0-9462-42cc-a39e-b4b495d9077f
+yellow,117,whatsmenu,Lú Lanches,https://whatsmenu.com.br/lululanches,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,d185ded8-e32d-4d7a-9fd0-2d106e0ae0d7
+yellow,117,whatsmenu,Megabite - Hamburgueria & Açaíteria,http://whatsmenu.com.br/megabiteburguer,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,4ca1a875-ebea-48c6-9b1f-a73756671d21
+yellow,117,whatsmenu,Pirata Lanches,https://whatsmenu.com.br/piratalanches,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,a6e22bb7-12a9-4bbb-9bea-0151c11c569b
+yellow,117,whatsmenu,Vila Chica,https://whatsmenu.com.br/vilachica,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,fa803933-8a29-4357-bd5c-bd01ac663ac8
+yellow,118,whatsmenu,Big Dog Lanches,https://whatsmenu.com.br/bigdoglanche,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,9e287acb-b3b8-4811-bf78-188b306c0082
+yellow,127,cardapiodigital,Bar do Nil,https://cardapiodigital.io/200d969f-d043-4ed8-b86d-795fa250e5c6,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,e27ec5cf-05ef-43de-be08-c433ca7cb129
+yellow,127,cardapiodigital,Crispizzacg,https://cardapiodigital.io/aada2785-06a7-49c9-91c6-33856e7b7149,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,12bd2382-67d6-4343-9487-fec5ea8a6043
+yellow,127,cardapiodigital,Prata da Casa Restaurante,https://app.cardapiodigital.net/pratadacasa/,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,2ba8df8c-26b5-458f-9041-fc4c062b0713
+yellow,128,cardapiodigital,Crispizzacg,https://cardapiodigital.io/aada2785-06a7-49c9-91c6-33856e7b7149,needs_extra_visual_strategy,visual_review_with_platform_specific_checks,b7afe16d-0f2d-4b5f-87de-0e6b9fc07bac
+yellow,162,acainograucampinagrande.com.br,Açai no Grau Campina Grande,https://acainograucampinagrande.com.br/,unknown_platform,visual_review_with_platform_specific_checks,cb081d8e-26f5-4ec6-a793-c0863aba6306
+yellow,162,bodeinbox.mandarpedido.com,Bododromo Lá em Mãe - Restaurante e Bar Campina Grande,https://bodeinbox.mandarpedido.com/whatsapp,unknown_platform,visual_review_with_platform_specific_checks,da007ce7-a9f7-48d9-adca-e2a683e47d4a
+yellow,162,vucafood.com.br,CO.FFEE BISTRÔ E CAFETERIA,https://www.vucafood.com.br/coffee/1747/cardapio-digital,unknown_platform,visual_review_with_platform_specific_checks,a95db76d-30a1-4ccc-b3a4-6204cb9f08b3
+yellow,162,diihspizza.com.br,Diihs Pizza e Lanches,https://diihspizza.com.br/,unknown_platform,visual_review_with_platform_specific_checks,6d4b05e3-0eb7-4679-a317-bac4fd85047e
+yellow,162,divoraripizzas.com.br,Divorari Pizzas,http://www.divoraripizzas.com.br/,unknown_platform,visual_review_with_platform_specific_checks,3e51175b-67b5-473f-9775-13019ad57e90
+yellow,162,giraffas.com.br,Giraffas Partage Shopping Campina Grande,https://www.giraffas.com.br/delivery/app/,unknown_platform,visual_review_with_platform_specific_checks,5ac08765-12f8-4f99-a0ed-d6393f254c25
+yellow,162,kipastel.dvstore.com.br,Ki Pastel do Catolé ( Loja Matriz),https://kipastel.dvstore.com.br/menu,unknown_platform,visual_review_with_platform_specific_checks,1ec194c4-605f-4ab5-91b2-61c30b06c61b
+yellow,162,pizzarialamigliore.com.br,La Migliore - O melhor rodízio de Campina Grande,https://pizzarialamigliore.com.br/,unknown_platform,visual_review_with_platform_specific_checks,addab3f0-8199-4298-93b4-a715bd739bce
+yellow,162,lostraniero.com.br,Lo Straniero Pizzeria e ristoranti.,https://lostraniero.com.br/,unknown_platform,visual_review_with_platform_specific_checks,b2352198-92e4-49cf-97e4-c01ad5532b6e
+yellow,162,manimburg.com.br,Manim Burg,http://manimburg.com.br/,unknown_platform,visual_review_with_platform_specific_checks,0168f8a7-3a99-48b8-b624-b051c18a622a
+yellow,162,manimburg.com.br,Manim Burg - Campina Grande,http://manimburg.com.br/,unknown_platform,visual_review_with_platform_specific_checks,f448ac05-cb1d-4b4a-82f5-40535e75dc9c
+yellow,162,mikapizza.com.br,Mika Pizza - Campina Grande,https://mikapizza.com.br/,unknown_platform,visual_review_with_platform_specific_checks,384f0fbb-a46f-4454-8a97-39365069722f
+yellow,162,obrandaorestaurante.dvstore.com.br,O Brandão Restaurante,https://obrandaorestaurante.dvstore.com.br/menu,unknown_platform,visual_review_with_platform_specific_checks,d6038416-06ca-4c84-bf2f-d121de943f88
+yellow,162,hubt.com.br,Pastel do Cruzeiro,https://www.hubt.com.br/pasteldocruzeiro/,unknown_platform,visual_review_with_platform_specific_checks,a5461abd-1af9-46a9-b3cc-712141bd7dfb
+yellow,162,menu.beefood.com.br,PASTEL MIX,https://menu.beefood.com.br/pastelmix,unknown_platform,visual_review_with_platform_specific_checks,31dde02b-0997-40c4-82c4-918ce5bfdb2f
+yellow,162,catalogo.phicafesespeciais.com.br,Phi Cafés Especiais,https://catalogo.phicafesespeciais.com.br/,unknown_platform,visual_review_with_platform_specific_checks,8ac196a1-06ed-4fd0-998b-bb26a2b29257
+yellow,162,cozinhaplural.deliveryvip.app,Plural Cozinha Criativa,https://cozinhaplural.deliveryvip.app/menu,unknown_platform,visual_review_with_platform_specific_checks,30436c2e-b6f6-4e10-add1-a2c29d5bbe96
+yellow,162,rvacaiteria.vercel.app,RV Açaíteria - O melhor açaí de Campina Grande,https://rvacaiteria.vercel.app/,unknown_platform,visual_review_with_platform_specific_checks,48cf0b8e-a8e9-4a80-a075-5c02ff09723b
+yellow,162,cardapio.beefood.com.br,tundra • cozinha vegetal,https://cardapio.beefood.com.br/tundraveganpub,unknown_platform,visual_review_with_platform_specific_checks,74cbe5c8-105a-4d32-9cad-2abf2de708ba
+yellow,162,urbanpizza.com.br,Urban Pizza,http://www.urbanpizza.com.br/,unknown_platform,visual_review_with_platform_specific_checks,2af957e8-4d93-4574-86ca-024e879e8330
+yellow,162,shop.beetech.com.br,Valente Burger,https://shop.beetech.com.br/valenteburger/,unknown_platform,visual_review_with_platform_specific_checks,5311c594-98af-4115-a8d2-14bf844e7944
+yellow,163,alfaia.my.canva.site,Cachorro-quente da Vila,https://alfaia.my.canva.site/cachorro-quente-da-vila,unknown_platform,visual_review_with_platform_specific_checks,eec8a794-ab54-489f-8c95-288e79d50159
+yellow,163,delivery.sistemapallas.com.br,Francisco Gelato,https://delivery.sistemapallas.com.br/franciscogelato,unknown_platform,visual_review_with_platform_specific_checks,fc50d7bd-bfd0-42f6-9c34-d16d91b60413
+yellow,163,oxeacai.lovable.app,Ôxe Açaí,https://oxeacai.lovable.app/delivery,unknown_platform,visual_review_with_platform_specific_checks,3d9bad13-5ad4-4d16-9acf-0941e83bf2be
+yellow,163,go.sanpaologelato.com.br,San Paolo Gelato & Café - Campina Grande,https://go.sanpaologelato.com.br/sanpaolo,unknown_platform,visual_review_with_platform_specific_checks,6ca95e18-ece8-4600-a084-11510c6d0e4a
+yellow,177,doutorpizza.com.br,Doutor Pizza - Alto Branco,http://www.doutorpizza.com.br/,unknown_platform|multi_unit_selector,visual_review_with_platform_specific_checks,6f0a66b5-0bb0-4c4c-87ad-bfb38600d2ee
+yellow,177,doutorpizza.com.br,Doutor Pizza - Cruzeiro,http://www.doutorpizza.com.br/,unknown_platform|multi_unit_selector,visual_review_with_platform_specific_checks,ea56483f-1b12-4c3c-803a-ecd96ae0a9d5
+red,297,canva.com,Doppio Cafeteria,https://www.canva.com/design/DAGv9Wi-qgg/BQg_8v-n-3yBAVjYqAVkZw/view?utlId=hfceaecfa9d,unknown_platform|non_menu_or_unstable_source,reject_or_rediscover_source,7316be12-1a70-4cfa-87bb-1a77b5201dab
+red,297,canva.com,La Delícia Confeitaria,https://www.canva.com/design/DAGslo6A7HE/KoUpzMJA7fCYgsOQydXiVw/view?utlId=ha261a0675d,unknown_platform|non_menu_or_unstable_source,reject_or_rediscover_source,a1c535dd-332a-4706-a54a-e26e6417901b

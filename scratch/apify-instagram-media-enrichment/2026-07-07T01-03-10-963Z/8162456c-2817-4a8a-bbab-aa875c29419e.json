@@ -1,0 +1,89 @@
+{
+  "id": "8162456c-2817-4a8a-bbab-aa875c29419e",
+  "name": "Bar das Meninas Restaurante",
+  "instagram": "https://www.instagram.com/meninasbar/",
+  "followers": 5504,
+  "match": {
+    "score": 110,
+    "reasons": [
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/5583987155110"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "acbd0549-6ca2-4bcc-bbe3-b99aebf8c483",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8162456c-2817-4a8a-bbab-aa875c29419e/instagram_1783384338294_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "b9dc35c0-2286-4b40-b26f-7213cafab3f8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8162456c-2817-4a8a-bbab-aa875c29419e/instagram_1783384340903_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "b6ed91ba-9f08-49a6-8fc4-b5518b096531",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8162456c-2817-4a8a-bbab-aa875c29419e/instagram_1783384342604_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "7d94bb45-57a4-4f27-8203-138307c0dea9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8162456c-2817-4a8a-bbab-aa875c29419e/instagram_1783384343290_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "abe6dfda-5c66-42f2-a92e-4df61313715c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8162456c-2817-4a8a-bbab-aa875c29419e/instagram_1783384344253_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "c341143c-4431-4c20-a67a-de5c1b40a6a0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8162456c-2817-4a8a-bbab-aa875c29419e/instagram_1783384345192_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "fa9615df-5447-40c6-8eb1-9f8adb8c080b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8162456c-2817-4a8a-bbab-aa875c29419e/instagram_1783384345808_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "a6b08d20-10de-4665-8e2d-4dc7891da0ba",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8162456c-2817-4a8a-bbab-aa875c29419e/instagram_1783384346556_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

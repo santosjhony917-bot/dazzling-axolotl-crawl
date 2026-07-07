@@ -1,0 +1,39 @@
+{
+  "runId": "2026-07-07T03-46-09-951Z",
+  "outDir": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-46-09-951Z",
+  "apply": true,
+  "forceMedia": true,
+  "promote": false,
+  "processed": 1,
+  "mediaComplete": 0,
+  "mediaIncomplete": 1,
+  "failed": 0,
+  "promoted": 0,
+  "results": [
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "status": "media_incomplete",
+      "posts": 31,
+      "approved": 1,
+      "uploads": 2,
+      "after": {
+        "hasLogo": true,
+        "hasCover": true,
+        "galleryCount": 1,
+        "galleryRows": [
+          {
+            "id": "8847a358-a9d2-4620-8879-cc3e3b16c371",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8322d0f6-8e08-4de7-a73f-d71c57f0291d/instagram_original_1783396118475_1.jpg",
+            "order_index": 0
+          }
+        ],
+        "complete": false,
+        "missing": [
+          "galeria_min_3"
+        ]
+      },
+      "reason": null
+    }
+  ]
+}

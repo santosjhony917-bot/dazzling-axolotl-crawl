@@ -1,0 +1,14 @@
+{
+  "runId": "2026-07-06T21-01-45-237Z",
+  "outDir": "scratch\\serpapi-menu-discovery\\2026-07-06T21-01-45-237Z",
+  "complete": true,
+  "processed": 80,
+  "totalTargets": 80,
+  "offset": 0,
+  "updatedAt": "2026-07-06T21:02:26.845Z",
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-01-45-237Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-01-45-237Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T21-01-45-237Z\\candidates.csv"
+  }
+}

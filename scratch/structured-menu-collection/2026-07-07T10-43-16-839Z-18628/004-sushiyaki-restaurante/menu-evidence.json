@@ -1,0 +1,1561 @@
+{
+  "success": true,
+  "sourceUrl": "https://delivery.yooga.app/sushiyaki",
+  "finalUrl": "https://delivery.yooga.app/sushiyaki/tabs/home",
+  "platform": "yooga_native_api",
+  "extractionLevel": 0,
+  "confidence": 0.98,
+  "categories": [
+    {
+      "external_id": "685675",
+      "name": "Combos (Temaki)",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": "5658847",
+          "name": "2 Temaki de kani",
+          "description": "Se desejar frito, por favor colocar na observação.",
+          "image_url": "https://cdn-production.yooga.com.br/c9f27b3702e5886e07d403f5bdc51802.jpeg",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 5658847,
+            "idi": 53339,
+            "name": "2 Temaki de kani ",
+            "description": "Se desejar frito, por favor colocar na observação.",
+            "price": 25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/c9f27b3702e5886e07d403f5bdc51802.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "5658849",
+          "name": "2 Temaki frito de camarão empanado",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/cc56e9809e475478eb6fe550da48e67b.jpeg",
+          "price": 55,
+          "price_min": 55,
+          "price_max": 55,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 5658849,
+            "idi": 53339,
+            "name": "2 Temaki frito de camarão empanado ",
+            "description": null,
+            "price": 55,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/cc56e9809e475478eb6fe550da48e67b.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 55,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "5658850",
+          "name": "1 Temaki de camarão empanado frito + coca lata",
+          "description": "",
+          "image_url": null,
+          "price": 33,
+          "price_min": 33,
+          "price_max": 33,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 5658850,
+            "idi": 53339,
+            "name": "1 Temaki de camarão empanado frito + coca lata",
+            "description": null,
+            "price": 33,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 33,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "7639905",
+          "name": "1 Temaki de kani e 1 Temaki de camarão empanado",
+          "description": "se desejar frito, informar na observação por favor",
+          "image_url": null,
+          "price": 47,
+          "price_min": 47,
+          "price_max": 47,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 7639905,
+            "idi": 53339,
+            "name": "1 Temaki de kani e 1 Temaki de camarão empanado ",
+            "description": "se desejar frito, informar na observação por favor",
+            "price": 47,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 47,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "7657127",
+          "name": "2 Temaki pasta de salmão",
+          "description": "Se desejar frito, por favor colocar na observação.",
+          "image_url": "https://cdn-production.yooga.com.br/a932284703103f62fc06618d7649a006.jpeg",
+          "price": 65.9,
+          "price_min": 65.9,
+          "price_max": 65.9,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 7657127,
+            "idi": 53339,
+            "name": "2 Temaki pasta de salmão",
+            "description": "Se desejar frito, por favor colocar na observação.",
+            "price": 65.9,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/a932284703103f62fc06618d7649a006.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 65.9,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "7657128",
+          "name": "2 Temaki de atum",
+          "description": "Se desejar frito, por favor colocar na observação.",
+          "image_url": "https://cdn-production.yooga.com.br/a932284703103f62fc06618d7649a006.jpeg",
+          "price": 52,
+          "price_min": 52,
+          "price_max": 52,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 7657128,
+            "idi": 53339,
+            "name": "2 Temaki de atum",
+            "description": "Se desejar frito, por favor colocar na observação.",
+            "price": 52,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/a932284703103f62fc06618d7649a006.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 52,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "7657129",
+          "name": "1 Temaki de camarão empanado e 1 Temaki de pasta de salmão",
+          "description": "Se desejar frito, por favor colocar na observação.",
+          "image_url": null,
+          "price": 57,
+          "price_min": 57,
+          "price_max": 57,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 7657129,
+            "idi": 53339,
+            "name": "1 Temaki de camarão empanado e 1 Temaki de pasta de salmão",
+            "description": "Se desejar frito, por favor colocar na observação.",
+            "price": 57,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 57,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "209244",
+      "name": "Rolinho",
+      "order_index": 1,
+      "items": [
+        {
+          "external_id": "1529087",
+          "name": "Rolinho de chocolate ao leite",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/5333920221112171521bE0AHXmcr.jpeg",
+          "price": 8.5,
+          "price_min": 8.5,
+          "price_max": 8.5,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529087,
+            "idi": 53339,
+            "name": "Rolinho de chocolate ao leite",
+            "description": null,
+            "price": 8.5,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/5333920221112171521bE0AHXmcr.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 8.5,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "209242",
+      "name": "Temaki",
+      "order_index": 2,
+      "items": [
+        {
+          "external_id": "1529078",
+          "name": "Temaki de kani",
+          "description": "Se desejar frito, só colocar observação.",
+          "image_url": "https://cdn-production.yooga.com.br/5333920221112170524SA3yKeY8T.jpeg",
+          "price": 23,
+          "price_min": 23,
+          "price_max": 23,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529078,
+            "idi": 53339,
+            "name": "Temaki de kani ",
+            "description": "Se desejar frito, só colocar observação.",
+            "price": 23,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/5333920221112170524SA3yKeY8T.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 23,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1529079",
+          "name": "Temaki pasta de atum",
+          "description": "Se desejar frito, só colocar observação.",
+          "image_url": "https://cdn-production.yooga.com.br/5333920221112170543AsnBgey7j.jpeg",
+          "price": 27,
+          "price_min": 27,
+          "price_max": 27,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529079,
+            "idi": 53339,
+            "name": "Temaki pasta de atum ",
+            "description": "Se desejar frito, só colocar observação.",
+            "price": 27,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/5333920221112170543AsnBgey7j.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 27,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1529080",
+          "name": "Temaki pasta de salmão",
+          "description": "Se desejar frito, colocar na observação por favor",
+          "image_url": null,
+          "price": 37,
+          "price_min": 37,
+          "price_max": 37,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529080,
+            "idi": 53339,
+            "name": "Temaki pasta de salmão ",
+            "description": "Se desejar frito, colocar na observação por favor",
+            "price": 37,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 37,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1529081",
+          "name": "Temaki de salmão",
+          "description": "Se desejar frito colocar na observação por favor",
+          "image_url": "https://cdn-production.yooga.com.br/5333920221112170619zY86Mh6hK.jpeg",
+          "price": 42,
+          "price_min": 42,
+          "price_max": 42,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529081,
+            "idi": 53339,
+            "name": "Temaki de salmão ",
+            "description": "Se desejar frito colocar na observação por favor",
+            "price": 42,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/5333920221112170619zY86Mh6hK.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 42,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1529082",
+          "name": "Temaki natural de camarão empanado",
+          "description": "Temaki natural com camarão empanado",
+          "image_url": "https://cdn-production.yooga.com.br/5333920221112170641W0JFCuSGX.jpeg",
+          "price": 29,
+          "price_min": 29,
+          "price_max": 29,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529082,
+            "idi": 53339,
+            "name": "Temaki natural de camarão empanado ",
+            "description": "Temaki natural com camarão empanado",
+            "price": 29,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/5333920221112170641W0JFCuSGX.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 29,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1529083",
+          "name": "Temaki de camarão cozido",
+          "description": "Se desejar frito, só colocar observação.",
+          "image_url": "https://cdn-production.yooga.com.br/5333920221112170658jnmE0G2e2.jpeg",
+          "price": 32,
+          "price_min": 32,
+          "price_max": 32,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529083,
+            "idi": 53339,
+            "name": "Temaki de camarão cozido ",
+            "description": "Se desejar frito, só colocar observação.",
+            "price": 32,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/5333920221112170658jnmE0G2e2.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 32,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1833054",
+          "name": "Temaki de kani kama hot",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/4aaa67e45206279c3d4009cd3681e489.jpeg",
+          "price": 27,
+          "price_min": 27,
+          "price_max": 27,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1833054,
+            "idi": 53339,
+            "name": "Temaki de kani kama hot",
+            "description": null,
+            "price": 27,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/4aaa67e45206279c3d4009cd3681e489.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 27,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "2483932",
+          "name": "Temaki frito de camarão empanado",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/4904015b9abfc4053aaea476e669710f.jpeg",
+          "price": 29,
+          "price_min": 29,
+          "price_max": 29,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 2483932,
+            "idi": 53339,
+            "name": "Temaki frito de camarão empanado",
+            "description": null,
+            "price": 29,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/4904015b9abfc4053aaea476e669710f.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 29,
+            "min_value_promotional": 0,
+            "featured": [
+              {
+                "id": 8148,
+                "store_item_id": 2483932,
+                "featured_type": "OFFER"
+              }
+            ],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "5461207",
+          "name": "Temaki mix",
+          "description": "Arroz, Kani, salmão, camarão e creme cheese. Se desejar frito, colocar na observação por favor",
+          "image_url": null,
+          "price": 38,
+          "price_min": 38,
+          "price_max": 38,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 5461207,
+            "idi": 53339,
+            "name": "Temaki mix ",
+            "description": "Arroz, Kani, salmão, camarão e creme cheese.\nSe desejar frito, colocar na observação por favor",
+            "price": 38,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 38,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "8243059",
+          "name": "Temaki salmão flambado",
+          "description": "",
+          "image_url": null,
+          "price": 45,
+          "price_min": 45,
+          "price_max": 45,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 8243059,
+            "idi": 53339,
+            "name": "Temaki salmão flambado ",
+            "description": null,
+            "price": 45,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 45,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "312616",
+      "name": "Big hot",
+      "order_index": 3,
+      "items": [
+        {
+          "external_id": "2328750",
+          "name": "Big hot pasta de salmão com camarão empanado",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/9803db6adf88dc25f1f4b0afce1c51c6.jpeg",
+          "price": 52,
+          "price_min": 52,
+          "price_max": 52,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 2328750,
+            "idi": 53339,
+            "name": "Big hot pasta de salmão com camarão empanado ",
+            "description": "",
+            "price": 52,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/9803db6adf88dc25f1f4b0afce1c51c6.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 52,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "2328751",
+          "name": "Big hot camarão cozido",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/eeab39b94184384fbbf2a8ecb7e252a5.jpeg",
+          "price": 37,
+          "price_min": 37,
+          "price_max": 37,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 2328751,
+            "idi": 53339,
+            "name": "Big hot camarão cozido",
+            "description": null,
+            "price": 37,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/eeab39b94184384fbbf2a8ecb7e252a5.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 37,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "2328752",
+          "name": "Big hot de camarão empanado",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/947be7b9214e7ad73a5bea1de1163af8.jpeg",
+          "price": 32,
+          "price_min": 32,
+          "price_max": 32,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 2328752,
+            "idi": 53339,
+            "name": "Big hot de camarão empanado ",
+            "description": null,
+            "price": 32,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/947be7b9214e7ad73a5bea1de1163af8.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 32,
+            "min_value_promotional": 0,
+            "featured": [
+              {
+                "id": 8149,
+                "store_item_id": 2328752,
+                "featured_type": "OFFER"
+              }
+            ],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "8128157",
+          "name": "Big hot de kani",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/34f4dddc97679b75aefe684540596195.jpeg",
+          "price": 25,
+          "price_min": 25,
+          "price_max": 25,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 8128157,
+            "idi": 53339,
+            "name": "Big hot de kani",
+            "description": null,
+            "price": 25,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/34f4dddc97679b75aefe684540596195.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 25,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "8159487",
+          "name": "Big hot pasta de atum",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/de467bb48d3389ec0e13a5e222dd38cd.png",
+          "price": 29,
+          "price_min": 29,
+          "price_max": 29,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 8159487,
+            "idi": 53339,
+            "name": "Big hot pasta de atum",
+            "description": null,
+            "price": 29,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/de467bb48d3389ec0e13a5e222dd38cd.png",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 29,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "8260183",
+          "name": "Big hot pasta de salmão",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/de467bb48d3389ec0e13a5e222dd38cd.png",
+          "price": 37,
+          "price_min": 37,
+          "price_max": 37,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 8260183,
+            "idi": 53339,
+            "name": "Big hot pasta de salmão",
+            "description": null,
+            "price": 37,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/de467bb48d3389ec0e13a5e222dd38cd.png",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 37,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "8332453",
+          "name": "Big hot de salmão",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/fa90ebd2e5f3b70e9d78427eb0e6bedb.jpeg",
+          "price": 42,
+          "price_min": 42,
+          "price_max": 42,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 8332453,
+            "idi": 53339,
+            "name": "Big hot de salmão ",
+            "description": null,
+            "price": 42,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/fa90ebd2e5f3b70e9d78427eb0e6bedb.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 42,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "209243",
+      "name": "Sushiburguer",
+      "order_index": 4,
+      "items": [
+        {
+          "external_id": "1529084",
+          "name": "Sushiburguer pasta de atum",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/5333920221112171231LARBg1Wvt.jpeg",
+          "price": 29,
+          "price_min": 29,
+          "price_max": 29,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529084,
+            "idi": 53339,
+            "name": "Sushiburguer pasta de atum ",
+            "description": null,
+            "price": 29,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/5333920221112171231LARBg1Wvt.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 29,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1529085",
+          "name": "Sushiburguer de kani",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/5333920221112171335cExnwwKyZ.jpeg",
+          "price": 23,
+          "price_min": 23,
+          "price_max": 23,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1529085,
+            "idi": 53339,
+            "name": "Sushiburguer de kani ",
+            "description": null,
+            "price": 23,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/5333920221112171335cExnwwKyZ.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 23,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "2207013",
+          "name": "Sushiburguer de camarão cozido",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/bbeb07b5b816a5ba14ea9eb557f4e1f5.jpeg",
+          "price": 35,
+          "price_min": 35,
+          "price_max": 35,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 2207013,
+            "idi": 53339,
+            "name": "Sushiburguer de camarão cozido ",
+            "description": null,
+            "price": 35,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/bbeb07b5b816a5ba14ea9eb557f4e1f5.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 35,
+            "min_value_promotional": 0,
+            "featured": [
+              {
+                "id": 13708,
+                "store_item_id": 2207013,
+                "featured_type": "OFFER"
+              }
+            ],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "4120557",
+          "name": "Sushiburguer de camarão empanado",
+          "description": "",
+          "image_url": null,
+          "price": 29,
+          "price_min": 29,
+          "price_max": 29,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 4120557,
+            "idi": 53339,
+            "name": "Sushiburguer de camarão empanado ",
+            "description": null,
+            "price": 29,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 29,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "5035595",
+          "name": "Sushiburguer pasta de salmão",
+          "description": "Arroz, pasta de salmão grelhado com creme cheese.",
+          "image_url": null,
+          "price": 37,
+          "price_min": 37,
+          "price_max": 37,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 5035595,
+            "idi": 53339,
+            "name": "Sushiburguer pasta de salmão ",
+            "description": "Arroz, pasta de salmão grelhado com creme cheese.",
+            "price": 37,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 37,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "external_id": "208942",
+      "name": "Bebidas",
+      "order_index": 5,
+      "items": [
+        {
+          "external_id": "1526866",
+          "name": "Coca Cola Lata",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/53339202211121710083oAR29nLH.jpeg",
+          "price": 7,
+          "price_min": 7,
+          "price_max": 7,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1526866,
+            "idi": 53339,
+            "name": "Coca Cola Lata ",
+            "description": null,
+            "price": 7,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/53339202211121710083oAR29nLH.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 7,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1526867",
+          "name": "Água com gás",
+          "description": "",
+          "image_url": "https://raw.githubusercontent.com/vcslima/banco_de_imagens/master/agua_com_gas.jpg",
+          "price": 5,
+          "price_min": 5,
+          "price_max": 5,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1526867,
+            "idi": 53339,
+            "name": "Água com gás",
+            "description": null,
+            "price": 5,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://raw.githubusercontent.com/vcslima/banco_de_imagens/master/agua_com_gas.jpg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 5,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "1526868",
+          "name": "Coca lata zero",
+          "description": "",
+          "image_url": "https://cdn-production.yooga.com.br/ab7f82ee1e41d4ab6c60205526bae635.jpeg",
+          "price": 7,
+          "price_min": 7,
+          "price_max": 7,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 1526868,
+            "idi": 53339,
+            "name": "Coca lata zero",
+            "description": null,
+            "price": 7,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": "https://cdn-production.yooga.com.br/ab7f82ee1e41d4ab6c60205526bae635.jpeg",
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 7,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "external_id": "2920708",
+          "name": "Coca cola 1 litro",
+          "description": "",
+          "image_url": null,
+          "price": 12,
+          "price_min": 12,
+          "price_max": 12,
+          "price_type": "fixed",
+          "price_source": "yooga.item.price",
+          "options": [],
+          "source_url": "https://delivery.yooga.app/sushiyaki",
+          "raw_data": {
+            "id": 2920708,
+            "idi": 53339,
+            "name": "Coca cola 1 litro",
+            "description": null,
+            "price": 12,
+            "promotional_price": null,
+            "promotional_percentage": null,
+            "img": null,
+            "schedule_available": "1111111",
+            "schedule_type": 0,
+            "min_value": 12,
+            "min_value_promotional": 0,
+            "featured": [],
+            "choices": []
+          },
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "browserbase_structured_probe",
+    "browserbaseFullPagePath": "scratch\\structured-menu-collection\\2026-07-07T10-43-16-839Z-18628\\004-sushiyaki-restaurante\\browserbase-full-page.jpg",
+    "fullPage": true,
+    "truncated": false,
+    "domMetrics": {
+      "scrollHeight": 1100,
+      "bodyLength": 40406,
+      "imageCount": 29
+    }
+  },
+  "structuredProbe": {
+    "source": "browserbase_plus_yooga_native_api",
+    "endpoint": "https://delivery2.yooga.com.br/v2/stores/sushiyaki/menu?type_query=null",
+    "yoogaStats": {
+      "categoryCount": 6,
+      "itemCount": 34,
+      "optionCount": 0,
+      "operationalCategoryCount": 0,
+      "operationalItemCount": 0,
+      "operationalOptionCount": 0,
+      "samples": [
+        {
+          "name": "Combos (Temaki)",
+          "items": [
+            {
+              "name": "2 Temaki de kani",
+              "price": 25,
+              "options": []
+            },
+            {
+              "name": "2 Temaki frito de camarão empanado",
+              "price": 55,
+              "options": []
+            },
+            {
+              "name": "1 Temaki de camarão empanado frito + coca lata",
+              "price": 33,
+              "options": []
+            },
+            {
+              "name": "1 Temaki de kani e 1 Temaki de camarão empanado",
+              "price": 47,
+              "options": []
+            },
+            {
+              "name": "2 Temaki pasta de salmão",
+              "price": 65.9,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Rolinho",
+          "items": [
+            {
+              "name": "Rolinho de chocolate ao leite",
+              "price": 8.5,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Temaki",
+          "items": [
+            {
+              "name": "Temaki de kani",
+              "price": 23,
+              "options": []
+            },
+            {
+              "name": "Temaki pasta de atum",
+              "price": 27,
+              "options": []
+            },
+            {
+              "name": "Temaki pasta de salmão",
+              "price": 37,
+              "options": []
+            },
+            {
+              "name": "Temaki de salmão",
+              "price": 42,
+              "options": []
+            },
+            {
+              "name": "Temaki natural de camarão empanado",
+              "price": 29,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Big hot",
+          "items": [
+            {
+              "name": "Big hot pasta de salmão com camarão empanado",
+              "price": 52,
+              "options": []
+            },
+            {
+              "name": "Big hot camarão cozido",
+              "price": 37,
+              "options": []
+            },
+            {
+              "name": "Big hot de camarão empanado",
+              "price": 32,
+              "options": []
+            },
+            {
+              "name": "Big hot de kani",
+              "price": 25,
+              "options": []
+            },
+            {
+              "name": "Big hot pasta de atum",
+              "price": 29,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Sushiburguer",
+          "items": [
+            {
+              "name": "Sushiburguer pasta de atum",
+              "price": 29,
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de kani",
+              "price": 23,
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de camarão cozido",
+              "price": 35,
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de camarão empanado",
+              "price": 29,
+              "options": []
+            },
+            {
+              "name": "Sushiburguer pasta de salmão",
+              "price": 37,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Bebidas",
+          "items": [
+            {
+              "name": "Coca Cola Lata",
+              "price": 7,
+              "options": []
+            },
+            {
+              "name": "Água com gás",
+              "price": 5,
+              "options": []
+            },
+            {
+              "name": "Coca lata zero",
+              "price": 7,
+              "options": []
+            },
+            {
+              "name": "Coca cola 1 litro",
+              "price": 12,
+              "options": []
+            }
+          ]
+        }
+      ]
+    },
+    "yoogaSlug": "sushiyaki",
+    "rawSummary": {
+      "categoryCount": 6,
+      "itemCount": 34,
+      "optionCount": 0,
+      "operationalCategoryCount": 0,
+      "operationalItemCount": 0,
+      "operationalOptionCount": 0,
+      "samples": [
+        {
+          "name": "Combos (Temaki)",
+          "items": [
+            {
+              "name": "2 Temaki de kani",
+              "price": 25,
+              "options": []
+            },
+            {
+              "name": "2 Temaki frito de camarão empanado",
+              "price": 55,
+              "options": []
+            },
+            {
+              "name": "1 Temaki de camarão empanado frito + coca lata",
+              "price": 33,
+              "options": []
+            },
+            {
+              "name": "1 Temaki de kani e 1 Temaki de camarão empanado",
+              "price": 47,
+              "options": []
+            },
+            {
+              "name": "2 Temaki pasta de salmão",
+              "price": 65.9,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Rolinho",
+          "items": [
+            {
+              "name": "Rolinho de chocolate ao leite",
+              "price": 8.5,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Temaki",
+          "items": [
+            {
+              "name": "Temaki de kani",
+              "price": 23,
+              "options": []
+            },
+            {
+              "name": "Temaki pasta de atum",
+              "price": 27,
+              "options": []
+            },
+            {
+              "name": "Temaki pasta de salmão",
+              "price": 37,
+              "options": []
+            },
+            {
+              "name": "Temaki de salmão",
+              "price": 42,
+              "options": []
+            },
+            {
+              "name": "Temaki natural de camarão empanado",
+              "price": 29,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Big hot",
+          "items": [
+            {
+              "name": "Big hot pasta de salmão com camarão empanado",
+              "price": 52,
+              "options": []
+            },
+            {
+              "name": "Big hot camarão cozido",
+              "price": 37,
+              "options": []
+            },
+            {
+              "name": "Big hot de camarão empanado",
+              "price": 32,
+              "options": []
+            },
+            {
+              "name": "Big hot de kani",
+              "price": 25,
+              "options": []
+            },
+            {
+              "name": "Big hot pasta de atum",
+              "price": 29,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Sushiburguer",
+          "items": [
+            {
+              "name": "Sushiburguer pasta de atum",
+              "price": 29,
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de kani",
+              "price": 23,
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de camarão cozido",
+              "price": 35,
+              "options": []
+            },
+            {
+              "name": "Sushiburguer de camarão empanado",
+              "price": 29,
+              "options": []
+            },
+            {
+              "name": "Sushiburguer pasta de salmão",
+              "price": 37,
+              "options": []
+            }
+          ]
+        },
+        {
+          "name": "Bebidas",
+          "items": [
+            {
+              "name": "Coca Cola Lata",
+              "price": 7,
+              "options": []
+            },
+            {
+              "name": "Água com gás",
+              "price": 5,
+              "options": []
+            },
+            {
+              "name": "Coca lata zero",
+              "price": 7,
+              "options": []
+            },
+            {
+              "name": "Coca cola 1 litro",
+              "price": 12,
+              "options": []
+            }
+          ]
+        }
+      ]
+    },
+    "sourceIdentity": {
+      "confirmed": true,
+      "pageHasName": true,
+      "urlHasName": true,
+      "pageHasPhone": false,
+      "pageHasAddress": false,
+      "pageHasCity": true,
+      "pageHasState": true,
+      "evidence": {
+        "targetName": "Sushiyaki Restaurante",
+        "targetAddress": "R. Ten. Antônio Pontes, 381",
+        "targetPhoneLast8": "86845886",
+        "targetCity": "Cabedelo",
+        "targetState": "PB"
+      }
+    }
+  },
+  "restaurant": {
+    "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+    "name": "Sushiyaki Restaurante",
+    "address": "Rua duque de caxias",
+    "number": "104",
+    "neighborhood": "Vila São João",
+    "city": "Cabedelo",
+    "state": "PB",
+    "cep": "58100645",
+    "phone": "(83) 98684-5886",
+    "latitude": -6.9695874,
+    "longitude": -34.832167,
+    "opening_hours": {
+      "sunday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "21:30",
+            "end": "01:20"
+          }
+        ]
+      },
+      "monday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "21:30",
+            "end": "01:25"
+          }
+        ]
+      },
+      "tuesday": {
+        "isOpen": false,
+        "slots": []
+      },
+      "wednesday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "21:30",
+            "end": "01:30"
+          }
+        ]
+      },
+      "thursday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "21:30",
+            "end": "01:30"
+          }
+        ]
+      },
+      "friday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "21:30",
+            "end": "01:30"
+          }
+        ]
+      },
+      "saturday": {
+        "isOpen": true,
+        "slots": [
+          {
+            "start": "21:30",
+            "end": "01:30"
+          }
+        ]
+      }
+    },
+    "image_url": "https://cdn-production.yooga.com.br/5333920221112175004IfJbypwPf.jpeg",
+    "cover_image_url": null
+  }
+}

@@ -1,0 +1,3250 @@
+{
+  "url": "https://delivery2.yooga.com.br/v2/stores/home-smash-burger/menu?type_query=null",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 56818,
+  "textSample": "[{\"id\":73274,\"name\":\"Entradas\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":null,\"items\":[{\"id\":660624,\"idi\":5204,\"name\":\"Batata Frita (Pequeno)\",\"description\":null,\"price\":10,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/520420220222032139MByjINouY.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":10,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":1585676,\"idi\":5204,\"name\":\"Batata Tradicional (Média)\",\"description\":null,\"price\":17,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/6804988680f743cea4f389df2c3c6309.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":17,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":1520057,\"idi\":5204,\"name\":\"Batata com Cheddar e Bacon (Média)\",\"description\":\"Batata Tradicional com Cheddar Cremoso, Bacon e ao toque de Cebolinha \",\"price\":30,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/cbbd4311c9ca362eb455781b55761716.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":30,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]},{\"id\":4341044,\"idi\":5204,\"name\":\"Fries Costela com Cream Cheese (Média)\",\"description\":\"Batata Extremamente saborosas e sequinhas, Costela Bovina desfiada com Generosa Cream Chease e Cebolinha.\",\"price\":30,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/4a6081c80823618df0c8a421083d0cb1.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":30,\"min_value_promotional\":0,\"featured\":[],\"choices\":[]}]},{\"id\":80854,\"name\":\"Combos Individuais\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"has_multiple_selection\":null,\"items\":[{\"id\":1185912,\"idi\":5204,\"name\":\"(Combo Smash Cheese ) Batata Frita P + REFRI 350ml\",\"description\":\"Burguer 90g, Queijo Cheddar, Molho da Casa, Servido no Pão Smash.\",\"price\":30,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/4ce817e22ef3c20c39d284be7ed925d6.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":30,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":1257913,\"name\":\"Maioneses\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":10340654,\"name\":\"(Molho Aioli, Tradicional, levemente ao alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png\"},{\"id\":10340655,\"name\":\"(Molho Verde, Cebolinha, Salsinha e Alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg\"},{\"id\":10340656,\"name\":\"Maionese á parte do Burger (Colocar na observação o molho)\",\"description\":null,\"max\":5,\"price\":0.5,\"img\":null},{\"id\":10340657,\"name\":\"Sem Maionese \",\"description\":null,\"max\":5,\"price\":0,\"img\":null}]},{\"id\":1858894,\"name\":\"Refrigerantes:\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":19157995,\"name\":\"Coca Cola\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg\"}]}]},{\"id\":4204978,\"idi\":5204,\"name\":\"(COMBO SMASH BACON) Batata P + REFRI 350ml\",\"description\":\"Carne de 90g, Bacon em tiras, Queijo Cheddar, Cebola Roxa, Molho da casa, Servido no Pão Smash Fofinho e Amanteigado. \",\"price\":34,\"promotional_price\":null,\"promotional_percentage\":0,\"img\":\"https://cdn-production.yooga.com.br/62196eaa1b8f80b7e126a357ab6377f3.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":34,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":4326557,\"name\":\"Maioneses\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":31223813,\"name\":\"(Molho Aioli, Tradicional, levemente ao alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png\"},{\"id\":31223814,\"name\":\"(Molho Verde, Cebolinha, Salsinha e Alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg\"},{\"id\":31223815,\"name\":\"Maionese á parte do Burger (Colocar na observação o molho)\",\"description\":null,\"max\":5,\"price\":0.5,\"img\":null},{\"id\":31223816,\"name\":\"Sem Maionese \",\"description\":null,\"max\":5,\"price\":0,\"img\":null}]},{\"id\":4326558,\"name\":\"Refrigerantes \",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":31223822,\"name\":\"Coca Cola 350ml\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg\"},{\"id\":31223823,\"name\":\"Coca Zero 350ml\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/cc9cd463d77aaeeb9a5f4545adc0a77b.png\"}]}]},{\"id\":1185973,\"idi\":5204,\"name\":\"(Combo Areia Dourada Duplo) Batata Frita P + REFRI 350ml\",\"description\":\"Hambúrguer com Duas carnes de 90g cada, Deliciosas Camadas de Cream Chease Poleghi, Bacon em tiras extremamente crocante, Molho da casa, Servido no Pão Smash.\",\"price\":41,\"promotional_price\":null,\"promotional_percentage\":0,\"img\":\"https://cdn-production.yooga.com.br/930fc943b677eed00fae7ab3bc32afad.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":41,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":1290168,\"name\":\"Maioneses\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":10533805,\"name\":\"(Molho Aioli, Tradicional, levemente ao alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png\"},{\"id\":10533806,\"name\":\"(Molho Verde, Cebolinha, Salsinha e Alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg\"},{\"id\":10533807,\"name\":\"Maionese á parte do Burger (Colocar na observação o molho)\",\"description\":null,\"max\":5,\"price\":0.5,\"img\":null},{\"id\":10533808,\"name\":\"Sem Maionese \",\"description\":null,\"max\":5,\"price\":0,\"img\":null}]},{\"id\":1858895,\"name\":\"Refrigerantes \",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":19157996,\"name\":\"Coca Cola 350ml\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg\"},{\"id\":19963436,\"name\":\"Coca Zero 350ml\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/cc9cd463d77aaeeb9a5f4545adc0a77b.png\"}]}]},{\"id\":3843919,\"idi\":5204,\"name\":\"(COMBO MONUMENTO) + Fritas P + REFRI 350ML\",\"description\":\"Blend 130g, Bacon Crocante em Tiras, Cebola Caramelizada, Molho Cheddar, Molho da casa, Servido no Pão Australiano.\",\"price\":41,\"promotional_price\":null,\"promotional_percentage\":0,\"img\":\"https://cdn-production.yooga.com.br/3b535043c95d0a880778818f06faa9b9.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":41,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":2685176,\"name\":\"Escolha o Ponto da Carne\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":19847741,\"name\":\"Ao Ponto\",\"description\":null,\"max\":5,\"price\":0,\"img\":null},{\"id\":19847742,\"name\":\"Bem Passado\",\"description\":null,\"max\":5,\"price\":0,\"img\":null}]},{\"id\":2685177,\"name\":\"Maioneses\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":19847743,\"name\":\"(Molho Aioli, Tradicional, levemente ao alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png\"},{\"id\":19847744,\"name\":\"(Molho Verde, Cebolinha, Salsinha e Alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg\"},{\"id\":19847746,\"name\":\"Sem Maionese \",\"description\":null,\"max\":5,\"price\":0,\"img\":null}]},{\"id\":2685178,\"name\":\"Refrigerantes\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":19847753,\"name\":\"Coca Cola\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg\"}]}]},{\"id\":2221212,\"idi\":5204,\"name\":\"COMBO Cheddar Melt + Fritas P + REFRI 350ml\",\"description\":\"Blend 130g, muito molho cheddar derretido, bacon crocante em tiras, molho da casa, Servido no Pão Brioche\",\"price\":41,\"promotional_price\":null,\"promotional_percentage\":0,\"img\":\"https://cdn-production.yooga.com.br/4ac3652dcdb2421207c042c83edf167d.jpeg\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":41,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":2035840,\"name\":\"Escolha o Ponto da Carne\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":15426110,\"name\":\"Ao Ponto\",\"description\":null,\"max\":5,\"price\":0,\"img\":null},{\"id\":15426111,\"name\":\"Bem Passado\",\"description\":null,\"max\":5,\"price\":0,\"img\":null}]},{\"id\":2035841,\"name\":\"Maioneses\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":15426112,\"name\":\"(Molho Aioli, Tradicional, levemente ao alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png\"},{\"id\":15426113,\"name\":\"(Molho Verde, Cebolinha, Salsinha e Alho)\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg\"},{\"id\":15426115,\"name\":\"Sem Maionese \",\"description\":null,\"max\":5,\"price\":0,\"img\":null}]},{\"id\":2052532,\"name\":\"Refrigerantes(Pepsi) \",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":19157997,\"name\":\"Coca Cola 350ml\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg\"},{\"id\":19963433,\"name\":\"Coca Zero 350ml\",\"description\":null,\"max\":5,\"price\":0,\"img\":\"https://cdn-production.yooga.com.br/cc9cd463d77aaeeb9a5f4545adc0a77b.png\"}]}]},{\"id\":6730651,\"idi\":5204,\"name\":\"Promo 2 smash chesse\",\"description\":\"Válido apenas no dinheiro ou pix!\",\"price\":30,\"promotional_price\":null,\"promotional_percentage\":null,\"img\":\"https://cdn-production.yooga.com.br/de7f69907c7c67154e0d854ed472e1f4.png\",\"schedule_available\":\"1111111\",\"schedule_type\":0,\"min_value\":30,\"min_value_promotional\":0,\"featured\":[],\"choices\":[{\"id\":3893222,\"name\":\"Qual o Molho?\",\"required\":1,\"min\":1,\"max\":1,\"use_greater_option_price\":0,\"options\":[{\"id\":28098888,\"name\":\"(Molho Aioli, Tradicional, levemente ao alho)\",\"description\":null,\"max\":1,\"price\":0,\"img\":null},{\"id\":28098889,\"name\":\"(Molho Verde, Cebolinha, Salsinha e Alho)\",\"description\":null,\"max\":1,\"price\":0,\"img\":null},{\"id\":28098890,\"name\":\"Sem Molho \",\"description\":null,\"max\":1,\"price\":0,\"img\":null}]},{\"id\":3893223,\"name\":\"Ingredientes Extras\",\"required\":0,\"min\":0,\"max\":5,\"use_greater_option_price\":0,\"options\":[{\"id\":28098891,\"name\":\"Adicional Fatia de Queijo Mussarela ou Cheddar \",\"description\":null,\"max\":5,\"price\":3,\"img\":null},{\"id\":28098892,\"name\":\"Adicional Queijo Gorgonzola\",\"description\":null,\"max\":5,\"price\":5,\"img\":null},{\"id\":28098893,\"name\":\"Adicional Cebola Caramelizada\",\"description\":null,\"max\":5,\"price\":2,\"img\":null},{\"id\":28098894,\"name\":\"Adicional Farofa de Bacon\",\"description\":null,\"max\":5,\"price\":3,\"img\":null},{\"id\":28098895,\"name\":\"Adicional Salada Fresca - Alface Americano, Tomate, Picles, Cebola Roxa.\",\"description\":null,\"max\":5,\"price\":3,\"img\":null},{\"id\":28098896,\"name\":\"Adicional Molho Barbecue da Casa\",\"description\":null,\"max\":5,\"price\":1.5,\"img\":null},{\"id\":28098897,\"name\":\"Adicional Ketchup Artesanal\",\"description\":null,\"max\":5,\"price\":1.5,\"img\":null},{\"id\":28098898,\"name\":\"Adicional Maionese Artesanal \",\"description\":null,\"max\":5,\"price\":1.5,\"img\":null},{\"id\":28098899,\"name\":\"Adicional Anéis de Cebola Empanada -\",\"description\":null,\"max\":5,\"price\":3,\"img\":null},{\"id\":28098900,\"name\":\"Adicional Catupiry\",\"description\":null,\"max\":5,\"price\":4,\"img\":null},{\"id\":28098901,\"name\":\"Adicional Creamcheese\",\"description\":null,\"max\":5,\"price\":5,\"img\":null},{\"id\":28098902,\"name\":\"Adicional Bacon em Tiras\",\"description\":null,\"max\":5,\"price\":4,\"img\":null},{\"id\":2809890",
+  "jsonKeys": [
+    "array",
+    "9"
+  ],
+  "json": [
+    {
+      "id": 73274,
+      "name": "Entradas",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 660624,
+          "idi": 5204,
+          "name": "Batata Frita (Pequeno)",
+          "description": null,
+          "price": 10,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420220222032139MByjINouY.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 10,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1585676,
+          "idi": 5204,
+          "name": "Batata Tradicional (Média)",
+          "description": null,
+          "price": 17,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/6804988680f743cea4f389df2c3c6309.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 17,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1520057,
+          "idi": 5204,
+          "name": "Batata com Cheddar e Bacon (Média)",
+          "description": "Batata Tradicional com Cheddar Cremoso, Bacon e ao toque de Cebolinha ",
+          "price": 30,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/cbbd4311c9ca362eb455781b55761716.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 30,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 4341044,
+          "idi": 5204,
+          "name": "Fries Costela com Cream Cheese (Média)",
+          "description": "Batata Extremamente saborosas e sequinhas, Costela Bovina desfiada com Generosa Cream Chease e Cebolinha.",
+          "price": 30,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/4a6081c80823618df0c8a421083d0cb1.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 30,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 80854,
+      "name": "Combos Individuais",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 1185912,
+          "idi": 5204,
+          "name": "(Combo Smash Cheese ) Batata Frita P + REFRI 350ml",
+          "description": "Burguer 90g, Queijo Cheddar, Molho da Casa, Servido no Pão Smash.",
+          "price": 30,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/4ce817e22ef3c20c39d284be7ed925d6.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 30,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1257913,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10340654,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 10340655,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 10340656,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 10340657,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 1858894,
+              "name": "Refrigerantes:",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 19157995,
+                  "name": "Coca Cola",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4204978,
+          "idi": 5204,
+          "name": "(COMBO SMASH BACON) Batata P + REFRI 350ml",
+          "description": "Carne de 90g, Bacon em tiras, Queijo Cheddar, Cebola Roxa, Molho da casa, Servido no Pão Smash Fofinho e Amanteigado. ",
+          "price": 34,
+          "promotional_price": null,
+          "promotional_percentage": 0,
+          "img": "https://cdn-production.yooga.com.br/62196eaa1b8f80b7e126a357ab6377f3.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 34,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4326557,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31223813,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 31223814,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 31223815,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 31223816,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4326558,
+              "name": "Refrigerantes ",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31223822,
+                  "name": "Coca Cola 350ml",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg"
+                },
+                {
+                  "id": 31223823,
+                  "name": "Coca Zero 350ml",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/cc9cd463d77aaeeb9a5f4545adc0a77b.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1185973,
+          "idi": 5204,
+          "name": "(Combo Areia Dourada Duplo) Batata Frita P + REFRI 350ml",
+          "description": "Hambúrguer com Duas carnes de 90g cada, Deliciosas Camadas de Cream Chease Poleghi, Bacon em tiras extremamente crocante, Molho da casa, Servido no Pão Smash.",
+          "price": 41,
+          "promotional_price": null,
+          "promotional_percentage": 0,
+          "img": "https://cdn-production.yooga.com.br/930fc943b677eed00fae7ab3bc32afad.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 41,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1290168,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10533805,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 10533806,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 10533807,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 10533808,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 1858895,
+              "name": "Refrigerantes ",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 19157996,
+                  "name": "Coca Cola 350ml",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg"
+                },
+                {
+                  "id": 19963436,
+                  "name": "Coca Zero 350ml",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/cc9cd463d77aaeeb9a5f4545adc0a77b.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3843919,
+          "idi": 5204,
+          "name": "(COMBO MONUMENTO) + Fritas P + REFRI 350ML",
+          "description": "Blend 130g, Bacon Crocante em Tiras, Cebola Caramelizada, Molho Cheddar, Molho da casa, Servido no Pão Australiano.",
+          "price": 41,
+          "promotional_price": null,
+          "promotional_percentage": 0,
+          "img": "https://cdn-production.yooga.com.br/3b535043c95d0a880778818f06faa9b9.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 41,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 2685176,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 19847741,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 19847742,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 2685177,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 19847743,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 19847744,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 19847746,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 2685178,
+              "name": "Refrigerantes",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 19847753,
+                  "name": "Coca Cola",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2221212,
+          "idi": 5204,
+          "name": "COMBO Cheddar Melt + Fritas P + REFRI 350ml",
+          "description": "Blend 130g, muito molho cheddar derretido, bacon crocante em tiras, molho da casa, Servido no Pão Brioche",
+          "price": 41,
+          "promotional_price": null,
+          "promotional_percentage": 0,
+          "img": "https://cdn-production.yooga.com.br/4ac3652dcdb2421207c042c83edf167d.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 41,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 2035840,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 15426110,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 15426111,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 2035841,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 15426112,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 15426113,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 15426115,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 2052532,
+              "name": "Refrigerantes(Pepsi) ",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 19157997,
+                  "name": "Coca Cola 350ml",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg"
+                },
+                {
+                  "id": 19963433,
+                  "name": "Coca Zero 350ml",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/cc9cd463d77aaeeb9a5f4545adc0a77b.png"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 6730651,
+          "idi": 5204,
+          "name": "Promo 2 smash chesse",
+          "description": "Válido apenas no dinheiro ou pix!",
+          "price": 30,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/de7f69907c7c67154e0d854ed472e1f4.png",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 30,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 3893222,
+              "name": "Qual o Molho?",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 28098888,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 28098889,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 28098890,
+                  "name": "Sem Molho ",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 3893223,
+              "name": "Ingredientes Extras",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 28098891,
+                  "name": "Adicional Fatia de Queijo Mussarela ou Cheddar ",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 28098892,
+                  "name": "Adicional Queijo Gorgonzola",
+                  "description": null,
+                  "max": 5,
+                  "price": 5,
+                  "img": null
+                },
+                {
+                  "id": 28098893,
+                  "name": "Adicional Cebola Caramelizada",
+                  "description": null,
+                  "max": 5,
+                  "price": 2,
+                  "img": null
+                },
+                {
+                  "id": 28098894,
+                  "name": "Adicional Farofa de Bacon",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 28098895,
+                  "name": "Adicional Salada Fresca - Alface Americano, Tomate, Picles, Cebola Roxa.",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 28098896,
+                  "name": "Adicional Molho Barbecue da Casa",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 28098897,
+                  "name": "Adicional Ketchup Artesanal",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 28098898,
+                  "name": "Adicional Maionese Artesanal ",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 28098899,
+                  "name": "Adicional Anéis de Cebola Empanada -",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 28098900,
+                  "name": "Adicional Catupiry",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                },
+                {
+                  "id": 28098901,
+                  "name": "Adicional Creamcheese",
+                  "description": null,
+                  "max": 5,
+                  "price": 5,
+                  "img": null
+                },
+                {
+                  "id": 28098902,
+                  "name": "Adicional Bacon em Tiras",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                },
+                {
+                  "id": 28098903,
+                  "name": "Adicional de Molho Cheddar",
+                  "description": null,
+                  "max": 5,
+                  "price": 6,
+                  "img": null
+                },
+                {
+                  "id": 28098904,
+                  "name": " Adicional Carne Smash Extra 90g",
+                  "description": null,
+                  "max": 5,
+                  "price": 9,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7041330,
+          "idi": 5204,
+          "name": "Combo 2 Smash bacon + 2 Refri lata",
+          "description": null,
+          "price": 50,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/372bd6d1156fb711f8f8225e0844c4a4.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 50,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4030714,
+              "name": "Qual o Molho?",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 29083377,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29083378,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 29083379,
+                  "name": "Sem Molho ",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4030715,
+              "name": "Ingredientes Extras",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 29083380,
+                  "name": "Adicional Fatia de Queijo Mussarela ou Cheddar ",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 29083381,
+                  "name": "Adicional Queijo Gorgonzola",
+                  "description": null,
+                  "max": 5,
+                  "price": 5,
+                  "img": null
+                },
+                {
+                  "id": 29083382,
+                  "name": "Adicional Cebola Caramelizada",
+                  "description": null,
+                  "max": 5,
+                  "price": 2,
+                  "img": null
+                },
+                {
+                  "id": 29083383,
+                  "name": "Adicional Farofa de Bacon",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 29083384,
+                  "name": "Adicional Salada Fresca - Alface Americano, Tomate, Picles, Cebola Roxa.",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 29083385,
+                  "name": "Adicional Molho Barbecue da Casa",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 29083386,
+                  "name": "Adicional Ketchup Artesanal",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 29083387,
+                  "name": "Adicional Maionese Artesanal ",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 29083388,
+                  "name": "Adicional Anéis de Cebola Empanada -",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 29083389,
+                  "name": "Adicional Catupiry",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                },
+                {
+                  "id": 29083390,
+                  "name": "Adicional Creamcheese",
+                  "description": null,
+                  "max": 5,
+                  "price": 5,
+                  "img": null
+                },
+                {
+                  "id": 29083391,
+                  "name": "Adicional Bacon em Tiras",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                },
+                {
+                  "id": 29083392,
+                  "name": "Adicional de Molho Cheddar",
+                  "description": null,
+                  "max": 5,
+                  "price": 6,
+                  "img": null
+                },
+                {
+                  "id": 29083393,
+                  "name": " Adicional Carne Smash Extra 90g",
+                  "description": null,
+                  "max": 5,
+                  "price": 9,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7831219,
+          "idi": 5204,
+          "name": "(Combo Costelinha) +Batata P+ Refri ",
+          "description": null,
+          "price": 47,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/daa4248a93c07757959e0850e4cc214c.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 47,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4425034,
+              "name": "Qual o ponto da carne?",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31932564,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 31932565,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4425035,
+              "name": "Qual a maionese?",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31932566,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 31932567,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 31932568,
+                  "name": "Sem Molho ",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4425036,
+              "name": "Ingredientes extras ",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31932569,
+                  "name": "Adicional Fatia de Queijo Mussarela ou Cheddar ",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 31932570,
+                  "name": "Adicional Queijo Gorgonzola",
+                  "description": null,
+                  "max": 5,
+                  "price": 5,
+                  "img": null
+                },
+                {
+                  "id": 31932571,
+                  "name": "Adicional Cebola Caramelizada",
+                  "description": null,
+                  "max": 5,
+                  "price": 2,
+                  "img": null
+                },
+                {
+                  "id": 31932572,
+                  "name": "Adicional Farofa de Bacon",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 31932573,
+                  "name": "Adicional Salada Fresca - Alface Americano, Tomate, Picles, Cebola Roxa.",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 31932574,
+                  "name": "Adicional Molho Barbecue da Casa",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 31932575,
+                  "name": "Adicional Ketchup Artesanal",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 31932576,
+                  "name": "Adicional Maionese Artesanal ",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 31932577,
+                  "name": "Adicional Anéis de Cebola Empanada -",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 31932578,
+                  "name": "Adicional Catupiry",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                },
+                {
+                  "id": 31932579,
+                  "name": "Adicional Creamcheese",
+                  "description": null,
+                  "max": 5,
+                  "price": 5,
+                  "img": null
+                },
+                {
+                  "id": 31932580,
+                  "name": "Adicional Bacon em Tiras",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                },
+                {
+                  "id": 31932581,
+                  "name": "Adicional de Molho Cheddar",
+                  "description": null,
+                  "max": 5,
+                  "price": 6,
+                  "img": null
+                },
+                {
+                  "id": 31932582,
+                  "name": "Carne Extra 130g Com Queijo ",
+                  "description": null,
+                  "max": 5,
+                  "price": 10,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7868925,
+          "idi": 5204,
+          "name": "Promo 2 BBQ",
+          "description": "2 BBQ ONION",
+          "price": 46,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/bf9bcf1832832e4f6fa7b77bd1330a8a.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 46,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4440927,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 32048236,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 32048237,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4440928,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 32048238,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 32048239,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 32048241,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7953719,
+          "idi": 5204,
+          "name": "Promo 2 Areia dourada",
+          "description": "2 Areia dourada e 1 guarana 1 Litro",
+          "price": 60,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/1b99feed9746d3132b5a772bb13371c2.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 60,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4479511,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 32329059,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 32329060,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 32329061,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 32329062,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 8172837,
+          "idi": 5204,
+          "name": "Transforme em combo BATATA+REFRI",
+          "description": null,
+          "price": 16,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/ef3fb581c1c817dfb3b858ccc13b4632.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 16,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 679173,
+      "name": "COMBO NETFLIX",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": []
+    },
+    {
+      "id": 251927,
+      "name": "COMBOS PARA TODA FAMÍLIA",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 1882055,
+          "idi": 5204,
+          "name": "(COMBO CASAL ) Cheddar Melt +BBQ Onion+ Frita P +1  REFRI 350ml",
+          "description": "CHEDDAR MELT - Blend 130g, muito molho cheddar derretido, bacon crocante em tiras, molho da casa, no Pão Brioche.\n\nBBQ Onion:  Blend 130g, Queijo Cheddar, Bacon Crocante em Tiras, Cebola Empanada, Delicioso Molho Barbecue da Casa, Molho da Casa,Servido no Pão Brioche.",
+          "price": 60,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/4193931abd58bdb0626ab560ee550f9e.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 60,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 2052533,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 15525148,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 15525149,
+                  "name": " Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 2052534,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 15525150,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 15525151,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 15525153,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 2052535,
+              "name": "Refrigerantes",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 19157998,
+                  "name": "Coca Cola",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/a55afeb28e98cba5fb66dd10c3435a6e.jpeg"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5504745,
+          "idi": 5204,
+          "name": "(COMBO FAMÍLIA) 4 Smash + Refri 1L ",
+          "description": "Carne de 90g, Queijo Cheddar, Deliciosa Maionese Artesanal, Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 70,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5abc67ccdf362ea221db25c72960342c.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 70,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 3379355,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 24618653,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 24618654,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 24618655,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 24618656,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 6554835,
+          "idi": 5204,
+          "name": "PROMO 4 SMASH CHESSE",
+          "description": null,
+          "price": 55,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/56bfd7b2907826751f8955f34ef36ea4.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 55,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 3819966,
+              "name": "Qual o Molho?",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 27624337,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 27624338,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 27624339,
+                  "name": "Sem Molho ",
+                  "description": null,
+                  "max": 1,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 3819967,
+              "name": "Ingredientes Extras",
+              "required": 0,
+              "min": 0,
+              "max": 5,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 27624340,
+                  "name": "Adicional Fatia de Queijo Mussarela ou Cheddar ",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 27624341,
+                  "name": "Adicional Queijo Gorgonzola",
+                  "description": null,
+                  "max": 5,
+                  "price": 5,
+                  "img": null
+                },
+                {
+                  "id": 27624342,
+                  "name": "Adicional Cebola Caramelizada",
+                  "description": null,
+                  "max": 5,
+                  "price": 2,
+                  "img": null
+                },
+                {
+                  "id": 27624343,
+                  "name": "Adicional Farofa de Bacon",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 27624344,
+                  "name": "Adicional Salada Fresca - Alface Americano, Tomate, Picles, Cebola Roxa.",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 27624345,
+                  "name": "Adicional Molho Barbecue da Casa",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 27624346,
+                  "name": "Adicional Ketchup Artesanal",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 27624347,
+                  "name": "Adicional Maionese Artesanal ",
+                  "description": null,
+                  "max": 5,
+                  "price": 1.5,
+                  "img": null
+                },
+                {
+                  "id": 27624348,
+                  "name": "Adicional Anéis de Cebola Empanada -",
+                  "description": null,
+                  "max": 5,
+                  "price": 3,
+                  "img": null
+                },
+                {
+                  "id": 27624349,
+                  "name": "Adicional Catupiry",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                },
+                {
+                  "id": 27624350,
+                  "name": "Adicional Creamcheese",
+                  "description": null,
+                  "max": 5,
+                  "price": 5,
+                  "img": null
+                },
+                {
+                  "id": 27624351,
+                  "name": "Adicional Bacon em Tiras",
+                  "description": null,
+                  "max": 5,
+                  "price": 4,
+                  "img": null
+                },
+                {
+                  "id": 27624352,
+                  "name": "Adicional de Molho Cheddar",
+                  "description": null,
+                  "max": 5,
+                  "price": 6,
+                  "img": null
+                },
+                {
+                  "id": 27624353,
+                  "name": " Adicional Carne Smash Extra 90g",
+                  "description": null,
+                  "max": 5,
+                  "price": 9,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14312,
+      "name": "LINHA SMASHS",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 1720060,
+          "idi": 5204,
+          "name": "Smash Cheese",
+          "description": "Carne de 90g, Queijo Cheddar, Deliciosa Maionese Artesanal, Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 16,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/17a64ccba5f696d296af7f756d3163d9.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 16,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4195158,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 30293867,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 30293868,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 30293869,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 30293870,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1585250,
+          "idi": 5204,
+          "name": "Smash Salada ",
+          "description": "Carne de 90g, Queijo Cheddar, Tomate, Alface Americano, Cebola Roxa, Ketchup Artesanal, Maionese Artesanal,  Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 18,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5204202211292351529f48MtArC.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 18,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1493680,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 11849611,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 11849612,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 11849613,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 11849614,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 98601,
+          "idi": 5204,
+          "name": "Smash Bacon ",
+          "description": "Carne de 90g, Bacon em tiras, Queijo Cheddar, Cebola Roxa, Molho da casa, Servido no Pão Fofinho e Amanteigado. \n\n",
+          "price": 20,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/b76d0f096b9c599f6caef834fa321973.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 20,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 966021,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 8290856,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 8290857,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 8290858,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 8290859,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2221112,
+          "idi": 5204,
+          "name": "Grotesco ",
+          "description": "2 Blend bovino 90g cada , um delicioso molho de cheddar derretido , bacon crocante , cebola empanada , Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 27,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/dd8af6e7bb60080184d7c0499929514c.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 27,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1970334,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 14952525,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 14952526,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 14952527,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 14952528,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 113886,
+          "idi": 5204,
+          "name": "Areia Dourada ",
+          "description": "Duas carnes de 90g cada, Deliciosas Camadas de Cream Chease Poleghi, Bacon em tiras extremamente crocante, Molho da casa,  Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 28,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420210507180425K4aSjpNJd.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 28,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 966023,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 8290875,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 8290876,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 8290877,
+                  "name": "Maionese á parte do Burger (Colocar na observação o molho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0.5,
+                  "img": null
+                },
+                {
+                  "id": 8290878,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4193171,
+          "idi": 5204,
+          "name": "Empanadinho ",
+          "description": "Duas Carnes bovina especiais 90g, Queijo Cheddar, Mussarela Empanada na Farinha Panko, Maionese Artesanal, Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 28,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/74e8da08093a84f967b160209447ff3d.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 28,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 2827557,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 20877225,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 20877226,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 20877228,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4195003,
+          "idi": 5204,
+          "name": "Ogro Empanado ",
+          "description": "Duas Carnes de 90g cada, Queijo Cheddar,  Alface, Tomate, Bacon em Tiras, Queijo Mussarela empanada na Farinha Panko, Servido No Pão Brioche Amanteigado e Fofinho.",
+          "price": 30,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/d9dce0d3d40dc3afe43b11b2d64f6bd7.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 30,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 2828122,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 20880118,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 20880119,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 20880121,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2221113,
+          "idi": 5204,
+          "name": "ADICIONAL Carne 90g Extra ",
+          "description": "Turbine seu Burguer \"SMASH\", carne de 90g esmagada na chapa e servido BEM PASSADO.\n(Especifique em qual Hambúrguer será o adicional,) ",
+          "price": 9,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/59cc67bbbc3c317130e969195cb27ea0.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 9,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 14295,
+      "name": "DO TAMANHO DA SUA FOME",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 98497,
+          "idi": 5204,
+          "name": "Cheese Salada",
+          "description": "Blend 130g, Queijo Cheddar, Tomate, Alface Americano, Cebola Roxa, Ketchup Artesanal,  Ketchup Artesanal, Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 23,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/433b5ee23179a39bb599bd5ac19376ad.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 23,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1558137,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 12226814,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 12226815,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 1558138,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 12226816,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 12226817,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 12226819,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1264402,
+          "idi": 5204,
+          "name": "BBQ ONION",
+          "description": "Blend 130g, Queijo Cheddar, Bacon Crocante em Tiras, Cebola Empanada, Delicioso Molho Barbecue da Casa, Molho da Casa, Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 26,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420220823213823OEUZ4NMqz.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 26,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1296480,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10574287,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 10574288,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 1296481,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10574289,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 10574290,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 10574292,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1264409,
+          "idi": 5204,
+          "name": "Dique Line ",
+          "description": "Blend 130g, Queijo Cheddar, Farofa de Bacon, Bacon Crocante em Tiras, Delicioso Chutney de Abacaxi, Molho da Casa, Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 26,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420220823214444nn7m4lVxB.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 26,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1296484,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10574324,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 10574325,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 1296485,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10574326,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 10574327,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 10574329,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3481027,
+          "idi": 5204,
+          "name": "Gorgo Supremo ",
+          "description": "Burguer 130g super saboroso , Creme de requeijão , Queijo gorgonzola, cebola caramelizada, farofa crocante de bacon, Alface, Tomate e Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5735389afaaf415773d38566aec6e596.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 2554170,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 18953805,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 18953806,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 2554171,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 18953807,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 18953808,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 18953810,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1264579,
+          "idi": 5204,
+          "name": "Home Catupiry ",
+          "description": "Blend 130g, Queijo Mozarela, Catupiry Puro Original, Bacon em Tiras, Cebola Refogado na Manteiga da Terra, Molho da Casa, Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 26,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420220823220417noqoXY6Td.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 26,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1311771,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10668398,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 10668399,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 1311772,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10668400,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 10668401,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 10668403,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1264735,
+          "idi": 5204,
+          "name": "Monumento ",
+          "description": "Blend 130g, Bacon Crocante em Tiras, Cebola Caramelizada, Molho Cheddar, Molho da casa, Servido no Pão Australiano.",
+          "price": 25,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/1c0f3b6b3e8193d2be29fe001ecc9893.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 25,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1296823,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10576104,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 10576105,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 1296824,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10576106,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 10576107,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 10576109,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1264738,
+          "idi": 5204,
+          "name": "Cheddar Melt ",
+          "description": "Blend 130g, muito molho cheddar derretido, bacon crocante em tiras, molho da casa, Servido no Pão amanteigado e fofinho.",
+          "price": 26,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420220823220902N5JTE6d7A.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 26,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1296828,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10576126,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 10576127,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 1296829,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 10576128,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 10576129,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 10576131,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1264740,
+          "idi": 5204,
+          "name": "Gorgo ",
+          "description": "Blend 130g, Queijo Mozarela, Queijo Gorgonzola, Delicioso Chutney de Abacaxi, Bacon em Tiras, Molho da Casa, Servido no Pão Australiano .",
+          "price": 26,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5204202209181723190nSINzYYS.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 26,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4420491,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31898801,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 31898802,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4420492,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31898803,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 31898804,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 31898806,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2303502,
+          "idi": 5204,
+          "name": "Salada Duplo ",
+          "description": "Duas carnes de 130g cada, Duplo Queijo Cheddar, Cebola Roxa, Alface, Tomate, Molho da Casa, Ketchup Artesanal, Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 30,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/c73d2ee833e358861a441ab0b35dac1f.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 30,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 2034152,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 15416161,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 15416162,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 2034153,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 15416163,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 15416164,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 15416166,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 415320,
+          "idi": 5204,
+          "name": "Cheese Bacon",
+          "description": "Duas carnes de 130g cada, Duplo Queijo Cheddar , Bacon em Tiras, Farofa de Bacon, Deliciosa Cebola Caramelizada, Molho da Casa,  Servido no Pão Brioche, Amanteigado e Fofinho.",
+          "price": 35,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420211015211022UP7cNyh6a.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 35,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 966077,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 8291640,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 8291641,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 966078,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 8291642,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 8291643,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 8291645,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1680874,
+          "idi": 5204,
+          "name": "ADICIONAL Carne Extra 130g Com Queijo",
+          "description": "Turbine Seu Burguer (Especifique em qual sanduíche será o adicional) ",
+          "price": 10,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5204202212291708337XcIF3Bd7.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 10,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 6730619,
+          "idi": 5204,
+          "name": "Costelinha",
+          "description": "burguer com suculenta costela desfiada, blend de 130g, generosa camada de cream chesse polenghi, queijo coalho e delicioso molho da casa servido no pão fofinho e amanteigado.",
+          "price": 30,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/32e5d3f16c6ed66eca5026cc300d86bc.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 30,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": [
+            {
+              "id": 4420489,
+              "name": "Escolha o Ponto da Carne",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31898795,
+                  "name": "Ao Ponto",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 31898796,
+                  "name": "Bem Passado",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            },
+            {
+              "id": 4420490,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 31898797,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/f72cce0afa0ff023a7b6f93b126cd28c.png"
+                },
+                {
+                  "id": 31898798,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": "https://cdn-production.yooga.com.br/e927779891b1ccc87ecb84d26e88e9f1.jpeg"
+                },
+                {
+                  "id": 31898800,
+                  "name": "Sem Maionese ",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 227711,
+      "name": "Turbine seu Burguer",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 1682252,
+          "idi": 5204,
+          "name": "Fatia de Queijo (Adicional)",
+          "description": "Queijo Mussarela ou Cheddar, especificar na observação. ",
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229204629us96gzRRH.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1682253,
+          "idi": 5204,
+          "name": "Queijo Gorgonzola  (Adicional)",
+          "description": null,
+          "price": 5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5204202212292047484T2LOuUji.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1682254,
+          "idi": 5204,
+          "name": "Cebola Caramelizada  (Adicional)",
+          "description": null,
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229212657q23n7xeLD.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1682255,
+          "idi": 5204,
+          "name": "Farofa de Bacon Crocante  (Adicional)",
+          "description": null,
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229212745Cn2yPS11D.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1682256,
+          "idi": 5204,
+          "name": "Bacon em tiras  (Adicional)",
+          "description": null,
+          "price": 5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5204202212292128140tNnmEtoc.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1682257,
+          "idi": 5204,
+          "name": "Salada  (Adicional)",
+          "description": "Alface americano, tomate e cebola roxa.",
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229213508lLpypbAEM.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1682260,
+          "idi": 5204,
+          "name": "Maionese Artesanal-  (Adicional)",
+          "description": null,
+          "price": 3,
+          "promotional_price": 1.5,
+          "promotional_percentage": 50,
+          "img": "https://cdn-production.yooga.com.br/5204202212292044141rlZ9bP51.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 1.5,
+          "featured": [],
+          "choices": [
+            {
+              "id": 1558890,
+              "name": "Maioneses",
+              "required": 1,
+              "min": 1,
+              "max": 1,
+              "use_greater_option_price": 0,
+              "options": [
+                {
+                  "id": 12231158,
+                  "name": "(Molho Aioli, Tradicional, levemente ao alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                },
+                {
+                  "id": 12231159,
+                  "name": "(Molho Verde, Cebolinha, Salsinha e Alho)",
+                  "description": null,
+                  "max": 5,
+                  "price": 0,
+                  "img": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 1682261,
+          "idi": 5204,
+          "name": "Anéis de Cebola Empanada p/Hambúrguer  (Adicional)",
+          "description": null,
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229220031O2coYNvqF.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1682262,
+          "idi": 5204,
+          "name": "Catupiry  (Adicional)",
+          "description": null,
+          "price": 4,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229220059YfrBsnico.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 4,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1682263,
+          "idi": 5204,
+          "name": "Cream Cheese  (Adicional)",
+          "description": null,
+          "price": 5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229220130g2VK12lUI.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 3484041,
+          "idi": 5204,
+          "name": "Chutney de Abacaxi ",
+          "description": null,
+          "price": 3,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/0c7cacd581e1ecccc3c941570d7ae129.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 3,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 6713695,
+          "idi": 5204,
+          "name": "Costela ",
+          "description": null,
+          "price": 8,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/120201112170357YBpu1ClGH.png",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 8,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 7025493,
+          "idi": 5204,
+          "name": "Embalagem",
+          "description": null,
+          "price": 0.5,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/120201112170357YBpu1ClGH.png",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 0.5,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 7813684,
+          "idi": 5204,
+          "name": "Transforme em combo BATATA+REFRI",
+          "description": "Não transformamos em combos os produtos que já tenha combo no cardápio!!! (Casa adicionado, será retirado)",
+          "price": 16,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/ef3fb581c1c817dfb3b858ccc13b4632.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 16,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": 467454,
+      "name": "SUCOS",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": []
+    },
+    {
+      "id": 227515,
+      "name": "Refrigerantes",
+      "schedule_available": "1111111",
+      "schedule_type": 0,
+      "has_multiple_selection": null,
+      "items": [
+        {
+          "id": 1680208,
+          "idi": 5204,
+          "name": "Coca Cola 350ml",
+          "description": null,
+          "price": 7,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5204202212292034570EdcGvJD7.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 7,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1680209,
+          "idi": 5204,
+          "name": "Coca Cola Zero 350ml",
+          "description": null,
+          "price": 7,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/5204202212292035207c6se1mC6.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 7,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1680210,
+          "idi": 5204,
+          "name": "Coca Cola Pet 1 Litro",
+          "description": null,
+          "price": 11,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229203553oPLcV2zWS.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 11,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 2720783,
+          "idi": 5204,
+          "name": "Coca Cola ZERO 1 Litro ",
+          "description": null,
+          "price": 11,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/65379d1d14a2fa7a655f967521a74dd2.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 11,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1680211,
+          "idi": 5204,
+          "name": "Guaraná Antártica 350ml",
+          "description": null,
+          "price": 7,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229203620avjb1oqem.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 7,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        },
+        {
+          "id": 1680213,
+          "idi": 5204,
+          "name": "Fanta Laranja 350ml",
+          "description": null,
+          "price": 7,
+          "promotional_price": null,
+          "promotional_percentage": null,
+          "img": "https://cdn-production.yooga.com.br/520420221229203724lKY5y3q48.jpeg",
+          "schedule_available": "1111111",
+          "schedule_type": 0,
+          "min_value": 7,
+          "min_value_promotional": 0,
+          "featured": [],
+          "choices": []
+        }
+      ]
+    }
+  ]
+}

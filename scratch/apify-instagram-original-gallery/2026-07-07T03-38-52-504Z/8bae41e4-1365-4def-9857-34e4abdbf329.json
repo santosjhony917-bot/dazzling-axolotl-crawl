@@ -1,0 +1,460 @@
+{
+  "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+  "name": "Eu Quero Pizza",
+  "username": "euqueropizzafoodtruck",
+  "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+  "applied": false,
+  "forceMedia": false,
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_carousel_child_image_api",
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": true,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de pizza nítida e bem apresentada"
+      }
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_carousel_child_image_api",
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de pizza nítida e atraente"
+      }
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_carousel_child_image_api",
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de pizza clara e bem apresentada"
+      }
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_carousel_child_image_api",
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de pizza nítida e bem apresentada"
+      }
+    }
+  ],
+  "skipped": [],
+  "profile": {
+    "username": "euqueropizzafoodtruck",
+    "followers": 8518,
+    "posts": 1989,
+    "profilePic": true,
+    "biography": "Pizza 🍕❤ @euqueroburguerartesanal ⏰ter a dom das 17h as 23h 📲(83)99857-3813 📌dia 03 a 05/07 Praça do Surfista, Intermares-PB Peça pelo Ifood ou link👇"
+  },
+  "postCount": 16,
+  "candidates": [
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": 106,
+      "postIndex": 8,
+      "childIndex": 9,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": true,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de pizza nítida e bem apresentada"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": 106,
+      "postIndex": 8,
+      "childIndex": 10,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de pizza nítida e atraente"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": 106,
+      "postIndex": 8,
+      "childIndex": 15,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de pizza clara e bem apresentada"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": 96,
+      "postIndex": 8,
+      "childIndex": 11,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "premium_quality": true,
+        "app_gallery_ready": true,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de pizza nítida e bem apresentada"
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -128,
+      "postIndex": 8,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Sidecar",
+      "width": 1440,
+      "height": 1919,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": false,
+        "has_people_or_faces": true,
+        "only_hands": false,
+        "text_or_poster_dominant": true,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem com pessoas e texto dominante"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem não é de pizza"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 2,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": false,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem não é de pizza"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 3,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": true,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "texto dominante"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 4,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": true,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "curto"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 5,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "premium_quality": false,
+        "app_gallery_ready": false,
+        "food_visible": true,
+        "has_people_or_faces": false,
+        "only_hands": false,
+        "text_or_poster_dominant": true,
+        "video_or_reel_frame": false,
+        "bad_crop_or_composite": false,
+        "low_quality": false,
+        "reason": "imagem de hamburguer de outro restaurante"
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 6,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 7,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 8,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1921,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 12,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1919,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 13,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -129,
+      "postIndex": 8,
+      "childIndex": 14,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 1108. Please try again in 332ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      }
+    }
+  ],
+  "approvedCount": 4,
+  "after": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "promotion": null,
+  "status": "media_incomplete"
+}

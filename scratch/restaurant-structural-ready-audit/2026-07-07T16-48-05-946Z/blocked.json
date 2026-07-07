@@ -1,0 +1,199 @@
+[
+  {
+    "id": "07f16c40-a81c-4d0a-8f71-5ef78a3be31c",
+    "name": "A Casa do Temakinho",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+    "name": "Açaí da Hill Point",
+    "redCount": 2,
+    "issueCodes": [
+      "numero_vazio",
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "numero_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "82d8aca0-64d5-4788-97c7-cf38503d2eb3",
+    "name": "BAR DO CHEFF RESTAURANTE",
+    "redCount": 4,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte",
+      "item_operacional"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      },
+      {
+        "severity": "red",
+        "code": "item_operacional",
+        "itemId": "a492efbe-9d4f-47d1-9d53-8b45f98ca77f",
+        "item": "Medalhão de Filet ao molho mostarda p/ 2 pessoas"
+      },
+      {
+        "severity": "red",
+        "code": "item_operacional",
+        "itemId": "47eea305-e2aa-4016-aaaa-fe05a3d39bf1",
+        "item": "Medalhões de filé ao molho queijo e mostarda p/ 2 pessoas"
+      },
+      {
+        "severity": "red",
+        "code": "item_operacional",
+        "itemId": "4aab810e-c770-404b-ae57-20c59210249c",
+        "item": "Filé de frango ao molho de mostarda p/02 pessoas"
+      }
+    ]
+  },
+  {
+    "id": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+    "name": "Espetinho da praia Intermares",
+    "redCount": 3,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+    "name": "Pizza do Paulinho",
+    "redCount": 3,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte",
+      "sem_categorias_cardapio",
+      "sem_itens_cardapio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      },
+      {
+        "severity": "red",
+        "code": "sem_categorias_cardapio"
+      },
+      {
+        "severity": "red",
+        "code": "sem_itens_cardapio"
+      }
+    ]
+  },
+  {
+    "id": "ebc2a604-0b9b-4ccb-896b-e3ccca9d16a1",
+    "name": "Pizza Now - Intermares",
+    "redCount": 3,
+    "issueCodes": [
+      "sem_logo",
+      "sem_capa",
+      "galeria_menor_que_3"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "sem_logo"
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      }
+    ]
+  },
+  {
+    "id": "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6",
+    "name": "Pizzaria 1000Graus",
+    "redCount": 2,
+    "issueCodes": [
+      "horario_nao_canonico",
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "horario_nao_canonico"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "dd73fc2d-69a5-4a76-8e1e-7aa2b68f7869",
+    "name": "Route Hot Dogs",
+    "redCount": 2,
+    "issueCodes": [
+      "numero_vazio",
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "numero_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "a9904835-65ca-4efd-9caf-c8c7354f9ee5",
+    "name": "Self-service da nany",
+    "redCount": 2,
+    "issueCodes": [
+      "numero_vazio",
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "numero_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  }
+]

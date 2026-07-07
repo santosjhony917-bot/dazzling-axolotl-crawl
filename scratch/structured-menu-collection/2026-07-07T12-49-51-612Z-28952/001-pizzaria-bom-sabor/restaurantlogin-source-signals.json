@@ -1,0 +1,6 @@
+{
+  "sourceUrl": "https://pizzariabomsaborpb.com.br",
+  "resolvedBy": "known_restaurantlogin_menu_url",
+  "menuUrl": "https://www.restaurantlogin.com/ordering/restaurant/menu?restaurant_uid=9c0d0eff-2947-4617-b174-f62eae570fe2",
+  "knownReason": "custom domain blocks direct fetch, uid captured from RestaurantLogin cart/init evidence"
+}

@@ -1,0 +1,173 @@
+{
+  "runId": "2026-07-07T09-19-58-439Z",
+  "outDir": "scratch\\cabedelo-three-qa\\2026-07-07T09-19-58-439Z",
+  "restaurants": 3,
+  "passed": 3,
+  "failed": 0,
+  "audits": [
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "status": "pass",
+      "redCount": 0,
+      "issueCount": 0,
+      "itemCount": 16,
+      "optionCount": 101,
+      "galleryCount": 4,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "source": {
+        "menu": "https://app.anota.ai/m/MeIU-tixw",
+        "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+        "googleRepair": {
+          "repairedAt": "2026-07-07T02:31:29.789Z",
+          "rawAddress": "R. da Enseada - Ponta de Campina, Cabedelo - PB, 58310-000",
+          "addressPatch": {
+            "city": "Cabedelo"
+          },
+          "hoursSource": "google_maps_operating_hours",
+          "sourceRunId": "2026-07-06T19-32-09-190Z",
+          "sourceFile": "raw-026.json"
+        },
+        "bioHours": null,
+        "media": {
+          "checkedAt": "2026-07-07T02:51:24.855Z",
+          "status": "enriched",
+          "username": "euqueropizzafoodtruck",
+          "followers": 8518,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.anota.ai/m/MeIU-tixw",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. da Enseada",
+        "number": null,
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 99857-3813",
+        "followers": 8518
+      },
+      "issues": []
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "status": "pass",
+      "redCount": 0,
+      "issueCount": 0,
+      "itemCount": 112,
+      "optionCount": 752,
+      "galleryCount": 3,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "source": {
+        "menu": "https://app.cardapioweb.com/i_loveburguer",
+        "instagram": "https://www.instagram.com/iloveburguerpb/",
+        "googleRepair": {
+          "repairedAt": "2026-07-07T02:31:29.781Z",
+          "rawAddress": "Praça Getúlio Vargas, 107 - Vila Sao Joao, Cabedelo - PB, 58100-305",
+          "addressPatch": {
+            "city": "Cabedelo"
+          },
+          "hoursSource": "google_maps_operating_hours",
+          "sourceRunId": "2026-07-06T19-32-09-190Z",
+          "sourceFile": "raw-035.json"
+        },
+        "bioHours": null,
+        "media": {
+          "checkedAt": "2026-07-07T02:51:30.844Z",
+          "status": "enriched",
+          "username": "iloveburguerpb",
+          "followers": 9915,
+          "match": {
+            "score": 140,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/i_loveburguer",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Praça Getúlio Vargas",
+        "number": "107",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 99311-5016",
+        "followers": 9915
+      },
+      "issues": []
+    },
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "status": "pass",
+      "redCount": 0,
+      "issueCount": 0,
+      "itemCount": 21,
+      "optionCount": 147,
+      "galleryCount": 6,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "source": {
+        "menu": "https://app.cardapioweb.com/ilove_pizza",
+        "instagram": "https://www.instagram.com/ilovepizzapb/",
+        "googleRepair": {
+          "repairedAt": "2026-07-07T02:31:29.781Z",
+          "rawAddress": "R. Duque de Caxias - Centro, Cabedelo - PB, 58100-263",
+          "addressPatch": {
+            "city": "Cabedelo"
+          },
+          "hoursSource": "google_maps_operating_hours",
+          "sourceRunId": "2026-07-06T19-32-09-190Z",
+          "sourceFile": "raw-034.json"
+        },
+        "bioHours": null,
+        "media": {
+          "checkedAt": "2026-07-07T02:51:24.975Z",
+          "status": "enriched",
+          "username": "ilovepizzapb",
+          "followers": 3095,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/ilove_pizza",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": null,
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 99631-6245",
+        "followers": 3095
+      },
+      "issues": []
+    }
+  ]
+}

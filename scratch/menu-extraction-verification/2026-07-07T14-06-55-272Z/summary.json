@@ -1,0 +1,83 @@
+{
+  "runId": "2026-07-07T14-06-55-272Z",
+  "laneId": "default",
+  "apply": true,
+  "limit": 1,
+  "platform": "goomer",
+  "status": "any",
+  "targetCount": 1,
+  "targetQueueCounts": {
+    "green": 1,
+    "yellow": 0,
+    "red": 0
+  },
+  "processed": [
+    {
+      "restaurantId": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+      "restaurantName": "Tia Graça Cafeteria e Doceria",
+      "sourceUrl": "https://tia-graa-doces-e-salgados.goomer.app",
+      "platform": "goomer",
+      "queue": {
+        "restaurantId": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+        "restaurantName": "Tia Graça Cafeteria e Doceria",
+        "platform": "goomer",
+        "sourceUrl": "https://tia-graa-doces-e-salgados.goomer.app",
+        "score": 38,
+        "tier": "green",
+        "flags": [],
+        "nextAction": "fast_visual_review_then_import",
+        "category": "Cafeteria",
+        "address": "R. Golfo da China",
+        "phone": null,
+        "instagram": "https://www.instagram.com/tiagracadocesesalgados/"
+      },
+      "review": {
+        "tier": "red",
+        "restaurantId": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+        "restaurantName": "Tia Graça Cafeteria e Doceria",
+        "platform": "goomer",
+        "sourceUrl": "https://tia-graa-doces-e-salgados.goomer.app",
+        "score": 38,
+        "sourceTier": "green",
+        "sourceFlags": [],
+        "itemCount": 0,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "dryRunApproved": false,
+        "confidence": 0,
+        "pricedRatio": 0,
+        "unresolvedPriceCount": 0,
+        "committed": false,
+        "flags": [
+          "collector_error",
+          "no_extension_print",
+          "no_structured_items",
+          "insufficient_visual_menu_evidence",
+          "price_coverage_review"
+        ],
+        "nextAction": "reject_or_rediscover_source",
+        "snapshotPath": null,
+        "viewportSnapshotPaths": [],
+        "evidencePath": null,
+        "error": "Timeout aguardando extensao para open_url"
+      },
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-07T14-06-55-272Z\\001-tia-graca-cafeteria-e-doceria",
+      "openedTabId": null,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": null,
+      "verificationSnapshots": [],
+      "verificationSnapshotError": null,
+      "extractionSummary": null,
+      "dryRun": null,
+      "committed": false,
+      "visualBlock": null,
+      "error": "Timeout aguardando extensao para open_url"
+    }
+  ],
+  "reviewCounts": {
+    "green": 0,
+    "yellow": 0,
+    "red": 1
+  }
+}

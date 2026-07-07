@@ -1,0 +1,26 @@
+{
+  "runId": "2026-07-07T13-09-40-473Z",
+  "outDir": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\restaurant-structural-ready-audit\\2026-07-07T13-09-40-473Z",
+  "restaurants": 1,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 1,
+  "issueCounts": {
+    "numero_embutido_no_logradouro": 1,
+    "numero_vazio": 1,
+    "cep_ausente_ou_invalido": 1,
+    "galeria_menor_que_3": 1
+  },
+  "blockedSample": [
+    {
+      "name": "Forneria Brasil Express 🍕",
+      "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "redCodes": [
+        "numero_embutido_no_logradouro",
+        "numero_vazio",
+        "cep_ausente_ou_invalido",
+        "galeria_menor_que_3"
+      ]
+    }
+  ]
+}

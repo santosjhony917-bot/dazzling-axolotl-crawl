@@ -1,0 +1,42 @@
+{
+  "url": "https://app.cardapioweb.com/manifest.json",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "manifest",
+  "method": "GET",
+  "textLength": 554,
+  "textSample": "{\"theme_color\":\"#2d2929\",\"background_color\":\"#2d2929\",\"display\":\"standalone\",\"scope\":\"/\",\"start_url\":\"https://app.cardapioweb.com/i_loveburguer\",\"name\":\"I love burguer\",\"short_name\":\"I love burguer\",\"description\":null,\"icons\":[{\"src\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/51070/thumb_a18d09a91028060749892389_101k4d4.jpg\",\"sizes\":\"192x192\",\"type\":\"image/png\"},{\"src\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/51070/a18d09a91028060749892389_101k4d4.jpg\",\"sizes\":\"512x512\",\"type\":\"image/png\"}]}",
+  "jsonKeys": [
+    "theme_color",
+    "background_color",
+    "display",
+    "scope",
+    "start_url",
+    "name",
+    "short_name",
+    "description",
+    "icons"
+  ],
+  "json": {
+    "theme_color": "#2d2929",
+    "background_color": "#2d2929",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "https://app.cardapioweb.com/i_loveburguer",
+    "name": "I love burguer",
+    "short_name": "I love burguer",
+    "description": null,
+    "icons": [
+      {
+        "src": "https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/51070/thumb_a18d09a91028060749892389_101k4d4.jpg",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/51070/a18d09a91028060749892389_101k4d4.jpg",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+}

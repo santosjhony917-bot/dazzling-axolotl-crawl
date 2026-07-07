@@ -1,0 +1,54 @@
+[
+  {
+    "restaurantId": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+    "restaurantName": "Pastelaria Litorânea",
+    "sourceUrl": "https://whatsmenu.com.br/pastelarialitoranea",
+    "platform": "whatsmenu",
+    "reviewsCount": 280,
+    "address": "R. Sólon de Lucena, 19",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98807-9929",
+    "queueEntry": {
+      "restaurant_id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "platform": "whatsmenu",
+      "tier": "green",
+      "priority_score": 2,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://whatsmenu.com.br/pastelarialitoranea",
+      "raw_source_url": "https://whatsmenu.com.br/pastelarialitoranea",
+      "other_url": "https://whatsmenu.com.br/pastelarialitoranea",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Pastelaria brasileira",
+      "address": "R. Sólon de Lucena, 19",
+      "neighborhood": "Vila Sao Joao",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98807-9929",
+      "rating": 4.3,
+      "reviews_count": 280,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://whatsmenu.com.br/pastelarialitoranea",
+          "canonical_url": "https://whatsmenu.com.br/pastelarialitoranea",
+          "platform": "whatsmenu",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 4
+    }
+  }
+]

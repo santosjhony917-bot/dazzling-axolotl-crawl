@@ -1,0 +1,298 @@
+{
+  "url": "https://integracao.cardapioweb.com/api/menu/company/profile?company=daikon_delivery&hostname=app.cardapioweb.com",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 4364,
+  "textSample": "{\"id\":16426,\"name\":\"Daikon Delivery\",\"description\":null,\"url_name\":\"daikon_delivery\",\"color\":\"#890000\",\"phone_number\":\"(83) 986591965\",\"observation_before_complete_order\":null,\"cnpj\":\"45546977000147\",\"benefit_mode\":\"loyalty\",\"street\":\"R. Cap. João Alves de Lira\",\"address_number\":\"303\",\"address_complement\":\"\",\"neighborhood\":\"Prata\",\"city\":\"Campina Grande\",\"state\":\"PB\",\"latitude\":\"-7.2206206\",\"longitude\":\"-35.8931368\",\"suggested_items_settings\":null,\"instagram\":\"restaurantedaikon\",\"required_fields_on_signup\":null,\"ddi_allowed\":[\"55\"],\"free_delivery_from\":null,\"minimum_order_value\":null,\"order_whatsapp\":\"5583986591965\",\"on_deployment\":false,\"local_timezone\":\"America/Sao_Paulo\",\"preparation_time\":null,\"image\":null,\"logo\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/16426/09dc8ff8logo-daikon-8_16zdyrs.png\",\"thumbnail\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/16426/thumb_09dc8ff8logo-daikon-8_16zdyrs.png\",\"server_timestamp\":\"2026-07-06T15:03:39-03:00\",\"custom_domain\":null,\"facebook_pixel_api\":true,\"payment_public_key\":null,\"menu_active\":true,\"delivery_feature_is_available\":true,\"organization_info\":{\"name\":\"Cardápio Web\",\"site_url\":\"cardapioweb.com\",\"primary_color\":null,\"enterprise_domain\":\"cardapioweb.com\"},\"custom_fields\":[],\"business_hours\":{\"sunday\":[[\"18:00\",\"23:00\"]],\"monday\":[],\"tuesday\":[[\"18:00\",\"23:00\"]],\"wednesday\":[[\"18:00\",\"23:00\"]],\"thursday\":[[\"18:00\",\"23:00\"]],\"friday\":[[\"18:00\",\"23:00\"]],\"saturday\":[[\"18:00\",\"23:00\"]],\"custom_dates\":null,\"temporary_state\":\"closed\",\"temporary_state_end_at\":\"2026-06-13T22:04:18.000-03:00\"},\"payment_methods\":[{\"id\":94829,\"name\":\"Dinheiro\",\"fixed_fee\":null,\"percentual_fee\":null,\"observation\":null,\"available_on_menu\":true,\"available_for\":[],\"available_order_timings\":[],\"allow_on_customer_first_order\":true,\"fiscal_kind\":\"money\",\"online_payment_provider\":null,\"kind\":\"money\",\"brands\":[{\"id\":111452,\"name\":null,\"kind\":null,\"system_default\":true}]},{\"id\":96806,\"name\":\"Cartão de crédito\",\"fixed_fee\":null,\"percentual_fee\":null,\"observation\":null,\"available_on_menu\":true,\"available_for\":[],\"available_order_timings\":[],\"allow_on_customer_first_order\":true,\"fiscal_kind\":\"credit_card\",\"online_payment_provider\":null,\"kind\":\"credit_card\",\"brands\":[{\"id\":111453,\"name\":null,\"kind\":null,\"system_default\":true}]},{\"id\":96807,\"name\":\"Cartão de débito\",\"fixed_fee\":null,\"percentual_fee\":null,\"observation\":null,\"available_on_menu\":true,\"available_for\":[],\"available_order_timings\":[],\"allow_on_customer_first_order\":true,\"fiscal_kind\":\"debit_card\",\"online_payment_provider\":null,\"kind\":\"debit_card\",\"brands\":[{\"id\":111454,\"name\":null,\"kind\":null,\"system_default\":true}]},{\"id\":96808,\"name\":\"Pix\",\"fixed_fee\":null,\"percentual_fee\":null,\"observation\":null,\"available_on_menu\":true,\"available_for\":[],\"available_order_timings\":[],\"allow_on_customer_first_order\":true,\"fiscal_kind\":\"static_instant_payment_pix\",\"online_payment_provider\":null,\"kind\":\"pix\",\"brands\":[{\"id\":111455,\"name\":null,\"kind\":null,\"system_default\":true}]}],\"flags\":{\"hide_order_status_from_client\":false,\"hide_company_address\":false,\"document_on_order_invoice\":false,\"document_on_order_invoice_required\":false,\"hide_shipping_calculation_at_beginning_catalog\":false,\"send_order_by_whatsapp\":false,\"show_address_block_and_lot\":false,\"show_provider_brand\":true,\"show_sales_modal\":true,\"simplified_address_input\":true,\"verify_client_phone\":false,\"work_with_delivery\":true,\"work_with_normal_ordering\":true,\"work_with_pick_up_store\":true,\"work_with_onsite\":false,\"work_with_scheduled_order\":false,\"show_categories_first\":false,\"address_landmark_required\":true,\"chatbot_save_contacts_automatically\":true,\"chatbot_cwai_active\":false,\"require_customer_on_menu_table_orders\":false},\"delivery_only_for_neighborhoods\":[],\"schedule_setting\":{\"id\":15063,\"block_schedule_for_the_same_day\":true,\"hours_in_advance_for_scheduling\":1,\"maximum_days_for_scheduling\":15,\"order_schedule_only_for_next_available_day\":false,\"quantity_of_orders_per_interval\":null,\"time_interval\":30,\"quantity_of_orders_grouped\":[],\"delivery_period\":{\"sunday\":[\"17:00\",\"23:00\"],\"monday\":[\"17:00\",\"23:00\"],\"tuesday\":[\"17:00\",\"23:00\"],\"wednesday\":[\"17:00\",\"23:00\"],\"thursday\":[\"17:00\",\"23:00\"],\"friday\":[\"17:00\",\"23:00\"],\"saturday\":[\"17:00\",\"23:00\"],\"custom_dates\":null}},\"coupons\":[],\"loyalty_program_setting\":null,\"events\":[]}",
+  "jsonKeys": [
+    "id",
+    "name",
+    "description",
+    "url_name",
+    "color",
+    "phone_number",
+    "observation_before_complete_order",
+    "cnpj",
+    "benefit_mode",
+    "street",
+    "address_number",
+    "address_complement",
+    "neighborhood",
+    "city",
+    "state",
+    "latitude",
+    "longitude",
+    "suggested_items_settings",
+    "instagram",
+    "required_fields_on_signup",
+    "ddi_allowed",
+    "free_delivery_from",
+    "minimum_order_value",
+    "order_whatsapp",
+    "on_deployment",
+    "local_timezone",
+    "preparation_time",
+    "image",
+    "logo",
+    "thumbnail",
+    "server_timestamp",
+    "custom_domain",
+    "facebook_pixel_api",
+    "payment_public_key",
+    "menu_active",
+    "delivery_feature_is_available",
+    "organization_info",
+    "custom_fields",
+    "business_hours",
+    "payment_methods"
+  ],
+  "json": {
+    "id": 16426,
+    "name": "Daikon Delivery",
+    "description": null,
+    "url_name": "daikon_delivery",
+    "color": "#890000",
+    "phone_number": "(83) 986591965",
+    "observation_before_complete_order": null,
+    "cnpj": "45546977000147",
+    "benefit_mode": "loyalty",
+    "street": "R. Cap. João Alves de Lira",
+    "address_number": "303",
+    "address_complement": "",
+    "neighborhood": "Prata",
+    "city": "Campina Grande",
+    "state": "PB",
+    "latitude": "-7.2206206",
+    "longitude": "-35.8931368",
+    "suggested_items_settings": null,
+    "instagram": "restaurantedaikon",
+    "required_fields_on_signup": null,
+    "ddi_allowed": [
+      "55"
+    ],
+    "free_delivery_from": null,
+    "minimum_order_value": null,
+    "order_whatsapp": "5583986591965",
+    "on_deployment": false,
+    "local_timezone": "America/Sao_Paulo",
+    "preparation_time": null,
+    "image": null,
+    "logo": "https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/16426/09dc8ff8logo-daikon-8_16zdyrs.png",
+    "thumbnail": "https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/16426/thumb_09dc8ff8logo-daikon-8_16zdyrs.png",
+    "server_timestamp": "2026-07-06T15:03:39-03:00",
+    "custom_domain": null,
+    "facebook_pixel_api": true,
+    "payment_public_key": null,
+    "menu_active": true,
+    "delivery_feature_is_available": true,
+    "organization_info": {
+      "name": "Cardápio Web",
+      "site_url": "cardapioweb.com",
+      "primary_color": null,
+      "enterprise_domain": "cardapioweb.com"
+    },
+    "custom_fields": [],
+    "business_hours": {
+      "sunday": [
+        [
+          "18:00",
+          "23:00"
+        ]
+      ],
+      "monday": [],
+      "tuesday": [
+        [
+          "18:00",
+          "23:00"
+        ]
+      ],
+      "wednesday": [
+        [
+          "18:00",
+          "23:00"
+        ]
+      ],
+      "thursday": [
+        [
+          "18:00",
+          "23:00"
+        ]
+      ],
+      "friday": [
+        [
+          "18:00",
+          "23:00"
+        ]
+      ],
+      "saturday": [
+        [
+          "18:00",
+          "23:00"
+        ]
+      ],
+      "custom_dates": null,
+      "temporary_state": "closed",
+      "temporary_state_end_at": "2026-06-13T22:04:18.000-03:00"
+    },
+    "payment_methods": [
+      {
+        "id": 94829,
+        "name": "Dinheiro",
+        "fixed_fee": null,
+        "percentual_fee": null,
+        "observation": null,
+        "available_on_menu": true,
+        "available_for": [],
+        "available_order_timings": [],
+        "allow_on_customer_first_order": true,
+        "fiscal_kind": "money",
+        "online_payment_provider": null,
+        "kind": "money",
+        "brands": [
+          {
+            "id": 111452,
+            "name": null,
+            "kind": null,
+            "system_default": true
+          }
+        ]
+      },
+      {
+        "id": 96806,
+        "name": "Cartão de crédito",
+        "fixed_fee": null,
+        "percentual_fee": null,
+        "observation": null,
+        "available_on_menu": true,
+        "available_for": [],
+        "available_order_timings": [],
+        "allow_on_customer_first_order": true,
+        "fiscal_kind": "credit_card",
+        "online_payment_provider": null,
+        "kind": "credit_card",
+        "brands": [
+          {
+            "id": 111453,
+            "name": null,
+            "kind": null,
+            "system_default": true
+          }
+        ]
+      },
+      {
+        "id": 96807,
+        "name": "Cartão de débito",
+        "fixed_fee": null,
+        "percentual_fee": null,
+        "observation": null,
+        "available_on_menu": true,
+        "available_for": [],
+        "available_order_timings": [],
+        "allow_on_customer_first_order": true,
+        "fiscal_kind": "debit_card",
+        "online_payment_provider": null,
+        "kind": "debit_card",
+        "brands": [
+          {
+            "id": 111454,
+            "name": null,
+            "kind": null,
+            "system_default": true
+          }
+        ]
+      },
+      {
+        "id": 96808,
+        "name": "Pix",
+        "fixed_fee": null,
+        "percentual_fee": null,
+        "observation": null,
+        "available_on_menu": true,
+        "available_for": [],
+        "available_order_timings": [],
+        "allow_on_customer_first_order": true,
+        "fiscal_kind": "static_instant_payment_pix",
+        "online_payment_provider": null,
+        "kind": "pix",
+        "brands": [
+          {
+            "id": 111455,
+            "name": null,
+            "kind": null,
+            "system_default": true
+          }
+        ]
+      }
+    ],
+    "flags": {
+      "hide_order_status_from_client": false,
+      "hide_company_address": false,
+      "document_on_order_invoice": false,
+      "document_on_order_invoice_required": false,
+      "hide_shipping_calculation_at_beginning_catalog": false,
+      "send_order_by_whatsapp": false,
+      "show_address_block_and_lot": false,
+      "show_provider_brand": true,
+      "show_sales_modal": true,
+      "simplified_address_input": true,
+      "verify_client_phone": false,
+      "work_with_delivery": true,
+      "work_with_normal_ordering": true,
+      "work_with_pick_up_store": true,
+      "work_with_onsite": false,
+      "work_with_scheduled_order": false,
+      "show_categories_first": false,
+      "address_landmark_required": true,
+      "chatbot_save_contacts_automatically": true,
+      "chatbot_cwai_active": false,
+      "require_customer_on_menu_table_orders": false
+    },
+    "delivery_only_for_neighborhoods": [],
+    "schedule_setting": {
+      "id": 15063,
+      "block_schedule_for_the_same_day": true,
+      "hours_in_advance_for_scheduling": 1,
+      "maximum_days_for_scheduling": 15,
+      "order_schedule_only_for_next_available_day": false,
+      "quantity_of_orders_per_interval": null,
+      "time_interval": 30,
+      "quantity_of_orders_grouped": [],
+      "delivery_period": {
+        "sunday": [
+          "17:00",
+          "23:00"
+        ],
+        "monday": [
+          "17:00",
+          "23:00"
+        ],
+        "tuesday": [
+          "17:00",
+          "23:00"
+        ],
+        "wednesday": [
+          "17:00",
+          "23:00"
+        ],
+        "thursday": [
+          "17:00",
+          "23:00"
+        ],
+        "friday": [
+          "17:00",
+          "23:00"
+        ],
+        "saturday": [
+          "17:00",
+          "23:00"
+        ],
+        "custom_dates": null
+      }
+    },
+    "coupons": [],
+    "loyalty_program_setting": null,
+    "events": []
+  }
+}

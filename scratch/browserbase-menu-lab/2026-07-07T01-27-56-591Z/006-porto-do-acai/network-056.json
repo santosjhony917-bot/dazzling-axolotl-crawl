@@ -1,0 +1,66 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 992,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"a9d916ad-c000-4e60-b13c-bd4748d72dee\",\"id\":\"ea001333-cda0-46b1-a3b2-a845aa534ae6\",\"code\":\"47\",\"ean\":null,\"priority\":1,\"name\":\"Skol Beats Senses 269ml\",\"description\":\"Drink alcoolico pronto para beber\",\"price\":9,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"fc8298c4-d3c9-4a6f-a3c7-1a64d44e9a8d\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Skol Beats Senses 269ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "1"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "a9d916ad-c000-4e60-b13c-bd4748d72dee",
+      "id": "ea001333-cda0-46b1-a3b2-a845aa534ae6",
+      "code": "47",
+      "ean": null,
+      "priority": 1,
+      "name": "Skol Beats Senses 269ml",
+      "description": "Drink alcoolico pronto para beber",
+      "price": 9,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "fc8298c4-d3c9-4a6f-a3c7-1a64d44e9a8d",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Skol Beats Senses 269ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "apply": true,
+  "overwrite": false,
+  "safeOnly": true,
+  "skipExisting": true,
+  "minScore": 90,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\instagram-selected-min90-2026-07-06T21-42-40-279Z",
+  "processed": 7,
+  "approved": 7,
+  "baseApproved": 7,
+  "safe": 7,
+  "rejected": 0,
+  "applied": 7,
+  "failures": [],
+  "reasonCounts": {
+    "approved_safe": 7
+  },
+  "approvedSamples": [
+    {
+      "name": "Ancoradouro Ponta de Campina",
+      "instagram": "https://instagram.com/ancoradourobsrjp",
+      "score": 97,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Skama Bar e Restaurante",
+      "instagram": "https://instagram.com/skamabar_restaurante",
+      "score": 93,
+      "phoneCandidate": "(83) 98677-5976",
+      "openingHoursText": null
+    },
+    {
+      "name": "Restaurante Ondas",
+      "instagram": "https://instagram.com/restauranteondas",
+      "score": 93,
+      "phoneCandidate": "(83) 98898-8397",
+      "openingHoursText": null
+    },
+    {
+      "name": "Center Pizza Cabedelo",
+      "instagram": "https://instagram.com/centerpizza_cabedelo",
+      "score": 97,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Na brasa hambúrgueria",
+      "instagram": "https://instagram.com/nabrasa_burg",
+      "score": 93,
+      "phoneCandidate": "(83) 98655-6103",
+      "openingHoursText": null
+    },
+    {
+      "name": "Manos Burger Cabedelo",
+      "instagram": "https://instagram.com/manosburgercabedelo",
+      "score": 97,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Pizzaria tá no ponto",
+      "instagram": "https://instagram.com/pizzariatanoponto",
+      "score": 93,
+      "phoneCandidate": "(83) 99608-4407",
+      "openingHoursText": null
+    }
+  ],
+  "rejectedSamples": [],
+  "updates": [
+    {
+      "id": "9f1c7086-a96a-49c9-b537-9fb9565841fd",
+      "name": "Ancoradouro Ponta de Campina",
+      "instagram": "https://instagram.com/ancoradourobsrjp",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2",
+      "name": "Skama Bar e Restaurante",
+      "instagram": "https://instagram.com/skamabar_restaurante",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "59147bb0-0a1d-4493-a05a-ba54bd8cd26c",
+      "name": "Restaurante Ondas",
+      "instagram": "https://instagram.com/restauranteondas",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "name": "Center Pizza Cabedelo",
+      "instagram": "https://instagram.com/centerpizza_cabedelo",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "ea0bb6d3-17df-4665-b715-32054f497d99",
+      "name": "Na brasa hambúrgueria",
+      "instagram": "https://instagram.com/nabrasa_burg",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "9007523d-76dc-4621-a738-134d99dfddd1",
+      "name": "Manos Burger Cabedelo",
+      "instagram": "https://instagram.com/manosburgercabedelo",
+      "phoneFilled": false,
+      "whatsappFilled": false
+    },
+    {
+      "id": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+      "name": "Pizzaria tá no ponto",
+      "instagram": "https://instagram.com/pizzariatanoponto",
+      "phoneFilled": true,
+      "whatsappFilled": true
+    }
+  ]
+}

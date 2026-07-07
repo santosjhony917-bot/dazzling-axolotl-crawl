@@ -1,0 +1,117 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 1879,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4\",\"id\":\"838985c4-cb5a-46af-b664-b538be81238e\",\"code\":\"44\",\"ean\":null,\"priority\":8,\"name\":\"COCA COLA PET 1L\",\"description\":\"\",\"price\":12,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"eeea6d60-3ef9-4357-91c7-352195a96c30\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"COCA COLA PET 1L\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4\",\"id\":\"ce5d6173-6f59-4ec3-a499-82aeb46a287f\",\"code\":\"45\",\"ean\":null,\"priority\":9,\"name\":\"GUARANA 1L\",\"description\":\"\",\"price\":10,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"041d42c9-1a5d-4033-a96d-bc8558484a7d\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"GUARANA 1L\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "2"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "id": "838985c4-cb5a-46af-b664-b538be81238e",
+      "code": "44",
+      "ean": null,
+      "priority": 8,
+      "name": "COCA COLA PET 1L",
+      "description": "",
+      "price": 12,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "eeea6d60-3ef9-4357-91c7-352195a96c30",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "COCA COLA PET 1L",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "id": "ce5d6173-6f59-4ec3-a499-82aeb46a287f",
+      "code": "45",
+      "ean": null,
+      "priority": 9,
+      "name": "GUARANA 1L",
+      "description": "",
+      "price": 10,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "041d42c9-1a5d-4033-a96d-bc8558484a7d",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "GUARANA 1L",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

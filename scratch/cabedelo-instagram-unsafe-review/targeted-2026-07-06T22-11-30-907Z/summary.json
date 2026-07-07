@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-06T22:23:52.001Z",
+  "dryRun": true,
+  "city": "Cabedelo",
+  "state": "PB",
+  "reviewFile": "scratch\\cabedelo-instagram-unsafe-review\\2026-07-06T21-34-26-304Z\\review-queue.json",
+  "previousRefined": "scratch\\cabedelo-instagram-targeted-refine\\2026-07-06T21-52-21-442Z\\refined.json",
+  "totalUnsafeOriginal": 126,
+  "remainingWithoutInstagramReviewed": 113,
+  "apiCalls": 113,
+  "counts": {
+    "reject": 75,
+    "hold": 31,
+    "approve": 7
+  },
+  "approved": [
+    {
+      "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+      "name": "JuJuba sorvete e açaí",
+      "instagram": "https://instagram.com/sorveteeacaijujuba",
+      "score": 144,
+      "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+      "evidence": "https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://www.instagram.com/sorveteeacaijujuba/reels/ |"
+    },
+    {
+      "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "name": "Espaço Do Sushi",
+      "instagram": "https://instagram.com/espacodosushi",
+      "score": 98,
+      "title": "Espaço do Sushi (@espacodosushi)",
+      "evidence": "https://instagram.com/espacodosushi | Espaço do Sushi (@espacodosushi) Rua Juarez Távora, 227 - Camalaú Sushis a partir de R$2,85. ABERTO TODOS OS DIAS, a partir das 18h00. PEDIDOS ATRAVÉS DO NOSSO LINK. Follow. Message ... https://www.instagram.com/espacodosushi/ | Espaço do Sus"
+    },
+    {
+      "id": "19adbb1c-6894-4306-8468-d84cba24eed6",
+      "name": "Espetinh",
+      "instagram": "https://instagram.com/espetinho_unia",
+      "score": 104,
+      "title": "Espetinho União (@espetinho_unia) · Cabedelo, PB",
+      "evidence": "Espetinho União (@espetinho_unia) · Cabedelo, PB Espetinho União. 419 followers. 167 following. Qualidade e Sabor à Beira-Mar. Brisa, Brasa e Pé na Areia! 🏖️Guarda-sóis Pretos Praia Ponta de Campina! https://www.instagram.com/espetinho_unia/ | Espetinho União (@espetinho_unia) ·"
+    },
+    {
+      "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "instagram": "https://instagram.com/forneria_brasilexpress",
+      "score": 104,
+      "title": "Forneria Brasil Express (@forneria_brasilexpress)",
+      "evidence": "https://instagram.com/forneria_brasilexpress | Forneria Brasil Express (@forneria_brasilexpress) Delivery e retirada 🛵 rua João Galdino de Barros n 12 b ⏰17:00h Às 03:00 @brunamiranda2026. Clayton @aurora.pizzaria 📲| Peça Com DESCONTO Aqui ⤵️. Follow. https://www.instagram.com/"
+    },
+    {
+      "id": "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6",
+      "name": "Pizzaria 1000Graus",
+      "instagram": "https://instagram.com/1000grauspizzaria_",
+      "score": 104,
+      "title": "Pizzaria 1000 Graus (@1000grauspizzaria_)",
+      "evidence": "Pizzaria 1000 Graus (@1000grauspizzaria_) Pizzaria 1000graus Cabedelo-PB | Delivery Rápido! 18h às 23h | Seg a Dom Faça seu pedido no link! ... E quem é que vai pagar uma pizza para você? Marca ... https://www.instagram.com/1000grauspizzaria_/"
+    },
+    {
+      "id": "d7d014d6-8d90-440c-a2ab-caee3b86bb0d",
+      "name": "Tenda Formosa Bar & Restaurante",
+      "instagram": "https://instagram.com/tendaformosaoficial",
+      "score": 138,
+      "title": "Tenda Formosa restaurante (@tendaformosaoficial)",
+      "evidence": "Tenda Formosa restaurante (@tendaformosaoficial) Bar e Restaurante na Praia Formosa 🏖️ SEG - DOM À PARTIR DAS 9:00 as 16:00. A beira mar de cabedelo pb · Bom dia, ja estamos funcionando. · Parque infantil ... https://www.instagram.com/tendaformosaoficial/ | Tenda Formosa restaur"
+    },
+    {
+      "id": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+      "name": "Tia Graça Cafeteria e Doceria",
+      "instagram": "https://instagram.com/tiagracadocesesalgados",
+      "score": 144,
+      "title": "Tia Graça Doces e Salgados® (@tiagracadocesesalgados)",
+      "evidence": "Tia Graça Doces e Salgados® (@tiagracadocesesalgados) Aqui tudo fica mais doce Centro & Intermares — Cabedelo/PB Segunda a Sábado | HORÁRIO NOS DESTAQUES Entregas e encomendas | Link abaixo ⬇️ ... https://www.instagram.com/tiagracadocesesalgados/ | Tia Graça Doces e Salgados® (@t"
+    }
+  ],
+  "applied": [],
+  "failures": [],
+  "outDir": "scratch\\cabedelo-instagram-unsafe-review\\targeted-2026-07-06T22-11-30-907Z"
+}

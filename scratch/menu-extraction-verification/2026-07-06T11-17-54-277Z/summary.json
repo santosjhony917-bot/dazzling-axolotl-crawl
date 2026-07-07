@@ -1,0 +1,27 @@
+{
+  "runId": "2026-07-06T11-17-54-277Z",
+  "apply": false,
+  "limit": 1,
+  "platform": null,
+  "targetCount": 1,
+  "processed": [
+    {
+      "restaurantId": "83c642b2-3097-454c-8b3d-ccf87ae3b12f",
+      "restaurantName": "Marmitas Delivery",
+      "sourceUrl": "https://whatsmenu.com.br/marmitasdelivery",
+      "platform": "whatsmenu",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-17-54-277Z\\001-marmitas-delivery",
+      "openedTabId": 943016987,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": null,
+      "verificationSnapshots": [],
+      "verificationSnapshotError": null,
+      "extractionSummary": null,
+      "dryRun": null,
+      "committed": false,
+      "visualBlock": null,
+      "error": "Timeout aguardando extensao para full_page_snapshot"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 204,
+    "contentType": "",
+    "capturedAt": "2026-07-07T13:39:11.622Z",
+    "body": null,
+    "error": "Could not load response body for this request. This might happen if the request is a preflight request."
+  },
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "capturedAt": "2026-07-07T13:39:11.829Z",
+    "body": {
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"67c8fe94f2936f0019e7bbfb\",\"webview\":{\"accept_multiple_payments\":false,\"multiple_payments_quantity\":0,\"waiter_accept_tip\":false,\"waiter_tip_percent\":10,\"waiter_order_delivery\":true,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"address_manual\":false,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"false\",\"repeat_order_enabled\":true,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"table_seats\":false},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":true},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":true,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"images\":[]},\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"sound_1\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":false},\"cashback\":{\"cashback_by_weekday\":[]},\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"67c8fe94f2936f0019e7bc02\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"name\":\"Rua Golfo de Tarento\",\"num\":\"0\",\"neighborhood\":\"Intermares\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.844627,-7.042797]},\"postal_code\":\"58102098\",\"city\":\"CABEDELO\",\"state\":\"PB\",\"country\":\"BR\",\"addressFormated\":\"Rua Golfo de Tarento, 0, Intermares, CABEDELO - PB, CEP: 58102098, BR\"},\"payment_method\":{\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":true,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":false,\"ifood_payin_credit\":false,\"tuna_digital_wallets\":false},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":false},\"timezone\":\"America/Sao_Paulo\",\"exproductiontime\":null,\"time_delivery_min\":null,\"time_delivery_max\":null,\"time_take_min\":null,\"time_take_max\":null,\"order_automatic_on_production\":false,\"totem_order_automatic_on_production\":false,\"cpf_cnpj_on_order\":false,\"published\":true,\"acceptDelivery\":true,\"acceptTake\":true,\"acceptLocal\":true,\"name\":\"Route Hot Dogs\",\"page\":\"67c8fe94f2936f0019e7bbf7\",\"phones\":[{\"type\":\"Cel\",\"number\":\"5563999604747\",\"_id\":\"67c8fe940027ba0019de56d1\"}],\"regions\":[{\"name\":\"Área de entrega 1\",\"price\":7.99,\"active\":true,\"_id\":\"67c8feabdd2915cb97eccae1\"},{\"name\":\"Área de entrega 2\",\"price\":7.99,\"active\":true,\"_id\":\"67c8feabdd2915cb97eccae2\"},{\"name\":\"Área de entrega 3\",\"price\":8.99,\"active\":true,\"_id\":\"67c8feabdd2915cb97eccae3\"},{\"name\":\"Área de entrega 4\",\"price\":8.99,\"active\":true,\"_id\":\"67c8feabdd2915cb97eccae4\"},{\"name\":\"Área de entrega 5\",\"price\":9.99,\"active\":true,\"_id\":\"67c8feabdd2915cb97eccae5\"},{\"name\":\"Área de entrega 6\",\"price\":9.99,\"active\":true,\"_id\":\"67c8feabdd2915cb97eccae6\"},{\"name\":\"Área de entrega 7\",\"price\":10.99,\"active\":true,\"_id\":\"67c8feabdd2915cb97eccae7\"},{\"name\":\"Área de entrega 8\",\"price\":10.99,\"active\":true,\"_id\":\"67c8feabdd2915cb97eccae8\"},{\"name\":\"Área de entrega 9\",\"price\":11.99,\"a"
+    },
+    "error": null,
+    "textLength": 40269
+  }
+]

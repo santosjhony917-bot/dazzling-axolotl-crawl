@@ -1,0 +1,81 @@
+[
+  {
+    "tier": "yellow",
+    "restaurantId": "395c5d1a-99f7-40e3-82f3-af6e22406e75",
+    "restaurantName": "Bar da Curva - Sandro's Bar",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/sandros_bar?s=cb",
+    "score": 7,
+    "sourceTier": "green",
+    "sourceFlags": [],
+    "itemCount": 85,
+    "optionCount": 84,
+    "operationalOptionCount": 60,
+    "dryRunApproved": true,
+    "confidence": 0.97,
+    "pricedRatio": 1,
+    "unresolvedPriceCount": 0,
+    "committed": false,
+    "flags": [
+      "operational_options_detected",
+      "insufficient_visual_menu_evidence"
+    ],
+    "nextAction": "manual_codex_review_before_import",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\lane-stage2-cardapioweb-a\\cmd_1783359655562_rrrua75o.jpg",
+    "viewportSnapshotPaths": [],
+    "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T17-40-31-322Z\\001-bar-da-curva-sandro-s-bar\\menu-evidence.json",
+    "error": null
+  },
+  {
+    "tier": "yellow",
+    "restaurantId": "a270e4fe-e0a7-4c8e-8213-8766bbb053c6",
+    "restaurantName": "Bom Sabor Pizzaria",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/pizzaria_bomsabor?s=insta",
+    "score": 7,
+    "sourceTier": "green",
+    "sourceFlags": [],
+    "itemCount": 34,
+    "optionCount": 142,
+    "operationalOptionCount": 0,
+    "dryRunApproved": true,
+    "confidence": 0.97,
+    "pricedRatio": 1,
+    "unresolvedPriceCount": 0,
+    "committed": false,
+    "flags": [
+      "insufficient_visual_menu_evidence"
+    ],
+    "nextAction": "manual_codex_review_before_import",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\lane-stage2-cardapioweb-a\\cmd_1783359943038_uaehqn1z.jpg",
+    "viewportSnapshotPaths": [],
+    "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T17-40-31-322Z\\002-bom-sabor-pizzaria\\menu-evidence.json",
+    "error": null
+  },
+  {
+    "tier": "yellow",
+    "restaurantId": "8911ead0-193d-403a-8728-d857bc9e0df5",
+    "restaurantName": "Chinatown Campina Grande",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/_chinatown",
+    "score": 7,
+    "sourceTier": "green",
+    "sourceFlags": [],
+    "itemCount": 103,
+    "optionCount": 942,
+    "operationalOptionCount": 0,
+    "dryRunApproved": true,
+    "confidence": 0.97,
+    "pricedRatio": 1,
+    "unresolvedPriceCount": 0,
+    "committed": false,
+    "flags": [
+      "insufficient_visual_menu_evidence"
+    ],
+    "nextAction": "manual_codex_review_before_import",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\lane-stage2-cardapioweb-a\\cmd_1783360214292_qqtembmx.jpg",
+    "viewportSnapshotPaths": [],
+    "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T17-40-31-322Z\\003-chinatown-campina-grande\\menu-evidence.json",
+    "error": null
+  }
+]

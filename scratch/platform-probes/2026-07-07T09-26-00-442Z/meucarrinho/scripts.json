@@ -1,0 +1,38 @@
+{
+  "url": "https://meucarrinho.delivery/portodoacai",
+  "status": 200,
+  "contentType": "text/html; charset=utf-8",
+  "length": 42594,
+  "scripts": [
+    "https://meucarrinho.delivery/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js",
+    "https://meucarrinho.delivery/_next/static/chunks/webpack-6ba1dd07be9f92e1.js",
+    "https://meucarrinho.delivery/_next/static/chunks/framework-50116e63224baba2.js",
+    "https://meucarrinho.delivery/_next/static/chunks/main-2319e6ba81c56d7e.js",
+    "https://meucarrinho.delivery/_next/static/chunks/pages/_app-13d092434ea36177.js",
+    "https://meucarrinho.delivery/_next/static/chunks/1bfc9850-fab9723841752c2c.js",
+    "https://meucarrinho.delivery/_next/static/chunks/252f366e-97a2b0dda924c61d.js",
+    "https://meucarrinho.delivery/_next/static/chunks/0c428ae2-1ab613b440612e85.js",
+    "https://meucarrinho.delivery/_next/static/chunks/ae51ba48-314ab8fd830dbc7b.js",
+    "https://meucarrinho.delivery/_next/static/chunks/6728d85a-b9738e016770cbea.js",
+    "https://meucarrinho.delivery/_next/static/chunks/7d0bf13e-1dd1b943612361a7.js",
+    "https://meucarrinho.delivery/_next/static/chunks/d64684d8-73f7bf9434df9873.js",
+    "https://meucarrinho.delivery/_next/static/chunks/1a48c3c1-f0a1e2dbb53bee6c.js",
+    "https://meucarrinho.delivery/_next/static/chunks/239-c104452463122306.js",
+    "https://meucarrinho.delivery/_next/static/chunks/559-6173fda8765dbc79.js",
+    "https://meucarrinho.delivery/_next/static/chunks/664-0cf25aef27f761cf.js",
+    "https://meucarrinho.delivery/_next/static/chunks/922-4a2d30b9443fe69e.js",
+    "https://meucarrinho.delivery/_next/static/chunks/672-faccc4dfb9cdb0f9.js",
+    "https://meucarrinho.delivery/_next/static/chunks/914-ca62ef819c6f26fc.js",
+    "https://meucarrinho.delivery/_next/static/chunks/595-fe4722973723e6d9.js",
+    "https://meucarrinho.delivery/_next/static/chunks/196-4c88a51932bdf136.js",
+    "https://meucarrinho.delivery/_next/static/chunks/884-8c7bd229e39b9e29.js",
+    "https://meucarrinho.delivery/_next/static/chunks/176-0e0071033fa90416.js",
+    "https://meucarrinho.delivery/_next/static/chunks/103-54cb245f242d4fca.js",
+    "https://meucarrinho.delivery/_next/static/chunks/pages/%5BurlCode%5D-3b2f519d2529493f.js",
+    "https://meucarrinho.delivery/_next/static/AyfIcdR87PkhX8eZEfeJo/_buildManifest.js",
+    "https://meucarrinho.delivery/_next/static/AyfIcdR87PkhX8eZEfeJo/_ssgManifest.js"
+  ],
+  "inlineSamples": [
+    "{\"props\":{\"pageProps\":{\"urlCode\":\"portodoacai\"},\"__N_SSP\":true},\"page\":\"/[urlCode]\",\"query\":{\"urlCode\":\"portodoacai\"},\"buildId\":\"AyfIcdR87PkhX8eZEfeJo\",\"runtimeConfig\":{\"SECRET_KEY\":\"ashdfx2azaxds2568sdasdaswsd2xz56xhds\",\"AZURE_MAPS_API_SUBSCRIPTION_KEY\":\"SZ7qNFN-9TYDXpKyACXTV3IZMwC7oRJI_hH_-JHTOsY\"},\"isFallback\":false,\"gssp\":true,\"scriptLoader\":[]}"
+  ]
+}

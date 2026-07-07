@@ -1,0 +1,32 @@
+[
+  {
+    "tier": "red",
+    "restaurantId": "72606188-4454-4890-a671-a65d4d08f024",
+    "restaurantName": "Casa Do Pastel",
+    "platform": "menudino",
+    "sourceUrl": "https://lacasadepastelpb.menudino.com.br",
+    "score": 64,
+    "sourceTier": "green",
+    "sourceFlags": [],
+    "itemCount": 0,
+    "optionCount": 0,
+    "operationalOptionCount": 0,
+    "dryRunApproved": false,
+    "confidence": 0,
+    "pricedRatio": 0,
+    "unresolvedPriceCount": 0,
+    "committed": false,
+    "flags": [
+      "collector_error",
+      "no_extension_print",
+      "no_structured_items",
+      "insufficient_visual_menu_evidence",
+      "price_coverage_review"
+    ],
+    "nextAction": "reject_or_rediscover_source",
+    "snapshotPath": null,
+    "viewportSnapshotPaths": [],
+    "evidencePath": null,
+    "error": "Timeout aguardando extensao para open_url"
+  }
+]

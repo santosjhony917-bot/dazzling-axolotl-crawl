@@ -1,0 +1,219 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 4148,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"6e73b985-0713-4094-afe9-d8308cf2907b\",\"id\":\"627f4e6a-76e6-44fe-ad6d-70e814c89225\",\"code\":\"29\",\"ean\":null,\"priority\":1,\"name\":\"Suco Acai Mix 770ml\",\"description\":\"Refrescancia com energia.\",\"price\":18,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"16ee7897-fda7-46bc-8cd2-31b993e51fe9\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Suco Acai Mix 770ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-627f4e6a-76e6-44fe-ad6d-70e814c89225_b2a2cf3f-f071-4da2-af7d-c35ff92dd1a0.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"6e73b985-0713-4094-afe9-d8308cf2907b\",\"id\":\"a7d2a52a-b862-48a0-949b-3e6691a0272f\",\"code\":\"27\",\"ean\":null,\"priority\":2,\"name\":\"Laranja\",\"description\":\"Suco natural de laranja fresco\",\"price\":8,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"59435be7-1af6-44f7-9434-5b2d92643696\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Laranja\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-a7d2a52a-b862-48a0-949b-3e6691a0272f_96f9d0a0-0d07-42c9-9da5-fd643724308b.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"6e73b985-0713-4094-afe9-d8308cf2907b\",\"id\":\"21e5debf-fae9-4454-8ef5-98e6958016f7\",\"code\":\"28\",\"ean\":null,\"priority\":3,\"name\":\"SUCO DA POLPA\",\"description\":\"Sucos cremoso, consultar sabores.\",\"price\":7,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"a4e2996f-d423-46a3-979f-6fe0d1bd60b6\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"SUCO DA POLPA\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-21e5debf-fae9-4454-8ef5-98e6958016f7_cd6a9095-b08d-4001-bccb-0dda6d3e75e5.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"6e73b985-0713-4094-afe9-d8308cf2907b\",\"id\":\"6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2\",\"code\":\"30\",\"ean\":null,\"priority\":4,\"name\":\"Suco Acai Mix 400ml\",\"description\":\"Refrescancia com energia.\",\"price\":11,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"5f1c473d-2ca5-466c-8608-4bf474bad9de\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Suco Acai Mix 400ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2_fe8ad765-9e2a-4fa8-bf85-25614d38e386.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "4"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "6e73b985-0713-4094-afe9-d8308cf2907b",
+      "id": "627f4e6a-76e6-44fe-ad6d-70e814c89225",
+      "code": "29",
+      "ean": null,
+      "priority": 1,
+      "name": "Suco Acai Mix 770ml",
+      "description": "Refrescancia com energia.",
+      "price": 18,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "16ee7897-fda7-46bc-8cd2-31b993e51fe9",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Suco Acai Mix 770ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-627f4e6a-76e6-44fe-ad6d-70e814c89225_b2a2cf3f-f071-4da2-af7d-c35ff92dd1a0.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "6e73b985-0713-4094-afe9-d8308cf2907b",
+      "id": "a7d2a52a-b862-48a0-949b-3e6691a0272f",
+      "code": "27",
+      "ean": null,
+      "priority": 2,
+      "name": "Laranja",
+      "description": "Suco natural de laranja fresco",
+      "price": 8,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "59435be7-1af6-44f7-9434-5b2d92643696",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Laranja",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a7d2a52a-b862-48a0-949b-3e6691a0272f_96f9d0a0-0d07-42c9-9da5-fd643724308b.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "6e73b985-0713-4094-afe9-d8308cf2907b",
+      "id": "21e5debf-fae9-4454-8ef5-98e6958016f7",
+      "code": "28",
+      "ean": null,
+      "priority": 3,
+      "name": "SUCO DA POLPA",
+      "description": "Sucos cremoso, consultar sabores.",
+      "price": 7,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "a4e2996f-d423-46a3-979f-6fe0d1bd60b6",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "SUCO DA POLPA",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-21e5debf-fae9-4454-8ef5-98e6958016f7_cd6a9095-b08d-4001-bccb-0dda6d3e75e5.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "6e73b985-0713-4094-afe9-d8308cf2907b",
+      "id": "6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2",
+      "code": "30",
+      "ean": null,
+      "priority": 4,
+      "name": "Suco Acai Mix 400ml",
+      "description": "Refrescancia com energia.",
+      "price": 11,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "5f1c473d-2ca5-466c-8608-4bf474bad9de",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Suco Acai Mix 400ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2_fe8ad765-9e2a-4fa8-bf85-25614d38e386.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

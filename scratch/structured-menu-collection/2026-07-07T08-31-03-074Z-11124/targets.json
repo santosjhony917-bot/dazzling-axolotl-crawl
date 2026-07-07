@@ -1,0 +1,54 @@
+[
+  {
+    "restaurantId": "9aed5c42-1ab1-47f0-9010-788da722a399",
+    "restaurantName": "Sorveteria Frutos de Goiás - Cabedelo",
+    "sourceUrl": "https://whatsmenu.com.br/frutoscabedelo",
+    "platform": "whatsmenu",
+    "reviewsCount": 40,
+    "address": "R. Sólon de Lucena, 30B",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 99313-6243",
+    "queueEntry": {
+      "restaurant_id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+      "name": "Sorveteria Frutos de Goiás - Cabedelo",
+      "platform": "whatsmenu",
+      "tier": "green",
+      "priority_score": 2,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://whatsmenu.com.br/frutoscabedelo",
+      "raw_source_url": "https://whatsmenu.com.br/frutoscabedelo",
+      "other_url": "https://whatsmenu.com.br/frutoscabedelo",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Sorveteria",
+      "address": "R. Sólon de Lucena, 30B",
+      "neighborhood": "Centro",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99313-6243",
+      "rating": 4.9,
+      "reviews_count": 40,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://whatsmenu.com.br/frutoscabedelo",
+          "canonical_url": "https://whatsmenu.com.br/frutoscabedelo",
+          "platform": "whatsmenu",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 5
+    }
+  }
+]

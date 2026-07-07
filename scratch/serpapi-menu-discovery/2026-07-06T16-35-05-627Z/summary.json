@@ -1,0 +1,48 @@
+{
+  "runId": "2026-07-06T16-35-05-627Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "instagram",
+  "apply": false,
+  "processed": 1,
+  "foundGreen": 0,
+  "foundYellow": 1,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "instagram": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-35-05-627Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-35-05-627Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-35-05-627Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": null,
+        "name": "La Paloma Restaurante Centro R. Irineu Joffily Campina Grande PB Instagram",
+        "category": null,
+        "address": "",
+        "neighborhood": null,
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "La Paloma Restaurante Centro R. Irineu Joffily Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 6,
+        "title": "Restaurante Italiano | Campina G. - PB 📍 (@lacucinaristo)",
+        "link": "https://instagram.com/lacucinaristo",
+        "snippet": "Venha provar e se surpreender! ✨ R. Irineu Joffily, 290 - Centro ⏰ Horário de funcionamento Terça a Sexta - 18h às 23h30 Sábado e Domingo - 11h30 às 15h | ...",
+        "displayedLink": "Mais de 31,7 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    }
+  ]
+}

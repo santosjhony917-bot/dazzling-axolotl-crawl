@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-07-07T10:49:21.169Z",
+  "city": "Cabedelo",
+  "state": "PB",
+  "counts": {
+    "total": 218,
+    "active": 206,
+    "unpublished": 206,
+    "ready": 17,
+    "published": 0,
+    "pending": 189,
+    "review": 0,
+    "noMenu": 0,
+    "withInstagram": 101,
+    "withAnySource": 69,
+    "withPublicMenuSource": 40,
+    "withHours": 172,
+    "withMojibake": 0,
+    "mediaBaseComplete": 99,
+    "withGalleryMin3": 99,
+    "withMenuItems": 17
+  },
+  "menuStatusCounts": {
+    "unknown": 189,
+    "found": 17
+  },
+  "sourceClassCounts": {
+    "none": 137,
+    "own_site_or_other": 18,
+    "google": 4,
+    "whatsapp": 25,
+    "structured_platform": 18,
+    "linkhub": 4
+  },
+  "latestAudit": {
+    "file": "scratch\\restaurant-structural-ready-audit\\2026-07-07T10-48-26-340Z\\summary.json",
+    "runId": "2026-07-07T10-48-26-340Z",
+    "restaurants": 4,
+    "ready": 4,
+    "needsReview": 0,
+    "blocked": 0,
+    "issueCounts": {}
+  },
+  "nextBatchFile": "scratch/chat-mae-batches/cabedelo-next-scored-menu-batch.json",
+  "nextBatch": [
+    {
+      "id": "0a91fc09-ad7d-4141-8d4d-82a732b61565",
+      "name": "Ethic Alimentos",
+      "score": 74,
+      "source": "ethicalimentos.com.br",
+      "risks": [
+        "site_proprio_precisa_confirmar_cardapio_e_unidade"
+      ]
+    },
+    {
+      "id": "1a2bf81d-2228-463f-ab7a-0dbf5ee3d27c",
+      "name": "Marcos Lanches",
+      "score": 74,
+      "source": "menuchef.com.br",
+      "risks": [
+        "site_proprio_precisa_confirmar_cardapio_e_unidade"
+      ]
+    },
+    {
+      "id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+      "name": "Pizzaria Bom Sabor",
+      "score": 74,
+      "source": "pizzariabomsaborpb.com.br",
+      "risks": [
+        "site_proprio_precisa_confirmar_cardapio_e_unidade"
+      ]
+    },
+    {
+      "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "score": 74,
+      "source": "meucarrinho.delivery",
+      "risks": [
+        "site_proprio_precisa_confirmar_cardapio_e_unidade"
+      ]
+    }
+  ]
+}

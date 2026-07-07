@@ -1,0 +1,15 @@
+{
+  "url": "https://api3.whatsmenu.com.br/api/v3/business/profileFees/15970",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 11,
+  "textSample": "{\"fees\":[]}",
+  "jsonKeys": [
+    "fees"
+  ],
+  "json": {
+    "fees": []
+  }
+}

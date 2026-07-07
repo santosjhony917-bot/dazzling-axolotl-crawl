@@ -1,0 +1,41 @@
+{
+  "success": false,
+  "sourceUrl": "https://app.cardapioweb.com/desejos_burger_",
+  "finalUrl": "https://app.cardapioweb.com/desejos_burger_",
+  "platform": "cardapioweb",
+  "extractionLevel": 0,
+  "confidence": 0,
+  "categories": [],
+  "visualBlock": {
+    "reason": "visible_page_disabled",
+    "textSample": "SITE DESATIVADO"
+  },
+  "visualVerification": {
+    "status": "blocked_visible_page_disabled",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783326854945_uhjgnzx1.jpg",
+    "snapshotFile": "cmd_1783326854945_uhjgnzx1.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 0,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783326863205_u39b4h4g.jpg",
+        "snapshotFile": "cmd_1783326863205_u39b4h4g.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 1,
+    "capturedHeight": 674,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "6ccd0a37-7665-4796-a1ad-843c4bca2f76",
+    "name": "Desejos'Burger",
+    "category": "Pendente validação",
+    "address": "R. Joana D'arc Arruda",
+    "phone": "(83) 98839-6741",
+    "instagram": "https://www.instagram.com/desejosburger/"
+  }
+}

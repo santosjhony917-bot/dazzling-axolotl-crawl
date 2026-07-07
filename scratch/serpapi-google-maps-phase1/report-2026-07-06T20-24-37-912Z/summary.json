@@ -1,0 +1,290 @@
+{
+  "city": "Cabedelo",
+  "state": "PB",
+  "totalRows": 218,
+  "activeRows": 206,
+  "deletedRows": 12,
+  "coverage": {
+    "google_maps_url": 206,
+    "google_place_id": 206,
+    "coordinates": 206,
+    "address": 205,
+    "phone": 148,
+    "whatsapp_url": 147,
+    "rating": 174,
+    "reviews_count": 174,
+    "opening_hours": 169
+  },
+  "categories": [
+    [
+      "Restaurante",
+      46
+    ],
+    [
+      "Lanchonete",
+      24
+    ],
+    [
+      "Hamburgueria",
+      23
+    ],
+    [
+      "Pizzaria",
+      18
+    ],
+    [
+      "Sorveteria",
+      15
+    ],
+    [
+      "Cafeteria",
+      10
+    ],
+    [
+      "Pastelaria brasileira",
+      10
+    ],
+    [
+      "Churrascaria",
+      9
+    ],
+    [
+      "Restaurante self-service",
+      8
+    ],
+    [
+      "Restaurante de frutos do mar",
+      6
+    ],
+    [
+      "Loja de açaí",
+      5
+    ],
+    [
+      "Delivery de Pizza",
+      4
+    ],
+    [
+      "Restaurante japonês",
+      3
+    ],
+    [
+      "Bar",
+      2
+    ],
+    [
+      "Delivery",
+      2
+    ],
+    [
+      "Restaurante de churrasquinho",
+      2
+    ],
+    [
+      "Restaurante brasileiro",
+      2
+    ],
+    [
+      "Bar e restaurante de ostras",
+      2
+    ],
+    [
+      "Café",
+      2
+    ],
+    [
+      "Barraca de comida",
+      1
+    ],
+    [
+      "Restaurante de sushi",
+      1
+    ],
+    [
+      "Pendente validacao",
+      1
+    ],
+    [
+      "Restaurante de comida natural",
+      1
+    ],
+    [
+      "Bar com música ao vivo",
+      1
+    ],
+    [
+      "Restaurante de carne",
+      1
+    ],
+    [
+      "Sorveteria especializada em sundaes",
+      1
+    ],
+    [
+      "Restaurante de café da manhã",
+      1
+    ],
+    [
+      "Praça de alimentação",
+      1
+    ],
+    [
+      "Microcervejaria",
+      1
+    ],
+    [
+      "Loja de sucos",
+      1
+    ],
+    [
+      "Pizza para levar",
+      1
+    ],
+    [
+      "Restaurante de almoço",
+      1
+    ]
+  ],
+  "topByReviews": [
+    {
+      "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+      "category": "Restaurante",
+      "rating": 4.4,
+      "reviews_count": 10742,
+      "phone": "(83) 99408-6293"
+    },
+    {
+      "name": "Cibelly Bar & Restaurante",
+      "category": "Bar e restaurante de ostras",
+      "rating": 4.1,
+      "reviews_count": 4295,
+      "phone": "(83) 99982-5668"
+    },
+    {
+      "name": "Gigante Do Mar Beach",
+      "category": "Restaurante de frutos do mar",
+      "rating": 4.2,
+      "reviews_count": 3378,
+      "phone": "(83) 99995-2504"
+    },
+    {
+      "name": "Bar das Meninas Restaurante",
+      "category": "Restaurante de frutos do mar",
+      "rating": 4.2,
+      "reviews_count": 3174,
+      "phone": "(83) 98715-5110"
+    },
+    {
+      "name": "Ilha Dourada Restaurante",
+      "category": "Restaurante de frutos do mar",
+      "rating": 4.2,
+      "reviews_count": 3161,
+      "phone": "(83) 3228-1826"
+    },
+    {
+      "name": "Tenda Formosa Bar & Restaurante",
+      "category": "Restaurante",
+      "rating": 4.1,
+      "reviews_count": 1507,
+      "phone": "(83) 98850-1112"
+    },
+    {
+      "name": "Numar Bar e Restaurante",
+      "category": "Bar",
+      "rating": 4.5,
+      "reviews_count": 1370,
+      "phone": "(83) 3567-7306"
+    },
+    {
+      "name": "Restaurante Recanto do Picuí Intermares",
+      "category": "Restaurante",
+      "rating": 4.5,
+      "reviews_count": 1267,
+      "phone": "(83) 98844-4200"
+    },
+    {
+      "name": "Empadinhas Barnabé - Intermares",
+      "category": "Lanchonete",
+      "rating": 4.5,
+      "reviews_count": 1029,
+      "phone": "(83) 3248-1250"
+    },
+    {
+      "name": "Primo Rico",
+      "category": "Restaurante self-service",
+      "rating": 4.3,
+      "reviews_count": 903,
+      "phone": "(83) 98820-1132"
+    },
+    {
+      "name": "Espetinho da praia Intermares",
+      "category": "Restaurante",
+      "rating": 4.4,
+      "reviews_count": 772,
+      "phone": "(83) 2182-4436"
+    },
+    {
+      "name": "Bar e Restaurante do Sumé",
+      "category": "Restaurante de frutos do mar",
+      "rating": 4.1,
+      "reviews_count": 762,
+      "phone": "(83) 3011-0124"
+    },
+    {
+      "name": "Churrascaria do Caicó",
+      "category": "Churrascaria",
+      "rating": 4.3,
+      "reviews_count": 753,
+      "phone": null
+    },
+    {
+      "name": "Mega Pizza",
+      "category": "Pizzaria",
+      "rating": 4,
+      "reviews_count": 506,
+      "phone": "(83) 3248-2118"
+    },
+    {
+      "name": "Sport Marina",
+      "category": "Restaurante de frutos do mar",
+      "rating": 4.5,
+      "reviews_count": 503,
+      "phone": "(83) 3228-3500"
+    },
+    {
+      "name": "Bar e Restaurante do Pessoinha",
+      "category": "Restaurante",
+      "rating": 4.5,
+      "reviews_count": 499,
+      "phone": "(83) 98127-1419"
+    },
+    {
+      "name": "Ancoradouro Ponta de Campina",
+      "category": "Restaurante",
+      "rating": 3.9,
+      "reviews_count": 495,
+      "phone": null
+    },
+    {
+      "name": "Galeteria D'intermares",
+      "category": "Restaurante de carne",
+      "rating": 4.1,
+      "reviews_count": 470,
+      "phone": "(83) 2178-2106"
+    },
+    {
+      "name": "Skama Bar e Restaurante",
+      "category": "Restaurante",
+      "rating": 4.2,
+      "reviews_count": 397,
+      "phone": "(83) 98677-5976"
+    },
+    {
+      "name": "Big Jack comida de rua com INSPIRAÇÃO texana",
+      "category": "Restaurante",
+      "rating": 4.8,
+      "reviews_count": 353,
+      "phone": "(83) 99317-7080"
+    }
+  ]
+}

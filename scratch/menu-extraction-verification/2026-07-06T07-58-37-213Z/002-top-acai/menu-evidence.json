@@ -1,0 +1,41 @@
+{
+  "success": false,
+  "sourceUrl": "https://app.cardapioweb.com/top_acai_",
+  "finalUrl": "https://app.cardapioweb.com/top_acai_",
+  "platform": "cardapioweb",
+  "extractionLevel": 0,
+  "confidence": 0,
+  "categories": [],
+  "visualBlock": {
+    "reason": "visible_page_disabled",
+    "textSample": "SITE DESATIVADO"
+  },
+  "visualVerification": {
+    "status": "blocked_visible_page_disabled",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783324814648_a9l8kt1k.jpg",
+    "snapshotFile": "cmd_1783324814648_a9l8kt1k.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 0,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783324822902_7hgsimtu.jpg",
+        "snapshotFile": "cmd_1783324822902_7hgsimtu.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 1,
+    "capturedHeight": 674,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "2dea0227-87e3-4090-8d6b-9c832e8f5d04",
+    "name": "Top Açai",
+    "category": null,
+    "address": "R. Zacarias Líra Pessoa - Jardim Tavares",
+    "phone": "(83) 98839-3232",
+    "instagram": "https://www.instagram.com/topacaii_/"
+  }
+}

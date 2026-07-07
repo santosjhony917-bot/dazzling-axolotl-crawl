@@ -1,0 +1,456 @@
+{
+  "runId": "2026-07-06T10-50-08-501Z",
+  "apply": false,
+  "limit": 2,
+  "platform": null,
+  "targetCount": 2,
+  "processed": [
+    {
+      "restaurantId": "e9940545-476f-4cce-94e4-c04d5fe191a2",
+      "restaurantName": "The W Restaurante Campina Grande",
+      "sourceUrl": "https://app.cardapiodigital.net/thewrestaurante/",
+      "platform": "cardapiodigital",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T10-50-08-501Z\\001-the-w-restaurante-campina-grande",
+      "openedTabId": 943016799,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 7,
+          "scrollHeight": 4090,
+          "capturedHeight": 4090,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 5113,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943016799,
+          "url": "https://app.cardapiodigital.net/thewrestaurante/",
+          "title": "The W"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783335047339_urbx9mzq.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335047339_urbx9mzq.jpg",
+          "bytes": 491630
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943016799,
+            "clientHeight": 674,
+            "maxScrollTop": 3416,
+            "reachedEnd": false,
+            "scrollHeight": 4090,
+            "scrollTop": 0,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335061711_5qkvxbtx.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335061711_5qkvxbtx.jpg",
+            "bytes": 87932
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016799,
+            "url": "https://app.cardapiodigital.net/thewrestaurante/",
+            "title": "The W"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.22,
+          "scroll": {
+            "tabId": 943016799,
+            "clientHeight": 674,
+            "maxScrollTop": 3416,
+            "reachedEnd": false,
+            "scrollHeight": 4090,
+            "scrollTop": 752,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335085716_nvpkuogq.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335085716_nvpkuogq.jpg",
+            "bytes": 87932
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016799,
+            "url": "https://app.cardapiodigital.net/thewrestaurante/",
+            "title": "The W"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.45,
+          "scroll": {
+            "tabId": 943016799,
+            "clientHeight": 674,
+            "maxScrollTop": 3416,
+            "reachedEnd": false,
+            "scrollHeight": 4090,
+            "scrollTop": 1537,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335092923_qa2kpga0.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335092923_qa2kpga0.jpg",
+            "bytes": 87932
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016799,
+            "url": "https://app.cardapiodigital.net/thewrestaurante/",
+            "title": "The W"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.68,
+          "scroll": {
+            "tabId": 943016799,
+            "clientHeight": 674,
+            "maxScrollTop": 3416,
+            "reachedEnd": false,
+            "scrollHeight": 4090,
+            "scrollTop": 2323,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335099153_6kxlammc.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335099153_6kxlammc.jpg",
+            "bytes": 87932
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016799,
+            "url": "https://app.cardapiodigital.net/thewrestaurante/",
+            "title": "The W"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.9,
+          "scroll": {
+            "tabId": 943016799,
+            "clientHeight": 674,
+            "maxScrollTop": 3416,
+            "reachedEnd": false,
+            "scrollHeight": 4090,
+            "scrollTop": 3074,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335105505_kawq445f.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335105505_kawq445f.jpg",
+            "bytes": 87932
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016799,
+            "url": "https://app.cardapiodigital.net/thewrestaurante/",
+            "title": "The W"
+          },
+          "error": null
+        },
+        {
+          "ratio": 1,
+          "scroll": {
+            "tabId": 943016799,
+            "clientHeight": 674,
+            "maxScrollTop": 3416,
+            "reachedEnd": true,
+            "scrollHeight": 4090,
+            "scrollTop": 3416,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335112739_7d2t7bd8.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335112739_7d2t7bd8.jpg",
+            "bytes": 87932
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016799,
+            "url": "https://app.cardapiodigital.net/thewrestaurante/",
+            "title": "The W"
+          },
+          "error": null
+        }
+      ],
+      "extractionSummary": {
+        "success": true,
+        "platform": "visible_text",
+        "error": null,
+        "confidence": 0.74,
+        "extractionLevel": 1,
+        "categoryCount": 1,
+        "itemCount": 6,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": [
+          {
+            "name": "Massas",
+            "count": 6,
+            "items": [
+              {
+                "name": "Risotos",
+                "price": 217,
+                "optionCount": 0
+              },
+              {
+                "name": " Visualização rápida",
+                "price": 53,
+                "optionCount": 0
+              },
+              {
+                "name": " Visualização rápida",
+                "price": 98,
+                "optionCount": 0
+              },
+              {
+                "name": " Visualização rápida",
+                "price": 32,
+                "optionCount": 0
+              },
+              {
+                "name": " Visualização rápida",
+                "price": 36,
+                "optionCount": 0
+              }
+            ]
+          }
+        ]
+      },
+      "dryRun": {
+        "success": true,
+        "dryRun": true,
+        "audit": {
+          "approved": false,
+          "confidence": 0.74,
+          "categoryCount": 3,
+          "itemCount": 6,
+          "resolvedPriceCount": 6,
+          "unresolvedPriceCount": 0,
+          "optionPriceCount": 0,
+          "pricedRatio": 1,
+          "issues": [],
+          "optionSemanticAI": {
+            "used": false,
+            "reason": "no_groups"
+          }
+        },
+        "preview": [
+          {
+            "name": "Bebidas",
+            "count": 1,
+            "samples": [
+              {
+                "name": "Risotos",
+                "price": 217,
+                "kind": "simple_item",
+                "description": "Kids Menu Comfort Trufados Família 2-3... CG Exclusive Bebidas Vinhos Tintos Vinhos Brancos Vinho 375ml Vodka Whisky Drinks Espumantes Champagnes Cervejas Destilados PRODUTOS EM DESTAQUE Sinfony Família (Serve 2 A... Preço"
+              }
+            ]
+          },
+          {
+            "name": "Pratos Principais",
+            "count": 1,
+            "samples": [
+              {
+                "name": " Visualização rápida",
+                "price": 53,
+                "kind": "simple_item",
+                "description": "Duo Formaggio Camarão Preço"
+              }
+            ]
+          },
+          {
+            "name": "Massas",
+            "count": 4,
+            "samples": [
+              {
+                "name": " Visualização rápida",
+                "price": 98,
+                "kind": "simple_item",
+                "description": "SEXY FISH CABERNET Preço"
+              },
+              {
+                "name": " Visualização rápida",
+                "price": 32,
+                "kind": "simple_item",
+                "description": "Tiquen - Prato Kids Preço"
+              },
+              {
+                "name": " Visualização rápida",
+                "price": 36,
+                "kind": "simple_item",
+                "description": "CAIPIROSCA PREMIUM - GREY... Preço"
+              },
+              {
+                "name": " Visualização rápida",
+                "price": 14,
+                "kind": "simple_item",
+                "description": "PRECIOSA DO VALE FAVO DE MEL Preço"
+              }
+            ]
+          }
+        ],
+        "categories": [
+          {
+            "name": "Bebidas",
+            "items": [
+              {
+                "name": "Risotos",
+                "description": "Kids Menu Comfort Trufados Família 2-3... CG Exclusive Bebidas Vinhos Tintos Vinhos Brancos Vinho 375ml Vodka Whisky Drinks Espumantes Champagnes Cervejas Destilados PRODUTOS EM DESTAQUE Sinfony Família (Serve 2 A... Preço",
+                "price": 217,
+                "display_price": 217,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "Pratos Principais",
+            "items": [
+              {
+                "name": " Visualização rápida",
+                "description": "Duo Formaggio Camarão Preço",
+                "price": 53,
+                "display_price": 53,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "Massas",
+            "items": [
+              {
+                "name": " Visualização rápida",
+                "description": "SEXY FISH CABERNET Preço",
+                "price": 98,
+                "display_price": 98,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": " Visualização rápida",
+                "description": "Tiquen - Prato Kids Preço",
+                "price": 32,
+                "display_price": 32,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": " Visualização rápida",
+                "description": "CAIPIROSCA PREMIUM - GREY... Preço",
+                "price": 36,
+                "display_price": 36,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": " Visualização rápida",
+                "description": "PRECIOSA DO VALE FAVO DE MEL Preço",
+                "price": 14,
+                "display_price": 14,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          }
+        ],
+        "message": "Prévia estruturada com 6 itens via visible_text."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T10-50-08-501Z\\001-the-w-restaurante-campina-grande\\menu-evidence.json"
+    },
+    {
+      "restaurantId": "608a2a3a-2d5f-47c5-b393-a7ea461008a4",
+      "restaurantName": "THE BROTHERS GRILL",
+      "sourceUrl": "https://pedido.anota.ai/loja/the-brothers-cg",
+      "platform": "anota_ai",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T10-50-08-501Z\\002-the-brothers-grill",
+      "openedTabId": 943016839,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 7,
+          "scrollHeight": 3954,
+          "capturedHeight": 3954,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 4943,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943016839,
+          "url": "https://pedido.anota.ai/loja/the-brothers-cg",
+          "title": "The Brothers CG - Anota AI"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783335153146_x6jq6tz6.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335153146_x6jq6tz6.jpg",
+          "bytes": 336265
+        }
+      },
+      "verificationSnapshots": [],
+      "extractionSummary": null,
+      "dryRun": null,
+      "committed": false,
+      "visualBlock": null,
+      "error": "Timeout aguardando extensao para snapshot"
+    }
+  ]
+}

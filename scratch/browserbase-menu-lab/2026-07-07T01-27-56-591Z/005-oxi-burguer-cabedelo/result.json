@@ -1,0 +1,39 @@
+{
+  "restaurantId": "297a6b03-242d-4d91-9f64-73e736972946",
+  "restaurantName": "Oxi Burguer Cabedelo",
+  "sourceUrl": "https://menu.brendi.com.br/oxiburguercabedelo",
+  "platform": "brendi",
+  "reviewsCount": 31,
+  "address": "R. Maria das Neves Silva - Ponta de Campina",
+  "phone": "(83) 98793-1915",
+  "startedAt": "2026-07-07T01:29:20.883Z",
+  "finishedAt": "2026-07-07T01:29:40.445Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\005-oxi-burguer-cabedelo",
+  "finalUrl": "https://pedido.brendi.com.br/oxiburguercabedelo",
+  "title": "Oxi Burguer - Cabedelo, PB | Brendi",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 6425,
+    "bodyLength": 169691,
+    "anchorCount": 0,
+    "imageCount": 47
+  },
+  "priceCountInVisibleText": 43,
+  "menuWords": [
+    "pedido",
+    "combo",
+    "bebida"
+  ],
+  "networkInterestingCount": 6,
+  "failedRequestCount": 1,
+  "directProbe": {
+    "platform": "brendi",
+    "success": false,
+    "reason": "no_direct_probe_for_platform_yet"
+  },
+  "lessonFlags": [
+    "visible_text_fallback_possible"
+  ],
+  "error": null
+}

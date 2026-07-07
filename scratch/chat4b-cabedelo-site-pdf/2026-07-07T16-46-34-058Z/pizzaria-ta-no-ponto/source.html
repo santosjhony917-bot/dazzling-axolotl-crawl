@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html data-currency="BRL" data-locale="br" data-mi="true" data-timeZone="America/Sao_Paulo" lang="pt">
+<head>
+<link href="https://assets.menuintegrado.com" rel="preconnect">
+<link href="https://www.googletagmanager.com" rel="preconnect">
+<link href="https://connect.facebook.net" rel="preconnect">
+<link href="https://cdn.rollbar.com" rel="preconnect">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167000570-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('config', 'UA-167000570-1');
+  gtag('config', 'AW-624786291');
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TTBQQM5');</script>
+<!-- End Google Tag Manager -->
+
+<script>
+var _rollbarConfig = {
+    accessToken: "16a89bb61b2c40229a2c696017a1454f",
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    ignoredMessages: [
+      "Script error.",
+      "Load failed",
+      "Loading chunk",
+      "Failed to fetch",
+      "messaging/unsupported-browser",
+      "Unable to establish connection with QZ",
+      "TypeError: cancelado",
+    ],
+    payload: {
+      environment: "production",
+      client: {
+        javascript: {
+          source_map_enabled: true,
+          code_version: "master",
+          guess_uncaught_frames: true
+        }
+      }
+    }
+};
+// Rollbar Snippet
+!function(r){var e={};function o(n){if(e[n])return e[n].exports;var t=e[n]={i:n,l:!1,exports:{}};return r[n].call(t.exports,t,t.exports,o),t.l=!0,t.exports}o.m=r,o.c=e,o.d=function(r,e,n){o.o(r,e)||Object.defineProperty(r,e,{enumerable:!0,get:n})},o.r=function(r){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(r,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(r,"__esModule",{value:!0})},o.t=function(r,e){if(1&e&&(r=o(r)),8&e)return r;if(4&e&&"object"==typeof r&&r&&r.__esModule)return r;var n=Object.create(null);if(o.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:r}),2&e&&"string"!=typeof r)for(var t in r)o.d(n,t,function(e){return r[e]}.bind(null,t));return n},o.n=function(r){var e=r&&r.__esModule?function(){return r.default}:function(){return r};return o.d(e,"a",e),e},o.o=function(r,e){return Object.prototype.hasOwnProperty.call(r,e)},o.p="",o(o.s=0)}([function(r,e,o){"use strict";var n=o(1),t=o(5);_rollbarConfig=_rollbarConfig||{},_rollbarConfig.rollbarJsUrl=_rollbarConfig.rollbarJsUrl||"https://cdn.rollbar.com/rollbarjs/refs/tags/v2.23.0/rollbar.min.js",_rollbarConfig.async=void 0===_rollbarConfig.async||_rollbarConfig.async;var a=n.setupShim(window,_rollbarConfig),l=t(_rollbarConfig);window.rollbar=n.Rollbar,a.loadFull(window,document,!_rollbarConfig.async,_rollbarConfig,l)},function(r,e,o){"use strict";var n=o(2),t=o(3);function a(r){return function(){try{return r.apply(this,arguments)}catch(r){try{console.error("[Rollbar]: Internal error",r)}catch(r){}}}}var l=0;function i(r,e){this.options=r,this._rollbarOldOnError=null;var o=l++;this.shimId=function(){return o},"undefined"!=typeof window&&window._rollbarShims&&(window._rollbarShims[o]={handler:e,messages:[]})}var s=o(4),d=function(r,e){return new i(r,e)},c=function(r){return new s(d,r)};function u(r){return a((function(){var e=this,o=Array.prototype.slice.call(arguments,0),n={shim:e,method:r,args:o,ts:new Date};window._rollbarShims[this.shimId()].messages.push(n)}))}i.prototype.loadFull=function(r,e,o,n,t){var l=!1,i=e.createElement("script"),s=e.getElementsByTagName("script")[0],d=s.parentNode;i.crossOrigin="",i.src=n.rollbarJsUrl,o||(i.async=!0),i.onload=i.onreadystatechange=a((function(){if(!(l||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState)){i.onload=i.onreadystatechange=null;try{d.removeChild(i)}catch(r){}l=!0,function(){var e;if(void 0===r._rollbarDidLoad){e=new Error("rollbar.js did not load");for(var o,n,a,l,i=0;o=r._rollbarShims[i++];)for(o=o.messages||[];n=o.shift();)for(a=n.args||[],i=0;i<a.length;++i)if("function"==typeof(l=a[i])){l(e);break}}"function"==typeof t&&t(e)}()}})),d.insertBefore(i,s)},i.prototype.wrap=function(r,e,o){try{var n;if(n="function"==typeof e?e:function(){return e||{}},"function"!=typeof r)return r;if(r._isWrap)return r;if(!r._rollbar_wrapped&&(r._rollbar_wrapped=function(){o&&"function"==typeof o&&o.apply(this,arguments);try{return r.apply(this,arguments)}catch(o){var e=o;throw e&&("string"==typeof e&&(e=new String(e)),e._rollbarContext=n()||{},e._rollbarContext._wrappedSource=r.toString(),window._rollbarWrappedError=e),e}},r._rollbar_wrapped._isWrap=!0,r.hasOwnProperty))for(var t in r)r.hasOwnProperty(t)&&(r._rollbar_wrapped[t]=r[t]);return r._rollbar_wrapped}catch(e){return r}};for(var p="log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad".split(","),f=0;f<p.length;++f)i.prototype[p[f]]=u(p[f]);r.exports={setupShim:function(r,e){if(r){var o=e.globalAlias||"Rollbar";if("object"==typeof r[o])return r[o];r._rollbarShims={},r._rollbarWrappedError=null;var l=new c(e);return a((function(){e.captureUncaught&&(l._rollbarOldOnError=r.onerror,n.captureUncaughtExceptions(r,l,!0),e.wrapGlobalEventHandlers&&t(r,l,!0)),e.captureUnhandledRejections&&n.captureUnhandledRejections(r,l,!0);var a=e.autoInstrument;return!1!==e.enabled&&(void 0===a||!0===a||"object"==typeof a&&a.network)&&r.addEventListener&&(r.addEventListener("load",l.captureLoad.bind(l)),r.addEventListener("DOMContentLoaded",l.captureDomContentLoaded.bind(l))),r[o]=l,l}))()}},Rollbar:c}},function(r,e,o){"use strict";function n(r,e,o,n){r._rollbarWrappedError&&(n[4]||(n[4]=r._rollbarWrappedError),n[5]||(n[5]=r._rollbarWrappedError._rollbarContext),r._rollbarWrappedError=null);var t=e.handleUncaughtException.apply(e,n);o&&o.apply(r,n),"anonymous"===t&&(e.anonymousErrorsPending+=1)}r.exports={captureUncaughtExceptions:function(r,e,o){if(r){var t;if("function"==typeof e._rollbarOldOnError)t=e._rollbarOldOnError;else if(r.onerror){for(t=r.onerror;t._rollbarOldOnError;)t=t._rollbarOldOnError;e._rollbarOldOnError=t}e.handleAnonymousErrors();var a=function(){var o=Array.prototype.slice.call(arguments,0);n(r,e,t,o)};o&&(a._rollbarOldOnError=t),r.onerror=a}},captureUnhandledRejections:function(r,e,o){if(r){"function"==typeof r._rollbarURH&&r._rollbarURH.belongsToShim&&r.removeEventListener("unhandledrejection",r._rollbarURH);var n=function(r){var o,n,t;try{o=r.reason}catch(r){o=void 0}try{n=r.promise}catch(r){n="[unhandledrejection] error getting `promise` from event"}try{t=r.detail,!o&&t&&(o=t.reason,n=t.promise)}catch(r){}o||(o="[unhandledrejection] error getting `reason` from event"),e&&e.handleUnhandledRejection&&e.handleUnhandledRejection(o,n)};n.belongsToShim=o,r._rollbarURH=n,r.addEventListener("unhandledrejection",n)}}}},function(r,e,o){"use strict";function n(r,e,o){if(e.hasOwnProperty&&e.hasOwnProperty("addEventListener")){for(var n=e.addEventListener;n._rollbarOldAdd&&n.belongsToShim;)n=n._rollbarOldAdd;var t=function(e,o,t){n.call(this,e,r.wrap(o),t)};t._rollbarOldAdd=n,t.belongsToShim=o,e.addEventListener=t;for(var a=e.removeEventListener;a._rollbarOldRemove&&a.belongsToShim;)a=a._rollbarOldRemove;var l=function(r,e,o){a.call(this,r,e&&e._rollbar_wrapped||e,o)};l._rollbarOldRemove=a,l.belongsToShim=o,e.removeEventListener=l}}r.exports=function(r,e,o){if(r){var t,a,l="EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(",");for(t=0;t<l.length;++t)r[a=l[t]]&&r[a].prototype&&n(e,r[a].prototype,o)}}},function(r,e,o){"use strict";function n(r,e){this.impl=r(e,this),this.options=e,function(r){for(var e=function(r){return function(){var e=Array.prototype.slice.call(arguments,0);if(this.impl[r])return this.impl[r].apply(this.impl,e)}},o="log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad".split(","),n=0;n<o.length;n++)r[o[n]]=e(o[n])}(n.prototype)}n.prototype._swapAndProcessMessages=function(r,e){var o,n,t;for(this.impl=r(this.options);o=e.shift();)n=o.method,t=o.args,this[n]&&"function"==typeof this[n]&&("captureDomContentLoaded"===n||"captureLoad"===n?this[n].apply(this,[t[0],o.ts]):this[n].apply(this,t));return this},r.exports=n},function(r,e,o){"use strict";r.exports=function(r){return function(e){if(!e&&!window._rollbarInitialized){for(var o,n,t=(r=r||{}).globalAlias||"Rollbar",a=window.rollbar,l=function(r){return new a(r)},i=0;o=window._rollbarShims[i++];)n||(n=o.handler),o.handler._swapAndProcessMessages(l,o.messages);window[t]=n,window._rollbarInitialized=!0}}}}]);
+// End Rollbar Snippet
+</script>
+
+<title>Pizzaria ta no ponto - Delivery Oficial</title>
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="bNt18aldzVhd6BIF8G2NLrDsmnPz2igJdUbWq-Ga7hnRuX_a5Hx2j81h6u6pQNRF573iOhv45AbcfDRR85EaFA" />
+<script src="https://assets.menuintegrado.com/packs/js/runtime~firebase-44de02fad217d5f28b9f.js"></script>
+<script src="https://assets.menuintegrado.com/packs/js/vendors~firebase-8f5271f7c6f64752de55.chunk.js"></script>
+<script src="https://assets.menuintegrado.com/packs/js/firebase-3d064c719b2c025257fc.chunk.js"></script>
+<script src="https://assets.menuintegrado.com/assets/turbolinks-c84d1f06ada9344c25d9301cfbb687b0e7a90351825ff0b56e09cc8f2af4f325.js" data-turbolinks-track="reload"></script>
+<script src="https://assets.menuintegrado.com/assets/sw-3cdd9a613025738490f70cbe05899293f15fedc881f93d60e1ae631fc705df75.js" data-turbolinks-track="reload"></script>
+<script src="https://assets.menuintegrado.com/assets/logo-6e983d90d2c0a0bfe72c11cfd7a2dd1530aebf1942f94f4ebc7462140912a483.js" data-turbolinks-track="reload"></script>
+<link href="https://menuintegrado.s3.amazonaws.com" rel="preconnect">
+<link crossorigin="true" href="https://maps.googleapis.com" rel="preconnect">
+<link href="https://use.fontawesome.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://assets.menuintegrado.com/assets/delivery-0f18d53241e03d062f5d09011afc1eeba178dd73ddabc38cc43b77656c62859a.css" />
+
+<meta name="action-cable-url" content="/cable" />
+<meta content="#ffffff" name="theme-color">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no" name="viewport">
+<meta content="" name="google-site-verification">
+<meta content="Faça seu pedido no delivery oficial Pizzaria ta no ponto" name="description">
+<meta content="Pizzaria ta no ponto - Delivery Oficial" property="og:title">
+<meta content="Faça seu pedido no delivery oficial Pizzaria ta no ponto" property="og:description">
+<meta content="" property="fb:app_id">
+<link href="https://assets.menuintegrado.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA2ODYwNzcsInB1ciI6ImJsb2JfaWQifX0=--9e5be2b01c6cfd4cfcbf7b610a2a37c50146471e/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJwbmciLCJyZXNpemVfdG9fZmlsbCI6WzE2LDE2XX0sInB1ciI6InZhcmlhdGlvbiJ9fQ==--0f5e69b9705abbf5f152148b6026b31baf80b9b7/file.png" rel="icon" sizes="16x16" type="image/png">
+<meta content="website" property="og:type">
+<meta content="Pizzaria ta no ponto" property="og:title">
+<meta content="https://www.pizzariatanoponto.com.br/" property="og:url">
+<meta content="https://assets.menuintegrado.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA2ODYwNzcsInB1ciI6ImJsb2JfaWQifX0=--9e5be2b01c6cfd4cfcbf7b610a2a37c50146471e/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJwbmciLCJyZXNpemVfdG9fZmlsbCI6WzYwMCw2MDBdfSwicHVyIjoidmFyaWF0aW9uIn19--d958246e9dcd8f36003b9a661f8a68305634422c/file.png" property="og:image">
+<meta content="600" property="og:image:width">
+<meta content="600" property="og:image:height">
+
+<link href="/manifest.json" rel="manifest">
+<link href="https://assets.menuintegrado.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA2ODYwNzcsInB1ciI6ImJsb2JfaWQifX0=--9e5be2b01c6cfd4cfcbf7b610a2a37c50146471e/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJwbmciLCJyZXNpemVfdG9fZmlsbCI6WzE5MiwxOTJdfSwicHVyIjoidmFyaWF0aW9uIn19--aa4e26ff9ed3c52b12dc66f907bfbde49215eb9c/file.png" rel="apple-touch-icon">
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '694478474660445');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=694478474660445&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Facebook Pixel Code -->
+
+<script type="text/javascript">
+  window._mfq = window._mfq || [];
+  (function() {
+    var mf = document.createElement("script");
+    mf.type = "text/javascript"; mf.defer = true;
+    mf.src = "//cdn.mouseflow.com/projects/bbfca49d-e50e-4154-abb6-f36c05372ce5.js";
+    document.getElementsByTagName("head")[0].appendChild(mf);
+  })();
+</script>
+
+</head>
+<body>
+<div id="alert-container"></div>
+<div id="sidepanel-container"></div>
+<style>
+  a, .btn.btn-primary {
+    color: #f52d0a;
+  }
+  
+  a:hover, .btn.btn-primary:hover {
+    color: #931b06;
+  }
+  
+  a:focus, .btn.btn-primary:focus {
+    color: #f52d0a;
+    box-shadow: 0 0 0 0.2rem rgba(245,45,10, 0.5)
+  }
+  
+  a.logo {
+    color: #0EA5A4 !important;
+  }
+  
+  .text-primary {
+    color: #f52d0a !important; 
+  }
+  
+  .btn.btn-raised.btn-primary {
+    background-color: #f52d0a; 
+    border-color: #f52d0a; 
+  }
+  
+  .btn.btn-raised.btn-primary:active,
+  .btn.btn-raised.btn-primary:hover,
+  .btn.btn-raised.btn-primary:focus,
+  .btn.btn-raised.btn-primary:active:hover,
+  .btn.btn-raised.btn-primary:active:focus,
+  .btn.btn-raised.btn-primary:disabled:hover {
+    background-color: #931b06;
+    border-color: #931b06;
+  }
+  
+  .btn.btn-outline-primary, .btn-outline-primary.custom-file-control::before {
+    color: #f52d0a;
+    border-color: #f52d0a;
+  }
+  
+  .btn.btn-outline-primary:hover, .btn-outline-primary.custom-file-control:hover::before {
+    color: #931b06;
+    border-color: #931b06;
+  }
+  
+  .btn-primary:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.2rem rgba(245,45,10, 0.5)
+  }
+  
+  .is-focused [class^='bmd-label'], .is-focused [class*=' bmd-label'], *.is-focused [class^='bmd-label'], *.is-focused [class*=' bmd-label'] {
+    color: #f52d0a !important; 
+  }
+  
+  .form-control:focus, .custom-file-control:focus {
+    border-color: #f52d0a !important;
+  }
+  
+  .form-control, .custom-file-control, .is-focused .form-control, .is-focused .custom-file-control {
+    background-image: linear-gradient(to top, #f52d0a 2px, rgba(0, 150, 136, 0) 2px), linear-gradient(to top, rgba(0, 0, 0, 0.26) 1px, rgba(0, 0, 0, 0) 1px)
+  }
+  
+  .radio label input[type=radio]:checked ~ .bmd-radio::before, label.radio-inline input[type=radio]:checked ~ .bmd-radio::before {
+    background-color: #f52d0a;
+  }
+  
+  .radio label input[type=radio]:checked ~ .bmd-radio::after, label.radio-inline input[type=radio]:checked ~ .bmd-radio::after {
+    border-color: #f52d0a !important;
+  }
+  
+  .bg-primary {
+    background-color: #f52d0a !important;
+  }
+</style>
+
+
+<input data-palette="{&quot;primaryColor&quot;:&quot;#f52d0a&quot;,&quot;darkPrimaryColor&quot;:&quot;#931b06&quot;,&quot;secondaryColor&quot;:&quot;#ff0000&quot;}" type="hidden">
+
+<nav class="navbar fixed-bottom navbar-expand navbar-light bg-white" id="navbar">
+<a class="navbar-brand d-none d-lg-block" href="/">Pizzaria ta no ponto</a>
+<ul class="navbar-nav nav-fill flex-grow-1">
+<li class="nav-item active">
+<a class="nav-link text-capitalize d-block d-lg-none" href="/"><i class="fas fa-store fa-fw d-block d-lg-inline mx-auto mr-lg-2"></i>
+Inicio
+</a></li>
+<li class="nav-item">
+<a class="nav-link text-capitalize" href="/orders"><i class="fas fa-receipt fa-fw d-block d-lg-inline mx-auto mr-lg-2"></i>
+Pedidos
+</a></li>
+<li class="nav-item">
+<a class="nav-link text-capitalize" href="/promotions"><i class="fas fa-tags fa-fw d-block d-lg-inline mx-auto mr-lg-2"></i>
+Promoções
+</a></li>
+<li class="nav-item">
+<a class="nav-link text-capitalize" href="/users/edit"><i class="fas fa-user fa-fw d-block d-lg-inline mx-auto mr-lg-2"></i>
+Perfíl
+</a></li>
+</ul>
+<ul class="navbar-nav ml-auto">
+<li class="nav-item">
+<a class="btn sign-in bg-white rounded-lg d-none d-lg-block" data-remote="true" href="/users/sign_in">Entrar</a>
+</li>
+</ul>
+</nav>
+<div class="my-2 position-absolute text-right w-100 pr-2 container d-block d-lg-none">
+<a class="btn sign-in bg-white rounded-lg" data-remote="true" href="/users/sign_in">Entrar</a>
+</div>
+<div class="modal fade" id="modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Nova categoria</h5>
+<button class="close" data-dismiss="modal" type="button">
+<span>&times;</span>
+</button>
+</div>
+<div class="modal-body"></div>
+</div>
+</div>
+</div>
+<script src="https://assets.menuintegrado.com/assets/sign_in-3df9e23811131b16420e651e2a3bfc4334528854888274be9683ca234d8f869a.js"></script>
+<div class="pb-4 pb-lg-0" id="user-content-container"><noscript>
+<div class="alert text-center mb-0 alert-danger">
+Por favor habilite o JavaScript no seu navegador para poder realizar seu pedido
+</div>
+</noscript>
+<div class="text-center" id="cover-container">
+<picture>
+<source media="(min-width: 576px)" srcset="https://assets.menuintegrado.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTk5MzE0MzAsInB1ciI6ImJsb2JfaWQifX0=--92c2e6c646cdeb9e7141ba5ede13cbb7ea251b47/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzEzMDAsNDAwXX0sInB1ciI6InZhcmlhdGlvbiJ9fQ==--848fc263a3f3dd14dbff7386d2e2cb66c8fd5c83/fabb36b100e62cad287425116fe1eef5.jpg">
+<img alt="Pizzaria ta no ponto" src="https://assets.menuintegrado.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MTk5MzE0MzAsInB1ciI6ImJsb2JfaWQifX0=--92c2e6c646cdeb9e7141ba5ede13cbb7ea251b47/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJqcGciLCJyZXNpemVfdG9fZmlsbCI6WzQyMCwxNzBdfSwicHVyIjoidmFyaWF0aW9uIn19--42d929fedcdf56d7acca2e8bf9038e19e193e5c3/fabb36b100e62cad287425116fe1eef5.jpg" />
+</picture>
+</div>
+<input data-palette="{&quot;primaryColor&quot;:&quot;#f52d0a&quot;,&quot;darkPrimaryColor&quot;:&quot;#931b06&quot;,&quot;secondaryColor&quot;:&quot;#ff0000&quot;}" type="hidden">
+<div class="container h-100" data-spy="scroll" id="store">
+<div class="px-0" data-categories-url="/internal/categories?channel=platform" data-menu="{&quot;name&quot;:&quot;Pizzaria ta no ponto&quot;,&quot;open&quot;:false,&quot;available&quot;:true,&quot;logo&quot;:{&quot;large&quot;:&quot;https://assets.menuintegrado.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA2ODYwNzcsInB1ciI6ImJsb2JfaWQifX0=--9e5be2b01c6cfd4cfcbf7b610a2a37c50146471e/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJwbmciLCJyZXNpemVfdG9fZmlsbCI6WzE2MCwxNjBdfSwicHVyIjoidmFyaWF0aW9uIn19--ffd05376606ea882bf50c3e602f6febf6a0e6791/file.png&quot;,&quot;small&quot;:&quot;https://assets.menuintegrado.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsiZGF0YSI6MjA2ODYwNzcsInB1ciI6ImJsb2JfaWQifX0=--9e5be2b01c6cfd4cfcbf7b610a2a37c50146471e/eyJfcmFpbHMiOnsiZGF0YSI6eyJmb3JtYXQiOiJwbmciLCJyZXNpemVfdG9fZmlsbCI6WzEyMCwxMjBdfSwicHVyIjoidmFyaWF0aW9uIn19--6a08cc5e3113092bdc8960c98fbf07be1dd34b19/file.png&quot;},&quot;logoFormat&quot;:&quot;rounded&quot;,&quot;template&quot;:&quot;single_page&quot;,&quot;titleFontSize&quot;:&quot;1.5&quot;,&quot;table&quot;:null,&quot;texts&quot;:{&quot;daily&quot;:&quot;Entregas diárias&quot;,&quot;deliverToTable&quot;:&quot;Entregar na mesa&quot;,&quot;description&quot;:&quot;Faça seu pedido no delivery oficial %{name}&quot;,&quot;freightFree&quot;:&quot;Entrega gratis&quot;,&quot;freightFreeUntil&quot;:&quot;Gratis até %{distance} km&quot;,&quot;freightPrice&quot;:&quot;Taxa de entrega&quot;,&quot;footer&quot;:&quot;Delivery criado no \u003ca class=&#39;logo ml-2&#39; href=&#39;%{url}&#39;\u003eMenu Integrado\u003c/a\u003e&quot;,&quot;minOrder&quot;:&quot;Pedido mínimo&quot;,&quot;minPrice&quot;:&quot;A partir de %{price}&quot;,&quot;passwords&quot;:{&quot;edit&quot;:{&quot;title&quot;:&quot;Definir nova senha&quot;},&quot;new&quot;:{&quot;title&quot;:&quot;Recuperar senha&quot;}},&quot;phone&quot;:&quot;Telefone&quot;,&quot;pickupOnly&quot;:&quot;Somente retirada no local&quot;,&quot;registrations&quot;:{&quot;new&quot;:{&quot;title&quot;:&quot;Criar conta&quot;}},&quot;search&quot;:&quot;Buscar produto&quot;,&quot;schedule&quot;:{&quot;title&quot;:&quot;Horário de atendimento&quot;},&quot;sessions&quot;:{&quot;new&quot;:{&quot;title&quot;:&quot;Fazer login&quot;}},&quot;title&quot;:&quot;%{name} - Delivery Oficial&quot;,&quot;waitTime&quot;:&quot;Tempo de espera&quot;},&quot;freightPrice&quot;:&quot;A partir de R$ 5,00&quot;,&quot;waitTime&quot;:&quot;46 - 60 Minutos&quot;,&quot;phone&quot;:&quot;(83) 99608-4407&quot;,&quot;minOrder&quot;:0.0,&quot;minOrderWithCurrency&quot;:&quot;R$ 0,00&quot;,&quot;country&quot;:&quot;BR&quot;,&quot;countryCode&quot;:55,&quot;googleMapsKey&quot;:&quot;AIzaSyAp2Kj9FGa-KAoUjE3H-t4ORb7FIZHcssk&quot;,&quot;readonly&quot;:false,&quot;phoneMask&quot;:&quot;(00) 00000-0000&quot;,&quot;enableItemObservations&quot;:true,&quot;allowPickups&quot;:true,&quot;enableDelivery&quot;:true,&quot;servesLocal&quot;:false,&quot;adultsOnly&quot;:false,&quot;address&quot;:&quot;Rua Tenente Antônio Pontes 236 - Ponta de Matos, Cabedelo - PB, 58100-645&quot;,&quot;slug&quot;:&quot;pizzaria-ta-no-ponto&quot;,&quot;enableCurrentPosition&quot;:true,&quot;enableZipcodeInput&quot;:true,&quot;freeFreightLimit&quot;:null,&quot;serviceTax&quot;:&quot;10.0&quot;,&quot;statusLabel&quot;:&quot;Aberto para agendamentos&quot;,&quot;askForAddressOn&quot;:&quot;add_item&quot;,&quot;maxWait&quot;:60,&quot;freightType&quot;:&quot;by_km&quot;,&quot;city&quot;:&quot;Cabedelo&quot;,&quot;latitude&quot;:-6.9699234,&quot;longitude&quot;:-34.8324446,&quot;maxDistance&quot;:9.0,&quot;disableAuthentication&quot;:true,&quot;reviewsCount&quot;:55,&quot;minWait&quot;:46,&quot;showMap&quot;:false,&quot;enableAutocompleteAddressInput&quot;:false,&quot;components&quot;:{&quot;address_form&quot;:{&quot;back_label&quot;:&quot;Mudar entrega&quot;,&quot;city_label&quot;:&quot;Cidade&quot;,&quot;complement_label&quot;:&quot;Complemento&quot;,&quot;confirmation_title&quot;:&quot;Confirme seu endereço&quot;,&quot;continue_label&quot;:&quot;Continuar&quot;,&quot;currency&quot;:&quot;R$&quot;,&quot;delivery_label&quot;:&quot;Receber no endereço selecionado&quot;,&quot;freight_price_hint&quot;:&quot;Deixe em branco para calcular automaticamente&quot;,&quot;freight_price_label&quot;:&quot;Frete&quot;,&quot;loading&quot;:&quot;Carregando&quot;,&quot;neighborhood_label&quot;:&quot;Bairro&quot;,&quot;number_label&quot;:&quot;Número&quot;,&quot;pickup_label&quot;:&quot;Vou retirar o pedido no local/balcão&quot;,&quot;out_of_range&quot;:&quot;O endereço informado se encontra fora da área de entrega.&quot;,&quot;question&quot;:&quot;Onde deseja receber o pedido?&quot;,&quot;reference_label&quot;:&quot;Referência&quot;,&quot;search_button&quot;:&quot;Procurar&quot;,&quot;search_label&quot;:&quot;ou procure pelo CEP&quot;,&quot;street_label&quot;:&quot;Rua&quot;,&quot;zipcode_label&quot;:&quot;CEP&quot;,&quot;zipcode_mask&quot;:&quot;99999-999&quot;,&quot;use_current_position_label&quot;:&quot;Utilizar minha localização atual&quot;},&quot;adults_gate&quot;:{&quot;go_back&quot;:&quot;Voltar&quot;,&quot;question&quot;:&quot;Você tem 18 anos ou mais?&quot;,&quot;minor_age&quot;:&quot;Você precisa ter 18 anos ou mais para consumir bebidas alcoólicas.&quot;,&quot;no_label&quot;:&quot;Não&quot;,&quot;yes_label&quot;:&quot;Sim&quot;},&quot;shopping_cart&quot;:{&quot;add_address_label&quot;:&quot;Informar endereço&quot;,&quot;cancel_message&quot;:&quot;Cancelar&quot;,&quot;confirm_label&quot;:&quot;Fechar pedido&quot;,&quot;min_order_label&quot;:&quot;Pedido mínimo&quot;,&quot;on_empty_message&quot;:&quot;Seu pedido está vazio&quot;,&quot;open_cart_label&quot;:&quot;Ver pedido&quot;,&quot;order_title&quot;:&quot;Resumo do seu pedido&quot;,&quot;remove_label&quot;:&quot;remover&quot;,&quot;shipping_address_title&quot;:&quot;Endereço de entrega&quot;,&quot;shipping_restaurant_title&quot;:&quot;Retirar no local&quot;,&quot;shipping_table_title&quot;:&quot;Entrega na mesa&quot;}},&quot;addresses&quot;:[],&quot;carouselImages&quot;:[],&quot;banners&quot;:[],&quot;mostOrderedProductId&quot;:&quot;8c836074-867c-4dd6-b699-e5211d52b583&quot;}" data-slug="pizzaria-ta-no-ponto" id="app"></div>
+<div class="d-none">
+<form class="simple_form new_order" id="new_order" action="/order" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="CCMTPufFzhYUQe_Up_vil75UAO0GhBSaMeoX1CTh6t0HiDIJ7xjbQlTipp4f3lyAUAbLX2o_DhFy04XlbkdmPA" autocomplete="off" /><div class="form-group hidden order_items_hash"><input autocomplete="off" class="form-control hidden" value="" type="hidden" name="order[items_hash]" id="order_items_hash" /></div>
+<div class="form-group hidden order_donation"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[donation]" id="order_donation" /></div>
+<div class="form-group hidden order_street"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[street]" id="order_street" /></div>
+<div class="form-group hidden order_number"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[number]" id="order_number" /></div>
+<div class="form-group hidden order_complement"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[complement]" id="order_complement" /></div>
+<div class="form-group hidden order_neighborhood"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[neighborhood]" id="order_neighborhood" /></div>
+<div class="form-group hidden order_city"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[city]" id="order_city" /></div>
+<div class="form-group hidden order_state"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[state]" id="order_state" /></div>
+<div class="form-group hidden order_zipcode"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[zipcode]" id="order_zipcode" /></div>
+<div class="form-group hidden order_country"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[country]" id="order_country" /></div>
+<div class="form-group hidden order_reference"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[reference]" id="order_reference" /></div>
+<div class="form-group hidden order_latitude"><input autocomplete="off" class="form-control hidden delivery-only" type="hidden" name="order[latitude]" id="order_latitude" /></div>
+<div class="form-group hidden order_longitude"><input autocomplete="off" class="form-control hidden delivery-only" type="hidden" name="order[longitude]" id="order_longitude" /></div>
+<div class="form-group hidden order_geolocated"><input autocomplete="off" class="form-control hidden" type="hidden" value="false" name="order[geolocated]" id="order_geolocated" /></div>
+<div class="form-group hidden order_size"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[size]" id="order_size" /></div>
+<div class="form-group hidden order_weight"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[weight]" id="order_weight" /></div>
+<div class="form-group hidden order_delivery_points_json"><input autocomplete="off" class="form-control hidden" value="" type="hidden" name="order[delivery_points_json]" id="order_delivery_points_json" /></div>
+<div class="form-group hidden order_destination_name"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[destination_name]" id="order_destination_name" /></div>
+<div class="form-group hidden order_destination_mobile_phone"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[destination_mobile_phone]" id="order_destination_mobile_phone" /></div>
+<div class="form-group hidden order_gift"><input autocomplete="off" class="form-control hidden" type="hidden" value="false" name="order[gift]" id="order_gift" /></div>
+<div class="form-group hidden order_gift_recipient_name"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[gift_recipient_name]" id="order_gift_recipient_name" /></div>
+<div class="form-group hidden order_gift_message"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[gift_message]" id="order_gift_message" /></div>
+
+<div class="form-group hidden order_channel"><input autocomplete="off" class="form-control hidden" value="platform" type="hidden" name="order[channel]" id="order_channel" /></div>
+<div class="form-group hidden order_delivery_method form-group-valid"><input autocomplete="off" class="form-control is-valid hidden" type="hidden" value="delivery" name="order[delivery_method]" id="order_delivery_method" /></div>
+<div class="form-group hidden order_coupon_code"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[coupon_code]" id="order_coupon_code" /></div>
+<div class="form-group hidden order_conversation_code"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[conversation_code]" id="order_conversation_code" /></div>
+<div class="form-group hidden order_mass_sending_code"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[mass_sending_code]" id="order_mass_sending_code" /></div>
+<div class="form-group hidden order_table_id"><input autocomplete="off" class="form-control hidden" value="" type="hidden" name="order[table_id]" id="order_table_id" /></div>
+<div class="form-group hidden order_user_name"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[user_name]" id="order_user_name" /></div>
+<div class="form-group hidden order_user_mobile_phone"><input autocomplete="off" class="form-control hidden" type="hidden" name="order[user_mobile_phone]" id="order_user_mobile_phone" /></div>
+</form></div>
+</div>
+<footer class="bg-white mt-auto border-top">
+<div class="container py-4">
+<div class="row">
+<div class="col-12 col-md-7 mb-3 mb-md-0">
+<div class="font-weight-bold mb-2">
+© Pizzaria ta no ponto 2026
+</div>
+<div class="mb-1">
+<a target="_blank" rel="noopener noreferrer" class="text-decoration-none" href="https://api.whatsapp.com/send?phone=5583996084407&amp;text="><i class="fab fa-whatsapp text-success"></i>
+<span class="ml-1">(83) 99608-4407</span>
+</a></div>
+</div>
+<div class="col-12 col-md-5 text-md-right my-auto pb-md-0" style="padding-bottom:60px">
+Delivery criado no <a class='logo ml-2' href='https://www.menuintegrado.com.br'>Menu Integrado</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<style>
+  @media (min-width: 992px) {
+    #navbar {
+      position: relative;
+    }
+  
+    #navbar .navbar-nav .nav-item {
+      flex: none;
+    }
+  }
+</style>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp2Kj9FGa-KAoUjE3H-t4ORb7FIZHcssk&amp;libraries=places"></script>
+<input id="ahoy-properties" type="hidden" value="{&quot;rid&quot;:9259}">
+<link rel="stylesheet" href="https://assets.menuintegrado.com/assets/user-a969d5dc73847124b20f403c65a6069fb4d0ecb70583943172aa769a84962ce1.css" />
+<script src="https://assets.menuintegrado.com/assets/delivery-69ce0803b42f71b5c3926d40f2f819b84781b0db28862e8e9d7b3a258c0b4bef.js" async="async"></script>
+<script src="https://assets.menuintegrado.com/assets/tracking-291ac8de88bfee9cfdcce34400e591e938357bf7c95a07ca99199c8bd96101a2.js" async="async"></script>
+<div class="modal fade" id="schedule-modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Horário de atendimento</h5>
+<button class="close" data-dismiss="modal" type="button">
+<span>&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<table class="table">
+<tbody>
+<tr>
+<td>Segunda-feira</td>
+<td class="text-center">17:30 - 23:59</td>
+</tr>
+<tr>
+<td>Terça-feira</td>
+<td class="text-center">17:30 - 23:59</td>
+</tr>
+<tr>
+<td>Quarta-feira</td>
+<td class="text-center">17:30 - 23:59</td>
+</tr>
+<tr>
+<td>Quinta-feira</td>
+<td class="text-center">17:30 - 23:59</td>
+</tr>
+<tr>
+<td>Sexta-feira</td>
+<td class="text-center">17:30 - 23:59</td>
+</tr>
+<tr>
+<td>Sábado</td>
+<td class="text-center">17:30 - 23:59</td>
+</tr>
+<tr>
+<td>Domingo</td>
+<td class="text-center">17:30 - 23:59</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+</body>
+</html>

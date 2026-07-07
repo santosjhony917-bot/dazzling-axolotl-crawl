@@ -1,0 +1,227 @@
+{
+  "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+  "name": "Center Pizza Cabedelo",
+  "instagram": "https://www.instagram.com/centerpizza_cabedelo/",
+  "followers": 3390,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_profile_1783385427410.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385431859_1.jpg",
+      "score": 30,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385432983_2.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385434340_3.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385434955_4.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385435713_5.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385436295_6.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385436997_7.jpg",
+      "score": 24,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385437670_8.jpg",
+      "score": 24,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "50212f8c-a319-4836-9ebe-1e06983c43c0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385431859_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "486f4248-c246-461b-91ec-7b50bf626206",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385432983_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "6cd2f5c4-79c4-4ab8-80b7-ee787f07155e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385434340_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "d717580b-ed55-498d-9e27-a0aa7490d261",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385434955_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "d1a3fb7c-c972-437b-b170-be73556c7094",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385435713_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "183a9c4a-f2af-46d5-9014-39f787ca76f0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385436295_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "36504976-ebe3-4305-a9e1-48145843a9d4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385436997_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "5f6bdd16-8d52-4420-a217-d54d213ea2c3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/e6fc253f-7f28-47f8-891f-df98848adda0/instagram_1783385437670_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 30,
+      "caption": "🍽️ Ainda tá pensando no que escolher pra jantar?! Se você já sabe que tudo acaba em pizza, não perde tempo e vem logo na @centerpizza_cabedelo 😍🍕 TIME VILLA PORTO 💛📍",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "Sua confraternização é na @centerpizza_cabedelo 🍕❤️✨ 📍BR230, em frente ao armazém PB - Cabedelo, Centro 🕖 De Segunda à Domingo (fechamos na terça) #VEMPROVILLAPORTO",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "A pizza perfeita para o seu momento perfeito! 🍕🤍 (Registro de cliente 🤍) #ifoodbrasil #pizza #pizzariacabedelo #cabedeloparaíba🌞🌴🌊 #cabedelopb #deliverycabedelo #cabedelodeli",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "E o tão esperado dia será hoje, e você é nosso convidado. Av. Duque de Caxias S/N, ao lado do Cabedelo Clube. Center Pizza.🤍🍕🛵🇮🇹",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Seu novo ponto de encontro em Cabedelo 🍽️✨ No Villa Porto tem comida boa, ambiente leve e aquele clima perfeito pra reunir quem você ama 🧡 📍 Centro de Cabedelo ⏰ 18h às 23h 🚫 F",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Onde cada pedaço é um pedaço de felicidade! 🍕🤍 (Registro de cliente 🤍) #ifoodbrasil #pizza #pizzariacabedelo #cabedeloparaíba🌞🌴🌊 #cabedelodelivery #deliverycabedelo #centerpi",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "✨PROMOÇÃO DE PIZZA É NA @centerpizza_cabedelo 😍🍕 Pizza de frango com calabresa TODO MUNDO AMAAA! 8 fatias | R$40,00 ✅ #VEMPROVILLAPORTO",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "Estamos de cara nova, Center Pizza está com uma nova logo! 🍕🤍",
+      "vision": null
+    }
+  ]
+}

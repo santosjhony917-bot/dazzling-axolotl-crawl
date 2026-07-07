@@ -1,0 +1,58 @@
+[
+  {
+    "restaurantId": "2fa16117-987d-414e-bb67-9e73fc568007",
+    "restaurantName": "Dan Pizza",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/dan_pizza?s=cb",
+    "score": 7,
+    "tier": "green",
+    "flags": [],
+    "nextAction": "fast_visual_review_then_import",
+    "category": "Pizzaria",
+    "address": "R. Sergipe",
+    "phone": "(83) 98681-6659",
+    "instagram": "https://www.instagram.com/danpizzadelivery/"
+  },
+  {
+    "restaurantId": "7a564e31-faab-4bf2-9c1a-791be4da2968",
+    "restaurantName": "DinDin Alegria",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/dindin_alegria",
+    "score": 7,
+    "tier": "green",
+    "flags": [],
+    "nextAction": "fast_visual_review_then_import",
+    "category": "Sorveteria·",
+    "address": "R. Odon Bezerra",
+    "phone": "(83) 99834-7369",
+    "instagram": "https://www.instagram.com/dindinalegria/"
+  },
+  {
+    "restaurantId": "d716d71f-e1c9-41da-a7de-bb32b7bc5854",
+    "restaurantName": "Doha Esfiharia - CG",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/doha_esfiharia",
+    "score": 7,
+    "tier": "green",
+    "flags": [],
+    "nextAction": "fast_visual_review_then_import",
+    "category": "Esfiharia·",
+    "address": "Av. Pres. Juscelino Kubitschek",
+    "phone": "(83) 99902-7218",
+    "instagram": "https://www.instagram.com/dohaesfiharia/"
+  },
+  {
+    "restaurantId": "a00d132c-437d-414f-8297-08b106fec9f8",
+    "restaurantName": "Dom Brie Pizzaria",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/dom_brie",
+    "score": 7,
+    "tier": "green",
+    "flags": [],
+    "nextAction": "fast_visual_review_then_import",
+    "category": "Delivery de Pizza",
+    "address": "Av. Manoel Tavares",
+    "phone": "(83) 98724-0800",
+    "instagram": "https://www.instagram.com/dombriepizzaria/"
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "runId": "2026-07-07T16-51-20-076Z",
+  "mode": "dry-run",
+  "outDir": "scratch\\pipa-semantic-pricing-repair\\2026-07-07T16-51-20-076Z",
+  "countsBefore": {
+    "items": 80,
+    "groups": 128,
+    "options": 970,
+    "availableOptions": 645
+  },
+  "before": {
+    "finalPriceGroups": [],
+    "builderBaseItems": [],
+    "operationalOptions": [],
+    "operationalOptionCount": 0,
+    "emptyOperationalGroups": [],
+    "emptyOperationalGroupCount": 0,
+    "stillSuspicious": []
+  },
+  "applied": {
+    "finalPriceGroups": [],
+    "builderBaseItems": [],
+    "disabledOperationalOptions": [],
+    "removedEmptyOperationalGroups": []
+  },
+  "countsAfter": {
+    "items": 80,
+    "groups": 128,
+    "options": 970,
+    "availableOptions": 645
+  },
+  "after": {
+    "finalPriceGroups": [],
+    "builderBaseItems": [],
+    "operationalOptions": [],
+    "operationalOptionCount": 0,
+    "emptyOperationalGroups": [],
+    "emptyOperationalGroupCount": 0,
+    "stillSuspicious": []
+  }
+}

@@ -1,0 +1,1651 @@
+{
+  "runId": "2026-07-07T11-55-28-629Z-13688",
+  "outDir": "scratch\\structured-menu-collection\\2026-07-07T11-55-28-629Z-13688",
+  "queuePath": "scratch\\menu-collection-queue\\2026-07-07T11-03-53-044Z\\queue.json",
+  "platform": "meucarrinho",
+  "apply": false,
+  "concurrency": 1,
+  "targetCount": 1,
+  "browserbase": {
+    "sessionId": "a9166049-f3c7-451c-8cf6-80f88797947c",
+    "keepSession": false
+  },
+  "targets": [
+    {
+      "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "restaurantName": "Porto do açaí",
+      "sourceUrl": "https://meucarrinho.delivery/portodoacai",
+      "platform": "meucarrinho",
+      "reviewsCount": 1,
+      "address": "R. Cleto Campêlo, 623",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99384-2261",
+      "queueEntry": {
+        "restaurant_id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+        "name": "Porto do açaí",
+        "platform": "meucarrinho",
+        "tier": "green",
+        "priority_score": 50,
+        "risk_flags": [],
+        "source_field": "other_url",
+        "source_url": "https://meucarrinho.delivery/portodoacai",
+        "raw_source_url": "https://meucarrinho.delivery/portodoacai",
+        "other_url": "https://meucarrinho.delivery/portodoacai",
+        "external_url": "",
+        "other_url_label": "Link da bio do Instagram",
+        "category": "Lanchonete",
+        "address": "R. Cleto Campêlo, 623",
+        "neighborhood": "Camalaú",
+        "city": "Cabedelo",
+        "state": "PB",
+        "phone": "(83) 99384-2261",
+        "rating": 5,
+        "reviews_count": 1,
+        "menu_status": "unknown",
+        "menu_status_reason": "",
+        "menu_last_checked_at": null,
+        "is_published": false,
+        "ai_validated": false,
+        "source_candidates": [
+          {
+            "field": "other_url",
+            "raw": "https://meucarrinho.delivery/portodoacai",
+            "canonical_url": "https://meucarrinho.delivery/portodoacai",
+            "platform": "meucarrinho",
+            "is_ifood": false,
+            "parse_error": false,
+            "canonical_flags": []
+          }
+        ],
+        "eligible_for_queue": true,
+        "collection_hint": "structured_source_ready",
+        "rank": 2
+      }
+    }
+  ],
+  "processed": [
+    {
+      "restaurantId": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "restaurantName": "Porto do açaí",
+      "platform": "meucarrinho",
+      "sourceUrl": "https://meucarrinho.delivery/portodoacai",
+      "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T11-55-28-629Z-13688\\001-porto-do-acai",
+      "startedAt": "2026-07-07T11:55:31.727Z",
+      "details": {
+        "url": "https://meucarrinho.delivery/portodoacai",
+        "title": "Meu Carrinho",
+        "companySlug": "portodoacai",
+        "bodyTextSample": "PORTO DO ACAI | portodoacai | PORTODOACAI01 | Rua Cleto Campelo, 3, Camalaú, Cabedelo, PB, 58103242 | Restaurante | sunday: fechado; monday: 09:00-21:00; tuesday: 09:00-21:00; wednesday: 09:00-21:00; thursday: 09:00-21:00; friday: 09:00-21:00; saturday: 09:00-21:00 | 01-ACAI | 01-ACAI | 02-GELATTOS | 03-REFEICOES PRONTAS | 04-SALGADOS | 05-SUCOS | 06-SOBREMESAS | 07-AGUA | 08-REFRIGERANTES | 09-ENERGETICO | 10-DRINKS | 11-CERVEJAS | 12-GELO | 13-LANCHES DA NOITE | BOMBONIERE | GELATTO G (Creme de Ninho) Cremoso, doce e irresistivel, tres opcoes de frutas. 25 | GELATTO P (Creme de Ninho) Cremoso, doce e irresistivel, uma opcao de fruta. 16 | GELATTO P (Creme de Cupuacu) Gelatto de cupuacu cremoso, uma opcao de fruta. 16 | GELATTO M (CUPUACU) Gelatto de Cupuacu Cremoso com Duas Opcoes de Frutas. 18 | GELATTO M (Creme de Ninho) Gelatto de ninho cremoso, com duas opcoes de frutas. 18 | GELATTO G (Creme de Cupuacu) Gelatto de cupuacu cremoso, tres opcoes de frutas. 25 | ACAI M (ACAI TRADICIONAL) Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas. 18 | ACAI G (TRADICIONAL) Escolha ate tres opcoes de frutas. 25 | ACAI P (Acai com Creme de Ninho) Acai cremoso com uma opcao de fruta. 16 | ACAI M (Acai com Creme de Ninho) Acai cremoso, escolha ate duas opcoes de frutas. 18 | ACAI G (Acai com Creme de Ninho) Acai cremoso, tres opcoes de frutas. 25 | ACAI P (Acai com Cupuacu) Acai com Cupuacu cremoso, escolha uma opcao de fruta. 16 | ACAI M (Acai com Cupuacu) Gelatto de cupuacu cremoso e saboroso, escolha duas opcoes de frutas. 18 | ACAI G (Acai com Cupuacu) Acai cremoso, escolha tres opcoes de frutas. 25 | ACAI P (TRADICIONAL) Acai cremoso e delicioso que ira encantar seu paladar, com uma opcao de fruta. 16 | Raiz do sertao Creme de Macaxeira com Carne de Sol e Queijo Coalho 370g 15 | Bolo no Pote 10 | Bolo Dois Amores 8 | Pudim 8 | Brownie 6 | Brownie com Gelatto de Ninho Brownie com Gelatto de Ninho cremoso 10 | Agua Mineral 1,5L Agua mineral natural em embalagem economica 7 | Agua com Gas 500ml Agua mineral gaseificada refrescante 4 | Agua Mineral 500ml Agua mineral natural pura e cristalina 3 | Coca-Cola Lata 350ml O classico refrigerante de cola gelado 6 | COCA COLA ORIG KS 1L 12 | COCA COLA ZERO KS 290ML 5 | H2O Limao 500ml Agua saborizada com limao natural 8 | Coca-Cola Zero Lata 350ml Coca-Cola zero acucar, mesmo sabor original 6 | Guarana Antarctica Lata 350ml Refrigerante brasileiro de guarana natural 5 | SPRITE ZERO LATA 350ML Refrigerante de limao sem acucar, refrescante 6 | COCA COLA PET 1L 12 | GUARANA 1L 10 | Suco Acai Mix 770ml Refrescancia com energia. 18 | Laranja Suco natural de laranja fresco 8 | SUCO DA POLPA Sucos cremoso, consultar sabores. 7 | Suco Acai Mix 400ml Refrescancia com energia. 11 | COMBO COXINHA E GUARANÁ ANTARTICA 13 | Pastel de Forno de Carne de Sol 8 | Pastel de Forno de Frango 7 | Empada de Frango 7 | Coxinha 6 | Enroladinho 6 | Pao delicia 6 | Empada de Carne de Sol 8 | Empada LEITE CONDENSADO 6 | Pastel de Queijo 7 | Empada de Queijo 7 | Red Bull (Sabores) 250ml Energetico Red Bull em diversos sabores disponiveis 12 | Budweiser Long Neck 330ml Cerveja americana classica, leve e refrescante 9 | Amstel Lata 350ml Cerveja holandesa premium em lata pratica 6 | Heineken Long Neck 330ml Cerveja premium holandesa, refrescante e com sabor equilibrado 10 | MENTOS 3.5 | HALLS 2.5 | Skol Beats Senses 269ml Drink alcoolico pronto para beber 9 | DOGAO DO PORTO Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna. 9 | SANDUBAO DE FRANGO Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho. 9 | Gelo saborizado (coco leve) Faz seu drink ficar ainda + gostoso 5 | Coco Imagem do produto 5 | Gelo Saborizado Unidade Gelo com sabor especial, unidade 4 | Gelo Dose 2kg Gelo em cubos, pacote de 2kg 5 | Acessar o Marketplace PORTO DO ACAI Fechado Rua Cleto Campelo, 3, Camalaú | 58103 - 242 | Cabedelo - PB Tempo de Entrega 35 min - 50 min Taxa de Entrega A partir de R$ 6,00 Horários Terça - 09:00h às 21:00h Telefone (83) 99384-2261 WhatsApp (83) 99384-2261 E-mail portodoacai1410@gmail.com PORTO DO ACAI Fechado Ver mais Ir para uma categoria Ir para uma categoria 01-ACAI ACAI M (ACAI TRADICIONAL) Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas. R$ 18 ,00 + ACAI G (TRADICIONAL) Escolha ate tres opcoes de frutas. R$ 25 ,00 + ACAI P (Acai com Creme de Ninho) Acai cremoso com uma opcao de fruta. R$ 16 ,00 + ACAI M (Acai com Creme de Ninho) Acai cremoso, escolha ate duas opcoes de frutas. R$ 18 ,00 + ACAI G (Acai com Creme de Ninho) Acai cremoso, tres opcoes de frutas. R$ 25 ,00 + ACAI P (Acai com Cupuacu) Acai com Cupuacu cremoso, escolha uma opcao de fruta. R$ 16 ,00 + ACAI M (Acai com Cupuacu) Gelatto de cupuacu cremoso e saboroso, escolha duas opcoes de frutas. R$ 18 ,00 + ACAI G (Acai com Cupuacu) Acai cremoso, escolha tres opcoes de frutas. R$ 25 ,00 + ACAI P (TRADICIONAL) Acai cremoso e delicioso que ira encantar seu paladar, com uma opcao de fruta. R$ 16 ,00 + 02-GELATTOS GELATTO G (Creme de Ninho) Cremoso, doce e irresistivel, tres opcoes de frutas. R$ 25 ,00 + GELATTO P (Creme de Ninho) Cremoso, doce e irresistivel, uma opcao de fruta. R$ 16 ,00 + GELATTO P (Creme de Cupuacu) Gelatto de cupuacu cremoso, uma opcao de fruta. R$ 16 ,00 + GELATTO M (CUPUACU) Gelatto de Cupuacu Cremoso com Duas Opcoes de Frutas. R$ 18 ,00 + GELATTO M (Creme de Ninho) Gelatto de ninho cremoso, com duas opcoes de frutas. R$ 18 ,00 + GELATTO G (Creme de Cupuacu) Gelatto de cupuacu cremoso, tres opcoes de frutas. R$ 25 ,00 + 03-REFEICOES PRONTAS Raiz do sertao Creme de Macaxeira com Carne de Sol e Queijo Coalho 370g R$ 15 ,00 + 04-SALGADOS COMBO COXINHA E GUARANÁ ANTARTICA R$ 13 ,00 + Pastel de Forno de Carne de Sol R$ 8 ,00 + Pastel de Forno de Frango R$ 7 ,00 + Empada de Frango R$ 7 ,00 + Coxinha R$ 6 ,00 + Enroladinho R$ 6 ,00 + Pao delicia R$ 6 ,00 + Empada de Carne de Sol R$ 8 ,00 + Empada LEITE CONDENSADO R$ 6 ,00 + Pastel de Queijo R$ 7 ,00 + Empada de Queijo R$ 7 ,00 + 05-SUCOS Suco Acai Mix 770ml Refrescancia com energia. R$ 18 ,00 + Laranja Suco natural de laranja fresco R$ 8 ,00 + SUCO DA POLPA Sucos cremoso, consultar sabores. R$ 7 ,00 + Suco Acai Mix 400ml Refrescancia com energia. R$ 11 ,00 + 06-SOBREMESAS Bolo no Pote R$ 10 ,00 + Bolo Dois Amores R$ 8 ,00 + Pudim R$ 8 ,00 + Brownie R$ 6 ,00 + Brownie com Gelatto de Ninho Brownie com Gelatto de Ninho cremoso R$ 10 ,00 + 07-AGUA Agua Mineral 1,5L Agua mineral natural em embalagem economica R$ 7 ,00 + Agua com Gas 500ml Agua mineral gaseificada refrescante R$ 4 ,00 + Agua Mineral 500ml Agua mineral natural pura e cristalina R$ 3 ,00 + 08-REFRIGERANTES Coca-Cola Lata 350ml O classico refrigerante de cola gelado R$ 6 ,00 + COCA COLA ORIG KS 1L R$ 12 ,00 + COCA COLA ZERO KS 290ML R$ 5 ,00 + H2O Limao 500ml Agua saborizada com limao natural R$ 8 ,00 + Coca-Cola Zero Lata 350ml Coca-Cola zero acucar, mesmo sabor original R$ 6 ,00 + Guarana Antarctica Lata 350ml Refrigerante brasileiro de guarana natural R$ 5 ,00 + SPRITE ZERO LATA 350ML Refrigerante de limao sem acucar, refrescante R$ 6 ,00 + COCA COLA PET 1L R$ 12 ,00 + GUARANA 1L R$ 10 ,00 + 09-ENERGETICO Red Bull (Sabores) 250ml Energetico Red Bull em diversos sabores disponiveis R$ 12 ,00 + 10-DRINKS Skol Beats Senses 269ml Drink alcoolico pronto para beber R$ 9 ,00 + 11-CERVEJAS Budweiser Long Neck 330ml Cerveja americana classica, leve e refrescante R$ 9 ,00 + Amstel Lata 350ml Cerveja holandesa premium em lata pratica R$ 6 ,00 + Heineken Long Neck 330ml Cerveja premium holandesa, refrescante e com sabor equilibrado R$ 10 ,00 + 12-GELO Gelo saborizado (coco leve) Faz seu drink ficar ainda + gostoso R$ 5 ,00 + Coco Imagem do produto R$ 5 ,00 + Gelo Saborizado Unidade Gelo com sabor especial, unidade R$ 4 ,00 + Gelo Dose 2kg Gelo em cubos, pacote de 2kg R$ 5 ,00 + 13-LANCHES DA NOITE DOGAO DO PORTO Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna. R$ 9 ,00 + SANDUBAO DE FRANGO Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho. R$ 9 ,00 + BOMBONIERE MENTOS R$ 3 ,50 + HALLS R$ 2 ,50 + Meu Carrinho Selecione o método de entrega: Delivery Retirar na Loja Seu carrinho está vazio Totais Subtotal R$ 0,00 Entrega R$ 0,00 Total R$ 0,00 ESTABELECIMENTO FECHADO Meu Carrinho Delivery © 2021-2026. Todos os direitos reservados.",
+        "metrics": {
+          "scrollHeight": 6883,
+          "bodyLength": 70352,
+          "imageCount": 69
+        },
+        "meuCarrinhoStore": {
+          "id": "4c801932-2485-4f56-a90e-d089fac73b4c",
+          "name": "PORTO DO ACAI",
+          "slug": "portodoacai",
+          "phone": "(83) 99384-2261",
+          "instagram": "https://www.instagram.com/PORTODOACAI01",
+          "formattedAddress": "Rua Cleto Campelo, 3, Camalaú, Cabedelo, PB, 58103242",
+          "address": {
+            "address": "Rua Cleto Campelo",
+            "number": "3",
+            "neighborhood": "Camalaú",
+            "city": "Cabedelo",
+            "state": "PB",
+            "cep": "58103242",
+            "latitude": -6.979326299999999,
+            "longitude": -34.8348713
+          },
+          "latitude": -6.979326299999999,
+          "longitude": -34.8348713,
+          "hours": "sunday: fechado; monday: 09:00-21:00; tuesday: 09:00-21:00; wednesday: 09:00-21:00; thursday: 09:00-21:00; friday: 09:00-21:00; saturday: 09:00-21:00",
+          "openingHours": {
+            "sunday": {
+              "isOpen": false,
+              "slots": []
+            },
+            "monday": {
+              "isOpen": true,
+              "slots": [
+                {
+                  "start": "09:00",
+                  "end": "21:00"
+                }
+              ]
+            },
+            "tuesday": {
+              "isOpen": true,
+              "slots": [
+                {
+                  "start": "09:00",
+                  "end": "21:00"
+                }
+              ]
+            },
+            "wednesday": {
+              "isOpen": true,
+              "slots": [
+                {
+                  "start": "09:00",
+                  "end": "21:00"
+                }
+              ]
+            },
+            "thursday": {
+              "isOpen": true,
+              "slots": [
+                {
+                  "start": "09:00",
+                  "end": "21:00"
+                }
+              ]
+            },
+            "friday": {
+              "isOpen": true,
+              "slots": [
+                {
+                  "start": "09:00",
+                  "end": "21:00"
+                }
+              ]
+            },
+            "saturday": {
+              "isOpen": true,
+              "slots": [
+                {
+                  "start": "09:00",
+                  "end": "21:00"
+                }
+              ]
+            }
+          },
+          "logo": "https://meucarrinhostg.blob.core.windows.net/images/logo-f256954b-098d-4c6a-affb-7fa33729a5a1.png",
+          "background": "https://meucarrinhostg.blob.core.windows.net/images/banner-66e1022d-892e-4bea-a150-65b0332473ec.png",
+          "status": "UNAVAILABLE"
+        }
+      },
+      "rawSummary": {
+        "categoryCount": 14,
+        "itemCount": 61,
+        "optionCount": 0,
+        "operationalCategoryCount": 0,
+        "operationalItemCount": 0,
+        "operationalOptionCount": 0,
+        "samples": [
+          {
+            "name": "ACAI",
+            "items": [
+              {
+                "name": "ACAI M (ACAI TRADICIONAL)",
+                "price": 18,
+                "options": []
+              },
+              {
+                "name": "ACAI G (TRADICIONAL)",
+                "price": 25,
+                "options": []
+              },
+              {
+                "name": "ACAI P (Acai com Creme de Ninho)",
+                "price": 16,
+                "options": []
+              },
+              {
+                "name": "ACAI M (Acai com Creme de Ninho)",
+                "price": 18,
+                "options": []
+              },
+              {
+                "name": "ACAI G (Acai com Creme de Ninho)",
+                "price": 25,
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "GELATTOS",
+            "items": [
+              {
+                "name": "GELATTO G (Creme de Ninho)",
+                "price": 25,
+                "options": []
+              },
+              {
+                "name": "GELATTO P (Creme de Ninho)",
+                "price": 16,
+                "options": []
+              },
+              {
+                "name": "GELATTO P (Creme de Cupuacu)",
+                "price": 16,
+                "options": []
+              },
+              {
+                "name": "GELATTO M (CUPUACU)",
+                "price": 18,
+                "options": []
+              },
+              {
+                "name": "GELATTO M (Creme de Ninho)",
+                "price": 18,
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "REFEICOES PRONTAS",
+            "items": [
+              {
+                "name": "Raiz do sertao",
+                "price": 15,
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "SALGADOS",
+            "items": [
+              {
+                "name": "COMBO COXINHA E GUARANÁ ANTARTICA",
+                "price": 13,
+                "options": []
+              },
+              {
+                "name": "Pastel de Forno de Carne de Sol",
+                "price": 8,
+                "options": []
+              },
+              {
+                "name": "Pastel de Forno de Frango",
+                "price": 7,
+                "options": []
+              },
+              {
+                "name": "Empada de Frango",
+                "price": 7,
+                "options": []
+              },
+              {
+                "name": "Coxinha",
+                "price": 6,
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "SUCOS",
+            "items": [
+              {
+                "name": "Suco Acai Mix 770ml",
+                "price": 18,
+                "options": []
+              },
+              {
+                "name": "Laranja",
+                "price": 8,
+                "options": []
+              },
+              {
+                "name": "SUCO DA POLPA",
+                "price": 7,
+                "options": []
+              },
+              {
+                "name": "Suco Acai Mix 400ml",
+                "price": 11,
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "SOBREMESAS",
+            "items": [
+              {
+                "name": "Bolo no Pote",
+                "price": 10,
+                "options": []
+              },
+              {
+                "name": "Bolo Dois Amores",
+                "price": 8,
+                "options": []
+              },
+              {
+                "name": "Pudim",
+                "price": 8,
+                "options": []
+              },
+              {
+                "name": "Brownie",
+                "price": 6,
+                "options": []
+              },
+              {
+                "name": "Brownie com Gelatto de Ninho",
+                "price": 10,
+                "options": []
+              }
+            ]
+          }
+        ]
+      },
+      "evidencePath": "scratch\\structured-menu-collection\\2026-07-07T11-55-28-629Z-13688\\001-porto-do-acai\\menu-evidence.json",
+      "dryRun": {
+        "code": 0,
+        "result": {
+          "success": true,
+          "dryRun": true,
+          "audit": {
+            "approved": true,
+            "confidence": 0.98,
+            "categoryCount": 14,
+            "itemCount": 60,
+            "resolvedPriceCount": 60,
+            "unresolvedPriceCount": 0,
+            "fullPriceDeltaAnomalyCount": 0,
+            "fullPriceDeltaAnomalies": [],
+            "optionPriceCount": 0,
+            "pricedRatio": 1,
+            "issues": [],
+            "optionSemanticAI": {
+              "used": false,
+              "reason": "no_groups",
+              "deltaFixes": 0,
+              "storageFixes": 0,
+              "guardFixes": 0
+            }
+          },
+          "preview": [
+            {
+              "name": "ACAI",
+              "count": 9,
+              "samples": [
+                {
+                  "name": "ACAI M (ACAI TRADICIONAL)",
+                  "price": 18,
+                  "kind": "simple_item",
+                  "description": "Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas."
+                },
+                {
+                  "name": "ACAI G (TRADICIONAL)",
+                  "price": 25,
+                  "kind": "configurable_item",
+                  "description": "Escolha ate tres opcoes de frutas."
+                },
+                {
+                  "name": "ACAI P (Acai com Creme de Ninho)",
+                  "price": 16,
+                  "kind": "simple_item",
+                  "description": "Acai cremoso com uma opcao de fruta."
+                },
+                {
+                  "name": "ACAI M (Acai com Creme de Ninho)",
+                  "price": 18,
+                  "kind": "configurable_item",
+                  "description": "Acai cremoso, escolha ate duas opcoes de frutas."
+                },
+                {
+                  "name": "ACAI G (Acai com Creme de Ninho)",
+                  "price": 25,
+                  "kind": "simple_item",
+                  "description": "Acai cremoso, tres opcoes de frutas."
+                }
+              ]
+            },
+            {
+              "name": "GELATTOS",
+              "count": 6,
+              "samples": [
+                {
+                  "name": "GELATTO G (Creme de Ninho)",
+                  "price": 25,
+                  "kind": "simple_item",
+                  "description": "Cremoso, doce e irresistivel, tres opcoes de frutas."
+                },
+                {
+                  "name": "GELATTO P (Creme de Ninho)",
+                  "price": 16,
+                  "kind": "simple_item",
+                  "description": "Cremoso, doce e irresistivel, uma opcao de fruta."
+                },
+                {
+                  "name": "GELATTO P (Creme de Cupuacu)",
+                  "price": 16,
+                  "kind": "simple_item",
+                  "description": "Gelatto de cupuacu cremoso, uma opcao de fruta."
+                },
+                {
+                  "name": "GELATTO M (CUPUACU)",
+                  "price": 18,
+                  "kind": "simple_item",
+                  "description": "Gelatto de Cupuacu Cremoso com Duas Opcoes de Frutas."
+                },
+                {
+                  "name": "GELATTO M (Creme de Ninho)",
+                  "price": 18,
+                  "kind": "simple_item",
+                  "description": "Gelatto de ninho cremoso, com duas opcoes de frutas."
+                }
+              ]
+            },
+            {
+              "name": "REFEICOES PRONTAS",
+              "count": 1,
+              "samples": [
+                {
+                  "name": "Raiz do sertao",
+                  "price": 15,
+                  "kind": "simple_item",
+                  "description": "Creme de Macaxeira com Carne de Sol e Queijo Coalho 370g"
+                }
+              ]
+            },
+            {
+              "name": "SALGADOS",
+              "count": 11,
+              "samples": [
+                {
+                  "name": "COMBO COXINHA E GUARANÁ ANTARTICA",
+                  "price": 13,
+                  "kind": "combo_builder",
+                  "description": ""
+                },
+                {
+                  "name": "Pastel de Forno de Carne de Sol",
+                  "price": 8,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "Pastel de Forno de Frango",
+                  "price": 7,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "Empada de Frango",
+                  "price": 7,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "Coxinha",
+                  "price": 6,
+                  "kind": "simple_item",
+                  "description": ""
+                }
+              ]
+            },
+            {
+              "name": "SUCOS",
+              "count": 4,
+              "samples": [
+                {
+                  "name": "Suco Acai Mix 770ml",
+                  "price": 18,
+                  "kind": "simple_item",
+                  "description": "Refrescancia com energia."
+                },
+                {
+                  "name": "Laranja",
+                  "price": 8,
+                  "kind": "simple_item",
+                  "description": "Suco natural de laranja fresco"
+                },
+                {
+                  "name": "SUCO DA POLPA",
+                  "price": 7,
+                  "kind": "simple_item",
+                  "description": "Sucos cremoso, consultar sabores."
+                },
+                {
+                  "name": "Suco Acai Mix 400ml",
+                  "price": 11,
+                  "kind": "simple_item",
+                  "description": "Refrescancia com energia."
+                }
+              ]
+            },
+            {
+              "name": "SOBREMESAS",
+              "count": 5,
+              "samples": [
+                {
+                  "name": "Bolo no Pote",
+                  "price": 10,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "Bolo Dois Amores",
+                  "price": 8,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "Pudim",
+                  "price": 8,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "Brownie",
+                  "price": 6,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "Brownie com Gelatto de Ninho",
+                  "price": 10,
+                  "kind": "simple_item",
+                  "description": "Brownie com Gelatto de Ninho cremoso"
+                }
+              ]
+            },
+            {
+              "name": "AGUA",
+              "count": 2,
+              "samples": [
+                {
+                  "name": "Agua com Gas 500ml",
+                  "price": 4,
+                  "kind": "simple_item",
+                  "description": "Agua mineral gaseificada refrescante"
+                },
+                {
+                  "name": "Agua Mineral 500ml",
+                  "price": 3,
+                  "kind": "simple_item",
+                  "description": "Agua mineral natural pura e cristalina"
+                }
+              ]
+            },
+            {
+              "name": "REFRIGERANTES",
+              "count": 9,
+              "samples": [
+                {
+                  "name": "Coca-Cola Lata 350ml",
+                  "price": 6,
+                  "kind": "simple_item",
+                  "description": "O classico refrigerante de cola gelado"
+                },
+                {
+                  "name": "COCA COLA ORIG KS 1L",
+                  "price": 12,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "COCA COLA ZERO KS 290ML",
+                  "price": 5,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "H2O Limao 500ml",
+                  "price": 8,
+                  "kind": "simple_item",
+                  "description": "Agua saborizada com limao natural"
+                },
+                {
+                  "name": "Coca-Cola Zero Lata 350ml",
+                  "price": 6,
+                  "kind": "simple_item",
+                  "description": "Coca-Cola zero acucar, mesmo sabor original"
+                }
+              ]
+            },
+            {
+              "name": "ENERGETICO",
+              "count": 1,
+              "samples": [
+                {
+                  "name": "Red Bull (Sabores) 250ml",
+                  "price": 12,
+                  "kind": "simple_item",
+                  "description": "Energetico Red Bull em diversos sabores disponiveis"
+                }
+              ]
+            },
+            {
+              "name": "DRINKS",
+              "count": 1,
+              "samples": [
+                {
+                  "name": "Skol Beats Senses 269ml",
+                  "price": 9,
+                  "kind": "simple_item",
+                  "description": "Drink alcoolico pronto para beber"
+                }
+              ]
+            },
+            {
+              "name": "CERVEJAS",
+              "count": 3,
+              "samples": [
+                {
+                  "name": "Budweiser Long Neck 330ml",
+                  "price": 9,
+                  "kind": "simple_item",
+                  "description": "Cerveja americana classica, leve e refrescante"
+                },
+                {
+                  "name": "Amstel Lata 350ml",
+                  "price": 6,
+                  "kind": "simple_item",
+                  "description": "Cerveja holandesa premium em lata pratica"
+                },
+                {
+                  "name": "Heineken Long Neck 330ml",
+                  "price": 10,
+                  "kind": "simple_item",
+                  "description": "Cerveja premium holandesa, refrescante e com sabor equilibrado"
+                }
+              ]
+            },
+            {
+              "name": "GELO",
+              "count": 4,
+              "samples": [
+                {
+                  "name": "Gelo saborizado (coco leve)",
+                  "price": 5,
+                  "kind": "simple_item",
+                  "description": "Faz seu drink ficar ainda + gostoso"
+                },
+                {
+                  "name": "Coco",
+                  "price": 5,
+                  "kind": "simple_item",
+                  "description": "Imagem do produto"
+                },
+                {
+                  "name": "Gelo Saborizado Unidade",
+                  "price": 4,
+                  "kind": "simple_item",
+                  "description": "Gelo com sabor especial, unidade"
+                },
+                {
+                  "name": "Gelo Dose 2kg",
+                  "price": 5,
+                  "kind": "simple_item",
+                  "description": "Gelo em cubos, pacote de 2kg"
+                }
+              ]
+            },
+            {
+              "name": "LANCHES DA NOITE",
+              "count": 2,
+              "samples": [
+                {
+                  "name": "DOGAO DO PORTO",
+                  "price": 9,
+                  "kind": "simple_item",
+                  "description": "Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna."
+                },
+                {
+                  "name": "SANDUBAO DE FRANGO",
+                  "price": 9,
+                  "kind": "simple_item",
+                  "description": "Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho."
+                }
+              ]
+            },
+            {
+              "name": "BOMBONIERE",
+              "count": 2,
+              "samples": [
+                {
+                  "name": "MENTOS",
+                  "price": 3.5,
+                  "kind": "simple_item",
+                  "description": ""
+                },
+                {
+                  "name": "HALLS",
+                  "price": 2.5,
+                  "kind": "simple_item",
+                  "description": ""
+                }
+              ]
+            }
+          ],
+          "categories": [
+            {
+              "name": "ACAI",
+              "items": [
+                {
+                  "name": "ACAI M (ACAI TRADICIONAL)",
+                  "description": "Acai cremoso que ira encantar seu paladar, com duas opcoes de frutas.",
+                  "price": 18,
+                  "display_price": 18,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-be079b87-2c5c-4550-b59b-641503ceaa8e_069ba222-8bd0-4bcb-9735-5c1ad6055d1c.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "ACAI G (TRADICIONAL)",
+                  "description": "Escolha ate tres opcoes de frutas.",
+                  "price": 25,
+                  "display_price": 25,
+                  "price_type": "fixed",
+                  "commercial_type": "configurable_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a8c2f1a9-0e71-4487-84e8-d60b91913b17_8e61f416-9f3c-4901-a9f1-9a7e16b217fa.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "ACAI P (Acai com Creme de Ninho)",
+                  "description": "Acai cremoso com uma opcao de fruta.",
+                  "price": 16,
+                  "display_price": 16,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-956bdd65-290f-4e20-94d6-d9dcdf3247f5_6488bd0a-c5e0-4c3c-95c0-a72fc06d812d.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "ACAI M (Acai com Creme de Ninho)",
+                  "description": "Acai cremoso, escolha ate duas opcoes de frutas.",
+                  "price": 18,
+                  "display_price": 18,
+                  "price_type": "fixed",
+                  "commercial_type": "configurable_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-04860d22-4fda-4c1a-b869-9692d4c24046_07615423-9d67-450c-9766-9862415446a9.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "ACAI G (Acai com Creme de Ninho)",
+                  "description": "Acai cremoso, tres opcoes de frutas.",
+                  "price": 25,
+                  "display_price": 25,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-5e83213e-a1d3-4ca0-bdfd-86b29533937f_f32397e1-2045-42be-8f59-401e7d3fc3c1.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "ACAI P (Acai com Cupuacu)",
+                  "description": "Acai com Cupuacu cremoso, escolha uma opcao de fruta.",
+                  "price": 16,
+                  "display_price": 16,
+                  "price_type": "fixed",
+                  "commercial_type": "configurable_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-c8b7c6f4-62bf-4c20-8fcb-3561b307b57b_8fad64eb-1ac9-4eb5-8555-412a0006ce82.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "ACAI M (Acai com Cupuacu)",
+                  "description": "Gelatto de cupuacu cremoso e saboroso, escolha duas opcoes de frutas.",
+                  "price": 18,
+                  "display_price": 18,
+                  "price_type": "fixed",
+                  "commercial_type": "configurable_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-f5311252-d8bb-43eb-b8fb-d0354af009b9_a140b451-e69c-4565-b1ab-9f47dd7c30ad.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "ACAI G (Acai com Cupuacu)",
+                  "description": "Acai cremoso, escolha tres opcoes de frutas.",
+                  "price": 25,
+                  "display_price": 25,
+                  "price_type": "fixed",
+                  "commercial_type": "configurable_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-e8406d46-8655-4419-85f9-47e48c0f3463_36ba5987-a145-47b1-a785-f66ae10b0b55.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "ACAI P (TRADICIONAL)",
+                  "description": "Acai cremoso e delicioso que ira encantar seu paladar, com uma opcao de fruta.",
+                  "price": 16,
+                  "display_price": 16,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-48ca7bf5-08f7-4f34-b7de-b9d7dd7d66de_eed6e046-2a0d-41a1-88a5-7b8f83425e6f.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "GELATTOS",
+              "items": [
+                {
+                  "name": "GELATTO G (Creme de Ninho)",
+                  "description": "Cremoso, doce e irresistivel, tres opcoes de frutas.",
+                  "price": 25,
+                  "display_price": 25,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-c8f330ce-3f4a-4c67-9951-c9b7461cc628_3c931147-e22e-457f-80c9-7dd6a2b7f7ee.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "GELATTO P (Creme de Ninho)",
+                  "description": "Cremoso, doce e irresistivel, uma opcao de fruta.",
+                  "price": 16,
+                  "display_price": 16,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-1f332bd8-4a3d-4597-a327-a690e264cb6e_6702b93d-014e-4af6-90e9-e29817453d84.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "GELATTO P (Creme de Cupuacu)",
+                  "description": "Gelatto de cupuacu cremoso, uma opcao de fruta.",
+                  "price": 16,
+                  "display_price": 16,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a0cffdd7-04e7-459f-a84c-4e6938663451_b4c62d35-a4a1-47af-a110-e39837345595.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "GELATTO M (CUPUACU)",
+                  "description": "Gelatto de Cupuacu Cremoso com Duas Opcoes de Frutas.",
+                  "price": 18,
+                  "display_price": 18,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-eb692b62-ab17-48f3-bade-b1496b9a8f40_2ada8724-f3f3-49e3-b365-603b1fc0eeec.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "GELATTO M (Creme de Ninho)",
+                  "description": "Gelatto de ninho cremoso, com duas opcoes de frutas.",
+                  "price": 18,
+                  "display_price": 18,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-e07e4560-3c98-463f-b6b2-14df2d6ebde0_1896cd2d-ed17-4a77-ad88-fde2bad3335f.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "GELATTO G (Creme de Cupuacu)",
+                  "description": "Gelatto de cupuacu cremoso, tres opcoes de frutas.",
+                  "price": 25,
+                  "display_price": 25,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-b817765b-cce1-4c14-90cf-e4c59e582bfc_1e57b785-2d1e-453a-ab25-53be2a832532.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "REFEICOES PRONTAS",
+              "items": [
+                {
+                  "name": "Raiz do sertao",
+                  "description": "Creme de Macaxeira com Carne de Sol e Queijo Coalho 370g",
+                  "price": 15,
+                  "display_price": 15,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975_b26bb366-aa21-46b2-8ffb-7e83b4829716.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "SALGADOS",
+              "items": [
+                {
+                  "name": "COMBO COXINHA E GUARANÁ ANTARTICA",
+                  "description": "",
+                  "price": 13,
+                  "display_price": 13,
+                  "price_type": "fixed",
+                  "commercial_type": "combo_builder",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a5ad11c6-f1b4-4612-b01f-38082c3ce724_30ef40c0-fb21-4162-a99d-9d3b9c7c17ca.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Pastel de Forno de Carne de Sol",
+                  "description": "",
+                  "price": 8,
+                  "display_price": 8,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-c5eb433e-3994-4739-887f-4183c77b9d77_49bbb6ef-849e-4e3f-ae7a-bffcbbf834b7.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Pastel de Forno de Frango",
+                  "description": "",
+                  "price": 7,
+                  "display_price": 7,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-bc30aaec-fcae-4dba-a09c-f72eebd96494_7e206f68-4507-4c6b-8e57-f3efb1edcad0.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Empada de Frango",
+                  "description": "",
+                  "price": 7,
+                  "display_price": 7,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-4b19abbb-39a2-4964-a7bd-8fc801e11604_e5ff41b0-adff-4a2d-ba51-45f68b15a12a.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Coxinha",
+                  "description": "",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a9d58685-42a4-4a33-8e45-77d3d570c9d9_86438a5d-4eaa-4fda-aeeb-4e0fe62be586.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Enroladinho",
+                  "description": "",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-350957d6-64a5-4a54-8563-bd180f9d08da_eec44af1-b8aa-47ed-9cc6-2b220e455e48.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Pao delicia",
+                  "description": "",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-8b49d913-1a71-49b0-afb4-97c17a3395c1_becfd043-a741-4f45-aa16-586b51944b99.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Empada de Carne de Sol",
+                  "description": "",
+                  "price": 8,
+                  "display_price": 8,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-529736cc-5e77-4d15-ba4e-20ee608b25ef_5fca821c-068d-4851-a78c-eda09a6b1541.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Empada LEITE CONDENSADO",
+                  "description": "",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-fadbc064-efaa-4de7-9f68-4da936140a7f_3642748f-29fd-49e1-b48d-8af0e83284c5.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Pastel de Queijo",
+                  "description": "",
+                  "price": 7,
+                  "display_price": 7,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-81af78b3-16e7-4499-a041-a394c50462cf_b14dafda-b14c-452d-9017-dd0d1470abf7.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Empada de Queijo",
+                  "description": "",
+                  "price": 7,
+                  "display_price": 7,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "SUCOS",
+              "items": [
+                {
+                  "name": "Suco Acai Mix 770ml",
+                  "description": "Refrescancia com energia.",
+                  "price": 18,
+                  "display_price": 18,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-627f4e6a-76e6-44fe-ad6d-70e814c89225_b2a2cf3f-f071-4da2-af7d-c35ff92dd1a0.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Laranja",
+                  "description": "Suco natural de laranja fresco",
+                  "price": 8,
+                  "display_price": 8,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a7d2a52a-b862-48a0-949b-3e6691a0272f_96f9d0a0-0d07-42c9-9da5-fd643724308b.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "SUCO DA POLPA",
+                  "description": "Sucos cremoso, consultar sabores.",
+                  "price": 7,
+                  "display_price": 7,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-21e5debf-fae9-4454-8ef5-98e6958016f7_cd6a9095-b08d-4001-bccb-0dda6d3e75e5.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Suco Acai Mix 400ml",
+                  "description": "Refrescancia com energia.",
+                  "price": 11,
+                  "display_price": 11,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-6bd0f86d-d592-4d99-a4d1-71ed8d1abfa2_fe8ad765-9e2a-4fa8-bf85-25614d38e386.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "SOBREMESAS",
+              "items": [
+                {
+                  "name": "Bolo no Pote",
+                  "description": "",
+                  "price": 10,
+                  "display_price": 10,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-b4932a41-cfaf-4dd5-9e3c-b65846f765b8_e6c8a356-116d-4ebb-9ca9-fc8c5878e48a.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Bolo Dois Amores",
+                  "description": "",
+                  "price": 8,
+                  "display_price": 8,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-22972e7c-1e5d-4727-a823-28af7bbb5806_382b1b8c-48fe-4324-8c45-e407642cffad.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Pudim",
+                  "description": "",
+                  "price": 8,
+                  "display_price": 8,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-d928f4ef-1138-462e-bc43-3254b9c96508_d4add02a-48dd-43fd-81b1-fdad39229088.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Brownie",
+                  "description": "",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-8c52a7b7-9d67-4fd5-9424-0d84274defcb_49492a5d-63fa-4f32-be65-54ff8bb86048.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Brownie com Gelatto de Ninho",
+                  "description": "Brownie com Gelatto de Ninho cremoso",
+                  "price": 10,
+                  "display_price": 10,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": "https://meucarrinhostg.blob.core.windows.net/images/product-a93d4ce1-0413-45f3-961c-bc353e722fc1_6723d961-9ba5-4a67-aeeb-801c9545d475.png",
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "AGUA",
+              "items": [
+                {
+                  "name": "Agua com Gas 500ml",
+                  "description": "Agua mineral gaseificada refrescante",
+                  "price": 4,
+                  "display_price": 4,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Agua Mineral 500ml",
+                  "description": "Agua mineral natural pura e cristalina",
+                  "price": 3,
+                  "display_price": 3,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "REFRIGERANTES",
+              "items": [
+                {
+                  "name": "Coca-Cola Lata 350ml",
+                  "description": "O classico refrigerante de cola gelado",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "COCA COLA ORIG KS 1L",
+                  "description": "",
+                  "price": 12,
+                  "display_price": 12,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "COCA COLA ZERO KS 290ML",
+                  "description": "",
+                  "price": 5,
+                  "display_price": 5,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "H2O Limao 500ml",
+                  "description": "Agua saborizada com limao natural",
+                  "price": 8,
+                  "display_price": 8,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Coca-Cola Zero Lata 350ml",
+                  "description": "Coca-Cola zero acucar, mesmo sabor original",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Guarana Antarctica Lata 350ml",
+                  "description": "Refrigerante brasileiro de guarana natural",
+                  "price": 5,
+                  "display_price": 5,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "SPRITE ZERO LATA 350ML",
+                  "description": "Refrigerante de limao sem acucar, refrescante",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "COCA COLA PET 1L",
+                  "description": "",
+                  "price": 12,
+                  "display_price": 12,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "GUARANA 1L",
+                  "description": "",
+                  "price": 10,
+                  "display_price": 10,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "ENERGETICO",
+              "items": [
+                {
+                  "name": "Red Bull (Sabores) 250ml",
+                  "description": "Energetico Red Bull em diversos sabores disponiveis",
+                  "price": 12,
+                  "display_price": 12,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "DRINKS",
+              "items": [
+                {
+                  "name": "Skol Beats Senses 269ml",
+                  "description": "Drink alcoolico pronto para beber",
+                  "price": 9,
+                  "display_price": 9,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "CERVEJAS",
+              "items": [
+                {
+                  "name": "Budweiser Long Neck 330ml",
+                  "description": "Cerveja americana classica, leve e refrescante",
+                  "price": 9,
+                  "display_price": 9,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Amstel Lata 350ml",
+                  "description": "Cerveja holandesa premium em lata pratica",
+                  "price": 6,
+                  "display_price": 6,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Heineken Long Neck 330ml",
+                  "description": "Cerveja premium holandesa, refrescante e com sabor equilibrado",
+                  "price": 10,
+                  "display_price": 10,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "GELO",
+              "items": [
+                {
+                  "name": "Gelo saborizado (coco leve)",
+                  "description": "Faz seu drink ficar ainda + gostoso",
+                  "price": 5,
+                  "display_price": 5,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Coco",
+                  "description": "Imagem do produto",
+                  "price": 5,
+                  "display_price": 5,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Gelo Saborizado Unidade",
+                  "description": "Gelo com sabor especial, unidade",
+                  "price": 4,
+                  "display_price": 4,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "Gelo Dose 2kg",
+                  "description": "Gelo em cubos, pacote de 2kg",
+                  "price": 5,
+                  "display_price": 5,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "LANCHES DA NOITE",
+              "items": [
+                {
+                  "name": "DOGAO DO PORTO",
+                  "description": "Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna.",
+                  "price": 9,
+                  "display_price": 9,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "SANDUBAO DE FRANGO",
+                  "description": "Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho.",
+                  "price": 9,
+                  "display_price": 9,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            },
+            {
+              "name": "BOMBONIERE",
+              "items": [
+                {
+                  "name": "MENTOS",
+                  "description": "",
+                  "price": 3.5,
+                  "display_price": 3.5,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                },
+                {
+                  "name": "HALLS",
+                  "description": "",
+                  "price": 2.5,
+                  "display_price": 2.5,
+                  "price_type": "fixed",
+                  "commercial_type": "simple_item",
+                  "image_url": null,
+                  "combo_components": [],
+                  "combo_rules": null,
+                  "option_groups": [],
+                  "options": []
+                }
+              ]
+            }
+          ],
+          "message": "Prévia estruturada com 60 itens via meucarrinho_native_api."
+        },
+        "stdoutTail": "12,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"GUARANA 1L\",\"description\":\"\",\"price\":10,\"display_price\":10,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"ENERGETICO\",\"items\":[{\"name\":\"Red Bull (Sabores) 250ml\",\"description\":\"Energetico Red Bull em diversos sabores disponiveis\",\"price\":12,\"display_price\":12,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"DRINKS\",\"items\":[{\"name\":\"Skol Beats Senses 269ml\",\"description\":\"Drink alcoolico pronto para beber\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"CERVEJAS\",\"items\":[{\"name\":\"Budweiser Long Neck 330ml\",\"description\":\"Cerveja americana classica, leve e refrescante\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Amstel Lata 350ml\",\"description\":\"Cerveja holandesa premium em lata pratica\",\"price\":6,\"display_price\":6,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Heineken Long Neck 330ml\",\"description\":\"Cerveja premium holandesa, refrescante e com sabor equilibrado\",\"price\":10,\"display_price\":10,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"GELO\",\"items\":[{\"name\":\"Gelo saborizado (coco leve)\",\"description\":\"Faz seu drink ficar ainda + gostoso\",\"price\":5,\"display_price\":5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Coco\",\"description\":\"Imagem do produto\",\"price\":5,\"display_price\":5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Gelo Saborizado Unidade\",\"description\":\"Gelo com sabor especial, unidade\",\"price\":4,\"display_price\":4,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Gelo Dose 2kg\",\"description\":\"Gelo em cubos, pacote de 2kg\",\"price\":5,\"display_price\":5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"LANCHES DA NOITE\",\"items\":[{\"name\":\"DOGAO DO PORTO\",\"description\":\"Pao de cachorro-quente, salsicha, molho especial da casa, carne moida, vinagrete, milho, batata palha e ovo de codorna.\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"SANDUBAO DE FRANGO\",\"description\":\"Frango desfiado, molho da casa, batata palha, vinagrete, ovo de codorna e milho.\",\"price\":9,\"display_price\":9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"BOMBONIERE\",\"items\":[{\"name\":\"MENTOS\",\"description\":\"\",\"price\":3.5,\"display_price\":3.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"HALLS\",\"description\":\"\",\"price\":2.5,\"display_price\":2.5,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 60 itens via meucarrinho_native_api.\"}\n",
+        "stderrTail": ""
+      },
+      "review": {
+        "tier": "green",
+        "flags": [],
+        "dryRunApproved": true,
+        "dryRunOperationalEntityCount": 0,
+        "dryRunOperationalCategoryCount": 0,
+        "dryRunOperationalItemCount": 0,
+        "dryRunOperationalOptionCount": 0,
+        "itemCount": 61,
+        "optionCount": 0,
+        "rawOperationalCategoryCount": 0,
+        "rawOperationalItemCount": 0,
+        "rawOperationalOptionCount": 0,
+        "identity": {
+          "confirmed": true,
+          "pageHasName": true,
+          "urlHasName": true,
+          "pageHasPhone": true,
+          "pageHasAddress": false,
+          "pageHasCity": true,
+          "pageHasState": true,
+          "evidence": {
+            "targetName": "Porto do açaí",
+            "targetAddress": "R. Cleto Campêlo, 623",
+            "targetPhoneLast8": "93842261",
+            "targetCity": "Cabedelo",
+            "targetState": "PB"
+          }
+        },
+        "audit": {
+          "approved": true,
+          "confidence": 0.98,
+          "categoryCount": 14,
+          "itemCount": 60,
+          "resolvedPriceCount": 60,
+          "unresolvedPriceCount": 0,
+          "fullPriceDeltaAnomalyCount": 0,
+          "fullPriceDeltaAnomalies": [],
+          "optionPriceCount": 0,
+          "pricedRatio": 1,
+          "issues": [],
+          "optionSemanticAI": {
+            "used": false,
+            "reason": "no_groups",
+            "deltaFixes": 0,
+            "storageFixes": 0,
+            "guardFixes": 0
+          }
+        }
+      },
+      "committed": false,
+      "commit": null,
+      "error": null,
+      "finishedAt": "2026-07-07T11:55:48.336Z"
+    }
+  ],
+  "release": {
+    "id": "a9166049-f3c7-451c-8cf6-80f88797947c",
+    "createdAt": "2026-07-07T11:55:32.376395+00:00",
+    "updatedAt": "2026-07-07T11:55:51.635+00:00",
+    "projectId": "75e35b22-44ad-42b6-b7d7-4509fa0bbfc5",
+    "status": "COMPLETED",
+    "proxyBytes": 0,
+    "keepAlive": false,
+    "region": "us-west-2",
+    "startedAt": "2026-07-07T11:55:32.365+00:00",
+    "endedAt": "2026-07-07T11:55:51.635+00:00",
+    "expiresAt": "2026-07-07T12:00:32.365+00:00"
+  },
+  "counts": {
+    "processed": 1,
+    "committed": 0,
+    "errors": 0,
+    "green": 1,
+    "yellow": 0,
+    "red": 0
+  }
+}

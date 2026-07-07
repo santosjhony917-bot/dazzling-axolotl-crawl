@@ -1,0 +1,48 @@
+{
+  "id": "e3c86dc8-4ac8-4ae0-84f9-83e6167d3570",
+  "name": "Restaurante da Helena",
+  "category": "Pendente validacao",
+  "neighborhood": "Portal do Poço",
+  "reviews_count": 14,
+  "rating": 5,
+  "instagramCandidate": "https://instagram.com/helenarizzo",
+  "score": 80,
+  "title": "Helena Rizzo (@helenarizzo)",
+  "queries": [
+    "Restaurante da Helena helenarizzo Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/helenarizzo | Helena Rizzo (@helenarizzo) Aceitei sem pestanejar! O restaurante se chamava Sala, o chefe era o Miquel Márquez. Sua esposa, duas filhas e o genro trabalhavam lá. Me hospedaram em sua casa ... https://www.instagram.com/helenarizzo/?hl=pt-br | Helena Rizzo (@helenarizzo) Aceitei sem pestanejar! O restaurante se chamava Sala, o chefe era o Miquel Márquez. Sua esposa, duas filhas e o genro trabalhavam lá. Me hospedaram em sua casa ... https://instagram.com/helenarizzo | Helena Rizzo (@helenarizzo) Estou bem feliz com a volta do lab.maní, nosso curso livre de cozinha. Ao longo de muitas edições, formamos cozinheiros que ficaram ou ainda estão com a gente. https://www.instagram.com/helenarizzo/reels/ | Helena Rizzo (@helenarizzo) Estou bem feliz com a volta do lab.maní, nosso curso livre de cozinha. Ao longo de muitas edições, formamos cozinheiros que ficaram ou ainda estão com a gente. https://instagram.com/helenarizzo | Onde Helena Rizzo (@helenarizzo) imagina estar daqui ... Onde Helena Rizzo (@helenarizzo) imagina estar daqui duas décadas? “Vou ter quase 70 anos… Eu me imagino aqui”, afirma a chef de cozinha ... https://instagram.com/helenarizzo |",
+  "rowName": "Restaurante da Helena",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": 22,
+    "url": "https://instagram.com/helenarizzo",
+    "handle": "helenarizzo",
+    "tokens": [
+      "helena"
+    ],
+    "handleMatches": [
+      "helena"
+    ],
+    "textMatches": [
+      "helena"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": false,
+    "evidenceSample": "Helena Rizzo (@helenarizzo) https://instagram.com/helenarizzo | Helena Rizzo (@helenarizzo) Aceitei sem pestanejar! O restaurante se chamava Sala, o chefe era o Miquel Márquez. Sua esposa, duas filhas e o genro trabalhavam lá. Me hospedaram em sua casa ... https://www.instagram.com/helenarizzo/?hl=pt-br | Helena Rizzo (@helenarizzo) Aceitei sem pestanejar! O restaurante se chamava Sala, o chefe era o Miquel Márquez. Sua esposa, duas filhas e o genro trabalhavam lá. Me hospedaram em sua casa ... https://instagram.com/helenarizzo | Helena Rizzo (@helenarizzo) Estou bem feliz com a volta do lab.maní, nosso curso livre de cozinha. Ao longo de muitas edições, formamos cozinheiros que ficaram ou ainda estão com a gente. https://www.instagram.com/helenarizzo/reels/ | Helena Rizzo (@helenarizzo) Estou bem feliz com a volta do lab.maní, nosso curso livre de cozinha. Ao longo de muitas edições, formamos cozinheiros que ficaram ou ainda estão com a gente. https://instagram.com/helenarizzo | Onde Helena Rizzo (@helenarizzo) imagina estar daqui ... Onde Helena Rizzo (@helenarizzo) imagina estar daqui duas décadas? “Vou ter quase 70 anos… Eu me imagino aqui”, afirma a chef de cozinha ... https://instagram.com/helenarizzo | Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (U",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fhelenarizzo%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "20e29fe1-2981-43f9-ac9c-c0b73654ac77"
+}

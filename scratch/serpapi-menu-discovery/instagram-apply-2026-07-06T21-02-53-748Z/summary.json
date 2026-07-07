@@ -1,0 +1,403 @@
+{
+  "apply": false,
+  "overwrite": false,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\2026-07-06T21-01-45-237Z",
+  "processed": 80,
+  "approved": 67,
+  "rejected": 13,
+  "applied": 0,
+  "failures": [],
+  "reasonCounts": {
+    "approved": 67,
+    "not_profile,brand_not_confirmed": 2,
+    "no_instagram_candidate": 2,
+    "brand_not_confirmed": 7,
+    "location_conflict:manaus, am": 1,
+    "no_distinctive_restaurant_token,brand_not_confirmed": 1
+  },
+  "approvedSamples": [
+    {
+      "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+      "instagram": "https://instagram.com/lovinapontadecampina",
+      "score": 96,
+      "phoneCandidate": null,
+      "openingHoursText": "Lovina Ponta de Campina (@lovinapontadecampina). R. Vitorino Cardoso, 908 - Ponta de Campina, Cabedelo ⏰ Todos os dias das 09h às 18h ✓ Estamos seguindo todas as medidas de saúde para melhor te .... https://instagram.com/lovinapontadecampina/reels"
+    },
+    {
+      "name": "Cibelly Bar & Restaurante",
+      "instagram": "https://instagram.com/cibellybar",
+      "score": 100,
+      "phoneCandidate": "(83) 99982-5668",
+      "openingHoursText": null
+    },
+    {
+      "name": "Gigante Do Mar Beach",
+      "instagram": "https://instagram.com/gigantedomaroficial",
+      "score": 142,
+      "phoneCandidate": "(83) 99995-2504",
+      "openingHoursText": null
+    },
+    {
+      "name": "Bar das Meninas Restaurante",
+      "instagram": "https://instagram.com/meninasbar",
+      "score": 100,
+      "phoneCandidate": "(83) 98715-5110",
+      "openingHoursText": null
+    },
+    {
+      "name": "Numar Bar e Restaurante",
+      "instagram": "https://instagram.com/numarbarintermares",
+      "score": 100,
+      "phoneCandidate": "(83) 3567-7306",
+      "openingHoursText": "Numar Bar e Restaurante (@numarbarintermares). ⭐️O melhor de Intermares à beira-mar! ⏰ Seg à sáb 11 às 00h | Dom 11 às 21h Reservas 83 3567-7306 Av. Oceano Atlântico, 878, Intermares, Cabedelo.. https://instagram.com/numarbarintermares"
+    },
+    {
+      "name": "Restaurante Recanto do Picuí Intermares",
+      "instagram": "https://instagram.com/recantodopicuiintermares",
+      "score": 142,
+      "phoneCandidate": "(83) 98844-4200",
+      "openingHoursText": null
+    },
+    {
+      "name": "Empadinhas Barnabé - Intermares",
+      "instagram": "https://instagram.com/empbarnabe",
+      "score": 110,
+      "phoneCandidate": "(83) 99104-6005",
+      "openingHoursText": null
+    },
+    {
+      "name": "Primo Rico",
+      "instagram": "https://instagram.com/primoricopb",
+      "score": 136,
+      "phoneCandidate": "(83) 98820-1132",
+      "openingHoursText": null
+    },
+    {
+      "name": "Espetinho da praia Intermares",
+      "instagram": "https://instagram.com/espetinhodapraia",
+      "score": 82,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Bar e Restaurante do Sumé",
+      "instagram": "https://instagram.com/bardosumepb",
+      "score": 100,
+      "phoneCandidate": "(83) 99893-9381",
+      "openingHoursText": null
+    },
+    {
+      "name": "Churrascaria do Caicó",
+      "instagram": "https://instagram.com/churrascariacaico",
+      "score": 82,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Mega Pizza",
+      "instagram": "https://instagram.com/megapizza1",
+      "score": 86,
+      "phoneCandidate": "(83) 3248-2112",
+      "openingHoursText": null
+    },
+    {
+      "name": "Sport Marina",
+      "instagram": "https://instagram.com/veranopraiabar",
+      "score": 78,
+      "phoneCandidate": "(83) 3206-0072",
+      "openingHoursText": null
+    },
+    {
+      "name": "Bar e Restaurante do Pessoinha",
+      "instagram": "https://instagram.com/bardopessoinha",
+      "score": 82,
+      "phoneCandidate": null,
+      "openingHoursText": "Bar/Restaurante do Pessoinha (@bardopessoinha). 🍽️ • SABOR E TRADIÇÃO ⚠️ • Aberto: Sex, Sáb, Dom,Seg e Feriados! ⏰ • 09:00H ás 17:00H ❌ • Não temos hospedagem • https://wa.me/qr/TABUCYMLK.. https://instagram.com/bardopessoinha"
+    },
+    {
+      "name": "Ancoradouro Ponta de Campina",
+      "instagram": "https://instagram.com/ancoradourobsrjp",
+      "score": 90,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Skama Bar e Restaurante",
+      "instagram": "https://instagram.com/skamabar_restaurante",
+      "score": 86,
+      "phoneCandidate": "(83) 98677-5976",
+      "openingHoursText": null
+    },
+    {
+      "name": "Big Jack comida de rua com INSPIRAÇÃO texana",
+      "instagram": "https://instagram.com/bigjack.intermares",
+      "score": 148,
+      "phoneCandidate": null,
+      "openingHoursText": "Big Jack Sanduicheria (@bigjack.intermares) · Cabedelo, PB. 11K followers · 194 posts · Um novo conceito de comida de rua. ⚠️ NÃO TRABALHAMOS COM IFOOD! Funcionamento: Terça a Domingo, 18h-22h. Acesse o cardápio:. https://instagram.com/bigjack.intermares"
+    },
+    {
+      "name": "CTG Saudade Da Querência",
+      "instagram": "https://instagram.com/ctgsaudadesdaquerencia",
+      "score": 166,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Pastelaria Litorânea",
+      "instagram": "https://instagram.com/pastelarialitoranea",
+      "score": 96,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Sakê Temakeria Ponta de Campina, Cabedelo",
+      "instagram": "https://instagram.com/saketemaki",
+      "score": 82,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "La casa de pastel e La Pizza Premium",
+      "instagram": "https://instagram.com/lacasadepastelpbof",
+      "score": 100,
+      "phoneCandidate": "(83) 98625-2145",
+      "openingHoursText": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB. | Estamos no iFood | 83 98625-2145 ⏱️| Aberto Das 18h às 00:00 (Terça feira Folga ) ⬇️ Toque no link para fazer pedido! ⬇️ ... *Inauguração da Nossa Segunda .... https://instagram.com/lacasadepastelpbof"
+    },
+    {
+      "name": "BAR DO CHEFF RESTAURANTE",
+      "instagram": "https://instagram.com/bardocheffrestaurante",
+      "score": 96,
+      "phoneCandidate": null,
+      "openingHoursText": "Bar do Cheff Restaurante (@bardocheffrestaurante). Self-service De Seg à Sex ⏰️Das 11h às 14h ➡️Bar Aberto de Seg à Sab ⏰️Das 17hs às 23h. Av Mar Vermelho 357 Intermares Cabedelo.. https://instagram.com/bardocheffrestaurante/?hl=pt"
+    },
+    {
+      "name": "Praçaí - Intermares",
+      "instagram": "https://instagram.com/pracaiintermares",
+      "score": 96,
+      "phoneCandidate": null,
+      "openingHoursText": "Praçaí Intermares (@pracaiintermares) · Cabedelo, PB. | O melhor Açaí da PB | 23 anos no coração de Intermares | Atendimento 16h as 23h | Av. Oceano Pacífico Praça 7 - Intermares PEDIDOS AQUI .... https://instagram.com/pracaiintermares"
+    },
+    {
+      "name": "Pizza Now - Intermares",
+      "instagram": "https://instagram.com/pizzanowexpress",
+      "score": 82,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Viciados em Sushi",
+      "instagram": "https://instagram.com/viciadosemsushi",
+      "score": 100,
+      "phoneCandidate": "(83) 98704-2458",
+      "openingHoursText": null
+    },
+    {
+      "name": "Restaurante Ondas",
+      "instagram": "https://instagram.com/restauranteondas",
+      "score": 86,
+      "phoneCandidate": "(83) 98898-8397",
+      "openingHoursText": null
+    },
+    {
+      "name": "Tapiocaria do Dinho",
+      "instagram": "https://instagram.com/tapiocariadinho",
+      "score": 96,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Residência do Mário",
+      "instagram": "https://instagram.com/residenciadomario",
+      "score": 142,
+      "phoneCandidate": "(83) 99988-2096",
+      "openingHoursText": null
+    },
+    {
+      "name": "A Casa do Temakinho",
+      "instagram": "https://instagram.com/acasadotemakinho",
+      "score": 138,
+      "phoneCandidate": null,
+      "openingHoursText": "A CASA DO TEMAKINHO 🍣🥢 (@acasadotemakinho). A SUA CASA FORA DE CASA ⏰ Aberto de Quinta à Domingo das 17 às 22:30 horas. @acasadotemakinho Av. Mar da Irlanda, 222 - INTERMARES cabedelo PB Brasil.. https://instagram.com/acasadotemakinho/reels"
+    },
+    {
+      "name": "Pizzaria Bom Sabor",
+      "instagram": "https://instagram.com/pizzariabomsaborpb2",
+      "score": 142,
+      "phoneCandidate": "(83) 98762-6366",
+      "openingHoursText": null
+    }
+  ],
+  "rejectedSamples": [
+    {
+      "name": "Ilha Dourada Restaurante",
+      "reason": "not_profile,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/p/DTfirGmAAy2",
+        "title": "Pier Restaurante | Já pode? Aqui pode! A partir das 10h30 ...",
+        "score": -100,
+        "tokens": [
+          "ilha"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Tenda Formosa Bar & Restaurante",
+      "reason": "no_instagram_candidate",
+      "best": null
+    },
+    {
+      "name": "Galeteria D'intermares",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/numarbarintermares",
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "score": -2,
+        "tokens": [
+          "dintermares"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Pipa Sushi & Temakeria",
+      "reason": "not_profile,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/p/CeJ7WyQrqh3",
+        "title": "Crocante por fora e irresistível por dentro! Coma o nosso bolinho ...",
+        "score": -96,
+        "tokens": [
+          "pipa"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Sorveteria glacial",
+      "reason": "location_conflict:manaus, am",
+      "best": {
+        "url": "https://instagram.com/sorveteriaglacial",
+        "title": "Sorveteria Glacial (@sorveteriaglacial) · Manaus, AM",
+        "score": 6,
+        "tokens": [
+          "glacial"
+        ],
+        "handleMatches": [
+          "glacial"
+        ],
+        "textMatches": [
+          "glacial"
+        ]
+      }
+    },
+    {
+      "name": "Açaí da Cris",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/meuacaicity",
+        "title": "AçaiCity - Acaiteria - Sorveteria🍦 (@meuacaicity)",
+        "score": -20,
+        "tokens": [
+          "cris"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Meio Quilo",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/secultcabedelo",
+        "title": "SECULT Cabedelo/PB - Brasil (@secultcabedelo)",
+        "score": -6,
+        "tokens": [
+          "meio",
+          "quilo"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "churrascaria do biu",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/bar_restaurantepordosol",
+        "title": "RESTAURANTE POR DO SOL • (@bar_restaurantepordosol)",
+        "score": -6,
+        "tokens": [
+          "biu"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Tia Graça Cafeteria e Doceria",
+      "reason": "no_instagram_candidate",
+      "best": null
+    },
+    {
+      "name": "Pizzaria Jacaré",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/pizzariabomsaborpb",
+        "title": "Pizzaria Bom Sabor🍕 (@pizzariabomsaborpb)",
+        "score": -6,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Mary Refeições",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/numarbarintermares",
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "score": -2,
+        "tokens": [
+          "mary",
+          "refeicoes"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Lanchonete e Pizzaria Popular",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/euqueropizzafoodtruck",
+        "title": "Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)",
+        "score": -6,
+        "tokens": [
+          "popular"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Tapiocaria da zeti",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/tapiocariadinho",
+        "title": "TAPIOCARIA DO DINHO 🔥 (@tapiocariadinho)",
+        "score": -6,
+        "tokens": [
+          "zeti"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    }
+  ],
+  "updates": []
+}

@@ -1,0 +1,133 @@
+{
+  "runId": "2026-07-07T14-18-57-022Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T14-18-57-022Z",
+  "scope": {
+    "ids": [
+      "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "2ed733a0-a4c7-4bb4-b280-21d7752c0409"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": false,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 2,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 2,
+  "issueCounts": {
+    "galeria_sem_evidencia_visual_forte": 2
+  },
+  "audits": [
+    {
+      "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "readiness": "blocked",
+      "redCount": 1,
+      "yellowCount": 0,
+      "issueCount": 1,
+      "categoryCount": 14,
+      "itemCount": 60,
+      "optionCount": 150,
+      "galleryCount": 8,
+      "aiValidated": false,
+      "menuStatus": "found",
+      "menuStatusReason": "60 itens estruturados via meucarrinho_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://meucarrinho.delivery/portodoacai",
+        "instagram": "https://www.instagram.com/portodoacai01/",
+        "mediaLog": {
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "source": "apify/instagram-profile-scraper",
+          "status": "enriched",
+          "bioLink": "https://meucarrinho.delivery/portodoacai",
+          "username": "portodoacai01",
+          "checkedAt": "2026-07-07T01:06:02.194Z",
+          "followers": 962
+        }
+      },
+      "fields": {
+        "address": "R. Cleto Campêlo",
+        "number": "623",
+        "neighborhood": "Camalaú",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99384-2261",
+        "latitude": -6.9791672,
+        "longitude": -34.8348377,
+        "followers": 962
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        }
+      ]
+    },
+    {
+      "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "readiness": "blocked",
+      "redCount": 1,
+      "yellowCount": 0,
+      "issueCount": 1,
+      "categoryCount": 6,
+      "itemCount": 34,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": false,
+      "menuStatus": "found",
+      "menuStatusReason": "34 itens estruturados via yooga_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://delivery.yooga.app/sushiyaki",
+        "instagram": "https://www.instagram.com/sushiyaki_restaurante/",
+        "mediaLog": {
+          "match": {
+            "score": 145,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "source": "apify/instagram-profile-scraper",
+          "status": "enriched",
+          "bioLink": "https://delivery.yooga.app/sushiyaki",
+          "username": "sushiyaki_restaurante",
+          "checkedAt": "2026-07-07T01:05:21.451Z",
+          "followers": 3651
+        }
+      },
+      "fields": {
+        "address": "R. Ten. Antônio Pontes",
+        "number": "381",
+        "neighborhood": "Ponta de Matos",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-645",
+        "phone": "(83) 98684-5886",
+        "latitude": -6.969481699999999,
+        "longitude": -34.832150899999995,
+        "followers": 3651
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "galeria_sem_evidencia_visual_forte"
+        }
+      ]
+    }
+  ]
+}

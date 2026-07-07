@@ -1,0 +1,90 @@
+{
+  "id": "cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487",
+  "name": "Residência do Mário",
+  "instagram": "https://www.instagram.com/residenciadomario/",
+  "followers": 5252,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://linkme.bio/residenciadomario"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "4913fac2-3aff-4be3-9a6d-5c96221dc675",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487/instagram_1783384765133_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "3b053987-1893-4dff-978b-3da68c8154cf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487/instagram_1783384766344_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "a01a25c9-dc79-45ca-b01f-e1317e5de13a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487/instagram_1783384766928_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "a27275af-0157-4df4-9d4d-a09f5a328f5f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487/instagram_1783384768012_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "c3770106-1d84-405f-9990-e3912a8c213d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487/instagram_1783384769014_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "ebbb171d-ca3a-46a9-91ab-20dcd2d0ee67",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487/instagram_1783384769661_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "33318212-3408-4f64-9077-80ddfafa75c1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487/instagram_1783384770537_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "5835cf64-36f1-4d9f-b80e-da412ac860c6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487/instagram_1783384771102_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

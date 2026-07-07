@@ -1,0 +1,41 @@
+{
+  "success": false,
+  "sourceUrl": "http://www.doutorpizza.com.br/",
+  "finalUrl": "https://doutorpizza.com.br/drpizza",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.45,
+  "categories": [],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "verificationSnapshotError": null,
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783339611303_90baobgp.jpg",
+    "snapshotFile": "cmd_1783339611303_90baobgp.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 0,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783339619663_ns33rzrr.jpg",
+        "snapshotFile": "cmd_1783339619663_ns33rzrr.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 1,
+    "capturedHeight": 674,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "05a8521b-df4c-443b-8a3d-2c443c20865f",
+    "name": "Doutor Pizza - Delivery",
+    "category": "Pizzaria",
+    "address": "R. Artur Corrêa de Brito",
+    "phone": "(83) 98649-6545",
+    "instagram": "https://www.instagram.com/doutorpizza/"
+  }
+}

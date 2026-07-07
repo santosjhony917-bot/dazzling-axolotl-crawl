@@ -1,0 +1,500 @@
+{
+  "stats": {
+    "networkEntryCount": 37,
+    "categoryEntryCount": 1,
+    "productEntryCount": 35,
+    "categoryCount": 14,
+    "rawCategoryCount": 15,
+    "rawProductCount": 61,
+    "itemCount": 61,
+    "optionCount": 0
+  },
+  "networkEntries": [
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/categories",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 3102,
+      "bodyKeys": [
+        "array",
+        15
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/urlcode",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 5299,
+      "bodyKeys": [
+        "id",
+        "urlCode",
+        "status",
+        "name",
+        "cnpj",
+        "phoneDdd",
+        "phoneNumber",
+        "whatsappDdd",
+        "whatsappNumber",
+        "whatsappValid",
+        "whatsappValidAt",
+        "whatsappSendNotification",
+        "email",
+        "instagram",
+        "facebook",
+        "about",
+        "logoPath",
+        "bannerPath",
+        "active",
+        "softcomCode",
+        "paymentInstructions",
+        "integrationApp",
+        "orderCpfIsRequired",
+        "variationsGrid",
+        "cardInstallmentsMax",
+        "cardInstallmentsMinValue",
+        "marketplace",
+        "showProductUnavailableInApp",
+        "sitefActive",
+        "sitefMerchantId",
+        "sitefMerchantKey",
+        "softcomPayActive",
+        "softcomPayClientId",
+        "softcomPayClientSecret",
+        "softcomPayKeyAliasId",
+        "address",
+        "marketSegment",
+        "settings",
+        "ratings",
+        "availability",
+        "unavailability",
+        "deliveryMethods",
+        "deliveryAreas",
+        "payments"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2,
+      "bodyKeys": [
+        "array",
+        0
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2,
+      "bodyKeys": [
+        "array",
+        0
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2,
+      "bodyKeys": [
+        "array",
+        0
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2,
+      "bodyKeys": [
+        "array",
+        0
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 5404,
+      "bodyKeys": [
+        "array",
+        5
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 5401,
+      "bodyKeys": [
+        "array",
+        5
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 1065,
+      "bodyKeys": [
+        "array",
+        1
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 5070,
+      "bodyKeys": [
+        "array",
+        5
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2960,
+      "bodyKeys": [
+        "array",
+        3
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 4882,
+      "bodyKeys": [
+        "array",
+        5
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 4148,
+      "bodyKeys": [
+        "array",
+        4
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 5121,
+      "bodyKeys": [
+        "array",
+        5
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 1013,
+      "bodyKeys": [
+        "array",
+        1
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 3019,
+      "bodyKeys": [
+        "array",
+        3
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 1851,
+      "bodyKeys": [
+        "array",
+        2
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 992,
+      "bodyKeys": [
+        "array",
+        1
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2088,
+      "bodyKeys": [
+        "array",
+        2
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 3895,
+      "bodyKeys": [
+        "array",
+        4
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 7582,
+      "bodyKeys": [
+        "array",
+        7
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 6490,
+      "bodyKeys": [
+        "array",
+        6
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 1065,
+      "bodyKeys": [
+        "array",
+        1
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 5070,
+      "bodyKeys": [
+        "array",
+        5
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2960,
+      "bodyKeys": [
+        "array",
+        3
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 6895,
+      "bodyKeys": [
+        "array",
+        7
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 4148,
+      "bodyKeys": [
+        "array",
+        4
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 7123,
+      "bodyKeys": [
+        "array",
+        7
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 1013,
+      "bodyKeys": [
+        "array",
+        1
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 992,
+      "bodyKeys": [
+        "array",
+        1
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 3019,
+      "bodyKeys": [
+        "array",
+        3
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 3895,
+      "bodyKeys": [
+        "array",
+        4
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2088,
+      "bodyKeys": [
+        "array",
+        2
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 1851,
+      "bodyKeys": [
+        "array",
+        2
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 2172,
+      "bodyKeys": [
+        "array",
+        2
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 3996,
+      "bodyKeys": [
+        "array",
+        4
+      ],
+      "error": null
+    },
+    {
+      "url": "https://meucarrinho.delivery/api/merchant/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "method": "POST",
+      "textLength": 1879,
+      "bodyKeys": [
+        "array",
+        2
+      ],
+      "error": null
+    }
+  ]
+}

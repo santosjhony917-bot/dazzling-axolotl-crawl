@@ -1,0 +1,864 @@
+{
+  "network": [
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8",
+      "resourceType": "stylesheet",
+      "method": "GET",
+      "textLength": 7548,
+      "textSample": "/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');\n  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 400;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');\n  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 500;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');\n  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 600;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');\n  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n}\n/* cyrillic */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2) format('woff2');\n  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n}\n/* vietnamese */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459WZhyzbi.woff2) format('woff2');\n  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;\n}\n/* latin-ext */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wdhyzbi.woff2) format('woff2');\n  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;\n}\n/* latin */\n@font-face {\n  font-family: 'Montserrat';\n  font-style: normal;\n  font-weight: 700;\n  font-display: swap;\n  src: url(https://fonts.gstatic.com/s/montserrat/v31/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n"
+    },
+    {
+      "url": "https://api.anota.ai/noauth/access//get-token/espetinho-da-praia-3",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://pedido.anota.ai/assets/item_no_image-DJEgmuUL.png",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 153,
+      "textSample": "{\"configs\":{\"diagnostics\":{\"browserSDK\":{\"sampleRate\":0.02}},\"sessionReplay\":{\"sr_interaction_config\":{\"batch\":false,\"enabled\":true}},\"analyticsSDK\":{}}}",
+      "jsonKeys": [
+        "configs"
+      ],
+      "savedJsonFile": "network-004.json"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 153,
+      "textSample": "{\"configs\":{\"diagnostics\":{\"browserSDK\":{\"sampleRate\":0.02}},\"sessionReplay\":{\"sr_interaction_config\":{\"batch\":false,\"enabled\":true}},\"analyticsSDK\":{}}}",
+      "jsonKeys": [
+        "configs"
+      ],
+      "savedJsonFile": "network-005.json"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 153,
+      "textSample": "{\"configs\":{\"diagnostics\":{\"browserSDK\":{\"sampleRate\":0.02}},\"sessionReplay\":{\"sr_interaction_config\":{\"batch\":false,\"enabled\":true}},\"analyticsSDK\":{}}}",
+      "jsonKeys": [
+        "configs"
+      ],
+      "savedJsonFile": "network-006.json"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/device",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/noauth/access//get-token/espetinho-da-praia-3",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 180,
+      "textSample": "{\"success\":true,\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHBhZ2UiOiI2OTA3ODdmY2U5N2RmZWIwNjMwZjEwY2UiLCJpYXQiOjE3ODMzODIwNzJ9.Kamg3aAMVUw95vy2lji2wA6UcAMKQiAQY9PUKoQ0dpA\"}",
+      "jsonKeys": [
+        "success",
+        "token"
+      ],
+      "savedJsonFile": "network-008.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.lab.amplitude.com/sdk/v2/vardata?v=0",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.lab.amplitude.com/sdk/v2/vardata?v=0",
+      "status": 200,
+      "contentType": "application/json;charset=utf-8",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 9312,
+      "textSample": "{\"ab_change_placeholder_title_comments_check_out\":{\"key\":\"control\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"control\"},\"ab_test_clone_collapse_payment_methods\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"ab_test_copy_of_take_and_local_delivery_methods\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"ab_test_copy_time_expired_nupay_ifp\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"change-the-copy-of-the-finalize-order-button-ifp\":{\"key\":\"control\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-4\",\"segmentName\":\"Segment 1\"},\"value\":\"control\"},\"change-to-the-delivery-method-listing\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"change_button_hierarchy\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"checkout_pol_badge_copies\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"copy-the-delivery-option-in-the-delivery-format\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_a\"},\"copy_multiple_payments\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"copy_to_pix_payment\":{\"key\":\"variant2\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"variant2\"},\"cta_pix_to_offline_card_payment\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"digital_wallet_separated_methods\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"disable_offline_payment_method_autofill_renewed\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"equivalent_checkouts\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"expand-item-additional-clickable-area\":{\"key\":\"variant_b\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-2\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_b\"},\"extra_padding_online_methods\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"improved-signage-for-delivery-and-pickup-times\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"improvements_to_coupon_and_observation\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"increase-order-status-button\":{\"key\":\"variant_c\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-4\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_c\"},\"mandatory_addons_counter\":{\"key\":\"variant_a\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-8\",\"segmentName\":\"All Other Users\"},\"value\":\"variant_a\"},\"mandatory_field_feedbacks\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"manual_address_registration_modal\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"modification-of-titles-and-placeholders-in-the-product-note\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"nupay_clock_variation\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"nupay_cpf_autofill\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-4\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"nupay_order_details_collapse\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"offline_payment_friction_modal\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-5\",\"segmentName\":\"Segment 2\"},\"value\":\"treatment\"},\"offline_payment_icons_remove\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"online_method_suggestion_card_brand\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"online_payment_coupon_v2\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"ordering_of_payment_methods_at_checkout\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"ordering_of_payment_methods_ifood\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"ordering_of_payment_methods_tuna\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"pay_with_pix_and_wallets_alerts\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"payment_visual_for_take_selection\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"default\",\"testInstrumentation\":true}},\"pix_fast_delivery_badge\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"pol-safety-information-modal-click-logo\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"pol_ifp_credit_page_allowlist\":{\"key\":\"control\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"control\"},\"pol_security_badge\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"remove-offline-header-subtitle\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}},\"remove_back_button_to_pol\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-4\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"removing_pol_checkout_suppliers\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"review_user_experience_pix_expiration_page\":{\"key\":\"control\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"control\"},\"review_user_experience_pix_expiration_page_renewed\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-1\",\"segmentName\":\"All Other Users\"},\"value\":\"treatment\"},\"save_ifp_card\":{\"key\":\"treatment\",\"metadata\":{\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"experimentKey\":\"exp-3\",\"segmentName\":\"Segment 1\"},\"value\":\"treatment\"},\"suitability-of-the-delivery-method-selection-standard\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"texts-and-presentation-of-client-identification\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"default\",\"testInstrumentation\":true}},\"the-change-in-the-name-to-nupay-occurred-throughout-the-journey\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"view_checkout_coupon_carousel\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"weekly_autofill_model\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"flag-dependencies\"}},\"world_cup_menu_mode\":{\"key\":\"off\",\"metadata\":{\"default\":true,\"evaluationId\":\"1376803534301_1783382072509_942602612\",\"segmentName\":\"All Other Users\"}}}",
+      "jsonKeys": [
+        "ab_change_placeholder_title_comments_check_out",
+        "ab_test_clone_collapse_payment_methods",
+        "ab_test_copy_of_take_and_local_delivery_methods",
+        "ab_test_copy_time_expired_nupay_ifp",
+        "change-the-copy-of-the-finalize-order-button-ifp",
+        "change-to-the-delivery-method-listing",
+        "change_button_hierarchy",
+        "checkout_pol_badge_copies",
+        "copy-the-delivery-option-in-the-delivery-format",
+        "copy_multiple_payments",
+        "copy_to_pix_payment",
+        "cta_pix_to_offline_card_payment",
+        "digital_wallet_separated_methods",
+        "disable_offline_payment_method_autofill_renewed",
+        "equivalent_checkouts",
+        "expand-item-additional-clickable-area",
+        "extra_padding_online_methods",
+        "improved-signage-for-delivery-and-pickup-times",
+        "improvements_to_coupon_and_observation",
+        "increase-order-status-button",
+        "mandatory_addons_counter",
+        "mandatory_field_feedbacks",
+        "manual_address_registration_modal",
+        "modification-of-titles-and-placeholders-in-the-product-note",
+        "nupay_clock_variation",
+        "nupay_cpf_autofill",
+        "nupay_order_details_collapse",
+        "offline_payment_friction_modal",
+        "offline_payment_icons_remove",
+        "online_method_suggestion_card_brand",
+        "online_payment_coupon_v2",
+        "ordering_of_payment_methods_at_checkout",
+        "ordering_of_payment_methods_ifood",
+        "ordering_of_payment_methods_tuna",
+        "pay_with_pix_and_wallets_alerts",
+        "payment_visual_for_take_selection",
+        "pix_fast_delivery_badge",
+        "pol-safety-information-modal-click-logo",
+        "pol_ifp_credit_page_allowlist",
+        "pol_security_badge"
+      ],
+      "savedJsonFile": "network-011.json"
+    },
+    {
+      "url": "https://flag.lab.amplitude.com/sdk/v2/flags",
+      "status": 200,
+      "contentType": "application/json;charset=utf-8",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 32340,
+      "textSample": "[{\"key\":\"payment_visual_for_take_selection\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":4,\"testInstrumentation\":true},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-n5yguhpe\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":1},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"441303\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"441305\"]},\"value\":\"slot-2\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-n5yguhpe\"],\"key\":\"remove-offline-header-subtitle\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"cta_pix_to_offline_card_payment\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"world_cup_menu_mode\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":6},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"disable_offline_payment_method_autofill_renewed\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":11},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-muazdlhr\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"540872\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"531985\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"531984\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-muazdlhr\"],\"key\":\"extra_padding_online_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-2\",\"flagType\":\"experiment\",\"flagVersion\":27},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mandatory_field_feedbacks\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"ab_test_clone_collapse_payment_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":15},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"remove_back_button_to_pol\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":32},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-jgxqaury\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"616735\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"614006\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"616734\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-jgxqaury\"],\"key\":\"nupay_clock_variation\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":16},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"offline_payment_friction_modal\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-5\",\"flagType\":\"experiment\",\"flagVersion\":38},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-mqkt6wvs\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"429700\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"429703\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"429762\"]},\"value\":\"slot-4\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-mqkt6wvs\"],\"key\":\"checkout_pol_badge_copies\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":24},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"mandatory_addons_counter\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-8\",\"flagType\":\"experiment\",\"flagVersion\":43},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"}}},{\"key\":\"mutex-tqk5fw03\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"1208588\"]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1259639\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1203314\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"1145631\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1176139\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[\"1091418\"]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[\"1120152\"]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-tqk5fw03\"],\"key\":\"change-the-copy-of-the-finalize-order-button-ifp\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":34},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"digital_wallet_separated_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"online_payment_coupon_v2\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-xmphq1fi\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":10},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-11\":{\"key\":\"slot-11\",\"payload\":{\"flagIds\":[\"1120316\"]},\"value\":\"slot-11\"},\"slot-12\":{\"key\":\"slot-12\",\"payload\":{\"flagIds\":[\"816463\"]},\"value\":\"slot-12\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1174404\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1120405\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"913034\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1124378\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[\"1130151\"]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-xmphq1fi\"],\"key\":\"suitability-of-the-delivery-method-selection-standard\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-3\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-8ezdc7vz\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"",
+      "jsonKeys": [
+        "array",
+        "66"
+      ],
+      "savedJsonFile": "network-012.json"
+    },
+    {
+      "url": "https://flag.lab.amplitude.com/sdk/v2/flags",
+      "status": 200,
+      "contentType": "application/json;charset=utf-8",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 32340,
+      "textSample": "[{\"key\":\"payment_visual_for_take_selection\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":4,\"testInstrumentation\":true},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-n5yguhpe\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":1},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"441303\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"441305\"]},\"value\":\"slot-2\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-n5yguhpe\"],\"key\":\"remove-offline-header-subtitle\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"cta_pix_to_offline_card_payment\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"world_cup_menu_mode\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":6},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"disable_offline_payment_method_autofill_renewed\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":11},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-muazdlhr\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"540872\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"531985\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"531984\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-muazdlhr\"],\"key\":\"extra_padding_online_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-2\",\"flagType\":\"experiment\",\"flagVersion\":27},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mandatory_field_feedbacks\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"ab_test_clone_collapse_payment_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":15},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"remove_back_button_to_pol\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":32},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-jgxqaury\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"616735\"]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"614006\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"616734\"]},\"value\":\"slot-3\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-jgxqaury\"],\"key\":\"nupay_clock_variation\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":16},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"offline_payment_friction_modal\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-5\",\"flagType\":\"experiment\",\"flagVersion\":38},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-mqkt6wvs\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":2},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"429700\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"429703\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"429762\"]},\"value\":\"slot-4\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-mqkt6wvs\"],\"key\":\"checkout_pol_badge_copies\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":24},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"mandatory_addons_counter\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-8\",\"flagType\":\"experiment\",\"flagVersion\":43},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"}}},{\"key\":\"mutex-tqk5fw03\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[\"1208588\"]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1259639\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1203314\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"1145631\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1176139\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[\"1091418\"]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[\"1120152\"]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-tqk5fw03\"],\"key\":\"change-the-copy-of-the-finalize-order-button-ifp\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-4\",\"flagType\":\"experiment\",\"flagVersion\":34},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"variant_a\":{\"key\":\"variant_a\",\"value\":\"variant_a\"},\"variant_b\":{\"key\":\"variant_b\",\"value\":\"variant_b\"},\"variant_c\":{\"key\":\"variant_c\",\"value\":\"variant_c\"}}},{\"key\":\"digital_wallet_separated_methods\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"online_payment_coupon_v2\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-1\",\"flagType\":\"experiment\",\"flagVersion\":13},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-xmphq1fi\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":10},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"slot-1\":{\"key\":\"slot-1\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-1\"},\"slot-10\":{\"key\":\"slot-10\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-10\"},\"slot-11\":{\"key\":\"slot-11\",\"payload\":{\"flagIds\":[\"1120316\"]},\"value\":\"slot-11\"},\"slot-12\":{\"key\":\"slot-12\",\"payload\":{\"flagIds\":[\"816463\"]},\"value\":\"slot-12\"},\"slot-2\":{\"key\":\"slot-2\",\"payload\":{\"flagIds\":[\"1174404\"]},\"value\":\"slot-2\"},\"slot-3\":{\"key\":\"slot-3\",\"payload\":{\"flagIds\":[\"1120405\"]},\"value\":\"slot-3\"},\"slot-4\":{\"key\":\"slot-4\",\"payload\":{\"flagIds\":[\"913034\"]},\"value\":\"slot-4\"},\"slot-5\":{\"key\":\"slot-5\",\"payload\":{\"flagIds\":[\"1124378\"]},\"value\":\"slot-5\"},\"slot-6\":{\"key\":\"slot-6\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-6\"},\"slot-7\":{\"key\":\"slot-7\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-7\"},\"slot-8\":{\"key\":\"slot-8\",\"payload\":{\"flagIds\":[]},\"value\":\"slot-8\"},\"slot-9\":{\"key\":\"slot-9\",\"payload\":{\"flagIds\":[\"1130151\"]},\"value\":\"slot-9\"},\"unallocated\":{\"key\":\"unallocated\",\"payload\":{\"flagIds\":[]},\"value\":\"unallocated\"}}},{\"dependencies\":[\"mutex-xmphq1fi\"],\"key\":\"suitability-of-the-delivery-method-selection-standard\",\"metadata\":{\"deployed\":true,\"evaluationMode\":\"remote\",\"experimentKey\":\"exp-3\",\"flagType\":\"experiment\",\"flagVersion\":18},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"},\"variant\":\"off\"}],\"variants\":{\"control\":{\"key\":\"control\",\"value\":\"control\"},\"off\":{\"key\":\"off\",\"metadata\":{\"default\":true}},\"treatment\":{\"key\":\"treatment\",\"value\":\"treatment\"}}},{\"key\":\"mutex-8ezdc7vz\",\"metadata\":{\"deployed\":false,\"evaluationMode\":\"remote\",\"flagType\":\"mutual-exclusion-group\",\"flagVersion\":3},\"segments\":[{\"metadata\":{\"segmentName\":\"default\"",
+      "jsonKeys": [
+        "array",
+        "66"
+      ],
+      "savedJsonFile": "network-013.json"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/ntp/localtime",
+      "status": 200,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "HEAD",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/device",
+      "status": 201,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/event",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/ntp/localtime",
+      "status": 200,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "HEAD",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/ntp/localtime",
+      "status": 200,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "HEAD",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/coupon/active-coupons?skipdelivery=true",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/banner-combo?slug=anotaai-banner-home-combo&latitude=-7.044925399999999&longitude=-34.8416297",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/carousel?slug=anotaai-item-patrocinado-homedestaque&latitude=-7.044925399999999&longitude=-34.8416297",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 66406,
+      "textSample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"690787fce97dfeb0630f10d4\",\"page\":{\"_id\":\"690787fce97dfeb0630f10ce\",\"name\":\"Espetinho da Praia\",\"isOnline\":true,\"image\":\"\"},\"page_name_id\":\"espetinho-da-praia-3\",\"page_is_online\":true,\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"690787fce97dfeb0630f10d0\",\"name\":\"Espetinho da Praia\",\"page\":\"690787fce97dfeb0630f10ce\",\"timezone\":\"America/Sao_Paulo\",\"exproductiontime\":0,\"time_delivery_min\":20,\"time_delivery_max\":60,\"time_take_min\":20,\"time_take_max\":60,\"order_automatic_on_production\":true,\"totem_order_automatic_on_production\":false,\"cpf_cnpj_on_order\":false,\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"addressFormated\":\"Av. Oceano Atlântico, 1972 - Intermares, Cabedelo - PB, 58.310-000, Brasil\",\"name\":\"Av. Oceano Atlântico\",\"num\":\"1972\",\"neighborhood\":\"Intermares\",\"complement\":\"Ao lado da Drogasil\",\"postal_code\":\"58.310-000\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.8416297,-7.044925399999999]},\"country\":\"br\",\"reference\":\"\"},\"phones\":[{\"type\":\"cell\",\"number\":\"(83) 9 9868-3988\",\"_id\":\"6976539ce5afc79da1eccc12\"}],\"published\":true,\"regions\":[{\"name\":\"10\",\"price\":18,\"active\":true,\"_id\":\"697653ce3bf5891a75c1a2fc\"},{\"name\":\"3\",\"price\":15,\"active\":true,\"_id\":\"6907945aa852fe3c742f3ede\"}],\"is_always_open\":false,\"payment_method\":{\"money\":false,\"creditcard\":true,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":true,\"ifood_payin_credit\":true,\"ifood_payin_debit\":false,\"tuna_digital_wallets\":false,\"ifood_payin_nupay\":true,\"ifood_payin_wallets\":true},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":false},\"acceptDelivery\":true,\"acceptTake\":true,\"acceptLocal\":false,\"week\":[{\"short_name\":\"sun\",\"schedules\":[{\"_id\":\"690794d071e6071ec30bbbd8\",\"start\":\"11:30\",\"end\":\"21:30\"}]},{\"short_name\":\"mon\",\"schedules\":[]},{\"short_name\":\"tue\",\"schedules\":[{\"_id\":\"69079496a8dc926a2c33b875\",\"start\":\"16:30\",\"end\":\"23:00\"}]},{\"short_name\":\"wed\",\"schedules\":[{\"_id\":\"690794d071e6073b400bbbdc\",\"start\":\"16:30\",\"end\":\"23:00\"}]},{\"short_name\":\"thu\",\"schedules\":[{\"_id\":\"690794d071e607bca40bbbde\",\"start\":\"16:30\",\"end\":\"23:00\"}]},{\"short_name\":\"fri\",\"schedules\":[{\"_id\":\"690794d071e6072cb10bbbe0\",\"start\":\"16:30\",\"end\":\"23:00\"}]},{\"short_name\":\"sat\",\"schedules\":[{\"_id\":\"690794d071e607fa0e0bbbe2\",\"start\":\"16:30\",\"end\":\"23:00\"}]}],\"payment_methods\":[],\"credit_cards\":[],\"activation_events\":[{\"mandatory_methods\":[\"pix\",\"debit\"],\"registration_methods\":[\"pix\",\"debit\",\"credit\"],\"_id\":\"69078a2518bfdd226c318b55\",\"type\":\"activation_pol_ifood_by_coupon\",\"expiration\":\"2085-11-02T16:43:17.423Z\",\"timestamp\":\"2025-11-02T16:43:17.423Z\",\"countdown\":true}],\"createdAt\":\"2025-11-02T16:34:04.200Z\",\"updatedAt\":\"2026-05-12T14:05:59.774Z\",\"__v\":0,\"is_permanently_closed\":false,\"only_schedule\":false,\"isOpenNow\":false}],\"is_new_menu\":true,\"webview\":{\"address_manual\":false,\"accept_multiple_payments\":false,\"multiple_payments_quantity\":0,\"waiter_accept_tip\":true,\"waiter_tip_percent\":10,\"waiter_order_delivery\":true,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"waiter_can_link_ticket_to_table\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"false\",\"repeat_order_enabled\":true,\"edit_manual_city\":false,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"table_seats\":false,\"waiter_can_change_table_and_ticket\":false,\"waiter_can_open_empty_ticket\":false,\"allow_open_empty_tickets\":false,\"waiter_can_cancel_order\":false,\"allow_client_cpf_in_ticket\":false,\"hide_google_search\":false},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":true},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":true,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"deactivate_establishment_closed_salutation_message\":false,\"deactivate_flow_new_salutation_message\":false,\"images\":[]},\"liberation_features\":[{\"liberation_feature_flag\":\"new_admin\",\"liberation_feature_title\":\"Novo gerenciador padrão\",\"liberation_feature_id\":\"62f158decd7ba259c621c266\",\"_id\":\"69c717eceb383f576406019f\"},{\"liberation_feature_flag\":\"pdv_redesign\",\"liberation_feature_title\":\"PDV Redesign\",\"liberation_feature_id\":\"637bc0bcb675030019604f36\",\"_id\":\"69c717eceb383f57640601a0\"},{\"liberation_feature_flag\":\"new_card_config_payment\",\"liberation_feature_title\":\"Nova configuração de bandeira de cartão de crédito\",\"liberation_feature_id\":\"64887c5fb740b10012e2ae2c\",\"_id\":\"69c717eceb383f57640601a1\"},{\"liberation_feature_flag\":\"close_table_kanban\",\"liberation_feature_title\":\"TESTE - Fechamento de mesa no kanban\",\"liberation_feature_id\":\"656a2a0b7fbf4400121ac528\",\"_id\":\"69c717eceb383f57640601a2\"},{\"liberation_feature_flag\":\"sector_printer\",\"liberation_feature_title\":\"IMPRESSAO SETORIZADA\",\"liberation_feature_id\":\"659fe5681b0d830012c04db4\",\"_id\":\"69c717eceb383f57640601a3\"},{\"liberation_feature_flag\":\"orderv4_integration\",\"liberation_feature_title\":\"iFood integração orderV4\",\"liberation_feature_id\":\"6626632f3b001e0012190775\",\"_id\":\"69c717eceb383f57640601a4\"},{\"liberation_feature_flag\":\"audio_transcription\",\"liberation_feature_title\":\"Bot Anota com transcrição de áudio\",\"liberation_feature_id\":\"663e20ef34d6230012bcca27\",\"_id\":\"69c717eceb383f57640601a5\"},{\"liberation_feature_flag\":\"pol_ifood_optin\",\"liberation_feature_title\":\"Pagamento Online iFood / Opt in\",\"liberation_feature_id\":\"6682ae5634d0a90012688a65\",\"_id\":\"69c717eceb383f57640601a6\"},{\"liberation_feature_flag\":\"advanced_regions_edit\",\"liberation_feature_title\":\"Edição Avançada de Regiões de Atendimento\",\"liberation_feature_id\":\"66a12c4fc6e2f600124e9f76\",\"_id\":\"69c717eceb383f57640601a7\"},{\"liberation_feature_flag\":\"orderv4_integration_pdv\",\"liberation_feature_title\":\"PDV - integração orderV4\",\"liberation_feature_id\":\"66c72b4081268700126bb190\",\"_id\":\"69c717eceb383f57640601a8\"},{\"liberation_feature_flag\":\"pol_pix_validation_tuna\",\"liberation_feature_title\":\"POL - validação chave Tuna\",\"liberation_feature_id\":\"67b728cda07c0e0012d473ac\",\"_id\":\"69c717eceb383f57640601a9\"},{\"liberation_feature_flag\":\"pol_pix_validation_ifp\",\"liberation_feature_title\":\"POL - validação chave IFP\",\"liberation_feature_id\":\"67f42d28537b78d12e9677d4\",\"_id\":\"69c717eceb383f57640601aa\"},{\"liberation_feature_flag\":\"refresh_token\",\"liberation_feature_title\":\"Refresh Token\",\"liberation_feature_id\":\"6800ff0b2dcb950012be78cf\",\"_id\":\"69c717eceb383f57640601ab\"},{\"liberation_feature_flag\":\"kevel_upsell_cart_ads\",\"liberation_feature_title\":\"Kevel Upsell Cart Ads\",\"liberation_feature_id\":\"680a6ae102641a001228e453\",\"_id\":\"69c717eceb383f57640601ac\"},{\"liberation_feature_flag\":\"kevel_item_highlights_ads\",\"liberation_feature_title\":\"Kevel Item Highlights Ads\",\"liberation_feature_id\":\"680a6af96f809700128b9aa3\",\"_id\":\"69c717eceb383f57640601ad\"},{\"liberation_feature_flag\":\"pol_fee_ifood_pago\",\"liberation_feature_title\":\"Teste - POL Taxa de serviço 0.99 iFood Pago\",\"liberation_feature_id\":\"6814c6ddb5f1310012eec630\",\"_id\":\"69c717eceb383f57640601ae\"},{\"liberation_feature_flag\":\"qr_code_payment\",\"liberation_feature_title\":\"Pagamento QR Code Mesa e Comanda\",\"liberation_feature_id\":\"683dbe69db1c780012956476\",\"_id\":\"69c717eceb383f57640601af\"},{\"liberation_feature_flag\":\"kevel_combo_banner_ads\",\"liberation_feature_title\":\"Kevel Combo Banner Ads\",\"liberation_feature_id\":\"68c4669221417000124d2e35\",\"_id\":\"69c717eceb383f57640601b0\"},{\"liberation_feature_flag\":\"pdv_pix_ifp\",\"liberation_feature_title\":\"Teste - Pix PDV iFood Pago\",\"liberation_feature_id\":\"68d40ae86653ae0012d18478\",\"_id\":\"69c717eceb383f57640601b1\"},{\"liberation_feature_flag\":\"disable_loyalty\",\"liberation_feature_title\":\"Desativar fidelidade\",\"liberation_feature_id\":\"68ed52f5db77be0012bff1f4\",\"_id\":\"69c717eceb383f57640601b2\"},{\"liberation_feature_flag\":\"display_ad_banner_on_order_details\",\"liberation_feature_title\":\"Banner de Ads na Tela de Detalhes do Pedido\",\"liberation_feature_id\":\"6909f7d2cf98580012fc8c5d\",\"_id\":\"69c717eceb383f57640601b3\"},{\"liberation_feature_flag\":\"google_pay_ifp\",\"liberation_feature_title\":\"CD - Google Pay iFood Pago\",\"liberation_feature_id\":\"692dee5a30f5750012d2f94e\",\"_id\":\"69c717eceb383f57640601b4\"},{\"liberation_feature_flag\":\"new_pix_logic\",\"liberation_feature_title\":\"TECH - Refactor Pix CD\",\"liberation_feature_id\":\"696a6bffb6c527e4378be73d\",\"_id\":\"69c717eceb383f57640601b5\"},{\"liberation_feature_flag\":\"use_order_polling\",\"liberation_feature_title\":\"Order Polling\",\"liberation_feature_id\":\"67f55b07fa46ed45b5fd841e\",\"_id\":\"69c717eceb383f57640601b6\"},{\"liberation_feature_flag\":\"order_checkout_button_refactor_cd\",\"liberation_feature_title\":\"TECH - Refactor Clique Checkout e Pós Checkout\",\"liberation_feature_id\":\"69b19a8832677cd3c6645ea5\",\"_id\":\"69e122e181159bd023d0929d\"},{\"liberation_feature_flag\":\"otp_credit_card\",\"liberation_feature_title\":\"Cardápio - OTP para c.c.\",\"liberation_feature_id\":\"69d511ebe7d77b4cdffda8b2\",\"_id\":\"6a086528cf745baaac9c8b1f\"},{\"liberation_feature_flag\":\"bot_personas\",\"liberation_feature_title\":\"Bot Personas\",\"liberation_feature_id\":\"69f1f71063ab3eb38906b2ca\",\"_id\":\"6a31c52af216a94f9a5ff68a\"},{\"liberation_feature_flag\":\"address_flux_logic_refactor_cd\",\"liberation_feature_title\":\"TECH - Refactor Lógica Address Form\",\"liberation_feature_id\":\"69b84d9cbf966160a2ecf7f0\",\"_id\":\"6a44049ab25a2132dcca6e3f\"}],\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"call_attendant_notification_song\":\"sound_1\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":false},\"cashback\":{\"cashback_for_online_payments\":false,\"cashback_by_weekday\":[]},\"ifood_fraud_detected\":false,\"already_accessed_menu_config\":false,\"page_segments\":[{\"name\":\"Restaurante\",\"segment_id\":\"5f35b74a69037ec2e2916f44\",\"_id\":\"6976539ce5afc79da1eccc4d\"}],\"createdAt\":\"2025-11-02T16:34:04.211Z\",\"ifood_order_integration\":{\"merchant_id\":null,\"merchant_status\":\"approved\",\"status_message\":\"Cadastro aprovado, você já pode utilizar sua conta.\",\"anota_business_merchant_id\":\"ed5d083d-bd12-4ec9-af83-59ff6c824903\",\"register_status\":\"complete\"},\"minimum_order_amount\":20,\"whatsapp\":\"558398683988\",\"targetsPage\":[],\"establishmentUnavailability\":[],\"pagemodule\":[{\"_id\":\"6a477b3a81c260bebc4b8c95\",\"status\":true,\"should_not_charge\":false,\"page\":\"690787fce97dfeb0630f10ce\",\"module\":{\"_id\":\"602ea7134476085e5aa7be2c\",\"tag\":\"MENSAL\",\"title\":\"Mensalidade\",\"description\":\"Mensalidade\"},\"signed_date\":\"2026-07-03T09:04:58.734Z\",\"price\":0,\"__v\":0,\"createdAt\":\"2026-07-03T09:04:58.741Z\",\"updatedAt\":\"2026-07-03T09:04:58.741Z\"},{\"_id\":\"6a477b3a81c260c1f04b8c96\",\"status\":true,\"should_not_charge\":false,\"page\":\"690787fce97dfeb0630f10ce\",\"module\":{\"_id\":\"5ff5f790495bb71508ede76e\",\"tag\":\"ATVIRTWHATS\",\"title\":\"Atendente Virtual WhatsApp\",\"description\":\"atendente virtual no whats\"},\"signed_date\":\"2026-07-03T09:04:58.734Z\",\"price\":0,\"__v\":0,\"createdAt\":\"2026-07-03T09:04:58.741Z\",\"updatedAt\":\"2026-07-03T09:04:58.741Z\"},{\"_id\":\"6a477b3a81c260b2da4b8c97\",\"status\":true,\"should_not_charge\":fa",
+      "jsonKeys": [
+        "success",
+        "data"
+      ],
+      "savedJsonFile": "network-022.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/coupon/active-coupons?skipdelivery=true",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 70,
+      "textSample": "{\"success\":true,\"message\":\"Cupons listados com sucesso.\",\"coupons\":[]}",
+      "jsonKeys": [
+        "success",
+        "message",
+        "coupons"
+      ],
+      "savedJsonFile": "network-023.json"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/session/2d9ae19a-382b-4b85-81ca-35c784ba6a46",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/event",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 78,
+      "textSample": "{\"successfulTrackingCount\":1,\"errors\":[],\"failureCount\":0,\"hasFailures\":false}",
+      "jsonKeys": [
+        "successfulTrackingCount",
+        "errors",
+        "failureCount",
+        "hasFailures"
+      ],
+      "savedJsonFile": "network-025.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/banner-combo?slug=anotaai-banner-home-combo&latitude=-7.044925399999999&longitude=-34.8416297",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 81,
+      "textSample": "{\"success\":true,\"message\":\"Anúncios patrocinados listados com sucesso\",\"data\":[]}",
+      "jsonKeys": [
+        "success",
+        "message",
+        "data"
+      ],
+      "savedJsonFile": "network-026.json"
+    },
+    {
+      "url": "https://api.anota.ai/clientauth/items-analytics/items/carousel?slug=anotaai-item-patrocinado-homedestaque&latitude=-7.044925399999999&longitude=-34.8416297",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "resourceType": "xhr",
+      "method": "GET",
+      "textLength": 444,
+      "textSample": "{\"success\":true,\"message\":\"Itens listados com sucesso\",\"promoItems\":{\"items\":[],\"type\":\"promo_items\"},\"mostOrdered\":{\"items\":[{\"item_id\":\"69079b59b09ad95e8bf84403\",\"count\":7},{\"item_id\":\"69079b59b09ad95e8bf8440b\",\"count\":2},{\"item_id\":\"69079b59b09ad95e8bf84406\",\"count\":2},{\"item_id\":\"69079b59b09ad95e8bf84404\",\"count\":2},{\"item_id\":\"69079b59b09ad95e8bf84407\",\"count\":1},{\"item_id\":\"69079b59b09ad95e8bf8440a\",\"count\":1}],\"type\":\"most_ordered\"}}",
+      "jsonKeys": [
+        "success",
+        "message",
+        "promoItems",
+        "mostOrdered"
+      ],
+      "savedJsonFile": "network-027.json"
+    },
+    {
+      "url": "https://api.ipify.org/?format=json",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "GET",
+      "textLength": 21,
+      "textSample": "{\"ip\":\"44.227.81.61\"}",
+      "jsonKeys": [
+        "ip"
+      ],
+      "savedJsonFile": "network-028.json"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/session/2d9ae19a-382b-4b85-81ca-35c784ba6a46",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "xhr",
+      "method": "PUT",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://api2.amplitude.com/2/httpapi",
+      "status": 204,
+      "contentType": "",
+      "resourceType": "other",
+      "method": "OPTIONS",
+      "readError": "Could not load response body for this request. This might happen if the request is a preflight request."
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-TYVMJ602TQ&gtm=45je6711v870253187za200zd870253187&_p=1783382072922&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1297542071.1783382074&frm=0&pscdl=noapi&rcb=12&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~119027224~119576881~119576885~119576891~119576895&sid=1783382073&sct=1&seg=0&dl=https%3A%2F%2Fpedido.anota.ai%2Floja%2Fespetinho-da-praia-3&dt=Espetinho%20da%20Praia%20-%20Anota%20AI&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=2357",
+      "status": 204,
+      "contentType": "text/plain",
+      "resourceType": "fetch",
+      "method": "POST",
+      "readError": "Protocol error (Network.getResponseBody): No data found for resource with given identifier"
+    },
+    {
+      "url": "https://api2.amplitude.com/2/httpapi",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "POST",
+      "textLength": 93,
+      "textSample": "{\"code\":200,\"server_upload_time\":1783382073640,\"payload_size_bytes\":5902,\"events_ingested\":5}",
+      "jsonKeys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ],
+      "savedJsonFile": "network-032.json"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/event",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 78,
+      "textSample": "{\"successfulTrackingCount\":1,\"errors\":[],\"failureCount\":0,\"hasFailures\":false}",
+      "jsonKeys": [
+        "successfulTrackingCount",
+        "errors",
+        "failureCount",
+        "hasFailures"
+      ],
+      "savedJsonFile": "network-033.json"
+    },
+    {
+      "url": "https://api.fstr.rocks/v1/event",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "xhr",
+      "method": "POST",
+      "textLength": 78,
+      "textSample": "{\"successfulTrackingCount\":2,\"errors\":[],\"failureCount\":0,\"hasFailures\":false}",
+      "jsonKeys": [
+        "successfulTrackingCount",
+        "errors",
+        "failureCount",
+        "hasFailures"
+      ],
+      "savedJsonFile": "network-034.json"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202303191643_10C2_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202012271120_CnPX_blob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131705_8XU7_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131705_Q6WT_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131706_S4X8_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202012271119_SHNf_blob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202003311749_wQtX_blob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202003311317_jqCJ_cblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202012271125_eRHL_blob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131750_PEJI_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202509031852_bg0iozsg6yeblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407132047_7K10_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202502140946_jfupizo4cikblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202012271124_ob4U_blob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131752_F747_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202106112207_C34M_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407132100_481Y_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202004011909_LoSi_mblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202003311644_4Azt_hblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407132046_872Q_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202410290740_9jzvkgf6xtwblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131754_6A2X_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131755_C3ET_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202405211430_lt9cflqbbdblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202011162030_MloU_blob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202210202222_vvn67vo6kasblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202005071613_OYFO_qblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202003311327_0exm_eblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202406282202_27A4_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202005071554_Xu1c_qblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131754_RL7Y_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202003311319_nNGe_cblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202210190352_5nh99803hbblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202011161920_uI9U_blob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202003311625_tzKM_pblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202003311322_L0m1_gblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202303191742_2Y13_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202510031645_v6dr97ds3yoblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407132101_YOP2_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131755_5TO0_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131753_1N42_iblob.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "other",
+      "method": "GET",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "other",
+      "method": "GET",
+      "textLength": 0,
+      "textSample": ""
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202012271119_SHNf_blob",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202303191643_10C2_iblob",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131705_8XU7_iblob",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407131755_C3ET_iblob",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202407132047_7K10_iblob",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://client-assets.anota.ai/produtos/690787fce97dfeb0630f10ce/202012271120_CnPX_blob",
+      "status": 200,
+      "contentType": "image/png",
+      "resourceType": "image",
+      "method": "GET",
+      "readError": "The encoded data was not valid for encoding utf-8"
+    },
+    {
+      "url": "https://api2.amplitude.com/2/httpapi",
+      "status": 200,
+      "contentType": "application/json",
+      "resourceType": "fetch",
+      "method": "POST",
+      "textLength": 93,
+      "textSample": "{\"code\":200,\"server_upload_time\":1783382074571,\"payload_size_bytes\":3480,\"events_ingested\":2}",
+      "jsonKeys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ],
+      "savedJsonFile": "network-084.json"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-TYVMJ602TQ&gtm=45je6711v870253187za200zd870253187&_p=1783382072922&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=1297542071.1783382074&frm=0&pscdl=noapi&rcb=12&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&tag_exp=115938465~115938468~119027224~119576881~119576885~119576891~119576895&sid=1783382073&sct=1&seg=0&dl=https%3A%2F%2Fpedido.anota.ai%2Floja%2Fespetinho-da-praia-3&dt=Espetinho%20da%20Praia%20-%20Anota%20AI&_s=2&tfd=7367",
+      "status": 204,
+      "contentType": "text/plain",
+      "resourceType": "fetch",
+      "method": "POST",
+      "readError": "Protocol error (Network.getResponseBody): No data found for resource with given identifier"
+    }
+  ],
+  "failedRequests": [
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-TYVMJ602TQ&gtm=45je6711v870253187za200zd870253187&_p=1783382072922&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1297542071.1783382074&frm=0&pscdl=noapi&rcb=12&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~119027224~119576881~119576885~119576891~119576895&sid=1783382073&sct=1&seg=0&dl=https%3A%2F%2Fpedido.anota.ai%2Floja%2Fespetinho-da-praia-3&dt=Espetinho%20da%20Praia%20-%20Anota%20AI&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=2357",
+      "resourceType": "fetch",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "resourceType": "other",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://sr-client-cfg.amplitude.com/config/8315e5d36da8844735a92a43e56a48a0?config_group=browser",
+      "resourceType": "other",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-TYVMJ602TQ&gtm=45je6711v870253187za200zd870253187&_p=1783382072922&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=1297542071.1783382074&frm=0&pscdl=noapi&rcb=12&sr=800x600&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B8.0.0.0%7CChromium%3B150.0.7871.47%7CGoogle%2520Chrome%3B150.0.7871.47&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&tag_exp=115938465~115938468~119027224~119576881~119576885~119576891~119576895&sid=1783382073&sct=1&seg=0&dl=https%3A%2F%2Fpedido.anota.ai%2Floja%2Fespetinho-da-praia-3&dt=Espetinho%20da%20Praia%20-%20Anota%20AI&_s=2&tfd=7367",
+      "resourceType": "fetch",
+      "failure": "net::ERR_ABORTED"
+    }
+  ]
+}

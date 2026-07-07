@@ -1,0 +1,299 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/urlcode",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 5299,
+  "textSample": "{\"id\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"urlCode\":\"portodoacai\",\"status\":\"UNAVAILABLE\",\"name\":\"PORTO DO ACAI\",\"cnpj\":\"61013821000157\",\"phoneDdd\":\"83\",\"phoneNumber\":\"993842261\",\"whatsappDdd\":\"83\",\"whatsappNumber\":\"993842261\",\"whatsappValid\":false,\"whatsappValidAt\":null,\"whatsappSendNotification\":true,\"email\":\"portodoacai1410@gmail.com\",\"instagram\":\"PORTODOACAI01\",\"facebook\":\"\",\"about\":null,\"logoPath\":\"https://meucarrinhostg.blob.core.windows.net/images/logo-f256954b-098d-4c6a-affb-7fa33729a5a1.png\",\"bannerPath\":\"https://meucarrinhostg.blob.core.windows.net/images/banner-66e1022d-892e-4bea-a150-65b0332473ec.png\",\"active\":true,\"softcomCode\":\"71854\",\"paymentInstructions\":\"\",\"integrationApp\":true,\"orderCpfIsRequired\":false,\"variationsGrid\":false,\"cardInstallmentsMax\":0,\"cardInstallmentsMinValue\":0,\"marketplace\":true,\"showProductUnavailableInApp\":false,\"sitefActive\":false,\"sitefMerchantId\":null,\"sitefMerchantKey\":null,\"softcomPayActive\":false,\"softcomPayClientId\":null,\"softcomPayClientSecret\":null,\"softcomPayKeyAliasId\":null,\"address\":{\"street\":\"Rua Cleto Campelo\",\"streetNumber\":\"3\",\"complement\":\"QUIOSQUE NA RUA DA BALSA\",\"neighborhood\":\"Camalaú\",\"city\":\"Cabedelo\",\"cityCode\":\"2503209\",\"state\":\"PB\",\"country\":\"BRASIL\",\"postalCode\":\"58103242\",\"reference\":\"\",\"latitude\":-6.979326299999999,\"longitude\":-34.8348713},\"marketSegment\":{\"code\":\"REST\",\"name\":\"Restaurante\",\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/segmento_restaurante.png\"},\"settings\":{\"deliveryTimeMin\":0,\"deliveryTimeMax\":0,\"deliveryFeeMin\":0,\"integrationApp\":true,\"orderCpfIsRequired\":false,\"variationsGrid\":false,\"cardInstallmentsMax\":0,\"cardInstallmentsMinValue\":0,\"marketplace\":true,\"showProductUnavailableInApp\":false,\"timeZone\":-3,\"showPromotionCategoryInApp\":false,\"catalogView\":\"Grid\",\"orderSoundNotification\":false,\"orderSoundType\":\"Default\",\"cardPaymentRequiresLogin\":false,\"geolocationDeliveryByRoute\":false,\"sitef\":{\"active\":false,\"merchantId\":null,\"merchantKey\":null},\"softcomPay\":{\"active\":false,\"clientId\":null,\"clientSecret\":null,\"keyAliasId\":null},\"softcomShip\":{\"active\":false,\"clientId\":null,\"clientSecret\":null},\"vendaMais\":{\"active\":false,\"companyId\":\"\"},\"ads\":{\"meta\":\"\",\"google\":\"\"},\"queroBonus\":{\"active\":false,\"clientId\":\"\",\"clientSecret\":\"\"},\"whatsappAiAgent\":{\"active\":true},\"bestSeller\":{\"showBestSellersCategoryInApp\":false,\"showBestSellerTagInProducts\":false,\"showBestSellerCountByCategory\":1},\"expressCheckout\":{\"active\":false},\"geoRouting\":{\"active\":false,\"geoRoutingClientId\":null,\"geoRoutingClientSecret\":null}},\"ratings\":{\"average\":0,\"number\":0},\"availability\":[{\"id\":\"deef853b-a8df-419b-a276-af09a0fc7523\",\"weekday\":\"Segunda\",\"hourStart\":\"09:00\",\"hourEnd\":\"21:00\"},{\"id\":\"c64245eb-603f-4b88-8de8-312f1edeb562\",\"weekday\":\"Terça\",\"hourStart\":\"09:00\",\"hourEnd\":\"21:00\"},{\"id\":\"26fad6e4-16e1-41cf-848f-52674994f258\",\"weekday\":\"Quarta\",\"hourStart\":\"09:00\",\"hourEnd\":\"21:00\"},{\"id\":\"36335a8a-385c-418b-8048-7883e86781ab\",\"weekday\":\"Quinta\",\"hourStart\":\"09:00\",\"hourEnd\":\"21:00\"},{\"id\":\"2eb04771-ec8f-49c1-8834-08282632b626\",\"weekday\":\"Sexta\",\"hourStart\":\"09:00\",\"hourEnd\":\"21:00\"},{\"id\":\"2c54e347-1f5f-4888-9f99-ebccbdac1b42\",\"weekday\":\"Sábado\",\"hourStart\":\"09:00\",\"hourEnd\":\"21:00\"}],\"unavailability\":[],\"deliveryMethods\":[{\"id\":\"75235d4b-a592-4fdb-b0b3-433a63c8f98d\",\"method\":\"DELIVERY\",\"description\":\"Entrega no endereço\",\"instructions\":\"\",\"orderMinimumValue\":0,\"deliveryTime\":0},{\"id\":\"31c8f0a5-7a8c-4e00-9b68-66e41f932401\",\"method\":\"TAKEOUT\",\"description\":\"Retire no Estabelecimento\",\"instructions\":\"\",\"orderMinimumValue\":0,\"deliveryTime\":0}],\"deliveryAreas\":[],\"payments\":[{\"id\":\"a4c07b64-ce8e-4c0f-aec9-327f7955d9cc\",\"code\":\"PIXM\",\"description\":\"Pague com PIX\",\"prepaid\":false,\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/pix.png\",\"active\":true},{\"id\":\"89e6fb06-05fd-444a-9330-4563022c12e3\",\"code\":\"CCMAM\",\"description\":\"Cartão de Crédito Master\",\"prepaid\":false,\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/cartao_mastercard.png\",\"active\":true},{\"id\":\"1d36612c-a2a0-4f9a-8acb-b8f0a70a654b\",\"code\":\"CCVIM\",\"description\":\"Cartão de Crédito Visa\",\"prepaid\":false,\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/cartao_visa.png\",\"active\":true},{\"id\":\"d5170bf1-783b-4c12-a7f3-109221276ed9\",\"code\":\"CCHIM\",\"description\":\"Cartão de Crédito Hipercard\",\"prepaid\":false,\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/cartao_hipercard.png\",\"active\":true},{\"id\":\"5c50f20b-afd3-43b1-8e19-ad4bfba48baa\",\"code\":\"CCELM\",\"description\":\"Cartão de Crédito Elo\",\"prepaid\":false,\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/cartao_elo.png\",\"active\":true},{\"id\":\"c22caec3-3c14-4179-bd82-32fea7777445\",\"code\":\"CDMAM\",\"description\":\"Cartão de Débito Master\",\"prepaid\":false,\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/cartao_mastercard.png\",\"active\":true},{\"id\":\"98c8bfab-6229-4dcf-85fb-e7e375c8b257\",\"code\":\"CDVIM\",\"description\":\"Cartão de Débito Visa\",\"prepaid\":false,\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/cartao_visa.png\",\"active\":true},{\"id\":\"692bfb8a-ee54-4720-901c-63acb1ac8d8f\",\"code\":\"CDELM\",\"description\":\"Cartão de Débito Elo\",\"prepaid\":false,\"iconPath\":\"https://meucarrinhostg.blob.core.windows.net/images/cartao_elo.png\",\"active\":true}]}",
+  "jsonKeys": [
+    "id",
+    "urlCode",
+    "status",
+    "name",
+    "cnpj",
+    "phoneDdd",
+    "phoneNumber",
+    "whatsappDdd",
+    "whatsappNumber",
+    "whatsappValid",
+    "whatsappValidAt",
+    "whatsappSendNotification",
+    "email",
+    "instagram",
+    "facebook",
+    "about",
+    "logoPath",
+    "bannerPath",
+    "active",
+    "softcomCode",
+    "paymentInstructions",
+    "integrationApp",
+    "orderCpfIsRequired",
+    "variationsGrid",
+    "cardInstallmentsMax",
+    "cardInstallmentsMinValue",
+    "marketplace",
+    "showProductUnavailableInApp",
+    "sitefActive",
+    "sitefMerchantId",
+    "sitefMerchantKey",
+    "softcomPayActive",
+    "softcomPayClientId",
+    "softcomPayClientSecret",
+    "softcomPayKeyAliasId",
+    "address",
+    "marketSegment",
+    "settings",
+    "ratings",
+    "availability"
+  ],
+  "json": {
+    "id": "4c801932-2485-4f56-a90e-d089fac73b4c",
+    "urlCode": "portodoacai",
+    "status": "UNAVAILABLE",
+    "name": "PORTO DO ACAI",
+    "cnpj": "61013821000157",
+    "phoneDdd": "83",
+    "phoneNumber": "993842261",
+    "whatsappDdd": "83",
+    "whatsappNumber": "993842261",
+    "whatsappValid": false,
+    "whatsappValidAt": null,
+    "whatsappSendNotification": true,
+    "email": "portodoacai1410@gmail.com",
+    "instagram": "PORTODOACAI01",
+    "facebook": "",
+    "about": null,
+    "logoPath": "https://meucarrinhostg.blob.core.windows.net/images/logo-f256954b-098d-4c6a-affb-7fa33729a5a1.png",
+    "bannerPath": "https://meucarrinhostg.blob.core.windows.net/images/banner-66e1022d-892e-4bea-a150-65b0332473ec.png",
+    "active": true,
+    "softcomCode": "71854",
+    "paymentInstructions": "",
+    "integrationApp": true,
+    "orderCpfIsRequired": false,
+    "variationsGrid": false,
+    "cardInstallmentsMax": 0,
+    "cardInstallmentsMinValue": 0,
+    "marketplace": true,
+    "showProductUnavailableInApp": false,
+    "sitefActive": false,
+    "sitefMerchantId": null,
+    "sitefMerchantKey": null,
+    "softcomPayActive": false,
+    "softcomPayClientId": null,
+    "softcomPayClientSecret": null,
+    "softcomPayKeyAliasId": null,
+    "address": {
+      "street": "Rua Cleto Campelo",
+      "streetNumber": "3",
+      "complement": "QUIOSQUE NA RUA DA BALSA",
+      "neighborhood": "Camalaú",
+      "city": "Cabedelo",
+      "cityCode": "2503209",
+      "state": "PB",
+      "country": "BRASIL",
+      "postalCode": "58103242",
+      "reference": "",
+      "latitude": -6.979326299999999,
+      "longitude": -34.8348713
+    },
+    "marketSegment": {
+      "code": "REST",
+      "name": "Restaurante",
+      "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/segmento_restaurante.png"
+    },
+    "settings": {
+      "deliveryTimeMin": 0,
+      "deliveryTimeMax": 0,
+      "deliveryFeeMin": 0,
+      "integrationApp": true,
+      "orderCpfIsRequired": false,
+      "variationsGrid": false,
+      "cardInstallmentsMax": 0,
+      "cardInstallmentsMinValue": 0,
+      "marketplace": true,
+      "showProductUnavailableInApp": false,
+      "timeZone": -3,
+      "showPromotionCategoryInApp": false,
+      "catalogView": "Grid",
+      "orderSoundNotification": false,
+      "orderSoundType": "Default",
+      "cardPaymentRequiresLogin": false,
+      "geolocationDeliveryByRoute": false,
+      "sitef": {
+        "active": false,
+        "merchantId": null,
+        "merchantKey": null
+      },
+      "softcomPay": {
+        "active": false,
+        "clientId": null,
+        "clientSecret": null,
+        "keyAliasId": null
+      },
+      "softcomShip": {
+        "active": false,
+        "clientId": null,
+        "clientSecret": null
+      },
+      "vendaMais": {
+        "active": false,
+        "companyId": ""
+      },
+      "ads": {
+        "meta": "",
+        "google": ""
+      },
+      "queroBonus": {
+        "active": false,
+        "clientId": "",
+        "clientSecret": ""
+      },
+      "whatsappAiAgent": {
+        "active": true
+      },
+      "bestSeller": {
+        "showBestSellersCategoryInApp": false,
+        "showBestSellerTagInProducts": false,
+        "showBestSellerCountByCategory": 1
+      },
+      "expressCheckout": {
+        "active": false
+      },
+      "geoRouting": {
+        "active": false,
+        "geoRoutingClientId": null,
+        "geoRoutingClientSecret": null
+      }
+    },
+    "ratings": {
+      "average": 0,
+      "number": 0
+    },
+    "availability": [
+      {
+        "id": "deef853b-a8df-419b-a276-af09a0fc7523",
+        "weekday": "Segunda",
+        "hourStart": "09:00",
+        "hourEnd": "21:00"
+      },
+      {
+        "id": "c64245eb-603f-4b88-8de8-312f1edeb562",
+        "weekday": "Terça",
+        "hourStart": "09:00",
+        "hourEnd": "21:00"
+      },
+      {
+        "id": "26fad6e4-16e1-41cf-848f-52674994f258",
+        "weekday": "Quarta",
+        "hourStart": "09:00",
+        "hourEnd": "21:00"
+      },
+      {
+        "id": "36335a8a-385c-418b-8048-7883e86781ab",
+        "weekday": "Quinta",
+        "hourStart": "09:00",
+        "hourEnd": "21:00"
+      },
+      {
+        "id": "2eb04771-ec8f-49c1-8834-08282632b626",
+        "weekday": "Sexta",
+        "hourStart": "09:00",
+        "hourEnd": "21:00"
+      },
+      {
+        "id": "2c54e347-1f5f-4888-9f99-ebccbdac1b42",
+        "weekday": "Sábado",
+        "hourStart": "09:00",
+        "hourEnd": "21:00"
+      }
+    ],
+    "unavailability": [],
+    "deliveryMethods": [
+      {
+        "id": "75235d4b-a592-4fdb-b0b3-433a63c8f98d",
+        "method": "DELIVERY",
+        "description": "Entrega no endereço",
+        "instructions": "",
+        "orderMinimumValue": 0,
+        "deliveryTime": 0
+      },
+      {
+        "id": "31c8f0a5-7a8c-4e00-9b68-66e41f932401",
+        "method": "TAKEOUT",
+        "description": "Retire no Estabelecimento",
+        "instructions": "",
+        "orderMinimumValue": 0,
+        "deliveryTime": 0
+      }
+    ],
+    "deliveryAreas": [],
+    "payments": [
+      {
+        "id": "a4c07b64-ce8e-4c0f-aec9-327f7955d9cc",
+        "code": "PIXM",
+        "description": "Pague com PIX",
+        "prepaid": false,
+        "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/pix.png",
+        "active": true
+      },
+      {
+        "id": "89e6fb06-05fd-444a-9330-4563022c12e3",
+        "code": "CCMAM",
+        "description": "Cartão de Crédito Master",
+        "prepaid": false,
+        "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/cartao_mastercard.png",
+        "active": true
+      },
+      {
+        "id": "1d36612c-a2a0-4f9a-8acb-b8f0a70a654b",
+        "code": "CCVIM",
+        "description": "Cartão de Crédito Visa",
+        "prepaid": false,
+        "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/cartao_visa.png",
+        "active": true
+      },
+      {
+        "id": "d5170bf1-783b-4c12-a7f3-109221276ed9",
+        "code": "CCHIM",
+        "description": "Cartão de Crédito Hipercard",
+        "prepaid": false,
+        "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/cartao_hipercard.png",
+        "active": true
+      },
+      {
+        "id": "5c50f20b-afd3-43b1-8e19-ad4bfba48baa",
+        "code": "CCELM",
+        "description": "Cartão de Crédito Elo",
+        "prepaid": false,
+        "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/cartao_elo.png",
+        "active": true
+      },
+      {
+        "id": "c22caec3-3c14-4179-bd82-32fea7777445",
+        "code": "CDMAM",
+        "description": "Cartão de Débito Master",
+        "prepaid": false,
+        "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/cartao_mastercard.png",
+        "active": true
+      },
+      {
+        "id": "98c8bfab-6229-4dcf-85fb-e7e375c8b257",
+        "code": "CDVIM",
+        "description": "Cartão de Débito Visa",
+        "prepaid": false,
+        "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/cartao_visa.png",
+        "active": true
+      },
+      {
+        "id": "692bfb8a-ee54-4720-901c-63acb1ac8d8f",
+        "code": "CDELM",
+        "description": "Cartão de Débito Elo",
+        "prepaid": false,
+        "iconPath": "https://meucarrinhostg.blob.core.windows.net/images/cartao_elo.png",
+        "active": true
+      }
+    ]
+  }
+}

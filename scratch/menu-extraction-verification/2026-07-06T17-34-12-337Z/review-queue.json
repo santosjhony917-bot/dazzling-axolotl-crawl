@@ -1,0 +1,62 @@
+[
+  {
+    "tier": "red",
+    "restaurantId": "395c5d1a-99f7-40e3-82f3-af6e22406e75",
+    "restaurantName": "Bar da Curva - Sandro's Bar",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/sandros_bar?s=cb",
+    "score": 7,
+    "sourceTier": "green",
+    "sourceFlags": [],
+    "itemCount": 0,
+    "optionCount": 0,
+    "operationalOptionCount": 0,
+    "dryRunApproved": false,
+    "confidence": 0,
+    "pricedRatio": 0,
+    "unresolvedPriceCount": 0,
+    "committed": false,
+    "flags": [
+      "collector_error",
+      "no_extension_print",
+      "no_structured_items",
+      "insufficient_visual_menu_evidence",
+      "price_coverage_review"
+    ],
+    "nextAction": "reject_or_rediscover_source",
+    "snapshotPath": null,
+    "viewportSnapshotPaths": [],
+    "evidencePath": null,
+    "error": "Timeout aguardando extensao para open_url"
+  },
+  {
+    "tier": "red",
+    "restaurantId": "a270e4fe-e0a7-4c8e-8213-8766bbb053c6",
+    "restaurantName": "Bom Sabor Pizzaria",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/pizzaria_bomsabor?s=insta",
+    "score": 7,
+    "sourceTier": "green",
+    "sourceFlags": [],
+    "itemCount": 0,
+    "optionCount": 0,
+    "operationalOptionCount": 0,
+    "dryRunApproved": false,
+    "confidence": 0,
+    "pricedRatio": 0,
+    "unresolvedPriceCount": 0,
+    "committed": false,
+    "flags": [
+      "collector_error",
+      "no_extension_print",
+      "no_structured_items",
+      "insufficient_visual_menu_evidence",
+      "price_coverage_review"
+    ],
+    "nextAction": "reject_or_rediscover_source",
+    "snapshotPath": null,
+    "viewportSnapshotPaths": [],
+    "evidencePath": null,
+    "error": "Timeout aguardando extensao para open_url"
+  }
+]

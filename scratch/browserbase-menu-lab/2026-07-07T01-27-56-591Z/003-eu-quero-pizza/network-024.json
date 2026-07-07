@@ -1,0 +1,19 @@
+{
+  "url": "https://api.anota.ai/clientauth/items-analytics/items/most-ordered-by-category?type=pizza",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 65,
+  "textSample": "{\"success\":true,\"message\":\"Itens listados com sucesso\",\"data\":[]}",
+  "jsonKeys": [
+    "success",
+    "message",
+    "data"
+  ],
+  "json": {
+    "success": true,
+    "message": "Itens listados com sucesso",
+    "data": []
+  }
+}

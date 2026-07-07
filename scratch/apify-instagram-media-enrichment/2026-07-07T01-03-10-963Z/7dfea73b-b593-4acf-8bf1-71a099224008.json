@@ -1,0 +1,90 @@
+{
+  "id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+  "name": "Pizza do Paulinho",
+  "instagram": "https://www.instagram.com/pizzadopaulinhopb/",
+  "followers": 3823,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://shre.ink/DaCv"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "cbb02538-9414-40e9-a685-1e946db652e5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/7dfea73b-b593-4acf-8bf1-71a099224008/instagram_1783385641827_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "fe5c24c5-b628-4bcd-b4a0-b0ce77aaa69b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/7dfea73b-b593-4acf-8bf1-71a099224008/instagram_1783385642828_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "0010b319-cc31-44df-a69d-a50320a25dc8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/7dfea73b-b593-4acf-8bf1-71a099224008/instagram_1783385643497_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "0b8b1811-a895-40c5-916f-061b41ad5bd5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/7dfea73b-b593-4acf-8bf1-71a099224008/instagram_1783385644252_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "247b6ee3-ce32-4970-b3de-42bb3a68d46b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/7dfea73b-b593-4acf-8bf1-71a099224008/instagram_1783385645213_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "16226a59-ef76-493a-855c-1e68a481ac43",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/7dfea73b-b593-4acf-8bf1-71a099224008/instagram_1783385645830_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "6fdf7f06-f603-46d5-8095-1184fb01470a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/7dfea73b-b593-4acf-8bf1-71a099224008/instagram_1783385646491_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "1c9797e9-47e4-4e99-b458-d4a7deb11dc6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/7dfea73b-b593-4acf-8bf1-71a099224008/instagram_1783385647313_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,106 @@
+{
+  "success": false,
+  "sourceUrl": "https://anota.ai/p/la-casa-de-pastel-cg",
+  "finalUrl": "https://anota.ai/p/la-casa-de-pastel-cg",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.45,
+  "categories": [
+    {
+      "name": "Cardápio",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": null,
+          "name": "© 2021 Anota AI • IGROW SOLUÇÕES DIGITAIS LTDA • CNPJ: 27.86",
+          "description": "2/0001-93",
+          "image_url": null,
+          "price": 4.39,
+          "price_min": 4.39,
+          "price_max": 4.39,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://anota.ai/p/la-casa-de-pastel-cg",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "© 2021 Anota AI • IGROW SOLUÇÕES DIGITAIS LTDA • CNPJ: 27.86",
+            "price": 4.39,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "verificationSnapshotError": null,
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340277578_kh4yxfk9.jpg",
+    "snapshotFile": "cmd_1783340277578_kh4yxfk9.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 64,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340307122_hklsp5cd.jpg",
+        "snapshotFile": "cmd_1783340307122_hklsp5cd.jpg"
+      },
+      {
+        "ratio": 0.22,
+        "target": "document",
+        "scrollTop": 14,
+        "maxScrollTop": 64,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340334505_652w32ma.jpg",
+        "snapshotFile": "cmd_1783340334505_652w32ma.jpg"
+      },
+      {
+        "ratio": 0.45,
+        "target": "document",
+        "scrollTop": 29,
+        "maxScrollTop": 64,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340341894_6dgg86zg.jpg",
+        "snapshotFile": "cmd_1783340341894_6dgg86zg.jpg"
+      },
+      {
+        "ratio": 0.68,
+        "target": "document",
+        "scrollTop": 44,
+        "maxScrollTop": 64,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340349324_8sfxaq2l.jpg",
+        "snapshotFile": "cmd_1783340349324_8sfxaq2l.jpg"
+      },
+      {
+        "ratio": 0.9,
+        "target": "document",
+        "scrollTop": 58,
+        "maxScrollTop": 64,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340356641_582l2y00.jpg",
+        "snapshotFile": "cmd_1783340356641_582l2y00.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 2,
+    "capturedHeight": 738,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "093d2bec-72c3-4821-ba96-85f8e360766e",
+    "name": "Lacasadepastel",
+    "category": "Lanchonete",
+    "address": "R. Maria do Carmo Nóbrega",
+    "phone": "(83) 98805-3657",
+    "instagram": "https://www.instagram.com/lacasadepastelcg/"
+  }
+}

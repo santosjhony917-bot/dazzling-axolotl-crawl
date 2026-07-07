@@ -1,0 +1,73 @@
+{
+  "runId": "2026-07-07T07-51-28-520Z",
+  "outDir": "scratch\\browserbase-menu-lab\\2026-07-07T07-51-28-520Z",
+  "mode": "direct-url",
+  "platform": null,
+  "limit": 3,
+  "targets": [
+    {
+      "restaurantId": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "restaurantName": "Pastelaria Litorânea",
+      "sourceUrl": "https://whatsmenu.com.br/pastelarialitoranea",
+      "platform": "unknown"
+    }
+  ],
+  "browserbase": {
+    "sessionId": "2a945c07-8e5a-46a1-a5e1-5f7c9925ee3a",
+    "status": "RUNNING",
+    "keepSession": false
+  },
+  "results": [
+    {
+      "restaurantId": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "restaurantName": "Pastelaria Litorânea",
+      "sourceUrl": "https://whatsmenu.com.br/pastelarialitoranea",
+      "platform": "unknown",
+      "startedAt": "2026-07-07T07:51:33.285Z",
+      "finishedAt": "2026-07-07T07:51:57.260Z",
+      "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T07-51-28-520Z\\001-pastelaria-litoranea",
+      "finalUrl": "https://whatsmenu.com.br/pastelarialitoranea",
+      "title": "PASTELARIA LITORANEA",
+      "domMetrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1100,
+        "scrollHeight": 13908,
+        "bodyLength": 236041,
+        "anchorCount": 1,
+        "imageCount": 123
+      },
+      "priceCountInVisibleText": 120,
+      "menuWords": [
+        "pedido",
+        "adicional",
+        "combo",
+        "pizza",
+        "bebida"
+      ],
+      "networkInterestingCount": 132,
+      "failedRequestCount": 2,
+      "directProbe": {
+        "platform": "unknown",
+        "success": false,
+        "reason": "no_direct_probe_for_platform_yet"
+      },
+      "lessonFlags": [
+        "visible_text_fallback_possible"
+      ],
+      "error": null
+    }
+  ],
+  "release": {
+    "id": "2a945c07-8e5a-46a1-a5e1-5f7c9925ee3a",
+    "createdAt": "2026-07-07T07:51:32.348147+00:00",
+    "updatedAt": "2026-07-07T07:52:00.634+00:00",
+    "projectId": "75e35b22-44ad-42b6-b7d7-4509fa0bbfc5",
+    "status": "COMPLETED",
+    "proxyBytes": 0,
+    "keepAlive": false,
+    "region": "us-west-2",
+    "startedAt": "2026-07-07T07:51:32.338+00:00",
+    "endedAt": "2026-07-07T07:52:00.634+00:00",
+    "expiresAt": "2026-07-07T07:56:32.338+00:00"
+  }
+}

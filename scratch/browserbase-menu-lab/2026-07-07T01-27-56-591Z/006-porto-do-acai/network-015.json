@@ -1,0 +1,21 @@
+{
+  "url": "https://meucarrinho.delivery/api/tokenapp",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 712,
+  "textSample": "{\"data\":{\"authenticated\":true,\"message\":\"Token JWT Generate\",\"token\":\"U2FsdGVkX1+1zix3Q3hKp8Y9a+lfO+4EZf6nPchiFy8B2Tmop1NJOvCP6HHPlpvVob4Zbo8wjGWXAiwGIlP/roB5N8OTtdgb4/4Hdos3Veds+qlYqoekmaCBf0l2EfyX99kKcjSrHjUwQqiMJ66sZ4Uihna8T+8ts7nvoRuAXjkwn+ygyn92SgdfIH8Zu/SnkBrLnCitfrXdLeR46/r9UMDJxbSxVeR6/H/bW/sDHU/0Avuihz+QmNm358L23yZMNpHejk+ZX6kT8YYDG8TLN1wQeWwRuUouWkmvjA/RU3EUmjaW+LA2qpJA40scM+Z5nsIknu7gmNkAngVDLBSqvC+JueH2McJYaoTs3EO10DjWvpWuIYfye2YlWkRlG9yPfm2kBQfxMOYVhKKnyv1BeMNn6jlGIcx/5sEcj5CViauGIzYphK36U0te16tE4AFy9HNcZylenZ9tlkcRkzszQQltXzVBlSSlEeym/cKsKRdmCD10ji39uyKRbw1CBW1OGzuqi9TUc9I5ckHSh7Pbd1xoxWnc55D6OufdRPTRM0h+iDIDTPnIIYPFqoxM5gJx2NLvgFFSIOxuuAGXjz2ErQ==\",\"tokenType\":\"Bearer\",\"expiresIn\":14400}}",
+  "jsonKeys": [
+    "data"
+  ],
+  "json": {
+    "data": {
+      "authenticated": true,
+      "message": "Token JWT Generate",
+      "token": "U2FsdGVkX1+1zix3Q3hKp8Y9a+lfO+4EZf6nPchiFy8B2Tmop1NJOvCP6HHPlpvVob4Zbo8wjGWXAiwGIlP/roB5N8OTtdgb4/4Hdos3Veds+qlYqoekmaCBf0l2EfyX99kKcjSrHjUwQqiMJ66sZ4Uihna8T+8ts7nvoRuAXjkwn+ygyn92SgdfIH8Zu/SnkBrLnCitfrXdLeR46/r9UMDJxbSxVeR6/H/bW/sDHU/0Avuihz+QmNm358L23yZMNpHejk+ZX6kT8YYDG8TLN1wQeWwRuUouWkmvjA/RU3EUmjaW+LA2qpJA40scM+Z5nsIknu7gmNkAngVDLBSqvC+JueH2McJYaoTs3EO10DjWvpWuIYfye2YlWkRlG9yPfm2kBQfxMOYVhKKnyv1BeMNn6jlGIcx/5sEcj5CViauGIzYphK36U0te16tE4AFy9HNcZylenZ9tlkcRkzszQQltXzVBlSSlEeym/cKsKRdmCD10ji39uyKRbw1CBW1OGzuqi9TUc9I5ckHSh7Pbd1xoxWnc55D6OufdRPTRM0h+iDIDTPnIIYPFqoxM5gJx2NLvgFFSIOxuuAGXjz2ErQ==",
+      "tokenType": "Bearer",
+      "expiresIn": 14400
+    }
+  }
+}

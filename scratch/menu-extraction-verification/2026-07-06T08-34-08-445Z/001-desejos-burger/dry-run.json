@@ -1,0 +1,9 @@
+{
+  "code": null,
+  "result": {
+    "success": false,
+    "error": "Pagina publica mostra menu/site desativado nos prints."
+  },
+  "stdoutTail": "",
+  "stderrTail": ""
+}

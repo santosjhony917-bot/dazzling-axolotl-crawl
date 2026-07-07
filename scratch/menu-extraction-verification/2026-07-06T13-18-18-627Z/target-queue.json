@@ -1,0 +1,16 @@
+[
+  {
+    "restaurantId": "a81c3a0c-9b26-4a55-bc13-dc8406cbe384",
+    "restaurantName": "American Pizza",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/american_pizza_",
+    "score": 7,
+    "tier": "green",
+    "flags": [],
+    "nextAction": "fast_visual_review_then_import",
+    "category": "Pizzaria·",
+    "address": "Av. Pref. Severino Bezerra Cabral",
+    "phone": "(83) 98198-6551",
+    "instagram": "https://www.instagram.com/americanpizza.br/"
+  }
+]

@@ -1,0 +1,66 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 1065,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"7d58ea3c-b59a-4e12-bac0-a7f78feea2e6\",\"id\":\"64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975\",\"code\":\"18\",\"ean\":null,\"priority\":1,\"name\":\"Raiz do sertao\",\"description\":\"Creme de Macaxeira com Carne de Sol e Queijo Coalho 370g\",\"price\":15,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"5bacbe5a-f9e7-45fc-9311-3d6079f57ba6\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Raiz do sertao\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975_b26bb366-aa21-46b2-8ffb-7e83b4829716.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "1"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "7d58ea3c-b59a-4e12-bac0-a7f78feea2e6",
+      "id": "64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975",
+      "code": "18",
+      "ean": null,
+      "priority": 1,
+      "name": "Raiz do sertao",
+      "description": "Creme de Macaxeira com Carne de Sol e Queijo Coalho 370g",
+      "price": 15,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "5bacbe5a-f9e7-45fc-9311-3d6079f57ba6",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Raiz do sertao",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-64ecaa9f-c7d2-4e2e-92f2-0652ea6b0975_b26bb366-aa21-46b2-8ffb-7e83b4829716.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

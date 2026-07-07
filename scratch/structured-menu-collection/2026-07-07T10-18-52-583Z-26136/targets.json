@@ -1,0 +1,56 @@
+[
+  {
+    "restaurantId": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+    "restaurantName": "VITAMINA DE AÇAÍ",
+    "sourceUrl": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+    "platform": "cardapiodigital",
+    "reviewsCount": null,
+    "address": "Av. Ambrósio Miranda de Araújo",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": null,
+    "queueEntry": {
+      "restaurant_id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+      "name": "VITAMINA DE AÇAÍ",
+      "platform": "cardapiodigital",
+      "tier": "yellow",
+      "priority_score": 212,
+      "risk_flags": [
+        "hard_platform:cardapiodigital"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+      "raw_source_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+      "other_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Restaurante",
+      "address": "Av. Ambrósio Miranda de Araújo",
+      "neighborhood": "Renascer",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "",
+      "rating": null,
+      "reviews_count": null,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+          "canonical_url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+          "platform": "cardapiodigital",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "hard_strategy_or_manual_probe",
+      "rank": 19
+    }
+  }
+]

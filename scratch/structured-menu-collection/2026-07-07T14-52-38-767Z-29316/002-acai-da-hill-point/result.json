@@ -1,0 +1,17 @@
+{
+  "restaurantId": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+  "restaurantName": "Açaí da Hill Point",
+  "platform": "anota_ai",
+  "sourceUrl": "https://pedido.anota.ai/loja/aai-da-hill-point",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T14-52-38-767Z-29316\\002-acai-da-hill-point",
+  "startedAt": "2026-07-07T14:52:42.533Z",
+  "details": null,
+  "rawSummary": null,
+  "evidencePath": null,
+  "dryRun": null,
+  "review": null,
+  "committed": false,
+  "commit": null,
+  "error": "Protocol error (Runtime.callFunctionOn): Target closed",
+  "finishedAt": "2026-07-07T16:24:06.487Z"
+}

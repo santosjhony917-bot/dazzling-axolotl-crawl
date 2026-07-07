@@ -1,0 +1,1665 @@
+{
+  "summary": {
+    "generatedAt": "2026-07-06T22:01:39.068Z",
+    "dryRun": true,
+    "city": "Cabedelo",
+    "state": "PB",
+    "reviewFile": "scratch\\cabedelo-instagram-unsafe-review\\2026-07-06T21-34-26-304Z\\review-queue.json",
+    "previousRefined": "scratch\\cabedelo-instagram-targeted-refine\\2026-07-06T21-52-21-442Z\\refined.json",
+    "totalUnsafeOriginal": 126,
+    "remainingWithoutInstagramReviewed": 10,
+    "apiCalls": 10,
+    "counts": {
+      "reject": 1,
+      "hold": 8,
+      "approve": 1
+    },
+    "approved": [
+      {
+        "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+        "name": "JuJuba sorvete e açaí",
+        "instagram": "https://instagram.com/sorveteeacaijujuba",
+        "score": 144,
+        "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+        "evidence": "https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://www.instagram.com/sorveteeacaijujuba/reels/ |"
+      }
+    ],
+    "applied": [],
+    "failures": [],
+    "outDir": "scratch\\cabedelo-instagram-unsafe-review\\targeted-2026-07-06T22-01-31-598Z"
+  },
+  "items": [
+    {
+      "id": "d90b585e-8b14-442e-993f-457ad253dc8f",
+      "name": "CTG Saudade Da Querência",
+      "category": "Restaurante",
+      "neighborhood": "Lot. Praia Grande",
+      "reviews_count": 293,
+      "rating": 4.6,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 187,
+      "previousUrl": "https://instagram.com/ctgsaudadesdaquerencia",
+      "status": "reject",
+      "best": {
+        "decision": "reject",
+        "score": 60,
+        "reasons": [
+          "out_of_scope",
+          "no_location_or_phone_support"
+        ],
+        "url": "https://instagram.com/ctgsaudadesdaquerencia",
+        "handle": "ctgsaudadesdaquerencia",
+        "title": "ctgsaudadesdaquerencia",
+        "tokens": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ],
+        "handleMatches": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ],
+        "textMatches": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": true,
+        "evidenceSample": "https://instagram.com/ctgsaudadesdaquerencia | ctgsaudadesdaquerencia Fundado em 18/05/86. \"Neste galpão gaúcho há sempre uma pousada para aqueles que, com dignidade e honra, se cobrem com o poncho das nossas tradições.\". https://www.instagram.com/ctgsaudadesdaquerencia/"
+      },
+      "candidates": [
+        {
+          "decision": "reject",
+          "score": 60,
+          "reasons": [
+            "out_of_scope",
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/ctgsaudadesdaquerencia",
+          "handle": "ctgsaudadesdaquerencia",
+          "title": "ctgsaudadesdaquerencia",
+          "tokens": [
+            "ctg",
+            "saudade",
+            "querencia"
+          ],
+          "handleMatches": [
+            "ctg",
+            "saudade",
+            "querencia"
+          ],
+          "textMatches": [
+            "ctg",
+            "saudade",
+            "querencia"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": true,
+          "evidenceSample": "https://instagram.com/ctgsaudadesdaquerencia | ctgsaudadesdaquerencia Fundado em 18/05/86. \"Neste galpão gaúcho há sempre uma pousada para aqueles que, com dignidade e honra, se cobrem com o poncho das nossas tradições.\". https://www.instagram.com/ctgsaudadesdaquerencia/"
+        },
+        {
+          "decision": "reject",
+          "score": 20,
+          "reasons": [
+            "out_of_scope"
+          ],
+          "url": "https://instagram.com/ctgpb",
+          "handle": "ctgpb",
+          "title": "CTG Saudades Da Querência (@ctgpb) · João Pessoa, PB",
+          "tokens": [
+            "ctg",
+            "saudade",
+            "querencia"
+          ],
+          "handleMatches": [
+            "ctg"
+          ],
+          "textMatches": [
+            "ctg",
+            "saudade",
+            "querencia"
+          ],
+          "cityConfirmed": true,
+          "stateConfirmed": true,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": true,
+          "evidenceSample": "CTG Saudades Da Querência (@ctgpb) · João Pessoa, PB Centro de Tradições Gaúchas - Saudades da Querência-BR 230,KM 5,5 - Cabedelo desde 1987. Churrascos no 1º e 3º domingo de cada mês. Aberto ao público! https://www.instagram.com/ctgpb/?hl=pt | CTG Saudades Da Querência (@ctgpb) · João Pessoa, PB Centro de Tradições Gaúchas - Saudades da Querência-BR 230,KM 5,5 - Cabedelo desde 1987. Churrascos no 1º e 3º domingo de cada mês. Aberto ao público! https://instagram.com/ctgpb | Reel by CTG Saudades Da Querência (@ctgpb) · February 19 ... ... Cabedelo/?B A partir das 12h30 Venha saborar um verdadeiro churrasco campeiro! ... CTG Saudades CTGSaudadesdaQuerência da Querência . Nosso ... https://instagram.com/ctgpb"
+        }
+      ],
+      "queries": [
+        "CTG Saudade Da Querência ctgsaudadesdaquerencia Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "cec28f47-fb35-4c1b-af88-4af762996479",
+      "name": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+      "category": "Lanchonete",
+      "neighborhood": "Sl A15 - Ponta de Campina",
+      "reviews_count": 13,
+      "rating": 4.1,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 187,
+      "previousUrl": "https://instagram.com/thecheeseburguerfactory",
+      "status": "hold",
+      "best": {
+        "decision": "hold",
+        "score": 160,
+        "reasons": [
+          "no_location_or_phone_support"
+        ],
+        "url": "https://instagram.com/thecheeseburguerfactory",
+        "handle": "thecheeseburguerfactory",
+        "title": "The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory)",
+        "tokens": [
+          "tcf",
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "handleMatches": [
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "textMatches": [
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "https://instagram.com/thecheeseburguerfactory | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Follow. Message ... https://www.instagram.com/thecheeseburguerfactory/ | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Follow. Message ... https://instagram.com/thecheeseburguerfactory"
+      },
+      "candidates": [
+        {
+          "decision": "hold",
+          "score": 160,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/thecheeseburguerfactory",
+          "handle": "thecheeseburguerfactory",
+          "title": "The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory)",
+          "tokens": [
+            "tcf",
+            "the",
+            "cheeseburguer",
+            "factory"
+          ],
+          "handleMatches": [
+            "the",
+            "cheeseburguer",
+            "factory"
+          ],
+          "textMatches": [
+            "the",
+            "cheeseburguer",
+            "factory"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "https://instagram.com/thecheeseburguerfactory | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Follow. Message ... https://www.instagram.com/thecheeseburguerfactory/ | The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory) Um hambúrguer como deve ser e 100% artesanal. A batata frita mais famosa da região! FAÇA SEU PEDIDO NO LINK ABAIXO. Follow. Message ... https://instagram.com/thecheeseburguerfactory"
+        },
+        {
+          "decision": "hold",
+          "score": 96,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/tcfbrasil",
+          "handle": "tcfbrasil",
+          "title": "TCF - The Cheeseburguer Factory (@tcfbrasil)",
+          "tokens": [
+            "tcf",
+            "the",
+            "cheeseburguer",
+            "factory"
+          ],
+          "handleMatches": [
+            "tcf"
+          ],
+          "textMatches": [
+            "tcf",
+            "the",
+            "cheeseburguer",
+            "factory"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "TCF - The Cheeseburguer Factory (@tcfbrasil) tcfbrasil. TCF - The Cheeseburguer Factory. 5 followers · 0 following · 0 posts · @tcfbrasil. Follow. Message. https://www.instagram.com/tcfbrasil/ | TCF - The Cheeseburguer Factory (@tcfbrasil) tcfbrasil. TCF - The Cheeseburguer Factory. 5 followers · 0 following · 0 posts · @tcfbrasil. Follow. Message. https://instagram.com/tcfbrasil | TCF - The Cheeseburguer Factory (@tcfbrasil) tcfbrasil. TCF - The Cheeseburguer Factory. 5 followers · 0 following · 0 posts · @tcfbrasil. Follow. Message. https://instagram.com/tcfbrasil"
+        }
+      ],
+      "queries": [
+        "TCF - The Cheeseburguer Factory - Unidade Cabedelo thecheeseburguerfactory Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "afa4d143-2996-418e-af22-d839e60b546a",
+      "name": "Porto do Café",
+      "category": "Cafeteria",
+      "neighborhood": "Centro",
+      "reviews_count": 6,
+      "rating": 4.7,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 138,
+      "previousUrl": "https://instagram.com/portodocafe__",
+      "status": "hold",
+      "best": {
+        "decision": "hold",
+        "score": 120,
+        "reasons": [
+          "no_location_or_phone_support"
+        ],
+        "url": "https://instagram.com/portodocafe__",
+        "handle": "portodocafe__",
+        "title": "portodocafe__",
+        "tokens": [
+          "porto",
+          "cafe"
+        ],
+        "handleMatches": [
+          "porto",
+          "cafe"
+        ],
+        "textMatches": [
+          "porto",
+          "cafe"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "https://instagram.com/portodocafe__"
+      },
+      "candidates": [
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/portodocafe__",
+          "handle": "portodocafe__",
+          "title": "portodocafe__",
+          "tokens": [
+            "porto",
+            "cafe"
+          ],
+          "handleMatches": [
+            "porto",
+            "cafe"
+          ],
+          "textMatches": [
+            "porto",
+            "cafe"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "https://instagram.com/portodocafe__"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/cafedoporto95",
+          "handle": "cafedoporto95",
+          "title": "Cafe do Porto (@cafedoporto95)",
+          "tokens": [
+            "porto",
+            "cafe"
+          ],
+          "handleMatches": [
+            "porto",
+            "cafe"
+          ],
+          "textMatches": [
+            "porto",
+            "cafe"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Cafe do Porto (@cafedoporto95) ☕ Cafés especiais ❤ Blends exclusivos Tradição em POA COMPRE SEU BOX AQUI · Em setembro, a 24º edição da Box do Café do Porto traz um presente muito especial ... https://www.instagram.com/cafedoporto95/ | Cafe do Porto (@cafedoporto95) ☕ Cafés especiais ❤ Blends exclusivos Tradição em POA COMPRE SEU BOX AQUI · Em setembro, a 24º edição da Box do Café do Porto traz um presente muito especial ... https://instagram.com/cafedoporto95"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/portodoscafes",
+          "handle": "portodoscafes",
+          "title": "Porto dos Cafés (@portodoscafes)",
+          "tokens": [
+            "porto",
+            "cafe"
+          ],
+          "handleMatches": [
+            "porto",
+            "cafe"
+          ],
+          "textMatches": [
+            "porto",
+            "cafe"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Porto dos Cafés (@portodoscafes) Referência em máquinas de café ☕️✨️ Insumos exclusivos e de qualidade! Transforme seu ambiente no link abaixo. https://www.instagram.com/portodoscafes/ | Porto dos Cafés (@portodoscafes) Referência em máquinas de café ☕️✨️ Insumos exclusivos e de qualidade! Transforme seu ambiente no link abaixo. https://instagram.com/portodoscafes"
+        },
+        {
+          "decision": "reject",
+          "score": 40,
+          "reasons": [
+            "no_location_or_phone_support",
+            "location_conflict:recife, pe"
+          ],
+          "url": "https://instagram.com/portodocafe",
+          "handle": "portodocafe",
+          "title": "Porto do Café (@portodocafe) · Recife, PE",
+          "tokens": [
+            "porto",
+            "cafe"
+          ],
+          "handleMatches": [
+            "porto",
+            "cafe"
+          ],
+          "textMatches": [
+            "porto",
+            "cafe"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [
+            "recife, pe"
+          ],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Porto do Café (@portodocafe) · Recife, PE 1.4K+ followers · 164 posts · Temos o melhor cappuccino da cidade. Venha nos conhecer! ☕️ Seg à Sex: 09h às 21h | Sáb: 12h às 21h | Dom: 12h às 18h. https://www.instagram.com/portodocafe/ | Porto do Café (@portodocafe) · Recife, PE 1.4K+ followers · 164 posts · Temos o melhor cappuccino da cidade. Venha nos conhecer! ☕️ Seg à Sex: 09h às 21h | Sáb: 12h às 21h | Dom: 12h às 18h. https://instagram.com/portodocafe"
+        }
+      ],
+      "queries": [
+        "Porto do Café portodocafe__ Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "2e4d043d-4eae-48c9-852a-f81b7ef842f5",
+      "name": "Bom apetite",
+      "category": "Restaurante",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 4,
+      "rating": 3.3,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 138,
+      "previousUrl": "https://instagram.com/bomapetitejp",
+      "status": "hold",
+      "best": {
+        "decision": "hold",
+        "score": 120,
+        "reasons": [
+          "no_location_or_phone_support"
+        ],
+        "url": "https://instagram.com/bomapetitejp",
+        "handle": "bomapetitejp",
+        "title": "Bom Apetite - Empanadas Argentinas - (@bomapetitejp)",
+        "tokens": [
+          "bom",
+          "apetite"
+        ],
+        "handleMatches": [
+          "bom",
+          "apetite"
+        ],
+        "textMatches": [
+          "bom",
+          "apetite"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "https://instagram.com/bomapetitejp | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://www.instagram.com/bomapetitejp/ | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://instagram.com/bomapetitejp"
+      },
+      "candidates": [
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/bomapetitejp",
+          "handle": "bomapetitejp",
+          "title": "Bom Apetite - Empanadas Argentinas - (@bomapetitejp)",
+          "tokens": [
+            "bom",
+            "apetite"
+          ],
+          "handleMatches": [
+            "bom",
+            "apetite"
+          ],
+          "textMatches": [
+            "bom",
+            "apetite"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "https://instagram.com/bomapetitejp | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://www.instagram.com/bomapetitejp/ | Bom Apetite - Empanadas Argentinas - (@bomapetitejp) Casa de Empanadas Entregas só por encomenda. Link para contato · Edição especial Paraiba Argentina um encontro pra celebrar e saborear todos nossos produtos ... https://instagram.com/bomapetitejp"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/bomapetitecf",
+          "handle": "bomapetitecf",
+          "title": "Bom Apetite Restaurante (@bomapetitecf)",
+          "tokens": [
+            "bom",
+            "apetite"
+          ],
+          "handleMatches": [
+            "bom",
+            "apetite"
+          ],
+          "textMatches": [
+            "bom",
+            "apetite"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Bom Apetite Restaurante (@bomapetitecf) Um novo conceito de Culinária Litorânea. Praia do Forte-CF Seg à Quin das 12h ás 23h | Sex e Sáb das 12h às 23:30h | Dom das 12h às 22h:30 https://www.instagram.com/bomapetitecf/ | Bom Apetite Restaurante (@bomapetitecf) Um novo conceito de Culinária Litorânea. Praia do Forte-CF Seg à Quin das 12h ás 23h | Sex e Sáb das 12h às 23:30h | Dom das 12h às 22h:30 https://instagram.com/bomapetitecf"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/bom_apetite_ilha",
+          "handle": "bom_apetite_ilha",
+          "title": "Bom Apetite (@bom_apetite_ilha)",
+          "tokens": [
+            "bom",
+            "apetite"
+          ],
+          "handleMatches": [
+            "bom",
+            "apetite"
+          ],
+          "textMatches": [
+            "bom",
+            "apetite"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Bom Apetite (@bom_apetite_ilha) ➡️ Padaria e confeitaria com 41 anos de história. ➡️ Buffet de almoço ➡️ Estrada do Galeão, 994, lojas E/F ➡️ Contatos e encomendas. https://www.instagram.com/bom_apetite_ilha/ | Bom Apetite (@bom_apetite_ilha) ➡️ Padaria e confeitaria com 41 anos de história. ➡️ Buffet de almoço ➡️ Estrada do Galeão, 994, lojas E/F ➡️ Contatos e encomendas. https://instagram.com/bom_apetite_ilha"
+        }
+      ],
+      "queries": [
+        "Bom apetite bomapetitejp Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "62958074-8ac2-487e-9cde-9b6c018c34dc",
+      "name": "Empório Do Sabor",
+      "category": "Restaurante",
+      "neighborhood": "Lot. Oceania VI",
+      "reviews_count": 1,
+      "rating": 5,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 138,
+      "previousUrl": "https://instagram.com/emporio_do_sabor_oficial",
+      "status": "hold",
+      "best": {
+        "decision": "hold",
+        "score": 120,
+        "reasons": [
+          "no_location_or_phone_support"
+        ],
+        "url": "https://instagram.com/emporio_do_saborrg",
+        "handle": "emporio_do_saborrg",
+        "title": "Empório do Sabor (@emporio_do_saborrg)",
+        "tokens": [
+          "emporio",
+          "sabor"
+        ],
+        "handleMatches": [
+          "emporio",
+          "sabor"
+        ],
+        "textMatches": [
+          "emporio",
+          "sabor"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://www.instagram.com/emporio_do_saborrg/ | Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://instagram.com/emporio_do_saborrg"
+      },
+      "candidates": [
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/emporio_do_saborrg",
+          "handle": "emporio_do_saborrg",
+          "title": "Empório do Sabor (@emporio_do_saborrg)",
+          "tokens": [
+            "emporio",
+            "sabor"
+          ],
+          "handleMatches": [
+            "emporio",
+            "sabor"
+          ],
+          "textMatches": [
+            "emporio",
+            "sabor"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://www.instagram.com/emporio_do_saborrg/ | Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://instagram.com/emporio_do_saborrg"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/emporiodosabor.salgadosedoces",
+          "handle": "emporiodosabor.salgadosedoces",
+          "title": "emporiodosabor.salgadosedoces",
+          "tokens": [
+            "emporio",
+            "sabor"
+          ],
+          "handleMatches": [
+            "emporio",
+            "sabor"
+          ],
+          "textMatches": [
+            "emporio",
+            "sabor"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "emporiodosabor.salgadosedoces Salgados gourmet, crocantes e exclusivos. Entregamos de 18h às 00h ou sob encomenda. Peça agora. Follow. Message. Toda celebração merece um ... https://www.instagram.com/emporiodosabor.salgadosedoces/"
+        },
+        {
+          "decision": "hold",
+          "score": 88,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/emporioodosaboor",
+          "handle": "emporioodosaboor",
+          "title": "EMPÓRIO DO SABOR (@emporioodosaboor)",
+          "tokens": [
+            "emporio",
+            "sabor"
+          ],
+          "handleMatches": [
+            "emporio"
+          ],
+          "textMatches": [
+            "emporio",
+            "sabor"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "EMPÓRIO DO SABOR (@emporioodosaboor) Realizamos eventos inesquecíveis em SP 🍽️ Buffet domiciliar com sabor e carinho +11 mil clientes e seguidores felizes CHAME AQUI. Follow. https://www.instagram.com/emporioodosaboor/ | EMPÓRIO DO SABOR (@emporioodosaboor) Realizamos eventos inesquecíveis em SP 🍽️ Buffet domiciliar com sabor e carinho +11 mil clientes e seguidores felizes CHAME AQUI. Follow. https://instagram.com/emporioodosaboor"
+        },
+        {
+          "decision": "hold",
+          "score": 88,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/empooriodosabor",
+          "handle": "empooriodosabor",
+          "title": "Empório do Sabor (@empooriodosabor)",
+          "tokens": [
+            "emporio",
+            "sabor"
+          ],
+          "handleMatches": [
+            "sabor"
+          ],
+          "textMatches": [
+            "emporio",
+            "sabor"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Empório do Sabor (@empooriodosabor) Salgados, Doces & Petiscos ❤ Com sabor e amor Encomendas e delivery (@ifoodbrasil ) em Canoas e região ☎️ WhatsApp clicando no link ⬇️ · Delícias do empório do ... https://www.instagram.com/empooriodosabor/ | Empório do Sabor (@empooriodosabor) Salgados, Doces & Petiscos ❤ Com sabor e amor Encomendas e delivery (@ifoodbrasil ) em Canoas e região ☎️ WhatsApp clicando no link ⬇️ · Delícias do empório do ... https://instagram.com/empooriodosabor"
+        },
+        {
+          "decision": "hold",
+          "score": 56,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/stefani_brasil20",
+          "handle": "stefani_brasil20",
+          "title": "Empório do Sabor (@emporio_do_saborrg)",
+          "tokens": [
+            "emporio",
+            "sabor"
+          ],
+          "handleMatches": [],
+          "textMatches": [
+            "emporio",
+            "sabor"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Empório do Sabor (@emporio_do_saborrg) emporio_do_saborrg. Empório do Sabor. 158 followers. 121 following. ✨️ Transformando açúcar e temperos em felicidade Cassino/RS ‍ @stefani_brasil20 https://instagram.com/stefani_brasil20"
+        }
+      ],
+      "queries": [
+        "Empório Do Sabor emporio_do_sabor_oficial Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "dfb456d7-1841-474d-bb54-fd442af3e295",
+      "name": "Burguer Hall",
+      "category": "Hamburgueria",
+      "neighborhood": "Cabedelo",
+      "reviews_count": 1,
+      "rating": 5,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 138,
+      "previousUrl": "https://instagram.com/burguerhall",
+      "status": "hold",
+      "best": {
+        "decision": "hold",
+        "score": 92,
+        "reasons": [
+          "no_location_or_phone_support"
+        ],
+        "url": "https://instagram.com/iloveburguerpb",
+        "handle": "iloveburguerpb",
+        "title": "I ❤ Burguer (@iloveburguerpb)",
+        "tokens": [
+          "burguer",
+          "hall"
+        ],
+        "handleMatches": [
+          "burguer"
+        ],
+        "textMatches": [
+          "burguer"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": true,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [
+          "(83) 99311-5016"
+        ],
+        "exactPhone": false,
+        "ddd83": true,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "I ❤ Burguer (@iloveburguerpb) ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️ · Amor a primeira ... https://www.instagram.com/iloveburguerpb/ | I ❤ Burguer (@iloveburguerpb) ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️ · Amor a primeira ... https://instagram.com/iloveburguerpb"
+      },
+      "candidates": [
+        {
+          "decision": "hold",
+          "score": 92,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/iloveburguerpb",
+          "handle": "iloveburguerpb",
+          "title": "I ❤ Burguer (@iloveburguerpb)",
+          "tokens": [
+            "burguer",
+            "hall"
+          ],
+          "handleMatches": [
+            "burguer"
+          ],
+          "textMatches": [
+            "burguer"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": true,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [
+            "(83) 99311-5016"
+          ],
+          "exactPhone": false,
+          "ddd83": true,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "I ❤ Burguer (@iloveburguerpb) ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️ · Amor a primeira ... https://www.instagram.com/iloveburguerpb/ | I ❤ Burguer (@iloveburguerpb) ELEITA 3X A MELHOR HAMBURGUERIA DA REGIÃO ABERTO DE QUARTA À SEG - 18h à 01h Praça Getúlio Vargas, 107 (83) 99311-5016 ⬇️ Peça no site ⬇️ · Amor a primeira ... https://instagram.com/iloveburguerpb"
+        },
+        {
+          "decision": "hold",
+          "score": 86,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/homesmashburguer",
+          "handle": "homesmashburguer",
+          "title": "HAMBURGUERIA ARTESANAL (@homesmashburguer)",
+          "tokens": [
+            "burguer",
+            "hall"
+          ],
+          "handleMatches": [
+            "burguer"
+          ],
+          "textMatches": [
+            "burguer"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [
+            "(83) 99657-6767"
+          ],
+          "exactPhone": false,
+          "ddd83": true,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "HAMBURGUERIA ARTESANAL (@homesmashburguer) | Desde 2019 entregando QUALIDADE | (83) 99657-6767 | PEÇA COM DESCONTO⤵️ · Nossa novidade COSTELINHA ‍ Exclusividade da casa, brota na Home! · Quando nós ... https://www.instagram.com/homesmashburguer/ | HAMBURGUERIA ARTESANAL (@homesmashburguer) | Desde 2019 entregando QUALIDADE | (83) 99657-6767 | PEÇA COM DESCONTO⤵️ · Nossa novidade COSTELINHA ‍ Exclusividade da casa, brota na Home! · Quando nós ... https://instagram.com/homesmashburguer"
+        },
+        {
+          "decision": "hold",
+          "score": 65,
+          "reasons": [
+            "no_location_or_phone_support",
+            "nearby_unit_conflict:bessa"
+          ],
+          "url": "https://instagram.com/burguerhall",
+          "handle": "burguerhall",
+          "title": "Burguer Hall - Bessa📍 (@burguerhall)",
+          "tokens": [
+            "burguer",
+            "hall"
+          ],
+          "handleMatches": [
+            "burguer",
+            "hall"
+          ],
+          "textMatches": [
+            "burguer",
+            "hall"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [
+            "bessa"
+          ],
+          "outOfScope": false,
+          "evidenceSample": "https://instagram.com/burguerhall | Burguer Hall - Bessa📍 (@burguerhall) | | Hamburgueria Clássica e Artesanal | | Hamburgueria Delivery | ⏰️ | ter. a Dom. | Das 18:00 às 23:00 | | Cardápio via direct · Duplo Chedda # ... https://www.instagram.com/burguerhall/ | Burguer Hall - Bessa📍 (@burguerhall) | | Hamburgueria Clássica e Artesanal | | Hamburgueria Delivery | ⏰️ | ter. a Dom. | Das 18:00 às 23:00 | | Cardápio via direct · Duplo Chedda # ... https://instagram.com/burguerhall"
+        },
+        {
+          "decision": "reject",
+          "score": 25,
+          "reasons": [
+            "brand_not_confirmed",
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/hallsburger",
+          "handle": "hallsburger",
+          "title": "Halls Burger (@hallsburger)",
+          "tokens": [
+            "burguer",
+            "hall"
+          ],
+          "handleMatches": [
+            "hall"
+          ],
+          "textMatches": [
+            "hall"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [
+            "(21) 97680-5655"
+          ],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Halls Burger (@hallsburger) Se é bom, é Halls! ⌚️Qua a dom a partir das 18:30 Irajá e adjacências ☎️ 21 97680-5655 FAÇA SEU PEDIDO AQUI. Follow. Message ... https://www.instagram.com/hallsburger/ | Halls Burger (@hallsburger) Se é bom, é Halls! ⌚️Qua a dom a partir das 18:30 Irajá e adjacências ☎️ 21 97680-5655 FAÇA SEU PEDIDO AQUI. Follow. Message ... https://instagram.com/hallsburger"
+        },
+        {
+          "decision": "reject",
+          "score": 17,
+          "reasons": [
+            "brand_not_confirmed"
+          ],
+          "url": "https://instagram.com/oxicabedelo",
+          "handle": "oxicabedelo",
+          "title": "Oxi Burguer Cabedelo (@oxicabedelo)",
+          "tokens": [
+            "burguer",
+            "hall"
+          ],
+          "handleMatches": [],
+          "textMatches": [
+            "burguer"
+          ],
+          "cityConfirmed": true,
+          "stateConfirmed": true,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Oxi Burguer Cabedelo (@oxicabedelo) 874 followers · 13 following · 14 posts · @oxicabedelo: “O sabor da terra Vai Brasil! Ponta de Campina - Cabedelo/PB Faça aqui seu pedido ” https://www.instagram.com/oxicabedelo/ | Oxi Burguer Cabedelo (@oxicabedelo) 874 followers · 13 following · 14 posts · @oxicabedelo: “O sabor da terra Vai Brasil! Ponta de Campina - Cabedelo/PB Faça aqui seu pedido ” https://instagram.com/oxicabedelo | Oxi Burguer Cabedelo (@oxicabedelo) 874 followers · 13 following · 14 posts · @oxicabedelo: “O sabor da terra Vai Brasil! Ponta de Campina - Cabedelo/PB Faça aqui seu pedido ” https://instagram.com/oxicabedelo"
+        }
+      ],
+      "queries": [
+        "Burguer Hall burguerhall Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "13cacb5e-52f2-4d8c-80ed-26c53a847ea9",
+      "name": "Esquina do galeto",
+      "category": "Churrascaria",
+      "neighborhood": null,
+      "reviews_count": 1,
+      "rating": 5,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 138,
+      "previousUrl": "https://instagram.com/esquinadogaleto01",
+      "status": "hold",
+      "best": {
+        "decision": "hold",
+        "score": 120,
+        "reasons": [
+          "no_location_or_phone_support"
+        ],
+        "url": "https://instagram.com/esquinadogaleto_01",
+        "handle": "esquinadogaleto_01",
+        "title": "Esquina do galeto 01 (@esquinadogaleto_01)",
+        "tokens": [
+          "esquina",
+          "galeto"
+        ],
+        "handleMatches": [
+          "esquina",
+          "galeto"
+        ],
+        "textMatches": [
+          "esquina",
+          "galeto"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01. 952 followers. 3,359 following. ESQUINA DO GALETO (ESPECIALIDADE EM ASSADOS ) (SÁBADOS E DOMINGOS) das 11:00 as 15:30. ZAP: 99555 0672 https://www.instagram.com/esquinadogaleto_01/ | Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01. 952 followers. 3,359 following. ESQUINA DO GALETO (ESPECIALIDADE EM ASSADOS ) (SÁBADOS E DOMINGOS) das 11:00 as 15:30. ZAP: 99555 0672 https://instagram.com/esquinadogaleto_01"
+      },
+      "candidates": [
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/esquinadogaleto_01",
+          "handle": "esquinadogaleto_01",
+          "title": "Esquina do galeto 01 (@esquinadogaleto_01)",
+          "tokens": [
+            "esquina",
+            "galeto"
+          ],
+          "handleMatches": [
+            "esquina",
+            "galeto"
+          ],
+          "textMatches": [
+            "esquina",
+            "galeto"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01. 952 followers. 3,359 following. ESQUINA DO GALETO (ESPECIALIDADE EM ASSADOS ) (SÁBADOS E DOMINGOS) das 11:00 as 15:30. ZAP: 99555 0672 https://www.instagram.com/esquinadogaleto_01/ | Esquina do galeto 01 (@esquinadogaleto_01) Esquina do galeto 01. 952 followers. 3,359 following. ESQUINA DO GALETO (ESPECIALIDADE EM ASSADOS ) (SÁBADOS E DOMINGOS) das 11:00 as 15:30. ZAP: 99555 0672 https://instagram.com/esquinadogaleto_01"
+        },
+        {
+          "decision": "reject",
+          "score": 40,
+          "reasons": [
+            "no_location_or_phone_support",
+            "location_conflict:guarus"
+          ],
+          "url": "https://instagram.com/esquinadogaleto01",
+          "handle": "esquinadogaleto01",
+          "title": "Restaurante Esquina do Galeto (@esquinadogaleto01)",
+          "tokens": [
+            "esquina",
+            "galeto"
+          ],
+          "handleMatches": [
+            "esquina",
+            "galeto"
+          ],
+          "textMatches": [
+            "esquina",
+            "galeto"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [
+            "guarus"
+          ],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "https://instagram.com/esquinadogaleto01 | Restaurante Esquina do Galeto (@esquinadogaleto01) PF • Quentinhas • Galetos & Assados Self-Service diário Fazemos entregas Maricá 85 Pq.Guarus Funcionamos todos os dias ⬇️ Cardápio digital. Follow. https://www.instagram.com/esquinadogaleto01/ | Restaurante Esquina do Galeto (@esquinadogaleto01) PF • Quentinhas • Galetos & Assados Self-Service diário Fazemos entregas Maricá 85 Pq.Guarus Funcionamos todos os dias ⬇️ Cardápio digital. Follow. https://instagram.com/esquinadogaleto01 | Não sabe o que fazer no natal? Nós da Equipe Esquina do ... ESQUINA DO GALETO Nos Siga no Instagram e confira nosso cardápio @esquinadogaleto01 · esquinadogaleto01's profile picture. esquinadogaleto01. https://instagram.com/esquinadogaleto01"
+        }
+      ],
+      "queries": [
+        "Esquina do galeto esquinadogaleto01 Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "68fed341-d74c-4c02-806c-a217e74b7d2f",
+      "name": "Fatia do Céu",
+      "category": "Cafeteria",
+      "neighborhood": "Recanto do Poço",
+      "reviews_count": null,
+      "rating": null,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 138,
+      "previousUrl": "https://instagram.com/fatia_ceu",
+      "status": "hold",
+      "best": {
+        "decision": "hold",
+        "score": 120,
+        "reasons": [
+          "no_location_or_phone_support"
+        ],
+        "url": "https://instagram.com/fatiadoceu_",
+        "handle": "fatiadoceu_",
+        "title": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ",
+        "tokens": [
+          "fatia",
+          "ceu"
+        ],
+        "handleMatches": [
+          "fatia",
+          "ceu"
+        ],
+        "textMatches": [
+          "fatia",
+          "ceu"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU ☁️ | Doceria e Sorveteria ✨ desde 2023. Descubra o céu em cada mordida. Feito com amor e açúcar, porque a vida é mais doce conosco. https://www.instagram.com/fatiadoceu_/"
+      },
+      "candidates": [
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/fatiadoceu_",
+          "handle": "fatiadoceu_",
+          "title": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ",
+          "tokens": [
+            "fatia",
+            "ceu"
+          ],
+          "handleMatches": [
+            "fatia",
+            "ceu"
+          ],
+          "textMatches": [
+            "fatia",
+            "ceu"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU ☁️ | Doceria e Sorveteria ✨ desde 2023. Descubra o céu em cada mordida. Feito com amor e açúcar, porque a vida é mais doce conosco. https://www.instagram.com/fatiadoceu_/"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/fatiadoceu",
+          "handle": "fatiadoceu",
+          "title": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ",
+          "tokens": [
+            "fatia",
+            "ceu"
+          ],
+          "handleMatches": [
+            "fatia",
+            "ceu"
+          ],
+          "textMatches": [
+            "fatia",
+            "ceu"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "FATIA DO CÉU 🍨🍰☁️ (@fatiadoceu_) · São Gonçalo, RJ FATIA DO CÉU ☁️ | Doceria e Sorveteria ✨ desde 2023. Descubra o céu em cada mordida. Feito com amor e açúcar, porque a vida é mais doce conosco. https://instagram.com/fatiadoceu"
+        },
+        {
+          "decision": "hold",
+          "score": 56,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/vidafonseca",
+          "handle": "vidafonseca",
+          "title": "Pratos de Família on Instagram: \"A fofa da @vidafonseca fez ...",
+          "tokens": [
+            "fatia",
+            "ceu"
+          ],
+          "handleMatches": [],
+          "textMatches": [
+            "fatia",
+            "ceu"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Pratos de Família on Instagram: \"A fofa da @vidafonseca fez ... ... Fatias do céu “ que a mãe costumava fazer E no final, entregou um prato pra cada com a receita com a letra da mãe ❤️❤️❤️❤️ Pra matar ... https://instagram.com/vidafonseca"
+        },
+        {
+          "decision": "reject",
+          "score": 40,
+          "reasons": [
+            "no_location_or_phone_support",
+            "location_conflict:barcelos"
+          ],
+          "url": "https://instagram.com/fatia_ceu",
+          "handle": "fatia_ceu",
+          "title": "Fatia do Céu (@fatia_ceu)",
+          "tokens": [
+            "fatia",
+            "ceu"
+          ],
+          "handleMatches": [
+            "fatia",
+            "ceu"
+          ],
+          "textMatches": [
+            "fatia",
+            "ceu"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [
+            "barcelos"
+          ],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "https://instagram.com/fatia_ceu | Fatia do Céu (@fatia_ceu) 153 followers · 100 following · 16 posts · @fatia_ceu: “ Doces, Sobremesas e Bolachas Aborim, Barcelos Encomendas por mensagem privada Menu nos ... https://www.instagram.com/fatia_ceu/ | Fatia do Céu (@fatia_ceu) 153 followers · 100 following · 16 posts · @fatia_ceu: “ Doces, Sobremesas e Bolachas Aborim, Barcelos Encomendas por mensagem privada Menu nos ... https://instagram.com/fatia_ceu | Fatia do Céu (@fatia_ceu) 153 followers · 100 following · 16 posts · @fatia_ceu: “ Doces, Sobremesas e Bolachas Aborim, Barcelos Encomendas por mensagem privada Menu nos ... https://instagram.com/fatia_ceu"
+        }
+      ],
+      "queries": [
+        "Fatia do Céu fatia_ceu Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+      "name": "JuJuba sorvete e açaí",
+      "category": "Sorveteria",
+      "neighborhood": "Cabedelo",
+      "reviews_count": null,
+      "rating": null,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 138,
+      "previousUrl": "https://instagram.com/sorveteeacaijujuba",
+      "status": "approve",
+      "best": {
+        "decision": "approve",
+        "score": 144,
+        "reasons": [],
+        "url": "https://instagram.com/sorveteeacaijujuba",
+        "handle": "sorveteeacaijujuba",
+        "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+        "tokens": [
+          "jujuba",
+          "sorvete"
+        ],
+        "handleMatches": [
+          "jujuba",
+          "sorvete"
+        ],
+        "textMatches": [
+          "jujuba",
+          "sorvete"
+        ],
+        "cityConfirmed": true,
+        "stateConfirmed": true,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [],
+        "outOfScope": false,
+        "evidenceSample": "https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://www.instagram.com/sorveteeacaijujuba/reels/ | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) · Cabedelo, PB Sorvete e Açai Jujuba. 174 followers. 174 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://www.instagram.com/sorveteeacaijujuba/ | Sorvete e Açai Jujuba (@sorveteeacaijujuba) · Cabedelo, PB Sorvete e Açai Jujuba. 174 followers. 174 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://instagram.c"
+      },
+      "candidates": [
+        {
+          "decision": "approve",
+          "score": 144,
+          "reasons": [],
+          "url": "https://instagram.com/sorveteeacaijujuba",
+          "handle": "sorveteeacaijujuba",
+          "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+          "tokens": [
+            "jujuba",
+            "sorvete"
+          ],
+          "handleMatches": [
+            "jujuba",
+            "sorvete"
+          ],
+          "textMatches": [
+            "jujuba",
+            "sorvete"
+          ],
+          "cityConfirmed": true,
+          "stateConfirmed": true,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://www.instagram.com/sorveteeacaijujuba/reels/ | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) · Cabedelo, PB Sorvete e Açai Jujuba. 174 followers. 174 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://www.instagram.com/sorveteeacaijujuba/ | Sorvete e Açai Jujuba (@sorveteeacaijujuba) · Cabedelo, PB Sorvete e Açai Jujuba. 174 followers. 174 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://instagram.c"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/jujubasorvetesoficial",
+          "handle": "jujubasorvetesoficial",
+          "title": "Jujuba Sorvetes (@jujubasorvetesoficial)",
+          "tokens": [
+            "jujuba",
+            "sorvete"
+          ],
+          "handleMatches": [
+            "jujuba",
+            "sorvete"
+          ],
+          "textMatches": [
+            "jujuba",
+            "sorvete"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Jujuba Sorvetes (@jujubasorvetesoficial) Procurando o lugar perfeito para o passeio em família deste final de semana? Aqui na Jujuba Sorvetes, criamos o ambiente ideal para você colecionar memórias ... https://www.instagram.com/jujubasorvetesoficial/ | Jujuba Sorvetes (@jujubasorvetesoficial) Procurando o lugar perfeito para o passeio em família deste final de semana? Aqui na Jujuba Sorvetes, criamos o ambiente ideal para você colecionar memórias ... https://instagram.com/jujubasorvetesoficial"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/jujuba_lanchesesorvetes",
+          "handle": "jujuba_lanchesesorvetes",
+          "title": "Jujuba Lanches & Sorvetes (@jujuba_lanchesesorvetes)",
+          "tokens": [
+            "jujuba",
+            "sorvete"
+          ],
+          "handleMatches": [
+            "jujuba",
+            "sorvete"
+          ],
+          "textMatches": [
+            "jujuba",
+            "sorvete"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Jujuba Lanches & Sorvetes (@jujuba_lanchesesorvetes) Um mundo de Sabor. Lanches & Sorvete Avenida Wilson Alvarenga, 871 🕰️ Seg a Sáb (06:30h as 21h) | Dom (10h ás 21h) · Servindo felicidade em forma de sorvete ... https://www.instagram.com/jujuba_lanchesesorvetes/ | Jujuba Lanches & Sorvetes (@jujuba_lanchesesorvetes) Um mundo de Sabor. Lanches & Sorvete Avenida Wilson Alvarenga, 871 🕰️ Seg a Sáb (06:30h as 21h) | Dom (10h ás 21h) · Servindo felicidade em forma de sorvete ... https://instagram.com/jujuba_lanchesesorvetes"
+        },
+        {
+          "decision": "hold",
+          "score": 120,
+          "reasons": [
+            "no_location_or_phone_support"
+          ],
+          "url": "https://instagram.com/jujuba.sorveteria",
+          "handle": "jujuba.sorveteria",
+          "title": "Na Jujuba você encontra o equilíbrio perfeito. Monte do seu ...",
+          "tokens": [
+            "jujuba",
+            "sorvete"
+          ],
+          "handleMatches": [
+            "jujuba",
+            "sorvete"
+          ],
+          "textMatches": [
+            "jujuba",
+            "sorvete"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "Na Jujuba você encontra o equilíbrio perfeito. Monte do seu ... POV: você veio buscar um sorvete e saiu com a melhor sobremesa do dia. ✨ Sabores incríveis. ✨ Qualidade em cada colherada. ✨ Feito na hora ... https://www.instagram.com/jujuba.sorveteria/reel/DTQgRNUAFTb/?hl=ar"
+        },
+        {
+          "decision": "reject",
+          "score": 11,
+          "reasons": [
+            "brand_not_confirmed"
+          ],
+          "url": "https://instagram.com/thereacaiefrutas",
+          "handle": "thereacaiefrutas",
+          "title": "NOVIDADE NO NOSSO TIMEEE 🗣️ Avisa pra geral que tem ...",
+          "tokens": [
+            "jujuba",
+            "sorvete"
+          ],
+          "handleMatches": [],
+          "textMatches": [
+            "sorvete"
+          ],
+          "cityConfirmed": true,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [],
+          "outOfScope": false,
+          "evidenceSample": "NOVIDADE NO NOSSO TIMEEE 🗣️ Avisa pra geral que tem ... ... que tem açaí e sorvete no Villa Porto! Sejam muito bem vindos, galera do @thereacaiefrutas Centro, Cabedelo | BR230, ao lado do Cabedelo ... https://instagram.com/thereacaiefrutas"
+        }
+      ],
+      "queries": [
+        "JuJuba sorvete e açaí sorveteeacaijujuba Cabedelo Instagram"
+      ],
+      "source": "api"
+    },
+    {
+      "id": "27f1b5b7-56c6-49dd-80b5-4273a1dc3761",
+      "name": "Rainha da tapioca",
+      "category": "Cafeteria",
+      "neighborhood": "Cabedelo",
+      "reviews_count": null,
+      "rating": null,
+      "bucket": "strong_second_review",
+      "previousReason": "no_location_or_phone_support",
+      "previousScore": 138,
+      "previousUrl": "https://instagram.com/rainhadatapioca",
+      "status": "hold",
+      "best": {
+        "decision": "hold",
+        "score": 65,
+        "reasons": [
+          "no_location_or_phone_support",
+          "nearby_unit_conflict:tambau|tambaú|ruy carneiro"
+        ],
+        "url": "https://instagram.com/rainhadatapioca",
+        "handle": "rainhadatapioca",
+        "title": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca)",
+        "tokens": [
+          "rainha",
+          "tapioca"
+        ],
+        "handleMatches": [
+          "rainha",
+          "tapioca"
+        ],
+        "textMatches": [
+          "rainha",
+          "tapioca"
+        ],
+        "cityConfirmed": false,
+        "stateConfirmed": false,
+        "neighborhoodConfirmed": false,
+        "phraseMatches": [],
+        "phones": [],
+        "exactPhone": false,
+        "ddd83": false,
+        "conflicts": [],
+        "nearbyConflicts": [
+          "tambau",
+          "tambaú",
+          "ruy carneiro"
+        ],
+        "outOfScope": false,
+        "evidenceSample": "https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://www.instagram.com/rainhadatapioca/reels/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://instagram.com/rainhadatapioca | Reel by Rainha da Tapioca Nordestina (@rainhadatapioca ... Na Peixada e Restaurante Rainha da Tapioca, você aproveita um self-service sem balança, com comida caseira, variedade, sabor e aquele tempero ... https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordestino que já mora no coração da Paraíba. ❤️ ... https://www.instagram.com/rainhadatapioca/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordesti"
+      },
+      "candidates": [
+        {
+          "decision": "hold",
+          "score": 65,
+          "reasons": [
+            "no_location_or_phone_support",
+            "nearby_unit_conflict:tambau|tambaú|ruy carneiro"
+          ],
+          "url": "https://instagram.com/rainhadatapioca",
+          "handle": "rainhadatapioca",
+          "title": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca)",
+          "tokens": [
+            "rainha",
+            "tapioca"
+          ],
+          "handleMatches": [
+            "rainha",
+            "tapioca"
+          ],
+          "textMatches": [
+            "rainha",
+            "tapioca"
+          ],
+          "cityConfirmed": false,
+          "stateConfirmed": false,
+          "neighborhoodConfirmed": false,
+          "phraseMatches": [],
+          "phones": [],
+          "exactPhone": false,
+          "ddd83": false,
+          "conflicts": [],
+          "nearbyConflicts": [
+            "tambau",
+            "tambaú",
+            "ruy carneiro"
+          ],
+          "outOfScope": false,
+          "evidenceSample": "https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://www.instagram.com/rainhadatapioca/reels/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Peixada & Restaurante Nordestino A melhor tapioca Norte e Nordeste 🍽️ Café | Almoço | Jantar Av. Sen. Ruy Carneiro, 166 – Tambaú Peça no iFood . https://instagram.com/rainhadatapioca | Reel by Rainha da Tapioca Nordestina (@rainhadatapioca ... Na Peixada e Restaurante Rainha da Tapioca, você aproveita um self-service sem balança, com comida caseira, variedade, sabor e aquele tempero ... https://instagram.com/rainhadatapioca | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordestino que já mora no coração da Paraíba. ❤️ ... https://www.instagram.com/rainhadatapioca/ | Rainha da Tapioca Nordestina 👑 (@rainhadatapioca) Na Rainha da Tapioca você encontra a melhor tapioca da região, além de café, almoço e janta com aquele tempero nordesti"
+        }
+      ],
+      "queries": [
+        "Rainha da tapioca rainhadatapioca Cabedelo Instagram"
+      ],
+      "source": "api"
+    }
+  ]
+}

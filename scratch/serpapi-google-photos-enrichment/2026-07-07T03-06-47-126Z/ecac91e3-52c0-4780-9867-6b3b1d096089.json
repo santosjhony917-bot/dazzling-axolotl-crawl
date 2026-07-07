@@ -1,0 +1,256 @@
+{
+  "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+  "name": "I love burguer",
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "applied": false,
+  "uploads": [
+    {
+      "kind": "gallery_dry_run",
+      "source": "google_maps_photo",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida do restaurante"
+      },
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "google_maps_photo",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida aceitável"
+      },
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "google_maps_photo",
+      "vision": {
+        "ok": true,
+        "kind": "facade",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 3,
+        "food_visible": false,
+        "text_or_poster_dominant": false,
+        "reason": "fachada do restaurante"
+      },
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "serpapi_maps_thumbnail",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto boa de comida"
+      },
+      "urlHost": "serpapi.com"
+    }
+  ],
+  "skipped": [],
+  "resolver": {
+    "dataId": "0x7ad21005881f6db:0xe5f73808f3afb83f",
+    "source": "cached_phase1_raw",
+    "rawFile": "scratch\\serpapi-google-maps-phase1\\2026-07-06T19-32-09-190Z\\raw-035.json"
+  },
+  "photoCount": 17,
+  "candidates": [
+    {
+      "source": "google_maps_photo",
+      "score": 123,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida do restaurante"
+      },
+      "index": 2,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 122,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida aceitável"
+      },
+      "index": 3,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 115,
+      "vision": {
+        "ok": true,
+        "kind": "facade",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 3,
+        "food_visible": false,
+        "text_or_poster_dominant": false,
+        "reason": "fachada do restaurante"
+      },
+      "index": 0,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "serpapi_maps_thumbnail",
+      "score": 95,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto boa de comida"
+      },
+      "index": null,
+      "urlHost": "serpapi.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -91,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": true,
+        "person_is_prominent": true,
+        "people_count": 3,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "pessoas em destaque"
+      },
+      "index": 1,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -94,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem não representa o restaurante esperado"
+      },
+      "index": 4,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -95,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 991. Please try again in 297ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      },
+      "index": 5,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -96,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 991. Please try again in 297ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      },
+      "index": 6,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -97,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 991. Please try again in 297ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      },
+      "index": 7,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -98,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 991. Please try again in 297ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      },
+      "index": 8,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -99,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 991. Please try again in 297ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      },
+      "index": 9,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -100,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 991. Please try again in 297ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      },
+      "index": 10,
+      "urlHost": "lh3.googleusercontent.com"
+    }
+  ],
+  "after": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "promotion": null,
+  "status": "ok"
+}

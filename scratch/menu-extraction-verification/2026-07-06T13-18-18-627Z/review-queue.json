@@ -1,0 +1,33 @@
+[
+  {
+    "tier": "green",
+    "restaurantId": "a81c3a0c-9b26-4a55-bc13-dc8406cbe384",
+    "restaurantName": "American Pizza",
+    "platform": "cardapioweb",
+    "sourceUrl": "https://app.cardapioweb.com/american_pizza_",
+    "score": 7,
+    "sourceTier": "green",
+    "sourceFlags": [],
+    "itemCount": 81,
+    "optionCount": 206,
+    "operationalOptionCount": 0,
+    "dryRunApproved": true,
+    "confidence": 0.97,
+    "pricedRatio": 1,
+    "unresolvedPriceCount": 0,
+    "committed": false,
+    "flags": [],
+    "nextAction": "quick_codex_visual_review_then_import",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783343922553_2y1q131h.jpg",
+    "viewportSnapshotPaths": [
+      "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783343930936_ssuygey3.jpg",
+      "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783343940343_pdskmuix.jpg",
+      "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783343952752_a07vkgzv.jpg",
+      "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783343977929_i7h4jn4j.jpg",
+      "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783343985294_1xrrp394.jpg",
+      "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783343992606_2ok7ikmg.jpg"
+    ],
+    "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T13-18-18-627Z\\001-american-pizza\\menu-evidence.json",
+    "error": null
+  }
+]

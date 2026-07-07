@@ -1,0 +1,390 @@
+[
+  {
+    "restaurantId": "9f1c7086-a96a-49c9-b537-9fb9565841fd",
+    "restaurantName": "Ancoradouro Ponta de Campina",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 97,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/ancoradourobsrjp",
+      "handle": "ancoradourobsrjp",
+      "tokens": [
+        "ancoradouro"
+      ],
+      "handleMatches": [
+        "ancoradouro"
+      ],
+      "titleMatches": [
+        "ancoradouro"
+      ],
+      "titleHandleMatches": [
+        "ancoradouro"
+      ],
+      "textMatches": [
+        "ancoradouro"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [
+        "henrique siqueira"
+      ],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "derived_instagram_handle",
+        "position": 3,
+        "title": "Instagram profile @ancoradourobsrjp",
+        "link": "https://instagram.com/ancoradourobsrjp",
+        "snippet": "... Henrique Siqueira, N 242 - Ponta de Campina, Cabedelo - PB Não esquece de CURTIR, SALVAR e COMPARTILHAR com a galera ♥️ Valores no video ✓\".",
+        "displayedLink": "derived from Google result",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2",
+    "restaurantName": "Skama Bar e Restaurante",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/skamabar_restaurante",
+      "handle": "skamabar_restaurante",
+      "tokens": [
+        "skama"
+      ],
+      "handleMatches": [
+        "skama"
+      ],
+      "titleMatches": [
+        "skama"
+      ],
+      "titleHandleMatches": [
+        "skama"
+      ],
+      "textMatches": [
+        "skama"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98677-5976"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "Skama | Bar e Restaurante (@skamabar_restaurante)",
+        "link": "https://instagram.com/skamabar_restaurante",
+        "snippet": "☀️Bar e Restaurante ⏰ Terça à domingo: 09:00 às 17:00 (83) 986775976 org:@matheuszxss · Venha conferir nossas deliciosas peixadas o melhor preço da região, ...",
+        "displayedLink": "Mais de 1,1 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98677-5976"
+  },
+  {
+    "restaurantId": "59147bb0-0a1d-4493-a05a-ba54bd8cd26c",
+    "restaurantName": "Restaurante Ondas",
+    "restaurantCategory": "Restaurante brasileiro",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/restauranteondas",
+      "handle": "restauranteondas",
+      "tokens": [
+        "ondas"
+      ],
+      "handleMatches": [
+        "ondas"
+      ],
+      "titleMatches": [
+        "ondas"
+      ],
+      "titleHandleMatches": [
+        "ondas"
+      ],
+      "textMatches": [
+        "ondas"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98898-8397"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Restaurante Ondas (@restauranteondas)",
+        "link": "https://instagram.com/restauranteondas",
+        "snippet": "Restaurante a beira mar, com culinária especializada em frutos do mar. Aberto de terça a Domingo. 83 98898-8397 Link Para Pedidos ⬇️.",
+        "displayedLink": "Mais de 5,7 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98898-8397"
+  },
+  {
+    "restaurantId": "e6fc253f-7f28-47f8-891f-df98848adda0",
+    "restaurantName": "Center Pizza Cabedelo",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 97,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/centerpizza_cabedelo",
+      "handle": "centerpizza_cabedelo",
+      "tokens": [
+        "center"
+      ],
+      "handleMatches": [
+        "center"
+      ],
+      "titleMatches": [
+        "center"
+      ],
+      "titleHandleMatches": [
+        "center"
+      ],
+      "textMatches": [
+        "center"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "derived_instagram_handle",
+        "position": 2,
+        "title": "Instagram profile @centerpizza_cabedelo",
+        "link": "https://instagram.com/centerpizza_cabedelo",
+        "snippet": "Rua Duque de Caxias, 141 Em frente à Praça Getúlio Vargas – Cabedelo Hoje é dia de casa cheia, pizza saindo quentinha do forno e muito sabor ...",
+        "displayedLink": "derived from Google result",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98629-0531"
+  },
+  {
+    "restaurantId": "ea0bb6d3-17df-4665-b715-32054f497d99",
+    "restaurantName": "Na brasa hambúrgueria",
+    "restaurantCategory": "Lanchonete",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/nabrasa_burg",
+      "handle": "nabrasa_burg",
+      "tokens": [
+        "brasa"
+      ],
+      "handleMatches": [
+        "brasa"
+      ],
+      "titleMatches": [
+        "brasa"
+      ],
+      "titleHandleMatches": [
+        "brasa"
+      ],
+      "textMatches": [
+        "brasa"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [
+        "pastor jose",
+        "jose alves",
+        "oliveira 511"
+      ],
+      "phones": [
+        "(83) 98655-6103"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "NA BRASA / HAMBÚRGUERIA ARTESANAL ...",
+        "link": "https://instagram.com/nabrasa_burg",
+        "snippet": "Parrilla aberto todos os dias vem pra melhor Rua pastor jose alves de oliveira 511- centro (83)98655-6103 promoções diárias só no WhatsApp.",
+        "displayedLink": "Mais de 3,8 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98655-6103"
+  },
+  {
+    "restaurantId": "9007523d-76dc-4621-a738-134d99dfddd1",
+    "restaurantName": "Manos Burger Cabedelo",
+    "restaurantCategory": "Hamburgueria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 97,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/manosburgercabedelo",
+      "handle": "manosburgercabedelo",
+      "tokens": [
+        "manos"
+      ],
+      "handleMatches": [
+        "manos"
+      ],
+      "titleMatches": [
+        "manos"
+      ],
+      "titleHandleMatches": [
+        "manos"
+      ],
+      "textMatches": [
+        "manos"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "locationPhraseMatches": [
+        "getulio vargas"
+      ],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "derived_instagram_handle",
+        "position": 2,
+        "title": "Instagram profile @manosburgercabedelo",
+        "link": "https://instagram.com/manosburgercabedelo",
+        "snippet": "Boa tarde! Estaremos funcionando a partir das 17hs. Praça Getúlio Vargas, trailer vermelho. Aquele burguinho simples mas de qualidade. Vá você ...",
+        "displayedLink": "derived from Google result",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98125-7854"
+  },
+  {
+    "restaurantId": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+    "restaurantName": "Pizzaria tá no ponto",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/pizzariatanoponto",
+      "handle": "pizzariatanoponto",
+      "tokens": [
+        "ponto"
+      ],
+      "handleMatches": [
+        "ponto"
+      ],
+      "titleMatches": [
+        "ponto"
+      ],
+      "titleHandleMatches": [
+        "ponto"
+      ],
+      "textMatches": [
+        "ponto"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99608-4407"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Pizzaria tá no ponto (@pizzariatanoponto)",
+        "link": "https://instagram.com/pizzariatanoponto",
+        "snippet": "EAI, CLIENTELA ❤️ Delivery e retirada à partir das 17:30. Tenha essa experiência em casa 83 99608-4407. Follow. Message ...",
+        "displayedLink": "Mais de 6,2 mil seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  }
+]

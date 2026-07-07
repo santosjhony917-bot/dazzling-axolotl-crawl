@@ -1,0 +1,523 @@
+{
+  "id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+  "name": "Pipa Sushi & Temakeria",
+  "username": "pipatemaki",
+  "instagram": "https://www.instagram.com/pipatemaki/",
+  "applied": true,
+  "forceMedia": true,
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435352051_1.jpg",
+      "source": "instagram_post_image_api",
+      "gridNumber": 5,
+      "postUrl": "https://www.instagram.com/p/DZgEdf4xBb2/",
+      "vision": {
+        "ok": true,
+        "gridNumber": 5,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435352686_2.jpg",
+      "source": "instagram_post_image_api",
+      "gridNumber": 10,
+      "postUrl": "https://www.instagram.com/p/DZflHIFR6wv/",
+      "vision": {
+        "ok": true,
+        "gridNumber": 10,
+        "kind": "food",
+        "score": 90,
+        "reason": "boa iluminação e foco na comida",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435353443_3.jpg",
+      "source": "instagram_post_image_api",
+      "gridNumber": 15,
+      "postUrl": "https://www.instagram.com/p/DV4jsupEc4k/",
+      "vision": {
+        "ok": true,
+        "gridNumber": 15,
+        "kind": "food",
+        "score": 80,
+        "reason": "variedade visual e apresentação atraente",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "cover",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435352051_1.jpg",
+      "source": "best_approved_instagram_api_image"
+    }
+  ],
+  "skipped": [
+    {
+      "kind": "logo",
+      "reason": "imagem_muito_pequena_ou_baixa_qualidade"
+    }
+  ],
+  "profile": {
+    "username": "pipatemaki",
+    "followers": 8064,
+    "posts": 1314,
+    "profilePic": true,
+    "biography": "Todo dia pede Pipa. Bora? 🥗 @pokepipa 🍜 @pipahotfood Faça o seu pedido através do link abaixo ⬇️"
+  },
+  "postCount": 24,
+  "candidates": [
+    {
+      "source": "instagram_post_image_api",
+      "score": 106,
+      "postIndex": 3,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZgEdf4xBb2/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "gridNumber": 5,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 102,
+      "postIndex": 8,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZflHIFR6wv/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "gridNumber": 10,
+        "kind": "food",
+        "score": 90,
+        "reason": "boa iluminação e foco na comida",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 86,
+      "postIndex": 19,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DV4jsupEc4k/",
+      "sourceType": "Image",
+      "width": 1350,
+      "height": 1688,
+      "vision": {
+        "ok": true,
+        "gridNumber": 15,
+        "kind": "food",
+        "score": 80,
+        "reason": "variedade visual e apresentação atraente",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -93,
+      "postIndex": 1,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DWcNbVbEVCp/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "gridNumber": 1,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -96,
+      "postIndex": 0,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DWj92QQEUK7/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "gridNumber": 2,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -98,
+      "postIndex": 2,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYe-3SpkdZv/",
+      "sourceType": "Sidecar",
+      "width": 1122,
+      "height": 1402,
+      "vision": {
+        "ok": false,
+        "gridNumber": 3,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -99,
+      "postIndex": 2,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/DYe-3SpkdZv/",
+      "sourceType": "Image",
+      "width": 1402,
+      "height": 1752,
+      "vision": {
+        "ok": false,
+        "gridNumber": 4,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -100,
+      "postIndex": 4,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZfk82QRzOS/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "gridNumber": 6,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -102,
+      "postIndex": 6,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYK3XtJkd8Q/",
+      "sourceType": "Image",
+      "width": 1254,
+      "height": 1254,
+      "vision": {
+        "ok": false,
+        "gridNumber": 7,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -104,
+      "postIndex": 12,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DSYWKLRF413/",
+      "sourceType": "Image",
+      "width": 1536,
+      "height": 2048,
+      "vision": {
+        "ok": false,
+        "gridNumber": 8,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -106,
+      "postIndex": 10,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DSN_S0eCVXr/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1918,
+      "vision": {
+        "ok": false,
+        "gridNumber": 9,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -109,
+      "postIndex": 17,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DSc2l3ZFglU/",
+      "sourceType": "Image",
+      "width": 1536,
+      "height": 2048,
+      "vision": {
+        "ok": false,
+        "gridNumber": 11,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -111,
+      "postIndex": 11,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DTv3f1XiYqO/",
+      "sourceType": "Image",
+      "width": 1536,
+      "height": 2048,
+      "vision": {
+        "ok": false,
+        "gridNumber": 12,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -111,
+      "postIndex": 15,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DSKn2Kej8XI/",
+      "sourceType": "Image",
+      "width": 1536,
+      "height": 2048,
+      "vision": {
+        "ok": false,
+        "gridNumber": 13,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -114,
+      "postIndex": 14,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DWUGsc3kaju/",
+      "sourceType": "Sidecar",
+      "width": 1080,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 14,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -114,
+      "postIndex": 21,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DVZdVTZkd_Q/",
+      "sourceType": "Image",
+      "width": 1436,
+      "height": 1908,
+      "vision": {
+        "ok": false,
+        "gridNumber": 16,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -114,
+      "postIndex": 23,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZfnYtjkf0d/",
+      "sourceType": "Sidecar",
+      "width": 1080,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 17,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -115,
+      "postIndex": 14,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/DWUGsc3kaju/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 18,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -115,
+      "postIndex": 14,
+      "childIndex": 2,
+      "postUrl": "https://www.instagram.com/p/DWUGsc3kaju/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 19,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -115,
+      "postIndex": 23,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/DZfnYtjkf0d/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 20,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovações focadas em pratos de comida com boa apresentação e iluminação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z\\60d131e5-d7fb-4aa2-b3b0-83af50747ff2-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    }
+  ],
+  "approvedCount": 3,
+  "after": {
+    "hasLogo": false,
+    "hasCover": true,
+    "galleryCount": 3,
+    "galleryRows": [
+      {
+        "id": "ea896c0b-d63d-4da7-9e62-00e642d802d8",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435352051_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "41251017-ee1b-40e8-95f4-7ee59b0b2fa1",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435352686_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "24a88fb5-a8b9-45f8-b50c-aa0a512ad5a8",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435353443_3.jpg",
+        "order_index": 2
+      }
+    ],
+    "complete": false,
+    "missing": [
+      "logo"
+    ]
+  },
+  "promotion": null,
+  "status": "media_incomplete"
+}

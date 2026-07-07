@@ -1,0 +1,227 @@
+{
+  "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+  "name": "Sorveteria Frutos de Goiás - Cabedelo",
+  "instagram": "https://www.instagram.com/frutoscabedelo/",
+  "followers": 2714,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_profile_1783385206832.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385211714_1.jpg",
+      "score": 42,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385213434_2.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385214317_3.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385215122_4.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385216003_5.jpg",
+      "score": 27,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385217001_6.jpg",
+      "score": 25,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385217939_7.jpg",
+      "score": 25,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385218581_8.jpg",
+      "score": 22,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "c5cd28c5-d596-4e2d-b6da-803a83e5808c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385211714_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "368d4ec7-f062-422c-87e8-fcb6b75030dd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385213434_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "21de579e-0a8e-45ca-b4a6-694cdfd617de",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385214317_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "6dd562c3-6ca1-441c-a200-1387aad59b36",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385215122_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "6f384995-8b81-4183-ac8c-ff839a9ab3c6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385216003_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "38cac753-f460-4896-88cc-b9f8d1cb3a5f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385217001_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "4dfb06a4-9b69-4275-8a52-1a7a3e622af8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385217939_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "e32699e2-cdec-4dc5-9dfa-e6f9f14fe492",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9aed5c42-1ab1-47f0-9010-788da722a399/instagram_1783385218581_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 42,
+      "caption": "🚨 Cashback no nosso delivery! 🍦🛵🤑 Agora, todo pedido feito pelo nosso delivery gera 5% de cashback para você usar na próxima compra! 😍💸 Funciona assim: ✅ Peça pelo delivery. ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "🗣️ Bateu aquela vontade de um sorvete? 👉 Pede no nosso delivery! 🚴💨 Pediu? Chegou. 🍦💜 Frutos de Goiás Cabedelo — sabor que chega geladinho até você! Também estamos no iFood. ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Nosso Açaí já marca golaço! 💚💁🏻‍♀️ Um verdadeiro camisa 10 quando o assunto é refrescância e energia! 🔥 #AçaíTradicional #frutosdegoiás",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Sorvete de Caramelo Salgado com Especiarias ✨🤎 Um sabor que é experiência. ✨ O Caramelo Salgado com Especiarias chega para quem busca algo além do comum: cremosidade, equilíbrio e",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "Qual desses vai ser o seu favorito? 😍 em picolé pra todo gosto por aqui! 🤤 Cremosos, frutados, recheados, gourmet, zero açúcar… impossível escolher só um 🍓🍫🥥 Passa na Frutos C",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 25,
+      "caption": "A maternidade é feita de fases. De crescimento. De descobertas. De amor que amadurece com o tempo. 🌱 No vídeo de hoje, compartilhamos uma história real sobre os frutos que a mater",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 25,
+      "caption": "🍦✨ Mais que sorvete, um lugar pra viver bons momentos. Na Frutos Cabedelo, você encontra o melhor sorvete da cidade em um ambiente familiar, acolhedor e perfeito para reunir quem ",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "Páscoa é tempo de compartilhar sabores ✨ Que sua Páscoa seja doce, leve e cheia de momentos especiais! 🐰 Feliz Páscoa! #FrutosDeGoias #FelizPascoa",
+      "vision": null
+    }
+  ]
+}

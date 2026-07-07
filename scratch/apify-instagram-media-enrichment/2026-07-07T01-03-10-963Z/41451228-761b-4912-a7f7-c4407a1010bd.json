@@ -1,0 +1,76 @@
+{
+  "id": "41451228-761b-4912-a7f7-c4407a1010bd",
+  "name": "Barraca Do Anão",
+  "instagram": "https://www.instagram.com/barracadoanaopontadecampina/",
+  "followers": 454,
+  "match": {
+    "score": 145,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 5,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://maps.google.com/?q=Ponta%2520de%2520Campina%2C%2520Cabedelo%2520-%2520PB%2C%252058033-455&ftid=0x7acdf067c910fe7%3A0x7cffff722f45da2c&entry=gps&shh=CAE&lucs=%2C94297699%2C94275415%2C94284502%2C94231188%2C94280568%2C47071704%2C94218641%2C94282134%2C94286869&g_st=ic"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 5,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 5,
+      "galleryRows": [
+        {
+          "id": "d6c2a154-9b37-4ab2-9705-be31b3c7ea89",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385617914_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "23c3f103-f7b6-444c-8971-ee79b32b6319",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385619624_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "d51bbb15-9695-4589-b8f7-9f734c02ee37",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385620671_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "637de049-c4e1-47b6-b064-f64e5c1591c3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385621786_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "a917b4c9-87d4-4fbe-a066-9dc39104ed40",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/41451228-761b-4912-a7f7-c4407a1010bd/instagram_1783385623032_5.jpg",
+          "order_index": 4
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

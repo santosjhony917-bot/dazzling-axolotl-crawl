@@ -1,0 +1,50 @@
+{
+  "id": "c0081954-6410-42be-9abd-96c4300b6ec5",
+  "name": "Cantinho Bom",
+  "category": "Sorveteria",
+  "neighborhood": "Jardim Camboinha",
+  "reviews_count": 1,
+  "rating": 5,
+  "instagramCandidate": "https://instagram.com/cantinhodopaoofc",
+  "score": 88,
+  "title": "Cantinho do Pão | Padaria (@cantinhodopaoofc)",
+  "queries": [
+    "Cantinho Bom cantinhodopaoofc Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://www.instagram.com/cantinhodopaoofc/ | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) ☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim - RJ WhatsApp ↴ ... Mais alguém nos faria esse favor de graça? https://www.instagram.com/cantinhodopaoofc/reels/ | Cantinho do Pão | Padaria (@cantinhodopaoofc) ☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim - RJ WhatsApp ↴ ... Mais alguém nos faria esse favor de",
+  "rowName": "Cantinho Bom",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": -70,
+    "url": "https://instagram.com/cantinhodopaoofc",
+    "handle": "cantinhodopaoofc",
+    "tokens": [
+      "cantinho",
+      "bom"
+    ],
+    "handleMatches": [
+      "cantinho"
+    ],
+    "textMatches": [
+      "cantinho",
+      "bom"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": true,
+    "evidenceSample": "Cantinho do Pão | Padaria (@cantinhodopaoofc) https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://www.instagram.com/cantinhodopaoofc/ | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) 6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ... https://instagram.com/cantinhodopaoofc | Cantinho do Pão | Padaria (@cantinhodopaoofc) ☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim - RJ WhatsApp ↴ ... Mais alguém nos faria esse favor de graça? https://www.instagram.com/cantinhodopaoofc/reels/ | Cantinho do Pão | Padaria (@cantinhodopaoofc) ☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim - RJ WhatsApp ↴ ... Mais alguém nos faria esse favor de Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά ",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fcantinhodopaoofc%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "c660bade-22d4-4175-8cfa-5e4fa056bfce"
+}

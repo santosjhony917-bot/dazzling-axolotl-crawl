@@ -1,0 +1,90 @@
+{
+  "id": "51776391-e0c6-4348-a640-b35b4fb34bb2",
+  "name": "Mimu's da Geisi confeitaria",
+  "instagram": "https://www.instagram.com/mimusdageisi/",
+  "followers": 1193,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/message/GBQD22Z7MVETB1"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "2ac0af8e-a05c-4530-b849-13313b198039",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/51776391-e0c6-4348-a640-b35b4fb34bb2/instagram_1783385914676_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "fdae091c-81e7-4906-9a59-d23335a77009",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/51776391-e0c6-4348-a640-b35b4fb34bb2/instagram_1783385916070_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "f8455a42-b0c2-461f-b40e-56272fa8c80f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/51776391-e0c6-4348-a640-b35b4fb34bb2/instagram_1783385916934_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "f318850e-ec9b-4ff3-82e9-c685fe919e8e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/51776391-e0c6-4348-a640-b35b4fb34bb2/instagram_1783385918217_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "505fad13-839b-4630-8ed6-596ddbec9a46",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/51776391-e0c6-4348-a640-b35b4fb34bb2/instagram_1783385918994_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "5e52d45c-223b-4e04-888b-488acb152fd9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/51776391-e0c6-4348-a640-b35b4fb34bb2/instagram_1783385919660_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "c5da1d94-e269-4214-a7c3-45632e9c3be5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/51776391-e0c6-4348-a640-b35b4fb34bb2/instagram_1783385920298_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "0f1aebfe-c917-4f0b-94e9-f2346f96f117",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/51776391-e0c6-4348-a640-b35b4fb34bb2/instagram_1783385920996_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,346 @@
+[
+  {
+    "restaurantId": "a43626c7-89fe-497c-940e-ffeabc8475fb",
+    "restaurantName": "Bar e Restaurante do Sumé",
+    "restaurantCategory": "Restaurante de frutos do mar",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/bardosumepb",
+      "handle": "bardosumepb",
+      "tokens": [
+        "sume"
+      ],
+      "handleMatches": [
+        "sume"
+      ],
+      "titleMatches": [
+        "sume"
+      ],
+      "titleHandleMatches": [
+        "sume"
+      ],
+      "textMatches": [
+        "sume"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99893-9381"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Sumé | Bar e Restaurante (@bardosumepb) · Cabedelo, PB",
+        "link": "https://instagram.com/bardosumepb",
+        "snippet": "+30 anos oferecendo o melhor da culinária Especialistas em frutos do mar (83) 998939381 · @renallidaoficial ❤️ · Estamos te esperando! · A qualidade você já ...",
+        "displayedLink": "Mais de 5,8 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 3011-0124"
+  },
+  {
+    "restaurantId": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+    "restaurantName": "PARCEIRO Rosa Lanches",
+    "restaurantCategory": "Lanchonete",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/rosaalanches_",
+      "handle": "rosaalanches_",
+      "tokens": [
+        "parceiro",
+        "rosa"
+      ],
+      "handleMatches": [
+        "rosa"
+      ],
+      "titleMatches": [
+        "rosa"
+      ],
+      "titleHandleMatches": [
+        "rosa"
+      ],
+      "textMatches": [
+        "rosa"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [
+        "antonio pontes"
+      ],
+      "phones": [],
+      "openingHoursText": "LANCHONETE EM CABEDELO (PB) (@rosaalanches_). Abrimos todos os dias! Horário de funcionamento das 18h à 01h Endereço: Rua Tenente Antônio Pontes, 139 Faça seu pedido pelo link abaixo.. https://instagram.com/rosaalanches_",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "LANCHONETE EM CABEDELO (PB) (@rosaalanches_)",
+        "link": "https://instagram.com/rosaalanches_",
+        "snippet": "Abrimos todos os dias! Horário de funcionamento das 18h à 01h Endereço: Rua Tenente Antônio Pontes, 139 Faça seu pedido pelo link abaixo.",
+        "displayedLink": "Mais de 6,8 mil seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98836-3792"
+  },
+  {
+    "restaurantId": "6e825bdf-c07e-4b4c-ab3e-98d7fe713928",
+    "restaurantName": "Melhor Sabor - Churrascaria e Self-Service",
+    "restaurantCategory": "Churrascaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 142,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/melhor_sabor01",
+      "handle": "melhor_sabor01",
+      "tokens": [
+        "melhor",
+        "sabor",
+        "selfservice"
+      ],
+      "handleMatches": [
+        "melhor",
+        "sabor"
+      ],
+      "titleMatches": [
+        "melhor",
+        "sabor"
+      ],
+      "titleHandleMatches": [
+        "melhor",
+        "sabor"
+      ],
+      "textMatches": [
+        "melhor",
+        "sabor"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98716-7904"
+      ],
+      "openingHoursText": "RESTAURANTE MELHOR SABOR PRIME .... Churrascaria e Self Service de Comida regional 🏜️ ... Segunda a Sábado (10:50h às 14:00h) ... Pedidos no Whatsapp (83) 98716 -7904.. https://instagram.com/melhor_sabor01",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "RESTAURANTE MELHOR SABOR PRIME ...",
+        "link": "https://instagram.com/melhor_sabor01",
+        "snippet": "Churrascaria e Self Service de Comida regional 🏜️ ... Segunda a Sábado (10:50h às 14:00h) ... Pedidos no Whatsapp (83) 98716 -7904.",
+        "displayedLink": "Mais de 1,5 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98716-7904"
+  },
+  {
+    "restaurantId": "67b9591e-9ba2-4db0-b81f-4cd2d45d03ad",
+    "restaurantName": "Hora Da Pizza",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/horadapizzaa_",
+      "handle": "horadapizzaa_",
+      "tokens": [
+        "hora"
+      ],
+      "handleMatches": [
+        "hora"
+      ],
+      "titleMatches": [
+        "hora"
+      ],
+      "titleHandleMatches": [
+        "hora"
+      ],
+      "textMatches": [
+        "hora"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [
+        "arco iris"
+      ],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "HoradaPizzaDelivery (@horadapizzaa_)",
+        "link": "https://instagram.com/horadapizzaa_",
+        "snippet": "Rua Arco Íris – Cabedelo (83) 9 9935-8904 #HoraDaPizza ... Nosso salão: Rua Arco-Íris – Cabedelo / Jacaré Hora da Pizza – sabor que não decepciona!",
+        "displayedLink": "Mais de 3,6 mil seguidores",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99355-8904"
+  },
+  {
+    "restaurantId": "cb4d3075-dcad-45a2-a348-e8de93ef15cc",
+    "restaurantName": "Açaí da Hill Point",
+    "restaurantCategory": "Loja de açaí",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 138,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/acaidahillpoint",
+      "handle": "acaidahillpoint",
+      "tokens": [
+        "hill",
+        "point"
+      ],
+      "handleMatches": [
+        "hill",
+        "point"
+      ],
+      "titleMatches": [
+        "hill",
+        "point"
+      ],
+      "titleHandleMatches": [
+        "hill",
+        "point"
+      ],
+      "textMatches": [
+        "hill",
+        "point"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [
+        "mar das antilhas",
+        "mar das",
+        "das antilhas"
+      ],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Açaí da Hill Point - Refrescant (@acaidahillpoint)",
+        "link": "https://instagram.com/acaidahillpoint",
+        "snippet": "... Açaí da Hill Point, bem completo e recheado para todos os gostos!! Ficamos localizados na Avenida Mar das Antilhas próximo ao PSF de ...",
+        "displayedLink": "Mais de 470 seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 2178-3682"
+  },
+  {
+    "restaurantId": "a9c18317-7315-45ac-b488-831923c9fd56",
+    "restaurantName": "Deu Pizza Cabedelo",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/deupizzacabedelo",
+      "handle": "deupizzacabedelo",
+      "tokens": [
+        "deu"
+      ],
+      "handleMatches": [
+        "deu"
+      ],
+      "titleMatches": [
+        "deu"
+      ],
+      "titleHandleMatches": [
+        "deu"
+      ],
+      "textMatches": [
+        "deu"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": true,
+      "locationPhraseMatches": [
+        "getulio vargas"
+      ],
+      "phones": [
+        "(83) 99339-5381"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 10,
+        "title": "DEU PIZZA (@deupizzacabedelo) · Cabedelo, PB",
+        "link": "https://instagram.com/deupizzacabedelo",
+        "snippet": "Praça Getúlio Vargas, 95 – Centro, Cabedelo Ao lado da Unidentis Faça a sua reserva conosco: (83) 99339-5381 #DeuPizza #AniversárioComPizza #Cabedelo # ...",
+        "displayedLink": "Mais de 1,8 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99339-5381"
+  }
+]

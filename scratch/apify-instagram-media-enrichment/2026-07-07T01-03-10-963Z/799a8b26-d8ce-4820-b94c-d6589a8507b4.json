@@ -1,0 +1,91 @@
+{
+  "id": "799a8b26-d8ce-4820-b94c-d6589a8507b4",
+  "name": "Daniel do Açaí",
+  "instagram": "https://www.instagram.com/danieldoacai/",
+  "followers": 4962,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/5583986695781"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "9fa93705-9001-4839-8259-4b2caf9e4415",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/799a8b26-d8ce-4820-b94c-d6589a8507b4/instagram_1783385859879_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "d39ea3c8-2f0c-4754-9d1a-df5c3543f299",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/799a8b26-d8ce-4820-b94c-d6589a8507b4/instagram_1783385860893_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "dc070554-9251-4aea-8a21-c4bf860725ef",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/799a8b26-d8ce-4820-b94c-d6589a8507b4/instagram_1783385861710_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "5e326e8f-e799-45ef-ba88-c035f623d6c4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/799a8b26-d8ce-4820-b94c-d6589a8507b4/instagram_1783385862681_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "69ea5ca7-d56e-47be-9f50-91213bc5c318",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/799a8b26-d8ce-4820-b94c-d6589a8507b4/instagram_1783385863370_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "072fe240-900e-47d7-80d9-db6e282e63e7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/799a8b26-d8ce-4820-b94c-d6589a8507b4/instagram_1783385864182_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "5368533d-a1df-46a4-a314-941848b30ba5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/799a8b26-d8ce-4820-b94c-d6589a8507b4/instagram_1783385865214_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "6ff15c95-f2bb-4f48-b1fa-cb5ac4f4e589",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/799a8b26-d8ce-4820-b94c-d6589a8507b4/instagram_1783385866290_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

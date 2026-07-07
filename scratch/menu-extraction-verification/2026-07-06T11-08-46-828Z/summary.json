@@ -1,0 +1,788 @@
+{
+  "runId": "2026-07-06T11-08-46-828Z",
+  "apply": false,
+  "limit": 2,
+  "platform": null,
+  "targetCount": 2,
+  "processed": [
+    {
+      "restaurantId": "83c642b2-3097-454c-8b3d-ccf87ae3b12f",
+      "restaurantName": "Marmitas Delivery",
+      "sourceUrl": "https://whatsmenu.com.br/marmitasdelivery",
+      "platform": "whatsmenu",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-08-46-828Z\\001-marmitas-delivery",
+      "openedTabId": 943016914,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": null,
+      "verificationSnapshots": [],
+      "verificationSnapshotError": null,
+      "extractionSummary": null,
+      "dryRun": null,
+      "committed": false,
+      "visualBlock": null,
+      "error": "Timeout aguardando extensao para full_page_snapshot"
+    },
+    {
+      "restaurantId": "d2d403d0-4a15-4da1-aecd-bd243a0c74f6",
+      "restaurantName": "Portuga lanches",
+      "sourceUrl": "https://pedido.brendi.com.br/portuga-lanches",
+      "platform": "pedido.brendi.com.br",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-08-46-828Z\\002-portuga-lanches",
+      "openedTabId": 943016947,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 13,
+          "scrollHeight": 7787,
+          "capturedHeight": 7787,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 9734,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943016947,
+          "url": "https://pedido.brendi.com.br/portuga-lanches",
+          "title": "Portuga lanches - Sorocaba, SP | Brendi"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783336350785_lvwqxscv.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783336350785_lvwqxscv.jpg",
+          "bytes": 928245
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943016947,
+            "clientHeight": 674,
+            "maxScrollTop": 7113,
+            "reachedEnd": false,
+            "scrollHeight": 7787,
+            "scrollTop": 0,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783336371325_aez6b9w9.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783336371325_aez6b9w9.jpg",
+            "bytes": 100196
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016947,
+            "url": "https://pedido.brendi.com.br/portuga-lanches",
+            "title": "Portuga lanches - Sorocaba, SP | Brendi"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.22,
+          "scroll": {
+            "tabId": 943016947,
+            "clientHeight": 674,
+            "maxScrollTop": 7113,
+            "reachedEnd": false,
+            "scrollHeight": 7787,
+            "scrollTop": 1565,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783336378534_g7ntg2qv.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783336378534_g7ntg2qv.jpg",
+            "bytes": 100196
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016947,
+            "url": "https://pedido.brendi.com.br/portuga-lanches",
+            "title": "Portuga lanches - Sorocaba, SP | Brendi"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.45,
+          "scroll": {
+            "tabId": 943016947,
+            "clientHeight": 674,
+            "maxScrollTop": 7113,
+            "reachedEnd": false,
+            "scrollHeight": 7787,
+            "scrollTop": 3201,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783336405492_hskn3zfg.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783336405492_hskn3zfg.jpg",
+            "bytes": 100196
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016947,
+            "url": "https://pedido.brendi.com.br/portuga-lanches",
+            "title": "Portuga lanches - Sorocaba, SP | Brendi"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.68,
+          "scroll": {
+            "tabId": 943016947,
+            "clientHeight": 674,
+            "maxScrollTop": 7113,
+            "reachedEnd": false,
+            "scrollHeight": 7787,
+            "scrollTop": 4837,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783336412709_l515t3lu.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783336412709_l515t3lu.jpg",
+            "bytes": 100196
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016947,
+            "url": "https://pedido.brendi.com.br/portuga-lanches",
+            "title": "Portuga lanches - Sorocaba, SP | Brendi"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.9,
+          "scroll": {
+            "tabId": 943016947,
+            "clientHeight": 674,
+            "maxScrollTop": 7113,
+            "reachedEnd": false,
+            "scrollHeight": 7787,
+            "scrollTop": 6402,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783336419979_rfig15js.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783336419979_rfig15js.jpg",
+            "bytes": 100196
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016947,
+            "url": "https://pedido.brendi.com.br/portuga-lanches",
+            "title": "Portuga lanches - Sorocaba, SP | Brendi"
+          },
+          "error": null
+        },
+        {
+          "ratio": 1,
+          "scroll": {
+            "tabId": 943016947,
+            "clientHeight": 674,
+            "maxScrollTop": 7113,
+            "reachedEnd": true,
+            "scrollHeight": 7787,
+            "scrollTop": 7113,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783336427198_st7ud7tz.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783336427198_st7ud7tz.jpg",
+            "bytes": 100196
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016947,
+            "url": "https://pedido.brendi.com.br/portuga-lanches",
+            "title": "Portuga lanches - Sorocaba, SP | Brendi"
+          },
+          "error": null
+        }
+      ],
+      "verificationSnapshotError": null,
+      "extractionSummary": {
+        "success": true,
+        "platform": "visible_text",
+        "error": null,
+        "confidence": 0.74,
+        "extractionLevel": 1,
+        "categoryCount": 2,
+        "itemCount": 46,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": [
+          {
+            "name": "Cardápio",
+            "count": 13,
+            "items": [
+              {
+                "name": "HOT DOG SIMPLES",
+                "price": 16,
+                "optionCount": 0
+              },
+              {
+                "name": "X-Frango",
+                "price": 33,
+                "optionCount": 0
+              },
+              {
+                "name": "X-Calabresa",
+                "price": 27,
+                "optionCount": 0
+              },
+              {
+                "name": "Hot Dog Especial",
+                "price": 29.9,
+                "optionCount": 0
+              },
+              {
+                "name": "A partir de",
+                "price": 29.9,
+                "optionCount": 0
+              }
+            ]
+          },
+          {
+            "name": "Lanches do Portuga",
+            "count": 33,
+            "items": [
+              {
+                "name": "A partir de",
+                "price": 25,
+                "optionCount": 0
+              },
+              {
+                "name": "A partir de",
+                "price": 24,
+                "optionCount": 0
+              },
+              {
+                "name": "A partir de",
+                "price": 28,
+                "optionCount": 0
+              },
+              {
+                "name": "A partir de",
+                "price": 24.5,
+                "optionCount": 0
+              },
+              {
+                "name": "A partir de",
+                "price": 33,
+                "optionCount": 0
+              }
+            ]
+          }
+        ]
+      },
+      "dryRun": {
+        "success": true,
+        "dryRun": true,
+        "audit": {
+          "approved": false,
+          "confidence": 0.74,
+          "categoryCount": 1,
+          "itemCount": 33,
+          "resolvedPriceCount": 33,
+          "unresolvedPriceCount": 0,
+          "optionPriceCount": 0,
+          "pricedRatio": 1,
+          "issues": [],
+          "optionSemanticAI": {
+            "used": false,
+            "reason": "no_groups"
+          }
+        },
+        "preview": [
+          {
+            "name": "Sanduíches",
+            "count": 33,
+            "samples": [
+              {
+                "name": "A partir de",
+                "price": 25,
+                "kind": "simple_item",
+                "description": "Pão redondo, 1 Hambúrguer, Mussarela, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese, sensacional!"
+              },
+              {
+                "name": "A partir de",
+                "price": 24,
+                "kind": "simple_item",
+                "description": "Pão redondo, 2 Hambúrgueres, Mussarela, Milho, Tomate, Mostarda, Ketchup e Maionese, surreal!"
+              },
+              {
+                "name": "A partir de",
+                "price": 28,
+                "kind": "simple_item",
+                "description": "Pão redondo, 2 Ovos, Apresuntado, Mussarela, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese, uma explosão de sabor!"
+              },
+              {
+                "name": "A partir de",
+                "price": 24.5,
+                "kind": "simple_item",
+                "description": "Pão redondo, 1 Ovo, 1 Hambúrguer, Mussarela, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese, delicioso."
+              },
+              {
+                "name": "A partir de",
+                "price": 33,
+                "kind": "simple_item",
+                "description": "Pão redondo, Frango desfiado, Mussarela, Bacon, Requeijão, Milho, Tomate, Mostarda, Ketchup e Maionese, imperdível!"
+              }
+            ]
+          }
+        ],
+        "categories": [
+          {
+            "name": "Sanduíches",
+            "items": [
+              {
+                "name": "A partir de",
+                "description": "Pão redondo, 1 Hambúrguer, Mussarela, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese, sensacional!",
+                "price": 25,
+                "display_price": 25,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Pão redondo, 2 Hambúrgueres, Mussarela, Milho, Tomate, Mostarda, Ketchup e Maionese, surreal!",
+                "price": 24,
+                "display_price": 24,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Pão redondo, 2 Ovos, Apresuntado, Mussarela, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese, uma explosão de sabor!",
+                "price": 28,
+                "display_price": 28,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Pão redondo, 1 Ovo, 1 Hambúrguer, Mussarela, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese, delicioso.",
+                "price": 24.5,
+                "display_price": 24.5,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Pão redondo, Frango desfiado, Mussarela, Bacon, Requeijão, Milho, Tomate, Mostarda, Ketchup e Maionese, imperdível!",
+                "price": 33,
+                "display_price": 33,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Pão redondo, Calabresa, 1 Hamburguer, Mussarela da Melhor Qualidade, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese.",
+                "price": 27,
+                "display_price": 27,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Pão redondo, Bacon, 1 Hambúrguer, Mussarela, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese, saboroso.",
+                "price": 36,
+                "display_price": 36,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "A partir de",
+                "description": "Pão redondo, 1 Sals, 1 Hamb, 1 Ovo, 1 Calabresa, Bacon, Frango desfiado, Mussarela, Milho, Tomate, Alface, Mostarda, Ketchup e Maionese, uma delícia.",
+                "price": 90,
+                "display_price": 90,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Batatas Recheadas do Portuga - Surreais!",
+                "description": "Batata Recheada Calabresa Batata assada, Calabresa, Mussarela, Requeijão e Batata palha crocante.",
+                "price": 39,
+                "display_price": 39,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Batata Recheada Franbacon",
+                "description": "Batata assada, Frango desfiado, Bacon, Mussarela, Requeijão e Batata palha",
+                "price": 36,
+                "display_price": 36,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Batata Recheada Brócolis",
+                "description": "Batata assada, Brócolis, Bacon, Mussarela, Requeijão e Batata palha, deliciosa.",
+                "price": 38,
+                "display_price": 38,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Batata Recheada Caipira",
+                "description": "Batata assada, Frango desfiado, Bacon, Milho, Mussarela, Requeijão e Batata palha, irresistível!",
+                "price": 37,
+                "display_price": 37,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Batata Recheada Strogonoff Carne",
+                "description": "Batata assada, Strogonoff de carne, Mussarela, Requeijão e Batata palha, uma explosão de sabor.",
+                "price": 42,
+                "display_price": 42,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Batata Recheada Strogonoff Frango",
+                "description": "Batata assada, Strogonoff de frango, Mussarela, Requeijão e Batata palha, imperdível!",
+                "price": 37,
+                "display_price": 37,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Batata Recheada Bacon",
+                "description": "Batata assada, Bacon, Mussarela, Requeijão e Batata palha, uma delícia.",
+                "price": 41,
+                "display_price": 41,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Fritas",
+                "description": "BATATA FRITA BACON E CHEDDAR",
+                "price": 35,
+                "display_price": 35,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "BATATA FRITA SIMPLES",
+                "description": "UMA PORÇÃO DE 300 GRAMAS DE FRITAS",
+                "price": 20,
+                "display_price": 20,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Refrescos do Portuga Geladinhos!!",
+                "description": "Coca-Cola Lata 350ml Lata 350ml",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Fanta Laranja Lata 350ml",
+                "description": "Lata 350ml",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Coca Cola Zero Lata 350ml",
+                "description": "Lata 350ml",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Fanta Uva 350ml",
+                "description": "Lata 350ml",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Sprite Original 350 ml",
+                "description": "Lata 350ml",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "COCA COLA 2 LITROS PET",
+                "description": "",
+                "price": 18,
+                "display_price": 18,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "COCA COLA ZERO 2 LITROS",
+                "description": "",
+                "price": 18,
+                "display_price": 18,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Bellas Frutas",
+                "description": "",
+                "price": 12,
+                "display_price": 12,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Água Mineral Cristal Premium 510ml",
+                "description": "Unidade 510ml",
+                "price": 5,
+                "display_price": 5,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "BRHAMA 350 ML",
+                "description": "",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "SKOL 350 ML",
+                "description": "",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "H2O 500 ML",
+                "description": "",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "DEL VALLE SABORES LATA 290ML",
+                "description": "",
+                "price": 8,
+                "display_price": 8,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Alfajor",
+                "description": "Alfajor",
+                "price": 10,
+                "display_price": 10,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "Caldos",
+                "description": "Caldo Joob do Portuga Mandioca, frango, Bacon e Calabresa",
+                "price": 25,
+                "display_price": 25,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              },
+              {
+                "name": "© 2026 Brendi - 37.59",
+                "description": "8/0001-09",
+                "price": 3.57,
+                "display_price": 3.57,
+                "price_type": "fixed",
+                "commercial_type": "simple_item",
+                "image_url": null,
+                "combo_components": [],
+                "combo_rules": null,
+                "option_groups": [],
+                "options": []
+              }
+            ]
+          }
+        ],
+        "message": "Prévia estruturada com 33 itens via visible_text."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T11-08-46-828Z\\002-portuga-lanches\\menu-evidence.json"
+    }
+  ]
+}

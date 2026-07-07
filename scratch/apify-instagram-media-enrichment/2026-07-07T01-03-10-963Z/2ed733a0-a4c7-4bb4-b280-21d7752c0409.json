@@ -1,0 +1,91 @@
+{
+  "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+  "name": "Sushiyaki Restaurante",
+  "instagram": "https://www.instagram.com/sushiyaki_restaurante/",
+  "followers": 3651,
+  "match": {
+    "score": 145,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://delivery.yooga.app/sushiyaki"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "72d61ccb-fd35-49a0-acc7-1938f2f41351",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385664450_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "7b433f1f-9938-414a-8bb6-48ce419a78ad",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385666394_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "67ac0665-ede3-4e04-8df6-d41c27d80306",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385667097_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "4712523d-df45-4cc9-83c1-8bfb5014239f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385668429_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "79706518-4a49-40d6-a87e-3dd1077b0d55",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385669380_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "8306c7b2-1760-4afc-add3-9152adb50b8c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385670245_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "2df279c0-6ec6-438e-b7a2-d09fc123ebfd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385671295_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "93bb51dd-10c4-45a1-87a2-3ff57c977fac",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/2ed733a0-a4c7-4bb4-b280-21d7752c0409/instagram_1783385672478_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

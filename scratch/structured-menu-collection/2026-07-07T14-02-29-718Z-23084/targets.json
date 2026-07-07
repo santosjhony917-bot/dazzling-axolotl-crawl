@@ -1,0 +1,30 @@
+[
+  {
+    "restaurantId": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+    "restaurantName": "Forneria Brasil Express",
+    "sourceUrl": "https://instadelivery.com.br/FornoBrasilExpress",
+    "platform": "instadelivery",
+    "reviewsCount": null,
+    "address": null,
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": null,
+    "queueEntry": {
+      "restaurant_id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "restaurantId": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express",
+      "restaurantName": "Forneria Brasil Express",
+      "platform": "instadelivery",
+      "tier": "green",
+      "source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "sourceUrl": "https://instadelivery.com.br/FornoBrasilExpress",
+      "raw_source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "source_field": "chat3_green_batch",
+      "category": null,
+      "address": null,
+      "city": "Cabedelo",
+      "state": "PB",
+      "rank": 6
+    }
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "runId": "2026-07-07T09-55-12-944Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T09-55-12-944Z",
+  "scope": {
+    "ids": [
+      "297a6b03-242d-4d91-9f64-73e736972946"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 0,
+  "needsReview": 1,
+  "blocked": 0,
+  "issueCounts": {
+    "grupo_instrucao_revisar": 1
+  },
+  "audits": [
+    {
+      "id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "readiness": "needs_review",
+      "redCount": 0,
+      "yellowCount": 1,
+      "issueCount": 1,
+      "categoryCount": 5,
+      "itemCount": 35,
+      "optionCount": 42,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "35 itens estruturados via brendi_nuxt_payload; mídia mínima completa.",
+      "source": {
+        "menu": "https://menu.brendi.com.br/oxiburguercabedelo/",
+        "instagram": "https://www.instagram.com/oxicabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:03.063Z",
+          "status": "enriched",
+          "username": "oxicabedelo",
+          "followers": 887,
+          "match": {
+            "score": 145,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://menu.brendi.com.br/oxiburguercabedelo/",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Maria das Neves Silva",
+        "number": "324",
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58101-660",
+        "phone": "(83) 98793-1915",
+        "latitude": -7.0283906,
+        "longitude": -34.835923699999995,
+        "followers": 887
+      },
+      "issues": [
+        {
+          "severity": "yellow",
+          "code": "grupo_instrucao_revisar",
+          "itemId": "f345cc40-0b92-468a-a9c0-f99848584940",
+          "item": "Meu Xodó",
+          "group": "Transforme em combo"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+  "name": "Forneria Brasil Express 🍕",
+  "instagram": "https://www.instagram.com/forneria_brasilexpress/",
+  "followers": 15556,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_profile_1783385882693.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385887461_1.jpg",
+      "score": 37,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385889089_2.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385890294_3.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385891915_4.jpg",
+      "score": 33,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385892875_5.jpg",
+      "score": 32,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385893674_6.jpg",
+      "score": 30,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385894507_7.jpg",
+      "score": 29,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385895515_8.jpg",
+      "score": 29,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "5476ec43-8f05-4a77-b596-e3d2b87422cf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385887461_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "ddddcecb-7963-4fd7-99a8-ee07fcdb09ce",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385889089_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "9d333a69-9bc2-4638-aebc-7d7878437476",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385890294_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "d3fbc1c2-ca0e-4578-b031-64d5140b00fc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385891915_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "b2f1b846-a7ae-4148-beac-3f5e21464f8c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385892875_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "44193c8f-2832-4e51-a5fc-80a614bd941e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385893674_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "1ed0de53-728b-46f8-a94b-b66720ca1849",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385894507_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "e28ec21a-e8e3-4739-a94a-17e7669cd4bc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_1783385895515_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 37,
+      "caption": "https://instadelivery.com.br/FornoBrasilExpress a melhor da cidade ! #pizzasartesanales #cabedelo #cabedelobeach",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "Entrega da premiação Melhores do Ano de Cabedelo/PB! 🏆 Agradecemos a todos que participaram votando nas nossas redes sociais e ajudaram a eleger os vencedores pela opinião pública",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "Novidade na Forneria Brasil Express! A partir desta quarta-feira, você vai poder saborear nosso Combo Especial com 4 Sabores — perfeito para quem quer variedade e muito mais sabor ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 33,
+      "caption": "Novidade na Forneria Brasil Express! A partir desta quarta-feira, você vai poder saborear nosso Combo Especial com 4 Sabores — perfeito para quem quer variedade e muito mais sabor ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 32,
+      "caption": "Novidade na Forneria Brasil Express! A partir desta quarta-feira, você vai poder saborear nosso Combo Especial com 4 Sabores — perfeito para quem quer variedade e muito mais sabor ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 30,
+      "caption": "combo família https://instadelivery.com.br/FornoBrasilExpress",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "quarta feira com promoção pizzas tradicionais desconto no final do pedido garanta já a sua !",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "@forneria_brasilexpress está entre os grandes destaques confirmados no maior encontro empresarial e profissional de Cabedelo/PB. 🏆 Após conquistar o reconhecimento em pesquisa de ",
+      "vision": null
+    }
+  ]
+}

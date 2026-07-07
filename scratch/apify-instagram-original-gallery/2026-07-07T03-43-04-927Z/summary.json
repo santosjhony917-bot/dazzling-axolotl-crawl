@@ -1,0 +1,34 @@
+{
+  "runId": "2026-07-07T03-43-04-927Z",
+  "outDir": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-43-04-927Z",
+  "apply": false,
+  "forceMedia": false,
+  "promote": false,
+  "processed": 1,
+  "mediaComplete": 0,
+  "mediaIncomplete": 1,
+  "failed": 0,
+  "promoted": 0,
+  "results": [
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "status": "media_incomplete",
+      "posts": 31,
+      "approved": 4,
+      "uploads": 4,
+      "after": {
+        "hasLogo": true,
+        "hasCover": false,
+        "galleryCount": 0,
+        "galleryRows": [],
+        "complete": false,
+        "missing": [
+          "capa",
+          "galeria_min_3"
+        ]
+      },
+      "reason": null
+    }
+  ]
+}

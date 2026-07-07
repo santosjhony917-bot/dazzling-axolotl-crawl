@@ -1,0 +1,54 @@
+[
+  {
+    "restaurantId": "1653a7ff-cb75-4303-b780-0580642c5974",
+    "restaurantName": "Primo Rico",
+    "sourceUrl": "https://delivery.yooga.app/restaurante-primo-rico",
+    "platform": "yooga",
+    "reviewsCount": 903,
+    "address": "Av. Oceano Atlântico, S/N",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98820-1132",
+    "queueEntry": {
+      "restaurant_id": "1653a7ff-cb75-4303-b780-0580642c5974",
+      "name": "Primo Rico",
+      "platform": "yooga",
+      "tier": "green",
+      "priority_score": 51,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://delivery.yooga.app/restaurante-primo-rico",
+      "raw_source_url": "https://delivery.yooga.app/restaurante-primo-rico",
+      "other_url": "https://delivery.yooga.app/restaurante-primo-rico",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Restaurante self-service",
+      "address": "Av. Oceano Atlântico, S/N",
+      "neighborhood": "Intermares",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98820-1132",
+      "rating": 4.3,
+      "reviews_count": 903,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://delivery.yooga.app/restaurante-primo-rico",
+          "canonical_url": "https://delivery.yooga.app/restaurante-primo-rico",
+          "platform": "yooga",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 13
+    }
+  }
+]

@@ -1,0 +1,259 @@
+[
+  {
+    "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+    "name": "Center Pizza Cabedelo",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "ec6b2565-934c-4278-9a8a-63168eb819f2",
+    "name": "DAWN BURGUER",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+    "name": "Espaço Do Sushi",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+    "name": "Eu Quero Pizza",
+    "redCount": 1,
+    "issueCodes": [
+      "numero_vazio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "numero_vazio"
+      }
+    ]
+  },
+  {
+    "id": "49423823-d994-4263-9597-cb829e208129",
+    "name": "Home Smash Burger",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+    "name": "Ilovepizzapb",
+    "redCount": 1,
+    "issueCodes": [
+      "numero_vazio"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "numero_vazio"
+      }
+    ]
+  },
+  {
+    "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+    "name": "Lary's pizzaria e lanchonete",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+    "name": "Manguinhos Burguer",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "297a6b03-242d-4d91-9f64-73e736972946",
+    "name": "Oxi Burguer Cabedelo",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+    "name": "PARCEIRO Rosa Lanches",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+    "name": "Pastelaria Litorânea",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "a84400f3-afea-406e-a1ec-93c1b6e8d34f",
+    "name": "Pizzaria Bom Sabor",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "name": "Porto do açaí",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+    "name": "Primo Rico",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+    "name": "Restaurante Pôr do Sol",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+    "name": "Sorveteria Frutos de Goiás - Cabedelo",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+    "name": "Sushiyaki Restaurante",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+    "name": "VITAMINA DE AÇAÍ",
+    "redCount": 2,
+    "issueCodes": [
+      "numero_vazio",
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "numero_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  }
+]

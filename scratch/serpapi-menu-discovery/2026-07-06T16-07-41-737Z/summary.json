@@ -1,0 +1,48 @@
+{
+  "runId": "2026-07-06T16-07-41-737Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "menu",
+  "apply": false,
+  "processed": 1,
+  "foundGreen": 0,
+  "foundYellow": 1,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "instagram": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-07-41-737Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-07-41-737Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-07-41-737Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": "b9232f4a-86ea-44a4-9a27-8471c5403d5d",
+        "name": "Necão Restaurante",
+        "category": "",
+        "address": "R. Santarém, 368",
+        "neighborhood": "Malvinas",
+        "rating": 4.8,
+        "reviews_count": 3560
+      },
+      "query": "\"Necão Restaurante\" Malvinas R. Santarém (83) 98838-0726 Campina Grande PB cardapio pedido delivery",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "Necão Restaurante on Instagram: \"Descubra uma experiência ...",
+        "link": "https://instagram.com/reel/C7HPJPSuCFb",
+        "snippet": "Entregamos em toda Campina Grande-PB Faça seu pedido! Link na bio ... Necão Restaurante Quentinhas Quentinha Mini - 500ml R$ 16,00 ...",
+        "displayedLink": "Mais de 100 marcações \"Gostei\" · há 2 anos",
+        "platform": "instagram",
+        "score": 55,
+        "tier": "yellow",
+        "flags": [
+          "instagram_reel_not_profile"
+        ]
+      },
+      "candidateCount": 5
+    }
+  ]
+}

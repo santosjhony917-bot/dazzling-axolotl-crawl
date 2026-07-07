@@ -1,0 +1,92 @@
+[
+  {
+    "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+    "name": "I love burguer",
+    "redCount": 13,
+    "issueCodes": [
+      "adicional_salvo_como_item_avulso"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "e963cb3f-e684-4931-afd0-3dd5e7a810f1",
+        "category": "Adicionais",
+        "item": "Bacon",
+        "price": 5
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "f3aafb65-5282-448a-9712-b8145d3bf8fb",
+        "category": "Adicionais",
+        "item": "cheddar Polenghi",
+        "price": 4
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "11575110-f98f-4237-bef0-40412e5a45fa",
+        "category": "Adicionais",
+        "item": "Catupiry Original",
+        "price": 5
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "eecf4532-ebd5-4dcd-84e5-1756b7a1a14c",
+        "category": "Adicionais",
+        "item": "Salada",
+        "price": 4
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "eb5afd38-972d-4433-b18d-68e0d37caf2c",
+        "category": "Adicionais",
+        "item": "Ovo frito",
+        "price": 2
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "32e9320f-3634-4259-b1b4-775291ede784",
+        "category": "Adicionais",
+        "item": "queijo mussarela",
+        "price": 4
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "07500afa-449c-42c6-82b2-6482e172c0af",
+        "category": "Adicionais",
+        "item": "Calabresa",
+        "price": 4
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "613d4ff6-64c0-45e8-9042-6fc5e41567be",
+        "category": "Adicionais",
+        "item": "molho verde",
+        "price": 2
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "e2c8eb78-081f-4bca-b256-49264b8019ef",
+        "category": "Adicionais",
+        "item": "Molho barbecue",
+        "price": 2
+      },
+      {
+        "severity": "red",
+        "code": "adicional_salvo_como_item_avulso",
+        "itemId": "36bd1e99-9bdc-4930-9cd5-86411788b594",
+        "category": "Adicionais",
+        "item": "Cebola caramelizada",
+        "price": 4
+      }
+    ]
+  }
+]

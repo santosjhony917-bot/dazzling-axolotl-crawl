@@ -1,0 +1,23 @@
+[
+  {
+    "platform": "instadelivery",
+    "count": 1,
+    "code": 0,
+    "durationMs": 87899,
+    "parsed": {
+      "success": true,
+      "runId": "2026-07-07T13-08-13-450Z-17808",
+      "outDir": "scratch\\structured-menu-collection\\2026-07-07T13-08-13-450Z-17808",
+      "counts": {
+        "processed": 1,
+        "committed": 1,
+        "errors": 0,
+        "green": 1,
+        "yellow": 0,
+        "red": 0
+      },
+      "report": "scratch\\structured-menu-collection\\2026-07-07T13-08-13-450Z-17808\\report.md"
+    },
+    "stderrTail": ""
+  }
+]

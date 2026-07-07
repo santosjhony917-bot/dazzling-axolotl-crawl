@@ -1,0 +1,496 @@
+{
+  "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+  "name": "Forneria Brasil Express 🍕",
+  "username": "forneria_brasilexpress",
+  "instagram": "https://www.instagram.com/forneria_brasilexpress/",
+  "applied": true,
+  "forceMedia": true,
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 0,
+    "galleryRows": [],
+    "complete": false,
+    "missing": [
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435276587_1.jpg",
+      "source": "instagram_post_image_api",
+      "gridNumber": 5,
+      "postUrl": "https://www.instagram.com/p/DCSK-EJyky0/",
+      "vision": {
+        "ok": true,
+        "gridNumber": 5,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435277197_2.jpg",
+      "source": "instagram_post_image_api",
+      "gridNumber": 10,
+      "postUrl": "https://www.instagram.com/p/DT1Ly_giRXF/",
+      "vision": {
+        "ok": true,
+        "gridNumber": 10,
+        "kind": "food",
+        "score": 90,
+        "reason": "boa iluminação e foco na comida",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435277895_3.jpg",
+      "source": "instagram_post_image_api",
+      "gridNumber": 15,
+      "postUrl": "https://www.instagram.com/p/DEsqi1BS4R_/",
+      "vision": {
+        "ok": true,
+        "gridNumber": 15,
+        "kind": "food",
+        "score": 88,
+        "reason": "variedade visual e apetitosa",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435278689_4.jpg",
+      "source": "instagram_post_image_api",
+      "gridNumber": 12,
+      "postUrl": "https://www.instagram.com/p/C-DZOqPxw0R/",
+      "vision": {
+        "ok": true,
+        "gridNumber": 12,
+        "kind": "food",
+        "score": 80,
+        "reason": "prato bem apresentado",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "cover",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435276587_1.jpg",
+      "source": "best_approved_instagram_api_image"
+    }
+  ],
+  "skipped": [],
+  "profile": {
+    "username": "forneria_brasilexpress",
+    "followers": 15551,
+    "posts": 310,
+    "profilePic": true,
+    "biography": "Delivery e retirada 🛵 rua João Galdino de Barros n 12 b ⏰17:00h Às 03:00 @brunamiranda2026 Clayton @aurora.pizzaria 📲| Peça Com DESCONTO Aqui ⤵️"
+  },
+  "postCount": 24,
+  "candidates": [
+    {
+      "source": "instagram_post_image_api",
+      "score": 106,
+      "postIndex": 3,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DCSK-EJyky0/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": true,
+        "gridNumber": 5,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 102,
+      "postIndex": 12,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DT1Ly_giRXF/",
+      "sourceType": "Image",
+      "width": 953,
+      "height": 1080,
+      "vision": {
+        "ok": true,
+        "gridNumber": 10,
+        "kind": "food",
+        "score": 90,
+        "reason": "boa iluminação e foco na comida",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 95,
+      "postIndex": 17,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DEsqi1BS4R_/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": true,
+        "gridNumber": 15,
+        "kind": "food",
+        "score": 88,
+        "reason": "variedade visual e apetitosa",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 90,
+      "postIndex": 21,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/C-DZOqPxw0R/",
+      "sourceType": "Image",
+      "width": 1207,
+      "height": 1509,
+      "vision": {
+        "ok": true,
+        "gridNumber": 12,
+        "kind": "food",
+        "score": 80,
+        "reason": "prato bem apresentado",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -96,
+      "postIndex": 0,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DTxscvxjuXX/",
+      "sourceType": "Image",
+      "width": 976,
+      "height": 1314,
+      "vision": {
+        "ok": false,
+        "gridNumber": 1,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -97,
+      "postIndex": 1,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DYf6hYlJ6Mp/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 1080,
+      "vision": {
+        "ok": false,
+        "gridNumber": 2,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -97,
+      "postIndex": 5,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DJR5zGTJjlI/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1441,
+      "vision": {
+        "ok": false,
+        "gridNumber": 3,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -98,
+      "postIndex": 2,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DTTJV0UDqR_/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1939,
+      "vision": {
+        "ok": false,
+        "gridNumber": 4,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -103,
+      "postIndex": 7,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DEsqrPjyilg/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 6,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -104,
+      "postIndex": 6,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DWZg7Iiibwf/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 769,
+      "vision": {
+        "ok": false,
+        "gridNumber": 7,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -106,
+      "postIndex": 10,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DEsq1iNyUPa/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 8,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -107,
+      "postIndex": 15,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DJR53gQJJfF/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 9,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -110,
+      "postIndex": 19,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DJR57xiJpcc/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 11,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -110,
+      "postIndex": 22,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DES9sLBxjwA/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 13,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -111,
+      "postIndex": 9,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DWao_S-jZYM/",
+      "sourceType": "Image",
+      "width": 1080,
+      "height": 751,
+      "vision": {
+        "ok": false,
+        "gridNumber": 14,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -114,
+      "postIndex": 18,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DCSK543S_Ln/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 16,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -114,
+      "postIndex": 23,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DCSK1qcSPXg/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": false,
+        "gridNumber": 17,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -119,
+      "postIndex": 13,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DWUqdiiiYIl/",
+      "sourceType": "Image",
+      "width": 810,
+      "height": 1080,
+      "vision": {
+        "ok": false,
+        "gridNumber": 18,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de fotos de comida com boa qualidade e apresentação.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-40-24-863Z\\0b4eb55c-e0d9-4068-b198-e5f8cb7a985e-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    }
+  ],
+  "approvedCount": 4,
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 4,
+    "galleryRows": [
+      {
+        "id": "d0d8e277-a563-48c4-8331-e1f762e22318",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435276587_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "9e3d1786-93b4-4235-9237-a1a665548931",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435277197_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "8ae9f2a5-02ea-491e-ab25-1b0db1a32349",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435277895_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "ae159265-18cc-479b-ba36-d06a537445b2",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0b4eb55c-e0d9-4068-b198-e5f8cb7a985e/instagram_original_1783435278689_4.jpg",
+        "order_index": 3
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "promotion": null,
+  "status": "media_complete"
+}

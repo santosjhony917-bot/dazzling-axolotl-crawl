@@ -1,0 +1,45 @@
+{
+  "url": "https://api3.whatsmenu.com.br/api/v3/business/pastelarialitoranea/cupons",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 513,
+  "textSample": "[{\"id\":3164237,\"profileId\":15970,\"code\":\"8709-6577\",\"type\":\"value\",\"value\":5,\"minValue\":0,\"status\":1,\"firstOnly\":0,\"controls\":{},\"progressive\":0,\"deleted_at\":null,\"created_at\":\"2026-05-31T22:41:13.000-03:00\",\"updated_at\":\"2026-05-31T22:41:13.000-03:00\"},{\"id\":3162794,\"profileId\":15970,\"code\":\"PRIMEIRACOMPRA\",\"type\":\"value\",\"value\":10,\"minValue\":0,\"status\":1,\"firstOnly\":0,\"controls\":{},\"progressive\":0,\"deleted_at\":null,\"created_at\":\"2026-04-26T18:07:32.000-03:00\",\"updated_at\":\"2026-04-26T18:07:32.000-03:00\"}]",
+  "jsonKeys": [
+    "array",
+    "2"
+  ],
+  "json": [
+    {
+      "id": 3164237,
+      "profileId": 15970,
+      "code": "8709-6577",
+      "type": "value",
+      "value": 5,
+      "minValue": 0,
+      "status": 1,
+      "firstOnly": 0,
+      "controls": {},
+      "progressive": 0,
+      "deleted_at": null,
+      "created_at": "2026-05-31T22:41:13.000-03:00",
+      "updated_at": "2026-05-31T22:41:13.000-03:00"
+    },
+    {
+      "id": 3162794,
+      "profileId": 15970,
+      "code": "PRIMEIRACOMPRA",
+      "type": "value",
+      "value": 10,
+      "minValue": 0,
+      "status": 1,
+      "firstOnly": 0,
+      "controls": {},
+      "progressive": 0,
+      "deleted_at": null,
+      "created_at": "2026-04-26T18:07:32.000-03:00",
+      "updated_at": "2026-04-26T18:07:32.000-03:00"
+    }
+  ]
+}

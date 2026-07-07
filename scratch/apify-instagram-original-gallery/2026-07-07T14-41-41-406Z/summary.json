@@ -1,0 +1,49 @@
+{
+  "runId": "2026-07-07T14-41-41-406Z",
+  "outDir": "scratch\\apify-instagram-original-gallery\\2026-07-07T14-41-41-406Z",
+  "apply": true,
+  "forceMedia": true,
+  "promote": false,
+  "processed": 1,
+  "mediaComplete": 0,
+  "mediaIncomplete": 1,
+  "failed": 0,
+  "promoted": 0,
+  "results": [
+    {
+      "id": "60d131e5-d7fb-4aa2-b3b0-83af50747ff2",
+      "name": "Pipa Sushi & Temakeria",
+      "status": "media_incomplete",
+      "posts": 24,
+      "approved": 3,
+      "uploads": 4,
+      "after": {
+        "hasLogo": false,
+        "hasCover": true,
+        "galleryCount": 3,
+        "galleryRows": [
+          {
+            "id": "ea896c0b-d63d-4da7-9e62-00e642d802d8",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435352051_1.jpg",
+            "order_index": 0
+          },
+          {
+            "id": "41251017-ee1b-40e8-95f4-7ee59b0b2fa1",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435352686_2.jpg",
+            "order_index": 1
+          },
+          {
+            "id": "24a88fb5-a8b9-45f8-b50c-aa0a512ad5a8",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/60d131e5-d7fb-4aa2-b3b0-83af50747ff2/instagram_original_1783435353443_3.jpg",
+            "order_index": 2
+          }
+        ],
+        "complete": false,
+        "missing": [
+          "logo"
+        ]
+      },
+      "reason": null
+    }
+  ]
+}

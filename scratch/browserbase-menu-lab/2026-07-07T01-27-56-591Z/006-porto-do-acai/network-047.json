@@ -1,0 +1,21 @@
+{
+  "url": "https://api.meucarrinho.delivery/hubs/realtime/negotiate?negotiateVersion=1",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "fetch",
+  "method": "POST",
+  "textLength": 1022,
+  "textSample": "{\"negotiateVersion\":0,\"url\":\"https://meucarrinho.service.signalr.net/client/?hub=realtimehub&asrs.op=%2Fhubs%2Frealtime&negotiateVersion=1&asrs_request_id=KZLJ3%2BqqAwA%3D\",\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ii0xNDI3MTUyMjE0In0.eyJhc3JzLnMudWlkIjoiMjIwZjgyZWUtZjI1OC00MzQ2LThhMTYtNzdlZjUwMjY5YTUzIiwiYXNycy5zLmF1dCI6IkF1dGhlbnRpY2F0aW9uVHlwZXMuRmVkZXJhdGlvbiIsInVuaXF1ZV9uYW1lIjoibWV1Y2FycmluaG8uYXBwIiwiZW1haWwiOiJyaWxkby5tYXN0ZXJAZ21haWwuY29tIiwiYXNycy51Lmp0aSI6ImFmYjg1YTZiLTEwMDgtNDEwMC05OGFmLTFmZTQ1MDg3MGNlZCIsInR5cCI6IkJlYXJlciIsInJvbGUiOiJBUFAiLCJuYW1laWQiOiIyMjBmODJlZS1mMjU4LTQzNDYtOGExNi03N2VmNTAyNjlhNTMiLCJhc3JzLnUuaWF0IjoiMTc4MzM4Nzc4NyIsImFzcnMudS5leHAiOiIxNzgzNDAyMTg3IiwiYXNycy51LmlzcyI6IkFQSSIsImFzcnMudS5hdWQiOiIqLm1ldWNhcnJpbmhvLmRlbGl2ZXJ5IiwibmJmIjoxNzgzMzg3Nzg4LCJleHAiOjE3ODMzOTEzODgsImlhdCI6MTc4MzM4Nzc4OCwiYXVkIjoiaHR0cHM6Ly9tZXVjYXJyaW5oby5zZXJ2aWNlLnNpZ25hbHIubmV0L2NsaWVudC8_aHViPXJlYWx0aW1laHViIn0.HGhOAa3bbwuK2VdXOTDDUBZM2HGY8gUCDl8sAcDhwEc\",\"availableTransports\":[]}",
+  "jsonKeys": [
+    "negotiateVersion",
+    "url",
+    "accessToken",
+    "availableTransports"
+  ],
+  "json": {
+    "negotiateVersion": 0,
+    "url": "https://meucarrinho.service.signalr.net/client/?hub=realtimehub&asrs.op=%2Fhubs%2Frealtime&negotiateVersion=1&asrs_request_id=KZLJ3%2BqqAwA%3D",
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ii0xNDI3MTUyMjE0In0.eyJhc3JzLnMudWlkIjoiMjIwZjgyZWUtZjI1OC00MzQ2LThhMTYtNzdlZjUwMjY5YTUzIiwiYXNycy5zLmF1dCI6IkF1dGhlbnRpY2F0aW9uVHlwZXMuRmVkZXJhdGlvbiIsInVuaXF1ZV9uYW1lIjoibWV1Y2FycmluaG8uYXBwIiwiZW1haWwiOiJyaWxkby5tYXN0ZXJAZ21haWwuY29tIiwiYXNycy51Lmp0aSI6ImFmYjg1YTZiLTEwMDgtNDEwMC05OGFmLTFmZTQ1MDg3MGNlZCIsInR5cCI6IkJlYXJlciIsInJvbGUiOiJBUFAiLCJuYW1laWQiOiIyMjBmODJlZS1mMjU4LTQzNDYtOGExNi03N2VmNTAyNjlhNTMiLCJhc3JzLnUuaWF0IjoiMTc4MzM4Nzc4NyIsImFzcnMudS5leHAiOiIxNzgzNDAyMTg3IiwiYXNycy51LmlzcyI6IkFQSSIsImFzcnMudS5hdWQiOiIqLm1ldWNhcnJpbmhvLmRlbGl2ZXJ5IiwibmJmIjoxNzgzMzg3Nzg4LCJleHAiOjE3ODMzOTEzODgsImlhdCI6MTc4MzM4Nzc4OCwiYXVkIjoiaHR0cHM6Ly9tZXVjYXJyaW5oby5zZXJ2aWNlLnNpZ25hbHIubmV0L2NsaWVudC8_aHViPXJlYWx0aW1laHViIn0.HGhOAa3bbwuK2VdXOTDDUBZM2HGY8gUCDl8sAcDhwEc",
+    "availableTransports": []
+  }
+}

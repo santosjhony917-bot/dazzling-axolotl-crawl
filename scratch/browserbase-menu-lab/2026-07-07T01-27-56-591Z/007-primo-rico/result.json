@@ -1,0 +1,39 @@
+{
+  "restaurantId": "1653a7ff-cb75-4303-b780-0580642c5974",
+  "restaurantName": "Primo Rico",
+  "sourceUrl": "https://delivery.yooga.app/restaurante-primo-rico",
+  "platform": "yooga",
+  "reviewsCount": 903,
+  "address": "Av. Oceano Atlântico, S/N",
+  "phone": "(83) 98820-1132",
+  "startedAt": "2026-07-07T01:30:50.598Z",
+  "finishedAt": "2026-07-07T01:31:14.651Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\007-primo-rico",
+  "finalUrl": "https://delivery.yooga.app/restaurante-primo-rico/tabs/home",
+  "title": "Restaurante Primo Rico Delivery | Faça seu pedido.",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 1100,
+    "bodyLength": 33715,
+    "anchorCount": 1,
+    "imageCount": 20
+  },
+  "priceCountInVisibleText": 25,
+  "menuWords": [
+    "pedido",
+    "bebida"
+  ],
+  "networkInterestingCount": 22,
+  "failedRequestCount": 0,
+  "directProbe": {
+    "platform": "yooga",
+    "success": false,
+    "reason": "no_direct_probe_for_platform_yet"
+  },
+  "lessonFlags": [
+    "short_fullpage_snapshot_should_be_valid",
+    "visible_text_fallback_possible"
+  ],
+  "error": null
+}

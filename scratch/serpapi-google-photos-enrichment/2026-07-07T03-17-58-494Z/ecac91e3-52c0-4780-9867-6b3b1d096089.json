@@ -1,0 +1,506 @@
+{
+  "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+  "name": "I love burguer",
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "applied": true,
+  "uploads": [
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394352841_1.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida do restaurante"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394359412_2.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida aceitável"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394362926_3.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida do restaurante"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394370370_4.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida boa"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394375934_5.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "facade",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 3,
+        "food_visible": false,
+        "text_or_poster_dominant": false,
+        "reason": "fachada do restaurante"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394378187_6.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida do restaurante"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394381259_7.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida do restaurante"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394382728_8.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida aceitável"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "cover",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394352841_1.jpg"
+    }
+  ],
+  "skipped": [],
+  "resolver": {
+    "dataId": "0x7ad21005881f6db:0xe5f73808f3afb83f",
+    "source": "cached_phase1_raw",
+    "rawFile": "scratch\\serpapi-google-maps-phase1\\2026-07-06T19-32-09-190Z\\raw-035.json"
+  },
+  "photoCount": 17,
+  "googleImagesFallback": null,
+  "candidates": [
+    {
+      "source": "google_maps_photo",
+      "score": 123,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida do restaurante"
+      },
+      "index": 2,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 122,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida aceitável"
+      },
+      "index": 3,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 119,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida do restaurante"
+      },
+      "index": 6,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 116,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 95,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida boa"
+      },
+      "index": 9,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 115,
+      "vision": {
+        "ok": true,
+        "kind": "facade",
+        "score": 85,
+        "has_person": true,
+        "person_is_prominent": false,
+        "people_count": 3,
+        "food_visible": false,
+        "text_or_poster_dominant": false,
+        "reason": "fachada do restaurante"
+      },
+      "index": 0,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 107,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida do restaurante"
+      },
+      "index": 8,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 104,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida do restaurante"
+      },
+      "index": 11,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": 103,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem de comida aceitável"
+      },
+      "index": 12,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "serpapi_maps_thumbnail",
+      "score": 95,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto boa de produto"
+      },
+      "index": null,
+      "urlHost": "serpapi.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -91,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": true,
+        "person_is_prominent": true,
+        "people_count": 3,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "pessoas em destaque"
+      },
+      "index": 1,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -94,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem não representa o restaurante esperado"
+      },
+      "index": 4,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -95,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "imagem não representa o restaurante ou produto esperado"
+      },
+      "index": 5,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -97,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Failed to download image from https://lh3.googleusercontent.com/gps-cs-s/APNQkAGtDESbqUA6db7Edz8BPo3hmkqNcrt8_mqJt3FCzJbRXTL9LMvAjHKzjzK6IFL6xf9fW7Qt_Zvt2zXzmj2faKYn9LdB6fDsA5pwfUzPnkhFRw511OGLcGpnfwpL--8ixV76-lwpsA=w4480-h6720-k-no. Image size exceeds the limit."
+      },
+      "index": 7,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -100,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 991. Please try again in 297ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      },
+      "index": 10,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -104,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": true,
+        "person_is_prominent": true,
+        "people_count": 1,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "pessoa em destaque"
+      },
+      "index": 14,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_streetview",
+      "score": -150,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:429 Rate limit reached for gpt-4o-mini in organization org-xqlWMVYH52wldimvWNLTqNGM on tokens per min (TPM): Limit 200000, Used 200000, Requested 991. Please try again in 297ms. Visit https://platform.openai.com/account/rate-limits to learn more."
+      },
+      "index": 13,
+      "urlHost": "streetviewpixels-pa.googleapis.com"
+    }
+  ],
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "galleryRows": [
+      {
+        "id": "5175b4c1-3ca2-45d3-8553-97e164392258",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394352841_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "041e87cf-949e-4c97-ab38-32ebfc775b9f",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394359412_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "c5a8f428-a052-41bb-ab44-d51e8ba88ac2",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394362926_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "dc699dea-c488-4dc4-9c8a-6ec8e054d29d",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394370370_4.jpg",
+        "order_index": 3
+      },
+      {
+        "id": "75dd3fe2-d1df-471a-b38d-e385d9d1c944",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394375934_5.jpg",
+        "order_index": 4
+      },
+      {
+        "id": "fcc65fab-7f9d-455a-85f5-0517522a8e1b",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394378187_6.jpg",
+        "order_index": 5
+      },
+      {
+        "id": "9fbbcdc9-e0f3-482e-a36d-f14677ec27b7",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394381259_7.jpg",
+        "order_index": 6
+      },
+      {
+        "id": "9607a975-ca99-4043-af92-ea002bfd789b",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394382728_8.jpg",
+        "order_index": 7
+      }
+    ]
+  },
+  "promotion": {
+    "promoted": true,
+    "error": null,
+    "status": {
+      "hasLogo": true,
+      "hasCover": true,
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "5175b4c1-3ca2-45d3-8553-97e164392258",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394352841_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "041e87cf-949e-4c97-ab38-32ebfc775b9f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394359412_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "c5a8f428-a052-41bb-ab44-d51e8ba88ac2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394362926_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "dc699dea-c488-4dc4-9c8a-6ec8e054d29d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394370370_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "75dd3fe2-d1df-471a-b38d-e385d9d1c944",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394375934_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "fcc65fab-7f9d-455a-85f5-0517522a8e1b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394378187_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "9fbbcdc9-e0f3-482e-a36d-f14677ec27b7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394381259_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "9607a975-ca99-4043-af92-ea002bfd789b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/serpapi_google_1783394382728_8.jpg",
+          "order_index": 7
+        }
+      ]
+    },
+    "menuReady": true
+  },
+  "status": "ok"
+}

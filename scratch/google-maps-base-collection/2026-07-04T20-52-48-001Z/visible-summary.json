@@ -1,0 +1,21 @@
+{
+  "runId": "2026-07-04T20-52-48-001Z",
+  "mode": "ids",
+  "ids": [
+    "e391ef51-80a8-425c-9c33-f2771b621dcf",
+    "4164650c-7423-4a92-8549-65a455f44c2d",
+    "b0302356-8fc9-45f5-abd7-d5e9d28caab3",
+    "554bcf19-cc10-404f-913f-91d3e2721018",
+    "c0457468-12f2-4b7e-a4fb-71663fb34a70",
+    "a062df44-ef8c-4093-a030-e60672b4cc2e",
+    "2892d501-cfd1-45f2-a4b1-f0ee5e71f55a"
+  ],
+  "missingIds": [],
+  "offset": 0,
+  "limit": 10,
+  "total": 7,
+  "ok": 7,
+  "review": 0,
+  "skipped": 0,
+  "failed": 0
+}

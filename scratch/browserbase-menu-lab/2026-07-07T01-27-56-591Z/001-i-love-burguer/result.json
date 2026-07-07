@@ -1,0 +1,2794 @@
+{
+  "restaurantId": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+  "restaurantName": "I love burguer",
+  "sourceUrl": "https://app.cardapioweb.com/i_loveburguer",
+  "platform": "cardapioweb",
+  "reviewsCount": 18,
+  "address": "Praça Getúlio Vargas, 107",
+  "phone": "(83) 99311-5016",
+  "startedAt": "2026-07-07T01:28:00.827Z",
+  "finishedAt": "2026-07-07T01:28:31.282Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\001-i-love-burguer",
+  "finalUrl": "https://app.cardapioweb.com/i_loveburguer",
+  "title": "I love burguer",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 1100,
+    "bodyLength": 164981,
+    "anchorCount": 4,
+    "imageCount": 11
+  },
+  "priceCountInVisibleText": 91,
+  "menuWords": [
+    "pedido",
+    "combo",
+    "pizza",
+    "lanche"
+  ],
+  "networkInterestingCount": 26,
+  "failedRequestCount": 2,
+  "directProbe": {
+    "platform": "cardapioweb",
+    "success": true,
+    "source": "cardapioweb_native_api",
+    "endpoint": "https://integracao.cardapioweb.com/api/menu/company/categories?only_available_for=delivery&origin=catalogo",
+    "details": {
+      "companyId": "51070",
+      "companySlug": "i_loveburguer"
+    },
+    "categoryCount": 15,
+    "itemCount": 153,
+    "optionCount": 897,
+    "optionGroupCount": 62,
+    "realOptionCount": 897,
+    "realOptionGroupCount": 62,
+    "requiredOptionGroupCount": 0,
+    "optionalOptionGroupCount": 62,
+    "groupsWithExplicitRuleCount": 0,
+    "groupsWithInferredRuleCount": 0,
+    "detailCompleteness": {
+      "hasItems": true,
+      "hasOptionGroups": true,
+      "hasRealOptions": true,
+      "hasRules": false,
+      "hasOperationalCleanupNeed": false
+    },
+    "operationalOptionCount": 0,
+    "operationalSample": [],
+    "groupSamples": [
+      {
+        "category": "Promoções",
+        "item": "Promoção da sexta",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Promoções",
+        "item": "Promoção da quarta",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Promoções",
+        "item": "Quinta em dobro",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Promoções",
+        "item": "PROMOÇÃO DE SEGUNDA",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Promoções",
+        "item": "Promoção das crianças",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Promoções",
+        "item": "Promoção das crianças",
+        "group": "Escolha seu combo",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 2,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "X burguer",
+            "price": 0,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "Smash",
+            "price": 0,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Promoções",
+        "item": "Promoção da quarta",
+        "group": "Monte seu combo",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 3,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "Hamburguer",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "milkshake morango",
+            "price": 27.9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "batata",
+            "price": 1,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Promoções",
+        "item": "Promoção da quarta",
+        "group": "adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 16,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "molho love",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Promoções",
+        "item": "Promoção love you",
+        "group": "Monte seu combo",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 2,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "coca cola lata",
+            "price": 13,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cachorro quente",
+            "price": 1.9,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Smash Love",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Burguer Love",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Burguer Love Duplo",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Frango Love",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Frango Love Duplo",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Frango love especial",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Frango love especial duplo",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Bacon Love",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Bacon Love Duplo",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Love egg bacon",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Love egg bacon duplo",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Salada Love",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Salada Love Duplo",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Double burguer",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Medway Love",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Gorgon Love",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Love Arretado",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Baguete Love Camarão",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Baguete camarão empanado",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Baguete Love Steak",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      },
+      {
+        "category": "Lovers Burguers",
+        "item": "Baguete love chicken",
+        "group": "Adicionais",
+        "min": null,
+        "max": null,
+        "required": false,
+        "hasExplicitRule": false,
+        "hasInferredRule": false,
+        "optionCount": 20,
+        "operationalOptionCount": 0,
+        "optionSample": [
+          {
+            "name": "bacon",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 120g",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "carne de 200g",
+            "price": 9,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "filé de frango",
+            "price": 6,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "cheddar polenghi",
+            "price": 3,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "catupiry original",
+            "price": 4,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "salada",
+            "price": 2,
+            "status": "ACTIVE"
+          },
+          {
+            "name": "queijo mussarela",
+            "price": 3,
+            "status": "ACTIVE"
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "name": "Linha doce",
+        "items": [
+          {
+            "name": "Nutella love",
+            "price": 27,
+            "optionSample": []
+          },
+          {
+            "name": "cartola love",
+            "price": 23,
+            "optionSample": []
+          }
+        ]
+      },
+      {
+        "name": "Promoções",
+        "items": [
+          {
+            "name": "Promoção da sexta",
+            "price": 31.9,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Promoção da quarta",
+            "price": 31.9,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Quinta em dobro",
+            "price": 29.9,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "PROMOÇÃO DE SEGUNDA",
+            "price": 29.99,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Promoção das crianças",
+            "price": 25,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Promoção da quarta",
+            "price": 0,
+            "optionSample": [
+              {
+                "group": "Monte seu combo",
+                "name": "Hamburguer",
+                "price": 4
+              },
+              {
+                "group": "Monte seu combo",
+                "name": "milkshake morango",
+                "price": 27.9
+              },
+              {
+                "group": "Monte seu combo",
+                "name": "batata",
+                "price": 1
+              },
+              {
+                "group": "adicionais",
+                "name": "molho love",
+                "price": 2
+              },
+              {
+                "group": "adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "adicionais",
+                "name": "filé de frango",
+                "price": 6
+              }
+            ]
+          },
+          {
+            "name": "Promoção love you",
+            "price": 0,
+            "optionSample": [
+              {
+                "group": "Monte seu combo",
+                "name": "coca cola lata",
+                "price": 13
+              },
+              {
+                "group": "Monte seu combo",
+                "name": "cachorro quente",
+                "price": 1.9
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Lovers Burguers",
+        "items": [
+          {
+            "name": "Smash Love",
+            "price": 17,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Burguer Love",
+            "price": 20,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Burguer Love Duplo",
+            "price": 27,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Frango Love",
+            "price": 20,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Frango Love Duplo",
+            "price": 27,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Frango love especial",
+            "price": 23,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Frango love especial duplo",
+            "price": 30,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Bacon Love",
+            "price": 22,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Linha Simples",
+        "items": [
+          {
+            "name": "Hambúrguer Simples",
+            "price": 10,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Cachorro quente",
+            "price": 10,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "X- Burguer",
+            "price": 12,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "X-Egg",
+            "price": 14,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "X-Egg Calabresa",
+            "price": 16,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "x-frango",
+            "price": 15,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Duplo simples",
+            "price": 16,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "frangote",
+            "price": 16,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Combos",
+        "items": [
+          {
+            "name": "Combo solteiro 1",
+            "price": 35.99,
+            "optionSample": []
+          },
+          {
+            "name": "Combo solteiro 2",
+            "price": 37.99,
+            "optionSample": []
+          },
+          {
+            "name": "Combo solteiro 3",
+            "price": 42.99,
+            "optionSample": []
+          },
+          {
+            "name": "Combo solteiro 4",
+            "price": 40.99,
+            "optionSample": []
+          },
+          {
+            "name": "Combo solteiro 5",
+            "price": 25.99,
+            "optionSample": []
+          },
+          {
+            "name": "Combo solteiro 6",
+            "price": 25.99,
+            "optionSample": []
+          },
+          {
+            "name": "Combo casal 1",
+            "price": 69.99,
+            "optionSample": [
+              {
+                "group": "Adicionais",
+                "name": "bacon",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 120g",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "carne de 200g",
+                "price": 9
+              },
+              {
+                "group": "Adicionais",
+                "name": "filé de frango",
+                "price": 6
+              },
+              {
+                "group": "Adicionais",
+                "name": "cheddar polenghi",
+                "price": 3
+              },
+              {
+                "group": "Adicionais",
+                "name": "catupiry original",
+                "price": 4
+              },
+              {
+                "group": "Adicionais",
+                "name": "salada",
+                "price": 2
+              },
+              {
+                "group": "Adicionais",
+                "name": "queijo mussarela",
+                "price": 3
+              }
+            ]
+          },
+          {
+            "name": "Combo casal 2",
+            "price": 49.99,
+            "optionSample": []
+          }
+        ]
+      },
+      {
+        "name": "Fritas Lovers",
+        "items": [
+          {
+            "name": "Batata Love (P)",
+            "price": 12,
+            "optionSample": []
+          },
+          {
+            "name": "Batata Love (M)",
+            "price": 18,
+            "optionSample": []
+          },
+          {
+            "name": "Batata Love (G)",
+            "price": 22,
+            "optionSample": []
+          },
+          {
+            "name": "Batata Love Cheddar e Bacon (P)",
+            "price": 16,
+            "optionSample": []
+          },
+          {
+            "name": "Batata Love cheddar e Bacon (M)",
+            "price": 22,
+            "optionSample": []
+          },
+          {
+            "name": "Batata Love Cheddar e Bacon (G)",
+            "price": 26,
+            "optionSample": []
+          },
+          {
+            "name": "Batata Love cheddar e calabresa M",
+            "price": 22,
+            "optionSample": []
+          },
+          {
+            "name": "Batata Love Cheddar e Calabresa G",
+            "price": 26,
+            "optionSample": []
+          }
+        ]
+      }
+    ],
+    "lesson": "CardapioWeb exposes structured categories/items/add-ons through integracao.cardapioweb.com when company/company-id are known."
+  },
+  "lessonFlags": [
+    "structured_api_available",
+    "short_fullpage_snapshot_should_be_valid"
+  ],
+  "error": null
+}

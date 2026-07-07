@@ -1,0 +1,71 @@
+{
+  "url": "https://delivery2.yooga.com.br/payment-methods?idi=53339",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 981,
+  "textSample": "[{\"active\":true,\"description\":\"Delivery - Dinheiro\",\"id\":354053,\"idi\":53339,\"ifood_payment\":false,\"name\":\"Delivery - Dinheiro\",\"origin_id\":354053,\"store_id\":null,\"type\":1,\"tax\":0,\"add_cash_register\":true,\"payment_merchant_discount\":[]},{\"active\":true,\"description\":\"Delivery - Crédito\",\"id\":354054,\"idi\":53339,\"ifood_payment\":false,\"name\":\"Delivery - Crédito\",\"origin_id\":354054,\"store_id\":null,\"type\":3,\"tax\":0,\"add_cash_register\":false,\"payment_merchant_discount\":[]},{\"active\":true,\"description\":\"Delivery - Pix (83) 981643596 nome José \",\"id\":354055,\"idi\":53339,\"ifood_payment\":false,\"name\":\"Delivery - Pix (83) 981643596 nome José \",\"origin_id\":354055,\"store_id\":null,\"type\":17,\"tax\":0,\"add_cash_register\":false,\"payment_merchant_discount\":[]},{\"active\":true,\"description\":\"Delivery - Débito\",\"id\":354056,\"idi\":53339,\"ifood_payment\":false,\"name\":\"Delivery - Débito\",\"origin_id\":354056,\"store_id\":null,\"type\":4,\"tax\":0,\"add_cash_register\":false,\"payment_merchant_discount\":[]}]",
+  "jsonKeys": [
+    "array",
+    "4"
+  ],
+  "json": [
+    {
+      "active": true,
+      "description": "Delivery - Dinheiro",
+      "id": 354053,
+      "idi": 53339,
+      "ifood_payment": false,
+      "name": "Delivery - Dinheiro",
+      "origin_id": 354053,
+      "store_id": null,
+      "type": 1,
+      "tax": 0,
+      "add_cash_register": true,
+      "payment_merchant_discount": []
+    },
+    {
+      "active": true,
+      "description": "Delivery - Crédito",
+      "id": 354054,
+      "idi": 53339,
+      "ifood_payment": false,
+      "name": "Delivery - Crédito",
+      "origin_id": 354054,
+      "store_id": null,
+      "type": 3,
+      "tax": 0,
+      "add_cash_register": false,
+      "payment_merchant_discount": []
+    },
+    {
+      "active": true,
+      "description": "Delivery - Pix (83) 981643596 nome José ",
+      "id": 354055,
+      "idi": 53339,
+      "ifood_payment": false,
+      "name": "Delivery - Pix (83) 981643596 nome José ",
+      "origin_id": 354055,
+      "store_id": null,
+      "type": 17,
+      "tax": 0,
+      "add_cash_register": false,
+      "payment_merchant_discount": []
+    },
+    {
+      "active": true,
+      "description": "Delivery - Débito",
+      "id": 354056,
+      "idi": 53339,
+      "ifood_payment": false,
+      "name": "Delivery - Débito",
+      "origin_id": 354056,
+      "store_id": null,
+      "type": 4,
+      "tax": 0,
+      "add_cash_register": false,
+      "payment_merchant_discount": []
+    }
+  ]
+}

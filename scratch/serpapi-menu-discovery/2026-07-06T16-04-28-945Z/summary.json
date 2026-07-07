@@ -1,0 +1,46 @@
+{
+  "runId": "2026-07-06T16-04-28-945Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "menu",
+  "apply": false,
+  "processed": 1,
+  "foundGreen": 0,
+  "foundYellow": 1,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "instagram": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-04-28-945Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-04-28-945Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-04-28-945Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": null,
+        "name": "Bododromo La em Mae Campina Grande cardapio instagram",
+        "category": null,
+        "address": "",
+        "neighborhood": null,
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "Bododromo La em Mae Campina Grande cardapio instagram",
+      "best": {
+        "source": "derived_instagram_handle",
+        "position": 7,
+        "title": "Instagram profile @emagrecentro_cgrande",
+        "link": "https://instagram.com/emagrecentro_cgrande",
+        "snippet": "24 DE JUNHO รูล้ด viva JOÃO FORRO BODE LÁ EMMÃE EM LÁEMMAEE MÃE BODODROMO I RSTB RS ... I'm el culinary the Campina Grande. forrobode ...",
+        "displayedLink": "derived from Google result",
+        "platform": "instagram",
+        "score": 59,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 11
+    }
+  ]
+}

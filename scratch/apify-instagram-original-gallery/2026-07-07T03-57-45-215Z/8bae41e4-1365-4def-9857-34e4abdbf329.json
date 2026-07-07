@@ -1,0 +1,352 @@
+{
+  "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+  "name": "Eu Quero Pizza",
+  "username": "euqueropizzafoodtruck",
+  "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+  "applied": false,
+  "forceMedia": false,
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 4,
+    "galleryRows": [
+      {
+        "id": "8b16da4c-9146-4cd1-850a-568ec5cf44c7",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_original_1783396102012_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "6d2f79d9-e6db-4bfc-91a3-7811c31192af",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_original_1783396104611_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "65c3bc41-d527-414b-82e3-5c02805c6d76",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_original_1783396105116_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "9f540180-abdb-40ad-af95-18554979503d",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_original_1783396105568_4.jpg",
+        "order_index": 3
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_carousel_child_image_api",
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 90,
+        "reason": "boa apresentação e nitidez",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_post_image_api",
+      "postUrl": "https://www.instagram.com/p/DZ_JOOsoc16/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "kind": "gallery_dry_run",
+      "source": "instagram_carousel_child_image_api",
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 80,
+        "reason": "imagem bem iluminada e focada",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    }
+  ],
+  "skipped": [],
+  "profile": {
+    "username": "euqueropizzafoodtruck",
+    "followers": 8518,
+    "posts": 1989,
+    "profilePic": true,
+    "biography": "Pizza 🍕❤ @euqueroburguerartesanal ⏰ter a dom das 17h as 23h 📲(83)99857-3813 📌dia 03 a 05/07 Praça do Surfista, Intermares-PB Peça pelo Ifood ou link👇"
+  },
+  "postCount": 16,
+  "candidates": [
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": 99,
+      "postIndex": 10,
+      "childIndex": 6,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 90,
+        "reason": "boa apresentação e nitidez",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": 96,
+      "postIndex": 9,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DZ_JOOsoc16/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1440,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "reason": "imagem clara e apetitosa",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": 89,
+      "postIndex": 10,
+      "childIndex": 2,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 80,
+        "reason": "imagem bem iluminada e focada",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_post_image_api",
+      "score": -110,
+      "postIndex": 10,
+      "childIndex": null,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Sidecar",
+      "width": 1440,
+      "height": 1919,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -111,
+      "postIndex": 10,
+      "childIndex": 1,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -111,
+      "postIndex": 10,
+      "childIndex": 3,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -111,
+      "postIndex": 10,
+      "childIndex": 4,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -111,
+      "postIndex": 10,
+      "childIndex": 5,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -111,
+      "postIndex": 10,
+      "childIndex": 7,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -111,
+      "postIndex": 10,
+      "childIndex": 8,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1921,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -111,
+      "postIndex": 10,
+      "childIndex": 9,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    },
+    {
+      "source": "instagram_carousel_child_image_api",
+      "score": -111,
+      "postIndex": 10,
+      "childIndex": 10,
+      "postUrl": "https://www.instagram.com/p/DaVl3r0ES_Z/",
+      "sourceType": "Image",
+      "width": 1440,
+      "height": 1920,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "reason": "rejeitado_pela_grade",
+        "gridSummary": "Aprovação de 3 imagens de comida, todas com boa qualidade visual.",
+        "gridPath": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-57-45-215Z\\8bae41e4-1365-4def-9857-34e4abdbf329-instagram-candidate-grid.png",
+        "gridMode": true
+      }
+    }
+  ],
+  "approvedCount": 3,
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 4,
+    "galleryRows": [
+      {
+        "id": "8b16da4c-9146-4cd1-850a-568ec5cf44c7",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_original_1783396102012_1.jpg",
+        "order_index": 0
+      },
+      {
+        "id": "6d2f79d9-e6db-4bfc-91a3-7811c31192af",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_original_1783396104611_2.jpg",
+        "order_index": 1
+      },
+      {
+        "id": "65c3bc41-d527-414b-82e3-5c02805c6d76",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_original_1783396105116_3.jpg",
+        "order_index": 2
+      },
+      {
+        "id": "9f540180-abdb-40ad-af95-18554979503d",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_original_1783396105568_4.jpg",
+        "order_index": 3
+      }
+    ],
+    "complete": true,
+    "missing": []
+  },
+  "promotion": null,
+  "status": "media_complete"
+}

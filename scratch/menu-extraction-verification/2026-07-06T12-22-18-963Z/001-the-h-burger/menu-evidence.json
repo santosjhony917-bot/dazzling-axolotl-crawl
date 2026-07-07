@@ -1,0 +1,60 @@
+{
+  "success": false,
+  "sourceUrl": "https://anota.ai/loja/the-h-burger-hamburgueria?f=msa",
+  "finalUrl": "https://anota.ai/loja/the-h-burger-hamburgueria?f=msa",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.45,
+  "categories": [
+    {
+      "name": "Cardápio",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": null,
+          "name": "© 2021 Anota AI • IGROW SOLUÇÕES DIGITAIS LTDA • CNPJ: 27.86",
+          "description": "2/0001-93",
+          "image_url": null,
+          "price": 4.39,
+          "price_min": 4.39,
+          "price_max": 4.39,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://anota.ai/loja/the-h-burger-hamburgueria?f=msa",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "© 2021 Anota AI • IGROW SOLUÇÕES DIGITAIS LTDA • CNPJ: 27.86",
+            "price": 4.39,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "verificationSnapshotError": "Timeout aguardando extensao para snapshot",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340564481_o5yxjdcw.jpg",
+    "snapshotFile": "cmd_1783340564481_o5yxjdcw.jpg",
+    "viewportSnapshots": [],
+    "fullPage": true,
+    "segmentCount": 2,
+    "capturedHeight": 738,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "fabbe956-e85e-4299-ad21-fac7fc47abfe",
+    "name": "The H Burger",
+    "category": "Hamburgueria·",
+    "address": "R. Vidal de Negreiros",
+    "phone": "(83) 3099-3612",
+    "instagram": "https://www.instagram.com/thehburger/"
+  }
+}

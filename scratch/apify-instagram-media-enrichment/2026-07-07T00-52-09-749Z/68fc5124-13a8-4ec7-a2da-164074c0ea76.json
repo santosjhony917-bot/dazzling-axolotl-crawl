@@ -1,0 +1,226 @@
+{
+  "id": "68fc5124-13a8-4ec7-a2da-164074c0ea76",
+  "name": "Bonna Gelateria Ponta de Campina",
+  "instagram": "https://www.instagram.com/bonnagelateria/",
+  "followers": 15494,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_profile_1783385897425.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385902132_1.jpg",
+      "score": 35,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385903345_2.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385904031_3.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385905085_4.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385906082_5.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385906961_6.jpg",
+      "score": 26,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385907512_7.jpg",
+      "score": 24,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385908390_8.jpg",
+      "score": 22,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "50692a68-ca82-4c34-9137-422d5081c047",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385902132_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "da104949-4cf9-4f50-9d70-c2e23af752ec",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385903345_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "72f542b4-16d9-4701-be87-7c9dec3f5c7f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385904031_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "3131b78c-b3ad-4414-87ff-9da7969f1711",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385905085_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "2dbf52f9-ef26-4464-b722-05ddc6e4cbc1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385906082_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "3aadd2ba-024a-4c52-8577-fff9feed867b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385906961_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "981aa13d-136b-4eb2-a91f-33a9d59b0ec7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385907512_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "680a67eb-1629-45a7-9d18-5add9a8e6c06",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/68fc5124-13a8-4ec7-a2da-164074c0ea76/instagram_1783385908390_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 35,
+      "caption": "Com os carrinhos da Bonna, cada celebração ganha sabor, charme e aquele toque especial que marca momentos inesquecíveis. Escolha entre o Bonna Piccolo, ideal para encontros mais ín",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 29,
+      "caption": "Com os carrinhos da Bonna, cada celebração ganha sabor, charme e aquele toque especial que marca momentos inesquecíveis. Escolha entre o Bonna Piccolo, ideal para encontros mais ín",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 29,
+      "caption": "Com os carrinhos da Bonna, cada celebração ganha sabor, charme e aquele toque especial que marca momentos inesquecíveis. Escolha entre o Bonna Piccolo, ideal para encontros mais ín",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 29,
+      "caption": "Com os carrinhos da Bonna, cada celebração ganha sabor, charme e aquele toque especial que marca momentos inesquecíveis. Escolha entre o Bonna Piccolo, ideal para encontros mais ín",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 29,
+      "caption": "Com os carrinhos da Bonna, cada celebração ganha sabor, charme e aquele toque especial que marca momentos inesquecíveis. Escolha entre o Bonna Piccolo, ideal para encontros mais ín",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 26,
+      "caption": "Existem combinações que simplesmente são incríveis. ☕🍨 O aroma marcante de um café especial encontra a cremosidade artesanal do nosso gelato em uma experiência feita para apreciar",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "Que tal se aventurar em um negócio com um faturamento médio mensal de R$140.000? Como franqueado Bonna, você terá acesso a treinamentos especializados que cobrem tudo, desde a prod",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "Tem momentos que ficam ainda melhores quando são compartilhados. 🍨✨ Na casquinha ou no copinho, cada sabor da Bonna é feito para transformar uma simples pausa em uma experiência e",
+      "vision": null
+    }
+  ]
+}

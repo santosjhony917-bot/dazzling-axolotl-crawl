@@ -1,0 +1,54 @@
+[
+  {
+    "restaurantId": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+    "restaurantName": "I love burguer",
+    "sourceUrl": "https://app.cardapioweb.com/i_loveburguer",
+    "platform": "cardapioweb",
+    "reviewsCount": 18,
+    "address": "Praça Getúlio Vargas, 107",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 99311-5016",
+    "queueEntry": {
+      "restaurant_id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "platform": "cardapioweb",
+      "tier": "green",
+      "priority_score": 0,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://app.cardapioweb.com/i_loveburguer",
+      "raw_source_url": "https://app.cardapioweb.com/i_loveburguer",
+      "other_url": "https://app.cardapioweb.com/i_loveburguer",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Hamburgueria",
+      "address": "Praça Getúlio Vargas, 107",
+      "neighborhood": "Vila Sao Joao",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 99311-5016",
+      "rating": 4.1,
+      "reviews_count": 18,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://app.cardapioweb.com/i_loveburguer",
+          "canonical_url": "https://app.cardapioweb.com/i_loveburguer",
+          "platform": "cardapioweb",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "cardapioweb_fast_path",
+      "rank": 1
+    }
+  }
+]

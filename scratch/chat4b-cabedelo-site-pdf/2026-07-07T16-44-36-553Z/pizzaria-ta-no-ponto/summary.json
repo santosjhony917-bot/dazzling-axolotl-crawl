@@ -1,0 +1,107 @@
+{
+  "success": true,
+  "outDir": "scratch\\chat4b-cabedelo-site-pdf\\2026-07-07T16-44-36-553Z\\pizzaria-ta-no-ponto",
+  "apply": false,
+  "identity": {
+    "confirmed": true,
+    "sourceName": "Pizzaria ta no ponto",
+    "sourceAddress": "Rua Tenente Antônio Pontes 236 - Ponta de Matos, Cabedelo - PB, 58100-645",
+    "sourcePhone": "(83) 99608-4407",
+    "sourceCity": "Cabedelo"
+  },
+  "rawSummary": {
+    "categoryCount": 4,
+    "itemCount": 14,
+    "optionCount": 595
+  },
+  "priceDeltaAudit": {
+    "fullPriceDeltaAnomalyCount": 6,
+    "anomalies": [
+      {
+        "product": "Calzone Salgado",
+        "basePrice": 10,
+        "groupName": "Escolha o sabor:",
+        "option": "A Moda Da Casa",
+        "rawPrice": 1799,
+        "delta": 1789
+      },
+      {
+        "product": "Calzone Salgado",
+        "basePrice": 10,
+        "groupName": "Escolha o sabor:",
+        "option": "Carne de Sol + Mussarela",
+        "rawPrice": 18,
+        "delta": 8
+      },
+      {
+        "product": "Calzone Salgado",
+        "basePrice": 10,
+        "groupName": "Escolha o sabor:",
+        "option": "Carne de Sol + Catupiry Puro",
+        "rawPrice": 18,
+        "delta": 8
+      },
+      {
+        "product": "Calzone Salgado",
+        "basePrice": 10,
+        "groupName": "Escolha o sabor:",
+        "option": "Carne de Sol + Cream Cheese",
+        "rawPrice": 18,
+        "delta": 8
+      },
+      {
+        "product": "Calzone Salgado",
+        "basePrice": 10,
+        "groupName": "Escolha o sabor:",
+        "option": "Carne de Sol + Cheddar Puro",
+        "rawPrice": 18,
+        "delta": 8
+      },
+      {
+        "product": "Calzone Salgado",
+        "basePrice": 10,
+        "groupName": "Escolha o sabor:",
+        "option": "Carne de Sol + Creme 4 Queijos Catupiry",
+        "rawPrice": 18,
+        "delta": 8
+      }
+    ]
+  },
+  "dryRun": {
+    "success": true,
+    "approved": false,
+    "audit": {
+      "approved": false,
+      "confidence": 0.866,
+      "categoryCount": 2,
+      "itemCount": 14,
+      "resolvedPriceCount": 14,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [
+        "precos_implausiveis"
+      ],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "Request timed out.",
+        "deltaFixes": 6,
+        "storageFixes": 12,
+        "guardFixes": 0
+      }
+    }
+  },
+  "committed": false,
+  "before": {
+    "categoryCount": 0,
+    "itemCount": 0,
+    "optionCount": 0
+  },
+  "after": {
+    "categoryCount": 0,
+    "itemCount": 0,
+    "optionCount": 0
+  }
+}

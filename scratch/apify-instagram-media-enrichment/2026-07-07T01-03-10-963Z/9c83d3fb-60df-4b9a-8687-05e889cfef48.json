@@ -1,0 +1,91 @@
+{
+  "id": "9c83d3fb-60df-4b9a-8687-05e889cfef48",
+  "name": "Nena Doceria & Salgaderia",
+  "instagram": "https://www.instagram.com/nena_doceria/",
+  "followers": 8759,
+  "match": {
+    "score": 145,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://instabio.cc/NenaDoceria"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "1b7fdd7f-b1bd-41d7-a07f-97644bf68c6a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9c83d3fb-60df-4b9a-8687-05e889cfef48/instagram_1783385334664_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "4900abd8-d869-44a0-ae23-04f06d477a1c",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9c83d3fb-60df-4b9a-8687-05e889cfef48/instagram_1783385336471_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "77112255-e803-4d2b-967b-71b359e5597a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9c83d3fb-60df-4b9a-8687-05e889cfef48/instagram_1783385337379_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "c4d7c38e-5192-4e18-8852-cf2e5e35d61f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9c83d3fb-60df-4b9a-8687-05e889cfef48/instagram_1783385338386_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "766014e1-a1db-481f-a9a1-8b8dcb46de69",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9c83d3fb-60df-4b9a-8687-05e889cfef48/instagram_1783385339142_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "6fb1db40-47a4-4893-93da-b77c4fa91714",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9c83d3fb-60df-4b9a-8687-05e889cfef48/instagram_1783385339862_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "56a0e47a-005c-4c50-a87f-948faa6fde3d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9c83d3fb-60df-4b9a-8687-05e889cfef48/instagram_1783385340591_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "3acfc1b0-9867-4f19-a789-a92d4980d408",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9c83d3fb-60df-4b9a-8687-05e889cfef48/instagram_1783385341283_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

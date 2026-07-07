@@ -1,0 +1,538 @@
+{
+  "runId": "2026-07-06T16-26-48-294Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "instagram",
+  "apply": false,
+  "processed": 20,
+  "foundGreen": 7,
+  "foundYellow": 13,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "instagram": 13,
+    "anota_ai": 6,
+    "instadelivery": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-26-48-294Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-26-48-294Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T16-26-48-294Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": "b9232f4a-86ea-44a4-9a27-8471c5403d5d",
+        "name": "Necão Restaurante",
+        "category": "",
+        "address": "R. Santarém, 368",
+        "neighborhood": "Malvinas",
+        "rating": 4.8,
+        "reviews_count": 3560
+      },
+      "query": "Necão Restaurante Malvinas R. Santarém (83) 98838-0726 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Necão Restaurante (@necaorestaurante)",
+        "link": "https://instagram.com/necaorestaurante",
+        "snippet": "Funciona das 10:00 às 15:00 Fechamos às quartas! Rua Santarém, 368, Malvinas, CG ☎️ (83) 3339-2133 / (83) 9 8838-0726 Faça seu pedido! ⬇️ · Entregamos em ...",
+        "displayedLink": "Mais de 45,8 mil seguidores",
+        "platform": "instagram",
+        "score": 96,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "395c5d1a-99f7-40e3-82f3-af6e22406e75",
+        "name": "Bar da Curva - Sandro's Bar",
+        "category": "",
+        "address": "R. Profa. Severina Ramos da Silva, 27",
+        "neighborhood": "Sandra Cavalcante",
+        "rating": 4.5,
+        "reviews_count": 2635
+      },
+      "query": "Bar da Curva - Sandro's Bar Sandra Cavalcante R. Profa. Severina Ramos da Silva (83) 3331-8121 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "O Bar da Curva (@sandrosbaroficial) · Campina Grande, PB",
+        "link": "https://instagram.com/sandrosbaroficial",
+        "snippet": "A curva mais charmosa de Campina! São João, música e cerveja gelada Campina Grande/PB (83) 3331-8121 Faça o seu pedido ⬇️.",
+        "displayedLink": "Mais de 35,6 mil seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "da007ce7-a9f7-48d9-adca-e2a683e47d4a",
+        "name": "Bododromo Lá em Mãe - Restaurante e Bar Campina Grande",
+        "category": "Restaurante·",
+        "address": "R. Tito Sodré, 79",
+        "neighborhood": "José Pinheiro",
+        "rating": 4.5,
+        "reviews_count": 2437
+      },
+      "query": "Bododromo Lá em Mãe - Restaurante e Bar Campina Grande José Pinheiro R. Tito Sodré (83) 2154-7597 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Lá em Mãe | Restaurante e Bar (@laemmae.cg)",
+        "link": "https://instagram.com/laemmae.cg",
+        "snippet": "Comida Nordestina de Verdade Especialidade em Bode e Carneiro 🍽️Almoço e Jantar (todos os dias). Rua Tito Sodré, 79, José Pinheiro Peça Agora. Follow.",
+        "displayedLink": "Mais de 52,5 mil seguidores",
+        "platform": "instagram",
+        "score": 96,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "286e622d-dee5-4b0c-9414-5a364c0f2b89",
+        "name": "Restaurante Tábua de Carne",
+        "category": "",
+        "address": "Av. Manoel Tavares, 1040",
+        "neighborhood": "Jardim Tavares",
+        "rating": 4.4,
+        "reviews_count": 2010
+      },
+      "query": "Restaurante Tábua de Carne Jardim Tavares Av. Manoel Tavares (83) 3341-1008 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Restaurante Tábua de Carne (@tabuadecarne_cg)",
+        "link": "https://instagram.com/tabuadecarne_cg",
+        "snippet": "Quem conhece, volta! ☎️ (83) 3341-1008 ⏰ Terça a Domingo 10h às 15h e das 18h às 22h Campina Grande - PB DELIVERY das 10h às 15h e 17h 21h30 .",
+        "displayedLink": "Mais de 6,5 mil seguidores",
+        "platform": "instagram",
+        "score": 122,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "918ae01a-d7d3-4414-962e-585625c0c62a",
+        "name": "Gulas Restaurante",
+        "category": "Restaurante self-service·",
+        "address": "R. João Suassuna, 74",
+        "neighborhood": "Centro",
+        "rating": 4.6,
+        "reviews_count": 1963
+      },
+      "query": "Gulas Restaurante Centro R. João Suassuna (83) 3322-3510 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 8,
+        "title": "Restaurante Gula's | Delivery em Campina Grande",
+        "link": "https://pedido.anota.ai/loja/restaurante-gulas",
+        "snippet": "Rua João Suassuna, Nº 74, Centro, Campina Grande, PB Ver no mapa. Faça agora seu pedido no Restaurante Gula's. Peça também pelo nosso whatsapp: 558387534352.",
+        "displayedLink": "https://pedido.anota.ai › loja › restaurante-gulas",
+        "platform": "anota_ai",
+        "score": 118,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "df756b30-aa88-44a9-8696-849af835b933",
+        "name": "Ulin Lanches",
+        "category": "",
+        "address": "R. das Umburanas, 704",
+        "neighborhood": "Malvinas",
+        "rating": 4.6,
+        "reviews_count": 1836
+      },
+      "query": "Ulin Lanches Malvinas R. das Umburanas 3339-5666 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Ulin Lanches 🍟 (@ulinlanches)",
+        "link": "https://instagram.com/ulinlanches",
+        "snippet": "Tradição em ter os melhores lanches da cidade! Faça o seu pedido pelo site ou iFood ⏰ Seg. (Apenas Delivery) Terça a sexta das 18:00 às 23:30. Follow.",
+        "displayedLink": "Mais de 42,9 mil seguidores",
+        "platform": "instagram",
+        "score": 100,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "eea035c3-ab24-4d02-998a-88854e5450f7",
+        "name": "Alexandre Restaurante",
+        "category": "Restaurante self-service·",
+        "address": "Av. Mal. Floriano Peixoto, 1507",
+        "neighborhood": "Centenário",
+        "rating": 4.5,
+        "reviews_count": 1546
+      },
+      "query": "Alexandre Restaurante Centenário Av. Mal. Floriano Peixoto (83) 3322-4733 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Alexandre Restaurante (@alexandrerestaurante)",
+        "link": "https://instagram.com/alexandrerestaurante",
+        "snippet": "✨ Antes do forró, tem galinha no Alexandre! Avenida Marechal Floriano Peixoto, 1507 – Centenário, Campina Grande – PB Delivery: (83) 98211-3488 ...",
+        "displayedLink": "Mais de 28,9 mil seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "19ab266f-229c-4492-af45-0a94d956bc17",
+        "name": "Glacê Real Confeitaria",
+        "category": "",
+        "address": "R. Vig. Calixto, 1375",
+        "neighborhood": "Catolé",
+        "rating": 4.6,
+        "reviews_count": 1366
+      },
+      "query": "Glacê Real Confeitaria Catolé R. Vig. Calixto (83) 3337-3702 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 7,
+        "title": "anote os ingredientes . 3 claras ou 60g 500g de açúcar de ...",
+        "link": "https://instagram.com/reel/DBrbFGaBaTA/?hl=pt-br",
+        "snippet": "Receita de glace muito antiga e muito gostoso. Essa dica no plástico filme foi excelente. Parabéns! marimorales355.",
+        "displayedLink": "Mais de 3,8 mil marcações \"Gostei\" · há 1 ano",
+        "platform": "instagram",
+        "score": 66,
+        "tier": "yellow",
+        "flags": [
+          "instagram_reel_not_profile",
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "dc94c164-d2d1-463f-8b60-8474d35ae1cc",
+        "name": "Villa Pizza",
+        "category": "",
+        "address": "R. Aprígio Nepomuceno, 1030",
+        "neighborhood": "Jardim Paulistano",
+        "rating": 4.1,
+        "reviews_count": 1364
+      },
+      "query": "Villa Pizza Jardim Paulistano R. Aprígio Nepomuceno (83) 3077-1144 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "🍕 VILLA PIZZA 🍕 (@villapizzacg) · Campina Grande, PB",
+        "link": "https://instagram.com/villapizzacg",
+        "snippet": "25K followers · 1.2K+ posts · SIMPLESMENTE FORNO A LENHA RODÍZIO COMPLETO DELIVERY ☎️ 3077-1144 /98799-6150 ❌Terças-Feiras Fechado.",
+        "displayedLink": "Mais de 25,5 mil seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "f32de17a-7391-4cc9-83eb-d3172df5409b",
+        "name": "Restaurante China Kame",
+        "category": "",
+        "address": "R. Silva Jardim, 150",
+        "neighborhood": "Jardim Tavares",
+        "rating": 4.5,
+        "reviews_count": 1363
+      },
+      "query": "Restaurante China Kame Jardim Tavares R. Silva Jardim (83) 99847-0032 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "YAKISSOBA nosso carro chefe 😍😋 Quem não ama, é ...",
+        "link": "https://instagram.com/p/CtHLWlvNINH",
+        "snippet": "Rua Silva Jardim - Jardim Tavares - Campina Grande Delivery funcionando das 11H às 15H e das 18H às 23H #chinakame #restaurante ...",
+        "displayedLink": "https://www.instagram.com › CtHLWlvNINH",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "instagram_p_not_profile"
+        ]
+      },
+      "candidateCount": 12
+    },
+    {
+      "restaurant": {
+        "id": "19753013-293e-46f9-b3ca-04b2611ecee3",
+        "name": "La Paloma Restaurante",
+        "category": "Restaurante·",
+        "address": "R. Irineu Joffily, 40",
+        "neighborhood": "Centro",
+        "rating": 4.5,
+        "reviews_count": 1229
+      },
+      "query": "La Paloma Restaurante Centro R. Irineu Joffily (83) 3322-4483 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 8,
+        "title": "La Paloma Restaurante | Delivery em CAMPINA GRANDE",
+        "link": "https://pedido.anota.ai/loja/la-paloma-restaurante",
+        "snippet": "Irineu Joffily, Nº 40, Centro, CAMPINA GRANDE, PB Ver no mapa. Faça agora seu pedido no La Paloma Restaurante. Peça também pelo nosso whatsapp: 558333224483.",
+        "displayedLink": "https://pedido.anota.ai › loja › la-paloma-restaurante",
+        "platform": "anota_ai",
+        "score": 118,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "da7496f3-50f8-4bdb-8c9f-e146ea91eb91",
+        "name": "Terraço da Liberdade (Panquecaria da Liberdade)",
+        "category": "Pendente validação",
+        "address": "R. Odon Bezerra, 172",
+        "neighborhood": "Liberdade",
+        "rating": 4.4,
+        "reviews_count": 1146
+      },
+      "query": "Terraço da Liberdade (Panquecaria da Liberdade) Liberdade R. Odon Bezerra (83) 98611-4444 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 6,
+        "title": "Terraço da Liberdade | Delivery em CAMPINA GRANDE",
+        "link": "https://pedido.anota.ai/loja/terrao-da-liberdade",
+        "snippet": "Faça agora seu pedido no Terraço da Liberdade. Peça também pelo nosso whatsapp: 558333314444. Feito com carinho pela equipe Anota AI.",
+        "displayedLink": "https://pedido.anota.ai › loja › terrao-da-liberdade",
+        "platform": "anota_ai",
+        "score": 116,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "a95db76d-30a1-4ccc-b3a4-6204cb9f08b3",
+        "name": "CO.FFEE BISTRÔ E CAFETERIA",
+        "category": "",
+        "address": "Av. Dr. Elpídio de Almeida, 320",
+        "neighborhood": "Catolé",
+        "rating": 4.4,
+        "reviews_count": 1131
+      },
+      "query": "CO.FFEE BISTRÔ E CAFETERIA Catolé Av. Dr. Elpídio de Almeida (83) 3065-2020 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "𝑪𝑶.𝑭𝑭𝑬𝑬 (@co.ffeepb) · Campina Grande, PB",
+        "link": "https://instagram.com/co.ffeepb",
+        "snippet": "Av. Elpídio de Almeida, 320, Catolé. Reservas: 83 99186-1440 (não é necessário reservar para entrar no restaurante, apenas para casos especiais como ...",
+        "displayedLink": "Mais de 47 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "1d083362-69ed-4542-ac9e-54616f56c3bf",
+        "name": "Colher De Sopa Restaurante",
+        "category": null,
+        "address": "R. Sen. João Cavalcante Arruda, 194-198",
+        "neighborhood": "Pres. Medici",
+        "rating": 4.4,
+        "reviews_count": 1091
+      },
+      "query": "Colher De Sopa Restaurante Pres. Medici R. Sen. João Cavalcante Arruda (83) 98886-4365 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 1,
+        "title": "Colher de sopa 58417-607, R. Sen. João Cavalcante Arruda ...",
+        "link": "https://instagram.com/reel/DWCnGe6jtqI",
+        "snippet": "Colher de sopa 58417-607, R. Sen. João Cavalcante Arruda, 194-198 - Pres. Medici, Campina Grande - PB, 58417-607.",
+        "displayedLink": "Mais de 2,5 mil marcações \"Gostei\" · há 3 meses",
+        "platform": "instagram",
+        "score": 92,
+        "tier": "yellow",
+        "flags": [
+          "instagram_reel_not_profile"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "528002c2-69ff-4e98-9646-8ed10b97ea69",
+        "name": "Restaurante Daikôn",
+        "category": "",
+        "address": "R. Cap. João Alves de Lira, 303",
+        "neighborhood": "Prata",
+        "rating": 4.5,
+        "reviews_count": 1012
+      },
+      "query": "Restaurante Daikôn Prata R. Cap. João Alves de Lira (83) 3322-5995 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Daikôn Sushi Bar (@restaurantedaikon) · Campina Grande ...",
+        "link": "https://instagram.com/restaurantedaikon",
+        "snippet": "20K followers · 2.8K+ posts · Restaurante Japonês e Chinês Campina Grande - PB Aceitamos cartões 18h às 23h15 ☎️ Delivery pelo número: (83) 3322.5995 ...",
+        "displayedLink": "Mais de 19,8 mil seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "1049c632-8c5f-4aa7-b36f-5075bec1e92f",
+        "name": "Pizzaria Mais Sabor - Campina Grande",
+        "category": "Pizzaria·",
+        "address": "R. Espírito Sto, 632",
+        "neighborhood": "Liberdade",
+        "rating": 4.4,
+        "reviews_count": 900
+      },
+      "query": "Pizzaria Mais Sabor - Campina Grande Liberdade R. Espírito Sto (83) 3088-5795 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 6,
+        "title": "PIZZARIA MAIS SABOR | Delivery em Campina Grande",
+        "link": "https://pedido.anota.ai/loja/pizzaria-mais-sabor-campina-grande",
+        "snippet": "Faça agora seu pedido no PIZZARIA MAIS SABOR. Peça também pelo nosso whatsapp: 558330885795. Feito com carinho pela equipe Anota AI.",
+        "displayedLink": "https://pedido.anota.ai › loja › pizzaria-mais-sabor-campi...",
+        "platform": "anota_ai",
+        "score": 116,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 10
+    },
+    {
+      "restaurant": {
+        "id": "a7e0b267-8b70-4488-b548-dcee41bce76f",
+        "name": "Bar da Queda",
+        "category": "Bar·",
+        "address": "R. Estácio de Sá, 445",
+        "neighborhood": "José Pinheiro",
+        "rating": 4.4,
+        "reviews_count": 790
+      },
+      "query": "Bar da Queda José Pinheiro R. Estácio de Sá (83) 3066-5948 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 9,
+        "title": "Delivery em CAMPINA GRANDE - Bar da Queda",
+        "link": "https://loja.anota.ai/E3q7uWWnxnGG",
+        "snippet": "Rua Estácio de Sá, Nº 445, José Pinheiro, CAMPINA GRANDE, PB Ver no mapa. Faça agora seu pedido no Bar da Queda. Peça também pelo nosso whatsapp: 558388573893.",
+        "displayedLink": "https://loja.anota.ai › ...",
+        "platform": "anota_ai",
+        "score": 118,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 12
+    },
+    {
+      "restaurant": {
+        "id": "838f1dd1-a1a6-4969-ae6f-e3af43e66f96",
+        "name": "Seu Bibi Pastelaria",
+        "category": "Pastelaria brasileira",
+        "address": "R. Odon Bezerra, 223",
+        "neighborhood": "Liberdade",
+        "rating": 4.5,
+        "reviews_count": 750
+      },
+      "query": "Seu Bibi Pastelaria Liberdade R. Odon Bezerra (83) 98840-0999 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 2,
+        "title": "Seu Bibi Pastelaria (@seubibipastelaria)",
+        "link": "https://instagram.com/seubibipastelaria",
+        "snippet": "Pastéis, Coxinhas e Caldo de cana Rua Odon Bezerra, 223, Liberdade - CG ⏰ 17:30hrs ás 23:50hrs PEÇA DELIVERY PELO SITE ⬇️ · A nossa história iniciou no ano de ...",
+        "displayedLink": "Mais de 32,5 mil seguidores",
+        "platform": "instagram",
+        "score": 100,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      },
+      "candidateCount": 11
+    },
+    {
+      "restaurant": {
+        "id": "e1a67051-bcfa-457f-9faf-1922c49019c0",
+        "name": "Flames Pizzaria Italiana",
+        "category": "Pizzaria·",
+        "address": "Rua Doutor Severino Ribeiro Cruz",
+        "neighborhood": "R. Dr. Severino Cruz",
+        "rating": 4.7,
+        "reviews_count": 744
+      },
+      "query": "Flames Pizzaria Italiana R. Dr. Severino Cruz Rua Doutor Severino Ribeiro Cruz (83) 98210-8367 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 8,
+        "title": "Melhores delivery de Campina Grande",
+        "link": "https://portal.instadelivery.com.br/campina-grande",
+        "snippet": "Pedido mínimo: R$ 10,00. Flames Pizzeria Italiana. R. Dr. Severino Cruz, 679 Loja 2, Campina Grande / PB; Entrega gratuita acima de R$ 160,00 ...",
+        "displayedLink": "https://portal.instadelivery.com.br › campina-grande",
+        "platform": "instadelivery",
+        "score": 122,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 9
+    },
+    {
+      "restaurant": {
+        "id": "1ec194c4-605f-4ab5-91b2-61c30b06c61b",
+        "name": "Ki Pastel do Catolé ( Loja Matriz)",
+        "category": "Lanchonete·",
+        "address": "R. Vig. Calixto, 689",
+        "neighborhood": "Catolé",
+        "rating": 4.1,
+        "reviews_count": 660
+      },
+      "query": "Ki Pastel do Catolé ( Loja Matriz) Catolé R. Vig. Calixto (83) 2153-2723 Campina Grande PB Instagram",
+      "best": {
+        "source": "organic",
+        "position": 4,
+        "title": "Ki Pastel do Catolé Matriz | Delivery em CAMPINA GRANDE",
+        "link": "https://pedido.anota.ai/loja/ki-pastel-do-catol-matriz",
+        "snippet": "Faça agora seu pedido no Ki Pastel do Catolé Matriz. Peça também pelo nosso whatsapp: 558387016810. Feito com carinho pela equipe Anota AI.",
+        "displayedLink": "https://pedido.anota.ai › loja › ki-pastel-do-catol-matriz",
+        "platform": "anota_ai",
+        "score": 120,
+        "tier": "green",
+        "flags": []
+      },
+      "candidateCount": 10
+    }
+  ]
+}

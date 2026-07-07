@@ -1,0 +1,222 @@
+{
+  "apply": false,
+  "city": "Cabedelo",
+  "state": "PB",
+  "activeRows": 213,
+  "plannedUpdates": 213,
+  "missingEvidence": 0,
+  "updated": 0,
+  "failed": [],
+  "coverage": {
+    "phone": 152,
+    "whatsapp_url": 151,
+    "address": 212,
+    "rating": 181,
+    "reviews_count": 181,
+    "opening_hours": 171,
+    "coordinates": 213
+  },
+  "samples": [
+    {
+      "id": "4c30ffdb-d028-4dcc-bc6d-5135ce1db3e2",
+      "name": "Skama Bar e Restaurante",
+      "category": "Restaurante",
+      "address": "Av. Cassiano da Cunha Nóbrega, 18, Ponta de Matos",
+      "phone": "(83) 98677-5976",
+      "rating": 4.2,
+      "reviews_count": 397,
+      "has_opening_hours": true
+    },
+    {
+      "id": "de5e3f48-dddc-4872-823a-71ba50fe51ab",
+      "name": "Caldinho Prime Formosa",
+      "category": "Restaurante",
+      "address": "Av. Cassiano da Cunha Nóbrega, 555, Vila Sao Joao",
+      "phone": null,
+      "rating": 4.7,
+      "reviews_count": 46,
+      "has_opening_hours": true
+    },
+    {
+      "id": "76a39b5d-8130-4119-a4a5-87e8ea3020b8",
+      "name": "Ilha Dourada Restaurante",
+      "category": "Restaurante de frutos do mar",
+      "address": "BR -230, R. José Américo de Almeida Filho",
+      "phone": "(83) 3228-1826",
+      "rating": 4.2,
+      "reviews_count": 3161,
+      "has_opening_hours": true
+    },
+    {
+      "id": "8162456c-2817-4a8a-bbab-aa875c29419e",
+      "name": "Bar das Meninas Restaurante",
+      "category": "Restaurante de frutos do mar",
+      "address": "R. Des. Onaldo N Montenegro, 368, Vila Sao Joao",
+      "phone": "(83) 98715-5110",
+      "rating": 4.2,
+      "reviews_count": 3174,
+      "has_opening_hours": true
+    },
+    {
+      "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+      "name": "Restaurante Pôr do Sol",
+      "category": "Restaurante",
+      "address": "R. Pres. João Pessoa, 1, Vila Sao Joao",
+      "phone": "(83) 99672-7835",
+      "rating": 4.6,
+      "reviews_count": 105,
+      "has_opening_hours": true
+    },
+    {
+      "id": "6b65edcc-4d44-4dd4-82c8-36291fdef22b",
+      "name": "Caiçara Bar e Restaurante",
+      "category": "Restaurante",
+      "address": "Praia de, Rua Cassiano",
+      "phone": "(83) 98843-8076",
+      "rating": 4.7,
+      "reviews_count": 39,
+      "has_opening_hours": true
+    },
+    {
+      "id": "9488d27a-7737-4c86-b059-0e16a6fb049d",
+      "name": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+      "category": "Restaurante",
+      "address": "R. Vitorino Cardoso, 908, Ponta de Campina",
+      "phone": "(83) 99408-6293",
+      "rating": 4.4,
+      "reviews_count": 10742,
+      "has_opening_hours": true
+    },
+    {
+      "id": "1eca2999-0514-4887-b108-dc65ae31e6b6",
+      "name": "Churrascaria do Caicó",
+      "category": "Churrascaria",
+      "address": "R, Av. Pastor José Alves de Oliveira",
+      "phone": null,
+      "rating": 4.3,
+      "reviews_count": 753,
+      "has_opening_hours": true
+    },
+    {
+      "id": "d7d014d6-8d90-440c-a2ab-caee3b86bb0d",
+      "name": "Tenda Formosa Bar & Restaurante",
+      "category": "Restaurante",
+      "address": "Av. Cassiano da Cunha Nóbrega, 98, Praia Formosa",
+      "phone": "(83) 98850-1112",
+      "rating": 4.1,
+      "reviews_count": 1507,
+      "has_opening_hours": true
+    },
+    {
+      "id": "0aab67a1-5843-4fe8-933a-45b0f8a67321",
+      "name": "Sport Marina",
+      "category": "Restaurante de frutos do mar",
+      "address": "Av. Pastor José Alves de Oliveira, 848, Areia Dourada",
+      "phone": "(83) 3228-3500",
+      "rating": 4.5,
+      "reviews_count": 503,
+      "has_opening_hours": true
+    },
+    {
+      "id": "37ab4f58-d719-4d80-a795-591129dcd723",
+      "name": "RESTAURANTE DA WILMA",
+      "category": "Restaurante",
+      "address": "Jacaré, Cabedelo",
+      "phone": "(83) 98732-3938",
+      "rating": 4.9,
+      "reviews_count": 8,
+      "has_opening_hours": true
+    },
+    {
+      "id": "a43626c7-89fe-497c-940e-ffeabc8475fb",
+      "name": "Bar e Restaurante do Sumé",
+      "category": "Restaurante de frutos do mar",
+      "address": "Av. Oceano Atlântico, 98, Vila Sao Joao",
+      "phone": "(83) 3011-0124",
+      "rating": 4.1,
+      "reviews_count": 762,
+      "has_opening_hours": true
+    },
+    {
+      "id": "2b235799-a9b7-4b5b-b754-6aced57e707b",
+      "name": "Atlântico bar, cabedelo",
+      "category": "Restaurante",
+      "address": "Cassiano, Av. Cassiano da Cunha Nóbrega - Ponta de Matos, Cabedelo",
+      "phone": "(83) 99187-8408",
+      "rating": 4.4,
+      "reviews_count": 8,
+      "has_opening_hours": true
+    },
+    {
+      "id": "cd9230d9-bdb7-4b4d-8b2a-2add5fe0d487",
+      "name": "Residência do Mário",
+      "category": "Restaurante",
+      "address": "R. Cleto Campêlo, 889, Camalaú",
+      "phone": "(83) 99988-2096",
+      "rating": 4.7,
+      "reviews_count": 153,
+      "has_opening_hours": true
+    },
+    {
+      "id": "90398f02-4ae4-44a1-bd64-3f008fdca37c",
+      "name": "Bar e Restaurante Solânense",
+      "category": "Restaurante",
+      "address": "R. Sólon de Lucena, 364, Centro",
+      "phone": "(83) 98811-7616",
+      "rating": 4.6,
+      "reviews_count": 77,
+      "has_opening_hours": true
+    },
+    {
+      "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+      "name": "Sorveteria Frutos de Goiás - Cabedelo",
+      "category": "Sorveteria",
+      "address": "R. Sólon de Lucena, 30B, Centro",
+      "phone": "(83) 99313-6243",
+      "rating": 4.9,
+      "reviews_count": 40,
+      "has_opening_hours": true
+    },
+    {
+      "id": "98a3b276-2cfa-4c15-902a-aedb022cc215",
+      "name": "Caldeirão Nordestino - Caldinho e Nhoques Cabedelo",
+      "category": "Barraca de comida",
+      "address": "Areia Dourada, Cabedelo",
+      "phone": "(83) 98916-4925",
+      "rating": 4.8,
+      "reviews_count": 31,
+      "has_opening_hours": false
+    },
+    {
+      "id": "59147bb0-0a1d-4493-a05a-ba54bd8cd26c",
+      "name": "Restaurante Ondas",
+      "category": "Restaurante brasileiro",
+      "address": "Av. Cassiano da Cunha Nóbrega - Santa Catarina, Cabedelo",
+      "phone": "(83) 98898-8397",
+      "rating": 4.3,
+      "reviews_count": 164,
+      "has_opening_hours": true
+    },
+    {
+      "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "name": "Center Pizza Cabedelo",
+      "category": "Pizzaria",
+      "address": "R. Duque de Caxias, 189, Centro",
+      "phone": "(83) 98629-0531",
+      "rating": 5,
+      "reviews_count": 18,
+      "has_opening_hours": true
+    },
+    {
+      "id": "7dfea73b-b593-4acf-8bf1-71a099224008",
+      "name": "Pizza do Paulinho",
+      "category": "Pizzaria",
+      "address": "Av. Monsenhor José da Silva Coutinho, 113, Vila Sao Joao",
+      "phone": "(83) 98852-8675",
+      "rating": 5,
+      "reviews_count": 11,
+      "has_opening_hours": true
+    }
+  ],
+  "missing": []
+}

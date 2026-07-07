@@ -1,0 +1,9 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+green,17,anota_ai,Alexandre Restaurante,https://pedido.anota.ai/loja/alexandre-restaurante?f=msa,,fast_visual_review_then_import,eea035c3-ab24-4d02-998a-88854e5450f7
+green,17,anota_ai,Bompescado Sushi Home,https://pedido.anota.ai/loja/bompescado-sushi-home-1?f=msa,,fast_visual_review_then_import,fae32436-66fd-42bd-b346-cabdf1440c24
+green,17,anota_ai,Campina SeaFood - A Casa do Caranguejo,https://pedido.anota.ai/loja/campina-seafood-1?f=msa,,fast_visual_review_then_import,6dd9120c-1d37-4b63-82ed-e56a836f00f6
+green,17,anota_ai,Dalijapa Campina Grande,https://pedido.anota.ai/loja/dalijapa-restaurante-ltda-1,,fast_visual_review_then_import,9e62de28-08df-4361-a632-31eae168d26b
+green,17,anota_ai,Delegas Restaurante,https://pedido.anota.ai/loja/delegas-restaurante,,fast_visual_review_then_import,587998d2-2b52-4823-8821-2faa90294d8e
+green,17,anota_ai,Gulas Restaurante,https://pedido.anota.ai/loja/restaurante-gulas,,fast_visual_review_then_import,918ae01a-d7d3-4414-962e-585625c0c62a
+green,17,anota_ai,La Paloma Restaurante,https://pedido.anota.ai/loja/la-paloma-restaurante,,fast_visual_review_then_import,19753013-293e-46f9-b3ca-04b2611ecee3
+green,17,anota_ai,Mais Sushi,https://pedido.anota.ai/loja/maissushicg?f=msa,,fast_visual_review_then_import,e16a7a26-2a1f-4621-9a70-e245c092981b

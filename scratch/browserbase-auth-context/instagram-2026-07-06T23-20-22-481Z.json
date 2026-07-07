@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "site": "instagram",
+  "targetUrl": "https://www.instagram.com/",
+  "contextId": "73d02316-bbde-4755-9fd9-9406e9be1aac",
+  "createdContext": true,
+  "sessionId": "75aa1eca-5866-46a1-9049-5dec1e116896",
+  "dashboardUrl": "https://browserbase.com/sessions/75aa1eca-5866-46a1-9049-5dec1e116896",
+  "liveViewUrl": "https://www.browserbase.com/devtools-fullscreen/inspector.html?wss=connect.browserbase.com/debug/75aa1eca-5866-46a1-9049-5dec1e116896/devtools/page/17C1CEBF0831AA974434914A2B8ED39F?debug=true",
+  "keepAlive": true,
+  "stateFile": "scratch\\browserbase-auth-contexts.json",
+  "nextStep": "Abra o liveViewUrl, faca login e me avise quando terminar. Depois feche a sessao pelo dashboard ou me peca para continuar usando esse contexto."
+}

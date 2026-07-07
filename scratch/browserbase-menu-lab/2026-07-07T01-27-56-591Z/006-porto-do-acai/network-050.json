@@ -1,0 +1,372 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 7123,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"a5ad11c6-f1b4-4612-b01f-38082c3ce724\",\"code\":\"65\",\"ean\":null,\"priority\":1,\"name\":\"COMBO COXINHA E GUARANÁ ANTARTICA\",\"description\":\"\",\"price\":13,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"2e9468e0-8d27-4cac-8e68-6d24bc92b34d\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"COMBO COXINHA E GUARANÁ ANTARTICA\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-a5ad11c6-f1b4-4612-b01f-38082c3ce724_30ef40c0-fb21-4162-a99d-9d3b9c7c17ca.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"c5eb433e-3994-4739-887f-4183c77b9d77\",\"code\":\"26\",\"ean\":null,\"priority\":2,\"name\":\"Pastel de Forno de Carne de Sol\",\"description\":\"\",\"price\":8,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"23af3713-80dc-43ec-9026-167cd2139042\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Pastel de Forno de Carne de Sol\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-c5eb433e-3994-4739-887f-4183c77b9d77_49bbb6ef-849e-4e3f-ae7a-bffcbbf834b7.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"bc30aaec-fcae-4dba-a09c-f72eebd96494\",\"code\":\"25\",\"ean\":null,\"priority\":3,\"name\":\"Pastel de Forno de Frango\",\"description\":\"\",\"price\":7,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"5b8c1d4c-4b27-49b4-8ec4-e0a95a38d98f\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Pastel de Forno de Frango\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-bc30aaec-fcae-4dba-a09c-f72eebd96494_7e206f68-4507-4c6b-8e57-f3efb1edcad0.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"4b19abbb-39a2-4964-a7bd-8fc801e11604\",\"code\":\"23\",\"ean\":null,\"priority\":4,\"name\":\"Empada de Frango\",\"description\":\"\",\"price\":7,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"8deb012f-827f-40da-896d-a61357e105de\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Empada de Frango\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-4b19abbb-39a2-4964-a7bd-8fc801e11604_e5ff41b0-adff-4a2d-ba51-45f68b15a12a.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"a9d58685-42a4-4a33-8e45-77d3d570c9d9\",\"code\":\"19\",\"ean\":null,\"priority\":5,\"name\":\"Coxinha\",\"description\":\"\",\"price\":6,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"90430693-7025-4830-b224-9237312ee9e2\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Coxinha\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-a9d58685-42a4-4a33-8e45-77d3d570c9d9_86438a5d-4eaa-4fda-aeeb-4e0fe62be586.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"350957d6-64a5-4a54-8563-bd180f9d08da\",\"code\":\"20\",\"ean\":null,\"priority\":6,\"name\":\"Enroladinho\",\"description\":\"\",\"price\":6,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"94b3d562-ac23-49da-9b4d-6aea05e7c7be\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Enroladinho\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-350957d6-64a5-4a54-8563-bd180f9d08da_eec44af1-b8aa-47ed-9cc6-2b220e455e48.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"id\":\"8b49d913-1a71-49b0-afb4-97c17a3395c1\",\"code\":\"21\",\"ean\":null,\"priority\":7,\"name\":\"Pao delicia\",\"description\":\"\",\"price\":6,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"18eb4c01-095a-4ab9-82fc-684f745da3a7\",\"default\":false,\"main\":false,\"priority\":0,\"description\":\"Pao delicia\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/product-8b49d913-1a71-49b0-afb4-97c17a3395c1_becfd043-a741-4f45-aa16-586b51944b99.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "7"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "a5ad11c6-f1b4-4612-b01f-38082c3ce724",
+      "code": "65",
+      "ean": null,
+      "priority": 1,
+      "name": "COMBO COXINHA E GUARANÁ ANTARTICA",
+      "description": "",
+      "price": 13,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "2e9468e0-8d27-4cac-8e68-6d24bc92b34d",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "COMBO COXINHA E GUARANÁ ANTARTICA",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a5ad11c6-f1b4-4612-b01f-38082c3ce724_30ef40c0-fb21-4162-a99d-9d3b9c7c17ca.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "c5eb433e-3994-4739-887f-4183c77b9d77",
+      "code": "26",
+      "ean": null,
+      "priority": 2,
+      "name": "Pastel de Forno de Carne de Sol",
+      "description": "",
+      "price": 8,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "23af3713-80dc-43ec-9026-167cd2139042",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Pastel de Forno de Carne de Sol",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-c5eb433e-3994-4739-887f-4183c77b9d77_49bbb6ef-849e-4e3f-ae7a-bffcbbf834b7.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "bc30aaec-fcae-4dba-a09c-f72eebd96494",
+      "code": "25",
+      "ean": null,
+      "priority": 3,
+      "name": "Pastel de Forno de Frango",
+      "description": "",
+      "price": 7,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "5b8c1d4c-4b27-49b4-8ec4-e0a95a38d98f",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Pastel de Forno de Frango",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-bc30aaec-fcae-4dba-a09c-f72eebd96494_7e206f68-4507-4c6b-8e57-f3efb1edcad0.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "4b19abbb-39a2-4964-a7bd-8fc801e11604",
+      "code": "23",
+      "ean": null,
+      "priority": 4,
+      "name": "Empada de Frango",
+      "description": "",
+      "price": 7,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "8deb012f-827f-40da-896d-a61357e105de",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Empada de Frango",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-4b19abbb-39a2-4964-a7bd-8fc801e11604_e5ff41b0-adff-4a2d-ba51-45f68b15a12a.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "a9d58685-42a4-4a33-8e45-77d3d570c9d9",
+      "code": "19",
+      "ean": null,
+      "priority": 5,
+      "name": "Coxinha",
+      "description": "",
+      "price": 6,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "90430693-7025-4830-b224-9237312ee9e2",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Coxinha",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-a9d58685-42a4-4a33-8e45-77d3d570c9d9_86438a5d-4eaa-4fda-aeeb-4e0fe62be586.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "350957d6-64a5-4a54-8563-bd180f9d08da",
+      "code": "20",
+      "ean": null,
+      "priority": 6,
+      "name": "Enroladinho",
+      "description": "",
+      "price": 6,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "94b3d562-ac23-49da-9b4d-6aea05e7c7be",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Enroladinho",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-350957d6-64a5-4a54-8563-bd180f9d08da_eec44af1-b8aa-47ed-9cc6-2b220e455e48.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "id": "8b49d913-1a71-49b0-afb4-97c17a3395c1",
+      "code": "21",
+      "ean": null,
+      "priority": 7,
+      "name": "Pao delicia",
+      "description": "",
+      "price": 6,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "18eb4c01-095a-4ab9-82fc-684f745da3a7",
+          "default": false,
+          "main": false,
+          "priority": 0,
+          "description": "Pao delicia",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/product-8b49d913-1a71-49b0-afb4-97c17a3395c1_becfd043-a741-4f45-aa16-586b51944b99.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

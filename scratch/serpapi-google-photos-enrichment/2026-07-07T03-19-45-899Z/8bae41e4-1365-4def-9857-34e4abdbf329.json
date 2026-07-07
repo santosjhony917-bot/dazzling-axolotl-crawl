@@ -1,0 +1,270 @@
+{
+  "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+  "name": "Eu Quero Pizza",
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "applied": true,
+  "uploads": [
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/serpapi_google_1783394422502_1.jpg",
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida do restaurante"
+      },
+      "source": "google_maps_photo"
+    },
+    {
+      "kind": "cover",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/serpapi_google_1783394422502_1.jpg"
+    }
+  ],
+  "skipped": [],
+  "resolver": {
+    "dataId": "0x7acdf02662a4b07:0x147e30c4edb222f7",
+    "source": "cached_phase1_raw",
+    "rawFile": "scratch\\serpapi-google-maps-phase1\\2026-07-06T19-32-09-190Z\\raw-002.json"
+  },
+  "photoCount": 4,
+  "googleImagesFallback": {
+    "query": "\"Eu Quero Pizza\" Cabedelo PB \"euqueropizzafoodtruck\"",
+    "count": 100
+  },
+  "candidates": [
+    {
+      "source": "google_maps_photo",
+      "score": 115,
+      "vision": {
+        "ok": true,
+        "kind": "food",
+        "score": 85,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": false,
+        "reason": "foto de comida do restaurante"
+      },
+      "index": 0,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -91,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": true,
+        "reason": "texto dominante"
+      },
+      "index": 1,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_maps_photo",
+      "score": -92,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": false,
+        "text_or_poster_dominant": true,
+        "reason": "texto dominante"
+      },
+      "index": 2,
+      "urlHost": "lh3.googleusercontent.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -105,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3594870579255472488."
+      },
+      "index": 0,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -106,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3642005181014780847."
+      },
+      "index": 1,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -107,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.fbsbx.com/lookaside/crawler/instagram/euqueropizzafoodtruck/profile_pic.jpg."
+      },
+      "index": 2,
+      "urlHost": "lookaside.fbsbx.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -108,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3607151363144429597."
+      },
+      "index": 3,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -109,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3601419395207030169."
+      },
+      "index": 4,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "serpapi_maps_thumbnail",
+      "score": -110,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": true,
+        "text_or_poster_dominant": true,
+        "reason": "texto dominante"
+      },
+      "index": null,
+      "urlHost": "serpapi.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -110,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3577497570643472599."
+      },
+      "index": 5,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -111,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3611611453670775986."
+      },
+      "index": 6,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -112,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3921789752921192097."
+      },
+      "index": 7,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -113,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3615222092821529777."
+      },
+      "index": 8,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -114,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3513748209946544056."
+      },
+      "index": 9,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_images_fallback",
+      "score": -115,
+      "vision": {
+        "ok": false,
+        "reason": "vision_failed:400 Error while downloading https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3570968813405283334."
+      },
+      "index": 10,
+      "urlHost": "lookaside.instagram.com"
+    },
+    {
+      "source": "google_maps_streetview",
+      "score": -150,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 0,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": false,
+        "text_or_poster_dominant": true,
+        "reason": "imagem com texto dominante e sem comida visível"
+      },
+      "index": 3,
+      "urlHost": "streetviewpixels-pa.googleapis.com"
+    }
+  ],
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 1,
+    "galleryRows": [
+      {
+        "id": "f5e81b8a-b005-496d-bdb5-8a5702503d43",
+        "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/serpapi_google_1783394422502_1.jpg",
+        "order_index": 0
+      }
+    ]
+  },
+  "promotion": {
+    "promoted": false,
+    "status": {
+      "hasLogo": true,
+      "hasCover": true,
+      "galleryCount": 1,
+      "galleryRows": [
+        {
+          "id": "f5e81b8a-b005-496d-bdb5-8a5702503d43",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/8bae41e4-1365-4def-9857-34e4abdbf329/serpapi_google_1783394422502_1.jpg",
+          "order_index": 0
+        }
+      ]
+    },
+    "menuReady": true
+  },
+  "status": "ok"
+}

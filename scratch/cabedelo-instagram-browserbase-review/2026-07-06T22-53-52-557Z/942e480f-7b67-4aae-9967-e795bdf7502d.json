@@ -1,0 +1,51 @@
+{
+  "id": "942e480f-7b67-4aae-9967-e795bdf7502d",
+  "name": "Therê Açaí e Sorvete",
+  "category": "Sorveteria",
+  "neighborhood": "Centro",
+  "reviews_count": null,
+  "rating": null,
+  "instagramCandidate": "https://instagram.com/reidoacaisorveteria",
+  "score": 80,
+  "title": "Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria)",
+  "queries": [
+    "Therê Açaí e Sorvete danieldoacai Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) | Açaíteria • Sorvetes • Delivery ⏰|Todos os dias, das 12h às 23h |67981091550 - whatsapp |Cardápio no link, faça seu pedido na hora! https://www.instagram.com/reidoacaisorveteria/ | Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) | Açaíteria • Sorvetes • Delivery ⏰|Todos os dias, das 12h às 23h |67981091550 - whatsapp |Cardápio no link, faça seu pedido na hora! https://instagram.com/reidoacaisorveteria",
+  "rowName": "Therê Açaí e Sorvete",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": 22,
+    "url": "https://instagram.com/reidoacaisorveteria",
+    "handle": "reidoacaisorveteria",
+    "tokens": [
+      "there",
+      "sorvete"
+    ],
+    "handleMatches": [
+      "sorvete"
+    ],
+    "textMatches": [
+      "sorvete"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [
+      "(67) 98109-1550"
+    ],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": false,
+    "evidenceSample": "Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) | Açaíteria • Sorvetes • Delivery ⏰|Todos os dias, das 12h às 23h |67981091550 - whatsapp |Cardápio no link, faça seu pedido na hora! https://www.instagram.com/reidoacaisorveteria/ | Rei do Açaí | Sorveteria 🍨 (@reidoacaisorveteria) | Açaíteria • Sorvetes • Delivery ⏰|Todos os dias, das 12h às 23h |67981091550 - whatsapp |Cardápio no link, faça seu pedido na hora! https://instagram.com/reidoacaisorveteria Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://s",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Freidoacaisorveteria%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "20f39d07-5069-4877-9f2e-32d39c42e006"
+}

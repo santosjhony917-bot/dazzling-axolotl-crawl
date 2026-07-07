@@ -1,0 +1,47 @@
+{
+  "runId": "2026-07-07T03-46-10-300Z",
+  "outDir": "scratch\\apify-instagram-original-gallery\\2026-07-07T03-46-10-300Z",
+  "apply": true,
+  "forceMedia": true,
+  "promote": false,
+  "processed": 1,
+  "mediaComplete": 1,
+  "mediaIncomplete": 0,
+  "failed": 0,
+  "promoted": 0,
+  "results": [
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "status": "media_complete",
+      "posts": 32,
+      "approved": 3,
+      "uploads": 4,
+      "after": {
+        "hasLogo": true,
+        "hasCover": true,
+        "galleryCount": 3,
+        "galleryRows": [
+          {
+            "id": "270fb4ed-05b5-4a7a-a218-2696a6f68465",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_original_1783396098064_1.jpg",
+            "order_index": 0
+          },
+          {
+            "id": "523ac06f-7387-4f04-9d43-654480b71fe7",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_original_1783396098664_2.jpg",
+            "order_index": 1
+          },
+          {
+            "id": "5053d95f-4c15-4f18-87be-1c78c8355814",
+            "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ecac91e3-52c0-4780-9867-6b3b1d096089/instagram_original_1783396099299_3.jpg",
+            "order_index": 2
+          }
+        ],
+        "complete": true,
+        "missing": []
+      },
+      "reason": null
+    }
+  ]
+}

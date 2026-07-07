@@ -1,0 +1,2 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+red,17,anota_ai,Alexandre Restaurante,https://pedido.anota.ai/loja/alexandre-restaurante?f=msa,collector_error|no_extension_print|no_structured_items|insufficient_visual_menu_evidence|price_coverage_review,reject_or_rediscover_source,eea035c3-ab24-4d02-998a-88854e5450f7

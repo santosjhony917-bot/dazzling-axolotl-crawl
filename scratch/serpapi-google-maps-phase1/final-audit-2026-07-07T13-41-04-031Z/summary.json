@@ -1,0 +1,528 @@
+{
+  "runId": "2026-07-07T13-41-04-031Z",
+  "apply": true,
+  "fetchDetails": false,
+  "city": "Cabedelo",
+  "state": "PB",
+  "processados": 206,
+  "aprovados": 206,
+  "rejeitados": [],
+  "pendentes": 127,
+  "atualizacoesPlanejadas": 206,
+  "atualizacoesAplicadas": 206,
+  "falhas": [],
+  "serpApiErrors": [],
+  "coberturaFinal": {
+    "google_maps_url": 206,
+    "google_place_id": 206,
+    "coordenadas": 206,
+    "endereco": 206,
+    "numero": 119,
+    "bairro": 191,
+    "cidade_uf": 206,
+    "cep": 203,
+    "telefone": 155,
+    "whatsapp_url": 154,
+    "nota": 174,
+    "avaliacoes": 174,
+    "horario_funcionamento": 172
+  },
+  "pendenciasPorTipo": {
+    "pendente_nota_google": 32,
+    "pendente_avaliacoes_google": 32,
+    "pendente_horario_google": 34,
+    "pendente_numero_google": 87,
+    "pendente_telefone_google": 51,
+    "pendente_cep": 3
+  },
+  "principaisErrosEncontrados": [
+    "3 aprovados sem CEP no Google/SerpApi; marcados como pendente_cep em coleta_logs.",
+    "34 aprovados sem tabela semanal de horario no Google/SerpApi; nao foi inventado horario.",
+    "51 aprovados sem telefone no Google/SerpApi.",
+    "32 aprovados sem nota/avaliacoes no Google/SerpApi.",
+    "0 rejeicoes nesta auditoria final; os checks anteriores de fechado e nao-restaurante tambem retornaram zero suspeitos ativos."
+  ],
+  "pendentesAmostra": [
+    {
+      "id": "9aad8169-49b0-4726-9924-14ec8b6f9d38",
+      "name": "Nossa Pizza",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "9092bbb6-9b7e-4aff-a990-7edecd6f155b",
+      "name": "Bebel & Jó Pizzaria",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "fa5d1264-03c0-491d-a52a-4bad168948b0",
+      "name": "JKZ Alimentos (AÇAÍto)",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+      "name": "JuJuba sorvete e açaí",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "cec28f47-fb35-4c1b-af88-4af762996479",
+      "name": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+      "pending": [
+        "pendente_telefone_google"
+      ]
+    },
+    {
+      "id": "e744a813-7f24-4f4c-a422-d54e2c0ab2ff",
+      "name": "Juci",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_horario_google"
+      ]
+    },
+    {
+      "id": "b91f652e-112d-4dcf-921c-4df6c2d1700f",
+      "name": "Recanto do Pastel",
+      "pending": [
+        "pendente_telefone_google"
+      ]
+    },
+    {
+      "id": "58f3eb00-556c-496a-abee-790e691903ce",
+      "name": "Pastel do Thiago",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "8fb49605-7614-4c27-9a31-406de6240e2d",
+      "name": "Espetinho da Praça",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "1eca2999-0514-4887-b108-dc65ae31e6b6",
+      "name": "Churrascaria do Caicó",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "56b08e89-b750-4ec9-9497-21900cf3d823",
+      "name": "Bar E Restaurante Do Nal",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "de5e3f48-dddc-4872-823a-71ba50fe51ab",
+      "name": "Caldinho Prime Formosa",
+      "pending": [
+        "pendente_telefone_google"
+      ]
+    },
+    {
+      "id": "1c95b48d-3189-4496-8e70-4e9167967964",
+      "name": "La casa de pastel e La Pizza Premium",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "0e3f0746-de34-4715-93fc-06a1b5c10e2b",
+      "name": "D Lay Refeições - Marmitaria",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "0a3b0f9a-629f-41ff-b213-eeb69d825dc2",
+      "name": "Renapizza",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "4e7acf35-2f23-41de-89f6-1a98cf6e0b4b",
+      "name": "Espetinho São Paulo",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_horario_google"
+      ]
+    },
+    {
+      "id": "393e1305-e40d-4281-99c5-ebe01cc24c27",
+      "name": "Açaí Jacaré Beach",
+      "pending": [
+        "pendente_telefone_google"
+      ]
+    },
+    {
+      "id": "80b5f0be-adea-4b91-8b8e-ee162f79f973",
+      "name": "M E Refeição",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "a6bf4269-0471-4d9f-b207-0adfc6308285",
+      "name": "Seu Jerônimo",
+      "pending": [
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "a62661ec-86ed-4ed2-8144-f105736312ad",
+      "name": "food service",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "57a68170-1982-436a-a5b9-02366f6a999b",
+      "name": "Café cultural",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "fee9720d-1e25-487a-9a73-df9e407e73a6",
+      "name": "Restaurante",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "ea0bb6d3-17df-4665-b715-32054f497d99",
+      "name": "Na brasa hambúrgueria",
+      "pending": [
+        "pendente_horario_google"
+      ]
+    },
+    {
+      "id": "4ddf6e22-ced9-47e4-b213-c378d233f04d",
+      "name": "MB Marmitas | Marmitaria em João Pessoa",
+      "pending": [
+        "pendente_telefone_google"
+      ]
+    },
+    {
+      "id": "1a2bf81d-2228-463f-ab7a-0dbf5ee3d27c",
+      "name": "Marcos Lanches",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "5ba77eda-968b-407b-aaa9-4c6d641e66cb",
+      "name": "Tropical Burgz",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "0ca69331-2d1e-48f9-8401-dffb785df697",
+      "name": "ESFIELDS",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "3d145fe5-ceba-49ab-9b1d-50b6c19118de",
+      "name": "Café Cabedelo",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "9007523d-76dc-4621-a738-134d99dfddd1",
+      "name": "Manos Burger Cabedelo",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "b6baa6f0-a148-49d2-830d-ea22a28cfeae",
+      "name": "Magela Pizzaria",
+      "pending": [
+        "pendente_telefone_google"
+      ]
+    },
+    {
+      "id": "5b44780e-f9ff-4d05-a95c-4fd998039b2d",
+      "name": "Empadinhas Barnabé - Intermares",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "942e480f-7b67-4aae-9967-e795bdf7502d",
+      "name": "Therê Açaí e Sorvete",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google"
+      ]
+    },
+    {
+      "id": "98a3b276-2cfa-4c15-902a-aedb022cc215",
+      "name": "Caldeirão Nordestino - Caldinho e Nhoques Cabedelo",
+      "pending": [
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "65ebdb63-241a-4831-8015-09a936d25b61",
+      "name": "Obra Fest Verão",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "d6f9c697-1969-49b6-8f3e-737b9f74ea23",
+      "name": "Pizzaria NEVARE",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "26330241-3dbd-449f-ac54-9b789abc4a01",
+      "name": "Self service da GG",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_horario_google"
+      ]
+    },
+    {
+      "id": "e4463ab8-c32d-4e3e-aa0c-b93e2a9f7015",
+      "name": "Triniity Burguer",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_nota_google",
+        "pendente_avaliacoes_google"
+      ]
+    },
+    {
+      "id": "6e248922-94fd-4138-86a0-92c7a04fcfff",
+      "name": "cabe 1one açaí",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google"
+      ]
+    },
+    {
+      "id": "e078124e-e310-47b9-aa46-38ea0c3b8bf1",
+      "name": "PAULISTA BURGER",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "436f9cd0-dff9-44c9-b070-180629e7a50e",
+      "name": "Acai",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_horario_google"
+      ]
+    },
+    {
+      "id": "47118179-91f8-4cd7-a84d-f015a7d6033f",
+      "name": "Ravellas - Food Truck",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "74a5c779-4ae7-4e7f-a91f-372783779162",
+      "name": "Varanda da pizza Delivery",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "4990a612-f3ae-4ca1-959b-694fc7d59b9e",
+      "name": "Pastelaria em família",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "a4f66e28-5f08-468c-b552-1c96d59744e2",
+      "name": "BIG BURGUER",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+      "name": "Pizzaria tá no ponto",
+      "pending": [
+        "pendente_horario_google"
+      ]
+    },
+    {
+      "id": "a108a394-1cb3-478b-a857-2d6770d853c4",
+      "name": "Rodizio de caldo do carioca",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_horario_google"
+      ]
+    },
+    {
+      "id": "0ea2219a-fb1e-47e2-9e40-7da6a335dbd6",
+      "name": "Pastelle (Pastelaria artesanal)",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "27f1b5b7-56c6-49dd-80b5-4273a1dc3761",
+      "name": "Rainha da tapioca",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "3a22854f-4f10-4a9c-9bdc-cd40abef570e",
+      "name": "Tapiocaria da Edna Paraiba",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "133c9168-09a2-4fbc-b42e-af5ac51d23cb",
+      "name": "Bom Tempero Restaurante",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "3e32d9c6-3c16-47a9-912a-b3627b13088d",
+      "name": "Bonitinha das tapiocas",
+      "pending": [
+        "pendente_horario_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "b800fc7b-5bbe-44e1-b964-f96e36d4700a",
+      "name": "Me gusta Açaí",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "9acd9efa-a669-453b-a548-2387fa2e7612",
+      "name": "Sorveteria Tropical",
+      "pending": [
+        "pendente_telefone_google"
+      ]
+    },
+    {
+      "id": "b75a8384-f80f-4a6b-a230-d363cea67597",
+      "name": "Tapioca Sabor Natural",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_horario_google"
+      ]
+    },
+    {
+      "id": "2386896b-b1f2-4d3a-9a12-edb93d96a24f",
+      "name": "Tapiocaria da zeti",
+      "pending": [
+        "pendente_telefone_google",
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "dfb456d7-1841-474d-bb54-fd442af3e295",
+      "name": "Burguer Hall",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    },
+    {
+      "id": "e593d18c-792e-4c38-b9c4-4b34d62f7aa6",
+      "name": "South Beach | Açaí, Sorveteria e Cremes",
+      "pending": [
+        "pendente_cep"
+      ]
+    },
+    {
+      "id": "4a19815d-0292-4285-bf3a-25df89ef2bf6",
+      "name": "Queens do Açaí",
+      "pending": [
+        "pendente_nota_google",
+        "pendente_avaliacoes_google"
+      ]
+    },
+    {
+      "id": "f193a559-db9e-4530-be1f-889d9cd213ae",
+      "name": "Burger Prime",
+      "pending": [
+        "pendente_numero_google"
+      ]
+    }
+  ]
+}

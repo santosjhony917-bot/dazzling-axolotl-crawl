@@ -1,0 +1,90 @@
+{
+  "runId": "2026-07-07T04-22-30-722Z",
+  "outDir": "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z",
+  "baseUrl": "http://127.0.0.1:8080",
+  "targets": [
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "scrollInfo": {
+        "index": 18,
+        "delta": 7111,
+        "width": 1398,
+        "height": 734.390625,
+        "scrollHeight": 7845,
+        "clientHeight": 734,
+        "overflowY": "auto",
+        "text": "Log de Validação da IA{\"pipeline\":\"menu-v2\",\"audit\":{\"approved\":true,\"confidence\":0.98,\"categoryCount\":3,\"itemCount\":21,\"resolvedPriceCount\":21,\"unresolvedPriceCount\":0,\"fullPriceD"
+      },
+      "screenshots": [
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-01-edit-scroll-0.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-02-edit-scroll-455.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-03-edit-scroll-910.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-04-edit-scroll-1365.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-05-edit-scroll-1820.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-06-edit-scroll-2275.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-07-edit-scroll-2730.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-08-edit-scroll-3185.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-09-edit-scroll-3640.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-10-edit-scroll-4095.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-11-edit-scroll-4550.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-12-edit-scroll-5005.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-13-edit-scroll-5460.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-14-edit-scroll-5915.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-15-edit-scroll-6370.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-16-edit-scroll-6825.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\ilovepizzapb-8322d0f6-8e08-4de7-a73f-d71c57f0291d\\part-17-edit-scroll-7111.png"
+      ]
+    },
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "scrollInfo": {
+        "index": 18,
+        "delta": 6663,
+        "width": 1398,
+        "height": 734.390625,
+        "scrollHeight": 7397,
+        "clientHeight": 734,
+        "overflowY": "auto",
+        "text": "Log de Validação da IA{\"pipeline\":\"menu-v2\",\"audit\":{\"approved\":true,\"confidence\":0.98,\"categoryCount\":3,\"itemCount\":16,\"resolvedPriceCount\":16,\"unresolvedPriceCount\":0,\"fullPriceD"
+      },
+      "screenshots": [
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-01-edit-scroll-0.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-02-edit-scroll-455.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-03-edit-scroll-910.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-04-edit-scroll-1365.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-05-edit-scroll-1820.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-06-edit-scroll-2275.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-07-edit-scroll-2730.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-08-edit-scroll-3185.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-09-edit-scroll-3640.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-10-edit-scroll-4095.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-11-edit-scroll-4550.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-12-edit-scroll-5005.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-13-edit-scroll-5460.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-14-edit-scroll-5915.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-15-edit-scroll-6370.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\eu-quero-pizza-8bae41e4-1365-4def-9857-34e4abdbf329\\part-16-edit-scroll-6663.png"
+      ]
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "scrollInfo": {
+        "index": -1,
+        "delta": 184,
+        "width": 1920,
+        "height": 1080,
+        "scrollHeight": 1264,
+        "clientHeight": 1080,
+        "overflowY": "document",
+        "text": "document.scrollingElement"
+      },
+      "screenshots": [
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\i-love-burguer-ecac91e3-52c0-4780-9867-6b3b1d096089\\part-01-edit-scroll-0.png",
+        "scratch\\cabedelo-three-edit-visual-qa\\2026-07-07T04-22-30-722Z\\i-love-burguer-ecac91e3-52c0-4780-9867-6b3b1d096089\\part-02-edit-scroll-184.png"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+  "name": "Espaço Do Sushi",
+  "instagram": "https://www.instagram.com/espacodosushi/",
+  "followers": 4596,
+  "match": {
+    "score": 105,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_profile_1783385259116.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385263801_1.jpg",
+      "score": 39,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385265853_2.jpg",
+      "score": 31,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385267601_3.jpg",
+      "score": 29,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385268377_4.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269405_5.jpg",
+      "score": 26,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269973_6.jpg",
+      "score": 25,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385270696_7.jpg",
+      "score": 23,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385271566_8.jpg",
+      "score": 21,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "0acd468e-75bf-49aa-9226-71e09c7af970",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385263801_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "8fc31b99-ab3a-41d1-afb7-316ea01b58fb",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385265853_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "a12faba2-53c3-4d58-9a44-be821a16d724",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385267601_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "c007c102-3055-4f26-9193-a03de1e88ae1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385268377_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "77c45160-5a09-4677-ab80-f28b53060681",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269405_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "7ba432b9-d8e3-48c8-a3a0-9dd1152d6fab",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385269973_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "e8908e67-ad9c-4cd6-92ff-7d647e19b363",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385270696_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "5b5d48bd-7b23-4d17-960d-c39281de1cda",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3efd7101-b736-4135-9e5e-9787a854ec0e/instagram_1783385271566_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 39,
+      "caption": "● Temaki Supremo - Nosso temakiiii mais pedido!!! Aos amantes de salmão, é uma ótima pedida!! #espacodosushi #temaki #temakisupremo #cabedelo #sushi",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 31,
+      "caption": "Passando para agradecer a todos os nossos clientes e amigos que se fizeram presente do dia 29/11 a 01/12 em nossa loja e também pediram através do nosso delivery com promoções espe",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 29,
+      "caption": "● Temaki Philadelfia (Pasta de Salmão) Preparado com muita excelência e carinho ❤️ Que nota esse temaki merece? 😀 #espacodosushi",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Qualidade é o que resume! 😀 #espacodosushi",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 26,
+      "caption": "Compartilha essa promo imperdível!!! #temakiskin #sushi #promoção #espacodosushi",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 25,
+      "caption": "- Registros do nosso buffet.. 😀 Diversas peças, temakis e sashimi #espacodosushi",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 23,
+      "caption": "● Temaki Philadelfia (Pasta de Salmão) Preparado com muita excelência e carinho ❤️ Que nota esse temaki merece? 😀 #espacodosushi",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 21,
+      "caption": "● Temaki de Kani, na promoção em nosso App 2 Temaki por R$24,99 Da uma conferida lá 😀 - Link na Bio",
+      "vision": null
+    }
+  ]
+}

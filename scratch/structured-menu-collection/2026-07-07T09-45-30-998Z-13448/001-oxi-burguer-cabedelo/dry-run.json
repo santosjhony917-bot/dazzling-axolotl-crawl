@@ -1,0 +1,2245 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 6,
+      "itemCount": 35,
+      "resolvedPriceCount": 35,
+      "unresolvedPriceCount": 0,
+      "fullPriceDeltaAnomalyCount": 0,
+      "fullPriceDeltaAnomalies": [],
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": true,
+        "groups": 11,
+        "model": "gpt-4o-mini",
+        "deltaFixes": 0,
+        "storageFixes": 10,
+        "guardFixes": 0
+      }
+    },
+    "preview": [
+      {
+        "name": "Combos",
+        "count": 3,
+        "samples": [
+          {
+            "name": "Trio do Bão",
+            "price": 52,
+            "kind": "combo_builder",
+            "description": "3 Míudos"
+          },
+          {
+            "name": "Tome Baião",
+            "price": 42,
+            "kind": "combo_builder",
+            "description": "Baião Burguer + Batata P + Refrigerante Lata"
+          },
+          {
+            "name": "Maria e José",
+            "price": 46,
+            "kind": "combo_builder",
+            "description": "Beicom Burguer + Bom Não, Mel + Refrigerante Lata"
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "count": 15,
+        "samples": [
+          {
+            "name": "Meu Xodó",
+            "price": 68,
+            "kind": "combo_builder",
+            "description": "2 Beicons + Batata M + 2 Refri Lata"
+          },
+          {
+            "name": "Pepsi Lata",
+            "price": 6,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Pepsi Black Lata",
+            "price": 6,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Pepsi Twist Lata",
+            "price": 6,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Guaraná Lata",
+            "price": 6,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Não Coma no Seco",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Limoneto H2O 500ML",
+            "price": 8,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Entradas",
+        "count": 3,
+        "samples": [
+          {
+            "name": "Fritas P",
+            "price": 14,
+            "kind": "simple_item",
+            "description": "Batata de alta qualidade, crocante por fora e macia por dentro."
+          },
+          {
+            "name": "Fritas M",
+            "price": 19,
+            "kind": "simple_item",
+            "description": "Batata de alta qualidade, crocante por fora e macia por dentro."
+          },
+          {
+            "name": "Fritas Cheddar Bacon",
+            "price": 25,
+            "kind": "simple_item",
+            "description": "Batata de alta qualidade, molho cheddar vigor e bacon crocante."
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "count": 12,
+        "samples": [
+          {
+            "name": "Fritas Cream Cheese Carne de Sol",
+            "price": 28,
+            "kind": "simple_item",
+            "description": "Batata de alta qualidade, Cream Cheese Polenghi e carne de sol desfiada."
+          },
+          {
+            "name": "Miudin",
+            "price": 14,
+            "kind": "simple_item",
+            "description": "Pão brioche, carne 60g com aquela crostinha, queijo cheddar, molho especial e maione verde."
+          },
+          {
+            "name": "Beiconzin",
+            "price": 18,
+            "kind": "simple_item",
+            "description": "Pão brioche, carne 60g com aquela crostinha, queijo cheddar, bacon carnudo, cebola caramelizada, molho especial e maionese verde."
+          },
+          {
+            "name": "Baiãozin",
+            "price": 22,
+            "kind": "simple_item",
+            "description": "Pão brioche, carne 60g com aquela crostinha, queijo coalho natural, carne de sol desfiada, molho especial e maionese verde."
+          },
+          {
+            "name": "Arretadin",
+            "price": 25,
+            "kind": "simple_item",
+            "description": "Pão brioche, 2 carnes 60g com aquela crostinha, dobro de cheddar, dobro de bacon, dobro de cebola caramelizada, molho especial e maionese verde."
+          }
+        ]
+      },
+      {
+        "name": "Sobremesas",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Dôcidileite",
+            "price": 25,
+            "kind": "simple_item",
+            "description": "Pão australiano, Carne de 120g, 2 fatias de queijo coalho assado, fatias de bacon e doce de leite."
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Combos",
+        "items": [
+          {
+            "name": "Trio do Bão",
+            "description": "3 Míudos",
+            "price": 52,
+            "display_price": 52,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Tome Baião",
+            "description": "Baião Burguer + Batata P + Refrigerante Lata",
+            "price": 42,
+            "display_price": 42,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": null,
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "Baião Burguer",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Batata P",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  },
+                  {
+                    "name": "Refrigerante Lata",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 2
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha seu Refri",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "8c36bfbc-f803-4a54-aec8-d9aa43c7f7f0",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Pepsi Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "9ecbe20b-117c-4258-bdba-1bab144617a6",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Pepsi Black Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "bae94cec-167d-4a0c-8c47-846afa154cfc",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Pepsi Twist Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "53f8007b-fcae-4c00-8cba-f293daa837b2",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Guaraná Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "0e36230c-c568-4336-ac3c-b2d09a1f7bf7",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Guaraná Zero Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1d3e5dfa-ee7e-4a63-beba-6b8a514a95ac",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Sprite Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "730b274b-d143-40a0-8c8d-f57ec60f6d59",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Sprite Zero Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "86559475-5d3c-4083-81cd-a0dd63ae47b2",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Fanta Laranja Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "8c36bfbc-f803-4a54-aec8-d9aa43c7f7f0",
+                "group_name": "Escolha seu Refri",
+                "name": "Pepsi Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "9ecbe20b-117c-4258-bdba-1bab144617a6",
+                "group_name": "Escolha seu Refri",
+                "name": "Pepsi Black Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "bae94cec-167d-4a0c-8c47-846afa154cfc",
+                "group_name": "Escolha seu Refri",
+                "name": "Pepsi Twist Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "53f8007b-fcae-4c00-8cba-f293daa837b2",
+                "group_name": "Escolha seu Refri",
+                "name": "Guaraná Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "0e36230c-c568-4336-ac3c-b2d09a1f7bf7",
+                "group_name": "Escolha seu Refri",
+                "name": "Guaraná Zero Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1d3e5dfa-ee7e-4a63-beba-6b8a514a95ac",
+                "group_name": "Escolha seu Refri",
+                "name": "Sprite Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "730b274b-d143-40a0-8c8d-f57ec60f6d59",
+                "group_name": "Escolha seu Refri",
+                "name": "Sprite Zero Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "86559475-5d3c-4083-81cd-a0dd63ae47b2",
+                "group_name": "Escolha seu Refri",
+                "name": "Fanta Laranja Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Maria e José",
+            "description": "Beicom Burguer + Bom Não, Mel + Refrigerante Lata",
+            "price": 46,
+            "display_price": 46,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": null,
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "Beicom Burguer",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Bom Não, Mel",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  },
+                  {
+                    "name": "Refrigerante Lata",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 2
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha seu Refri",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "8c36bfbc-f803-4a54-aec8-d9aa43c7f7f0",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Pepsi Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "9ecbe20b-117c-4258-bdba-1bab144617a6",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Pepsi Black Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "bae94cec-167d-4a0c-8c47-846afa154cfc",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Pepsi Twist Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "53f8007b-fcae-4c00-8cba-f293daa837b2",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Guaraná Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "0e36230c-c568-4336-ac3c-b2d09a1f7bf7",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Guaraná Zero Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "1d3e5dfa-ee7e-4a63-beba-6b8a514a95ac",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Sprite Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "730b274b-d143-40a0-8c8d-f57ec60f6d59",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Sprite Zero Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "86559475-5d3c-4083-81cd-a0dd63ae47b2",
+                    "group_name": "Escolha seu Refri",
+                    "name": "Fanta Laranja Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "8c36bfbc-f803-4a54-aec8-d9aa43c7f7f0",
+                "group_name": "Escolha seu Refri",
+                "name": "Pepsi Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "9ecbe20b-117c-4258-bdba-1bab144617a6",
+                "group_name": "Escolha seu Refri",
+                "name": "Pepsi Black Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "bae94cec-167d-4a0c-8c47-846afa154cfc",
+                "group_name": "Escolha seu Refri",
+                "name": "Pepsi Twist Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "53f8007b-fcae-4c00-8cba-f293daa837b2",
+                "group_name": "Escolha seu Refri",
+                "name": "Guaraná Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "0e36230c-c568-4336-ac3c-b2d09a1f7bf7",
+                "group_name": "Escolha seu Refri",
+                "name": "Guaraná Zero Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "1d3e5dfa-ee7e-4a63-beba-6b8a514a95ac",
+                "group_name": "Escolha seu Refri",
+                "name": "Sprite Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "730b274b-d143-40a0-8c8d-f57ec60f6d59",
+                "group_name": "Escolha seu Refri",
+                "name": "Sprite Zero Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "86559475-5d3c-4083-81cd-a0dd63ae47b2",
+                "group_name": "Escolha seu Refri",
+                "name": "Fanta Laranja Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Meu Xodó",
+            "description": "2 Beicons + Batata M + 2 Refri Lata",
+            "price": 68,
+            "display_price": 68,
+            "price_type": "fixed",
+            "commercial_type": "combo_builder",
+            "image_url": null,
+            "combo_components": [
+              {
+                "type": "fixed_item",
+                "name": "Itens inclusos",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "name": "2 Beicons",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 0
+                  },
+                  {
+                    "name": "Batata M",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 1
+                  },
+                  {
+                    "name": "2 Refri Lata",
+                    "price": null,
+                    "price_delta": null,
+                    "price_behavior": "included",
+                    "is_searchable_variant": true,
+                    "order_index": 2
+                  }
+                ]
+              }
+            ],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Transforme em combo",
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "b8f0be53-e74c-4aa5-84d9-9be14580bd37",
+                    "group_name": "Transforme em combo",
+                    "name": "Coca Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "bb48d413-0d3f-4aad-b3f0-c1e6d69689eb",
+                    "group_name": "Transforme em combo",
+                    "name": "Coca Zero Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "0f68f47e-03aa-4c9f-95b8-7e8c3622bbce",
+                    "group_name": "Transforme em combo",
+                    "name": "Pepsi Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "e7bfeabc-a693-409c-9de3-acf901f747eb",
+                    "group_name": "Transforme em combo",
+                    "name": "Pepsi Black Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4d16a89c-a4dc-40fe-bf4e-70856565c0d8",
+                    "group_name": "Transforme em combo",
+                    "name": "Pepsi Twist Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "6074c246-0fb0-4707-a10c-0869b3533fd1",
+                    "group_name": "Transforme em combo",
+                    "name": "Guaraná Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3c5a14d5-fd38-46d5-85c3-4bb50c0468f3",
+                    "group_name": "Transforme em combo",
+                    "name": "Guaraná Zero Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "9af2b2a5-7694-47a5-8ed9-12e4c70b111e",
+                    "group_name": "Transforme em combo",
+                    "name": "Sprite Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "da69cc66-1fed-4939-84e0-e99db3d5e04b",
+                    "group_name": "Transforme em combo",
+                    "name": "Sprite Zero Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "482f16f7-0413-4130-bf04-cc7407e8629a",
+                    "group_name": "Transforme em combo",
+                    "name": "Fanta Laranja Lata",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 2,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "b8f0be53-e74c-4aa5-84d9-9be14580bd37",
+                "group_name": "Transforme em combo",
+                "name": "Coca Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "bb48d413-0d3f-4aad-b3f0-c1e6d69689eb",
+                "group_name": "Transforme em combo",
+                "name": "Coca Zero Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "0f68f47e-03aa-4c9f-95b8-7e8c3622bbce",
+                "group_name": "Transforme em combo",
+                "name": "Pepsi Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "e7bfeabc-a693-409c-9de3-acf901f747eb",
+                "group_name": "Transforme em combo",
+                "name": "Pepsi Black Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4d16a89c-a4dc-40fe-bf4e-70856565c0d8",
+                "group_name": "Transforme em combo",
+                "name": "Pepsi Twist Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "6074c246-0fb0-4707-a10c-0869b3533fd1",
+                "group_name": "Transforme em combo",
+                "name": "Guaraná Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3c5a14d5-fd38-46d5-85c3-4bb50c0468f3",
+                "group_name": "Transforme em combo",
+                "name": "Guaraná Zero Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "9af2b2a5-7694-47a5-8ed9-12e4c70b111e",
+                "group_name": "Transforme em combo",
+                "name": "Sprite Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "da69cc66-1fed-4939-84e0-e99db3d5e04b",
+                "group_name": "Transforme em combo",
+                "name": "Sprite Zero Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "482f16f7-0413-4130-bf04-cc7407e8629a",
+                "group_name": "Transforme em combo",
+                "name": "Fanta Laranja Lata",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 2,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Pepsi Lata",
+            "description": "",
+            "price": 6,
+            "display_price": 6,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Pepsi Black Lata",
+            "description": "",
+            "price": 6,
+            "display_price": 6,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Pepsi Twist Lata",
+            "description": "",
+            "price": 6,
+            "display_price": 6,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná Lata",
+            "description": "",
+            "price": 6,
+            "display_price": 6,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Guaraná Zero Lata",
+            "description": "",
+            "price": 6,
+            "display_price": 6,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca Lata",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coca Zero Lata",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Sprite Lata",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Sprite Zero Lata",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Fanta Laranja Lata",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Suco Cajá 400ml",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Suco Acerola 400ml",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Suco Goiaba 400ml",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Suco Maracujá 400ml",
+            "description": "",
+            "price": 7,
+            "display_price": 7,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Não Coma no Seco",
+        "items": [
+          {
+            "name": "Limoneto H2O 500ML",
+            "description": "",
+            "price": 8,
+            "display_price": 8,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Entradas",
+        "items": [
+          {
+            "name": "Fritas P",
+            "description": "Batata de alta qualidade, crocante por fora e macia por dentro.",
+            "price": 14,
+            "display_price": 14,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Fritas M",
+            "description": "Batata de alta qualidade, crocante por fora e macia por dentro.",
+            "price": 19,
+            "display_price": 19,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Fritas Cheddar Bacon",
+            "description": "Batata de alta qualidade, molho cheddar vigor e bacon crocante.",
+            "price": 25,
+            "display_price": 25,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "items": [
+          {
+            "name": "Fritas Cream Cheese Carne de Sol",
+            "description": "Batata de alta qualidade, Cream Cheese Polenghi e carne de sol desfiada.",
+            "price": 28,
+            "display_price": 28,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Miudin",
+            "description": "Pão brioche, carne 60g com aquela crostinha, queijo cheddar, molho especial e maione verde.",
+            "price": 14,
+            "display_price": 14,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Beiconzin",
+            "description": "Pão brioche, carne 60g com aquela crostinha, queijo cheddar, bacon carnudo, cebola caramelizada, molho especial e maionese verde.",
+            "price": 18,
+            "display_price": 18,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Baiãozin",
+            "description": "Pão brioche, carne 60g com aquela crostinha, queijo coalho natural, carne de sol desfiada, molho especial e maionese verde.",
+            "price": 22,
+            "display_price": 22,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Arretadin",
+            "description": "Pão brioche, 2 carnes 60g com aquela crostinha, dobro de cheddar, dobro de bacon, dobro de cebola caramelizada, molho especial e maionese verde.",
+            "price": 25,
+            "display_price": 25,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Miudo",
+            "description": "Pão brioche, Carne de 120g, 2 fatias de queijo cheddar, molho especial e maionese verde.",
+            "price": 19,
+            "display_price": 19,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Ponto da Carne",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Ponto da Casa (ao ponto)",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Bem Passada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                "group_name": "Ponto da Carne",
+                "name": "Ponto da Casa (ao ponto)",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                "group_name": "Ponto da Carne",
+                "name": "Bem Passada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Sem Frescura",
+            "description": "Pão brioche, carne 120g, 2 fatias de queijo cheddar, salada, molho especial e maionese verde.",
+            "price": 20,
+            "display_price": 20,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Ponto da Carne",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Ponto da Casa (ao ponto)",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Bem Passada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                "group_name": "Ponto da Carne",
+                "name": "Ponto da Casa (ao ponto)",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                "group_name": "Ponto da Carne",
+                "name": "Bem Passada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Beicom",
+            "description": "Pão brioche, Carne de 120g, 2 fatias de queijo cheddar, 2 tiras de bacon carnudo, cebola caramelizada, molho especial e maionese verde.",
+            "price": 24,
+            "display_price": 24,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Ponto da Carne",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Ponto da Casa (ao ponto)",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Bem Passada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                "group_name": "Ponto da Carne",
+                "name": "Ponto da Casa (ao ponto)",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                "group_name": "Ponto da Carne",
+                "name": "Bem Passada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Bom Não, Mel!",
+            "description": "Pão australiano, Carne de 120g, 2 fatias de queijo coalho assado e molho de goiabada da casa.",
+            "price": 25,
+            "display_price": 25,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Ponto da Carne",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Ponto da Casa (ao ponto)",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Bem Passada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                "group_name": "Ponto da Carne",
+                "name": "Ponto da Casa (ao ponto)",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                "group_name": "Ponto da Carne",
+                "name": "Bem Passada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Baião",
+            "description": "Pão brioche, Carne de 120g, 2 fatias de queijo natural, carne de sol desfiada, molho especial e maionese verde.",
+            "price": 27,
+            "display_price": 27,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Ponto da Carne",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Ponto da Casa (ao ponto)",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Bem Passada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                "group_name": "Ponto da Carne",
+                "name": "Ponto da Casa (ao ponto)",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                "group_name": "Ponto da Carne",
+                "name": "Bem Passada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Rapadura",
+            "description": "Pão australiano, Carne de 120g, 2 fatias de queijo coalho assado, cream cheese, carne de sol e maionese de rapadura da casa.",
+            "price": 29,
+            "display_price": 29,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Ponto da Carne",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Ponto da Casa (ao ponto)",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Bem Passada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                "group_name": "Ponto da Carne",
+                "name": "Ponto da Casa (ao ponto)",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                "group_name": "Ponto da Carne",
+                "name": "Bem Passada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Arretado",
+            "description": "Pão brioche, 2 carnes de 120g, dobro de queijo cheddar, dobro de bacon, dobro de cebola caramelizada, molho especial e maionese verde.",
+            "price": 37,
+            "display_price": 37,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Ponto da Carne",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Ponto da Casa (ao ponto)",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Bem Passada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                "group_name": "Ponto da Carne",
+                "name": "Ponto da Casa (ao ponto)",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                "group_name": "Ponto da Carne",
+                "name": "Bem Passada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Sobremesas",
+        "items": [
+          {
+            "name": "Dôcidileite",
+            "description": "Pão australiano, Carne de 120g, 2 fatias de queijo coalho assado, fatias de bacon e doce de leite.",
+            "price": 25,
+            "display_price": 25,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Ponto da Carne",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Ponto da Casa (ao ponto)",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                    "group_name": "Ponto da Carne",
+                    "name": "Bem Passada",
+                    "description": null,
+                    "image_url": null,
+                    "price": null,
+                    "price_delta": null,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "d1ea0162-60a3-4a3d-8794-6f9ca884ab5f",
+                "group_name": "Ponto da Carne",
+                "name": "Ponto da Casa (ao ponto)",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "03c015cf-a834-4382-b9ca-2bff42afd14f",
+                "group_name": "Ponto da Carne",
+                "name": "Bem Passada",
+                "description": null,
+                "image_url": null,
+                "price": null,
+                "price_delta": null,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 35 itens via brendi_nuxt_payload."
+  },
+  "stdoutTail": "lta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]},{\"name\":\"Arretado\",\"description\":\"Pão brioche, 2 carnes de 120g, dobro de queijo cheddar, dobro de bacon, dobro de cebola caramelizada, molho especial e maionese verde.\",\"price\":37,\"display_price\":37,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[{\"name\":\"Ponto da Carne\",\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"items\":[{\"external_id\":\"d1ea0162-60a3-4a3d-8794-6f9ca884ab5f\",\"group_name\":\"Ponto da Carne\",\"name\":\"Ponto da Casa (ao ponto)\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"03c015cf-a834-4382-b9ca-2bff42afd14f\",\"group_name\":\"Ponto da Carne\",\"name\":\"Bem Passada\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]}],\"options\":[{\"external_id\":\"d1ea0162-60a3-4a3d-8794-6f9ca884ab5f\",\"group_name\":\"Ponto da Carne\",\"name\":\"Ponto da Casa (ao ponto)\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"03c015cf-a834-4382-b9ca-2bff42afd14f\",\"group_name\":\"Ponto da Carne\",\"name\":\"Bem Passada\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]}]},{\"name\":\"Sobremesas\",\"items\":[{\"name\":\"Dôcidileite\",\"description\":\"Pão australiano, Carne de 120g, 2 fatias de queijo coalho assado, fatias de bacon e doce de leite.\",\"price\":25,\"display_price\":25,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[{\"name\":\"Ponto da Carne\",\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"items\":[{\"external_id\":\"d1ea0162-60a3-4a3d-8794-6f9ca884ab5f\",\"group_name\":\"Ponto da Carne\",\"name\":\"Ponto da Casa (ao ponto)\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"03c015cf-a834-4382-b9ca-2bff42afd14f\",\"group_name\":\"Ponto da Carne\",\"name\":\"Bem Passada\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]}],\"options\":[{\"external_id\":\"d1ea0162-60a3-4a3d-8794-6f9ca884ab5f\",\"group_name\":\"Ponto da Carne\",\"name\":\"Ponto da Casa (ao ponto)\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null},{\"external_id\":\"03c015cf-a834-4382-b9ca-2bff42afd14f\",\"group_name\":\"Ponto da Carne\",\"name\":\"Bem Passada\",\"description\":null,\"image_url\":null,\"price\":null,\"price_delta\":null,\"min_quantity\":1,\"max_quantity\":1,\"is_required\":true,\"semantic_type\":\"required_choice\",\"price_behavior\":\"included\",\"is_searchable_variant\":false,\"search_label\":null}]}]}],\"message\":\"Prévia estruturada com 35 itens via brendi_nuxt_payload.\"}\n",
+  "stderrTail": ""
+}

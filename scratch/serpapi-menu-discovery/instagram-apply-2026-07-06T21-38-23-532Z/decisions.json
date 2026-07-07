@@ -1,0 +1,2154 @@
+[
+  {
+    "restaurantId": "d03f3aca-7cdf-4227-b701-fd1a439be3c5",
+    "restaurantName": "Piratas Burger",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/piratasartburger",
+      "handle": "piratasartburger",
+      "tokens": [
+        "piratas"
+      ],
+      "handleMatches": [
+        "piratas"
+      ],
+      "titleMatches": [
+        "piratas"
+      ],
+      "titleHandleMatches": [
+        "piratas"
+      ],
+      "textMatches": [
+        "piratas"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(21) 3449-7944"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "Piratas Art Burger (@piratasartburger)",
+        "link": "https://instagram.com/piratasartburger",
+        "snippet": "O melhor Burger dos 7 mares ‍☠️ Carne fresca grelhada na parrilha Todos os dias a partir das 18h Méier e Jacarepaguá Wathsapp: 21 3449-7944. Follow.",
+        "displayedLink": "Mais de 20 mil seguidores",
+        "platform": "instagram",
+        "score": 98,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98155-6636"
+  },
+  {
+    "restaurantId": "f598d9b8-6875-4bca-92c3-a7675f4775ac",
+    "restaurantName": "Pizzaria tá no ponto",
+    "restaurantCategory": "Pizzaria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 93,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/pizzariatanoponto",
+      "handle": "pizzariatanoponto",
+      "tokens": [
+        "ponto"
+      ],
+      "handleMatches": [
+        "ponto"
+      ],
+      "titleMatches": [
+        "ponto"
+      ],
+      "titleHandleMatches": [
+        "ponto"
+      ],
+      "textMatches": [
+        "ponto"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99608-4407"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Pizzaria tá no ponto (@pizzariatanoponto)",
+        "link": "https://instagram.com/pizzariatanoponto",
+        "snippet": "EAI, CLIENTELA ❤️ Delivery e retirada à partir das 17:30. Tenha essa experiência em casa 83 99608-4407. Follow. Message ...",
+        "displayedLink": "Mais de 6,2 mil seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "e445b317-ad12-4b4f-ab07-1289037cd322",
+    "restaurantName": "Restaurante Self Sabor",
+    "restaurantCategory": "Restaurante self-service",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/_selfsabor",
+      "handle": "_selfsabor",
+      "tokens": [
+        "self",
+        "sabor"
+      ],
+      "handleMatches": [
+        "self",
+        "sabor"
+      ],
+      "titleMatches": [
+        "self",
+        "sabor"
+      ],
+      "titleHandleMatches": [
+        "self",
+        "sabor"
+      ],
+      "textMatches": [
+        "self",
+        "sabor"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "Restaurante Self Sabor (@_selfsabor) · Cabedelo, PB",
+        "link": "https://instagram.com/_selfsabor",
+        "snippet": "360 followers · 35 posts · 🍽️ Self Sabor Self-service com churrasco Variedade, sabor e capricho ⏱️ Chegou, montou, comeu Praia do Poço – Cabedelo.",
+        "displayedLink": "Mais de 360 seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "https://instagram.com/_selfsabor",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "fee9720d-1e25-487a-9a73-df9e407e73a6",
+    "restaurantName": "Restaurante",
+    "restaurantCategory": "Churrascaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "no_distinctive_restaurant_token",
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/gigantedomaroficial",
+      "handle": "gigantedomaroficial",
+      "tokens": [],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99995-2504"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "link": "https://instagram.com/gigantedomaroficial",
+        "snippet": "⏰ Horário de Funcionamento: 9:00 às 16:00 Contato: 8399995-2504 Localização: Avenida Max Zagel, 450. Camboinha /Cabedelo. JP /PB Brasil .",
+        "displayedLink": "Mais de 53,2 mil seguidores",
+        "platform": "instagram",
+        "score": 102,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "637f341e-c8bb-4c2d-8ac6-1ffc96d4b2ce",
+    "restaurantName": "Restaurante mar de amor",
+    "restaurantCategory": "Restaurante",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/gigantedomaroficial",
+      "handle": "gigantedomaroficial",
+      "tokens": [
+        "mar",
+        "amor"
+      ],
+      "handleMatches": [
+        "mar"
+      ],
+      "titleMatches": [
+        "mar"
+      ],
+      "titleHandleMatches": [
+        "mar"
+      ],
+      "textMatches": [
+        "mar"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99995-2504"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "link": "https://instagram.com/gigantedomaroficial",
+        "snippet": "⏰ Horário de Funcionamento: 9:00 às 16:00 Contato: 8399995-2504 Localização: Avenida Max Zagel, 450. Camboinha /Cabedelo. JP /PB Brasil .",
+        "displayedLink": "Mais de 53,2 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "62958074-8ac2-487e-9cde-9b6c018c34dc",
+    "restaurantName": "Empório Do Sabor",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "no_location_or_phone_support",
+    "best": {
+      "approved": true,
+      "score": 138,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/emporio.dos.sabores",
+      "handle": "emporio.dos.sabores",
+      "tokens": [
+        "emporio",
+        "sabor"
+      ],
+      "handleMatches": [
+        "emporio",
+        "sabor"
+      ],
+      "titleMatches": [
+        "emporio",
+        "sabor"
+      ],
+      "titleHandleMatches": [
+        "emporio",
+        "sabor"
+      ],
+      "textMatches": [
+        "emporio",
+        "sabor"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 7,
+        "title": "EMPÓRIO D🍳S SABORES🥓 (@emporio.dos.sabores)",
+        "link": "https://instagram.com/emporio.dos.sabores/?hl=pt",
+        "snippet": "Crepe Francês Burger Gourmet Macarrão Gourmet Somente nas feiras Não trabalhamos com entregas! ☎️Contato p Eventos: 98562-0227. Follow. Message ...",
+        "displayedLink": "Mais de 4,3 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "e744a813-7f24-4f4c-a422-d54e2c0ab2ff",
+    "restaurantName": "Juci",
+    "restaurantCategory": "Cafeteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/prefeituradecabedelo",
+      "handle": "prefeituradecabedelo",
+      "tokens": [
+        "juci"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "Chegou o Cabedelo em 1 Minuto! Agora você tem um jeito rápido de ficar por dentro das principais novidades da nossa cidade. Toda semana, um resumo com as ...",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+    "restaurantName": "Manguinhos Burguer",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/manguinhosburguer",
+      "handle": "manguinhosburguer",
+      "tokens": [
+        "manguinhos",
+        "burguer"
+      ],
+      "handleMatches": [
+        "manguinhos",
+        "burguer"
+      ],
+      "titleMatches": [
+        "manguinhos",
+        "burguer"
+      ],
+      "titleHandleMatches": [
+        "manguinhos",
+        "burguer"
+      ],
+      "textMatches": [
+        "manguinhos",
+        "burguer"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99673-9986"
+      ],
+      "openingHoursText": "Manguinhos Burguer (@manguinhosburguer). Hambúrguer com Sabor de Churrasco ⏰ Segunda a Domingo 19h30 às 00h00 Jardim Manguinhos - Cabedelo (83) 99673-9986 Cardápio.. https://instagram.com/manguinhosburguer",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Manguinhos Burguer (@manguinhosburguer)",
+        "link": "https://instagram.com/manguinhosburguer",
+        "snippet": "Hambúrguer com Sabor de Churrasco ⏰ Segunda a Domingo 19h30 às 00h00 Jardim Manguinhos - Cabedelo (83) 99673-9986 Cardápio.",
+        "displayedLink": "Mais de 1,8 mil seguidores",
+        "platform": "instagram",
+        "score": 134,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "https://instagram.com/manguinhosburguer",
+    "existingPhone": "(83) 99831-1272"
+  },
+  {
+    "restaurantId": "6e42a0fb-9793-4d47-9a12-c5c5a6df86d6",
+    "restaurantName": "Pizzaria 1000Graus",
+    "restaurantCategory": "Pizzaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/ilovepizzapb",
+      "handle": "ilovepizzapb",
+      "tokens": [
+        "1000graus"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99631-6245"
+      ],
+      "openingHoursText": "I ❤️ Pizza (@ilovepizzapb). A MELHOR PIZZA DA SUA VIDA ABERTO DE QUARTA À SEG - 18h à 01h R Duque de Caxias, 141 Cabedelo, Paraíba 83 99631-6245. https://instagram.com/ilovepizzapb",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "I ❤️ Pizza (@ilovepizzapb)",
+        "link": "https://instagram.com/ilovepizzapb",
+        "snippet": "A MELHOR PIZZA DA SUA VIDA ABERTO DE QUARTA À SEG - 18h à 01h R Duque de Caxias, 141 Cabedelo, Paraíba 83 99631-6245",
+        "displayedLink": "Mais de 3,1 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99329-1827"
+  },
+  {
+    "restaurantId": "56b08e89-b750-4ec9-9497-21900cf3d823",
+    "restaurantName": "Bar E Restaurante Do Nal",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/meninasbar",
+      "handle": "meninasbar",
+      "tokens": [
+        "nal"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98715-5110"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 6,
+        "title": "Meninas Bar e Restaurante (@meninasbar) · Cabedelos, PB",
+        "link": "https://instagram.com/meninasbar",
+        "snippet": "5.5K+ followers · 53 posts · CONTA OFICIAL Cabedelo - PB Aceitamos todos os cartões Contato: 83 98715-5110 Funcionamos de Domingo a domingo!",
+        "displayedLink": "Mais de 5,5 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98706-1375"
+  },
+  {
+    "restaurantId": "d05af6c4-cbfa-4c6a-9d95-be4bc952d3d9",
+    "restaurantName": "Cantinho do açaí",
+    "restaurantCategory": "Sorveteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "weak_single_brand_token",
+    "best": {
+      "approved": false,
+      "score": 65,
+      "reasons": [
+        "weak_single_brand_token"
+      ],
+      "canonicalUrl": "https://instagram.com/cantinhodoacaiedocess",
+      "handle": "cantinhodoacaiedocess",
+      "tokens": [
+        "cantinho"
+      ],
+      "handleMatches": [
+        "cantinho"
+      ],
+      "titleMatches": [
+        "cantinho"
+      ],
+      "titleHandleMatches": [
+        "cantinho"
+      ],
+      "textMatches": [
+        "cantinho"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99336-0059"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 7,
+        "title": "CANTINHO DO AÇAÍ E DOCES",
+        "link": "https://instagram.com/cantinhodoacaiedocess",
+        "snippet": "A combinação perfeita de açaí, creme especial, granola crocante e pitaya fresquinha! ✨ Peça já o seu no Cantinho do Açaí e Doces (83) 99336-0059 ...",
+        "displayedLink": "Mais de 290 seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98621-5532"
+  },
+  {
+    "restaurantId": "c0081954-6410-42be-9abd-96c4300b6ec5",
+    "restaurantName": "Cantinho Bom",
+    "restaurantCategory": "Sorveteria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 92,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/cantinhodopaoofc",
+      "handle": "cantinhodopaoofc",
+      "tokens": [
+        "cantinho",
+        "bom"
+      ],
+      "handleMatches": [
+        "cantinho"
+      ],
+      "titleMatches": [
+        "cantinho"
+      ],
+      "titleHandleMatches": [
+        "cantinho"
+      ],
+      "textMatches": [
+        "cantinho",
+        "bom"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "Cantinho do Pão | Padaria (@cantinhodopaoofc)",
+        "link": "https://instagram.com/cantinhodopaoofc",
+        "snippet": "6.4K+ followers · 1.1K+ following · 835 posts · @cantinhodopaoofc: “☕ Padaria - Confeitaria - Lanchonete ❤ Minha família para servir a sua! Bom Jardim ...",
+        "displayedLink": "Mais de 6,4 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99376-7145"
+  },
+  {
+    "restaurantId": "dfb456d7-1841-474d-bb54-fd442af3e295",
+    "restaurantName": "Burguer Hall",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "no_location_or_phone_support",
+    "best": {
+      "approved": true,
+      "score": 138,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/burguerhall",
+      "handle": "burguerhall",
+      "tokens": [
+        "burguer",
+        "hall"
+      ],
+      "handleMatches": [
+        "burguer",
+        "hall"
+      ],
+      "titleMatches": [
+        "burguer",
+        "hall"
+      ],
+      "titleHandleMatches": [
+        "burguer",
+        "hall"
+      ],
+      "textMatches": [
+        "burguer",
+        "hall"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Burguer Hall - Bessa📍 (@burguerhall)",
+        "link": "https://instagram.com/burguerhall",
+        "snippet": "| | Hamburgueria Clássica e Artesanal | | Hamburgueria Delivery | ⏰️ | ter. a Dom. | Das 18:00 às 23:00 | | Cardápio via direct.",
+        "displayedLink": "Mais de 390 seguidores",
+        "platform": "instagram",
+        "score": 118,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99382-3317"
+  },
+  {
+    "restaurantId": "e20c7fe6-1563-45fc-9a60-96d75acdaa2b",
+    "restaurantName": "Zhu Burguer",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 142,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/zhuburguer",
+      "handle": "zhuburguer",
+      "tokens": [
+        "zhu",
+        "burguer"
+      ],
+      "handleMatches": [
+        "zhu",
+        "burguer"
+      ],
+      "titleMatches": [
+        "zhu",
+        "burguer"
+      ],
+      "titleHandleMatches": [
+        "zhu",
+        "burguer"
+      ],
+      "textMatches": [
+        "zhu",
+        "burguer"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99652-4815"
+      ],
+      "openingHoursText": "Zhu Burguer ❤️‍🔥 (@zhuburguer). Hamburgueria artesanal e espetaria • Aposentada Etelvina Alves de Oliveira - José Américo • Seg à segunda • 18h às 01h • WhatsApp (83) 99652.4815.. https://instagram.com/zhuburguer",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "Zhu Burguer ❤️‍🔥 (@zhuburguer)",
+        "link": "https://instagram.com/zhuburguer",
+        "snippet": "Hamburgueria artesanal e espetaria • Aposentada Etelvina Alves de Oliveira - José Américo • Seg à segunda • 18h às 01h • WhatsApp (83) 99652.4815.",
+        "displayedLink": "Mais de 1,7 mil seguidores",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "https://instagram.com/zhuburguer",
+    "existingPhone": "(83) 99652-4815"
+  },
+  {
+    "restaurantId": "667aba33-ec9a-46e2-a5a9-9730071371c3",
+    "restaurantName": "Kioske Cantinho do Sabor",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 205,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/kioskecantinhodosabor",
+      "handle": "kioskecantinhodosabor",
+      "tokens": [
+        "kioske",
+        "cantinho",
+        "sabor"
+      ],
+      "handleMatches": [
+        "kioske",
+        "cantinho",
+        "sabor"
+      ],
+      "titleMatches": [
+        "kioske",
+        "cantinho",
+        "sabor"
+      ],
+      "titleHandleMatches": [
+        "kioske",
+        "cantinho",
+        "sabor"
+      ],
+      "textMatches": [
+        "kioske",
+        "cantinho",
+        "sabor"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [
+        "cleto campelo"
+      ],
+      "phones": [
+        "(83) 99916-1306"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Kioske Cantinho Do Sabor (@kioskecantinhodosabor)",
+        "link": "https://instagram.com/kioskecantinhodosabor",
+        "snippet": "998 followers · 45 posts · Almoço Jantar Bar Horário: 11:00 às 15:00 Segunda a Sábado 83999161306 Cabedelo-PB Rua Cleto Campelo próx. a balsa.",
+        "displayedLink": "Mais de 990 seguidores",
+        "platform": "instagram",
+        "score": 132,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "https://instagram.com/kioskecantinhodosabor",
+    "existingPhone": "(83) 99916-1306"
+  },
+  {
+    "restaurantId": "07528f63-3aed-4cf0-b1cc-81f762be4c00",
+    "restaurantName": "Alfa",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/prefeituradecabedelo",
+      "handle": "prefeituradecabedelo",
+      "tokens": [
+        "alfa"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 6,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "78K followers · 2.1K+ following · 4879 posts · @prefeituradecabedelo: “Perfil Oficial da Prefeitura Municipal de Cabedelo ⤵️ Acesse:”",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "a4f66e28-5f08-468c-b552-1c96d59744e2",
+    "restaurantName": "BIG BURGUER",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 156,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/big.burguer01",
+      "handle": "big.burguer01",
+      "tokens": [
+        "big",
+        "burguer"
+      ],
+      "handleMatches": [
+        "big",
+        "burguer"
+      ],
+      "titleMatches": [
+        "big",
+        "burguer"
+      ],
+      "titleHandleMatches": [
+        "big",
+        "burguer"
+      ],
+      "textMatches": [
+        "big",
+        "burguer"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99697-1394"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 9,
+        "title": "BIG BURGUER (@big.burguer01)",
+        "link": "https://instagram.com/big.burguer01",
+        "snippet": "BIG BURGUER. 5,409 followers. 4,402 following. HAMBÚRGUER ARTESANAL. ⏰ ABRIMOS TODOS OS DIAS 17ás00 83 99697-1394 Entrega grátis Juazeirinho - PB.",
+        "displayedLink": "Mais de 5,4 mil seguidores",
+        "platform": "instagram",
+        "score": 112,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "https://instagram.com/big.burguer01",
+    "existingPhone": "(83) 99697-1394"
+  },
+  {
+    "restaurantId": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+    "restaurantName": "Ilovepizzapb",
+    "restaurantCategory": "Pizzaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/ilovepizzapb",
+      "handle": "ilovepizzapb",
+      "tokens": [
+        "ilovepizzapb"
+      ],
+      "handleMatches": [
+        "ilovepizzapb"
+      ],
+      "titleMatches": [
+        "ilovepizzapb"
+      ],
+      "titleHandleMatches": [
+        "ilovepizzapb"
+      ],
+      "textMatches": [
+        "ilovepizzapb"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99631-6245"
+      ],
+      "openingHoursText": "I ❤️ Pizza (@ilovepizzapb). A MELHOR PIZZA DA SUA VIDA ABERTO DE QUARTA À SEG - 18h à 01h R Duque de Caxias, 141 Cabedelo, Paraíba 83 99631-6245. https://instagram.com/ilovepizzapb",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "I ❤️ Pizza (@ilovepizzapb)",
+        "link": "https://instagram.com/ilovepizzapb",
+        "snippet": "A MELHOR PIZZA DA SUA VIDA ABERTO DE QUARTA À SEG - 18h à 01h R Duque de Caxias, 141 Cabedelo, Paraíba 83 99631-6245",
+        "displayedLink": "Mais de 3,1 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "https://instagram.com/ilovepizzapb",
+    "existingPhone": "(83) 99631-6245"
+  },
+  {
+    "restaurantId": "6315b5cf-756f-416b-b698-4b1c081c6366",
+    "restaurantName": "Biruta Burger",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/bigburgerof",
+      "handle": "bigburgerof",
+      "tokens": [
+        "biruta"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "Big Burger | Hamburgueria Artesanal (@bigburgerof). Pioneira em hambúrguer artesanal em Cabedelo desde 2016. Villa do Porto • Box 7 ⏱️ QUA Á SEG 18H ÁS 23H Faça seu pedido e sinta a diferença.. https://instagram.com/bigburgerof",
+      "candidate": {
+        "source": "organic",
+        "position": 7,
+        "title": "Big Burger | Hamburgueria Artesanal (@bigburgerof)",
+        "link": "https://instagram.com/bigburgerof",
+        "snippet": "Pioneira em hambúrguer artesanal em Cabedelo desde 2016. Villa do Porto • Box 7 ⏱️ QUA Á SEG 18H ÁS 23H Faça seu pedido e sinta a diferença.",
+        "displayedLink": "Mais de 2 mil seguidores",
+        "platform": "instagram",
+        "score": 62,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98176-4185"
+  },
+  {
+    "restaurantId": "0e3f0746-de34-4715-93fc-06a1b5c10e2b",
+    "restaurantName": "D Lay Refeições - Marmitaria",
+    "restaurantCategory": "Restaurante de almoço",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/cantinhodoreallanches",
+      "handle": "cantinhodoreallanches",
+      "tokens": [
+        "lay",
+        "refeicoes",
+        "marmitaria"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98751-1658"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Cantinho do Real lanches (@cantinhodoreallanches)",
+        "link": "https://instagram.com/cantinhodoreallanches",
+        "snippet": "“A lanchonete da irmã Socorro” Renascer III - Cabedelo ❎estamos de volta com os melhores salgados❎ Telefone e WhatsApp para contato 83987511658.",
+        "displayedLink": "Mais de 360 seguidores",
+        "platform": "instagram",
+        "score": 32,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98676-2921"
+  },
+  {
+    "restaurantId": "78bc8cab-4471-43ea-b776-619a6778caaa",
+    "restaurantName": "Churrascaria Do Gaúcho",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 71,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/popular",
+      "handle": "popular",
+      "tokens": [
+        "gaucho"
+      ],
+      "handleMatches": [],
+      "titleMatches": [
+        "gaucho"
+      ],
+      "titleHandleMatches": [
+        "gaucho"
+      ],
+      "textMatches": [
+        "gaucho"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Rancho Do Gaúcho Cabedelo",
+        "link": "https://instagram.com/popular/rancho-do-ga%C3%BAcho-cabedelo",
+        "snippet": "Terapia Sábado é dia de almoçar o melhor churrasco da região com sua família, 2,326 · Um ano sem você Pumba, te amarei para sempre. 326. Um ano sem você ...",
+        "displayedLink": "https://www.instagram.com › popular › rancho-do-gaúc...",
+        "platform": "instagram",
+        "score": 104,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "f5973934-5e9b-463c-9d2a-a7342c3041e5",
+    "restaurantName": "CASA DA PIZZA",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed,weak_single_brand_token",
+    "best": {
+      "approved": false,
+      "score": -30,
+      "reasons": [
+        "brand_not_confirmed",
+        "weak_single_brand_token"
+      ],
+      "canonicalUrl": "https://instagram.com/centerpizza_cabedelo",
+      "handle": "centerpizza_cabedelo",
+      "tokens": [
+        "casa"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98629-0531"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "Center Pizza Cabedelo PB (@centerpizza_cabedelo)",
+        "link": "https://instagram.com/centerpizza_cabedelo",
+        "snippet": "3.4K+ followers · 40 following · A pizza mais comentada de Cabedelo Muito recheio. WhatsApp: 83 986290531",
+        "displayedLink": "Mais de 3,4 mil seguidores",
+        "platform": "instagram",
+        "score": 56,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "d6f9c697-1969-49b6-8f3e-737b9f74ea23",
+    "restaurantName": "Pizzaria NEVARE",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/centerpizza_cabedelo",
+      "handle": "centerpizza_cabedelo",
+      "tokens": [
+        "nevare"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 8,
+        "title": "Center Pizza Cabedelo PB (@centerpizza_cabedelo)",
+        "link": "https://instagram.com/centerpizza_cabedelo",
+        "snippet": "Estamos ansiosos para apresentar a Center Pizza, sua nova opção de pizza delivery! Nossa missão é oferecer pizzas de alta qualidade, feitas com amor e carinho, ...",
+        "displayedLink": "Mais de 3,4 mil seguidores",
+        "platform": "instagram",
+        "score": 68,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+    "restaurantName": "JuJuba sorvete e açaí",
+    "restaurantCategory": "Sorveteria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "no_location_or_phone_support",
+    "best": {
+      "approved": true,
+      "score": 138,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/sorveteeacaijujuba",
+      "handle": "sorveteeacaijujuba",
+      "tokens": [
+        "jujuba",
+        "sorvete"
+      ],
+      "handleMatches": [
+        "jujuba",
+        "sorvete"
+      ],
+      "titleMatches": [
+        "jujuba",
+        "sorvete"
+      ],
+      "titleHandleMatches": [
+        "jujuba",
+        "sorvete"
+      ],
+      "textMatches": [
+        "jujuba",
+        "sorvete"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+        "link": "https://instagram.com/sorveteeacaijujuba/reels",
+        "snippet": "Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ...",
+        "displayedLink": "https://www.instagram.com › sorveteeacaijujuba",
+        "platform": "instagram",
+        "score": 106,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99160-1338"
+  },
+  {
+    "restaurantId": "e4463ab8-c32d-4e3e-aa0c-b93e2a9f7015",
+    "restaurantName": "Triniity Burguer",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -17,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/trinity.burger",
+      "handle": "trinity.burger",
+      "tokens": [
+        "triniity",
+        "burguer"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [
+        "burguer"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "T R I N I T Y B U R G E R 🔺 (@trinity.burger)",
+        "link": "https://instagram.com/trinity.burger/reels",
+        "snippet": "| NÃO É SOBRE HAMBÚRGUER É SOBRE PESSOAS ❤️ | A 7 anos entregando amor em forma de burger | R. Sd. Cândido da Luz Paiva,4 [MASKA].",
+        "displayedLink": "https://www.instagram.com › trinity.burger",
+        "platform": "instagram",
+        "score": 88,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "57a68170-1982-436a-a5b9-02366f6a999b",
+    "restaurantName": "Café cultural",
+    "restaurantCategory": "Cafeteria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "score_below_100",
+    "best": {
+      "approved": true,
+      "score": 89,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/cafecultura",
+      "handle": "cafecultura",
+      "tokens": [
+        "cafe",
+        "cultural"
+      ],
+      "handleMatches": [
+        "cafe"
+      ],
+      "titleMatches": [
+        "cafe"
+      ],
+      "titleHandleMatches": [
+        "cafe"
+      ],
+      "textMatches": [
+        "cafe"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 6,
+        "title": "Café Cultura (@cafecultura) • Instagram photos and videos",
+        "link": "https://instagram.com/cafecultura/?hl=pt",
+        "snippet": "(e)coar e (e)levar a cultura brasileira do café especial! Franquia pioneira em café especial – Associada à ABF Delivery no iFood e Take Away nas lojas.",
+        "displayedLink": "Mais de 134,5 mil seguidores",
+        "platform": "instagram",
+        "score": 110,
+        "tier": "yellow",
+        "flags": [
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "3d145fe5-ceba-49ab-9b1d-50b6c19118de",
+    "restaurantName": "Café Cabedelo",
+    "restaurantCategory": "Cafeteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/prefeituradecabedelo",
+      "handle": "prefeituradecabedelo",
+      "tokens": [
+        "cafe"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "Camboinha recebendo o cuidado que merece! O projeto Cabe Mais Cuidado levou um mutirão de limpeza, manutenção, iluminação e organização para melhorar a ...",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99859-1092"
+  },
+  {
+    "restaurantId": "a9c18317-7315-45ac-b488-831923c9fd56",
+    "restaurantName": "Deu Pizza Cabedelo",
+    "restaurantCategory": "Pizzaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 107,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/deupizzacabedelo",
+      "handle": "deupizzacabedelo",
+      "tokens": [
+        "deu"
+      ],
+      "handleMatches": [
+        "deu"
+      ],
+      "titleMatches": [
+        "deu"
+      ],
+      "titleHandleMatches": [
+        "deu"
+      ],
+      "textMatches": [
+        "deu"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": true,
+      "locationPhraseMatches": [
+        "getulio vargas"
+      ],
+      "phones": [
+        "(83) 99339-5381"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 10,
+        "title": "DEU PIZZA (@deupizzacabedelo) · Cabedelo, PB",
+        "link": "https://instagram.com/deupizzacabedelo",
+        "snippet": "Praça Getúlio Vargas, 95 – Centro, Cabedelo Ao lado da Unidentis Faça a sua reserva conosco: (83) 99339-5381 #DeuPizza #AniversárioComPizza #Cabedelo # ...",
+        "displayedLink": "Mais de 1,8 mil seguidores",
+        "platform": "instagram",
+        "score": 120,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99339-5381"
+  },
+  {
+    "restaurantId": "8fb49605-7614-4c27-9a31-406de6240e2d",
+    "restaurantName": "Espetinho da Praça",
+    "restaurantCategory": "Churrascaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/prefeituradecabedelo",
+      "handle": "prefeituradecabedelo",
+      "tokens": [
+        "praca"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 10,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "Chegou o Cabedelo em 1 Minuto! Agora você tem um jeito rápido de ficar por dentro das principais novidades da nossa cidade. Toda semana, um resumo com as ...",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 50,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98847-1337"
+  },
+  {
+    "restaurantId": "6e248922-94fd-4138-86a0-92c7a04fcfff",
+    "restaurantName": "cabe 1one açaí",
+    "restaurantCategory": "Sorveteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": 1,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/danieldoacai",
+      "handle": "danieldoacai",
+      "tokens": [
+        "cabe",
+        "1one"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [
+        "cabe"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98669-5781"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 4,
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "link": "https://instagram.com/danieldoacai",
+        "snippet": "Açaíteria & Lanchonete Eleita 4x a melhor açaíteria de Cabedelo Atendimento exclusivo por delivery Pedidos: (83) 98669-5781. Follow.",
+        "displayedLink": "Mais de 5 mil seguidores",
+        "platform": "instagram",
+        "score": 70,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98229-2123"
+  },
+  {
+    "restaurantId": "942e480f-7b67-4aae-9967-e795bdf7502d",
+    "restaurantName": "Therê Açaí e Sorvete",
+    "restaurantCategory": "Sorveteria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/danieldoacai",
+      "handle": "danieldoacai",
+      "tokens": [
+        "there",
+        "sorvete"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 98669-5781"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 7,
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "link": "https://instagram.com/danieldoacai",
+        "snippet": "Açaíteria & Lanchonete Eleita 4x a melhor açaíteria de Cabedelo Atendimento exclusivo por delivery Pedidos: (83) 98669-5781. Follow.",
+        "displayedLink": "Mais de 5 mil seguidores",
+        "platform": "instagram",
+        "score": 44,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99332-8972"
+  },
+  {
+    "restaurantId": "65ebdb63-241a-4831-8015-09a936d25b61",
+    "restaurantName": "Obra Fest Verão",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": true,
+    "safe": false,
+    "reason": "out_of_scope_name_or_category",
+    "best": {
+      "approved": true,
+      "score": 152,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/festverao_pb",
+      "handle": "festverao_pb",
+      "tokens": [
+        "obra",
+        "fest",
+        "verao"
+      ],
+      "handleMatches": [
+        "fest",
+        "verao"
+      ],
+      "titleMatches": [
+        "fest",
+        "verao"
+      ],
+      "titleHandleMatches": [
+        "fest",
+        "verao"
+      ],
+      "textMatches": [
+        "fest",
+        "verao"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Fest Verão Paraíba (@festverao_pb)",
+        "link": "https://instagram.com/festverao_pb",
+        "snippet": "O verão é aqui! ☀️ ⛱️ 03 e 17 de Janeiro de 2026 Ponta de Campina, Cabedelo/PB Garanta agora o seu ingresso · 20 verões. 20 histórias. · 20 verões. · 20 anos de ...",
+        "displayedLink": "Mais de 226,1 mil seguidores",
+        "platform": "instagram",
+        "score": 128,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "a108a394-1cb3-478b-a857-2d6770d853c4",
+    "restaurantName": "Rodizio de caldo do carioca",
+    "restaurantCategory": "Pastelaria brasileira",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "not_profile",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "not_profile"
+      ],
+      "canonicalUrl": "",
+      "handle": "",
+      "tokens": [
+        "rodizio",
+        "caldo",
+        "carioca"
+      ],
+      "handleMatches": [],
+      "titleMatches": [
+        "rodizio",
+        "caldo"
+      ],
+      "titleHandleMatches": [
+        "rodizio",
+        "caldo"
+      ],
+      "textMatches": [
+        "rodizio",
+        "caldo"
+      ],
+      "cityConfirmed": false,
+      "cityNameConfirmed": false,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Restaurante on Instagram: \"✅🤤 #caldos #rodizio ...",
+        "link": "https://instagram.com/p/DR21GXgCVk9",
+        "snippet": "BURGUIN BRASIL — Rodízio de Caldos A partir de R$54,90 | Qui–Sab, 6 sabores + opção doce R. Nelson Cesar de Oliveira, 250 – Jardim das ...",
+        "displayedLink": "Mais de 30 marcações \"Gostei\" · há 7 meses",
+        "platform": "instagram",
+        "score": 43,
+        "tier": "red",
+        "flags": [
+          "instagram_p_not_profile",
+          "instagram_profile_not_canonicalizable",
+          "city_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "4a19815d-0292-4285-bf3a-25df89ef2bf6",
+    "restaurantName": "Queens do Açaí",
+    "restaurantCategory": "Loja de açaí",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/queensdoacai",
+      "handle": "queensdoacai",
+      "tokens": [
+        "queens"
+      ],
+      "handleMatches": [
+        "queens"
+      ],
+      "titleMatches": [
+        "queens"
+      ],
+      "titleHandleMatches": [
+        "queens"
+      ],
+      "textMatches": [
+        "queens"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Queens do Açaí (@queensdoacai) - Cabedelo",
+        "link": "https://instagram.com/queensdoacai",
+        "snippet": "Cabedelo -Mãe e filhas empreendendo❤ -Açaiteria e Sorveteria -Delivery e Retirada -Todos os dias das 13h às 23h. Faça seu pedido no link abaixo ...",
+        "displayedLink": "Mais de 840 seguidores",
+        "platform": "instagram",
+        "score": 126,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "https://instagram.com/queensdoacai",
+    "existingPhone": "(83) 99308-5560"
+  },
+  {
+    "restaurantId": "90afab4e-44eb-4068-8c16-09dc29a585c8",
+    "restaurantName": "Rua São Miguel 159",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "not_profile",
+    "best": {
+      "approved": false,
+      "score": -5,
+      "reasons": [
+        "not_profile"
+      ],
+      "canonicalUrl": "",
+      "handle": "",
+      "tokens": [
+        "miguel"
+      ],
+      "handleMatches": [],
+      "titleMatches": [
+        "miguel"
+      ],
+      "titleHandleMatches": [
+        "miguel"
+      ],
+      "textMatches": [
+        "miguel"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 99957-6399"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 5,
+        "title": "São Miguel Arcanjo 🙏 Enviamos para todo o Brasil. Catálogo ...",
+        "link": "https://instagram.com/reel/C-tFnmYyLSQ",
+        "snippet": "... Miguel Arcanjo Enviamos para todo o Brasil. Catálogo no link da Bio. (83) 99957-6399 ⁣ Atendimento presencial:⁣ Cabedelo/PB: Pôr do ...",
+        "displayedLink": "Mais de 160 marcações \"Gostei\" · há 1 ano",
+        "platform": "instagram",
+        "score": 57,
+        "tier": "yellow",
+        "flags": [
+          "instagram_reel_not_profile",
+          "instagram_profile_not_canonicalizable"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "b70edc4d-f352-4cc1-9680-4f5d6cd5c773",
+    "restaurantName": "gat mal ponta de campina",
+    "restaurantCategory": "Churrascaria",
+    "approved": true,
+    "baseApproved": true,
+    "safe": true,
+    "reason": "approved_safe",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/getmall.oficial",
+      "handle": "getmall.oficial",
+      "tokens": [
+        "gat",
+        "mal"
+      ],
+      "handleMatches": [
+        "mal"
+      ],
+      "titleMatches": [
+        "mal"
+      ],
+      "titleHandleMatches": [
+        "mal"
+      ],
+      "textMatches": [
+        "mal"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": true,
+      "locationPhraseMatches": [
+        "oceano atlantico"
+      ],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 1,
+        "title": "Get Mall | Seu Shopping em Cabedelo (@getmall.oficial)",
+        "link": "https://instagram.com/getmall.oficial",
+        "snippet": "Funcionamos todos os dias, das 11h às 23h. Parque Dino a partir das 17h. Av. Oceano Atlântico, 1592 - Ponta de Campina. Follow.",
+        "displayedLink": "Mais de 2,8 mil seguidores",
+        "platform": "instagram",
+        "score": 114,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "9aad8169-49b0-4726-9924-14ec8b6f9d38",
+    "restaurantName": "Nossa Pizza",
+    "restaurantCategory": "Pizzaria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/centerpizza_cabedelo",
+      "handle": "centerpizza_cabedelo",
+      "tokens": [
+        "nossa"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 8,
+        "title": "Center Pizza Cabedelo PB (@centerpizza_cabedelo)",
+        "link": "https://instagram.com/centerpizza_cabedelo",
+        "snippet": "A pizza mais comentada de Cabedelo Muito recheio + massa artesanal Villa Porto Peça agora no delivery · A mais pedida!! #pizza #pizzacabedelo # ...",
+        "displayedLink": "Mais de 3,4 mil seguidores",
+        "platform": "instagram",
+        "score": 68,
+        "tier": "yellow",
+        "flags": [
+          "brand_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99649-4684"
+  },
+  {
+    "restaurantId": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+    "restaurantName": "VITAMINA DE AÇAÍ",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "existing_instagram_present",
+    "best": {
+      "approved": true,
+      "score": 103,
+      "reasons": [],
+      "canonicalUrl": "https://instagram.com/vitaminadeacai__",
+      "handle": "vitaminadeacai__",
+      "tokens": [
+        "vitamina"
+      ],
+      "handleMatches": [
+        "vitamina"
+      ],
+      "titleMatches": [
+        "vitamina"
+      ],
+      "titleHandleMatches": [
+        "vitamina"
+      ],
+      "textMatches": [
+        "vitamina"
+      ],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "Vitamina de açai | 01 da city ®🥇 (@vitaminadeacai__). Eleita a melhor de cabedelo Delivery mais completo da city Terça a domingo 15h30 ás 22h30 Pedido link abaixo⬇️.. https://instagram.com/vitaminadeacai__",
+      "candidate": {
+        "source": "organic",
+        "position": 2,
+        "title": "Vitamina de açai | 01 da city ®🥇 (@vitaminadeacai__)",
+        "link": "https://instagram.com/vitaminadeacai__",
+        "snippet": "Eleita a melhor de cabedelo Delivery mais completo da city Terça a domingo 15h30 ás 22h30 Pedido link abaixo⬇️.",
+        "displayedLink": "Mais de 1,7 mil seguidores",
+        "platform": "instagram",
+        "score": 126,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "https://instagram.com/vitaminadeacai__",
+    "existingPhone": null
+  },
+  {
+    "restaurantId": "a62661ec-86ed-4ed2-8144-f105736312ad",
+    "restaurantName": "food service",
+    "restaurantCategory": "Hamburgueria",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -6,
+      "reasons": [
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/prefeituradecabedelo",
+      "handle": "prefeituradecabedelo",
+      "tokens": [
+        "food",
+        "service"
+      ],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": true,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 3,
+        "title": "Prefeitura de Cabedelo (@prefeituradecabedelo)",
+        "link": "https://instagram.com/prefeituradecabedelo",
+        "snippet": "Chegou o Cabedelo em 1 Minuto! Agora você tem um jeito rápido de ficar por dentro das principais novidades da nossa cidade. Toda semana, um resumo com as ...",
+        "displayedLink": "Mais de 78 mil seguidores",
+        "platform": "instagram",
+        "score": 32,
+        "tier": "red",
+        "flags": [
+          "brand_not_confirmed",
+          "name_not_confirmed"
+        ]
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 99139-5546"
+  },
+  {
+    "restaurantId": "725b6497-4be9-4426-a2c0-dd3b55ff7956",
+    "restaurantName": "Espetinho Pé na Areia",
+    "restaurantCategory": "Restaurante",
+    "approved": false,
+    "baseApproved": false,
+    "safe": false,
+    "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+    "best": {
+      "approved": false,
+      "score": -2,
+      "reasons": [
+        "no_distinctive_restaurant_token",
+        "brand_not_confirmed"
+      ],
+      "canonicalUrl": "https://instagram.com/veranopraiabar",
+      "handle": "veranopraiabar",
+      "tokens": [],
+      "handleMatches": [],
+      "titleMatches": [],
+      "titleHandleMatches": [],
+      "textMatches": [],
+      "cityConfirmed": true,
+      "cityNameConfirmed": true,
+      "neighborhoodConfirmed": false,
+      "addressConfirmed": false,
+      "locationPhraseMatches": [],
+      "phones": [
+        "(83) 3206-0072"
+      ],
+      "openingHoursText": "",
+      "candidate": {
+        "source": "organic",
+        "position": 8,
+        "title": "Verano Praia Bar (@veranopraiabar)",
+        "link": "https://instagram.com/veranopraiabar",
+        "snippet": "Bar e restaurante de praia pé na areia BR 230, Sport Marina, Cabedelo ⏰ Aberto todos os dias • 9h às 17h ☎️ 83 3206-0072 Nosso cardápio.",
+        "displayedLink": "Mais de 10,5 mil seguidores",
+        "platform": "instagram",
+        "score": 112,
+        "tier": "yellow",
+        "flags": []
+      }
+    },
+    "existingInstagram": "",
+    "existingPhone": "(83) 98689-2722"
+  }
+]

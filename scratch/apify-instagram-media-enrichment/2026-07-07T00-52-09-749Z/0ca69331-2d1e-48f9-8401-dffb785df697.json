@@ -1,0 +1,228 @@
+{
+  "id": "0ca69331-2d1e-48f9-8401-dffb785df697",
+  "name": "ESFIELDS",
+  "instagram": "https://www.instagram.com/esfieldsjp/",
+  "followers": 1066,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_profile_1783385624994.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385629294_1.jpg",
+      "score": 30,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385630797_2.jpg",
+      "score": 27,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385631557_3.jpg",
+      "score": 26,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385632839_4.jpg",
+      "score": 24,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385633449_5.jpg",
+      "score": 22,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385634388_6.jpg",
+      "score": 22,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385634967_7.jpg",
+      "score": 20,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385635682_8.jpg",
+      "score": 17,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "dde2713c-49ef-499b-a564-735a7a3a7d01",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385629294_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "a164f895-6c32-4008-82d0-f7a8df7513ad",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385630797_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "f68f1f00-5abe-44c6-81b4-48b84b39dc12",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385631557_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "8f4e95d0-90e2-4d97-a437-8b5340b7e5cd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385632839_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "0d4aa5e4-7461-4834-9055-8ac34e146619",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385633449_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "3bd6388a-6388-4745-a99c-cf8cca2252cb",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385634388_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "f9fddc47-a639-4674-8585-21cb822d0de3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385634967_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "590e76a7-cba3-48cd-9cc7-3bd7c1cb5360",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/0ca69331-2d1e-48f9-8401-dffb785df697/instagram_1783385635682_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 30,
+      "caption": "📍 Conheci a @esfieldsjp , no @getmall.oficial em Ponta de Campina, e a proposta deles foge totalmente do comum em João Pessoa. PRA RECEBER O CUPOM DIGITA: ESFIELDS - Que eu te man",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "Minha visita completa a @esfieldsjp ! Todos os produtos tem um tempo de preparo muito bom e são realmente muito saboros. Aproveitei pra conhecer a cozinha deles! #turismo #joaopess",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 26,
+      "caption": "Afinal o que oferecemos? ESFIHAS FECHADAS - Somos os únicos em João Pessoa a lançar a Esfiha fechada. PIZZAS - Com sabores autorais e cheias de personalidade em sua montagem soment",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "Esfiha de barbecue daquele jeito que não tem erro 😍🔥 Costelinha suína desfiada, muçarela derretida, cream cheese cremoso, cebola e muito barbecue! É suculenta, saborosa e viciant",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "🚨ATENÇÃO CHOCOOOLATRAS! 🚨 Chegou a nova ESFIELD’S MATILDA Brownie com muita calda de chocolate. Não é só sobremesa… é desejo. é vício. Provou, pensou: preciso de outro.”",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "DEBULHEI A PIZZA MATILDA 📍ESFIELD’S (GETMALL CABEDELO - EM FRENTE AO CONDOMÍNIO AQUALUXO) ⏰ TODOS OS DIAS DAS 16H ÀS 23H ⚠️ VALORES E INFORMAÇÕES VIGENTES À ÉPOCA DA POSTAGEM DO V",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 20,
+      "caption": "AFTER MOVIE NO AR 🎬🤩 . A Esfields é muito mais que esfiha e pizza : é companhia certa no verão! Teve alegria, energia boa, gente sorrindo, sabores incríveis e aquele clima que só",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 17,
+      "caption": "Nosso personagem atravessou fronteiras com uma missão: encontrar o verdadeiro sabor da Argentina. Foram dias de viagem, descobrindo lugares, conhecendo pessoas e perguntando para c",
+      "vision": null
+    }
+  ]
+}

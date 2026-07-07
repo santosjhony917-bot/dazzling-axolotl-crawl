@@ -1,0 +1,54 @@
+[
+  {
+    "restaurantId": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+    "restaurantName": "Forneria Brasil Express 🍕",
+    "sourceUrl": "https://instadelivery.com.br/FornoBrasilExpress",
+    "platform": "instadelivery",
+    "reviewsCount": 2,
+    "address": null,
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98653-8522",
+    "queueEntry": {
+      "restaurant_id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "platform": "instadelivery",
+      "tier": "green",
+      "priority_score": 40,
+      "risk_flags": [],
+      "source_field": "other_url",
+      "source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "raw_source_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "other_url": "https://instadelivery.com.br/FornoBrasilExpress",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Delivery de Pizza",
+      "address": "",
+      "neighborhood": "",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98653-8522",
+      "rating": 3,
+      "reviews_count": 2,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://instadelivery.com.br/FornoBrasilExpress",
+          "canonical_url": "https://instadelivery.com.br/FornoBrasilExpress",
+          "platform": "instadelivery",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": []
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "structured_source_ready",
+      "rank": 1
+    }
+  }
+]

@@ -1,0 +1,91 @@
+{
+  "id": "5ba77eda-968b-407b-aaa9-4c6d641e66cb",
+  "name": "Tropical Burgz",
+  "instagram": "https://www.instagram.com/tropicalburgz/",
+  "followers": 1377,
+  "match": {
+    "score": 145,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://abre.ai/contatotropicalburgz"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "fd585d23-8a6e-45eb-87ac-df59dc316fa0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5ba77eda-968b-407b-aaa9-4c6d641e66cb/instagram_1783385304414_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "0bf885de-0aad-4433-9251-fdd8e1bf8cc6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5ba77eda-968b-407b-aaa9-4c6d641e66cb/instagram_1783385311493_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "29dbd3a1-1949-4955-a378-1e4f464abf7d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5ba77eda-968b-407b-aaa9-4c6d641e66cb/instagram_1783385312857_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "8288a982-d899-4356-bb89-b828a650d954",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5ba77eda-968b-407b-aaa9-4c6d641e66cb/instagram_1783385313798_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "9c80937b-8bbf-4c59-9798-3eb8040aade3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5ba77eda-968b-407b-aaa9-4c6d641e66cb/instagram_1783385314539_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "c7a4cd72-f746-428a-a05f-3ffbe5cf22ed",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5ba77eda-968b-407b-aaa9-4c6d641e66cb/instagram_1783385315525_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "f906fe4f-5a66-4215-879e-b4a5d3973638",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5ba77eda-968b-407b-aaa9-4c6d641e66cb/instagram_1783385316423_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "eb4deedc-4499-4334-8f2e-47d74328fee5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/5ba77eda-968b-407b-aaa9-4c6d641e66cb/instagram_1783385317052_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

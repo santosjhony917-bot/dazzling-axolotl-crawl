@@ -1,0 +1,168 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/products",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 2960,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"c052bb1b-2754-4935-a6d2-fb182a0b7bfe\",\"id\":\"5d2400a1-5d2b-437c-b32c-e158a161bbd2\",\"code\":\"37\",\"ean\":null,\"priority\":1,\"name\":\"Agua Mineral 1,5L\",\"description\":\"Agua mineral natural em embalagem economica\",\"price\":7,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"33ae3d54-58c8-46e4-864a-de6dea186139\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Agua Mineral 1,5L\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"c052bb1b-2754-4935-a6d2-fb182a0b7bfe\",\"id\":\"ab92f59e-b6b9-4ea9-a6b7-fce82e7b7552\",\"code\":\"36\",\"ean\":null,\"priority\":2,\"name\":\"Agua com Gas 500ml\",\"description\":\"Agua mineral gaseificada refrescante\",\"price\":4,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"9818acc1-5333-4023-8851-c986e188a114\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Agua com Gas 500ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"categoryId\":\"c052bb1b-2754-4935-a6d2-fb182a0b7bfe\",\"id\":\"51be9763-6f24-4e9c-8be5-8d9f59ccb439\",\"code\":\"38\",\"ean\":null,\"priority\":3,\"name\":\"Agua Mineral 500ml\",\"description\":\"Agua mineral natural pura e cristalina\",\"price\":3,\"availability\":\"AVAILABLE\",\"availabilityOrigin\":\"PRODUCT\",\"measure\":null,\"merchantSuggestion\":false,\"byIntegration\":false,\"isPromotion\":false,\"isBestSeller\":false,\"bestSellerRank\":null,\"promotion\":null,\"stock\":{\"active\":false,\"current\":0,\"min\":0,\"orderMax\":0},\"ship\":{\"active\":false,\"height\":0,\"width\":0,\"length\":0,\"weight\":0},\"crossSelling\":{\"customMessage\":null,\"displayOnProductDetailPage\":false,\"displayOnCartModal\":false},\"images\":[{\"id\":\"d3af27e6-e5f1-4f89-897d-20a25a03481c\",\"default\":true,\"main\":false,\"priority\":0,\"description\":\"Agua Mineral 500ml\",\"path\":\"https://meucarrinhostg.blob.core.windows.net/images/default_product.png\"}],\"variationsGrid\":false,\"variations\":[],\"availabilitySchedules\":[]}]",
+  "jsonKeys": [
+    "array",
+    "3"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "c052bb1b-2754-4935-a6d2-fb182a0b7bfe",
+      "id": "5d2400a1-5d2b-437c-b32c-e158a161bbd2",
+      "code": "37",
+      "ean": null,
+      "priority": 1,
+      "name": "Agua Mineral 1,5L",
+      "description": "Agua mineral natural em embalagem economica",
+      "price": 7,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "33ae3d54-58c8-46e4-864a-de6dea186139",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Agua Mineral 1,5L",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "c052bb1b-2754-4935-a6d2-fb182a0b7bfe",
+      "id": "ab92f59e-b6b9-4ea9-a6b7-fce82e7b7552",
+      "code": "36",
+      "ean": null,
+      "priority": 2,
+      "name": "Agua com Gas 500ml",
+      "description": "Agua mineral gaseificada refrescante",
+      "price": 4,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "9818acc1-5333-4023-8851-c986e188a114",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Agua com Gas 500ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "categoryId": "c052bb1b-2754-4935-a6d2-fb182a0b7bfe",
+      "id": "51be9763-6f24-4e9c-8be5-8d9f59ccb439",
+      "code": "38",
+      "ean": null,
+      "priority": 3,
+      "name": "Agua Mineral 500ml",
+      "description": "Agua mineral natural pura e cristalina",
+      "price": 3,
+      "availability": "AVAILABLE",
+      "availabilityOrigin": "PRODUCT",
+      "measure": null,
+      "merchantSuggestion": false,
+      "byIntegration": false,
+      "isPromotion": false,
+      "isBestSeller": false,
+      "bestSellerRank": null,
+      "promotion": null,
+      "stock": {
+        "active": false,
+        "current": 0,
+        "min": 0,
+        "orderMax": 0
+      },
+      "ship": {
+        "active": false,
+        "height": 0,
+        "width": 0,
+        "length": 0,
+        "weight": 0
+      },
+      "crossSelling": {
+        "customMessage": null,
+        "displayOnProductDetailPage": false,
+        "displayOnCartModal": false
+      },
+      "images": [
+        {
+          "id": "d3af27e6-e5f1-4f89-897d-20a25a03481c",
+          "default": true,
+          "main": false,
+          "priority": 0,
+          "description": "Agua Mineral 500ml",
+          "path": "https://meucarrinhostg.blob.core.windows.net/images/default_product.png"
+        }
+      ],
+      "variationsGrid": false,
+      "variations": [],
+      "availabilitySchedules": []
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "search_metadata": {
+    "id": "6a4c6d4c304eba9d954f0ebe",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/Ks3KSGmcLDqA0db4m5oSwA/6a4c6d4c304eba9d954f0ebe.json",
+    "created_at": "2026-07-07 03:06:52 UTC",
+    "processed_at": "2026-07-07 03:06:52 UTC",
+    "google_maps_photos_url": "https://www.google.com/maps/_/MapsWizUi/data/batchexecute?rpcids=hspqX&source-path=%2Fmaps%2Fplace%2Fdata%3D%214m1%211s0x7ad21d0e414d9d9%3A0x80c5ecbdb61ef032&hl=pt&rt=c",
+    "raw_html_file": "https://serpapi.com/searches/Ks3KSGmcLDqA0db4m5oSwA/6a4c6d4c304eba9d954f0ebe.html",
+    "prettify_html_file": "https://serpapi.com/searches/Ks3KSGmcLDqA0db4m5oSwA/6a4c6d4c304eba9d954f0ebe.prettify",
+    "total_time_taken": 0.34
+  },
+  "search_parameters": {
+    "engine": "google_maps_photos",
+    "data_id": "0x7ad21d0e414d9d9:0x80c5ecbdb61ef032",
+    "hl": "pt"
+  },
+  "categories": [
+    {
+      "title": "Tudo",
+      "id": "CgIgAQ"
+    },
+    {
+      "title": "Street View e 360°",
+      "id": "CgIgARICCAI"
+    }
+  ],
+  "photos": [
+    {
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=4u0NJj96_bSrig3d7y-hOA&cb_client=maps_sv.tactile.gps&w=203&h=100&yaw=169.02417&pitch=0&thumbfov=100",
+      "image": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=4u0NJj96_bSrig3d7y-hOA&cb_client=maps_sv.tactile.gps&w=10000&h=10000&yaw=169.02417&pitch=0&thumbfov=100",
+      "photo_meta_serpapi_link": "https://serpapi.com/search.json?data_id=4u0NJj96_bSrig3d7y-hOA&engine=google_maps_photo_meta"
+    }
+  ]
+}

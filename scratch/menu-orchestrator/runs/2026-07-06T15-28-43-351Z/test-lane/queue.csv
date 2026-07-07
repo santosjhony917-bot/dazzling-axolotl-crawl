@@ -1,0 +1,6 @@
+rank;restaurant_id;name;platform;tier;rating;reviews_count;source_url;risk_flags
+37;a7e0b267-8b70-4488-b548-dcee41bce76f;Bar da Queda;anota_ai;green;4.4;790;https://anota.ai/bar-da-queda-1;
+38;624a1b1d-80ea-4c9c-a5ed-a1cb81702e16;Bebelu Sanduíches Centro;anota_ai;green;4.7;359;https://app.anota.ai/Bebelucg;
+39;d0c129b8-27e9-4f49-9085-c17f06b5c307;Gigantão Lanches;anota_ai;green;4.6;239;https://anota.ai/p/gigantao-lanches-e-restaurante;
+40;919558fb-f07f-44e4-86ab-19cd34f76364;La Casa da Pizza;anota_ai;green;4.5;83;https://anota.ai/m/9yUn8x5kl;
+41;c98bf942-43f3-4c5c-9bf3-57f4567e53f1;Bebelu Sanduíches - Dinamérica / Campina Grande-PB;anota_ai;green;4.8;68;https://app.anota.ai/Bebelucg;

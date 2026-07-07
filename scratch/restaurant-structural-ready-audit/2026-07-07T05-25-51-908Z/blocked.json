@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+    "name": "I love burguer",
+    "redCount": 2,
+    "issueCodes": [
+      "texto_com_mojibake"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "texto_com_mojibake",
+        "field": "item.name",
+        "itemId": "4dc83a06-cf0c-4f13-94c7-2f59bd2e8f27",
+        "value": "PROMOÇÃO DE SEGUNDA"
+      },
+      {
+        "severity": "red",
+        "code": "texto_com_mojibake",
+        "field": "item.display_name",
+        "itemId": "4dc83a06-cf0c-4f13-94c7-2f59bd2e8f27",
+        "value": "PROMOÇÃO DE SEGUNDA"
+      }
+    ]
+  }
+]

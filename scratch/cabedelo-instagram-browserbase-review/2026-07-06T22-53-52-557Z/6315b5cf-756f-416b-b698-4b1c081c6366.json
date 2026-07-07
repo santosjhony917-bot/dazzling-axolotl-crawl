@@ -1,0 +1,48 @@
+{
+  "id": "6315b5cf-756f-416b-b698-4b1c081c6366",
+  "name": "Biruta Burger",
+  "category": "Hamburgueria",
+  "neighborhood": "Cabedelo",
+  "reviews_count": null,
+  "rating": null,
+  "instagramCandidate": "https://instagram.com/birutaslanchonete",
+  "score": 80,
+  "title": "Não tem como resistir aos lanches do @birutaslanchonete né ...",
+  "queries": [
+    "Biruta Burger bigburgerof Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "Não tem como resistir aos lanches do @birutaslanchonete né ... ... Big Burguer Davi também comeu a batata toda hein? Ah não pisou um ... © 2026 Instagram from Meta. https://instagram.com/birutaslanchonete",
+  "rowName": "Biruta Burger",
+  "status": "reject",
+  "best": {
+    "status": "reject",
+    "score": 22,
+    "url": "https://instagram.com/birutaslanchonete",
+    "handle": "birutaslanchonete",
+    "tokens": [
+      "biruta"
+    ],
+    "handleMatches": [
+      "biruta"
+    ],
+    "textMatches": [
+      "biruta"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": false,
+    "evidenceSample": "Não tem como resistir aos lanches do @birutaslanchonete né ... Não tem como resistir aos lanches do @birutaslanchonete né ... ... Big Burguer Davi também comeu a batata toda hein? Ah não pisou um ... © 2026 Instagram from Meta. https://instagram.com/birutaslanchonete Instagram Log into Instagram Mobile number, username or email Password Log in Forgot password? Log in with Facebook Create new account Meta About Blog Jobs Help API Privacy Consumer Health Privacy Terms Locations Popular Instagram Lite Meta AI Threads Contact Uploading & Non-Users Meta Verified English Afrikaans العربية Čeština Dansk Deutsch Ελληνικά English English (UK) Español (España) Español فارسی Suomi Français עברית Bahasa Indonesia Italiano 日本語 한국어 Bahasa Melayu Norsk Nederlands Polski Português (Brasil) Português (Portugal) Русский Svenska ภาษาไทย Filipino Türkçe 中文(简体) 中文(台灣) বাংলা ગુજરાતી हिन्दी Hrvatski Magyar ಕನ್ನಡ മലയാളം मराठी नेपाली ਪੰਜਾਬੀ සිංහල Slovenčina தமிழ் తెలుగు اردو Tiếng Việt 中文(香港) Български Français (Canada) Română Српски Українська © 2026 Instagram from Meta noarchive noarchive, noimageindex default yes width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2, viewport-fit=cover #242526 #000000 Instagram 389801252 instagram://mainfeed Instagram com.instagram.android https://www.instagram.com/_n/mainfeed/ Instagram Instagram https://static.cdninstagram.com/rsrc.php/v4/yD/r/R0fBIMurK8v.png https://instagram.com/ 124024574287414 Create an account or log in to Instagram - Share what you're into with the people who get you. Instagram dark Forgot password? https://www.instagram.",
+    "pageUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fbirutaslanchonete%2F%3Fhl%3Dpt-br&is_from_rle",
+    "pageTitle": "Instagram"
+  },
+  "sessionId": "c660bade-22d4-4175-8cfa-5e4fa056bfce"
+}

@@ -1,0 +1,1814 @@
+{
+  "search": {
+    "query": "acai Cabedelo PB",
+    "term": "acai",
+    "area": "Renascer",
+    "lat": -7.0324,
+    "lng": -34.8705,
+    "ll": "@-7.0324,-34.8705,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c0303634a634ae4003e74",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/xMveL8n17As64BRkzFzKCg/6a4c0303634a634ae4003e74.json",
+    "created_at": "2026-07-06 19:33:23 UTC",
+    "processed_at": "2026-07-06 19:33:23 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/acai+Cabedelo+PB/@-7.0324,-34.8705,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/xMveL8n17As64BRkzFzKCg/6a4c0303634a634ae4003e74.html",
+    "prettify_html_file": "https://serpapi.com/searches/xMveL8n17As64BRkzFzKCg/6a4c0303634a634ae4003e74.prettify",
+    "total_time_taken": 1.18
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "acai Cabedelo PB",
+    "ll": "@-7.0324,-34.8705,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "Acai",
+      "place_id": "ChIJHS4nywrfrAcRf1rB7H0L_Mw",
+      "data_id": "0x7acdf0acb272e1d:0xccfc0b7decc15a7f",
+      "data_cid": "14770693513339296383",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0acb272e1d%3A0xccfc0b7decc15a7f&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0acb272e1d%3A0xccfc0b7decc15a7f&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0335294,
+        "longitude": -34.848596799999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJHS4nywrfrAcRf1rB7H0L_Mw",
+      "provider_id": "/g/11nxr68ts5",
+      "rating": 5,
+      "reviews": 3,
+      "unclaimed_listing": true,
+      "type": "Loja de açaí",
+      "types": [
+        "Loja de açaí"
+      ],
+      "type_id": "acai_shop",
+      "type_ids": [
+        "acai_shop"
+      ],
+      "address": "Av. Imbiridiba, 74 - Lot. Oceania VI, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=LXsE8x1xY2c7gPHHCFEjtw&cb_client=search.gws-prod.gps&w=80&h=92&yaw=9.453136&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/dgDA9HicHc1LDsIgFADA27CTj_XTmry4MDVduHCpK0MpAoYWUp6lnsZzeRuNF5j5vC1iTDvGEo5a4-R0jm7WPi2ipCYE47WMLlEVejYJhvbZt4N0fh_lEFwHp0uqy1nM16XamnPTHI71AzNR7U15pweEpOWoLDX5J46hoyYmkqHkxEK1JC-ZoaKrdSGKDYkOlQVO_sk9TCA4_wIs_Dka"
+    },
+    {
+      "position": 2,
+      "title": "South Beach | Açaí, Sorveteria e Cremes",
+      "place_id": "ChIJ0RcoMQDfrAcRpLtM3_RE4bo",
+      "data_id": "0x7acdf00312817d1:0xbae144f4df4cbba4",
+      "data_cid": "13466120179323550628",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf00312817d1%3A0xbae144f4df4cbba4&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf00312817d1%3A0xbae144f4df4cbba4&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.044117099999999,
+        "longitude": -34.8411635
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ0RcoMQDfrAcRpLtM3_RE4bo",
+      "provider_id": "/g/11yhk_dp51",
+      "rating": 4.9,
+      "reviews": 43,
+      "unclaimed_listing": true,
+      "type": "Sorveteria",
+      "types": [
+        "Sorveteria"
+      ],
+      "type_id": "ice_cream_shop",
+      "type_ids": [
+        "ice_cream_shop"
+      ],
+      "address": "Av. Oceano Atlântico, 870 - Intermares, Cabedelo - PB",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–22:00",
+        "terça-feira": "14:00–22:00",
+        "quarta-feira": "14:00–22:00",
+        "quinta-feira": "14:00–22:00",
+        "sexta-feira": "14:00–22:00",
+        "sábado": "14:00–22:00",
+        "domingo": "14:00–22:00"
+      },
+      "phone": "(83) 3032-7901",
+      "website": "https://www.instagram.com/southbeachacaiteria",
+      "extensions": [
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "user_review": "\"Açaís e sorvetes deliciosos, com boas opções sem lactose.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEEVZFK5EjTDpd39s59fPuA2mvak96i_BM89gmLPvNA4OfUEPhVjZKmS_TreWdqVbfRhBZipfuB9dktDzGwjPgAIGBCvfB6zMYKT4gxDvw6oIde2nFDRyjoLKSQ-DTidfHco_j8qWM_0mDY=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Bf5CDHicHcTbboIwAADQL6owL8Qu2UO7ojOIq8ow8kK2XilC0RaY_uSe9zdLdh7O74_2vnPPQXDRs4myVl1E78SN2daL1k-YbQLVOcAccAGiu32N4jgvVskiNhnp-Ay6BZS0R9Nm-KxhVJU4XULVbOmwQ_N3-RFTnZsiaY5ldhMnfs2_5EHjoupkjyGvPXmsR0MV2qzx6yBx9EjPSTZX32QYI7vhYtquyOFu7DY57gHJKi7fmC3N8npKy7Ah55fxKQxDoP9noP0DhTdHkg"
+    },
+    {
+      "position": 3,
+      "title": "Açaí Jacaré Beach",
+      "place_id": "ChIJyzANbADfrAcRmNSHSU6nRlI",
+      "data_id": "0x7acdf006c0d30cb:0x5246a74e4987d498",
+      "data_cid": "5928609914162762904",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf006c0d30cb%3A0x5246a74e4987d498&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf006c0d30cb%3A0x5246a74e4987d498&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0407008,
+        "longitude": -34.855236399999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJyzANbADfrAcRmNSHSU6nRlI",
+      "provider_id": "/g/11x1brv7y4",
+      "rating": 4.8,
+      "reviews": 12,
+      "unclaimed_listing": true,
+      "type": "Sorveteria",
+      "types": [
+        "Sorveteria"
+      ],
+      "type_id": "ice_cream_shop",
+      "type_ids": [
+        "ice_cream_shop"
+      ],
+      "address": "R. Clodoaldo Gouveia, 214 - Praia Do Jacare, Cabedelo - PB, 58101-323",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:30",
+      "hours": "Aberto · Fecha 19:30",
+      "operating_hours": {
+        "segunda-feira": "14:00–19:30",
+        "terça-feira": "14:00–19:30",
+        "quarta-feira": "14:00–19:30",
+        "quinta-feira": "14:00–19:30",
+        "sexta-feira": "14:00–19:30",
+        "sábado": "14:00–19:30",
+        "domingo": "14:00–19:30"
+      },
+      "website": "https://www.instagram.com/acaijacarebeach?igsh=YmFkdDZjYTUzeTJz",
+      "extensions": [
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "user_review": "\"Açai excelente!!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEgPbB7nUX_KcugoyoejPYKyMRwfSzcYcdSz0GunJik5sWZrB7YgQ9iUE66yWqhkntwIQtnSh6pQFgOYS0yyWZ5ScdyhjC3EHTJcChmWuKyeNTntBJXXCY5WQ7CchA9o1jANl9-cQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/fRoIrnicHcTdboIwGADQJ6rUGCAs2QUQ_IGMUasp9WbJPmsrYIu2hNQ33CPsbUw8F-f_Tzk32o8gGNRqIY2Rg5iseIDRTmi3AHML5GgRWGSDtKlJnxay-c1ifWx_Kpik8UZ0Da_8136-0CdwONMn3ky6vPahZadHFnNJkuuxiCLP7qrXbt4Rp6mKRrKW35xi79kppHD2qstXxfZQQq5ubKq8qA_aZWXb5jxkJM5BpYlZdmk9JAjI57zEGCP1HpB-Abo1Rrg"
+    },
+    {
+      "position": 4,
+      "title": "Açaí Araxá",
+      "place_id": "ChIJm_QnCOffrAcRyXaMtmUtLZk",
+      "data_id": "0x7acdfe70827f49b:0x992d2d65b68c76c9",
+      "data_cid": "11037528176632559305",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfe70827f49b%3A0x992d2d65b68c76c9&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfe70827f49b%3A0x992d2d65b68c76c9&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.05218,
+        "longitude": -34.8429
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJm_QnCOffrAcRyXaMtmUtLZk",
+      "provider_id": "/g/11lgrvlw91",
+      "rating": 4.6,
+      "reviews": 55,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Oceano Atlântico, 107 - Lot. Bela Vista, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qua. às 09:00",
+      "hours": "Fechado · Abre qua. às 09:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "09:00–18:00",
+        "quinta-feira": "09:00–18:00",
+        "sexta-feira": "09:00–18:00",
+        "sábado": "09:00–18:00",
+        "domingo": "09:00–18:00"
+      },
+      "phone": "(83) 99385-0594",
+      "website": "https://www.instagram.com/acaiaraxa2?igsh=aXo0dGh1dTIweDg2",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Muito gostoso o açaí e as frutas são frescas!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH0yaW_LLU40XyonMbA-AXgScDiVYEXmJ3-tz7i6Rgggkq7iXB2lX5G4BvlWTcytpYK6z_V_om6k111U4RVERedUgYJHyE31L4q85jCSQQyk-5z3qJTQJqEo1xbA9umKGstxUQW=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/PBlDiXicHcRJDoIwAADAF1VaWVwSD0WJBtFYFCgnopUUZCnYupQP-gZ_Y-Ic5vsplOrk3DDqwhxxIXidP2R-Z6JVeatGTDQG7yRgEkgDH_akwhuoz0kWBJEFqRbt7oIBpvzIVmWcerTxTaCGSemEnPOqn5TUHdfUXlvus05OTKsu3TpDFmeicSqEUGSFsRfm14in_kZ7JgqsfmrflkdCdAXswez9E_F7T6D3Bc8ezXYt1TsiyeKFIISg-M9A-wMNVEPL"
+    },
+    {
+      "position": 5,
+      "title": "Açaí da Hill Point",
+      "place_id": "ChIJp648VSbfrAcR46pzEDHTJBo",
+      "data_id": "0x7acdf26553caea7:0x1a24d3311073aae3",
+      "data_cid": "1883862751830584035",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf26553caea7%3A0x1a24d3311073aae3&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf26553caea7%3A0x1a24d3311073aae3&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0425897,
+        "longitude": -34.844207
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJp648VSbfrAcR46pzEDHTJBo",
+      "provider_id": "/g/11kjp6jtsf",
+      "rating": 4.6,
+      "reviews": 9,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "type": "Loja de açaí",
+      "types": [
+        "Loja de açaí",
+        "Sorveteria",
+        "Delivery"
+      ],
+      "type_id": "acai_shop",
+      "type_ids": [
+        "acai_shop",
+        "ice_cream_shop",
+        "meal_delivery"
+      ],
+      "address": "Trailer, Rua Mar das Antilhas, Praça Durval Portela - Intermares, Cabedelo - PB, 58102-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "15:00–22:00",
+        "terça-feira": "15:00–22:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "15:00–22:00",
+        "sexta-feira": "15:00–22:00",
+        "sábado": "15:00–22:00",
+        "domingo": "12:00–17:30"
+      },
+      "phone": "(83) 2178-3682",
+      "website": "https://biolivre.com.br/acaidahillpoint",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima sobremesa"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Ticket Restaurante",
+            "Vale refeição",
+            "VR"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida",
+            "Cães podem ficar na área externa",
+            "Permite a entrada de cães"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "accessibility": [
+            "Aro de indução magnética",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFranA2anRzZhgAOgMI8A0%3D&g2lbs=AEzIGDsZH7cu9rFs62kh6dkHYkB9ID9nVrcmBNJTZfpwsdhl7Km6fQWYSaPF2ZOvSjB-dsYShHhT&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=AwNMaqaXKNKQwbkP8f6r4A4&ei=AwNMaqaXKNKQwbkP8f6r4A4&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Açaí muito gostoso e ótimo atendimento!!!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHbbtgq8UP8x6bbTGs6jI7pHJYh64IVyc9UHTm9vCw2CyAYY51KkFZGaFuhhqeH1zkFCmBXNIKdk3qswUb0N-EQ_O819w_uzPR-u9fAACTosDhpP4X1hK7l48vOzBJl5_UOin-4=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/-_WfP3icHcTLDYIwAADQiSpUEcHEQ0ERJAE0YMALsRWp8inYYpUFncFtTHyH9_1QITq-VJSaziYlY2VdDLx4ENaKohUTwhql7DggHHAFRcG-Qi7GouyNJDJeOsbxlut3b9G5u4zqmnd8EzNx48Z82nJqv1GWzaFfOaft2Rko7QsXjpVjN1YaeP6lmvVcJlgNwGafhwY0ZT6M0QEM5hUhO2Z8TbtISyH1F7VmPMPR2tXzPAlvLdBWEqqqCuh_AtofEydDZw"
+    },
+    {
+      "position": 6,
+      "title": "Praçaí - Intermares",
+      "place_id": "ChIJ1cAVK23erAcRCUpJ50T3ULs",
+      "data_id": "0x7acde6d2b15c0d5:0xbb50f744e7494a09",
+      "data_cid": "13497559958539553289",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde6d2b15c0d5%3A0xbb50f744e7494a09&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde6d2b15c0d5%3A0xbb50f744e7494a09&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0415529,
+        "longitude": -34.8402641
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ1cAVK23erAcRCUpJ50T3ULs",
+      "provider_id": "/g/11bw6zc0g7",
+      "rating": 4.5,
+      "reviews": 238,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Oceano Pacífico, s/n - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:30",
+      "hours": "Aberto · Fecha 22:30",
+      "operating_hours": {
+        "segunda-feira": "16:00–22:30",
+        "terça-feira": "16:00–22:30",
+        "quarta-feira": "16:00–22:30",
+        "quinta-feira": "16:00–22:30",
+        "sexta-feira": "16:00–22:30",
+        "sábado": "16:00–22:30",
+        "domingo": "16:00–22:30"
+      },
+      "phone": "(83) 98701-9413",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Adoro as opções de tapiocas para acompanhar o açaí.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFIdQKbdkQfKHuYqt4g59MnV7VTXFMNSwPWdtCF6ZjPKp5L2t7_f4xvuG4stdGH9TNgz5i-zpPacC3PEn1tOeY1RNcLYPC9bFL1lUTibivV7TNXIL5F3hIEkslYRulPrO-R4VVqhA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/KAh9pHicHcRRboIwGADgE1VgwAhL9kCIVQLWgljFFyMFW0YtaH_UeEOPsNss2ffw_b4lwGi-LEtJdyaGQah2Mu2NDxpaDTM-XCwxGsQNMlZESd5HOGnytG76_Jwup-oKnvDDlWYBK_d4RTYPumsgxp-HH5qOfvYBwfHsPe_TwjPQLJZhScTL79BrpCceu3SuHVi3lVMQnlU0DmucOWpbdnV3Z0FJ9knmY1cm896oqpgUva1R4TF2ldH3w7FtG8n_OdJ_uzVElA"
+    },
+    {
+      "position": 7,
+      "title": "Praça do açaí de Intermares",
+      "place_id": "ChIJ-60_Km3erAcRRKoxlE8MUyc",
+      "data_id": "0x7acde6d2a3fadfb:0x27530c4f9431aa44",
+      "data_cid": "2833622126474406468",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde6d2a3fadfb%3A0x27530c4f9431aa44&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde6d2a3fadfb%3A0x27530c4f9431aa44&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0416118999999995,
+        "longitude": -34.8400082
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ-60_Km3erAcRRKoxlE8MUyc",
+      "provider_id": "/g/11bxg9wtmy",
+      "rating": 4.5,
+      "reviews": 176,
+      "unclaimed_listing": true,
+      "type": "Playground",
+      "types": [
+        "Playground"
+      ],
+      "type_id": "playground",
+      "type_ids": [
+        "playground"
+      ],
+      "address": "1548, Av. Oceano Atlântico, 1164 - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto 24 horas",
+      "hours": "Aberto 24 horas",
+      "operating_hours": {
+        "segunda-feira": "Atendimento 24 horas",
+        "terça-feira": "Atendimento 24 horas",
+        "quarta-feira": "Atendimento 24 horas",
+        "quinta-feira": "Atendimento 24 horas",
+        "sexta-feira": "Atendimento 24 horas",
+        "sábado": "Atendimento 24 horas",
+        "domingo": "Atendimento 24 horas"
+      },
+      "extensions": [
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Balanços",
+            "Escorregadores"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "user_review": "\"Excelente local para tomar um açai e comer uma deliciosa tapioca.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFfsLjs1Zg1M34OqV3HCSNhRJaNFcrnrgipYzqQF8ljD2Q50VjS8T11zpZn7T1LYYnMwVO_EEvcHwHslKQfl24Aznr_-4RYhodLYaygaTYyQbu1MJeo7NTlin_nY60YaoZC2rp7rQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/FVBXjXicHcRRboIwGADgE1VaQDEmeyAoIQ5wVUJSXgjrsJV1f2uLErnhjuBtTPwevue_HEfjNp6nZLAQWgvV31xvuYaxh3HB9Z8njEPcIefFXyX9jdOzywdHGkGKIDxc6yBLTqU87rsy5RasuBg2X2m6VsPWp0tcD6d1RchsGogqkjMGxVQf2t3uzrMpc-qTnpUfxjPYFoVHJvVPzrqH6Cr2oN83Uux7HZWVukALbIVZp5vEtyay9GMiGGMk33MEL-ZJRak"
+    },
+    {
+      "position": 8,
+      "title": "Assaí Atacadista - Estrada de Cabedelo",
+      "place_id": "ChIJpXuq7TTfrAcRpJL6pMYJrCA",
+      "data_id": "0x7acdf34edaa7ba5:0x20ac09c6a4fa92a4",
+      "data_cid": "2354267453983986340",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf34edaa7ba5%3A0x20ac09c6a4fa92a4&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf34edaa7ba5%3A0x20ac09c6a4fa92a4&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0894515,
+        "longitude": -34.8495487
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJpXuq7TTfrAcRpJL6pMYJrCA",
+      "provider_id": "/g/11p16970mn",
+      "rating": 4.4,
+      "reviews": 581,
+      "type": "Atacadista",
+      "types": [
+        "Atacadista"
+      ],
+      "type_id": "wholesaler",
+      "type_ids": [
+        "wholesaler"
+      ],
+      "address": "BR-230, 14 , Km 13.5, Lot. Morada Nova, Cabedelo - PB, 58033-455",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "07:00–22:00",
+        "terça-feira": "07:00–22:00",
+        "quarta-feira": "07:00–22:00",
+        "quinta-feira": "07:00–22:00",
+        "sexta-feira": "07:00–22:00",
+        "sábado": "07:00–22:00",
+        "domingo": "07:00–20:00"
+      },
+      "phone": "(83) 3194-0400",
+      "website": "https://www.assai.com.br/",
+      "extensions": [
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "recycling": [
+            "Baterias"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito"
+          ]
+        }
+      ],
+      "user_review": "\"Possui um café, com salgados, sorvetes, doces, sucos e mate com guaraná.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHpx_0o44AA7jB4IVoPrCI4ULvbJQf0Wtmidgpuk3-JyVsf_6nE4bp_Sz9VSRREnVN34p_D1_pBCJvTzQWtOTN7fK7ccHpBZx1u8gJTToCOr9-TEPf7o8lYAjRr-xxnlog5KCleqA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/D_R6A3icHcRBjoIwFADQE1VKqINO4qIwJIoGASvG2TSxA0Wt_R1aFL2hR_A2Jr7Fez1b54z99jzVBiMJIFXd27oToF2t3UjAxZPGImGR9WieFWc6NwPHQAil4SkiiwryLl6Q7ep6SIsG79zl-CdNfw5Qeq9sw790Qg6Gbx7TalOWia6ygBj-43MTxemVPYqdW7MsbJahEHMT_Q5-P5EpYxCvuyliSd6EMFF7eio7NAxagRwvY1X_09nNxxij9rNA-g225EUB"
+    },
+    {
+      "position": 9,
+      "title": "Coffee Cake Açaiteria",
+      "place_id": "ChIJJVjoiEDfrAcRFTg4AQg1nHw",
+      "data_id": "0x7acdf4088e85825:0x7c9c350801383815",
+      "data_cid": "8979110065566398485",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf4088e85825%3A0x7c9c350801383815&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf4088e85825%3A0x7c9c350801383815&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.040055199999999,
+        "longitude": -34.839314699999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJJVjoiEDfrAcRFTg4AQg1nHw",
+      "provider_id": "/g/11fl7pnmy_",
+      "rating": 4.7,
+      "reviews": 24,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Oceano Atlântico, 422 - Sala, 04 - Intermares, Cabedelo - PB, 58102-252",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–22:00",
+        "terça-feira": "14:00–22:00",
+        "quarta-feira": "14:00–22:00",
+        "quinta-feira": "14:00–22:00",
+        "sexta-feira": "14:00–22:00",
+        "sábado": "14:00–22:00",
+        "domingo": "14:00–22:00"
+      },
+      "phone": "(83) 99961-5054",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Banheiro de gênero neutro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Grupos",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"O açaí é do tipo sorvete, mas é de boa qualidade.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAENgxGJHxCiN025jUjerzwUw_5W543G7V53_oDskkeY6XGfz83YLcg7ZDq-NGp01lrjWGGMxIxR_m6maKx4JypoAWS16K5xVkx4NI36nntBYdvghLUQ_MI8WbrXeiPVPqzD6meb=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/AqcWTnicHcTbboIwAADQL6qUlVZj4gOOpeKlwS2A7IXMWotcWqTd6PjBfYN_s8TzcB5_lbW9WXpeW6GZ1Fq24tuIgWtlhbIzrjtP9gZwA4wXJuzYhG9MOrrduNcbgy-4TmsxTGM6ljjHAaLzDKNSR6ZpREFO9DotULHncv4Z3QGjPfTboc4pPbjYvZcd6b52Ltj-9jrMP3yywy5rXMBiRJSy6-LyI6t9eiwP8SI_DydxS7LkPkWkE-fV6EMIQfWcA_UPJEtEbw"
+    },
+    {
+      "position": 10,
+      "title": "Cantinho do açaí",
+      "place_id": "ChIJP8nYbA7frAcRFz-W3qWECKs",
+      "data_id": "0x7acdf0e6cd8c93f:0xab0884a5de963f17",
+      "data_cid": "12324246228238221079",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0e6cd8c93f%3A0xab0884a5de963f17&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0e6cd8c93f%3A0xab0884a5de963f17&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0174451,
+        "longitude": -34.8373695
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJP8nYbA7frAcRFz-W3qWECKs",
+      "provider_id": "/g/11t_l_bjtl",
+      "rating": 5,
+      "reviews": 1,
+      "type": "Sorveteria",
+      "types": [
+        "Sorveteria"
+      ],
+      "type_id": "ice_cream_shop",
+      "type_ids": [
+        "ice_cream_shop"
+      ],
+      "address": "R. Vinicius de Morais - Recanto do Poço, Cabedelo - PB, 58105-062",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "13:00–22:00",
+        "terça-feira": "13:00–22:00",
+        "quarta-feira": "13:00–23:00",
+        "quinta-feira": "13:00–23:00",
+        "sexta-feira": "13:00–23:00",
+        "sábado": "13:00–23:30",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98621-5532",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega": true
+      },
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=PJg555DpKKUEufUyUIqRww&cb_client=search.gws-prod.gps&w=80&h=92&yaw=291.80853&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/OwM9OnicHc1RDoIgGADg2_AWoI1N21gv9VC-tDafGyLCv6H8CUrepmt1m1oX-L7P26WE8cBYTLMxaQWTEV7Gxx0qakOw3iiESHUY2Vqw5JaxmxT4I6opQC9vVyuEOGHTtOdlaLf28rznTHT30B7MlGQ0ataO2vwT59BTi5FkWXHiZF2STWVZ1gWteCX2BCFpJzn5L0NYZcH5F3IrOYg"
+    },
+    {
+      "position": 11,
+      "title": "Me gusta Açaí",
+      "place_id": "ChIJM7g6PabdrAcRD4l1OtN97-s",
+      "data_id": "0x7acdda63d3ab833:0xebef7dd33a75890f",
+      "data_cid": "17000945464519264527",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdda63d3ab833%3A0xebef7dd33a75890f&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdda63d3ab833%3A0xebef7dd33a75890f&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0548364,
+        "longitude": -34.8488164
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJM7g6PabdrAcRD4l1OtN97-s",
+      "provider_id": "/g/11lbnzss5g",
+      "rating": 5,
+      "reviews": 1,
+      "type": "Praça de alimentação",
+      "types": [
+        "Praça de alimentação"
+      ],
+      "type_id": "food_court",
+      "type_ids": [
+        "food_court"
+      ],
+      "address": "R. José Marcos de Melo Peixoto - Intermares, Cabedelo - PB, 58102-362",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–23:00",
+        "terça-feira": "18:00–23:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "18:00–23:00",
+        "sexta-feira": "18:00–23:00",
+        "sábado": "18:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "phone": "(83) 99979-7906",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "para_viagem": true,
+        "entrega": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEZ6Kn1DMcyArPYwMODYJtMR3G3XaAZ8Ue8cwWlg-xZc-XQb18fs6RBeqiWr4oollS4sniQ4GrUUHRxBDP6gND88DxBCm3TSGG5j4eHJZ4zL49wFAjyRmBzx9oH16tWELw8khb0=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/2cK9p3icHcRRDoIgAADQE5E6yVFbHximqyy1nOVfMsIKoYSGdcHO0G3aeh_v-2mNueup44jWH3GluGBPzXqqpGHSjKjqHH7XgGqgHZxt8huO6mAlPZLSF-6zo0235Lg0aeHH_uGEa1QyRG0lOBhqCg5546GzDoqQPS5VD5USYge1vOQw7ssyKYaQZAHfEITIEM47f7-L4_EVsmRZw_caTuwCX19FF76HiUq8wFTR2qJb27gz67muC9r_FMgf7QZDOg"
+    },
+    {
+      "position": 12,
+      "title": "Pé de Fruta - Cabedelo",
+      "place_id": "ChIJJYuwFhfdrAcRK5mtUOBS_TM",
+      "data_id": "0x7acdd1716b08b25:0x33fd52e050ad992b",
+      "data_cid": "3746241588421826859",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd1716b08b25%3A0x33fd52e050ad992b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd1716b08b25%3A0x33fd52e050ad992b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0324729999999995,
+        "longitude": -34.8350052
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJJYuwFhfdrAcRK5mtUOBS_TM",
+      "provider_id": "/g/11jzkx0mr_",
+      "rating": 5,
+      "reviews": 4,
+      "type": "Loja de produtos naturais",
+      "types": [
+        "Loja de produtos naturais"
+      ],
+      "type_id": "health_food_store",
+      "type_ids": [
+        "health_food_store"
+      ],
+      "address": "Avenida Litorânea, 1592 - loja 04 - Ponta de Campina, Cabedelo - PB, 58101-650",
+      "country": "Brasil",
+      "phone": "(83) 3204-0935",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "crowd": [
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Excelente açai, ótimo Atendimento, melhores sucos ponta de Campina!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHnWmnwJenPIsxeLkKaLqN-z3w6t9BBTEUz47dNL38ttWDOEI_HwLXW51sfou21Y8ye_8ttUMIrcK5KgCFASimVuVD3RhD6Gw9lXaso9AG5pgddb-uHFLhNXTiwfDiaqatDmStf=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/SyDdWnicHclNcoIwGADQE0WgFBVnXKBRoUTU-gNdOTSEhBESNB8T5YKewdvY6eZt3uspAFo9saxauAOuFK9Zp9mNKglMwoCqxuKtRlQjbQXbZHcJQpk20nwxuY30nZFLnJNrgnrXDMGfzQ6LY_85KhLijgFSvFlE59CQLPUcXaruw_kZP9j5r47r6EZjL-bzZbCvmlN3wu63wMOV8ess18oPVl7Li-IXdeGSiCQ7VKbEVX7NATd7KKfGsW0biX8pkm9wokUS"
+    },
+    {
+      "position": 13,
+      "title": "Açaí do Pará Intermares",
+      "place_id": "ChIJsRAnhEV9oYYRi8rpLGzxSFY",
+      "data_id": "0x86a17d45842710b1:0x5648f16c2ce9ca8b",
+      "data_cid": "6217484732497250955",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x86a17d45842710b1%3A0x5648f16c2ce9ca8b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x86a17d45842710b1%3A0x5648f16c2ce9ca8b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.052422699999999,
+        "longitude": -34.8466847
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJsRAnhEV9oYYRi8rpLGzxSFY",
+      "provider_id": "/g/11x2zf8f1y",
+      "rating": 5,
+      "reviews": 4,
+      "type": "Sorveteria",
+      "types": [
+        "Sorveteria",
+        "Lanchonete"
+      ],
+      "type_id": "ice_cream_shop",
+      "type_ids": [
+        "ice_cream_shop",
+        "snack_bar"
+      ],
+      "address": "R. Virginia Maria Nogueira Gadelha Pimentel, 324 - Lot. Bela Vista, Cabedelo - PB, 58102-332",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qua. às 17:00",
+      "hours": "Fechado · Abre qua. às 17:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "17:00–21:00",
+        "quinta-feira": "17:00–21:00",
+        "sexta-feira": "17:00–21:00",
+        "sábado": "17:00–21:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98229-2123",
+      "website": "https://www.ifood.com.br/delivery/cabedelo-pb/acai-do-para-pb-intermares/4d4c2f5f-4310-42a9-927f-143cc14cefc8",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Compras na loja",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida",
+            "Cães podem ficar na área externa"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "accessibility": [
+            "Aro de indução magnética",
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"O açaí é maravilhoso e os pratos são feitos com muito capricho.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGH0oA362YKQzLWOqXd6K7siqflpXIt5Rx7VmaXgnP49shiWoi-42Gulia7ujnXe68FYMtVdQRtCj-39ekye2FUb55dZIro6T6Jo0YFg1lqKh7ceZKcYLWp60dWC1j-y4Wf1mQwOsMWf2_L=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/bsqAYnicHcRJDoIwAADAF1XKVtTEAzHBBVwwasGL0VJasLRgS1w-6dnfmDiH-X64Ma0eW5bg7oApxQTtNb0TJQ2VZkBUY7FWA6KBtsLtOr2FszlUoYucPE7fCd50WYHiQFddKdpsYfzdMzg2l4zJrTfSvMKqAp4z60V1CfpaZhQNo3xljkW6M9MauCN6e1EnOlx9vzgt7grt0VLBPGK26GIeEHqKSZ7gFsECT-0avDxc2k362OgVLp1zMnnYEELA_xMgf12LRnc"
+    },
+    {
+      "position": 14,
+      "title": "Cantinho Bom",
+      "place_id": "ChIJm1gILLjfrAcRJzUZHE7JAuI",
+      "data_id": "0x7acdfb82c08589b:0xe202c94e1c193527",
+      "data_cid": "16285800539841180967",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfb82c08589b%3A0xe202c94e1c193527&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfb82c08589b%3A0xe202c94e1c193527&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.007177899999999,
+        "longitude": -34.8347325
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJm1gILLjfrAcRJzUZHE7JAuI",
+      "provider_id": "/g/11ywx8rp4p",
+      "rating": 5,
+      "reviews": 1,
+      "type": "Sorveteria",
+      "types": [
+        "Sorveteria"
+      ],
+      "type_id": "ice_cream_shop",
+      "type_ids": [
+        "ice_cream_shop"
+      ],
+      "address": "R. Santa Rita de Cássia, 42 - Jardim Camboinha, Cabedelo - PB, 58103-772",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "12:00–20:00",
+        "terça-feira": "12:00–20:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "12:00–20:00",
+        "sexta-feira": "12:00–21:00",
+        "sábado": "12:00–21:00",
+        "domingo": "12:00–21:00"
+      },
+      "phone": "(83) 99376-7145",
+      "extensions": [
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=798RctdyTz64vdZhHo6sBg&cb_client=search.gws-prod.gps&w=80&h=92&yaw=340.8147&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/dioD63icHc1LDsIgFADA27ATqDb9mBATV66NKzeGAsJLKJDyBOtlPJe30XiBmc_bIaa8ZyzjYgwWMDXB0_i8SZLaGK03MkGmKs6sNAzdY56CBH9IMkTQoh-Hs0K9Xl5dW_TVnWKXj5ao6aY8mIAiG7koR239iUvU1KZMqhg4cWLcklVWsWs5HZq2JwlQOcHJP7nHIhrOv0M8OV0"
+    },
+    {
+      "position": 15,
+      "title": "Açaí da Cris",
+      "place_id": "ChIJcQUFI2wgrQcRG22L9whpk4I",
+      "data_id": "0x7ad206c23050571:0x82936908f78b6d1b",
+      "data_cid": "9408979533740862747",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad206c23050571%3A0x82936908f78b6d1b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad206c23050571%3A0x82936908f78b6d1b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9682279,
+        "longitude": -34.8354172
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJcQUFI2wgrQcRG22L9whpk4I",
+      "provider_id": "/g/11f105vnyd",
+      "rating": 4.7,
+      "reviews": 211,
+      "unclaimed_listing": true,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Tv. Primo José Viana - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–22:00",
+        "terça-feira": "18:00–22:00",
+        "quarta-feira": "18:00–22:00",
+        "quinta-feira": "18:00–22:00",
+        "sexta-feira": "18:00–22:00",
+        "sábado": "18:00–22:00",
+        "domingo": "18:00–22:00"
+      },
+      "phone": "(83) 98865-3585",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cardápio infantil"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Excelente muito bom serviço de primeira\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGBoY4BKrY2berJ0aHmAiN5vcBw-zRzmyStmsYfv9wmKIxYmOrDL21tGN41OJQFKft7YbbXG4CwqNrxX4zZHbl-AJ89umRNjgi-X-cE7ORdEJpb6ANhrByyziQYyDQ10xMoQvq5Rg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/XVMNIXicHcTbkoIgAADQLyKx7DrTA25laWG4L7JvCxlaIgbk7Q_7hP6mmc7Deb9ya2uzcpwyn4yEUqLMnibTXFU2q-yIK-mI2gBugHHQGZM7CnxFPT_SdMwyHcL_vUQFnjbcb8GQDLL_tdLQa7NsZXToqIz15jh2bYA9Nw7JLrraOWUsDbyf9oF1l3rD356VAIWL5VMm-CYKkAK-ncfJZRvWbIZwrv2-HwpC-w1xYXdSpHlME7FuXQghyL9zUH0ABxtFmw"
+    },
+    {
+      "position": 16,
+      "title": "Intermares",
+      "place_id": "ChIJS_1_YAverAcR-yk3spzQr0E",
+      "data_id": "0x7acde0b607ffd4b:0x41afd09cb23729fb",
+      "data_cid": "4733231104813115899",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde0b607ffd4b%3A0x41afd09cb23729fb&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde0b607ffd4b%3A0x41afd09cb23729fb&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0468166,
+        "longitude": -34.8424011
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJS_1_YAverAcR-yk3spzQr0E",
+      "provider_id": "/g/1z3t2vrpn",
+      "rating": 4.7,
+      "reviews": 4175,
+      "type": "Praia",
+      "types": [
+        "Praia"
+      ],
+      "type_id": "beach",
+      "type_ids": [
+        "beach"
+      ],
+      "address": "Cabedelo - PB, 58102-256",
+      "country": "Brasil",
+      "website": "http://www.cabedelo.pb.gov.br/",
+      "description": "Praia famosa com calçadão. Praia agitada com avenida à beira-mar repleta de hotéis, restaurantes e bares.",
+      "user_review": "\"Perfeita para prática do meu esporte preferido\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGqGZLWt2b3Dx_1TKV8v1-eeQ3jRh5esQ8zs5__hy0udNXr_YA-rRlxORXdJ1VARI3LjsmU0QFFTGnUhC3n8zr4FhbPoI3EyOEVXyqEfCtMu0I6SLBLV-fhuXVAEHlGWjAPpiZL=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/ePRl-nicHcTvEoEwAADwJ5qW4Tp3PgyVGP3Bii_dyTTJlrYoL-gZvI07vw-_74drXamxYZQc9XIp85I1itWZFJoJ3cvk3cgrBTIFlIGDTXjD7sM9klj3T2jepuZuRa2nCRgLURHxIVOh9VbDNOUdbM6bpE4PGNRR2fpRcl6aFEceIoW672HoODtX7PkMCetdDxx-CqSH7M63adI97MtMrxvojbZkSii48Cah2F6UblzgoLoeyeRlQggB_58B8QMXAkPQ"
+    },
+    {
+      "position": 17,
+      "title": "Porto do açaí",
+      "place_id": "ChIJL9uhhKMhrQcRNgJ6D5n7bws",
+      "data_id": "0x7ad21a384a1db2f:0xb6ffb990f7a0236",
+      "data_cid": "824153891640312374",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21a384a1db2f%3A0xb6ffb990f7a0236&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21a384a1db2f%3A0xb6ffb990f7a0236&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9791672,
+        "longitude": -34.8348377
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJL9uhhKMhrQcRNgJ6D5n7bws",
+      "provider_id": "/g/11yz09f6ym",
+      "rating": 5,
+      "reviews": 1,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "R. Cleto Campêlo, 623 - Camalaú, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 21:00",
+      "hours": "Aberto · Fecha 21:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–21:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "14:00–21:00",
+        "quinta-feira": "14:00–21:00",
+        "sexta-feira": "14:00–21:00",
+        "sábado": "14:00–21:00",
+        "domingo": "14:00–21:00"
+      },
+      "phone": "(83) 99384-2261",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHwgdQXd8dNVgyP8VTKaYBX45hxWJGxpBlyOrYMb9uI9kloEZp16b2cN7dTvX9qRGU8eCaqd1qxxveCb2RALJoHEy5cb5oyJQBkpFLxyKwb5-pU6xJSoFX6qy6FrWXVwNAyPedjclQgi7Hb=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/M0bTwHicHcRLjoIwAADQE1VABwQTF2BEBhXBD9bZ2U_KSKWForSndO1tTHyL935VfS_VzLJ4NRkxIRinD0U7LJqeNv0Ii7vFpAJYAWWFeVbUYTIwUkDik6xkJvfL4_p6ieCPW-lzutIy4mbXXbYoePwGNRfLP-l4aIyzKTk-YdDuVyefLq4tcVqtn3SBxvtwk4pkaVyMXGHSIqplvNFmPSAXyJOn04OIodcaL-7OsByy0OSU3DAv2P80QfPBsW0bVN8xaD7lqUhU"
+    },
+    {
+      "position": 18,
+      "title": "Supermercado Rede Menor Preço",
+      "place_id": "ChIJ2XkILjvfrAcR3jHFH-X5GTQ",
+      "data_id": "0x7acdf3b2e0879d9:0x3419f9e51fc531de",
+      "data_cid": "3754306526865863134",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf3b2e0879d9%3A0x3419f9e51fc531de&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf3b2e0879d9%3A0x3419f9e51fc531de&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.044058799999999,
+        "longitude": -34.845169399999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ2XkILjvfrAcR3jHFH-X5GTQ",
+      "provider_id": "/g/11lkv61z_b",
+      "rating": 4.4,
+      "reviews": 1135,
+      "type": "Supermercado",
+      "types": [
+        "Supermercado"
+      ],
+      "type_id": "supermarket",
+      "type_ids": [
+        "supermarket"
+      ],
+      "address": "Av. Mar Vermelho, 440 - Intermares, Cabedelo - PB, 58102-120",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 21:00",
+      "hours": "Aberto · Fecha 21:00",
+      "operating_hours": {
+        "segunda-feira": "07:00–21:00",
+        "terça-feira": "07:00–21:00",
+        "quarta-feira": "07:00–21:00",
+        "quinta-feira": "07:00–21:00",
+        "sexta-feira": "07:00–21:00",
+        "sábado": "07:00–21:00",
+        "domingo": "07:00–19:00"
+      },
+      "phone": "(83) 3513-0370",
+      "website": "https://linktr.ee/redemenorpreco",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Retirada na loja",
+            "Compras na loja"
+          ]
+        },
+        {
+          "highlights": [
+            "Bons produtos"
+          ]
+        },
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee"
+          ]
+        }
+      ],
+      "service_options": {
+        "compras_na_loja": true,
+        "retirada_na_loja": true,
+        "entrega": true
+      },
+      "user_review": "\"Tudo gostoso e fresquinho.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHavhBCP9PKgdzSKQAEioUnP6KbwOQhbkCN9rmS1APIDsHINZxn60MEcB34PIH785fOiVbwI_3rnh_J2cOKe9n-fQ7fHOteyKWmidN4fVJA9hOVRFmQlZT1nE2uzUgoQyVxD1ojlA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/hXHjSnicHcTbDoIgAADQLyI1u9nWA6VNYwl0sa0Xl4RgKTShrP6wT-hv2joP5_uR1t7M1HFq6feE1qLmd8NbppXlyvaYbhxxM4AZYBxIUnqF8ekh5wsSECTO7y2iMKr0XpERKjpMZXFdpEHbbD1IktDESXp8qpG7jtjcH5AkHk-GJa6yoktyv1UyX_UZRjxQoKTjMsaWv9Chqc7poMxWMJA42ywbWh93nor69_deaPrKnqGnLzWcdZ7rukD-Z0D9AJZFRKo"
+    },
+    {
+      "position": 19,
+      "title": "Sorveteria Tropical",
+      "place_id": "ChIJcQfq_sffrAcR_Wg40FlP3Gw",
+      "data_id": "0x7acdfc7feea0771:0x6cdc4f59d03868fd",
+      "data_cid": "7844231898136602877",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfc7feea0771%3A0x6cdc4f59d03868fd&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfc7feea0771%3A0x6cdc4f59d03868fd&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0298859,
+        "longitude": -34.8478107
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJcQfq_sffrAcR_Wg40FlP3Gw",
+      "provider_id": "/g/11qg51r1rt",
+      "rating": 4.4,
+      "reviews": 16,
+      "type": "Sorveteria",
+      "types": [
+        "Sorveteria"
+      ],
+      "type_id": "ice_cream_shop",
+      "type_ids": [
+        "ice_cream_shop"
+      ],
+      "address": "R. Jair Cunha Cavalcanti, 105 - Lot. Oceania VI, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 15:00",
+      "hours": "Fechado · Abre ter. às 15:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "15:00–23:02",
+        "quarta-feira": "15:00–23:02",
+        "quinta-feira": "15:00–23:02",
+        "sexta-feira": "15:00–23:02",
+        "sábado": "15:00–23:02",
+        "domingo": "15:00–23:02"
+      },
+      "extensions": [
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "user_review": "\"Ótimo atendimento e delícias de sorvetes, açaí.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEaXZLnLA5wUU-c4NN8aBicCY2aPw-1gpe4MOLSn3TSCqX23THDDIPCSDhFatpa1F3e8BBRDb4purlHkd-Qy-AZEOLP1iF8et6gz2h_x6yy1uJzZP_5w2y9hjkd9p1SCN0QYX1Hjg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/gOKibnicHcTbCoIwAADQL1o6L2FBD14SC7OZBuZLrDm20uZqE7M_7BP6m6DzcL4frrVUS8PouD1jfc86Oij6JL3QVOgZ6e8GkwoQBZThoyxv_TWu6lSkvjsej4A4Webh4ErCk4XRCCCT1Nnt00LYZRE-KssukyjaoLCIeIy1xDC2qRcEh-jiyOHZJW0D8gn49XqfIniNParn7G3x82s-TXDYvmt0dkdrWvBb2ywkLMLMzE8VTG5sNULTNAH_T4D4ARaOQ0I"
+    },
+    {
+      "position": 20,
+      "title": "Daniel do Açaí",
+      "place_id": "ChIJc1z110XdrAcROcEd0F9eCdw",
+      "data_id": "0x7acdd45d7f55c73:0xdc095e5fd01dc139",
+      "data_cid": "15855307728741056825",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd45d7f55c73%3A0xdc095e5fd01dc139&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd45d7f55c73%3A0xdc095e5fd01dc139&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0732691,
+        "longitude": -34.853936499999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJc1z110XdrAcROcEd0F9eCdw",
+      "provider_id": "/g/11nx5m1d5b",
+      "rating": 3,
+      "reviews": 2,
+      "type": "Loja de açaí",
+      "types": [
+        "Loja de açaí"
+      ],
+      "type_id": "acai_shop",
+      "type_ids": [
+        "acai_shop"
+      ],
+      "address": "R. Raul Seixas - Renascer, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 23:00",
+      "hours": "Aberto · Fecha 23:00",
+      "operating_hours": {
+        "segunda-feira": "07:00–11:00, 16:00–23:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "07:00–11:00, 16:00–23:00",
+        "quinta-feira": "07:00–11:00, 16:00–23:00",
+        "sexta-feira": "07:00–11:00, 16:00–23:00",
+        "sábado": "07:00–11:00, 16:00–23:00",
+        "domingo": "16:00–23:30"
+      },
+      "phone": "(83) 98669-5781",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEDM4nPiqiR7wegcfYx9rAuA8V_F_EzE4G6VMvrcwagRx2CnejVWETVRHEQyF7EWq-8VNrV0Kmy22Jjm05SCoA26aHCctR9TEI0tDeViiI_nQsPEPV0FG3rpJlgOswrUKKs4HQIcQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/YI-oXXicHcTbDoIgAADQLyLJ7Lr1wAwvuUrMaD05xwgtBQPK6g_7hP6mrfNwvp_K2s4sHKepRgOhlGj43XDNlLRc2gFTrSM6A5gBxkHpllwRXm08mda3Opv2XLDz6TnX6I5mtAgK_MZeOKGbh2Z9KbKn60t-oUec0yzC5BVM8fEGZnSrKUzal-uuLy0c732F3EkZ-cxm8xzH0K44reu4kMSkOKUwCEe6WzdiZ3p9SBLjRSRmZNkPIYSg-s-A_AG80UR8"
+    }
+  ]
+}

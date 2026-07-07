@@ -1,0 +1,595 @@
+{
+  "apply": false,
+  "overwrite": false,
+  "safeOnly": true,
+  "skipExisting": true,
+  "minScore": 100,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\2026-07-07T13-35-18-312Z",
+  "processed": 105,
+  "approved": 7,
+  "baseApproved": 40,
+  "safe": 7,
+  "rejected": 98,
+  "applied": 0,
+  "failures": [],
+  "reasonCounts": {
+    "no_instagram_candidate": 2,
+    "no_distinctive_restaurant_token,brand_not_confirmed": 9,
+    "score_below_100": 20,
+    "not_profile": 4,
+    "brand_not_confirmed": 37,
+    "no_location_or_phone_support": 7,
+    "weak_handle_evidence": 4,
+    "weak_single_brand_token": 6,
+    "location_conflict:manaus, am": 1,
+    "approved_safe": 7,
+    "brand_not_confirmed,weak_single_brand_token": 3,
+    "not_profile,brand_not_confirmed": 1,
+    "phone_area_conflict:11": 1,
+    "location_conflict:guarus": 1,
+    "out_of_scope_name_or_category": 1,
+    "location_conflict:barcelos": 1
+  },
+  "approvedSamples": [
+    {
+      "name": "Casa de Taipa",
+      "instagram": "https://instagram.com/casadetaipapb",
+      "score": 146,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Recanto do Pastel",
+      "instagram": "https://instagram.com/recantodopastel2025",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Restaurante mar de amor",
+      "instagram": "https://instagram.com/gigantedomaroficial",
+      "score": 107,
+      "phoneCandidate": "(83) 99995-2504",
+      "openingHoursText": null
+    },
+    {
+      "name": "Burguer Hall",
+      "instagram": "https://instagram.com/burguerhall",
+      "score": 138,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "Cantinho Bom",
+      "instagram": "https://instagram.com/202cantinho",
+      "score": 101,
+      "phoneCandidate": "(83) 99858-9637",
+      "openingHoursText": null
+    },
+    {
+      "name": "gat mal ponta de campina",
+      "instagram": "https://instagram.com/getmall.oficial",
+      "score": 103,
+      "phoneCandidate": null,
+      "openingHoursText": null
+    },
+    {
+      "name": "D Lay Refeições - Marmitaria",
+      "instagram": "https://instagram.com/oxentemarmitaria083",
+      "score": 107,
+      "phoneCandidate": "(83) 98686-0782",
+      "openingHoursText": null
+    }
+  ],
+  "rejectedSamples": [
+    {
+      "name": "Ilha Dourada Restaurante",
+      "reason": "no_instagram_candidate",
+      "best": null
+    },
+    {
+      "name": "Espetinho da praia Intermares",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/numarbarintermares",
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "score": -2,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Churrascaria do Caicó",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/caicorestaurante",
+        "title": "Instagram profile @caicorestaurante",
+        "score": 83,
+        "tokens": [
+          "caico"
+        ],
+        "handleMatches": [
+          "caico"
+        ],
+        "textMatches": [
+          "caico"
+        ]
+      }
+    },
+    {
+      "name": "Mega Pizza",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/megapizza1",
+        "title": "Mega Pizza e Massas (@megapizza1)",
+        "score": 93,
+        "tokens": [
+          "mega"
+        ],
+        "handleMatches": [
+          "mega"
+        ],
+        "textMatches": [
+          "mega"
+        ]
+      }
+    },
+    {
+      "name": "Sport Marina",
+      "reason": "not_profile",
+      "best": {
+        "url": "https://instagram.com/p/DOLme3mDsEZ",
+        "title": "É ou não é o paraíso?😍🤩 📍 BR-230, Sport Marina, ...",
+        "score": 8,
+        "tokens": [
+          "sport",
+          "marina"
+        ],
+        "handleMatches": [],
+        "textMatches": [
+          "sport",
+          "marina"
+        ]
+      }
+    },
+    {
+      "name": "Bar e Restaurante do Pessoinha",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/bardopessoinha",
+        "title": "Bar/Restaurante do Pessoinha (@bardopessoinha)",
+        "score": 89,
+        "tokens": [
+          "pessoinha"
+        ],
+        "handleMatches": [
+          "pessoinha"
+        ],
+        "textMatches": [
+          "pessoinha"
+        ]
+      }
+    },
+    {
+      "name": "Galeteria D'intermares",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/numarbarintermares",
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "score": -2,
+        "tokens": [
+          "dintermares"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "CTG Saudade Da Querência",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/ctgsaudadesdaquerencia",
+        "title": "ctgsaudadesdaquerencia",
+        "score": 187,
+        "tokens": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ],
+        "handleMatches": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ],
+        "textMatches": [
+          "ctg",
+          "saudade",
+          "querencia"
+        ]
+      }
+    },
+    {
+      "name": "Pipa Sushi & Temakeria",
+      "reason": "weak_handle_evidence",
+      "best": {
+        "url": "https://instagram.com/pipatemaki",
+        "title": "Pipa Temaki (@pipatemaki) · Cabedelo, PB",
+        "score": 103,
+        "tokens": [
+          "pipa"
+        ],
+        "handleMatches": [
+          "pipa"
+        ],
+        "textMatches": [
+          "pipa"
+        ]
+      }
+    },
+    {
+      "name": "Sakê Temakeria Ponta de Campina, Cabedelo",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/saketemaki",
+        "title": "Sakê Temakeria Premium (@saketemaki)",
+        "score": 89,
+        "tokens": [
+          "sake"
+        ],
+        "handleMatches": [
+          "sake"
+        ],
+        "textMatches": [
+          "sake"
+        ]
+      }
+    },
+    {
+      "name": "La casa de pastel e La Pizza Premium",
+      "reason": "weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/lacasadepastelpbof",
+        "title": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB",
+        "score": 79,
+        "tokens": [
+          "casa"
+        ],
+        "handleMatches": [
+          "casa"
+        ],
+        "textMatches": [
+          "casa"
+        ]
+      }
+    },
+    {
+      "name": "Sorveteria glacial",
+      "reason": "location_conflict:manaus, am",
+      "best": {
+        "url": "https://instagram.com/sorveteriaglacial",
+        "title": "Sorveteria Glacial (@sorveteriaglacial) · Manaus, AM",
+        "score": 13,
+        "tokens": [
+          "glacial"
+        ],
+        "handleMatches": [
+          "glacial"
+        ],
+        "textMatches": [
+          "glacial"
+        ]
+      }
+    },
+    {
+      "name": "Açaí da Cris",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/acaii_dacris",
+        "title": "Açaí da Cris (@acaii_dacris)",
+        "score": 89,
+        "tokens": [
+          "cris"
+        ],
+        "handleMatches": [
+          "cris"
+        ],
+        "textMatches": [
+          "cris"
+        ]
+      }
+    },
+    {
+      "name": "Pizza Now - Intermares",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/pizzanowexpress",
+        "title": "Pizza Now (@pizzanowexpress)",
+        "score": 89,
+        "tokens": [
+          "now"
+        ],
+        "handleMatches": [
+          "now"
+        ],
+        "textMatches": [
+          "now"
+        ]
+      }
+    },
+    {
+      "name": "Meio Quilo",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/outletdosmoveisdb",
+        "title": "Outlet Dos Móveis (@outletdosmoveisdb) · Cabedelo, PB",
+        "score": -2,
+        "tokens": [
+          "meio",
+          "quilo"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "churrascaria do biu",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/bar_restaurantepordosol",
+        "title": "RESTAURANTE POR DO SOL • (@bar_restaurantepordosol)",
+        "score": -6,
+        "tokens": [
+          "biu"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Pizzaria Jacaré",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/pizzariabomsaborpb",
+        "title": "Pizzaria Bom Sabor🍕 (@pizzariabomsaborpb)",
+        "score": -6,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Caldinho Prime Formosa",
+      "reason": "weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/caldinhoprimeformosa",
+        "title": "Cabedelo (@caldinhoprimeformosa) - Praia Formosa",
+        "score": 75,
+        "tokens": [
+          "prime"
+        ],
+        "handleMatches": [
+          "prime"
+        ],
+        "textMatches": [
+          "prime"
+        ]
+      }
+    },
+    {
+      "name": "Mary Refeições",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/numarbarintermares",
+        "title": "Numar Bar e Restaurante (@numarbarintermares)",
+        "score": -2,
+        "tokens": [
+          "mary",
+          "refeicoes"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Chapa Quente Lanches e Refeições",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/chapaquenteoficial1",
+        "title": "CHAPA QUENTE (@chapaquenteoficial1)",
+        "score": 138,
+        "tokens": [
+          "chapa",
+          "quente",
+          "refeicoes"
+        ],
+        "handleMatches": [
+          "chapa",
+          "quente"
+        ],
+        "textMatches": [
+          "chapa",
+          "quente"
+        ]
+      }
+    },
+    {
+      "name": "Lanchonete e Pizzaria Popular",
+      "reason": "brand_not_confirmed,weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/euqueropizzafoodtruck",
+        "title": "Eu Quero Pizza - Food Truck 🍕 (@euqueropizzafoodtruck)",
+        "score": -34,
+        "tokens": [
+          "popular"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Restaurante e pizzaria chapa quente",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/chapaquenteoficial1",
+        "title": "CHAPA QUENTE (@chapaquenteoficial1)",
+        "score": 138,
+        "tokens": [
+          "chapa",
+          "quente"
+        ],
+        "handleMatches": [
+          "chapa",
+          "quente"
+        ],
+        "textMatches": [
+          "chapa",
+          "quente"
+        ]
+      }
+    },
+    {
+      "name": "Bras Coffee",
+      "reason": "not_profile,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/reel/DYuPWc6Ob_x",
+        "title": "Sebrae Nacional on Instagram: \"O Brasil ama um cafezinho e ...",
+        "score": -80,
+        "tokens": [
+          "bras",
+          "coffee"
+        ],
+        "handleMatches": [],
+        "textMatches": [
+          "bras",
+          "coffee"
+        ]
+      }
+    },
+    {
+      "name": "Casa Do Pastel",
+      "reason": "weak_single_brand_token",
+      "best": {
+        "url": "https://instagram.com/lacasadepastelpbof",
+        "title": "lacasadepastelpb (@lacasadepastelpbof) · Cabedelo, PB",
+        "score": 79,
+        "tokens": [
+          "casa"
+        ],
+        "handleMatches": [
+          "casa"
+        ],
+        "textMatches": [
+          "casa"
+        ]
+      }
+    },
+    {
+      "name": "Tapiocaria da zeti",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/tapiocadaleuda",
+        "title": "Tapioca da Leuda (@tapiocadaleuda)",
+        "score": -6,
+        "tokens": [
+          "zeti"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Bom Tempero Restaurante",
+      "reason": "phone_area_conflict:11",
+      "best": {
+        "url": "https://instagram.com/_restaurante_bomtempero",
+        "title": "Restaurante Bom Tempero (@_restaurante_bomtempero)",
+        "score": 142,
+        "tokens": [
+          "bom",
+          "tempero"
+        ],
+        "handleMatches": [
+          "bom",
+          "tempero"
+        ],
+        "textMatches": [
+          "bom",
+          "tempero"
+        ]
+      }
+    },
+    {
+      "name": "Sorveteria Tropical",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/jjsorveteriatropical",
+        "title": "Sorveteria Tropical | RJ (@jjsorveteriatropical)",
+        "score": 89,
+        "tokens": [
+          "tropical"
+        ],
+        "handleMatches": [
+          "tropical"
+        ],
+        "textMatches": [
+          "tropical"
+        ]
+      }
+    },
+    {
+      "name": "Restaurante da Helena",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/ilhadouradarestaurante",
+        "title": "Ilha Dourada (@ilhadouradarestaurante)",
+        "score": -2,
+        "tokens": [
+          "helena"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "TCF - The Cheeseburguer Factory - Unidade Cabedelo",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/thecheeseburguerfactory",
+        "title": "The CheeseBurguer Factory 🏅 (@thecheeseburguerfactory)",
+        "score": 187,
+        "tokens": [
+          "tcf",
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "handleMatches": [
+          "the",
+          "cheeseburguer",
+          "factory"
+        ],
+        "textMatches": [
+          "the",
+          "cheeseburguer",
+          "factory"
+        ]
+      }
+    },
+    {
+      "name": "Açaí Jacaré Beach",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/acaijacarebeach",
+        "title": "Instagram profile @acaijacarebeach",
+        "score": -12,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    }
+  ],
+  "updates": []
+}

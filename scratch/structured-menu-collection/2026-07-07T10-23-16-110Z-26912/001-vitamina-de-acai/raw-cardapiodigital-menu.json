@@ -1,0 +1,1501 @@
+{
+  "stats": {
+    "categoryCount": 8,
+    "itemCount": 73,
+    "optionCount": 0,
+    "operationalCategoryCount": 0,
+    "operationalItemCount": 0,
+    "operationalOptionCount": 0,
+    "samples": [
+      {
+        "name": "Açai",
+        "items": [
+          {
+            "name": "3 COPO DE AÇAÍ 150ml",
+            "price": 10,
+            "options": []
+          },
+          {
+            "name": "Copo de açaí do hexa 330ml",
+            "price": 13,
+            "options": []
+          },
+          {
+            "name": "Milkshake de açai com maracujá",
+            "price": 16,
+            "options": []
+          },
+          {
+            "name": "Pizza de açai",
+            "price": 19.99,
+            "options": []
+          },
+          {
+            "name": "POTE DE AÇAÍ 500ml",
+            "price": 19.99,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Cone",
+        "items": [
+          {
+            "name": "Cone trufado",
+            "price": 9.99,
+            "options": []
+          },
+          {
+            "name": "Cone trufado",
+            "price": 9.99,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Doce",
+        "items": [
+          {
+            "name": "Brownie",
+            "price": 6.99,
+            "options": []
+          },
+          {
+            "name": "Brownie",
+            "price": 6.99,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Milkshake",
+        "items": [
+          {
+            "name": "milk-shake AÇAÍ COM PAÇOCA 330ml",
+            "price": 14.99,
+            "options": []
+          },
+          {
+            "name": "Milkshake trufado de chocolate com Oreo",
+            "price": 14.99,
+            "options": []
+          },
+          {
+            "name": "milk-shake MARACUJÁ TRUFADO COM NUTELLA 330ml",
+            "price": 14.99,
+            "options": []
+          },
+          {
+            "name": "milk-shake TRUFADO DE OVOMALTINE 330ml",
+            "price": 14.99,
+            "options": []
+          },
+          {
+            "name": "Milkshake morango supremo 300ml",
+            "price": 14.99,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Sorvete",
+        "items": [
+          {
+            "name": "Casquinha com sorvete de chocolate",
+            "price": 5.99,
+            "options": []
+          },
+          {
+            "name": "Casquinha com sorvete morango",
+            "price": 5.99,
+            "options": []
+          },
+          {
+            "name": "BIG SUNDAE MAR AZUL",
+            "price": 8,
+            "options": []
+          },
+          {
+            "name": "Casquinha com sorvete de chocolate",
+            "price": 5.99,
+            "options": []
+          },
+          {
+            "name": "Casquinha com sorvete morango",
+            "price": 5.99,
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Tigela",
+        "items": [
+          {
+            "name": "Açai na tigela PP",
+            "price": 9.99,
+            "options": []
+          },
+          {
+            "name": "COMBO 2 TIGELA DE AÇAÍ PP",
+            "price": 19.99,
+            "options": []
+          },
+          {
+            "name": "Tigela de açaí tamanho G",
+            "price": 28.99,
+            "options": []
+          },
+          {
+            "name": "AÇAI GG TAMANHO FAMÍLIA",
+            "price": 36,
+            "options": []
+          },
+          {
+            "name": "Açai na tigela PP",
+            "price": 9.99,
+            "options": []
+          }
+        ]
+      }
+    ]
+  },
+  "pageDetails": {
+    "url": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+    "title": "CARDAPIO DIGITAL",
+    "bodyTextSample": "Vitamina de Açai Todos os dias das 15h às 22h30 Av. Ambrósio Miranda de Araújo (ao lado da linda flor) 🔥 Promoções do Dia 3 COPO DE AÇAÍ 150ml De R$ 12,00 Por R$ 10,00 Copo de açaí do hexa 330ml Leite condensado amarelo,leite condensado verde,açaí , leite em pó , granola , amedoin ,mm verde e amarelo De R$ 15,00 Por R$ 13,00 Milkshake de açai com maracujá De R$ 17,00 Por R$ 16,00 Pizza de açai Açai , morango , leite em pó , creme de avelã,amedoin ,mm,jujuba,canudo chocolate De R$ 25,00 Por R$ 19,99 POTE DE AÇAÍ 500ml De R$ 25,00 Por R$ 19,99 Barca completona P Com nutella De R$ 30,00 Por R$ 24,99 Cone trufado Consulta sabores disponíveis 🚨 De R$ 12,00 Por R$ 9,99 Brownie Brownie com Nutella e morango De R$ 8,00 Por R$ 6,99 milk-shake AÇAÍ COM PAÇOCA 330ml Açaí cremoso, paçoca triturada e leite condensado. De R$ 16,00 Por R$ 14,99 Milkshake trufado de chocolate com Oreo Sorvete de chocolate com biscoito oreo e calda de chocolate black De R$ 16,00 Por R$ 14,99 milk-shake MARACUJÁ TRUFADO COM NUTELLA 330ml Sorvete de maracujá com bastante Nutella. De R$ 17,00 Por R$ 14,99 milk-shake TRUFADO DE OVOMALTINE 330ml Sorvete de chocolate, Nutella e Ovomaltine. De R$ 17,00 Por R$ 14,99 Milkshake morango supremo 300ml Sorvete de morango trufado, com calda de morango,e pedaços de morangos dentro De R$ 17,00 Por R$ 14,99 Casquinha com sorvete de chocolate Sorvete de chocolate com calda de chocolate De R$ 8,00 Por R$ 5,99 Casquinha com sorvete morango Casquinha com sorvete de morango e calda de morango 🍓 De R$ 8,00 Por R$ 5,99 Açai na tigela PP Acompanha Granola,leite em po,amedoin,banana,canudo chocolate MM De R$ 13,00 Por R$ 9,99 COMBO 2 TIGELA DE AÇAÍ PP De R$ 25,99 Por R$ 19,99 Tigela de açaí tamanho G De R$ 32,00 Por R$ 28,99 AÇAI GG TAMANHO FAMÍLIA Completãoo de tudo em dobro De R$ 37,99 Por R$ 36,00 Wefer com bastante nutella e morango De R$ 13,00 Por R$ 11,00 Wefer com chocolate branco e morango De R$ 13,00 Por R$ 9,99 Wefer com Nutella e Chocobol De R$ 13,00 Por R$ 9,99 Açai Copo de Açaí econômico 150ml Açai,leite em pó, leite condensado,granola,amedoin,mm R$ 4,00 Açaí tradicional no copo 250ml Açai , banana,leite em pó , granola, amedoin, mm R$ 10,00 3 COPO DE AÇAÍ 150ml De R$ 12,00 Por R$ 10,00 Açai tradicional no copo 330ml Açai , banana , leite em pó , leite condensado, amedoin, mm R$ 15,00 Copo de açaí do hexa 330ml Leite condensado amarelo,leite condensado verde,açaí , leite em pó , granola , amedoin ,mm verde e amarelo De R$ 15,00 Por R$ 13,00 Açai com Nutella Ninhotella 330ml Açai , nutella , amedoin, granola,morango,kiwi,leite em pó , paçoca ,mm,chocobol R$ 17,00 Milkshake de açai com maracujá De R$ 17,00 Por R$ 16,00 Açaí tradicional no copo 440ml Açai , banana , leite em pó , leite condensado,morango , amedoin , mm R$ 18,00 Combo Irresistível 2 ninhotella econômico 250ml R$ 20,00 Tigela de açaí tamanho P Açai ,banana,morango , leite em pó , leite condensado, kiwi , chocobol,mm,canudo chocolate , amedoin , paçoca R$ 24,00 Açaí tradicional no copo 550ml Açai , banana , morango , leite em pó , amedoin , leite condensado,kiwi,mm,chocobol R$ 25,00 Pizza de açai Açai , morango , leite em pó , creme de avelã,amedoin ,mm,jujuba,canudo chocolate De R$ 25,00 Por R$ 19,99 POTE DE AÇAÍ 500ml De R$ 25,00 Por R$ 19,99 Copão Ninhotella 550ml Açai , nutella , morango,kiwi,granola ,leite em po,amedoin,mm,chocobol, R$ 27,00 Açaí tradicional no copo 770ml Açai , banana , morango , leite em pó , amedoin , kiwi , chocobol , leite condensado,granola , mm , chocobol R$ 30,00 Barca completona P Com nutella De R$ 30,00 Por R$ 24,99 Ninhotella 770ml Açai,nutella,banana,kiwi,morango,leite em po,granola,MM,chocobol R$ 32,00 COMBO 2 ninhotella 330ml Açai,nutella,banana,kiwi,morango,leite em po,granola,MM,chocobol R$ 34,00 1 LITRO DE AÇAI + 5 ACOMPANHAMENTOS 1 litro de açaí + granola ,leite em pó , amedoin ,leite condensado, mm R$ 45,00 COMBO FAMILIA 1 AÇAI G DE TUDO EM DOBRO + 2 AÇAI PP COMPLETO R$ 55,00 Cone Cone trufado Consulta sabores disponíveis 🚨 De R$ 12,00 Por R$ 9,99 Doce Brownie Brownie com Nutella e morango De R$ 8,00 Por R$ 6,99 Milkshake Milkshake de Açaí com leite condensado Açaí cremoso com bastante leite condensado. R$ 15,00 Milkshake de açaí puro Açaí cremoso e geladinho. R$ 15,00 milk-shake AÇAÍ COM PAÇOCA 330ml Açaí cremoso, paçoca triturada e leite condensado. De R$ 16,00 Por R$ 14,99 Milkshake trufado de chocolate com Oreo Sorvete de chocolate com biscoito oreo e calda de chocolate black De R$ 16,00 Por R$ 14,99 milk-shake MARACUJÁ TRUFADO COM NUTELLA 330ml Sorvete de maracujá com bastante Nutella. De R$ 17,00 Por R$ 14,99 milk-shake TRUFADO DE OVOMALTINE 330ml Sorvete de chocolate, Nutella e Ovomaltine. De R$ 17,00 Por R$ 14,99 Milkshake morango supremo 300ml Sorvete de morango trufado, com calda de morango,e pedaços de morangos dentro De R$ 17,00 Por R$ 14,99 Sorvete BIG SUNDAE MAR AZUL Sorvete sensação,calda blue,morango,granola, MM R$ 8,00 Casquinha com sorvete de chocolate Sorvete de chocolate com calda de chocolate De R$ 8,00 Por R$ 5,99 Casquinha com sorvete morango Casquinha com sorvete de morango e calda de morango 🍓 De R$ 8,00 Por R$ 5,99 Big sundae econômico floresta negra 250ml Sorvete trufado de morango,calda chocolate black,granola,MM , canudo chocolate R$ 9,00 Big sundue economico 250ml NINHO TRUFADO Sorvete de ninho trufado, calda de morango , granola , MM , canudo de chocolate R$ 9,00 Potão de sorvete R$ 15,00 Tigela Açai na tigela PP Acompanha Granola,leite em po,amedoin,banana,canudo chocolate MM De R$ 13,00 Por R$ 9,99 COMBO 2 TIGELA DE AÇAÍ PP De R$ 25,99 Por R$ 19,99 Açai na tigela M Acompanha Nutella,mm,chocobol,fini,morango,amendoim,leite em po, banana,kiwi,uva,canudo chocolate,ovomaltine ,leite condensado R$ 27,00 Tigela de açaí tamanho G De R$ 32,00 Por R$ 28,99 AÇAI GG TAMANHO FAMÍLIA Completãoo de tudo em dobro De R$ 37,99 Por R$ 36,00 Vitamina Vitamina de açaí tradicional 330ml R$ 15,00 Vitamina de açaí com nutella 330ml Nutella , pedaço de morangos dentro R$ 18,00 Vitamina de açaí Nutella e creme de cokies 330ml R$ 18,00 Vitamina de açai ovomaltine 330ml R$ 18,00 Vitamina de açaí tradicional 500ml Açai ,banana,leite condensado,leite em pó , amedoin, paçoca R$ 23,00 Vitamina de açaí com Nutella 500ml Vitamina R$ 27,00 Vitamina de açaí Nutella e morango 500ml R$ 27,00 Vitamina de açai nuttela e ninho 500ml tradicional 23,00 nutella e morango25,00 ninho e nutella 25,00 nutella 25,00 ovomaltine 24,00 Nutella e creme de cokees 25,00 R$ 27,00 Wefer Wefer com bastante nutella e morango De R$ 13,00 Por R$ 11,00 Wefer com chocolate branco e morango De R$ 13,00 Por R$ 9,99 Wefer com Nutella e Chocobol De R$ 13,00 Por R$ 9,99 Criado por Cardapio Digital MP",
+    "logo": "https://cardapiodigitalmp.com.br/uploads/l_1296a45569a195c7.png",
+    "metrics": {
+      "scrollHeight": 5417,
+      "bodyLength": 102812,
+      "imageCount": 75
+    }
+  },
+  "rawHtmlSource": "direct_fetch_http_200",
+  "parsedItems": [
+    {
+      "item": {
+        "id": 14000,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "3 COPO DE AÇAÍ 150ml ",
+        "description": "",
+        "price": "12.00",
+        "image": "p_6a3dee9a432e4.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "10.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14006,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Copo de açaí do hexa 330ml ",
+        "description": "Leite condensado amarelo,leite condensado verde,açaí , leite em pó , granola , amedoin ,mm verde e amarelo ",
+        "price": "15.00",
+        "image": "p_6a3df72aceed7.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "13.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14530,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Milkshake de açai com maracujá ",
+        "description": "",
+        "price": "17.00",
+        "image": "p_6a482333d6734.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "16.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13977,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Pizza de açai ",
+        "description": "Açai , morango , leite em pó , creme de avelã,amedoin ,mm,jujuba,canudo chocolate ",
+        "price": "25.00",
+        "image": "p_6a3dca83afad7.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "19.99",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14001,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "POTE DE AÇAÍ 500ml ",
+        "description": "",
+        "price": "25.00",
+        "image": "p_6a3df4200d7ed.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "19.99",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2632,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Barca completona P",
+        "description": "Com nutella",
+        "price": "30.00",
+        "image": "p_69a0ff9d2da10.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "24.99",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13975,
+        "store_id": 129,
+        "category_id": 934,
+        "name": "Cone trufado ",
+        "description": "Consulta sabores disponíveis 🚨",
+        "price": "12.00",
+        "image": "p_6a3dbb1e57e55.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "9.99",
+        "cat_name": "Cone ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 15007,
+        "store_id": 129,
+        "category_id": 3590,
+        "name": "Brownie",
+        "description": "Brownie com Nutella e morango ",
+        "price": "8.00",
+        "image": "p_6a4c1468d5c8e.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "6.99",
+        "cat_name": "Doce ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13959,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "milk-shake AÇAÍ COM PAÇOCA 330ml",
+        "description": "Açaí cremoso, paçoca triturada e leite condensado.",
+        "price": "16.00",
+        "image": "p_6a3da7ca992a2.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 6361,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "Milkshake trufado de chocolate com Oreo",
+        "description": "Sorvete de chocolate com biscoito oreo  e calda de chocolate black",
+        "price": "16.00",
+        "image": "p_6a3da3004f9fb.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13958,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "milk-shake  MARACUJÁ TRUFADO COM NUTELLA 330ml",
+        "description": "Sorvete de maracujá com bastante Nutella.",
+        "price": "17.00",
+        "image": "p_6a3da094d8564.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13960,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "milk-shake TRUFADO DE OVOMALTINE 330ml",
+        "description": "Sorvete de chocolate, Nutella e Ovomaltine.",
+        "price": "17.00",
+        "image": "p_6a3da7da22699.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2634,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "Milkshake morango supremo 300ml",
+        "description": "Sorvete de morango trufado, com calda de morango,e pedaços de morangos dentro",
+        "price": "17.00",
+        "image": "p_6a3da7be2a8a5.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14003,
+        "store_id": 129,
+        "category_id": 3417,
+        "name": "Casquinha com sorvete de chocolate ",
+        "description": "Sorvete de chocolate com calda de chocolate ",
+        "price": "8.00",
+        "image": "p_6a3df52a773f0.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "5.99",
+        "cat_name": "Sorvete",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14002,
+        "store_id": 129,
+        "category_id": 3417,
+        "name": "Casquinha com sorvete morango ",
+        "description": "Casquinha com sorvete de morango e calda de morango 🍓 ",
+        "price": "8.00",
+        "image": "p_6a3df4dfb516c.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "5.99",
+        "cat_name": "Sorvete",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2674,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "Açai na tigela PP",
+        "description": " Acompanha \r\nGranola,leite em po,amedoin,banana,canudo chocolate MM",
+        "price": "13.00",
+        "image": "p_69a1c041e106e.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "9.99",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 6379,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "COMBO 2 TIGELA DE AÇAÍ  PP ",
+        "description": "",
+        "price": "25.99",
+        "image": "p_69c362c89746a.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "19.99",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13974,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "Tigela de açaí tamanho G ",
+        "description": "",
+        "price": "32.00",
+        "image": "p_6a3dbad898dce.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "28.99",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2599,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "AÇAI GG TAMANHO FAMÍLIA ",
+        "description": "Completãoo de tudo em dobro ",
+        "price": "37.99",
+        "image": "p_69a09d949aa6e.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "36.00",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13980,
+        "store_id": 129,
+        "category_id": 3419,
+        "name": "Wefer com bastante nutella e morango ",
+        "description": "",
+        "price": "13.00",
+        "image": "p_6a3dcb39e889a.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "11.00",
+        "cat_name": "Wefer",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13982,
+        "store_id": 129,
+        "category_id": 3419,
+        "name": "Wefer com chocolate branco e morango",
+        "description": "",
+        "price": "13.00",
+        "image": "p_6a3dcc8f43ae3.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "9.99",
+        "cat_name": "Wefer",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13981,
+        "store_id": 129,
+        "category_id": 3419,
+        "name": "Wefer com Nutella e Chocobol",
+        "description": "",
+        "price": "13.00",
+        "image": "p_6a3dcb8a3be06.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "9.99",
+        "cat_name": "Wefer",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 6381,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Copo de Açaí econômico 150ml",
+        "description": "Açai,leite em pó, leite condensado,granola,amedoin,mm",
+        "price": "4.00",
+        "image": "p_69c385c6da1d4.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13953,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Açaí tradicional no copo 250ml",
+        "description": "Açai , banana,leite em pó , granola, amedoin, mm",
+        "price": "10.00",
+        "image": "p_6a3d9c9c5a8d0.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14000,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "3 COPO DE AÇAÍ 150ml ",
+        "description": "",
+        "price": "12.00",
+        "image": "p_6a3dee9a432e4.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "10.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13954,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Açai tradicional no copo 330ml ",
+        "description": "Açai , banana , leite em pó , leite condensado, amedoin, mm ",
+        "price": "15.00",
+        "image": "p_6a3d9ce1a7c43.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14006,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Copo de açaí do hexa 330ml ",
+        "description": "Leite condensado amarelo,leite condensado verde,açaí , leite em pó , granola , amedoin ,mm verde e amarelo ",
+        "price": "15.00",
+        "image": "p_6a3df72aceed7.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "13.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2551,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Açai com Nutella Ninhotella 330ml",
+        "description": "Açai , nutella , amedoin, granola,morango,kiwi,leite em pó , paçoca ,mm,chocobol",
+        "price": "17.00",
+        "image": "p_69a3bc5f43a92.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14530,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Milkshake de açai com maracujá ",
+        "description": "",
+        "price": "17.00",
+        "image": "p_6a482333d6734.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "16.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13955,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Açaí tradicional no copo 440ml ",
+        "description": "Açai , banana , leite em pó , leite condensado,morango , amedoin , mm",
+        "price": "18.00",
+        "image": "p_6a3d9cf1767b7.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2669,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Combo Irresistível 2 ninhotella econômico 250ml ",
+        "description": "",
+        "price": "20.00",
+        "image": "p_6a3dba6398302.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14007,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Tigela de açaí tamanho P ",
+        "description": "Açai ,banana,morango , leite em pó , leite condensado, kiwi , chocobol,mm,canudo chocolate , amedoin , paçoca ",
+        "price": "24.00",
+        "image": "p_6a3e02325a4a9.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13956,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Açaí tradicional no copo 550ml ",
+        "description": "Açai , banana , morango , leite em pó , amedoin , leite condensado,kiwi,mm,chocobol",
+        "price": "25.00",
+        "image": "p_6a3d9d0aa7650.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13977,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Pizza de açai ",
+        "description": "Açai , morango , leite em pó , creme de avelã,amedoin ,mm,jujuba,canudo chocolate ",
+        "price": "25.00",
+        "image": "p_6a3dca83afad7.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "19.99",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14001,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "POTE DE AÇAÍ 500ml ",
+        "description": "",
+        "price": "25.00",
+        "image": "p_6a3df4200d7ed.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "19.99",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2630,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Copão Ninhotella 550ml",
+        "description": "Açai , nutella , morango,kiwi,granola ,leite em po,amedoin,mm,chocobol,",
+        "price": "27.00",
+        "image": "p_69a3bbfb4842e.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13957,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Açaí tradicional no copo 770ml",
+        "description": "Açai , banana , morango , leite em pó , amedoin , kiwi , chocobol , leite condensado,granola , mm , chocobol ",
+        "price": "30.00",
+        "image": "p_6a3d9d42c8d4c.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2632,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Barca completona P",
+        "description": "Com nutella",
+        "price": "30.00",
+        "image": "p_69a0ff9d2da10.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "24.99",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13971,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "Ninhotella 770ml",
+        "description": "Açai,nutella,banana,kiwi,morango,leite em po,granola,MM,chocobol",
+        "price": "32.00",
+        "image": "p_6a3db9dfb6eeb.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2656,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "COMBO 2 ninhotella 330ml ",
+        "description": "Açai,nutella,banana,kiwi,morango,leite em po,granola,MM,chocobol",
+        "price": "34.00",
+        "image": "p_69a108aec8fc3.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14005,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "1 LITRO DE AÇAI + 5 ACOMPANHAMENTOS ",
+        "description": "1 litro de açaí + granola ,leite em pó , amedoin ,leite condensado, mm",
+        "price": "45.00",
+        "image": "p_6a3df6867071d.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 6380,
+        "store_id": 129,
+        "category_id": 641,
+        "name": "COMBO FAMILIA ",
+        "description": "1 AÇAI G  DE TUDO EM DOBRO + 2 AÇAI PP COMPLETO",
+        "price": "55.00",
+        "image": "p_69c36339d4431.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Açai",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13975,
+        "store_id": 129,
+        "category_id": 934,
+        "name": "Cone trufado ",
+        "description": "Consulta sabores disponíveis 🚨",
+        "price": "12.00",
+        "image": "p_6a3dbb1e57e55.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "9.99",
+        "cat_name": "Cone ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 15007,
+        "store_id": 129,
+        "category_id": 3590,
+        "name": "Brownie",
+        "description": "Brownie com Nutella e morango ",
+        "price": "8.00",
+        "image": "p_6a4c1468d5c8e.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "6.99",
+        "cat_name": "Doce ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 6356,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "Milkshake de Açaí com leite condensado ",
+        "description": "Açaí cremoso com bastante leite condensado.",
+        "price": "15.00",
+        "image": "p_6a3db371bdd8b.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 6359,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "Milkshake de açaí puro",
+        "description": "Açaí cremoso e geladinho.",
+        "price": "15.00",
+        "image": "p_6a3da1fabf131.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13959,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "milk-shake AÇAÍ COM PAÇOCA 330ml",
+        "description": "Açaí cremoso, paçoca triturada e leite condensado.",
+        "price": "16.00",
+        "image": "p_6a3da7ca992a2.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 6361,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "Milkshake trufado de chocolate com Oreo",
+        "description": "Sorvete de chocolate com biscoito oreo  e calda de chocolate black",
+        "price": "16.00",
+        "image": "p_6a3da3004f9fb.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13958,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "milk-shake  MARACUJÁ TRUFADO COM NUTELLA 330ml",
+        "description": "Sorvete de maracujá com bastante Nutella.",
+        "price": "17.00",
+        "image": "p_6a3da094d8564.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13960,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "milk-shake TRUFADO DE OVOMALTINE 330ml",
+        "description": "Sorvete de chocolate, Nutella e Ovomaltine.",
+        "price": "17.00",
+        "image": "p_6a3da7da22699.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2634,
+        "store_id": 129,
+        "category_id": 3418,
+        "name": "Milkshake morango supremo 300ml",
+        "description": "Sorvete de morango trufado, com calda de morango,e pedaços de morangos dentro",
+        "price": "17.00",
+        "image": "p_6a3da7be2a8a5.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "14.99",
+        "cat_name": "Milkshake",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 3421,
+        "store_id": 129,
+        "category_id": 3417,
+        "name": "BIG SUNDAE MAR AZUL",
+        "description": "Sorvete sensação,calda blue,morango,granola, MM",
+        "price": "8.00",
+        "image": "p_69a864453c557.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Sorvete",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14003,
+        "store_id": 129,
+        "category_id": 3417,
+        "name": "Casquinha com sorvete de chocolate ",
+        "description": "Sorvete de chocolate com calda de chocolate ",
+        "price": "8.00",
+        "image": "p_6a3df52a773f0.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "5.99",
+        "cat_name": "Sorvete",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 14002,
+        "store_id": 129,
+        "category_id": 3417,
+        "name": "Casquinha com sorvete morango ",
+        "description": "Casquinha com sorvete de morango e calda de morango 🍓 ",
+        "price": "8.00",
+        "image": "p_6a3df4dfb516c.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "5.99",
+        "cat_name": "Sorvete",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2602,
+        "store_id": 129,
+        "category_id": 3417,
+        "name": "Big sundae econômico floresta negra 250ml",
+        "description": "Sorvete trufado de morango,calda chocolate black,granola,MM , canudo chocolate",
+        "price": "9.00",
+        "image": "p_69a09f0e7cedd.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Sorvete",
+        "cat_image": null
+      },
+      "addons": {
+        "2547": {
+          "id": 2547,
+          "product_id": 2602,
+          "name": "Calda de morango ",
+          "free_limit": 1,
+          "allow_extra": 0,
+          "is_active": 1,
+          "max_limit": 1,
+          "items": []
+        }
+      }
+    },
+    {
+      "item": {
+        "id": 2601,
+        "store_id": 129,
+        "category_id": 3417,
+        "name": "Big sundue economico 250ml NINHO TRUFADO ",
+        "description": "Sorvete de ninho trufado, calda de morango , granola , MM , canudo de chocolate",
+        "price": "9.00",
+        "image": "p_69a09e4f142bf.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Sorvete",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2668,
+        "store_id": 129,
+        "category_id": 3417,
+        "name": "Potão de sorvete ",
+        "description": "",
+        "price": "15.00",
+        "image": "p_69a1bad4c9459.mov",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Sorvete",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2674,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "Açai na tigela PP",
+        "description": " Acompanha \r\nGranola,leite em po,amedoin,banana,canudo chocolate MM",
+        "price": "13.00",
+        "image": "p_69a1c041e106e.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "9.99",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 6379,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "COMBO 2 TIGELA DE AÇAÍ  PP ",
+        "description": "",
+        "price": "25.99",
+        "image": "p_69c362c89746a.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "19.99",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2672,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "Açai na tigela M",
+        "description": "Acompanha \r\nNutella,mm,chocobol,fini,morango,amendoim,leite em po, banana,kiwi,uva,canudo chocolate,ovomaltine ,leite condensado ",
+        "price": "27.00",
+        "image": "p_69a1bfb8eb043.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13974,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "Tigela de açaí tamanho G ",
+        "description": "",
+        "price": "32.00",
+        "image": "p_6a3dbad898dce.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "28.99",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2599,
+        "store_id": 129,
+        "category_id": 3421,
+        "name": "AÇAI GG TAMANHO FAMÍLIA ",
+        "description": "Completãoo de tudo em dobro ",
+        "price": "37.99",
+        "image": "p_69a09d949aa6e.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "36.00",
+        "cat_name": "Tigela",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13985,
+        "store_id": 129,
+        "category_id": 3420,
+        "name": "Vitamina de açaí tradicional 330ml",
+        "description": "",
+        "price": "15.00",
+        "image": "p_6a3dfef4f2133.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Vitamina ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2550,
+        "store_id": 129,
+        "category_id": 3420,
+        "name": "Vitamina de açaí com nutella 330ml",
+        "description": "Nutella , pedaço de morangos dentro",
+        "price": "18.00",
+        "image": "p_69a09d3781754.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Vitamina ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13984,
+        "store_id": 129,
+        "category_id": 3420,
+        "name": "Vitamina de açaí Nutella e creme de cokies 330ml",
+        "description": "",
+        "price": "18.00",
+        "image": "",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Vitamina ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13983,
+        "store_id": 129,
+        "category_id": 3420,
+        "name": "Vitamina de açai ovomaltine 330ml",
+        "description": "",
+        "price": "18.00",
+        "image": "",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Vitamina ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13986,
+        "store_id": 129,
+        "category_id": 3420,
+        "name": "Vitamina de açaí tradicional 500ml ",
+        "description": "Açai ,banana,leite condensado,leite em pó , amedoin, paçoca ",
+        "price": "23.00",
+        "image": "",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Vitamina ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13991,
+        "store_id": 129,
+        "category_id": 3420,
+        "name": "Vitamina de açaí com Nutella 500ml",
+        "description": "Vitamina ",
+        "price": "27.00",
+        "image": "",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Vitamina ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13987,
+        "store_id": 129,
+        "category_id": 3420,
+        "name": "Vitamina de açaí Nutella e morango 500ml ",
+        "description": "",
+        "price": "27.00",
+        "image": "",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Vitamina ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 2662,
+        "store_id": 129,
+        "category_id": 3420,
+        "name": "Vitamina de açai nuttela e ninho 500ml ",
+        "description": "\r\n\r\ntradicional 23,00 nutella e morango25,00\r\nninho e nutella 25,00\r\nnutella 25,00\r\novomaltine 24,00 Nutella e creme de cokees 25,00",
+        "price": "27.00",
+        "image": "p_69a1b8c64ae7c.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "0.00",
+        "cat_name": "Vitamina ",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13980,
+        "store_id": 129,
+        "category_id": 3419,
+        "name": "Wefer com bastante nutella e morango ",
+        "description": "",
+        "price": "13.00",
+        "image": "p_6a3dcb39e889a.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "11.00",
+        "cat_name": "Wefer",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13982,
+        "store_id": 129,
+        "category_id": 3419,
+        "name": "Wefer com chocolate branco e morango",
+        "description": "",
+        "price": "13.00",
+        "image": "p_6a3dcc8f43ae3.jpeg",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "9.99",
+        "cat_name": "Wefer",
+        "cat_image": null
+      },
+      "addons": []
+    },
+    {
+      "item": {
+        "id": 13981,
+        "store_id": 129,
+        "category_id": 3419,
+        "name": "Wefer com Nutella e Chocobol",
+        "description": "",
+        "price": "13.00",
+        "image": "p_6a3dcb8a3be06.png",
+        "is_active": 1,
+        "free_addons_limit": 0,
+        "position": 0,
+        "promotional_price": "9.99",
+        "cat_name": "Wefer",
+        "cat_image": null
+      },
+      "addons": []
+    }
+  ]
+}

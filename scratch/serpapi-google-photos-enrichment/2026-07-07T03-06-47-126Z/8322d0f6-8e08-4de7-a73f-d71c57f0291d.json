@@ -1,0 +1,80 @@
+{
+  "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+  "name": "Ilovepizzapb",
+  "before": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "applied": false,
+  "uploads": [
+    {
+      "kind": "gallery_dry_run",
+      "source": "google_maps_streetview",
+      "vision": {
+        "ok": true,
+        "kind": "facade",
+        "score": 75,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": false,
+        "text_or_poster_dominant": false,
+        "reason": "fachada do restaurante"
+      },
+      "urlHost": "streetviewpixels-pa.googleapis.com"
+    }
+  ],
+  "skipped": [],
+  "resolver": {
+    "dataId": "0x7ad21d0e414d9d9:0x80c5ecbdb61ef032",
+    "source": "cached_phase1_raw",
+    "rawFile": "scratch\\serpapi-google-maps-phase1\\2026-07-06T19-32-09-190Z\\raw-034.json"
+  },
+  "photoCount": 1,
+  "candidates": [
+    {
+      "source": "google_maps_streetview",
+      "score": 45,
+      "vision": {
+        "ok": true,
+        "kind": "facade",
+        "score": 75,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": false,
+        "text_or_poster_dominant": false,
+        "reason": "fachada do restaurante"
+      },
+      "index": 0,
+      "urlHost": "streetviewpixels-pa.googleapis.com"
+    },
+    {
+      "source": "serpapi_maps_thumbnail",
+      "score": -110,
+      "vision": {
+        "ok": false,
+        "kind": "bad",
+        "score": 20,
+        "has_person": false,
+        "person_is_prominent": false,
+        "people_count": 0,
+        "food_visible": false,
+        "text_or_poster_dominant": false,
+        "reason": "imagem desfocada e sem comida"
+      },
+      "index": null,
+      "urlHost": "serpapi.com"
+    }
+  ],
+  "after": {
+    "hasLogo": true,
+    "hasCover": false,
+    "galleryCount": 0,
+    "galleryRows": []
+  },
+  "promotion": null,
+  "status": "ok"
+}

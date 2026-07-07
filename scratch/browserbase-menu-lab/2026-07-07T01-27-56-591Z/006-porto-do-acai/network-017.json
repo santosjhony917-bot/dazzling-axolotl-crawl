@@ -1,0 +1,165 @@
+{
+  "url": "https://meucarrinho.delivery/api/merchant/categories",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "POST",
+  "textLength": 3102,
+  "textSample": "[{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"47f2d917-5fe9-4bc8-a782-3c0359de456c\",\"code\":\"4\",\"name\":\"01-ACAI\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":true,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"e949f97f-cad6-4bee-bd6c-b20261991e01\",\"code\":\"4\",\"name\":\"01-ACAI\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"d408161d-ab59-46aa-9fb6-d7f7a7f09bc9\",\"code\":\"5\",\"name\":\"02-GELATTOS\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"7d58ea3c-b59a-4e12-bac0-a7f78feea2e6\",\"code\":\"6\",\"name\":\"03-REFEICOES PRONTAS\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"fe2fe73f-d285-4673-a403-ae7e01959d70\",\"code\":\"7\",\"name\":\"04-SALGADOS\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"6e73b985-0713-4094-afe9-d8308cf2907b\",\"code\":\"8\",\"name\":\"05-SUCOS\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"75d27928-5fc6-4e04-b989-eb306096d3df\",\"code\":\"9\",\"name\":\"06-SOBREMESAS\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"c052bb1b-2754-4935-a6d2-fb182a0b7bfe\",\"code\":\"10\",\"name\":\"07-AGUA\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4\",\"code\":\"11\",\"name\":\"08-REFRIGERANTES\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"9b81a369-6a12-4d3a-b98c-8711827c0037\",\"code\":\"12\",\"name\":\"09-ENERGETICO\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"a9d916ad-c000-4e60-b13c-bd4748d72dee\",\"code\":\"13\",\"name\":\"10-DRINKS\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"4d9699c2-183c-477a-9ca7-da7ba229e2a9\",\"code\":\"14\",\"name\":\"11-CERVEJAS\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"2bec111d-cfc3-4a46-b282-8f22f5710695\",\"code\":\"15\",\"name\":\"12-GELO\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"82b800bb-eb5e-445b-a525-f49ffcc50600\",\"code\":\"16\",\"name\":\"13-LANCHES DA NOITE\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]},{\"merchantId\":\"4c801932-2485-4f56-a90e-d089fac73b4c\",\"id\":\"ad38978e-1f5f-4bd5-8303-0dd5ccd47e80\",\"code\":\"19\",\"name\":\"BOMBONIERE\",\"priority\":0,\"availability\":\"AVAILABLE\",\"byIntegration\":false,\"products\":[]}]",
+  "jsonKeys": [
+    "array",
+    "15"
+  ],
+  "json": [
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "47f2d917-5fe9-4bc8-a782-3c0359de456c",
+      "code": "4",
+      "name": "01-ACAI",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": true,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "e949f97f-cad6-4bee-bd6c-b20261991e01",
+      "code": "4",
+      "name": "01-ACAI",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "d408161d-ab59-46aa-9fb6-d7f7a7f09bc9",
+      "code": "5",
+      "name": "02-GELATTOS",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "7d58ea3c-b59a-4e12-bac0-a7f78feea2e6",
+      "code": "6",
+      "name": "03-REFEICOES PRONTAS",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "fe2fe73f-d285-4673-a403-ae7e01959d70",
+      "code": "7",
+      "name": "04-SALGADOS",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "6e73b985-0713-4094-afe9-d8308cf2907b",
+      "code": "8",
+      "name": "05-SUCOS",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "75d27928-5fc6-4e04-b989-eb306096d3df",
+      "code": "9",
+      "name": "06-SOBREMESAS",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "c052bb1b-2754-4935-a6d2-fb182a0b7bfe",
+      "code": "10",
+      "name": "07-AGUA",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "0a9a4ee4-262e-4fa7-81e5-73dfdbca66a4",
+      "code": "11",
+      "name": "08-REFRIGERANTES",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "9b81a369-6a12-4d3a-b98c-8711827c0037",
+      "code": "12",
+      "name": "09-ENERGETICO",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "a9d916ad-c000-4e60-b13c-bd4748d72dee",
+      "code": "13",
+      "name": "10-DRINKS",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "4d9699c2-183c-477a-9ca7-da7ba229e2a9",
+      "code": "14",
+      "name": "11-CERVEJAS",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "2bec111d-cfc3-4a46-b282-8f22f5710695",
+      "code": "15",
+      "name": "12-GELO",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "82b800bb-eb5e-445b-a525-f49ffcc50600",
+      "code": "16",
+      "name": "13-LANCHES DA NOITE",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    },
+    {
+      "merchantId": "4c801932-2485-4f56-a90e-d089fac73b4c",
+      "id": "ad38978e-1f5f-4bd5-8303-0dd5ccd47e80",
+      "code": "19",
+      "name": "BOMBONIERE",
+      "priority": 0,
+      "availability": "AVAILABLE",
+      "byIntegration": false,
+      "products": []
+    }
+  ]
+}

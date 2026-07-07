@@ -1,0 +1,2430 @@
+{
+  "code": 0,
+  "result": {
+    "success": true,
+    "dryRun": true,
+    "audit": {
+      "approved": true,
+      "confidence": 0.98,
+      "categoryCount": 12,
+      "itemCount": 85,
+      "resolvedPriceCount": 85,
+      "unresolvedPriceCount": 0,
+      "optionPriceCount": 0,
+      "pricedRatio": 1,
+      "issues": [],
+      "optionSemanticAI": {
+        "used": false,
+        "reason": "429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    "preview": [
+      {
+        "name": "Entradas",
+        "count": 9,
+        "samples": [
+          {
+            "name": "Codorna",
+            "price": 17.9,
+            "kind": "simple_item",
+            "description": "Acompanha farofa e vinagrete"
+          },
+          {
+            "name": "Linguiça",
+            "price": 12.9,
+            "kind": "simple_item",
+            "description": "Acompanha farofa e vinagrete"
+          },
+          {
+            "name": "Sobrecoxa",
+            "price": 12.9,
+            "kind": "simple_item",
+            "description": "Acompanha farofa e vinagrete"
+          },
+          {
+            "name": "Pão de Alho",
+            "price": 12.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Queijo na Brasa",
+            "price": 14.9,
+            "kind": "simple_item",
+            "description": "Acompanha farofa e vinagrete"
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "count": 13,
+        "samples": [
+          {
+            "name": "Medalhão",
+            "price": 17.9,
+            "kind": "from_price_item",
+            "description": "Acompanha farofa e vinagrete"
+          },
+          {
+            "name": "Carne de Sol",
+            "price": 42.9,
+            "kind": "simple_item",
+            "description": "Acompanha farofa e vinagrete"
+          },
+          {
+            "name": "Medalhão de Frango",
+            "price": 17.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Feijoada",
+            "price": 24.9,
+            "kind": "simple_item",
+            "description": "Acompanha arroz, farofa e vinagrete"
+          },
+          {
+            "name": "Camarão",
+            "price": 29.9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Pizzas",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Queijo Pizza na Brasa",
+            "price": 17.9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Caldos",
+        "count": 6,
+        "samples": [
+          {
+            "name": "Dobradinha",
+            "price": 24.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Fava",
+            "price": 27.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Mocotó",
+            "price": 24.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Peixe",
+            "price": 24.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Sururu",
+            "price": 24.9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Petiscos",
+        "count": 17,
+        "samples": [
+          {
+            "name": "Batata Frita",
+            "price": 24.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Filé com Fritas",
+            "price": 59.9,
+            "kind": "simple_item",
+            "description": "Acompanha batata frita"
+          },
+          {
+            "name": "Carne de Sol com Fritas",
+            "price": 56.9,
+            "kind": "simple_item",
+            "description": "Acompanha batata frita"
+          },
+          {
+            "name": "Calabresa com Fritas",
+            "price": 49.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Isca de Frango Acebolada",
+            "price": 39.9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Sabores da Terra",
+        "count": 6,
+        "samples": [
+          {
+            "name": "Arrumadinho",
+            "price": 39.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Currucupi",
+            "price": 42.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Rubacão",
+            "price": 42.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Galinha Guisada",
+            "price": 34.9,
+            "kind": "simple_item",
+            "description": "Acompanha farofa e vinagrete"
+          },
+          {
+            "name": "Bode Guisado",
+            "price": 39.9,
+            "kind": "simple_item",
+            "description": "Acompanha farofa e vinagrete"
+          }
+        ]
+      },
+      {
+        "name": "Massas",
+        "count": 3,
+        "samples": [
+          {
+            "name": "Executivos",
+            "price": 23.9,
+            "kind": "from_price_item",
+            "description": "Acompanha arroz, feijão, macarrão, batata frita e salada"
+          },
+          {
+            "name": "Filé a Parmegiana",
+            "price": 89.9,
+            "kind": "simple_item",
+            "description": "Acompanha espaguete e purê, ideal para servir duas pessoas."
+          },
+          {
+            "name": "Macarrão",
+            "price": 10.9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Guarnições",
+        "count": 6,
+        "samples": [
+          {
+            "name": "Cuscuz",
+            "price": 10.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Macaxeira Cozida",
+            "price": 16.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Macaxeira Frita",
+            "price": 24.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Purê de Batata",
+            "price": 10.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Pirão de Peixe",
+            "price": 14.9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Farofa",
+        "count": 3,
+        "samples": [
+          {
+            "name": "Farofa",
+            "price": 5,
+            "kind": "simple_item",
+            "description": "Porção individual"
+          },
+          {
+            "name": "1 KILO",
+            "price": 40,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "500 GRAMAS",
+            "price": 20,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Bebidas diversas",
+        "count": 10,
+        "samples": [
+          {
+            "name": "Refrigerante Lata",
+            "price": 8.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Refrigerante 1 Litro",
+            "price": 11.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Água Mineral COM GÁS",
+            "price": 5.9,
+            "kind": "simple_item",
+            "description": "sem gás"
+          },
+          {
+            "name": "Água Mineral SEM GÁS",
+            "price": 4.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "RedBull",
+            "price": 16.9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "count": 10,
+        "samples": [
+          {
+            "name": "Corona",
+            "price": 13.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Stella Pure Gold",
+            "price": 12.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Stella Artois",
+            "price": 11.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Heineken",
+            "price": 9.9,
+            "kind": "simple_item",
+            "description": ""
+          },
+          {
+            "name": "Heineken Zero",
+            "price": 9.9,
+            "kind": "simple_item",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "name": "Aperitivos e Gin",
+        "count": 1,
+        "samples": [
+          {
+            "name": "Gin",
+            "price": 14.9,
+            "kind": "simple_item",
+            "description": "Dose"
+          }
+        ]
+      }
+    ],
+    "categories": [
+      {
+        "name": "Entradas",
+        "items": [
+          {
+            "name": "Codorna",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 17.9,
+            "display_price": 17.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553719/250215163244",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Linguiça",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 12.9,
+            "display_price": 12.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553721/250215163321",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Sobrecoxa",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 12.9,
+            "display_price": 12.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Pão de Alho",
+            "description": "",
+            "price": 12.9,
+            "display_price": 12.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553723/89a97d5d8I7A3133.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Queijo na Brasa",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 14.9,
+            "display_price": 14.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Costela De Porco",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 32.9,
+            "display_price": 32.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553728/250215164041",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Bode Assado",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553729/250215164149",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Picanha",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 49.9,
+            "display_price": 49.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Coração",
+            "description": "Acompanha farofa e vinagrete 10unidades.",
+            "price": 19.9,
+            "display_price": 19.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pratos Principais",
+        "items": [
+          {
+            "name": "Medalhão",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 17.9,
+            "display_price": 17.9,
+            "price_type": "fixed",
+            "commercial_type": "from_price_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553725/55ef2b118I7A3131.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha a salada",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "3527934",
+                    "group_name": "Escolha a salada",
+                    "name": "Cupim",
+                    "description": null,
+                    "image_url": null,
+                    "price": 19.9,
+                    "price_delta": 19.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Cupim"
+                  },
+                  {
+                    "external_id": "3527935",
+                    "group_name": "Escolha a salada",
+                    "name": "Frango",
+                    "description": null,
+                    "image_url": null,
+                    "price": 17.9,
+                    "price_delta": 17.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Frango"
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3527934",
+                "group_name": "Escolha a salada",
+                "name": "Cupim",
+                "description": null,
+                "image_url": null,
+                "price": 19.9,
+                "price_delta": 19.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Cupim"
+              },
+              {
+                "external_id": "3527935",
+                "group_name": "Escolha a salada",
+                "name": "Frango",
+                "description": null,
+                "image_url": null,
+                "price": 17.9,
+                "price_delta": 17.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Frango"
+              }
+            ]
+          },
+          {
+            "name": "Carne de Sol",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 42.9,
+            "display_price": 42.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Medalhão de Frango",
+            "description": "",
+            "price": 17.9,
+            "display_price": 17.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Feijoada",
+            "description": "Acompanha arroz, farofa e vinagrete",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553734/250215170958",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Camarão",
+            "description": "",
+            "price": 29.9,
+            "display_price": 29.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Picado",
+            "description": "Acompanha arroz, farofa e vinagrete",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553777/250215173510",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Tilápia Simples",
+            "description": "Acompanha arroz, batata frita, farofa e vinagrete, ideal para compartilhar com duas a três pessoas.",
+            "price": 99.9,
+            "display_price": 99.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha a salada",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "3527948",
+                    "group_name": "Escolha a salada",
+                    "name": "Brasa",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3527949",
+                    "group_name": "Escolha a salada",
+                    "name": "Frito",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3527948",
+                "group_name": "Escolha a salada",
+                "name": "Brasa",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3527949",
+                "group_name": "Escolha a salada",
+                "name": "Frito",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Carne de Sol",
+            "description": "Acompanha arroz, feijão verde, macaxeira, batata frita e salada. Meia refeição serve até 2 pessoas, enquanto a refeição completa atende até 4 pessoas.",
+            "price": 109.9,
+            "display_price": 109.9,
+            "price_type": "fixed",
+            "commercial_type": "from_price_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha a proteina",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "3527953",
+                    "group_name": "Escolha a proteina",
+                    "name": "Refeição Completa",
+                    "description": null,
+                    "image_url": null,
+                    "price": 139.9,
+                    "price_delta": 139.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Refeição Completa"
+                  },
+                  {
+                    "external_id": "3527954",
+                    "group_name": "Escolha a proteina",
+                    "name": "Meia Refeição",
+                    "description": null,
+                    "image_url": null,
+                    "price": 109.9,
+                    "price_delta": 109.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Meia Refeição"
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3527953",
+                "group_name": "Escolha a proteina",
+                "name": "Refeição Completa",
+                "description": null,
+                "image_url": null,
+                "price": 139.9,
+                "price_delta": 139.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Refeição Completa"
+              },
+              {
+                "external_id": "3527954",
+                "group_name": "Escolha a proteina",
+                "name": "Meia Refeição",
+                "description": null,
+                "image_url": null,
+                "price": 109.9,
+                "price_delta": 109.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Meia Refeição"
+              }
+            ]
+          },
+          {
+            "name": "Picanha",
+            "description": "Acompanha arroz, feijão verde, macaxeira, batata frita e salada. Meia refeição para 2 pessoas e refeição completa para 4 pessoas.",
+            "price": 129.9,
+            "display_price": 129.9,
+            "price_type": "fixed",
+            "commercial_type": "from_price_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha a salada",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "3527953",
+                    "group_name": "Escolha a salada",
+                    "name": "Refeição Completa",
+                    "description": null,
+                    "image_url": null,
+                    "price": 169.99,
+                    "price_delta": 169.99,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Refeição Completa"
+                  },
+                  {
+                    "external_id": "3527954",
+                    "group_name": "Escolha a salada",
+                    "name": "Meia Refeição",
+                    "description": null,
+                    "image_url": null,
+                    "price": 129.9,
+                    "price_delta": 129.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Meia Refeição"
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3527953",
+                "group_name": "Escolha a salada",
+                "name": "Refeição Completa",
+                "description": null,
+                "image_url": null,
+                "price": 169.99,
+                "price_delta": 169.99,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Refeição Completa"
+              },
+              {
+                "external_id": "3527954",
+                "group_name": "Escolha a salada",
+                "name": "Meia Refeição",
+                "description": null,
+                "image_url": null,
+                "price": 129.9,
+                "price_delta": 129.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Meia Refeição"
+              }
+            ]
+          },
+          {
+            "name": "Bode Assado",
+            "description": "Acompanha arroz, feijão verde, macaxeira, batata frita e salada. Ideal para servir até 4 pessoas.",
+            "price": 109.9,
+            "display_price": 109.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Tilápia Completa",
+            "description": "Este prato é servido com arroz, feijão verde, macaxeira, batata frita e salada, e é ideal para 4 pessoas.",
+            "price": 129.9,
+            "display_price": 129.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha o queijo",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "3527948",
+                    "group_name": "Escolha o queijo",
+                    "name": "Brasa",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3527949",
+                    "group_name": "Escolha o queijo",
+                    "name": "Frito",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3527948",
+                "group_name": "Escolha o queijo",
+                "name": "Brasa",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3527949",
+                "group_name": "Escolha o queijo",
+                "name": "Frito",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Arroz",
+            "description": "",
+            "price": 10.9,
+            "display_price": 10.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Feijão Verde",
+            "description": "",
+            "price": 13.9,
+            "display_price": 13.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Pizzas",
+        "items": [
+          {
+            "name": "Queijo Pizza na Brasa",
+            "description": "",
+            "price": 17.9,
+            "display_price": 17.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553727/e0f265fd8I7A3027.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Caldos",
+        "items": [
+          {
+            "name": "Dobradinha",
+            "description": "",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553732/250215164331",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Fava",
+            "description": "",
+            "price": 27.9,
+            "display_price": 27.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Mocotó",
+            "description": "",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553735/250215164632",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Peixe",
+            "description": "",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553737/250215164725",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Sururu",
+            "description": "",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553738/250215164745",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Verde",
+            "description": "",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553739/250215173023",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Petiscos",
+        "items": [
+          {
+            "name": "Batata Frita",
+            "description": "",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553741/250215165739",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Filé com Fritas",
+            "description": "Acompanha batata frita",
+            "price": 59.9,
+            "display_price": 59.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553743/6d7a17758I7A3052.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Carne de Sol com Fritas",
+            "description": "Acompanha batata frita",
+            "price": 56.9,
+            "display_price": 56.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553745/97c5f2bc8I7A3052.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Calabresa com Fritas",
+            "description": "",
+            "price": 49.9,
+            "display_price": 49.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553748/250215165757",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Isca de Frango Acebolada",
+            "description": "",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553750/250215170124",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Isca de Peixe Empanado",
+            "description": "",
+            "price": 54.9,
+            "display_price": 54.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553751/250215170130",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Frango Á Passarinho",
+            "description": "Acompanha Batata Frita",
+            "price": 49.9,
+            "display_price": 49.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553752/250215170146",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Camarão Alho e Oléo",
+            "description": "",
+            "price": 54.9,
+            "display_price": 54.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Camarão Empanado",
+            "description": "",
+            "price": 64.9,
+            "display_price": 64.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Isca de Fígado",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553753/250215170503",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Torresmo",
+            "description": "",
+            "price": 19.9,
+            "display_price": 19.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553758/82838de88I7A3117.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Asa",
+            "description": "Porção com 6 unidades. Acompanha farofa e vinagrete",
+            "price": 29.9,
+            "display_price": 29.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553759/250215173403",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Encontro",
+            "description": "Porção com 6 unidades. Acompanha farofa e vinagrete",
+            "price": 29.9,
+            "display_price": 29.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553760/250215173407",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Tábua de Frios",
+            "description": "",
+            "price": 54.9,
+            "display_price": 54.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553764/3e2858d38I7A2936.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Bolinhos de Charque",
+            "description": "Acompanha molho rosé -10 unidades",
+            "price": 27.9,
+            "display_price": 27.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553765/250215171648",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Tripa",
+            "description": "",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Queijo á Milanesa",
+            "description": "",
+            "price": 34.9,
+            "display_price": 34.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553768/250215172300",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Sabores da Terra",
+        "items": [
+          {
+            "name": "Arrumadinho",
+            "description": "",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553769/250215172729",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Currucupi",
+            "description": "",
+            "price": 42.9,
+            "display_price": 42.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553771/250215172825",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha 1 opção",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "3527946",
+                    "group_name": "Escolha 1 opção",
+                    "name": "Carne de Sol",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3527935",
+                    "group_name": "Escolha 1 opção",
+                    "name": "Frango",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "3527947",
+                    "group_name": "Escolha 1 opção",
+                    "name": "Charque",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3527946",
+                "group_name": "Escolha 1 opção",
+                "name": "Carne de Sol",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3527935",
+                "group_name": "Escolha 1 opção",
+                "name": "Frango",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "3527947",
+                "group_name": "Escolha 1 opção",
+                "name": "Charque",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Rubacão",
+            "description": "",
+            "price": 42.9,
+            "display_price": 42.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553772/250215172753",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Galinha Guisada",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 34.9,
+            "display_price": 34.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553773/250215173057",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Bode Guisado",
+            "description": "Acompanha farofa e vinagrete",
+            "price": 39.9,
+            "display_price": 39.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "ACOMPANHAMENTO",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "items": [
+                  {
+                    "external_id": "4396259",
+                    "group_name": "ACOMPANHAMENTO",
+                    "name": "ARROZ",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4396260",
+                    "group_name": "ACOMPANHAMENTO",
+                    "name": "CUSCUZ",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4396261",
+                    "group_name": "ACOMPANHAMENTO",
+                    "name": "MACAXEIRA COZIDA",
+                    "description": null,
+                    "image_url": null,
+                    "price": 0,
+                    "price_delta": 0,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "included",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4396259",
+                "group_name": "ACOMPANHAMENTO",
+                "name": "ARROZ",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4396260",
+                "group_name": "ACOMPANHAMENTO",
+                "name": "CUSCUZ",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4396261",
+                "group_name": "ACOMPANHAMENTO",
+                "name": "MACAXEIRA COZIDA",
+                "description": null,
+                "image_url": null,
+                "price": 0,
+                "price_delta": 0,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "included",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Omelete",
+            "description": "",
+            "price": 42.9,
+            "display_price": 42.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553778/250215173648",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Massas",
+        "items": [
+          {
+            "name": "Executivos",
+            "description": "Acompanha arroz, feijão, macarrão, batata frita e salada",
+            "price": 23.9,
+            "display_price": 23.9,
+            "price_type": "fixed",
+            "commercial_type": "from_price_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Escolha a proteina",
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "3527946",
+                    "group_name": "Escolha a proteina",
+                    "name": "Carne de Sol",
+                    "description": null,
+                    "image_url": null,
+                    "price": 29.9,
+                    "price_delta": 29.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Carne de Sol"
+                  },
+                  {
+                    "external_id": "3527950",
+                    "group_name": "Escolha a proteina",
+                    "name": "Filé de Peito",
+                    "description": null,
+                    "image_url": null,
+                    "price": 23.9,
+                    "price_delta": 23.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Filé de Peito"
+                  },
+                  {
+                    "external_id": "3527951",
+                    "group_name": "Escolha a proteina",
+                    "name": "Bode Guisado",
+                    "description": null,
+                    "image_url": null,
+                    "price": 23.9,
+                    "price_delta": 23.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Bode Guisado"
+                  },
+                  {
+                    "external_id": "3527952",
+                    "group_name": "Escolha a proteina",
+                    "name": "Galinha Guisada",
+                    "description": null,
+                    "image_url": null,
+                    "price": 23.9,
+                    "price_delta": 23.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Galinha Guisada"
+                  },
+                  {
+                    "external_id": "3559931",
+                    "group_name": "Escolha a proteina",
+                    "name": "Linguiça de frango",
+                    "description": null,
+                    "image_url": null,
+                    "price": 23.9,
+                    "price_delta": 23.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Linguiça de frango"
+                  },
+                  {
+                    "external_id": "3559965",
+                    "group_name": "Escolha a proteina",
+                    "name": "Linguiça Mista",
+                    "description": null,
+                    "image_url": null,
+                    "price": 23.9,
+                    "price_delta": 23.9,
+                    "min_quantity": 1,
+                    "max_quantity": 1,
+                    "is_required": true,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": true,
+                    "search_label": "Linguiça Mista"
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "3527946",
+                "group_name": "Escolha a proteina",
+                "name": "Carne de Sol",
+                "description": null,
+                "image_url": null,
+                "price": 29.9,
+                "price_delta": 29.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Carne de Sol"
+              },
+              {
+                "external_id": "3527950",
+                "group_name": "Escolha a proteina",
+                "name": "Filé de Peito",
+                "description": null,
+                "image_url": null,
+                "price": 23.9,
+                "price_delta": 23.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Filé de Peito"
+              },
+              {
+                "external_id": "3527951",
+                "group_name": "Escolha a proteina",
+                "name": "Bode Guisado",
+                "description": null,
+                "image_url": null,
+                "price": 23.9,
+                "price_delta": 23.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Bode Guisado"
+              },
+              {
+                "external_id": "3527952",
+                "group_name": "Escolha a proteina",
+                "name": "Galinha Guisada",
+                "description": null,
+                "image_url": null,
+                "price": 23.9,
+                "price_delta": 23.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Galinha Guisada"
+              },
+              {
+                "external_id": "3559931",
+                "group_name": "Escolha a proteina",
+                "name": "Linguiça de frango",
+                "description": null,
+                "image_url": null,
+                "price": 23.9,
+                "price_delta": 23.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Linguiça de frango"
+              },
+              {
+                "external_id": "3559965",
+                "group_name": "Escolha a proteina",
+                "name": "Linguiça Mista",
+                "description": null,
+                "image_url": null,
+                "price": 23.9,
+                "price_delta": 23.9,
+                "min_quantity": 1,
+                "max_quantity": 1,
+                "is_required": true,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": true,
+                "search_label": "Linguiça Mista"
+              }
+            ]
+          },
+          {
+            "name": "Filé a Parmegiana",
+            "description": "Acompanha espaguete e purê, ideal para servir duas pessoas.",
+            "price": 89.9,
+            "display_price": 89.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": "https://storage.googleapis.com/prod-cardapio-web/uploads/item/image/3553788/95b4831f8I7A3122.jpg",
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [
+              {
+                "name": "Opções",
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "items": [
+                  {
+                    "external_id": "4396268",
+                    "group_name": "Opções",
+                    "name": "GRANDE",
+                    "description": null,
+                    "image_url": null,
+                    "price": 89.9,
+                    "price_delta": 89.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  },
+                  {
+                    "external_id": "4396269",
+                    "group_name": "Opções",
+                    "name": "INDIVIDUAL",
+                    "description": null,
+                    "image_url": null,
+                    "price": 59.9,
+                    "price_delta": 59.9,
+                    "min_quantity": 0,
+                    "max_quantity": null,
+                    "is_required": false,
+                    "semantic_type": "required_choice",
+                    "price_behavior": "absolute_price",
+                    "is_searchable_variant": false,
+                    "search_label": null
+                  }
+                ]
+              }
+            ],
+            "options": [
+              {
+                "external_id": "4396268",
+                "group_name": "Opções",
+                "name": "GRANDE",
+                "description": null,
+                "image_url": null,
+                "price": 89.9,
+                "price_delta": 89.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              },
+              {
+                "external_id": "4396269",
+                "group_name": "Opções",
+                "name": "INDIVIDUAL",
+                "description": null,
+                "image_url": null,
+                "price": 59.9,
+                "price_delta": 59.9,
+                "min_quantity": 0,
+                "max_quantity": null,
+                "is_required": false,
+                "semantic_type": "required_choice",
+                "price_behavior": "absolute_price",
+                "is_searchable_variant": false,
+                "search_label": null
+              }
+            ]
+          },
+          {
+            "name": "Macarrão",
+            "description": "",
+            "price": 10.9,
+            "display_price": 10.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Guarnições",
+        "items": [
+          {
+            "name": "Cuscuz",
+            "description": "",
+            "price": 10.9,
+            "display_price": 10.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Macaxeira Cozida",
+            "description": "",
+            "price": 16.9,
+            "display_price": 16.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Macaxeira Frita",
+            "description": "",
+            "price": 24.9,
+            "display_price": 24.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Purê de Batata",
+            "description": "",
+            "price": 10.9,
+            "display_price": 10.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Pirão de Peixe",
+            "description": "",
+            "price": 14.9,
+            "display_price": 14.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Vinagrete",
+            "description": "Porção individual",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Farofa",
+        "items": [
+          {
+            "name": "Farofa",
+            "description": "Porção individual",
+            "price": 5,
+            "display_price": 5,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "1 KILO",
+            "description": "",
+            "price": 40,
+            "display_price": 40,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "500 GRAMAS",
+            "description": "",
+            "price": 20,
+            "display_price": 20,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Bebidas diversas",
+        "items": [
+          {
+            "name": "Refrigerante Lata",
+            "description": "",
+            "price": 8.9,
+            "display_price": 8.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Refrigerante 1 Litro",
+            "description": "",
+            "price": 11.9,
+            "display_price": 11.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Água Mineral COM GÁS",
+            "description": "sem gás",
+            "price": 5.9,
+            "display_price": 5.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Água Mineral SEM GÁS",
+            "description": "",
+            "price": 4.9,
+            "display_price": 4.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "RedBull",
+            "description": "",
+            "price": 16.9,
+            "display_price": 16.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Suco 300ml",
+            "description": "Copo - 450 ml",
+            "price": 14.9,
+            "display_price": 14.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Suco 800ml",
+            "description": "",
+            "price": 19.9,
+            "display_price": 19.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "H2O",
+            "description": "",
+            "price": 9.9,
+            "display_price": 9.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Schweppes",
+            "description": "",
+            "price": 8.9,
+            "display_price": 8.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Água Tônica",
+            "description": "",
+            "price": 7.9,
+            "display_price": 7.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Bebidas",
+        "items": [
+          {
+            "name": "Corona",
+            "description": "",
+            "price": 13.9,
+            "display_price": 13.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Stella Pure Gold",
+            "description": "",
+            "price": 12.9,
+            "display_price": 12.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Stella Artois",
+            "description": "",
+            "price": 11.9,
+            "display_price": 11.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Heineken",
+            "description": "",
+            "price": 9.9,
+            "display_price": 9.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Heineken Zero",
+            "description": "",
+            "price": 9.9,
+            "display_price": 9.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Spaten",
+            "description": "",
+            "price": 10.9,
+            "display_price": 10.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Budweiser",
+            "description": "",
+            "price": 9.9,
+            "display_price": 9.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Budweiser Zero",
+            "description": "",
+            "price": 9.9,
+            "display_price": 9.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Beats",
+            "description": "",
+            "price": 11.9,
+            "display_price": 11.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          },
+          {
+            "name": "Smirnoff Ice",
+            "description": "",
+            "price": 15.9,
+            "display_price": 15.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      },
+      {
+        "name": "Aperitivos e Gin",
+        "items": [
+          {
+            "name": "Gin",
+            "description": "Dose",
+            "price": 14.9,
+            "display_price": 14.9,
+            "price_type": "fixed",
+            "commercial_type": "simple_item",
+            "image_url": null,
+            "combo_components": [],
+            "combo_rules": null,
+            "option_groups": [],
+            "options": []
+          }
+        ]
+      }
+    ],
+    "message": "Prévia estruturada com 85 itens via cardapio_web."
+  },
+  "stdoutTail": "eral SEM GÁS\",\"description\":\"\",\"price\":4.9,\"display_price\":4.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"RedBull\",\"description\":\"\",\"price\":16.9,\"display_price\":16.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Suco 300ml\",\"description\":\"Copo - 450 ml\",\"price\":14.9,\"display_price\":14.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Suco 800ml\",\"description\":\"\",\"price\":19.9,\"display_price\":19.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"H2O\",\"description\":\"\",\"price\":9.9,\"display_price\":9.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Schweppes\",\"description\":\"\",\"price\":8.9,\"display_price\":8.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Água Tônica\",\"description\":\"\",\"price\":7.9,\"display_price\":7.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Bebidas\",\"items\":[{\"name\":\"Corona\",\"description\":\"\",\"price\":13.9,\"display_price\":13.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Stella Pure Gold\",\"description\":\"\",\"price\":12.9,\"display_price\":12.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Stella Artois\",\"description\":\"\",\"price\":11.9,\"display_price\":11.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Heineken\",\"description\":\"\",\"price\":9.9,\"display_price\":9.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Heineken Zero\",\"description\":\"\",\"price\":9.9,\"display_price\":9.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Spaten\",\"description\":\"\",\"price\":10.9,\"display_price\":10.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Budweiser\",\"description\":\"\",\"price\":9.9,\"display_price\":9.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Budweiser Zero\",\"description\":\"\",\"price\":9.9,\"display_price\":9.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Beats\",\"description\":\"\",\"price\":11.9,\"display_price\":11.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]},{\"name\":\"Smirnoff Ice\",\"description\":\"\",\"price\":15.9,\"display_price\":15.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]},{\"name\":\"Aperitivos e Gin\",\"items\":[{\"name\":\"Gin\",\"description\":\"Dose\",\"price\":14.9,\"display_price\":14.9,\"price_type\":\"fixed\",\"commercial_type\":\"simple_item\",\"image_url\":null,\"combo_components\":[],\"combo_rules\":null,\"option_groups\":[],\"options\":[]}]}],\"message\":\"Prévia estruturada com 85 itens via cardapio_web.\"}\n",
+  "stderrTail": "[Menu V2] IA de semântica falhou; mantendo heurística: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.\n"
+}

@@ -1,0 +1,71 @@
+{
+  "runId": "2026-07-07T07-08-21-837Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T07-08-21-837Z",
+  "scope": {
+    "ids": [
+      "69139ad6-c662-4fd6-b67f-aefef25c5923"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 1,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+      "name": "PARCEIRO Rosa Lanches",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 10,
+      "itemCount": 149,
+      "optionCount": 841,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "149 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/rosalanches",
+        "instagram": "https://www.instagram.com/rosaalanches_/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:19.891Z",
+          "status": "enriched",
+          "username": "rosaalanches_",
+          "followers": 6865,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/rosalanches",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Ten. Antônio Pontes",
+        "number": "139",
+        "neighborhood": "Ponta de Matos",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-645",
+        "phone": "(83) 98836-3792",
+        "latitude": -6.9708638999999994,
+        "longitude": -34.833857699999996,
+        "followers": 6865
+      },
+      "issues": []
+    }
+  ]
+}

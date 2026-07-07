@@ -1,0 +1,1223 @@
+{
+  "runId": "2026-07-06T18-03-24-381Z",
+  "outDir": "scratch\\browserbase-menu-lab\\2026-07-06T18-03-24-381Z",
+  "mode": "queue",
+  "platform": "cardapioweb",
+  "limit": 2,
+  "targets": [
+    {
+      "restaurantId": "395c5d1a-99f7-40e3-82f3-af6e22406e75",
+      "restaurantName": "Bar da Curva - Sandro's Bar",
+      "sourceUrl": "https://app.cardapioweb.com/sandros_bar?s=cb",
+      "platform": "cardapioweb",
+      "reviewsCount": 2635,
+      "address": "R. Profa. Severina Ramos da Silva, 27",
+      "phone": null
+    },
+    {
+      "restaurantId": "528002c2-69ff-4e98-9646-8ed10b97ea69",
+      "restaurantName": "Restaurante Daikôn",
+      "sourceUrl": "https://app.cardapioweb.com/daikon_delivery?s=pub",
+      "platform": "cardapioweb",
+      "reviewsCount": 1012,
+      "address": "R. Cap. João Alves de Lira, 303",
+      "phone": null
+    }
+  ],
+  "browserbase": {
+    "sessionId": "6a3ea58d-af01-44fa-bbba-1b561f3df125",
+    "status": "RUNNING",
+    "keepSession": false
+  },
+  "results": [
+    {
+      "restaurantId": "395c5d1a-99f7-40e3-82f3-af6e22406e75",
+      "restaurantName": "Bar da Curva - Sandro's Bar",
+      "sourceUrl": "https://app.cardapioweb.com/sandros_bar?s=cb",
+      "platform": "cardapioweb",
+      "reviewsCount": 2635,
+      "address": "R. Profa. Severina Ramos da Silva, 27",
+      "phone": null,
+      "startedAt": "2026-07-06T18:03:28.044Z",
+      "finishedAt": "2026-07-06T18:03:39.478Z",
+      "targetDir": "scratch\\browserbase-menu-lab\\2026-07-06T18-03-24-381Z\\001-bar-da-curva-sandro-s-bar",
+      "finalUrl": "https://app.cardapioweb.com/sandros_bar",
+      "title": "Sandro’s Bar",
+      "domMetrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1100,
+        "scrollHeight": 1100,
+        "bodyLength": 103011,
+        "anchorCount": 4,
+        "imageCount": 11
+      },
+      "priceCountInVisibleText": 86,
+      "menuWords": [
+        "cardapio",
+        "cardápio",
+        "pedido",
+        "pizza",
+        "bebida"
+      ],
+      "networkInterestingCount": 27,
+      "failedRequestCount": 2,
+      "directProbe": {
+        "platform": "cardapioweb",
+        "success": true,
+        "source": "cardapioweb_native_api",
+        "endpoint": "https://integracao.cardapioweb.com/api/menu/company/categories?only_available_for=delivery&origin=catalogo",
+        "details": {
+          "companyId": "36060",
+          "companySlug": "sandros_bar"
+        },
+        "categoryCount": 26,
+        "itemCount": 85,
+        "optionCount": 70,
+        "operationalOptionCount": 46,
+        "operationalSample": [
+          {
+            "item": "Codorna",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Linguiça",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Sobrecoxa",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Pão de Alho",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Medalhão",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Queijo na Brasa",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Queijo Pizza na Brasa",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Costela De Porco",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Dobradinha",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Fava",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Feijoada",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Mocotó",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Peixe",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Sururu",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Verde",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Camarão",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Batata Frita",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Filé com Fritas",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Carne de Sol com Fritas",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Calabresa com Fritas",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Isca de Frango Acebolada",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Isca de Peixe Empanado",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Frango Á Passarinho",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Camarão Alho e Oléo",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Arrumadinho",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Currucupi",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Rubacão",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Galinha Guisada",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Bode Guisado",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Picado",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Omelete",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Executivos",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Tilápia Simples",
+            "group": "Embalagem Tilápia Simples",
+            "option": "Embalagem",
+            "price": 9
+          },
+          {
+            "item": "Carne de Sol",
+            "group": "Embalagem Refeição",
+            "option": "Embalagem",
+            "price": 18
+          },
+          {
+            "item": "Picanha",
+            "group": "Embalagem Refeição",
+            "option": "Embalagem",
+            "price": 18
+          },
+          {
+            "item": "Bode Assado",
+            "group": "Embalagem Refeição",
+            "option": "Embalagem",
+            "price": 18
+          },
+          {
+            "item": "Tilápia Completa",
+            "group": "Embalagem Refeição",
+            "option": "Embalagem",
+            "price": 18
+          },
+          {
+            "item": "Filé a Parmegiana",
+            "group": "Emabalagem Parmegiana Grande",
+            "option": "Embalagem",
+            "price": 6
+          },
+          {
+            "item": "Arroz",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          },
+          {
+            "item": "Cuscuz",
+            "group": "Embalagem",
+            "option": "Embalagem",
+            "price": 3
+          }
+        ],
+        "samples": [
+          {
+            "name": "Entradas",
+            "items": [
+              {
+                "name": "Codorna",
+                "price": 17.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Linguiça",
+                "price": 12.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Sobrecoxa",
+                "price": 12.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Pão de Alho",
+                "price": 12.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Medalhão",
+                "price": 0,
+                "optionSample": [
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Cupim",
+                    "price": 19.9
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Frango",
+                    "price": 17.9
+                  },
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Queijo na Brasa",
+                "price": 14.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Queijo Pizza na Brasa",
+                "price": 17.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Costela De Porco",
+                "price": 32.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Caldos",
+            "items": [
+              {
+                "name": "Dobradinha",
+                "price": 24.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Fava",
+                "price": 27.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Feijoada",
+                "price": 24.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Mocotó",
+                "price": 24.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Peixe",
+                "price": 24.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Sururu",
+                "price": 24.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Verde",
+                "price": 24.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Camarão",
+                "price": 29.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Petiscos",
+            "items": [
+              {
+                "name": "Batata Frita",
+                "price": 24.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Filé com Fritas",
+                "price": 59.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Carne de Sol com Fritas",
+                "price": 56.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Calabresa com Fritas",
+                "price": 49.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Isca de Frango Acebolada",
+                "price": 39.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Isca de Peixe Empanado",
+                "price": 54.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Frango Á Passarinho",
+                "price": 49.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Camarão Alho e Oléo",
+                "price": 54.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Sabores da Terra",
+            "items": [
+              {
+                "name": "Arrumadinho",
+                "price": 39.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Currucupi",
+                "price": 42.9,
+                "optionSample": [
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Carne de Sol",
+                    "price": 0
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Frango",
+                    "price": 0
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Charque",
+                    "price": 0
+                  },
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Rubacão",
+                "price": 42.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Galinha Guisada",
+                "price": 34.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Bode Guisado",
+                "price": 39.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  },
+                  {
+                    "group": "ACOMPANHAMENTO",
+                    "name": "ARROZ",
+                    "price": 0
+                  },
+                  {
+                    "group": "ACOMPANHAMENTO",
+                    "name": "CUSCUZ",
+                    "price": 0
+                  },
+                  {
+                    "group": "ACOMPANHAMENTO",
+                    "name": "MACAXEIRA COZIDA",
+                    "price": 0
+                  }
+                ]
+              },
+              {
+                "name": "Picado",
+                "price": 39.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              },
+              {
+                "name": "Omelete",
+                "price": 42.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Executivos",
+            "items": [
+              {
+                "name": "Executivos",
+                "price": 0,
+                "optionSample": [
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Carne de Sol",
+                    "price": 29.9
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Filé de Peito",
+                    "price": 23.9
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Bode Guisado",
+                    "price": 23.9
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Galinha Guisada",
+                    "price": 23.9
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Linguiça de frango",
+                    "price": 23.9
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Linguiça Mista ",
+                    "price": 23.9
+                  },
+                  {
+                    "group": "Embalagem",
+                    "name": "Embalagem",
+                    "price": 3
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Refeições",
+            "items": [
+              {
+                "name": "Tilápia Simples",
+                "price": 99.9,
+                "optionSample": [
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Brasa",
+                    "price": 0
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Frito",
+                    "price": 0
+                  },
+                  {
+                    "group": "Embalagem Tilápia Simples",
+                    "name": "Embalagem",
+                    "price": 9
+                  }
+                ]
+              },
+              {
+                "name": "Carne de Sol",
+                "price": 0,
+                "optionSample": [
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Refeição Completa",
+                    "price": 139.9
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Meia Refeição",
+                    "price": 109.9
+                  },
+                  {
+                    "group": "Embalagem Refeição",
+                    "name": "Embalagem",
+                    "price": 18
+                  }
+                ]
+              },
+              {
+                "name": "Picanha",
+                "price": 0,
+                "optionSample": [
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Refeição Completa",
+                    "price": 169.99
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Meia Refeição",
+                    "price": 129.9
+                  },
+                  {
+                    "group": "Embalagem Refeição",
+                    "name": "Embalagem",
+                    "price": 18
+                  }
+                ]
+              },
+              {
+                "name": "Bode Assado",
+                "price": 109.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem Refeição",
+                    "name": "Embalagem",
+                    "price": 18
+                  }
+                ]
+              },
+              {
+                "name": "Tilápia Completa",
+                "price": 129.9,
+                "optionSample": [
+                  {
+                    "group": "Embalagem Refeição",
+                    "name": "Embalagem",
+                    "price": 18
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Brasa",
+                    "price": 0
+                  },
+                  {
+                    "group": "Escolha 1 opção",
+                    "name": "Frito",
+                    "price": 0
+                  }
+                ]
+              },
+              {
+                "name": "Filé a Parmegiana",
+                "price": 89.9,
+                "optionSample": [
+                  {
+                    "group": "Emabalagem Parmegiana Grande",
+                    "name": "Embalagem",
+                    "price": 6
+                  },
+                  {
+                    "group": "Opções",
+                    "name": "GRANDE",
+                    "price": 89.9
+                  },
+                  {
+                    "group": "Opções",
+                    "name": "INDIVIDUAL",
+                    "price": 59.9
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "lesson": "CardapioWeb exposes structured categories/items/add-ons through integracao.cardapioweb.com when company/company-id are known."
+      },
+      "lessonFlags": [
+        "structured_api_available",
+        "operational_cleanup_required",
+        "short_fullpage_snapshot_should_be_valid"
+      ],
+      "error": null
+    },
+    {
+      "restaurantId": "528002c2-69ff-4e98-9646-8ed10b97ea69",
+      "restaurantName": "Restaurante Daikôn",
+      "sourceUrl": "https://app.cardapioweb.com/daikon_delivery?s=pub",
+      "platform": "cardapioweb",
+      "reviewsCount": 1012,
+      "address": "R. Cap. João Alves de Lira, 303",
+      "phone": null,
+      "startedAt": "2026-07-06T18:03:40.556Z",
+      "finishedAt": "2026-07-06T18:03:52.638Z",
+      "targetDir": "scratch\\browserbase-menu-lab\\2026-07-06T18-03-24-381Z\\002-restaurante-daikon",
+      "finalUrl": "https://app.cardapioweb.com/daikon_delivery",
+      "title": "Daikon Delivery",
+      "domMetrics": {
+        "innerWidth": 1440,
+        "innerHeight": 1100,
+        "scrollHeight": 1100,
+        "bodyLength": 157151,
+        "anchorCount": 4,
+        "imageCount": 16
+      },
+      "priceCountInVisibleText": 143,
+      "menuWords": [
+        "cardapio",
+        "cardápio",
+        "pedido",
+        "delivery",
+        "combo",
+        "bebida"
+      ],
+      "networkInterestingCount": 33,
+      "failedRequestCount": 2,
+      "directProbe": {
+        "platform": "cardapioweb",
+        "success": true,
+        "source": "cardapioweb_native_api",
+        "endpoint": "https://integracao.cardapioweb.com/api/menu/company/categories?only_available_for=delivery&origin=catalogo",
+        "details": {
+          "companyId": "16426",
+          "companySlug": "daikon_delivery"
+        },
+        "categoryCount": 11,
+        "itemCount": 141,
+        "optionCount": 9,
+        "operationalOptionCount": 0,
+        "operationalSample": [],
+        "samples": [
+          {
+            "name": "Promoções.",
+            "items": [
+              {
+                "name": "Dupla Temaki Skin",
+                "price": 34.23,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              },
+              {
+                "name": "Dupla Temaki Kani",
+                "price": 34.23,
+                "optionSample": []
+              },
+              {
+                "name": "Dupla Temaki Ebiten",
+                "price": 47.9,
+                "optionSample": []
+              },
+              {
+                "name": "235 -  yakisoba individual",
+                "price": 25.9,
+                "optionSample": []
+              }
+            ]
+          },
+          {
+            "name": "Duplas",
+            "items": [
+              {
+                "name": "300 - Dupla Niguiri Ebi",
+                "price": 6.9,
+                "optionSample": []
+              },
+              {
+                "name": "301 - Dupla Daikôn Shake",
+                "price": 6.9,
+                "optionSample": []
+              },
+              {
+                "name": "302 - Dupla Filadélfia Especial",
+                "price": 6.9,
+                "optionSample": []
+              },
+              {
+                "name": "303 - Dupla Enjoy",
+                "price": 9.9,
+                "optionSample": []
+              },
+              {
+                "name": "304 - Dupla Uramaki Skin",
+                "price": 6.9,
+                "optionSample": []
+              },
+              {
+                "name": "305 - Dupla Hot Filadélfia",
+                "price": 6.9,
+                "optionSample": []
+              },
+              {
+                "name": "306 - Dupla Canapé Ebi",
+                "price": 6.9,
+                "optionSample": []
+              },
+              {
+                "name": "307 - Dupla Salmão Cheese",
+                "price": 9.9,
+                "optionSample": []
+              }
+            ]
+          },
+          {
+            "name": "Promoção (Mais Vendidos)",
+            "items": [
+              {
+                "name": "Combo 10 peças de sushi",
+                "price": 23.9,
+                "optionSample": []
+              },
+              {
+                "name": "Combo 20 peças de sushi-",
+                "price": 45.9,
+                "optionSample": []
+              },
+              {
+                "name": "Combo 30 peças de sushi",
+                "price": 62.9,
+                "optionSample": []
+              },
+              {
+                "name": "Combo 40 peças",
+                "price": 79.9,
+                "optionSample": []
+              }
+            ]
+          },
+          {
+            "name": "Temaki",
+            "items": [
+              {
+                "name": "210 - temaki de kani",
+                "price": 21.9,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              },
+              {
+                "name": "211 - temaki california",
+                "price": 19.9,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              },
+              {
+                "name": "212 - temaki skin",
+                "price": 19.9,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              },
+              {
+                "name": "213 - temaki salmão simples",
+                "price": 29.9,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              },
+              {
+                "name": "214 - temaki polvo",
+                "price": 28.9,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              },
+              {
+                "name": "215 - temaki prego",
+                "price": 28.9,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              },
+              {
+                "name": "216 - temaki ebi",
+                "price": 27.9,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              },
+              {
+                "name": "217 - temaki ebiten",
+                "price": 27.9,
+                "optionSample": [
+                  {
+                    "group": "Vai empanar o temaki ?",
+                    "name": "Empanado",
+                    "price": 2
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Pratos Individuais",
+            "items": [
+              {
+                "name": "230 - Prato Indivudal - Carne",
+                "price": 29.9,
+                "optionSample": []
+              },
+              {
+                "name": "231 Prato Individual  Frango",
+                "price": 28.9,
+                "optionSample": []
+              },
+              {
+                "name": "232 Prato Individual de camarão",
+                "price": 34.9,
+                "optionSample": []
+              },
+              {
+                "name": "233 - Prato Individual de peixe",
+                "price": 29.9,
+                "optionSample": []
+              }
+            ]
+          },
+          {
+            "name": "Pratos executivos",
+            "items": [
+              {
+                "name": "87 executivo de carne",
+                "price": 39,
+                "optionSample": []
+              },
+              {
+                "name": "88 executivo de frango",
+                "price": 37,
+                "optionSample": []
+              },
+              {
+                "name": "89 executivo de camarão",
+                "price": 46,
+                "optionSample": []
+              },
+              {
+                "name": "90 executivo de peixe",
+                "price": 42,
+                "optionSample": []
+              },
+              {
+                "name": "41 - risoto de frango",
+                "price": 29,
+                "optionSample": []
+              },
+              {
+                "name": "91 arroz shop suey",
+                "price": 12,
+                "optionSample": []
+              },
+              {
+                "name": "Arroz branco (Porçao)",
+                "price": 10,
+                "optionSample": []
+              },
+              {
+                "name": "92 risoto de carne",
+                "price": 31,
+                "optionSample": []
+              }
+            ]
+          }
+        ],
+        "lesson": "CardapioWeb exposes structured categories/items/add-ons through integracao.cardapioweb.com when company/company-id are known."
+      },
+      "lessonFlags": [
+        "structured_api_available",
+        "short_fullpage_snapshot_should_be_valid"
+      ],
+      "error": null
+    }
+  ],
+  "release": {
+    "success": false,
+    "error": "Browserbase sessions/6a3ea58d-af01-44fa-bbba-1b561f3df125 HTTP 404: {\"message\":\"Route PATCH:/v1/sessions/6a3ea58d-af01-44fa-bbba-1b561f3df125 not found\",\"error\":\"Not Found\",\"statusCode\":404}"
+  }
+}

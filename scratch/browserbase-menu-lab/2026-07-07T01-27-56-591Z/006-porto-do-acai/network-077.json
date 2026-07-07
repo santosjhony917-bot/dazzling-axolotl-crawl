@@ -1,0 +1,42 @@
+{
+  "url": "https://meucarrinho.service.signalr.net/client/negotiate?hub=realtimehub&asrs.op=%2Fhubs%2Frealtime&negotiateVersion=1&asrs_request_id=KZLJ3%2BqqAwA%3D",
+  "status": 200,
+  "contentType": "application/json",
+  "resourceType": "fetch",
+  "method": "POST",
+  "textLength": 334,
+  "textSample": "{\"negotiateVersion\":1,\"connectionId\":\"KPxxO-aCbDSOjKZDRHLG7QTLYBqg802\",\"connectionToken\":\"Xa_Q1F8SvmN-LPzi4rkLuwTLYBqg802\",\"availableTransports\":[{\"transport\":\"WebSockets\",\"transferFormats\":[\"Text\",\"Binary\"]},{\"transport\":\"ServerSentEvents\",\"transferFormats\":[\"Text\"]},{\"transport\":\"LongPolling\",\"transferFormats\":[\"Text\",\"Binary\"]}]}",
+  "jsonKeys": [
+    "negotiateVersion",
+    "connectionId",
+    "connectionToken",
+    "availableTransports"
+  ],
+  "json": {
+    "negotiateVersion": 1,
+    "connectionId": "KPxxO-aCbDSOjKZDRHLG7QTLYBqg802",
+    "connectionToken": "Xa_Q1F8SvmN-LPzi4rkLuwTLYBqg802",
+    "availableTransports": [
+      {
+        "transport": "WebSockets",
+        "transferFormats": [
+          "Text",
+          "Binary"
+        ]
+      },
+      {
+        "transport": "ServerSentEvents",
+        "transferFormats": [
+          "Text"
+        ]
+      },
+      {
+        "transport": "LongPolling",
+        "transferFormats": [
+          "Text",
+          "Binary"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "success": false,
+  "sourceUrl": "https://anota.ai/loja/restaurante-tio-joao-1?from=menu-share-adm",
+  "finalUrl": "https://anota.ai/loja/restaurante-tio-joao-1?from=menu-share-adm",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.45,
+  "categories": [
+    {
+      "name": "Cardápio",
+      "order_index": 0,
+      "items": [
+        {
+          "external_id": null,
+          "name": "© 2021 Anota AI • IGROW SOLUÇÕES DIGITAIS LTDA • CNPJ: 27.86",
+          "description": "2/0001-93",
+          "image_url": null,
+          "price": 4.39,
+          "price_min": 4.39,
+          "price_max": 4.39,
+          "price_type": "fixed",
+          "price_source": "visible_text",
+          "options": [],
+          "order_index": 0,
+          "source_url": "https://anota.ai/loja/restaurante-tio-joao-1?from=menu-share-adm",
+          "raw_data": {
+            "parser": "visible_text",
+            "name": "© 2021 Anota AI • IGROW SOLUÇÕES DIGITAIS LTDA • CNPJ: 27.86",
+            "price": 4.39,
+            "availability_status": null
+          },
+          "extraction_confidence": 0.78,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "profileSnapshotPath": null,
+    "profileSnapshotFile": null,
+    "preCaptureActions": [],
+    "verificationSnapshotError": null,
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340709487_drdnt4es.jpg",
+    "snapshotFile": "cmd_1783340709487_drdnt4es.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 64,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340718982_x2nmbvsa.jpg",
+        "snapshotFile": "cmd_1783340718982_x2nmbvsa.jpg"
+      },
+      {
+        "ratio": 0.22,
+        "target": "document",
+        "scrollTop": 14,
+        "maxScrollTop": 64,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340726396_yrejk7vt.jpg",
+        "snapshotFile": "cmd_1783340726396_yrejk7vt.jpg"
+      },
+      {
+        "ratio": 0.45,
+        "target": "document",
+        "scrollTop": 29,
+        "maxScrollTop": 64,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340733779_iqbbzrpy.jpg",
+        "snapshotFile": "cmd_1783340733779_iqbbzrpy.jpg"
+      },
+      {
+        "ratio": 0.68,
+        "target": "document",
+        "scrollTop": 44,
+        "maxScrollTop": 64,
+        "reachedEnd": false,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340741112_6nq021vy.jpg",
+        "snapshotFile": "cmd_1783340741112_6nq021vy.jpg"
+      },
+      {
+        "ratio": 0.9,
+        "target": "document",
+        "scrollTop": 58,
+        "maxScrollTop": 64,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783340748422_kpb2bkdf.jpg",
+        "snapshotFile": "cmd_1783340748422_kpb2bkdf.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 2,
+    "capturedHeight": 738,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "c755dc52-30bf-4b02-8296-656367229533",
+    "name": "Restaurante Tio João",
+    "category": "Restaurante brasileiro",
+    "address": "Rua Professora - R. Joana D'arc Arruda",
+    "phone": "(83) 98654-2641",
+    "instagram": "https://www.instagram.com/tiojoao_restaurante/"
+  }
+}

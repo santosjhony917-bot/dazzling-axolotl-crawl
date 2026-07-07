@@ -1,0 +1,40 @@
+{
+  "restaurantId": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+  "restaurantName": "Sushiyaki Restaurante",
+  "sourceUrl": "https://delivery.yooga.app/sushiyaki",
+  "platform": "yooga",
+  "reviewsCount": 10,
+  "address": "R. Ten. Antônio Pontes, 381",
+  "phone": "(83) 98684-5886",
+  "startedAt": "2026-07-07T01:32:00.838Z",
+  "finishedAt": "2026-07-07T01:32:14.731Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T01-27-56-591Z\\010-sushiyaki-restaurante",
+  "finalUrl": "https://delivery.yooga.app/sushiyaki/tabs/home",
+  "title": "Sushiyaki Delivery | Vila São João - Cabedelo | Faça seu pedido.",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 1100,
+    "bodyLength": 40406,
+    "anchorCount": 1,
+    "imageCount": 29
+  },
+  "priceCountInVisibleText": 38,
+  "menuWords": [
+    "pedido",
+    "combo",
+    "bebida"
+  ],
+  "networkInterestingCount": 22,
+  "failedRequestCount": 0,
+  "directProbe": {
+    "platform": "yooga",
+    "success": false,
+    "reason": "no_direct_probe_for_platform_yet"
+  },
+  "lessonFlags": [
+    "short_fullpage_snapshot_should_be_valid",
+    "visible_text_fallback_possible"
+  ],
+  "error": null
+}

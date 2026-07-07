@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 204,
+    "contentType": "",
+    "capturedAt": "2026-07-07T14:03:10.979Z",
+    "body": null,
+    "error": "Could not load response body for this request. This might happen if the request is a preflight request."
+  },
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "capturedAt": "2026-07-07T14:03:11.171Z",
+    "body": {
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"68911dfb40fd830012c912e7\",\"webview\":{\"accept_multiple_payments\":false,\"multiple_payments_quantity\":2,\"waiter_accept_tip\":true,\"waiter_tip_percent\":10,\"waiter_order_delivery\":true,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"waiter_can_link_ticket_to_table\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"address_manual\":true,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"false\",\"repeat_order_enabled\":true,\"edit_manual_city\":false,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"table_seats\":false,\"waiter_can_change_table_and_ticket\":false,\"hide_google_search\":false,\"add_disposable\":false,\"allow_bill_payment_in_digital_menu\":true,\"color_primary\":\"#FA170C\",\"description\":\"É Recheio com força visse!!!\",\"footer_description\":\"\",\"header_image_url\":\"\",\"items_carousel\":\"promo_items\"},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":false},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":true,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"deactivate_establishment_closed_salutation_message\":false,\"deactivate_flow_new_salutation_message\":false,\"images\":[{\"url\":\"https://s3-us-west-2.amazonaws.com/staginganotaai/establishment/img-1758073295664\",\"caption\":\"Pizza G 10 fatias e até 2 sabores \",\"promotion\":true,\"active_weekday\":0,\"_id\":\"68ca11d1ce446e001983f7a0\"},{\"caption\":\"Promo \",\"promotion\":true,\"active_weekday\":1,\"_id\":\"6940251b17b7fb001810b2b9\",\"url\":\"https://s3-us-west-2.amazonaws.com/staginganotaai/establishment/img-1765811482061\"},{\"caption\":\"Promo \",\"promotion\":true,\"active_weekday\":5,\"_id\":\"694025388baeaa0019bf86db\",\"url\":\"https://s3-us-west-2.amazonaws.com/staginganotaai/establishment/img-1765811511202\"},{\"caption\":\"Promo \",\"promotion\":true,\"active_weekday\":6,\"_id\":\"6940256af9c9ae0019b51ea6\",\"url\":\"https://s3-us-west-2.amazonaws.com/staginganotaai/establishment/img-1765811561723\"},{\"caption\":\"Promo \",\"promotion\":true,\"active_weekday\":3,\"_id\":\"694025898baeaa0019bf87a8\",\"url\":\"https://s3-us-west-2.amazonaws.com/staginganotaai/establishment/img-1765811592533\"},{\"caption\":\"Promo \",\"promotion\":true,\"active_weekday\":4,\"_id\":\"694025a417b7fb001810b446\",\"url\":\"https://s3-us-west-2.amazonaws.com/staginganotaai/establishment/img-1765811619573\"}]},\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"sound_1\",\"customer_request_notification_song\":\"sound_1\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":false},\"cashback\":{\"cashback_by_weekday\":[]},\"page_is_online\":true,\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"68911dfb3e7ccd001216cc56\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"state\":\"PB\",\"city\":\"CABEDELO\",\"addressFormated\":\"AVENIDA MONSENHOR JOSÉ DA SILVA COUTINHO, 113 - JARDIM BRASÍLIA, CABEDELO - PB, 58.103-332, Brasil\",\"name\":\"AVENIDA MONSENHOR JOSÉ DA SILVA COUTINHO\",\"num\":\"113\",\"postal_code\":\"58.103-332\",\"neighborhood\":\"JARDIM BRASÍLIA\",\"complement\":\"Casa\",\"location\":{\"coordinates\":[-34.830606,-6.9847832]},\"reference\":\"Rua da Honda \",\"hided\":false},\"payment_method\":{\"money\":true,\"creditcard\":true,\"question"
+    },
+    "error": null,
+    "textLength": 275066
+  }
+]

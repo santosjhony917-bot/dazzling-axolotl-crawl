@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-06T15:39:38.996Z",
+  "leases": {
+    "a7e0b267-8b70-4488-b548-dcee41bce76f": {
+      "restaurant_id": "a7e0b267-8b70-4488-b548-dcee41bce76f",
+      "name": "Bar da Queda",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://anota.ai/bar-da-queda-1",
+      "laneId": "test-lane",
+      "port": "9331",
+      "runId": "2026-07-06T15-28-43-351Z",
+      "status": "released",
+      "assignedAt": "2026-07-06T15:28:43.359Z",
+      "expiresAt": "2026-07-07T09:28:43.359Z",
+      "releasedAt": "2026-07-06T15:39:38.996Z",
+      "releaseReason": "chat-mae_paused_old_anotaai_batch_to_avoid_confusion"
+    },
+    "624a1b1d-80ea-4c9c-a5ed-a1cb81702e16": {
+      "restaurant_id": "624a1b1d-80ea-4c9c-a5ed-a1cb81702e16",
+      "name": "Bebelu Sanduíches Centro",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://app.anota.ai/Bebelucg",
+      "laneId": "test-lane",
+      "port": "9331",
+      "runId": "2026-07-06T15-28-43-351Z",
+      "status": "released",
+      "assignedAt": "2026-07-06T15:28:43.359Z",
+      "expiresAt": "2026-07-07T09:28:43.359Z",
+      "releasedAt": "2026-07-06T15:39:38.996Z",
+      "releaseReason": "chat-mae_paused_old_anotaai_batch_to_avoid_confusion"
+    },
+    "d0c129b8-27e9-4f49-9085-c17f06b5c307": {
+      "restaurant_id": "d0c129b8-27e9-4f49-9085-c17f06b5c307",
+      "name": "Gigantão Lanches",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://anota.ai/p/gigantao-lanches-e-restaurante",
+      "laneId": "test-lane",
+      "port": "9331",
+      "runId": "2026-07-06T15-28-43-351Z",
+      "status": "released",
+      "assignedAt": "2026-07-06T15:28:43.359Z",
+      "expiresAt": "2026-07-07T09:28:43.359Z",
+      "releasedAt": "2026-07-06T15:39:38.996Z",
+      "releaseReason": "chat-mae_paused_old_anotaai_batch_to_avoid_confusion"
+    },
+    "919558fb-f07f-44e4-86ab-19cd34f76364": {
+      "restaurant_id": "919558fb-f07f-44e4-86ab-19cd34f76364",
+      "name": "La Casa da Pizza",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://anota.ai/m/9yUn8x5kl",
+      "laneId": "test-lane",
+      "port": "9331",
+      "runId": "2026-07-06T15-28-43-351Z",
+      "status": "released",
+      "assignedAt": "2026-07-06T15:28:43.359Z",
+      "expiresAt": "2026-07-07T09:28:43.359Z",
+      "releasedAt": "2026-07-06T15:39:38.996Z",
+      "releaseReason": "chat-mae_paused_old_anotaai_batch_to_avoid_confusion"
+    },
+    "c98bf942-43f3-4c5c-9bf3-57f4567e53f1": {
+      "restaurant_id": "c98bf942-43f3-4c5c-9bf3-57f4567e53f1",
+      "name": "Bebelu Sanduíches - Dinamérica / Campina Grande-PB",
+      "platform": "anota_ai",
+      "tier": "green",
+      "source_url": "https://app.anota.ai/Bebelucg",
+      "laneId": "test-lane",
+      "port": "9331",
+      "runId": "2026-07-06T15-28-43-351Z",
+      "status": "released",
+      "assignedAt": "2026-07-06T15:28:43.359Z",
+      "expiresAt": "2026-07-07T09:28:43.359Z",
+      "releasedAt": "2026-07-06T15:39:38.996Z",
+      "releaseReason": "chat-mae_paused_old_anotaai_batch_to_avoid_confusion"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "runId": "2026-07-06T16-16-58-790Z",
+  "mode": "scrape",
+  "restaurant": "Necão Restaurante",
+  "url": "https://pedido.anota.ai/loja/neco-restaurante",
+  "platform": "anota_ai",
+  "success": true,
+  "evidence": {
+    "tier": "green",
+    "priceCount": 77,
+    "samplePrices": [
+      "R$ 109,90",
+      "R$ 129,90",
+      "R$ 12,90",
+      "R$ 44,90",
+      "R$ 54,90",
+      "R$ 79,90",
+      "R$ 89,90",
+      "R$ 99,90",
+      "R$ 189,90",
+      "R$ 199,90",
+      "R$ 25,00",
+      "R$ 30,00",
+      "R$ 16,00",
+      "R$ 20,00",
+      "R$ 24,00",
+      "R$ 50,00",
+      "R$ 75,00",
+      "R$ 60,00",
+      "R$ 119,90",
+      "R$ 179,90"
+    ],
+    "menuWords": [
+      "cardapio",
+      "cardápio",
+      "pedido",
+      "combo",
+      "porcao",
+      "porção"
+    ],
+    "cityConfirmed": false,
+    "matchedNameTokens": [
+      "necao"
+    ],
+    "operationalJunk": [
+      "embalagem"
+    ],
+    "flags": [
+      "city_not_confirmed",
+      "operational_options_may_need_cleanup"
+    ]
+  },
+  "files": {
+    "rawPath": "scratch\\firecrawl-menu-extraction\\2026-07-06T16-16-58-790Z\\raw-response.json",
+    "markdownPath": "scratch\\firecrawl-menu-extraction\\2026-07-06T16-16-58-790Z\\markdown.md",
+    "jsonPath": null,
+    "summaryPath": "scratch\\firecrawl-menu-extraction\\2026-07-06T16-16-58-790Z\\summary.json"
+  }
+}

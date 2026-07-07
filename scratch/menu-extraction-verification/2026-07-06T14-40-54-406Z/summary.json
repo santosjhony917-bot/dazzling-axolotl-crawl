@@ -1,0 +1,82 @@
+{
+  "runId": "2026-07-06T14-40-54-406Z",
+  "apply": false,
+  "limit": 8,
+  "platform": "anota_ai",
+  "status": "needs_recollection",
+  "targetCount": 8,
+  "targetQueueCounts": {
+    "green": 8,
+    "yellow": 0,
+    "red": 0
+  },
+  "processed": [
+    {
+      "restaurantId": "eea035c3-ab24-4d02-998a-88854e5450f7",
+      "restaurantName": "Alexandre Restaurante",
+      "sourceUrl": "https://pedido.anota.ai/loja/alexandre-restaurante?f=msa",
+      "platform": "anota_ai",
+      "queue": {
+        "restaurantId": "eea035c3-ab24-4d02-998a-88854e5450f7",
+        "restaurantName": "Alexandre Restaurante",
+        "platform": "anota_ai",
+        "sourceUrl": "https://pedido.anota.ai/loja/alexandre-restaurante?f=msa",
+        "score": 17,
+        "tier": "green",
+        "flags": [],
+        "nextAction": "fast_visual_review_then_import",
+        "category": "Restaurante self-service·",
+        "address": "Av. Mal. Floriano Peixoto",
+        "phone": "(83) 3322-4733",
+        "instagram": "https://www.instagram.com/alexandrerestaurante/"
+      },
+      "review": {
+        "tier": "red",
+        "restaurantId": "eea035c3-ab24-4d02-998a-88854e5450f7",
+        "restaurantName": "Alexandre Restaurante",
+        "platform": "anota_ai",
+        "sourceUrl": "https://pedido.anota.ai/loja/alexandre-restaurante?f=msa",
+        "score": 17,
+        "sourceTier": "green",
+        "sourceFlags": [],
+        "itemCount": 0,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "dryRunApproved": false,
+        "confidence": 0,
+        "pricedRatio": 0,
+        "unresolvedPriceCount": 0,
+        "committed": false,
+        "flags": [
+          "collector_error",
+          "no_extension_print",
+          "no_structured_items",
+          "insufficient_visual_menu_evidence",
+          "price_coverage_review"
+        ],
+        "nextAction": "reject_or_rediscover_source",
+        "snapshotPath": null,
+        "viewportSnapshotPaths": [],
+        "evidencePath": null,
+        "error": "Timeout aguardando extensao para open_url"
+      },
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T14-40-54-406Z\\001-alexandre-restaurante",
+      "openedTabId": null,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": null,
+      "verificationSnapshots": [],
+      "verificationSnapshotError": null,
+      "extractionSummary": null,
+      "dryRun": null,
+      "committed": false,
+      "visualBlock": null,
+      "error": "Timeout aguardando extensao para open_url"
+    }
+  ],
+  "reviewCounts": {
+    "green": 0,
+    "yellow": 0,
+    "red": 1
+  }
+}

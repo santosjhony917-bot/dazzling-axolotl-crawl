@@ -1,0 +1,537 @@
+{
+  "url": "https://api.anota.ai/clientauth/client-orders/",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 10766,
+  "textSample": "{\"docs\":[{\"_id\":\"69f7cff2f341bc2acfb372d2\",\"__v\":0,\"add_disposable\":false,\"address\":{\"region_name\":\"\",\"reference_point\":\"Praca das corujas é Naia\",\"name\":\"Av. Oceano Atlântico\",\"num\":\"899\",\"neighborhood\":\"Intermares\",\"complement\":\"Treiler de hamburguer\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.8382085,-7.038227200000001]},\"postal_code\":\"58310-000\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"country\":\"br\"},\"benefits\":[],\"check\":3,\"client\":\"6838f4abf5b2a10011bce109\",\"createdAt\":\"2026-05-03T22:45:06.848Z\",\"deliverymode\":\"delivery\",\"deliveryprice\":5,\"early_order\":false,\"from\":\"whats\",\"ifood_order_integration\":{\"order_v4\":true,\"merchant_id\":\"1e5c2a65-b8d2-42be-a4d2-a15090546f8e\"},\"log\":[{\"user_id\":null,\"date\":\"2026-05-03T22:45:06.000Z\",\"content\":\"check -3\",\"_id\":\"69f7cff2f341bc2acfb372e0\"},{\"date\":\"2026-05-03T22:45:07.719Z\",\"content\":\"check: undefined\",\"app_name\":\"order-ifood-v4-worker\",\"_id\":\"69f7cff337532f92f7066b32\"},{\"date\":\"2026-05-03T22:45:07.795Z\",\"content\":\"check: 1\",\"app_name\":\"order-ifood-v4-worker\",\"_id\":\"69f7cff337532f92f7066b35\"},{\"user_id\":\"66733bc585a695001263d478\",\"date\":\"2026-05-03T23:10:13.080Z\",\"content\":\"check 2\",\"app_name\":\"order-admin-auth-api\",\"_id\":\"69f7d5d5bbae8fa64802a76b\"},{\"user_id\":\"66733bc585a695001263d478\",\"date\":\"2026-05-03T23:10:17.695Z\",\"content\":\"check 3\",\"app_name\":\"order-admin-auth-api\",\"_id\":\"69f7d5d999c3b2f91490db81\"}],\"nm_itens\":[{\"title\":\"GRANDE\",\"ready\":false,\"amount\":1,\"total\":52.9,\"image\":\"https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza\",\"off\":0,\"external_id\":\"\",\"subItems\":[{\"category_item\":\"6831d2b5dd1ce937260d517b\",\"item\":\"6831d2b4dd1ce937260d4a3d\",\"price\":\"6831d2b4dd1ce937260d4b11\",\"category\":\"6831d2b4dd1ce937260d4a20\",\"title\":\"GRANDE\",\"title_category\":\"Pizzas Salgadas Grande\",\"title_category_concat\":\"Pizzas Salgadas Grande\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":0,\"id_parent\":-1,\"external_id\":\"\",\"next_steps\":[{\"category\":\"6831d2b4dd1ce937260d4a2c\",\"max\":2,\"min\":1,\"price_model\":1,\"_id\":\"6997a01d2534b6c8bebd2a57\"},{\"category\":\"6831d2b4dd1ce937260d4a2a\",\"max\":1,\"min\":1,\"price_model\":0,\"_id\":\"6831d2b5dd1ce937260d517d\"}],\"_id\":\"6831d2b5dd1ce937260d517b\"},{\"category_item\":\"6831d2b5dd1ce937260d51e2\",\"item\":\"6831d2b4dd1ce937260d4a68\",\"price\":\"6831d2b5dd1ce937260d4d89\",\"category\":\"6831d2b4dd1ce937260d4a2c\",\"title\":\"Calabresa\",\"title_category\":\"sabor GRANDE\",\"title_category_concat\":\"sabor GRANDE\",\"amount\":1,\"price_unit\":52.9,\"total\":52.9,\"off\":0,\"id\":1,\"id_parent\":0,\"external_id\":\"|1753b78c-a4a7-36b2-9282-e91b38520e79|\",\"details_fraction\":\"1/1 Calabresa\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51e2\"},{\"category_item\":\"6831d2b5dd1ce937260d51d1\",\"item\":\"6831d2b4dd1ce937260d4a76\",\"price\":\"6831d2b5dd1ce937260d4cd9\",\"category\":\"6831d2b4dd1ce937260d4a2a\",\"title\":\"Massa Tradicional\",\"title_category\":\"Escolha a sua Preferência\",\"title_category_concat\":\"Escolha a sua Preferência\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":2,\"id_parent\":0,\"external_id\":\"\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51d1\"}],\"_id\":\"69f7cff2f341bc2acfb372d3\"},{\"title\":\"GRANDE\",\"ready\":false,\"amount\":1,\"total\":52.9,\"image\":\"https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza\",\"off\":0,\"external_id\":\"\",\"subItems\":[{\"category_item\":\"6831d2b5dd1ce937260d517b\",\"item\":\"6831d2b4dd1ce937260d4a3d\",\"price\":\"6831d2b4dd1ce937260d4b11\",\"category\":\"6831d2b4dd1ce937260d4a20\",\"title\":\"GRANDE\",\"title_category\":\"Pizzas Salgadas Grande\",\"title_category_concat\":\"Pizzas Salgadas Grande\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":0,\"id_parent\":-1,\"external_id\":\"\",\"next_steps\":[{\"category\":\"6831d2b4dd1ce937260d4a2c\",\"max\":2,\"min\":1,\"price_model\":1,\"_id\":\"6997a01d2534b6c8bebd2a57\"},{\"category\":\"6831d2b4dd1ce937260d4a2a\",\"max\":1,\"min\":1,\"price_model\":0,\"_id\":\"6831d2b5dd1ce937260d517d\"}],\"_id\":\"6831d2b5dd1ce937260d517b\"},{\"category_item\":\"6831d2b5dd1ce937260d51dc\",\"item\":\"6831d2b4dd1ce937260d4a63\",\"price\":\"6831d2b5dd1ce937260d4c69\",\"category\":\"6831d2b4dd1ce937260d4a2c\",\"title\":\"Marguerita\",\"title_category\":\"sabor GRANDE\",\"title_category_concat\":\"sabor GRANDE\",\"amount\":1,\"price_unit\":52.9,\"total\":52.9,\"off\":0,\"id\":1,\"id_parent\":0,\"external_id\":\"|95baa96b-8464-3ee6-bd5b-8b4c22e270fd|\",\"details_fraction\":\"1/1 Marguerita\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51dc\"},{\"category_item\":\"6831d2b5dd1ce937260d51d1\",\"item\":\"6831d2b4dd1ce937260d4a76\",\"price\":\"6831d2b5dd1ce937260d4cd9\",\"category\":\"6831d2b4dd1ce937260d4a2a\",\"title\":\"Massa Tradicional\",\"title_category\":\"Escolha a sua Preferência\",\"title_category_concat\":\"Escolha a sua Preferência\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":2,\"id_parent\":0,\"external_id\":\"\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51d1\"}],\"_id\":\"69f7cff2f341bc2acfb372d9\"}],\"numorder\":6,\"off\":0,\"order_automatic_on_production\":true,\"page\":\"682e6d00001ddb0012bddddc\",\"payment_method\":\"money\",\"payment_methods\":[{\"payment_method\":\"money\",\"questionChange\":\"Não precisa\",\"value\":\"110.8\",\"_id\":\"69f7cff2f341bc2acfb372df\"}],\"replication_lag\":0.024,\"target_add\":false,\"total\":110.8,\"unit_time_delivery_max\":49,\"unit_time_delivery_min\":39,\"unit_time_take_max\":0,\"unit_time_take_min\":0,\"updatedAt\":\"2026-05-03T23:10:17.701Z\",\"ifood_id\":\"47be63ee-48cc-4fd9-9d0d-dd8a112eef8e\"},{\"_id\":\"69f7cf03e4a415933e029996\",\"__v\":0,\"add_disposable\":false,\"address\":{\"region_name\":\"\",\"reference_point\":\"Praca das corujas é Naia\",\"name\":\"Av. Oceano Atlântico\",\"num\":\"899\",\"neighborhood\":\"Intermares\",\"complement\":\"Treiler de hamburguer\",\"location\":{\"type\":\"Point\",\"coordinates\":[-34.8382085,-7.038227200000001]},\"postal_code\":\"58310-000\",\"city\":\"Cabedelo\",\"state\":\"PB\",\"country\":\"br\"},\"benefits\":[],\"check\":42,\"client\":\"6838f4abf5b2a10011bce109\",\"convenience_fee\":0.99,\"createdAt\":\"2026-05-03T22:41:07.822Z\",\"deliverymode\":\"delivery\",\"deliveryprice\":5,\"early_order\":false,\"from\":\"whats\",\"ifood_id\":\"95551121-1d9c-4bec-9d81-de0abbacd8e3\",\"ifood_order_integration\":{\"order_v4\":true,\"merchant_id\":\"1e5c2a65-b8d2-42be-a4d2-a15090546f8e\",\"merchant_name\":\"Eu Quero Pizza\",\"merchant_address\":{\"country\":\"BR\",\"state\":\"PB\",\"city\":\"Cabedelo\",\"neighborhood\":\"Ponta de Campina\",\"street\":\"Via Litorânea, 1215, Ponta de Campina, Cabedelo - PB, CEP 58.101-650\",\"address_number\":\"1215\",\"zip_code\":\"58.101-650\"},\"merchant_phone\":\"5583998573813\",\"merchant_mcc\":\"\",\"pix\":{\"qr_code\":\"00020101021226850014br.gov.bcb.pix2563qrcode.zoop.com.br/dynamic/aed583ff-f130-40d8-a976-499d06cc22285204000053039865802BR5925IFOOD PAGO INSTITUICAO DE6009Sao Paulo610901227-20062070503***6304F4B7\"},\"error\":{\"code\":\"130000\",\"message\":\"Não conseguimos processar seu pagamento pelo ifood. Escolha outra forma de pagamento ou tente novamente mais tarde.\",\"expected_action\":\"REVIEW_PAYMENT_METHOD\"}},\"log\":[{\"user_id\":null,\"date\":\"2026-05-03T22:41:07.000Z\",\"content\":\"check -3\",\"_id\":\"69f7cf03e4a415933e0299a4\"},{\"date\":\"2026-05-03T22:41:10.177Z\",\"content\":\"check: -1\",\"app_name\":\"order-ifood-v4-worker\",\"_id\":\"69f7cf0692be23deda2c54f0\"},{\"date\":\"2026-05-03T22:48:38.750Z\",\"content\":\"check: 42\",\"_id\":\"69f7d0c6d130f29ac44563f4\"}],\"nm_itens\":[{\"title\":\"GRANDE\",\"ready\":false,\"amount\":1,\"total\":52.9,\"image\":\"https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza\",\"off\":0,\"external_id\":\"\",\"subItems\":[{\"category_item\":\"6831d2b5dd1ce937260d517b\",\"item\":\"6831d2b4dd1ce937260d4a3d\",\"price\":\"6831d2b4dd1ce937260d4b11\",\"category\":\"6831d2b4dd1ce937260d4a20\",\"title\":\"GRANDE\",\"title_category\":\"Pizzas Salgadas Grande\",\"title_category_concat\":\"Pizzas Salgadas Grande\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":0,\"id_parent\":-1,\"external_id\":\"\",\"next_steps\":[{\"category\":\"6831d2b4dd1ce937260d4a2c\",\"max\":2,\"min\":1,\"price_model\":1,\"_id\":\"6997a01d2534b6c8bebd2a57\"},{\"category\":\"6831d2b4dd1ce937260d4a2a\",\"max\":1,\"min\":1,\"price_model\":0,\"_id\":\"6831d2b5dd1ce937260d517d\"}],\"_id\":\"6831d2b5dd1ce937260d517b\"},{\"category_item\":\"6831d2b5dd1ce937260d51e2\",\"item\":\"6831d2b4dd1ce937260d4a68\",\"price\":\"6831d2b5dd1ce937260d4d89\",\"category\":\"6831d2b4dd1ce937260d4a2c\",\"title\":\"Calabresa\",\"title_category\":\"sabor GRANDE\",\"title_category_concat\":\"sabor GRANDE\",\"amount\":1,\"price_unit\":52.9,\"total\":52.9,\"off\":0,\"id\":1,\"id_parent\":0,\"external_id\":\"|1753b78c-a4a7-36b2-9282-e91b38520e79|\",\"details_fraction\":\"1/1 Calabresa\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51e2\"},{\"category_item\":\"6831d2b5dd1ce937260d51d1\",\"item\":\"6831d2b4dd1ce937260d4a76\",\"price\":\"6831d2b5dd1ce937260d4cd9\",\"category\":\"6831d2b4dd1ce937260d4a2a\",\"title\":\"Massa Tradicional\",\"title_category\":\"Escolha a sua Preferência\",\"title_category_concat\":\"Escolha a sua Preferência\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":2,\"id_parent\":0,\"external_id\":\"\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51d1\"}],\"_id\":\"69f7cf03e4a415933e029997\"},{\"title\":\"GRANDE\",\"ready\":false,\"amount\":1,\"total\":52.9,\"image\":\"https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza\",\"off\":0,\"external_id\":\"\",\"subItems\":[{\"category_item\":\"6831d2b5dd1ce937260d517b\",\"item\":\"6831d2b4dd1ce937260d4a3d\",\"price\":\"6831d2b4dd1ce937260d4b11\",\"category\":\"6831d2b4dd1ce937260d4a20\",\"title\":\"GRANDE\",\"title_category\":\"Pizzas Salgadas Grande\",\"title_category_concat\":\"Pizzas Salgadas Grande\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":0,\"id_parent\":-1,\"external_id\":\"\",\"next_steps\":[{\"category\":\"6831d2b4dd1ce937260d4a2c\",\"max\":2,\"min\":1,\"price_model\":1,\"_id\":\"6997a01d2534b6c8bebd2a57\"},{\"category\":\"6831d2b4dd1ce937260d4a2a\",\"max\":1,\"min\":1,\"price_model\":0,\"_id\":\"6831d2b5dd1ce937260d517d\"}],\"_id\":\"6831d2b5dd1ce937260d517b\"},{\"category_item\":\"6831d2b5dd1ce937260d51dc\",\"item\":\"6831d2b4dd1ce937260d4a63\",\"price\":\"6831d2b5dd1ce937260d4c69\",\"category\":\"6831d2b4dd1ce937260d4a2c\",\"title\":\"Marguerita\",\"title_category\":\"sabor GRANDE\",\"title_category_concat\":\"sabor GRANDE\",\"amount\":1,\"price_unit\":52.9,\"total\":52.9,\"off\":0,\"id\":1,\"id_parent\":0,\"external_id\":\"|95baa96b-8464-3ee6-bd5b-8b4c22e270fd|\",\"details_fraction\":\"1/1 Marguerita\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51dc\"},{\"category_item\":\"6831d2b5dd1ce937260d51d1\",\"item\":\"6831d2b4dd1ce937260d4a76\",\"price\":\"6831d2b5dd1ce937260d4cd9\",\"category\":\"6831d2b4dd1ce937260d4a2a\",\"title\":\"Massa Tradicional\",\"title_category\":\"Escolha a sua Preferência\",\"title_category_concat\":\"Escolha a sua Preferência\",\"amount\":1,\"price_unit\":0,\"total\":0,\"off\":0,\"id\":2,\"id_parent\":0,\"external_id\":\"\",\"next_steps\":[],\"_id\":\"6831d2b5dd1ce937260d51d1\"}],\"_id\":\"69f7cf03e4a415933e02999d\"}],\"numorder\":5,\"off\":0,\"order_automatic_on_production\":true,\"page\":\"682e6d00001ddb0012bddddc\",\"payment_method\":\"ifood-online-pix-payin\",\"payment_methods\":[{\"payment_method\":\"ifood-online-pix-payin\",\"value\":\"111.79\",\"_id\":\"69f7cf03e4a415933e0299a3\"}],\"replication_lag\":0.019,\"target_add\":false,\"total\":111.79,\"unit_time_delivery_max\":49,\"unit_time_delivery_min\":39,\"unit_time_take_max\":0,\"unit_time_take_min\":0,\"updatedAt\":\"2026-05-03T22:48:38.763Z\"}]}",
+  "jsonKeys": [
+    "docs"
+  ],
+  "json": {
+    "docs": [
+      {
+        "_id": "69f7cff2f341bc2acfb372d2",
+        "__v": 0,
+        "add_disposable": false,
+        "address": {
+          "region_name": "",
+          "reference_point": "Praca das corujas é Naia",
+          "name": "Av. Oceano Atlântico",
+          "num": "899",
+          "neighborhood": "Intermares",
+          "complement": "Treiler de hamburguer",
+          "location": {
+            "type": "Point",
+            "coordinates": [
+              -34.8382085,
+              -7.038227200000001
+            ]
+          },
+          "postal_code": "58310-000",
+          "city": "Cabedelo",
+          "state": "PB",
+          "country": "br"
+        },
+        "benefits": [],
+        "check": 3,
+        "client": "6838f4abf5b2a10011bce109",
+        "createdAt": "2026-05-03T22:45:06.848Z",
+        "deliverymode": "delivery",
+        "deliveryprice": 5,
+        "early_order": false,
+        "from": "whats",
+        "ifood_order_integration": {
+          "order_v4": true,
+          "merchant_id": "1e5c2a65-b8d2-42be-a4d2-a15090546f8e"
+        },
+        "log": [
+          {
+            "user_id": null,
+            "date": "2026-05-03T22:45:06.000Z",
+            "content": "check -3",
+            "_id": "69f7cff2f341bc2acfb372e0"
+          },
+          {
+            "date": "2026-05-03T22:45:07.719Z",
+            "content": "check: undefined",
+            "app_name": "order-ifood-v4-worker",
+            "_id": "69f7cff337532f92f7066b32"
+          },
+          {
+            "date": "2026-05-03T22:45:07.795Z",
+            "content": "check: 1",
+            "app_name": "order-ifood-v4-worker",
+            "_id": "69f7cff337532f92f7066b35"
+          },
+          {
+            "user_id": "66733bc585a695001263d478",
+            "date": "2026-05-03T23:10:13.080Z",
+            "content": "check 2",
+            "app_name": "order-admin-auth-api",
+            "_id": "69f7d5d5bbae8fa64802a76b"
+          },
+          {
+            "user_id": "66733bc585a695001263d478",
+            "date": "2026-05-03T23:10:17.695Z",
+            "content": "check 3",
+            "app_name": "order-admin-auth-api",
+            "_id": "69f7d5d999c3b2f91490db81"
+          }
+        ],
+        "nm_itens": [
+          {
+            "title": "GRANDE",
+            "ready": false,
+            "amount": 1,
+            "total": 52.9,
+            "image": "https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza",
+            "off": 0,
+            "external_id": "",
+            "subItems": [
+              {
+                "category_item": "6831d2b5dd1ce937260d517b",
+                "item": "6831d2b4dd1ce937260d4a3d",
+                "price": "6831d2b4dd1ce937260d4b11",
+                "category": "6831d2b4dd1ce937260d4a20",
+                "title": "GRANDE",
+                "title_category": "Pizzas Salgadas Grande",
+                "title_category_concat": "Pizzas Salgadas Grande",
+                "amount": 1,
+                "price_unit": 0,
+                "total": 0,
+                "off": 0,
+                "id": 0,
+                "id_parent": -1,
+                "external_id": "",
+                "next_steps": [
+                  {
+                    "category": "6831d2b4dd1ce937260d4a2c",
+                    "max": 2,
+                    "min": 1,
+                    "price_model": 1,
+                    "_id": "6997a01d2534b6c8bebd2a57"
+                  },
+                  {
+                    "category": "6831d2b4dd1ce937260d4a2a",
+                    "max": 1,
+                    "min": 1,
+                    "price_model": 0,
+                    "_id": "6831d2b5dd1ce937260d517d"
+                  }
+                ],
+                "_id": "6831d2b5dd1ce937260d517b"
+              },
+              {
+                "category_item": "6831d2b5dd1ce937260d51e2",
+                "item": "6831d2b4dd1ce937260d4a68",
+                "price": "6831d2b5dd1ce937260d4d89",
+                "category": "6831d2b4dd1ce937260d4a2c",
+                "title": "Calabresa",
+                "title_category": "sabor GRANDE",
+                "title_category_concat": "sabor GRANDE",
+                "amount": 1,
+                "price_unit": 52.9,
+                "total": 52.9,
+                "off": 0,
+                "id": 1,
+                "id_parent": 0,
+                "external_id": "|1753b78c-a4a7-36b2-9282-e91b38520e79|",
+                "details_fraction": "1/1 Calabresa",
+                "next_steps": [],
+                "_id": "6831d2b5dd1ce937260d51e2"
+              },
+              {
+                "category_item": "6831d2b5dd1ce937260d51d1",
+                "item": "6831d2b4dd1ce937260d4a76",
+                "price": "6831d2b5dd1ce937260d4cd9",
+                "category": "6831d2b4dd1ce937260d4a2a",
+                "title": "Massa Tradicional",
+                "title_category": "Escolha a sua Preferência",
+                "title_category_concat": "Escolha a sua Preferência",
+                "amount": 1,
+                "price_unit": 0,
+                "total": 0,
+                "off": 0,
+                "id": 2,
+                "id_parent": 0,
+                "external_id": "",
+                "next_steps": [],
+                "_id": "6831d2b5dd1ce937260d51d1"
+              }
+            ],
+            "_id": "69f7cff2f341bc2acfb372d3"
+          },
+          {
+            "title": "GRANDE",
+            "ready": false,
+            "amount": 1,
+            "total": 52.9,
+            "image": "https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza",
+            "off": 0,
+            "external_id": "",
+            "subItems": [
+              {
+                "category_item": "6831d2b5dd1ce937260d517b",
+                "item": "6831d2b4dd1ce937260d4a3d",
+                "price": "6831d2b4dd1ce937260d4b11",
+                "category": "6831d2b4dd1ce937260d4a20",
+                "title": "GRANDE",
+                "title_category": "Pizzas Salgadas Grande",
+                "title_category_concat": "Pizzas Salgadas Grande",
+                "amount": 1,
+                "price_unit": 0,
+                "total": 0,
+                "off": 0,
+                "id": 0,
+                "id_parent": -1,
+                "external_id": "",
+                "next_steps": [
+                  {
+                    "category": "6831d2b4dd1ce937260d4a2c",
+                    "max": 2,
+                    "min": 1,
+                    "price_model": 1,
+                    "_id": "6997a01d2534b6c8bebd2a57"
+                  },
+                  {
+                    "category": "6831d2b4dd1ce937260d4a2a",
+                    "max": 1,
+                    "min": 1,
+                    "price_model": 0,
+                    "_id": "6831d2b5dd1ce937260d517d"
+                  }
+                ],
+                "_id": "6831d2b5dd1ce937260d517b"
+              },
+              {
+                "category_item": "6831d2b5dd1ce937260d51dc",
+                "item": "6831d2b4dd1ce937260d4a63",
+                "price": "6831d2b5dd1ce937260d4c69",
+                "category": "6831d2b4dd1ce937260d4a2c",
+                "title": "Marguerita",
+                "title_category": "sabor GRANDE",
+                "title_category_concat": "sabor GRANDE",
+                "amount": 1,
+                "price_unit": 52.9,
+                "total": 52.9,
+                "off": 0,
+                "id": 1,
+                "id_parent": 0,
+                "external_id": "|95baa96b-8464-3ee6-bd5b-8b4c22e270fd|",
+                "details_fraction": "1/1 Marguerita",
+                "next_steps": [],
+                "_id": "6831d2b5dd1ce937260d51dc"
+              },
+              {
+                "category_item": "6831d2b5dd1ce937260d51d1",
+                "item": "6831d2b4dd1ce937260d4a76",
+                "price": "6831d2b5dd1ce937260d4cd9",
+                "category": "6831d2b4dd1ce937260d4a2a",
+                "title": "Massa Tradicional",
+                "title_category": "Escolha a sua Preferência",
+                "title_category_concat": "Escolha a sua Preferência",
+                "amount": 1,
+                "price_unit": 0,
+                "total": 0,
+                "off": 0,
+                "id": 2,
+                "id_parent": 0,
+                "external_id": "",
+                "next_steps": [],
+                "_id": "6831d2b5dd1ce937260d51d1"
+              }
+            ],
+            "_id": "69f7cff2f341bc2acfb372d9"
+          }
+        ],
+        "numorder": 6,
+        "off": 0,
+        "order_automatic_on_production": true,
+        "page": "682e6d00001ddb0012bddddc",
+        "payment_method": "money",
+        "payment_methods": [
+          {
+            "payment_method": "money",
+            "questionChange": "Não precisa",
+            "value": "110.8",
+            "_id": "69f7cff2f341bc2acfb372df"
+          }
+        ],
+        "replication_lag": 0.024,
+        "target_add": false,
+        "total": 110.8,
+        "unit_time_delivery_max": 49,
+        "unit_time_delivery_min": 39,
+        "unit_time_take_max": 0,
+        "unit_time_take_min": 0,
+        "updatedAt": "2026-05-03T23:10:17.701Z",
+        "ifood_id": "47be63ee-48cc-4fd9-9d0d-dd8a112eef8e"
+      },
+      {
+        "_id": "69f7cf03e4a415933e029996",
+        "__v": 0,
+        "add_disposable": false,
+        "address": {
+          "region_name": "",
+          "reference_point": "Praca das corujas é Naia",
+          "name": "Av. Oceano Atlântico",
+          "num": "899",
+          "neighborhood": "Intermares",
+          "complement": "Treiler de hamburguer",
+          "location": {
+            "type": "Point",
+            "coordinates": [
+              -34.8382085,
+              -7.038227200000001
+            ]
+          },
+          "postal_code": "58310-000",
+          "city": "Cabedelo",
+          "state": "PB",
+          "country": "br"
+        },
+        "benefits": [],
+        "check": 42,
+        "client": "6838f4abf5b2a10011bce109",
+        "convenience_fee": 0.99,
+        "createdAt": "2026-05-03T22:41:07.822Z",
+        "deliverymode": "delivery",
+        "deliveryprice": 5,
+        "early_order": false,
+        "from": "whats",
+        "ifood_id": "95551121-1d9c-4bec-9d81-de0abbacd8e3",
+        "ifood_order_integration": {
+          "order_v4": true,
+          "merchant_id": "1e5c2a65-b8d2-42be-a4d2-a15090546f8e",
+          "merchant_name": "Eu Quero Pizza",
+          "merchant_address": {
+            "country": "BR",
+            "state": "PB",
+            "city": "Cabedelo",
+            "neighborhood": "Ponta de Campina",
+            "street": "Via Litorânea, 1215, Ponta de Campina, Cabedelo - PB, CEP 58.101-650",
+            "address_number": "1215",
+            "zip_code": "58.101-650"
+          },
+          "merchant_phone": "5583998573813",
+          "merchant_mcc": "",
+          "pix": {
+            "qr_code": "00020101021226850014br.gov.bcb.pix2563qrcode.zoop.com.br/dynamic/aed583ff-f130-40d8-a976-499d06cc22285204000053039865802BR5925IFOOD PAGO INSTITUICAO DE6009Sao Paulo610901227-20062070503***6304F4B7"
+          },
+          "error": {
+            "code": "130000",
+            "message": "Não conseguimos processar seu pagamento pelo ifood. Escolha outra forma de pagamento ou tente novamente mais tarde.",
+            "expected_action": "REVIEW_PAYMENT_METHOD"
+          }
+        },
+        "log": [
+          {
+            "user_id": null,
+            "date": "2026-05-03T22:41:07.000Z",
+            "content": "check -3",
+            "_id": "69f7cf03e4a415933e0299a4"
+          },
+          {
+            "date": "2026-05-03T22:41:10.177Z",
+            "content": "check: -1",
+            "app_name": "order-ifood-v4-worker",
+            "_id": "69f7cf0692be23deda2c54f0"
+          },
+          {
+            "date": "2026-05-03T22:48:38.750Z",
+            "content": "check: 42",
+            "_id": "69f7d0c6d130f29ac44563f4"
+          }
+        ],
+        "nm_itens": [
+          {
+            "title": "GRANDE",
+            "ready": false,
+            "amount": 1,
+            "total": 52.9,
+            "image": "https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza",
+            "off": 0,
+            "external_id": "",
+            "subItems": [
+              {
+                "category_item": "6831d2b5dd1ce937260d517b",
+                "item": "6831d2b4dd1ce937260d4a3d",
+                "price": "6831d2b4dd1ce937260d4b11",
+                "category": "6831d2b4dd1ce937260d4a20",
+                "title": "GRANDE",
+                "title_category": "Pizzas Salgadas Grande",
+                "title_category_concat": "Pizzas Salgadas Grande",
+                "amount": 1,
+                "price_unit": 0,
+                "total": 0,
+                "off": 0,
+                "id": 0,
+                "id_parent": -1,
+                "external_id": "",
+                "next_steps": [
+                  {
+                    "category": "6831d2b4dd1ce937260d4a2c",
+                    "max": 2,
+                    "min": 1,
+                    "price_model": 1,
+                    "_id": "6997a01d2534b6c8bebd2a57"
+                  },
+                  {
+                    "category": "6831d2b4dd1ce937260d4a2a",
+                    "max": 1,
+                    "min": 1,
+                    "price_model": 0,
+                    "_id": "6831d2b5dd1ce937260d517d"
+                  }
+                ],
+                "_id": "6831d2b5dd1ce937260d517b"
+              },
+              {
+                "category_item": "6831d2b5dd1ce937260d51e2",
+                "item": "6831d2b4dd1ce937260d4a68",
+                "price": "6831d2b5dd1ce937260d4d89",
+                "category": "6831d2b4dd1ce937260d4a2c",
+                "title": "Calabresa",
+                "title_category": "sabor GRANDE",
+                "title_category_concat": "sabor GRANDE",
+                "amount": 1,
+                "price_unit": 52.9,
+                "total": 52.9,
+                "off": 0,
+                "id": 1,
+                "id_parent": 0,
+                "external_id": "|1753b78c-a4a7-36b2-9282-e91b38520e79|",
+                "details_fraction": "1/1 Calabresa",
+                "next_steps": [],
+                "_id": "6831d2b5dd1ce937260d51e2"
+              },
+              {
+                "category_item": "6831d2b5dd1ce937260d51d1",
+                "item": "6831d2b4dd1ce937260d4a76",
+                "price": "6831d2b5dd1ce937260d4cd9",
+                "category": "6831d2b4dd1ce937260d4a2a",
+                "title": "Massa Tradicional",
+                "title_category": "Escolha a sua Preferência",
+                "title_category_concat": "Escolha a sua Preferência",
+                "amount": 1,
+                "price_unit": 0,
+                "total": 0,
+                "off": 0,
+                "id": 2,
+                "id_parent": 0,
+                "external_id": "",
+                "next_steps": [],
+                "_id": "6831d2b5dd1ce937260d51d1"
+              }
+            ],
+            "_id": "69f7cf03e4a415933e029997"
+          },
+          {
+            "title": "GRANDE",
+            "ready": false,
+            "amount": 1,
+            "total": 52.9,
+            "image": "https://anotaai.s3.us-west-2.amazonaws.com/pizzas/1pizza",
+            "off": 0,
+            "external_id": "",
+            "subItems": [
+              {
+                "category_item": "6831d2b5dd1ce937260d517b",
+                "item": "6831d2b4dd1ce937260d4a3d",
+                "price": "6831d2b4dd1ce937260d4b11",
+                "category": "6831d2b4dd1ce937260d4a20",
+                "title": "GRANDE",
+                "title_category": "Pizzas Salgadas Grande",
+                "title_category_concat": "Pizzas Salgadas Grande",
+                "amount": 1,
+                "price_unit": 0,
+                "total": 0,
+                "off": 0,
+                "id": 0,
+                "id_parent": -1,
+                "external_id": "",
+                "next_steps": [
+                  {
+                    "category": "6831d2b4dd1ce937260d4a2c",
+                    "max": 2,
+                    "min": 1,
+                    "price_model": 1,
+                    "_id": "6997a01d2534b6c8bebd2a57"
+                  },
+                  {
+                    "category": "6831d2b4dd1ce937260d4a2a",
+                    "max": 1,
+                    "min": 1,
+                    "price_model": 0,
+                    "_id": "6831d2b5dd1ce937260d517d"
+                  }
+                ],
+                "_id": "6831d2b5dd1ce937260d517b"
+              },
+              {
+                "category_item": "6831d2b5dd1ce937260d51dc",
+                "item": "6831d2b4dd1ce937260d4a63",
+                "price": "6831d2b5dd1ce937260d4c69",
+                "category": "6831d2b4dd1ce937260d4a2c",
+                "title": "Marguerita",
+                "title_category": "sabor GRANDE",
+                "title_category_concat": "sabor GRANDE",
+                "amount": 1,
+                "price_unit": 52.9,
+                "total": 52.9,
+                "off": 0,
+                "id": 1,
+                "id_parent": 0,
+                "external_id": "|95baa96b-8464-3ee6-bd5b-8b4c22e270fd|",
+                "details_fraction": "1/1 Marguerita",
+                "next_steps": [],
+                "_id": "6831d2b5dd1ce937260d51dc"
+              },
+              {
+                "category_item": "6831d2b5dd1ce937260d51d1",
+                "item": "6831d2b4dd1ce937260d4a76",
+                "price": "6831d2b5dd1ce937260d4cd9",
+                "category": "6831d2b4dd1ce937260d4a2a",
+                "title": "Massa Tradicional",
+                "title_category": "Escolha a sua Preferência",
+                "title_category_concat": "Escolha a sua Preferência",
+                "amount": 1,
+                "price_unit": 0,
+                "total": 0,
+                "off": 0,
+                "id": 2,
+                "id_parent": 0,
+                "external_id": "",
+                "next_steps": [],
+                "_id": "6831d2b5dd1ce937260d51d1"
+              }
+            ],
+            "_id": "69f7cf03e4a415933e02999d"
+          }
+        ],
+        "numorder": 5,
+        "off": 0,
+        "order_automatic_on_production": true,
+        "page": "682e6d00001ddb0012bddddc",
+        "payment_method": "ifood-online-pix-payin",
+        "payment_methods": [
+          {
+            "payment_method": "ifood-online-pix-payin",
+            "value": "111.79",
+            "_id": "69f7cf03e4a415933e0299a3"
+          }
+        ],
+        "replication_lag": 0.019,
+        "target_add": false,
+        "total": 111.79,
+        "unit_time_delivery_max": 49,
+        "unit_time_delivery_min": 39,
+        "unit_time_take_max": 0,
+        "unit_time_take_min": 0,
+        "updatedAt": "2026-05-03T22:48:38.763Z"
+      }
+    ]
+  }
+}

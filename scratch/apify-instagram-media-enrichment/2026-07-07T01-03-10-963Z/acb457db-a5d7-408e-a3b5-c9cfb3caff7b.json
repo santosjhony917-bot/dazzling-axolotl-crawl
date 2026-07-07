@@ -1,0 +1,91 @@
+{
+  "id": "acb457db-a5d7-408e-a3b5-c9cfb3caff7b",
+  "name": "Cibelly Bar & Restaurante",
+  "instagram": "https://www.instagram.com/cibellybar/",
+  "followers": 54864,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://linktr.ee/cibellybareturismo"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "add09e18-c565-4054-852f-5da5ef77fa53",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/acb457db-a5d7-408e-a3b5-c9cfb3caff7b/instagram_1783384311870_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "bd4099ab-6232-4295-a19c-d5abafff993e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/acb457db-a5d7-408e-a3b5-c9cfb3caff7b/instagram_1783384314275_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "1b841ce6-d4aa-4267-be7c-2db6eabd9b69",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/acb457db-a5d7-408e-a3b5-c9cfb3caff7b/instagram_1783384316019_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "a311bc92-b484-474b-b01b-768ab546d039",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/acb457db-a5d7-408e-a3b5-c9cfb3caff7b/instagram_1783384317219_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "d359e7ef-f7d8-4a9f-aa3d-c2d6c58416c7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/acb457db-a5d7-408e-a3b5-c9cfb3caff7b/instagram_1783384318325_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "f17e06c5-2886-411c-be1a-6fde2f7e3bcf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/acb457db-a5d7-408e-a3b5-c9cfb3caff7b/instagram_1783384319072_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "9ecb5c16-d702-4b8e-82dc-e3df17cc421d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/acb457db-a5d7-408e-a3b5-c9cfb3caff7b/instagram_1783384320337_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "3093eefd-ab95-4da2-8fb6-e2086d7e15d7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/acb457db-a5d7-408e-a3b5-c9cfb3caff7b/instagram_1783384321082_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

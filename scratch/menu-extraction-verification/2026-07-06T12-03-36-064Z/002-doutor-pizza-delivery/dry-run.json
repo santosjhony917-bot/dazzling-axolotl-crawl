@@ -1,0 +1,10 @@
+{
+  "code": 0,
+  "result": {
+    "success": false,
+    "requiresHuman": true,
+    "message": "A evidência coletada pela extensão não atingiu confiança suficiente. Revise a aba visível; nenhum navegador oculto foi iniciado."
+  },
+  "stdoutTail": "[Menu V2] Evidência estruturada indisponível; seguindo para DOM/OCR/LLM/visão progressivamente.\nRESULT:{\"success\":false,\"requiresHuman\":true,\"message\":\"A evidência coletada pela extensão não atingiu confiança suficiente. Revise a aba visível; nenhum navegador oculto foi iniciado.\"}\n",
+  "stderrTail": ""
+}

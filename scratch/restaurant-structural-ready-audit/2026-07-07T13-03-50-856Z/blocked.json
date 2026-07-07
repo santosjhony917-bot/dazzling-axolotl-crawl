@@ -1,0 +1,39 @@
+[
+  {
+    "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+    "name": "Forneria Brasil Express 🍕",
+    "redCount": 5,
+    "issueCodes": [
+      "numero_embutido_no_logradouro",
+      "numero_vazio",
+      "cep_ausente_ou_invalido",
+      "sem_capa",
+      "galeria_menor_que_3"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "numero_embutido_no_logradouro",
+        "value": "Rua Monte Castelo 12b"
+      },
+      {
+        "severity": "red",
+        "code": "numero_vazio"
+      },
+      {
+        "severity": "red",
+        "code": "cep_ausente_ou_invalido",
+        "value": null
+      },
+      {
+        "severity": "red",
+        "code": "sem_capa"
+      },
+      {
+        "severity": "red",
+        "code": "galeria_menor_que_3",
+        "count": 0
+      }
+    ]
+  }
+]

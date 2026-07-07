@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 204,
+    "contentType": "",
+    "capturedAt": "2026-07-07T02:40:14.025Z",
+    "body": null,
+    "error": "Could not load response body for this request. This might happen if the request is a preflight request."
+  },
+  {
+    "url": "https://api.anota.ai/clientauth/nm-category/menu-merchant?displaySources=DIGITAL_MENU",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8",
+    "capturedAt": "2026-07-07T02:40:15.153Z",
+    "body": {
+      "keys": [
+        "success",
+        "data"
+      ],
+      "sample": "{\"success\":true,\"data\":{\"establishment\":{\"_id\":\"682e6d00001ddb0012bddde4\",\"webview\":{\"accept_multiple_payments\":false,\"multiple_payments_quantity\":2,\"waiter_accept_tip\":true,\"waiter_tip_percent\":10,\"waiter_order_delivery\":true,\"waiter_select_phone_client\":false,\"waiter_select_payment_method\":false,\"waiter_can_close_table\":true,\"waiter_can_add_discount\":false,\"waiter_can_add_addition\":false,\"waiter_can_link_ticket_to_table\":false,\"show_out_items\":false,\"transfer_between_busy_tables\":true,\"address_manual\":false,\"fee_by_ubereats\":false,\"final_observation\":true,\"click_edit_quantity\":false,\"pix_disabled\":false,\"debit_disabled\":false,\"credit_disabled\":false,\"pixel\":\"false\",\"repeat_order_enabled\":true,\"edit_manual_city\":false,\"waiter_edit_order\":true,\"use_width_navigation\":false,\"table_seats\":false,\"waiter_can_change_table_and_ticket\":false,\"hide_google_search\":false,\"add_disposable\":false,\"color_primary\":\"#000000\",\"description\":\"\",\"footer_description\":\"\",\"header_image_url\":\"\",\"items_carousel\":\"promo_items\",\"edit_manual_region\":false},\"config_bot\":{\"marketing\":{\"coupons\":true},\"message\":{\"game\":true},\"triggers\":{\"automate\":true,\"active\":true,\"active_send\":false},\"deactivate_remaining_time_message_delivery\":false,\"doubt_question\":true,\"observation\":true,\"receipt\":true,\"wrong_order\":true,\"closed_advice\":true,\"deactivate_promo_question\":false,\"deactivate_production_time\":false,\"deactivate_tutorial\":false,\"ifood_nps\":false,\"nps\":true,\"deactivate_show_menu_salutation\":false,\"shareable_link_status\":true,\"deactivate_extra_redy_message\":false,\"deactivate_fidelity_extra_message\":false,\"send_delivery_data_message\":false,\"cart_recovery_message\":true,\"delivery_notification_open_message\":true,\"deactivate_repeat_order_message_salutation\":false,\"deactivate_establishment_closed_salutation_message\":false,\"deactivate_flow_new_salutation_message\":false,\"images\":[]},\"admin_settings\":{\"type_order_settings\":{\"accept_flexible_orders\":true},\"kitchen_config\":{\"categories\":[]},\"call_attendant_notification_song\":\"sound_1\",\"anota_ai_notification_song\":\"high\",\"anota_ai_notification_song_local_table\":\"none\",\"ifood_integration_notification_song\":\"high\"},\"scheduling_config\":{\"schedule_interval\":[]},\"password_to_cancel_order\":{\"password_to_cancel_active\":false,\"user_password_to_cancel\":false},\"cashback\":{\"cashback_by_weekday\":[]},\"page_is_online\":false,\"show_new_layout_menu\":true,\"units\":[{\"_id\":\"682e6d006749db0012ad9b51\",\"zoop\":{\"active\":false},\"safe2pay\":{\"active\":false},\"address\":{\"state\":\"PB\",\"city\":\"João Pessoa\",\"complement\":\"casamar belo flat\",\"addressFormated\":\"av djalma vilar de gusmao, 102 - intermares, João Pessoa - PB, 58.035-240, Brasil\",\"location\":{\"coordinates\":[-34.84330540000001,-7.052025899999999]},\"postal_code\":\"58.035-240\",\"name\":\"av djalma vilar de gusmao\",\"num\":\"102\",\"reference\":\"sala 10\",\"neighborhood\":\"intermares\",\"hided\":false},\"payment_method\":{\"money\":true,\"creditcard\":true,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":true,\"ifood_payin_credit\":true,\"tuna_digital_wallets\":false,\"ifood_payin_debit\":true},\"payment_method_qr_code\":{\"active\":false,\"money\":true,\"creditcard\":false,\"question_card\":false,\"online_tuna\":false,\"whatsapp_pay\":false,\"pix\":false,\"debit\":false,\"online_credit\":false,\"online_tuna_credit\":false,\"meal_ticket\":false,\"ifood_payin\":false},\"timezone\":\"America/Sao_Paulo\",\"exproductiontime\":0,\"time_delivery_min\":39,\"time_delivery_max\":49,\"time_take_min\":0,\"time_take_max\":0,\"order_automatic_on_production\":true,\"totem_order_automatic_on_production\":false,\"cpf_cnpj_on_order\":false,\"published\":true,\"acceptDelivery\":true,\"acceptTake\":true,\"acceptLocal\":true,\"name\":\"Eu Quero Pizza\",\"page\":\"682e6d00001ddb0012bddddc\",\"phones\":[{\"_id\":\"683919b671a1cb7af9b37466\",\"number\":\"(83) 9 9857-3813\",\"type\":\"cell\"}],\"regions\":[{\"name\":\"1\",\"price\":3,\"active\":true,\"_id\":\"68ab97414dbb794947900025\"},{\"name\":\"2\",\"price\":4,\"active\":tr"
+    },
+    "error": null,
+    "textLength": 132234
+  }
+]

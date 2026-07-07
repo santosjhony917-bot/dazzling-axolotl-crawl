@@ -1,0 +1,25 @@
+{
+  "url": "https://app.cardapioweb.com/manifest.json",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "manifest",
+  "method": "GET",
+  "textLength": 143,
+  "textSample": "{\"short_name\":\"Cardápio Web\",\"name\":\"Cardápio Web\",\"start_url\":\".\",\"display\":\"standalone\",\"theme_color\":\"#000000\",\"background_color\":\"#FFFFFF\"}",
+  "jsonKeys": [
+    "short_name",
+    "name",
+    "start_url",
+    "display",
+    "theme_color",
+    "background_color"
+  ],
+  "json": {
+    "short_name": "Cardápio Web",
+    "name": "Cardápio Web",
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#FFFFFF"
+  }
+}

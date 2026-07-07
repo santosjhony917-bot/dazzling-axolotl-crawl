@@ -1,0 +1,264 @@
+[
+  {
+    "status": "rejected",
+    "reason": "not_clearly_food_establishment",
+    "name": "Verano Praia Bar",
+    "type": "Bar",
+    "address": "Av. Pastor José Alves de Oliveira, 848 - Areia Dourada, Cabedelo - PB, 58101-205",
+    "rating": 4.4,
+    "reviews": 324,
+    "place_id": "ChIJh0FVTwvfrAcRloIZE5Iit7w",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJh0FVTwvfrAcRloIZE5Iit7w",
+    "query": "restaurantes Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 8,
+      "title": "Verano Praia Bar",
+      "place_id": "ChIJh0FVTwvfrAcRloIZE5Iit7w",
+      "data_id": "0x7acdf0b4f554187:0xbcb7229213198296",
+      "data_cid": "13598375610649510550",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0b4f554187%3A0xbcb7229213198296&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0b4f554187%3A0xbcb7229213198296&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9863829,
+        "longitude": -34.8278581
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJh0FVTwvfrAcRloIZE5Iit7w",
+      "provider_id": "/g/11rkm9v89d",
+      "rating": 4.4,
+      "reviews": 324,
+      "price": "R$ 60–140",
+      "extracted_price": 60,
+      "type": "Bar",
+      "types": [
+        "Bar"
+      ],
+      "type_id": "bar",
+      "type_ids": [
+        "bar"
+      ],
+      "address": "Av. Pastor José Alves de Oliveira, 848 - Areia Dourada, Cabedelo - PB, 58101-205",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre ter. às 09:00",
+      "hours": "Fecha em breve · 17:00 · Abre ter. às 09:00",
+      "operating_hours": {
+        "segunda-feira": "09:00–17:00",
+        "terça-feira": "09:00–17:00",
+        "quarta-feira": "09:00–17:00",
+        "quinta-feira": "09:00–17:00",
+        "sexta-feira": "09:00–17:00",
+        "sábado": "09:00–17:00",
+        "domingo": "09:00–17:00"
+      },
+      "phone": "(83) 3206-0072",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida",
+            "Comida no bar",
+            "Coquetéis",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "service_options": [
+            "Entrega"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": false
+      },
+      "user_review": "\"Excelente, fomos servidos pelo Léo, muito atencioso ,educado, prestativo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGe-d7Qc4WOoc-4kfKldPDs5VKFKKjs8E3s49upPIq-1UzaSaAEHRyckkTDgSF4KrCaPRWlv_6uB31wC1Ss6MbHSUGe7QdT8v5kmfToHMDxVTQiN_07opXIWBI-VdGH82nn0KQc=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/nqgnwHicHcTdEoFAGADQJ1ptKsWMixTV7KBVyp3JtorNbnzl7wU9g7cx41yc76fuuhYmmtbUxqBSqmp4D_zGlOy47AZMXbSqBcQAgebGKyrcgKPSpszM14ohUxxJU8Y-WBlZEHIGZ26AOe7bOLoiffsuksKdh5sXEyL1q2RhkptXxJu8ue9H_czQH56ewGh5CJNtwG1aps7dEpdjqsKl_8xSelrtsa3aXZTPIpSVQegMpcSEsulDxxij-j9D8gfLTULQ"
+    }
+  },
+  {
+    "status": "rejected",
+    "reason": "excluded_category_or_name",
+    "name": "Comida Caseira da Elly",
+    "type": "Restaurante",
+    "address": "Mercado Público de Cabedelo, BOX 138, Centro, Cabedelo - PB, 58100-140",
+    "rating": 5,
+    "reviews": 19,
+    "place_id": "ChIJBfEE9CwhrQcR2xtfopCJ34w",
+    "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJBfEE9CwhrQcR2xtfopCJ34w",
+    "query": "restaurantes Cabedelo PB",
+    "area": "Centro Cabedelo",
+    "ll": "@-6.9748,-34.8373,15z",
+    "raw": {
+      "position": 15,
+      "title": "Comida Caseira da Elly",
+      "place_id": "ChIJBfEE9CwhrQcR2xtfopCJ34w",
+      "data_id": "0x7ad212cf404f105:0x8cdf8990a25f1bdb",
+      "data_cid": "10150983339408825307",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad212cf404f105%3A0x8cdf8990a25f1bdb&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad212cf404f105%3A0x8cdf8990a25f1bdb&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9729117,
+        "longitude": -34.836436299999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJBfEE9CwhrQcR2xtfopCJ34w",
+      "provider_id": "/g/11rxvjh5s4",
+      "rating": 5,
+      "reviews": 19,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Mercado Público de Cabedelo, BOX 138, Centro, Cabedelo - PB, 58100-140",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 07:00",
+      "hours": "Fechado · Abre ter. às 07:00",
+      "operating_hours": {
+        "segunda-feira": "07:00–14:00",
+        "terça-feira": "07:00–14:00",
+        "quarta-feira": "07:00–14:00",
+        "quinta-feira": "07:00–14:00",
+        "sexta-feira": "07:00–14:00",
+        "sábado": "07:00–14:00",
+        "domingo": "Fechado"
+      },
+      "phone": "(83) 98682-0766",
+      "website": "https://instagram.com/comidacaseiradaelly?utm_medium=copy_link",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG-k9OYIxQpxIr_z8xcZZpmcqRWzeyvDPWwkBQrjxYJX_EgepaVRqw-j4oqatgS3450kzYTVqq-7F-CQIIB5iFBFe-d8L86b0w7XYISLS4K8y66XoTQcIr1RFuW_YhMq60iT7h0EQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/qL9ifnicHcRRboIwGADgE_1QIwJb4oNssnRTZ4EI9YWwrmkVpS2tgtxwR9htlux7-H5_pHPaPvv-Rc49oZS48JvlPVOd453zmLr6QltgFqy_2u9Iu3qD9umT4pHoEff1FI_seNRXZrJy4o_7674c2oT055G-V_VacN0cMjPAOVCmcSKfBwvUTrQ4GANRCi8E42RxSpOUw3e8icMvNEQVxfkmDz7iRxhWqiAM97MsvZU1lVsTolMRSbQmy2GGEAL5P4PuD0SaRNE"
+    }
+  }
+]

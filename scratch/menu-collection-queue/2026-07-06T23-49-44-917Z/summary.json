@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-07-06T23:49:44.949Z",
+  "input_dir": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\serpapi-menu-discovery\\2026-07-06T23-04-35-766Z",
+  "city": "Cabedelo",
+  "state": "PB",
+  "total_results": 201,
+  "strict_direct_queue": 14,
+  "review_queue": 187,
+  "by_reason": {
+    "tier_red": 9,
+    "tier_yellow": 122,
+    "strict_direct_menu_source": 14,
+    "generic_platform_listing": 13,
+    "flags:brand_not_confirmed": 6,
+    "brand_text_not_supported": 37
+  },
+  "by_platform": {
+    "map": 1,
+    "instagram": 57,
+    "anota_ai": 79,
+    "deliverydireto": 2,
+    "menudino": 23,
+    "instadelivery": 19,
+    "whatsmenu": 3,
+    "tripadvisor": 1,
+    "goomer": 2,
+    "cardapioweb": 2,
+    "olaclick": 7,
+    "evitra.com.br": 1,
+    "open.spotify.com": 1,
+    "mercearias.com": 1,
+    "sorveterias.ondefica.com.br": 1,
+    "pemd.univasf.edu.br": 1
+  }
+}

@@ -1,0 +1,951 @@
+{
+  "runId": "2026-07-07T12-16-35-601Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T12-16-35-601Z",
+  "scope": {
+    "city": "Cabedelo",
+    "state": "PB"
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 19,
+  "ready": 19,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": [
+    {
+      "id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "name": "Center Pizza Cabedelo",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 2,
+      "itemCount": 12,
+      "optionCount": 101,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "QA estrutural do banco aprovada após ajuste: delta zero em sabor incluso é permitido; sem bloqueios semânticos.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+        "instagram": "https://www.instagram.com/centerpizza_cabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:11.540Z",
+          "status": "enriched",
+          "username": "centerpizza_cabedelo",
+          "followers": 3390,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": "189",
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98629-0531",
+        "latitude": -6.9721724,
+        "longitude": -34.8343388,
+        "followers": 3390
+      },
+      "issues": []
+    },
+    {
+      "id": "ec6b2565-934c-4278-9a8a-63168eb819f2",
+      "name": "DAWN BURGUER",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 6,
+      "itemCount": 55,
+      "optionCount": 703,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "55 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/dawn-burguer?f=msa",
+        "instagram": "https://www.instagram.com/dawn.burguer/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:35.274Z",
+          "status": "enriched",
+          "username": "dawn.burguer",
+          "followers": 9786,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/dawn-burguer?f=msa",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Augusto Firmo Paulo",
+        "number": "51",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58101-015",
+        "phone": "(83) 99638-6080",
+        "latitude": -6.974396,
+        "longitude": -34.831213999999996,
+        "followers": 9786
+      },
+      "issues": []
+    },
+    {
+      "id": "3efd7101-b736-4135-9e5e-9787a854ec0e",
+      "name": "Espaço Do Sushi",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 13,
+      "itemCount": 60,
+      "optionCount": 30,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "60 itens estruturados via yooga_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://delivery.yooga.app/espacosushi.house",
+        "instagram": "https://www.instagram.com/espacodosushi/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:02.118Z",
+          "status": "enriched",
+          "username": "espacodosushi",
+          "followers": 4596,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://delivery.yooga.app/espacosushi.house",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Juarez Távora",
+        "number": "227",
+        "neighborhood": "Camalaú",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98838-5605",
+        "latitude": -6.9779893,
+        "longitude": -34.8324569,
+        "followers": 4596
+      },
+      "issues": []
+    },
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 16,
+      "optionCount": 103,
+      "galleryCount": 4,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "QA estrutural do banco aprovada: cardapio, adicionais, endereco, horario, logo, capa e galeria passaram sem bloqueios.",
+      "source": {
+        "menu": "https://app.anota.ai/m/MeIU-tixw",
+        "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:24.855Z",
+          "status": "enriched",
+          "username": "euqueropizzafoodtruck",
+          "followers": 8518,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.anota.ai/m/MeIU-tixw",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. da Enseada",
+        "number": null,
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99857-3813",
+        "latitude": -7.0311872,
+        "longitude": -34.8335814,
+        "followers": 8518
+      },
+      "issues": []
+    },
+    {
+      "id": "0b4eb55c-e0d9-4068-b198-e5f8cb7a985e",
+      "name": "Forneria Brasil Express 🍕",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 17,
+      "optionCount": 492,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "17 itens estruturados via instadelivery_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://instadelivery.com.br/FornoBrasilExpress",
+        "instagram": "https://www.instagram.com/forneria_brasilexpress/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:54.930Z",
+          "status": "enriched",
+          "username": "forneria_brasilexpress",
+          "followers": 15556,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://instadelivery.com.br/FornoBrasilExpress",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Rua Monte Castelo 12b",
+        "number": null,
+        "neighborhood": "Monte Castelo",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": null,
+        "phone": "(83) 98653-8522",
+        "latitude": -7.0311464,
+        "longitude": -34.84656,
+        "followers": 15556
+      },
+      "issues": []
+    },
+    {
+      "id": "49423823-d994-4263-9597-cb829e208129",
+      "name": "Home Smash Burger",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 7,
+      "itemCount": 57,
+      "optionCount": 155,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "57 itens estruturados via yooga_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://delivery.yooga.app/home-smash-burger",
+        "instagram": "https://www.instagram.com/homesmashburguer/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:32.351Z",
+          "status": "enriched",
+          "username": "homesmashburguer",
+          "followers": 8859,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://delivery.yooga.app/home-smash-burger",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Sólon de Lucena",
+        "number": "19",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-570",
+        "phone": "(83) 98673-5263",
+        "latitude": -6.970525599999999,
+        "longitude": -34.836659499999996,
+        "followers": 8859
+      },
+      "issues": []
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 10,
+      "itemCount": 112,
+      "optionCount": 791,
+      "galleryCount": 3,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "112 itens estruturados via cardapio_web; mídia mínima completa.",
+      "source": {
+        "menu": "https://app.cardapioweb.com/i_loveburguer",
+        "instagram": "https://www.instagram.com/iloveburguerpb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:30.844Z",
+          "status": "enriched",
+          "username": "iloveburguerpb",
+          "followers": 9915,
+          "match": {
+            "score": 140,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/i_loveburguer",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Praça Getúlio Vargas",
+        "number": "107",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-305",
+        "phone": "(83) 99311-5016",
+        "latitude": -6.9706589,
+        "longitude": -34.8371018,
+        "followers": 9915
+      },
+      "issues": []
+    },
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 21,
+      "optionCount": 379,
+      "galleryCount": 6,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "QA estrutural do banco aprovada: cardapio, adicionais, endereco, horario, logo, capa e galeria passaram sem bloqueios.",
+      "source": {
+        "menu": "https://app.cardapioweb.com/ilove_pizza",
+        "instagram": "https://www.instagram.com/ilovepizzapb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T02:51:24.975Z",
+          "status": "enriched",
+          "username": "ilovepizzapb",
+          "followers": 3095,
+          "match": {
+            "score": 170,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "phone",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://app.cardapioweb.com/ilove_pizza",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Duque de Caxias",
+        "number": null,
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-263",
+        "phone": "(83) 99631-6245",
+        "latitude": -6.9712105,
+        "longitude": -34.8370758,
+        "followers": 3095
+      },
+      "issues": []
+    },
+    {
+      "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+      "name": "Lary's pizzaria e lanchonete",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 6,
+      "itemCount": 79,
+      "optionCount": 350,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "QA estrutural do banco aprovada após ajuste: delta zero em sabor incluso é permitido; sem bloqueios semânticos.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+        "instagram": "https://www.instagram.com/laryspizzariaoficial/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:24.228Z",
+          "status": "enriched",
+          "username": "laryspizzariaoficial",
+          "followers": 2234,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Antônia Fernandes Oliveira",
+        "number": "810",
+        "neighborhood": "Jardim Camboinha",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58103-706",
+        "phone": "(83) 98877-2470",
+        "latitude": -7.005608199999999,
+        "longitude": -34.8309231,
+        "followers": 2234
+      },
+      "issues": []
+    },
+    {
+      "id": "17c67464-7f14-4f6a-b07c-855f9c9a4593",
+      "name": "Manguinhos Burguer",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 5,
+      "itemCount": 27,
+      "optionCount": 76,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "27 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/manguinhos-burguer",
+        "instagram": "https://www.instagram.com/manguinhosburguer/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:06:03.059Z",
+          "status": "enriched",
+          "username": "manguinhosburguer",
+          "followers": 1850,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/manguinhos-burguer",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Débora Borges Xavier",
+        "number": "29",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58103-405",
+        "phone": "(83) 99831-1272",
+        "latitude": -6.989290899999999,
+        "longitude": -34.8292082,
+        "followers": 1850
+      },
+      "issues": []
+    },
+    {
+      "id": "297a6b03-242d-4d91-9f64-73e736972946",
+      "name": "Oxi Burguer Cabedelo",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 5,
+      "itemCount": 35,
+      "optionCount": 42,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "35 itens estruturados via brendi_nuxt_payload; mídia mínima completa.",
+      "source": {
+        "menu": "https://menu.brendi.com.br/oxiburguercabedelo/",
+        "instagram": "https://www.instagram.com/oxicabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:03.063Z",
+          "status": "enriched",
+          "username": "oxicabedelo",
+          "followers": 887,
+          "match": {
+            "score": 145,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://menu.brendi.com.br/oxiburguercabedelo/",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Maria das Neves Silva",
+        "number": "324",
+        "neighborhood": "Ponta de Campina",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58101-660",
+        "phone": "(83) 98793-1915",
+        "latitude": -7.0283906,
+        "longitude": -34.835923699999995,
+        "followers": 887
+      },
+      "issues": []
+    },
+    {
+      "id": "69139ad6-c662-4fd6-b67f-aefef25c5923",
+      "name": "PARCEIRO Rosa Lanches",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 10,
+      "itemCount": 149,
+      "optionCount": 841,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "149 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/rosalanches",
+        "instagram": "https://www.instagram.com/rosaalanches_/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:19.891Z",
+          "status": "enriched",
+          "username": "rosaalanches_",
+          "followers": 6865,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/rosalanches",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Ten. Antônio Pontes",
+        "number": "139",
+        "neighborhood": "Ponta de Matos",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-645",
+        "phone": "(83) 98836-3792",
+        "latitude": -6.9708638999999994,
+        "longitude": -34.833857699999996,
+        "followers": 6865
+      },
+      "issues": []
+    },
+    {
+      "id": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+      "name": "Pastelaria Litorânea",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 10,
+      "itemCount": 108,
+      "optionCount": 670,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "108 itens estruturados via whatsmenu_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://whatsmenu.com.br/pastelarialitoranea",
+        "instagram": "https://www.instagram.com/pastelarialitoranea/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:00.427Z",
+          "status": "enriched",
+          "username": "pastelarialitoranea",
+          "followers": 6535,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://whatsmenu.com.br/pastelarialitoranea",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Sólon de Lucena",
+        "number": "19",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 98807-9929",
+        "latitude": -6.970531299999999,
+        "longitude": -34.8366612,
+        "followers": 6535
+      },
+      "issues": []
+    },
+    {
+      "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+      "name": "Porto do açaí",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 14,
+      "itemCount": 60,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "60 itens estruturados via meucarrinho_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://meucarrinho.delivery/portodoacai",
+        "instagram": "https://www.instagram.com/portodoacai01/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:06:02.194Z",
+          "status": "enriched",
+          "username": "portodoacai01",
+          "followers": 962,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://meucarrinho.delivery/portodoacai",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Cleto Campêlo",
+        "number": "623",
+        "neighborhood": "Camalaú",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99384-2261",
+        "latitude": -6.9791672,
+        "longitude": -34.8348377,
+        "followers": 962
+      },
+      "issues": []
+    },
+    {
+      "id": "1653a7ff-cb75-4303-b780-0580642c5974",
+      "name": "Primo Rico",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 21,
+      "optionCount": 54,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "21 itens estruturados via yooga_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://delivery.yooga.app/restaurante-primo-rico",
+        "instagram": "https://www.instagram.com/primoricopb/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:03:56.966Z",
+          "status": "enriched",
+          "username": "primoricopb",
+          "followers": 12887,
+          "match": {
+            "score": 150,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "phone",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://delivery.yooga.app/restaurante-primo-rico",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Av. Oceano Atlântico",
+        "number": "S/N",
+        "neighborhood": "Intermares",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58102-236",
+        "phone": "(83) 98820-1132",
+        "latitude": -7.0420652,
+        "longitude": -34.840145899999996,
+        "followers": 12887
+      },
+      "issues": []
+    },
+    {
+      "id": "eeb4213a-a5a1-4286-a33f-b6fea80cb891",
+      "name": "Restaurante Pôr do Sol",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 3,
+      "itemCount": 32,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "32 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/restaurante-por-do-sol-5?f=msa",
+        "instagram": "https://www.instagram.com/bar_restaurantepordosol/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:22.539Z",
+          "status": "enriched",
+          "username": "bar_restaurantepordosol",
+          "followers": 1193,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/restaurante-por-do-sol-5?f=msa",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Pres. João Pessoa",
+        "number": "1",
+        "neighborhood": "Vila Sao Joao",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58310-000",
+        "phone": "(83) 99672-7835",
+        "latitude": -6.978891099999999,
+        "longitude": -34.8350216,
+        "followers": 1193
+      },
+      "issues": []
+    },
+    {
+      "id": "9aed5c42-1ab1-47f0-9010-788da722a399",
+      "name": "Sorveteria Frutos de Goiás - Cabedelo",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 5,
+      "itemCount": 16,
+      "optionCount": 245,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "16 itens estruturados via whatsmenu_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://whatsmenu.com.br/frutoscabedelo",
+        "instagram": "https://www.instagram.com/frutoscabedelo/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:38.607Z",
+          "status": "enriched",
+          "username": "frutoscabedelo",
+          "followers": 2714,
+          "match": {
+            "score": 135,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://whatsmenu.com.br/frutoscabedelo",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Sólon de Lucena",
+        "number": "30B",
+        "neighborhood": "Centro",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-570",
+        "phone": "(83) 99313-6243",
+        "latitude": -6.970665299999999,
+        "longitude": -34.8363411,
+        "followers": 2714
+      },
+      "issues": []
+    },
+    {
+      "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+      "name": "Sushiyaki Restaurante",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 6,
+      "itemCount": 34,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "34 itens estruturados via yooga_native_api; mídia mínima completa.",
+      "source": {
+        "menu": "https://delivery.yooga.app/sushiyaki",
+        "instagram": "https://www.instagram.com/sushiyaki_restaurante/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:05:21.451Z",
+          "status": "enriched",
+          "username": "sushiyaki_restaurante",
+          "followers": 3651,
+          "match": {
+            "score": 145,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "city",
+              "food_category",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://delivery.yooga.app/sushiyaki",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Ten. Antônio Pontes",
+        "number": "381",
+        "neighborhood": "Ponta de Matos",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58100-645",
+        "phone": "(83) 98684-5886",
+        "latitude": -6.969481699999999,
+        "longitude": -34.832150899999995,
+        "followers": 3651
+      },
+      "issues": []
+    },
+    {
+      "id": "a123251e-ae13-4a7a-8725-a54b3bdd2d66",
+      "name": "VITAMINA DE AÇAÍ",
+      "readiness": "ready",
+      "redCount": 0,
+      "yellowCount": 0,
+      "issueCount": 0,
+      "categoryCount": 8,
+      "itemCount": 45,
+      "optionCount": 0,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "45 itens estruturados via cardapiodigital_html_payload; mídia mínima completa.",
+      "source": {
+        "menu": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+        "instagram": "https://www.instagram.com/vitaminadeacai__/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:03:46.601Z",
+          "status": "enriched",
+          "username": "vitaminadeacai__",
+          "followers": 1730,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://cardapiodigitalmp.com.br/cardapio.php?s=vitamina-de-acai-974",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "Av. Ambrósio Miranda de Araújo",
+        "number": null,
+        "neighborhood": "Renascer",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58108-232",
+        "phone": "+55 (83) 8619-4757",
+        "latitude": -7.073893,
+        "longitude": -34.855734,
+        "followers": 1730
+      },
+      "issues": []
+    }
+  ]
+}

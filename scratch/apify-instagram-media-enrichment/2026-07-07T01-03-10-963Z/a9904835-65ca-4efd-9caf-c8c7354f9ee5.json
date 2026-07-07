@@ -1,0 +1,87 @@
+{
+  "id": "a9904835-65ca-4efd-9caf-c8c7354f9ee5",
+  "name": "Self-service da nany",
+  "instagram": "https://www.instagram.com/selfservicedanany_/",
+  "followers": 2497,
+  "match": {
+    "score": 180,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "db7766d4-4960-4386-8e7c-5c446945296b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a9904835-65ca-4efd-9caf-c8c7354f9ee5/instagram_1783385727359_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "1fde8fd9-2e02-410d-b9e2-560da3e517c9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a9904835-65ca-4efd-9caf-c8c7354f9ee5/instagram_1783385728081_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "6c265b76-76d1-4bda-8021-a9fb7dd0de8d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a9904835-65ca-4efd-9caf-c8c7354f9ee5/instagram_1783385728789_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "43967e68-bc3b-462f-b5ff-ac9f11402799",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a9904835-65ca-4efd-9caf-c8c7354f9ee5/instagram_1783385729980_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "54af5098-bf04-4a87-ac67-41e50493366e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a9904835-65ca-4efd-9caf-c8c7354f9ee5/instagram_1783385730673_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "8c71bb38-006b-462d-94d3-425b2b07a487",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a9904835-65ca-4efd-9caf-c8c7354f9ee5/instagram_1783385731539_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "753813f0-897e-408a-8111-7cdd3638fbbf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a9904835-65ca-4efd-9caf-c8c7354f9ee5/instagram_1783385732312_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "76abad45-7d31-4568-97d9-835f475988c1",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/a9904835-65ca-4efd-9caf-c8c7354f9ee5/instagram_1783385733114_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

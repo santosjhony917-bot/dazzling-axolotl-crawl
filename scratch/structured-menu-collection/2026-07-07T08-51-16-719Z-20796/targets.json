@@ -1,0 +1,58 @@
+[
+  {
+    "restaurantId": "e6fc253f-7f28-47f8-891f-df98848adda0",
+    "restaurantName": "Center Pizza Cabedelo",
+    "sourceUrl": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+    "platform": "anota_ai",
+    "reviewsCount": 18,
+    "address": "R. Duque de Caxias, 189",
+    "city": "Cabedelo",
+    "state": "PB",
+    "phone": "(83) 98629-0531",
+    "queueEntry": {
+      "restaurant_id": "e6fc253f-7f28-47f8-891f-df98848adda0",
+      "name": "Center Pizza Cabedelo",
+      "platform": "anota_ai",
+      "tier": "yellow",
+      "priority_score": 11,
+      "risk_flags": [
+        "canonicalized_anota_ai_host"
+      ],
+      "source_field": "other_url",
+      "source_url": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+      "raw_source_url": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+      "other_url": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+      "external_url": "",
+      "other_url_label": "Link da bio do Instagram",
+      "category": "Pizzaria",
+      "address": "R. Duque de Caxias, 189",
+      "neighborhood": "Centro",
+      "city": "Cabedelo",
+      "state": "PB",
+      "phone": "(83) 98629-0531",
+      "rating": 5,
+      "reviews_count": 18,
+      "menu_status": "unknown",
+      "menu_status_reason": "",
+      "menu_last_checked_at": null,
+      "is_published": false,
+      "ai_validated": false,
+      "source_candidates": [
+        {
+          "field": "other_url",
+          "raw": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+          "canonical_url": "https://pedido.anota.ai/loja/bom-de-garfo-delivery-4?f=msa",
+          "platform": "anota_ai",
+          "is_ifood": false,
+          "parse_error": false,
+          "canonical_flags": [
+            "canonicalized_anota_ai_host"
+          ]
+        }
+      ],
+      "eligible_for_queue": true,
+      "collection_hint": "anota_ai_fast_path",
+      "rank": 10
+    }
+  }
+]

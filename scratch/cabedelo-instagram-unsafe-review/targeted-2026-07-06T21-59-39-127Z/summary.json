@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-07-06T21:59:40.391Z",
+  "dryRun": true,
+  "city": "Cabedelo",
+  "state": "PB",
+  "reviewFile": "scratch\\cabedelo-instagram-unsafe-review\\2026-07-06T21-34-26-304Z\\review-queue.json",
+  "previousRefined": "scratch\\cabedelo-instagram-targeted-refine\\2026-07-06T21-52-21-442Z\\refined.json",
+  "totalUnsafeOriginal": 126,
+  "remainingWithoutInstagramReviewed": 10,
+  "apiCalls": 2,
+  "counts": {
+    "reject": 1,
+    "hold": 7,
+    "approve": 2
+  },
+  "approved": [
+    {
+      "id": "dfb456d7-1841-474d-bb54-fd442af3e295",
+      "name": "Burguer Hall",
+      "instagram": "https://instagram.com/burguerhall",
+      "score": 166,
+      "title": "Burguer Hall - Bessa📍 (@burguerhall)",
+      "evidence": "https://instagram.com/burguerhall | Burguer Hall - Bessa📍 (@burguerhall) Burguer Hall - Bessa📍 (@burguerhall) | | Hamburgueria Clássica e Artesanal | | Hamburgueria Delivery | ⏰️ | ter. a Dom. | Das 18:00 às 23:00 | | Cardápio via direct · Duplo Chedda # ... https://www.instagr"
+    },
+    {
+      "id": "126faaa4-8af5-417d-84d9-b75c2084be8e",
+      "name": "JuJuba sorvete e açaí",
+      "instagram": "https://instagram.com/sorveteeacaijujuba",
+      "score": 160,
+      "title": "Sorvete e Açai Jujuba (@sorveteeacaijujuba)",
+      "evidence": "https://instagram.com/sorveteeacaijujuba | Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba (@sorveteeacaijujuba) Sorvete e Açai Jujuba. 171 followers. 172 following. @sorveteeacaijujuba. Follow. Message. #quedeliciaoverão #deliciagelada #acailovers ... https://w"
+    }
+  ],
+  "applied": [],
+  "failures": [],
+  "outDir": "scratch\\cabedelo-instagram-unsafe-review\\targeted-2026-07-06T21-59-39-127Z"
+}

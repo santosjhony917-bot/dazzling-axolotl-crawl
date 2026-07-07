@@ -1,0 +1,218 @@
+{
+  "runId": "2026-07-06T11-03-12-294Z",
+  "apply": false,
+  "limit": 1,
+  "platform": null,
+  "targetCount": 1,
+  "processed": [
+    {
+      "restaurantId": "608a2a3a-2d5f-47c5-b393-a7ea461008a4",
+      "restaurantName": "THE BROTHERS GRILL",
+      "sourceUrl": "https://pedido.anota.ai/loja/the-brothers-cg",
+      "platform": "anota_ai",
+      "evidenceDir": "scratch\\menu-extraction-verification\\2026-07-06T11-03-12-294Z\\001-the-brothers-grill",
+      "openedTabId": 943016878,
+      "profileSnapshot": null,
+      "preCaptureActions": [],
+      "snapshot": {
+        "success": true,
+        "error": null,
+        "result": {
+          "success": true,
+          "fullPage": true,
+          "segmentCount": 7,
+          "scrollHeight": 3954,
+          "capturedHeight": 3954,
+          "viewportWidth": 1536,
+          "viewportHeight": 674,
+          "outputWidth": 1920,
+          "outputHeight": 4943,
+          "outputScale": 1,
+          "truncated": false,
+          "tabId": 943016878,
+          "url": "https://pedido.anota.ai/loja/the-brothers-cg",
+          "title": "The Brothers CG - Anota AI"
+        },
+        "snapshot": {
+          "snapshotFile": "cmd_1783335821084_e7unof7w.jpg",
+          "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335821084_e7unof7w.jpg",
+          "bytes": 336265
+        }
+      },
+      "verificationSnapshots": [
+        {
+          "ratio": 0,
+          "scroll": {
+            "tabId": 943016878,
+            "clientHeight": 674,
+            "maxScrollTop": 3280,
+            "reachedEnd": false,
+            "scrollHeight": 3954,
+            "scrollTop": 0,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335836576_8bdn93of.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335836576_8bdn93of.jpg",
+            "bytes": 63974
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016878,
+            "url": "https://pedido.anota.ai/loja/the-brothers-cg",
+            "title": "The Brothers CG - Anota AI"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.22,
+          "scroll": {
+            "tabId": 943016878,
+            "clientHeight": 674,
+            "maxScrollTop": 3280,
+            "reachedEnd": false,
+            "scrollHeight": 3954,
+            "scrollTop": 722,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335843902_k4213iwm.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335843902_k4213iwm.jpg",
+            "bytes": 63974
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016878,
+            "url": "https://pedido.anota.ai/loja/the-brothers-cg",
+            "title": "The Brothers CG - Anota AI"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.45,
+          "scroll": {
+            "tabId": 943016878,
+            "clientHeight": 674,
+            "maxScrollTop": 3280,
+            "reachedEnd": false,
+            "scrollHeight": 3954,
+            "scrollTop": 1476,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335851176_i0qi9391.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335851176_i0qi9391.jpg",
+            "bytes": 63974
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016878,
+            "url": "https://pedido.anota.ai/loja/the-brothers-cg",
+            "title": "The Brothers CG - Anota AI"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.68,
+          "scroll": {
+            "tabId": 943016878,
+            "clientHeight": 674,
+            "maxScrollTop": 3280,
+            "reachedEnd": false,
+            "scrollHeight": 3954,
+            "scrollTop": 2230,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335859431_cmrm12zb.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335859431_cmrm12zb.jpg",
+            "bytes": 63974
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016878,
+            "url": "https://pedido.anota.ai/loja/the-brothers-cg",
+            "title": "The Brothers CG - Anota AI"
+          },
+          "error": null
+        },
+        {
+          "ratio": 0.9,
+          "scroll": {
+            "tabId": 943016878,
+            "clientHeight": 674,
+            "maxScrollTop": 3280,
+            "reachedEnd": false,
+            "scrollHeight": 3954,
+            "scrollTop": 2952,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335885412_tcktq486.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335885412_tcktq486.jpg",
+            "bytes": 63974
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016878,
+            "url": "https://pedido.anota.ai/loja/the-brothers-cg",
+            "title": "The Brothers CG - Anota AI"
+          },
+          "error": null
+        },
+        {
+          "ratio": 1,
+          "scroll": {
+            "tabId": 943016878,
+            "clientHeight": 674,
+            "maxScrollTop": 3280,
+            "reachedEnd": true,
+            "scrollHeight": 3954,
+            "scrollTop": 3280,
+            "success": true,
+            "target": "document"
+          },
+          "snapshot": {
+            "snapshotFile": "cmd_1783335892657_vet7iire.jpg",
+            "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783335892657_vet7iire.jpg",
+            "bytes": 63974
+          },
+          "result": {
+            "success": true,
+            "tabId": 943016878,
+            "url": "https://pedido.anota.ai/loja/the-brothers-cg",
+            "title": "The Brothers CG - Anota AI"
+          },
+          "error": null
+        }
+      ],
+      "verificationSnapshotError": null,
+      "extractionSummary": {
+        "success": false,
+        "platform": null,
+        "error": "timeout extractMenuPlatform",
+        "confidence": null,
+        "extractionLevel": null,
+        "categoryCount": 0,
+        "itemCount": 0,
+        "optionCount": 0,
+        "operationalOptionCount": 0,
+        "samples": []
+      },
+      "dryRun": {
+        "success": false,
+        "requiresHuman": true,
+        "message": "A evidência coletada pela extensão não atingiu confiança suficiente. Revise a aba visível; nenhum navegador oculto foi iniciado."
+      },
+      "committed": false,
+      "visualBlock": null,
+      "error": null,
+      "evidencePath": "scratch\\menu-extraction-verification\\2026-07-06T11-03-12-294Z\\001-the-brothers-grill\\menu-evidence.json"
+    }
+  ]
+}

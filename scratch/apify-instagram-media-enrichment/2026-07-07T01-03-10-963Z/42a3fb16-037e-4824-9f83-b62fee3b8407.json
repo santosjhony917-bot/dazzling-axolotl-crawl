@@ -1,0 +1,90 @@
+{
+  "id": "42a3fb16-037e-4824-9f83-b62fee3b8407",
+  "name": "Tia Graça Cafeteria e Doceria",
+  "instagram": "https://www.instagram.com/tiagracadocesesalgados/",
+  "followers": 32113,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "http://wa.me/5583988715492"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "12f9eb15-6ecb-4fe5-b2ec-e7212934237a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/42a3fb16-037e-4824-9f83-b62fee3b8407/instagram_1783385061401_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "e5f9f7b1-9102-4129-baac-e8d1053a34b6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/42a3fb16-037e-4824-9f83-b62fee3b8407/instagram_1783385063274_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "2860c415-38ef-4663-86ed-43064060e128",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/42a3fb16-037e-4824-9f83-b62fee3b8407/instagram_1783385063922_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "68cc8480-3fa2-478a-98be-1bdc79ba95e0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/42a3fb16-037e-4824-9f83-b62fee3b8407/instagram_1783385065134_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "8666f1c2-14a7-4d91-9e2a-57d75a387596",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/42a3fb16-037e-4824-9f83-b62fee3b8407/instagram_1783385066494_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "205a5241-1472-458f-8425-9ba947611b18",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/42a3fb16-037e-4824-9f83-b62fee3b8407/instagram_1783385067361_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "273a1c16-874d-4fcc-a8f8-72b3113bde88",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/42a3fb16-037e-4824-9f83-b62fee3b8407/instagram_1783385068399_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "f4f5231e-e95c-4e67-bba4-168e4fd3b51f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/42a3fb16-037e-4824-9f83-b62fee3b8407/instagram_1783385069083_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

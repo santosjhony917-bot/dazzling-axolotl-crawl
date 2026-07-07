@@ -1,0 +1,2629 @@
+{
+  "runId": "2026-07-07T06-02-10-016Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T06-02-10-016Z",
+  "scope": {
+    "ids": [
+      "c23b0422-4e34-43be-b07e-6a494804f6fc"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 1,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 1,
+  "issueCounts": {
+    "opcao_price_delta_com_price_preenchido": 284
+  },
+  "audits": [
+    {
+      "id": "c23b0422-4e34-43be-b07e-6a494804f6fc",
+      "name": "Lary's pizzaria e lanchonete",
+      "readiness": "blocked",
+      "redCount": 284,
+      "yellowCount": 0,
+      "issueCount": 284,
+      "categoryCount": 6,
+      "itemCount": 79,
+      "optionCount": 350,
+      "galleryCount": 8,
+      "aiValidated": true,
+      "menuStatus": "found",
+      "menuStatusReason": "79 itens estruturados via anota_ai_network; mídia mínima completa.",
+      "source": {
+        "menu": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+        "instagram": "https://www.instagram.com/laryspizzariaoficial/",
+        "mediaLog": {
+          "checkedAt": "2026-07-07T01:04:24.228Z",
+          "status": "enriched",
+          "username": "laryspizzariaoficial",
+          "followers": 2234,
+          "match": {
+            "score": 105,
+            "reasons": [
+              "name_tokens",
+              "google_name_tokens",
+              "same_username"
+            ]
+          },
+          "bioLink": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+          "source": "apify/instagram-profile-scraper"
+        }
+      },
+      "fields": {
+        "address": "R. Antônia Fernandes Oliveira",
+        "number": "810",
+        "neighborhood": "Jardim Camboinha",
+        "city": "Cabedelo",
+        "state": "PB",
+        "cep": "58103-706",
+        "phone": "(83) 98877-2470",
+        "latitude": -7.005608199999999,
+        "longitude": -34.8309231,
+        "followers": 2234
+      },
+      "issues": [
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Americana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Baiana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Basca",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Brasileira",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Calabresa Especial",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Carne de Sol Com Catupiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Cartola",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Charge",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Chilena",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Choquito",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frampiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango Com Cheddar",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango Especial",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango Português",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Frango Com Bacon",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Lombinho",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Lombinho Com Catupiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Moda Lary's",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Muçarela",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Napolitana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Portuguesa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Quatro Queijos",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Quatro Sabores",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Siciliana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Vegetariana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Chocolate",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Chocolate com ninho",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Prestigio",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Banana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Brigadeiro",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Pequena 25cm",
+          "group": "Sabor Pequena 25cm",
+          "option": "Choco ball",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Americana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Baiana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Basca",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Brasileira",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Calabresa Especial",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Carne de Sol Com Catupiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Cartola",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Charge",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Chilena",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Choquito",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frampiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango Com Cheddar",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango Especial",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango Português",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Frango Com Bacon",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Lombinho",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Lombinho Com Catupiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Moda Lary's",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Muçarela",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Napolitana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Portuguesa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Quatro Queijos",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Quatro Sabores",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Siciliana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Vegetariana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Chocolate",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Chocolate com ninho",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Prestigio",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Banana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Brigadeiro",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Média 30cm",
+          "group": "Sabor Média 30cm",
+          "option": "Choco ball",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Americana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Baiana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Basca",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Brasileira",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Calabresa Especial",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Carne de Sol Com Catupiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Cartola",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Charge",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Chilena",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Choquito",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frampiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango Com Cheddar",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango Especial",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango Português",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Frango Com Bacon",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Lombinho",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Lombinho Com Catupiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Moda Lary's",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Muçarela",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Napolitana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Portuguesa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Quatro Queijos",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Quatro Sabores",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Siciliana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Vegetariana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Chocolate",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Chocolate com ninho",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Prestigio",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Banana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Brigadeiro",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Grande 35cm",
+          "group": "Sabor Grande 35cm",
+          "option": "Choco ball",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Americana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Baiana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Basca",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Brasileira",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Calabresa Especial",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Carne de Sol Com Catupiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Cartola",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Charge",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Chilena",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Choquito",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frampiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango Com Cheddar",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango Especial",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango Português",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Frango Com Bacon",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Lombinho",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Lombinho Com Catupiry",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Moda Lary's",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Muçarela",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Napolitana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Portuguesa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Quatro Queijos",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Quatro Sabores",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Siciliana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Vegetariana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Chocolate",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Chocolate com ninho",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Prestigio",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Banana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Brigadeiro",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Família 40cm",
+          "group": "Sabor Família 40cm",
+          "option": "Choco ball",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Muçarela",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Presunto",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Napolitana",
+          "price": 0,
+          "priceDelta": 0
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Banana",
+          "price": 0,
+          "priceDelta": 1
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Brotinho",
+          "group": "Sabor Brotinho",
+          "option": "Chocolate",
+          "price": 0,
+          "priceDelta": 1
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americano",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americano",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americano",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americano",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americano",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americamburger",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americamburger",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americamburger",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americamburger",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Americamburger",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Bauru",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Bauru",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Bauru",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Bauru",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Bauru",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Big Burguer",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Big Burguer",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Big Burguer",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Big Burguer",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Big Burguer",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Carne Seca",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Carne Seca",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Carne Seca",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Carne Seca",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Carne Seca",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Chileno",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Chileno",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Chileno",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Chileno",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Chileno",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Franpiry",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Franpiry",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Franpiry",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Franpiry",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Franpiry",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Cheddar",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Cheddar",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Cheddar",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Cheddar",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Cheddar",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Bacon",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Bacon",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Bacon",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Bacon",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Bacon",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Burguer",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Burguer",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Burguer",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Burguer",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Fran Burguer",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer Duplo",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer Duplo",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer Duplo",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer Duplo",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Hamburguer Duplo",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Misto Quente",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Misto Quente",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Misto Quente",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Misto Quente",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Misto Quente",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Queijo Quente",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Queijo Quente",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Queijo Quente",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Queijo Quente",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Queijo Quente",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 2",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 2",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 2",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 2",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 2",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 3",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 3",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 3",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 3",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "Super Larys 3",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Bacon",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Bacon",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Bacon",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Bacon",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Bacon",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer Duplo",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer Duplo",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer Duplo",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer Duplo",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Burguer Duplo",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Calabresa",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Calabresa",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Calabresa",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Calabresa",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Calabresa",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Bacon",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Bacon",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Bacon",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Bacon",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Bacon",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Calabresa",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Calabresa",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Calabresa",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Calabresa",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Calabresa",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Frango",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Frango",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Frango",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Frango",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Egg Frango",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango Calabresa",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango Calabresa",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango Calabresa",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango Calabresa",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango Calabresa",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Frango",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Salada",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Salada",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Salada",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Salada",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Salada",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Tudo",
+          "group": "Adicionais",
+          "option": "Frango",
+          "price": 0,
+          "priceDelta": 4
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Tudo",
+          "group": "Adicionais",
+          "option": "Demais Produtos",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Tudo",
+          "group": "Adicionais",
+          "option": "Carne de Sol",
+          "price": 0,
+          "priceDelta": 7
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Tudo",
+          "group": "Adicionais",
+          "option": "Calabresa",
+          "price": 0,
+          "priceDelta": 5
+        },
+        {
+          "severity": "red",
+          "code": "opcao_price_delta_com_price_preenchido",
+          "item": "X-Tudo",
+          "group": "Adicionais",
+          "option": "Bacon",
+          "price": 0,
+          "priceDelta": 5
+        }
+      ]
+    }
+  ]
+}

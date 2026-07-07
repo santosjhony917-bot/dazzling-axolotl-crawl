@@ -1,0 +1,19 @@
+{
+  "url": "https://api.anota.ai/clientauth/items-analytics/items/banner-combo?slug=anotaai-banner-home-combo&latitude=-7.052025899999999&longitude=-34.84330540000001",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "xhr",
+  "method": "GET",
+  "textLength": 81,
+  "textSample": "{\"success\":true,\"message\":\"Anúncios patrocinados listados com sucesso\",\"data\":[]}",
+  "jsonKeys": [
+    "success",
+    "message",
+    "data"
+  ],
+  "json": {
+    "success": true,
+    "message": "Anúncios patrocinados listados com sucesso",
+    "data": []
+  }
+}

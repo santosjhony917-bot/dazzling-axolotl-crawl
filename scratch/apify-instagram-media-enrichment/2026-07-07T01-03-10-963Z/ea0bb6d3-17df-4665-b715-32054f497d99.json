@@ -1,0 +1,91 @@
+{
+  "id": "ea0bb6d3-17df-4665-b715-32054f497d99",
+  "name": "Na brasa hambúrgueria",
+  "instagram": "https://www.instagram.com/nabrasa_burg/",
+  "followers": 3820,
+  "match": {
+    "score": 150,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/5583986556103"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "f69d0121-849c-448e-a1a0-f86b976bf56a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ea0bb6d3-17df-4665-b715-32054f497d99/instagram_1783385444129_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "4d3aee6c-ad70-47c9-872e-e16277c04f9f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ea0bb6d3-17df-4665-b715-32054f497d99/instagram_1783385445379_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "87d86a02-d824-4cbd-b61c-d7d702fc256f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ea0bb6d3-17df-4665-b715-32054f497d99/instagram_1783385446285_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "c5c9f2b1-d511-4f15-8994-ccd6d6f58617",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ea0bb6d3-17df-4665-b715-32054f497d99/instagram_1783385446978_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "caa7fc5a-0231-4bae-bae5-67ebe6ac89af",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ea0bb6d3-17df-4665-b715-32054f497d99/instagram_1783385447725_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "65fc7665-6940-40ca-a763-6bd2c07deba5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ea0bb6d3-17df-4665-b715-32054f497d99/instagram_1783385448373_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "6742e593-036a-46d9-8ae9-62819a667bf6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ea0bb6d3-17df-4665-b715-32054f497d99/instagram_1783385449007_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "8e7e6c18-2a41-47ac-8679-e39d128e81b5",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ea0bb6d3-17df-4665-b715-32054f497d99/instagram_1783385449657_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

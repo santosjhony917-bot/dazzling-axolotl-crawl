@@ -1,0 +1,92 @@
+{
+  "id": "6b65edcc-4d44-4dd4-82c8-36291fdef22b",
+  "name": "Caiçara Bar e Restaurante",
+  "instagram": "https://www.instagram.com/caicarabarerestaurante/",
+  "followers": 3244,
+  "match": {
+    "score": 180,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://xmenu.com.br/pedidos/?loja=20394"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "ded490a3-a070-450f-a5fa-2e5760b6c5cf",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6b65edcc-4d44-4dd4-82c8-36291fdef22b/instagram_1783385237400_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "e9272e86-ae83-4820-8896-4ea499ce5196",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6b65edcc-4d44-4dd4-82c8-36291fdef22b/instagram_1783385239006_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "584129f1-5a1b-41ba-adbf-42725d074635",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6b65edcc-4d44-4dd4-82c8-36291fdef22b/instagram_1783385239895_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "e3d2eec6-7ecd-437b-a5ef-e8a937b10464",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6b65edcc-4d44-4dd4-82c8-36291fdef22b/instagram_1783385240728_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "950dd702-8a8e-4ce2-b3fb-91fc18dc855d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6b65edcc-4d44-4dd4-82c8-36291fdef22b/instagram_1783385241824_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "b3bad035-c8e6-4db5-896b-7074734085e2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6b65edcc-4d44-4dd4-82c8-36291fdef22b/instagram_1783385242867_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "4d009c7d-5446-4fab-9a00-9e428b7cf798",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6b65edcc-4d44-4dd4-82c8-36291fdef22b/instagram_1783385243906_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "1567dc87-316a-441e-9231-35651a1d1699",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/6b65edcc-4d44-4dd4-82c8-36291fdef22b/instagram_1783385244656_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

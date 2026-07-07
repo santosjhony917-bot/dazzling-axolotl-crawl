@@ -1,0 +1,46 @@
+{
+  "runId": "2026-07-06T15-59-39-873Z",
+  "city": "Campina Grande",
+  "state": "PB",
+  "mode": "menu",
+  "apply": false,
+  "processed": 1,
+  "foundGreen": 0,
+  "foundYellow": 1,
+  "foundRedOrNone": 0,
+  "byPlatform": {
+    "instagram": 1
+  },
+  "files": {
+    "jsonlPath": "scratch\\serpapi-menu-discovery\\2026-07-06T15-59-39-873Z\\results.jsonl",
+    "summaryPath": "scratch\\serpapi-menu-discovery\\2026-07-06T15-59-39-873Z\\summary.json",
+    "csvPath": "scratch\\serpapi-menu-discovery\\2026-07-06T15-59-39-873Z\\candidates.csv"
+  },
+  "results": [
+    {
+      "restaurant": {
+        "id": null,
+        "name": "CO.FFEE Campina Grande cardapio pedido",
+        "category": null,
+        "address": "",
+        "neighborhood": null,
+        "rating": null,
+        "reviews_count": null
+      },
+      "query": "CO.FFEE Campina Grande cardapio pedido",
+      "best": {
+        "source": "organic",
+        "position": 3,
+        "title": "𝑪𝑶.𝑭𝑭𝑬𝑬 (@co.ffeepb) · Campina Grande, PB",
+        "link": "https://instagram.com/co.ffeepb",
+        "snippet": "Nosso menu executivo está incrível! Para você ter acesso a ele, basta clicar nos destaques em cardápio, ou mesmo pelo link na bio, e realizar seu pedido.",
+        "displayedLink": "Mais de 47 mil seguidores",
+        "platform": "instagram",
+        "score": 79,
+        "tier": "yellow",
+        "flags": []
+      },
+      "candidateCount": 9
+    }
+  ]
+}

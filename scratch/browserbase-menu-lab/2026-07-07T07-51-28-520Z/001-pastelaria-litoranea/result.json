@@ -1,0 +1,38 @@
+{
+  "restaurantId": "4fa980c0-13d2-415f-97a6-e31fd3141133",
+  "restaurantName": "Pastelaria Litorânea",
+  "sourceUrl": "https://whatsmenu.com.br/pastelarialitoranea",
+  "platform": "unknown",
+  "startedAt": "2026-07-07T07:51:33.285Z",
+  "finishedAt": "2026-07-07T07:51:57.260Z",
+  "targetDir": "scratch\\browserbase-menu-lab\\2026-07-07T07-51-28-520Z\\001-pastelaria-litoranea",
+  "finalUrl": "https://whatsmenu.com.br/pastelarialitoranea",
+  "title": "PASTELARIA LITORANEA",
+  "domMetrics": {
+    "innerWidth": 1440,
+    "innerHeight": 1100,
+    "scrollHeight": 13908,
+    "bodyLength": 236041,
+    "anchorCount": 1,
+    "imageCount": 123
+  },
+  "priceCountInVisibleText": 120,
+  "menuWords": [
+    "pedido",
+    "adicional",
+    "combo",
+    "pizza",
+    "bebida"
+  ],
+  "networkInterestingCount": 132,
+  "failedRequestCount": 2,
+  "directProbe": {
+    "platform": "unknown",
+    "success": false,
+    "reason": "no_direct_probe_for_platform_yet"
+  },
+  "lessonFlags": [
+    "visible_text_fallback_possible"
+  ],
+  "error": null
+}

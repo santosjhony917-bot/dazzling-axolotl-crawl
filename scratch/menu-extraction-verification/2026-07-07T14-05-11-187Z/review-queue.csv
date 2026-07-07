@@ -1,0 +1,2 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+red,64,menudino,Casa Do Pastel,https://lacasadepastelpb.menudino.com.br,collector_error|no_extension_print|no_structured_items|insufficient_visual_menu_evidence|price_coverage_review,reject_or_rediscover_source,72606188-4454-4890-a671-a65d4d08f024

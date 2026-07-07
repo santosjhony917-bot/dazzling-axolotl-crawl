@@ -1,0 +1,1499 @@
+{
+  "search": {
+    "query": "pastelaria Cabedelo PB",
+    "term": "pastelaria",
+    "area": "Centro Cabedelo",
+    "lat": -6.9748,
+    "lng": -34.8373,
+    "ll": "@-6.9748,-34.8373,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c0541f3fc7b1059aafb0d",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/RJGvWXav4c6ivrEvb4oVAA/6a4c0541f3fc7b1059aafb0d.json",
+    "created_at": "2026-07-06 19:42:57 UTC",
+    "processed_at": "2026-07-06 19:42:57 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/pastelaria+Cabedelo+PB/@-6.9748,-34.8373,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/RJGvWXav4c6ivrEvb4oVAA/6a4c0541f3fc7b1059aafb0d.html",
+    "prettify_html_file": "https://serpapi.com/searches/RJGvWXav4c6ivrEvb4oVAA/6a4c0541f3fc7b1059aafb0d.prettify",
+    "total_time_taken": 3.5
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "pastelaria Cabedelo PB",
+    "ll": "@-6.9748,-34.8373,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "Pastelaria Litorânea",
+      "place_id": "ChIJMwgi824grQcR0OCGiSGQ4Oc",
+      "data_id": "0x7ad206ef3220833:0xe7e090218986e0d0",
+      "data_cid": "16708513091260178640",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad206ef3220833%3A0xe7e090218986e0d0&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad206ef3220833%3A0xe7e090218986e0d0&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.970531299999999,
+        "longitude": -34.8366612
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJMwgi824grQcR0OCGiSGQ4Oc",
+      "provider_id": "/g/11c73c3xs1",
+      "rating": 4.3,
+      "reviews": 280,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "unclaimed_listing": true,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira",
+        "Cachorro-quente"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria",
+        "hot_dog_restaurant"
+      ],
+      "address": "R. Sólon de Lucena, 19 - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 16:30",
+      "hours": "Fechado · Abre ter. às 16:30",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "16:30–23:30",
+        "quarta-feira": "16:30–23:30",
+        "quinta-feira": "16:30–23:30",
+        "sexta-feira": "16:30–23:30",
+        "sábado": "16:30–23:30",
+        "domingo": "16:30–23:30"
+      },
+      "phone": "(83) 98807-9929",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Delícia o Pastel de Carne Moída e de Banana, preço justo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHrB8_BbvJLQTcG7P2jcmOSZUwsAv3UXUZW8AGdifFkkssetdZwkAnSaFI5asQqFNouZU_W9x_NGsz77XFSuU0tb3zYXxBiao_gii9PdDwgozT30rurbQeoQE3XiM2IkIjTUh95=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/GAeF1nicHcRRboIwGADgEyHVxiAmPpQ4GIsyGmhEXgiUrtQqdfxFDBfcGXYbE7-H7_-vs_YOW9e9dnghjZFXMYIYuOmt6O2Cm5sr7-BwcMAlaUI1-RyCTRU0j68DzXnkpasLv31nJZuAPDArWHnakKhVP6HWAMK25aRJn9VhvK6B_oaJGUtWnfxnlUQwe14RZiNDtsHzuXgGqjaVVMpP2_0kzZxjNIxDQ4WhH7hQx1Ws40vOOn-9m5YIIad7z53-BcZsRe8"
+    },
+    {
+      "position": 2,
+      "title": "La casa de pastel e La Pizza Premium",
+      "place_id": "ChIJYSxGk8ghrQcRk9Nz0uySHBE",
+      "data_id": "0x7ad21c893462c61:0x111c92ecd273d393",
+      "data_cid": "1233021943833416595",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21c893462c61%3A0x111c92ecd273d393&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21c893462c61%3A0x111c92ecd273d393&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9676383,
+        "longitude": -34.8344258
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJYSxGk8ghrQcRk9Nz0uySHBE",
+      "provider_id": "/g/11fhrdm515",
+      "rating": 4.1,
+      "reviews": 261,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira",
+        "Pizzaria"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria",
+        "pizza_restaurant"
+      ],
+      "address": "Rua por trás do Campo Municipal, R. Primo José Viana, 463 - Centro, Cabedelo - PB, 58100-521",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–00:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "18:00–00:00",
+        "quinta-feira": "18:00–00:00",
+        "sexta-feira": "18:00–00:00",
+        "sábado": "18:00–00:00",
+        "domingo": "18:00–00:00"
+      },
+      "phone": "(83) 98625-2145",
+      "website": "https://pedido.anota.ai/loja/la-casa-de-pastel-e-lanches?from=site",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Esportes",
+            "Mesas na cobertura",
+            "Música ao vivo"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Opções vegetarianas",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Banheiro de gênero neutro",
+            "Bar no local",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFmaHJkbTUxNRgAOgMI8A0%3D&g2lbs=AEzIGDuerpNRrET1SR7P9vCUV7qK75gH-sGaYn5hWvcruX4A2dZOWgmv8dseKTOAfvyis9dD3CCL&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=QwVMauvSAtK59u8P97aP4AY&ei=QwVMauvSAtK59u8P97aP4AY&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Foi um dos melhores pasteis que já provei, extremamente recheado!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEClKfMAKpRPzUWeOZ5coJwrOJnXGnHfs50kkuy67B1aRjHfHGxUjjOJzw5GrAlYspBYPw2CLwGEBy_3KvqMRt324w5zJ3vyHiiTlSPv1Uhph5aW9jnVsl5um6hTgld9g1L6Bk1=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/koGA3XicHcRRDoIgAADQE5mSYautD21Np5VmmdVPa6SQEpCgpBfsDN2mrffxvh-ilJBz06TEHmHOMS1aWTSIM1UwNUL8aWIhDSQNabrJdle7qyWNyo0biTQZsryILxDxUDdxyE4-C0oJrbpue2fqgVtaBWXgv7OqisNBQ79x6VkK75zo8XKt_ZXXX-2oe21SZY8nGg6h3fXB43Gg-6QDGREE3vJZxY6SwvbpkAOm9xkGa8erwUIDy7IM8h8Z7Aed10U6"
+    },
+    {
+      "position": 3,
+      "title": "Pastelaria em família",
+      "place_id": "ChIJS7zdL3bfrAcRkHxwCEWiiBQ",
+      "data_id": "0x7acdf762fddbc4b:0x1488a24508707c90",
+      "data_cid": "1479610894969240720",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf762fddbc4b%3A0x1488a24508707c90&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf762fddbc4b%3A0x1488a24508707c90&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.985920999999999,
+        "longitude": -34.832484
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJS7zdL3bfrAcRkHxwCEWiiBQ",
+      "provider_id": "/g/11w9dy0d46",
+      "rating": 5,
+      "reviews": 1,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. São Miguel - Camalaú, Cabedelo - PB, 58103-212",
+      "country": "Brasil",
+      "open_state": "Abre em breve · 17:00",
+      "hours": "Abre em breve · 17:00",
+      "operating_hours": {
+        "segunda-feira": "17:00–23:50",
+        "terça-feira": "Fechado",
+        "quarta-feira": "17:00–23:50",
+        "quinta-feira": "17:00–23:50",
+        "sexta-feira": "17:00–23:50",
+        "sábado": "17:00–23:50",
+        "domingo": "17:00–23:50"
+      },
+      "phone": "(83) 98608-6821",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFjq_GOn0oR0y9eYgUCcM0MHWo-8JwnOdi_9Y_3kgVG0Mgqlgn3eNB0KsHJOnxQ3IF6s71ISKfoUu7aBzW81R28o3XF4aUX4utE5GmpWl34d2faCwlNVdgGaCgrsjZu6SGy9Yw79w=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/hv2SOnicHcTbboIwGADgJ6oUixyW7EKJ1EOAKUHEG0JK_ZnWFm1J597QR_Btluy7-N6v3phBfziO6MkElALBR80fTEnDpZkwdXNg0IhppJ35V7a7zpPLvaG5xGqPnxGvoYxZitNVpVC4sTLvvpuobsgVDhSncBcgCc8WeKtXm1z-7Mg68XXgrovtWZVj0C5-q9DdT0NFjonXlkdvNMsZvQ2VIF43PbexFdmhA9rG8NCX0-gX9BnVNojsp3Uxxqj_nyH5B4O1REQ"
+    },
+    {
+      "position": 4,
+      "title": "Pastel do Thiago",
+      "place_id": "ChIJkRCA8QQhrQcRdarr_EmBcBI",
+      "data_id": "0x7ad2104f1801091:0x12708149fcebaa75",
+      "data_cid": "1328704044850195061",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad2104f1801091%3A0x12708149fcebaa75&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad2104f1801091%3A0x12708149fcebaa75&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9693971999999995,
+        "longitude": -34.8343974
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJkRCA8QQhrQcRdarr_EmBcBI",
+      "provider_id": "/g/11h1kq8g1x",
+      "rating": 4,
+      "reviews": 9,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. Sólon de Lucena - Ponta de Matos, Cabedelo - PB, 58100-570",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–02:00",
+        "terça-feira": "18:00–02:00",
+        "quarta-feira": "18:00–02:00",
+        "quinta-feira": "18:00–02:00",
+        "sexta-feira": "18:00–02:00",
+        "sábado": "18:00–02:00",
+        "domingo": "18:00–02:00"
+      },
+      "phone": "(83) 98823-7441",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF9QKrPjBj0kxqYXhiX1JPIXW7WAXmC4SRS45pT9eDEY-nkXfTHLebVAwfzaIBrBRNXXUUa2yIdL1KOgFTUIZcNJKfzTJoo7iOY_L79PC4CIsDU8SK4-O5_QxkG1BUlrjEIxbqT=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/F5rfLHicHcRdEkJAAADgE20oRprpAakW4ye7tXppaluErKwmuWBn6DbN9D1830_R961YSFJdzCY553nNnoJ1lDc9a_oJ5XcpbwWgAgjJjIK4MtdG7HVRaZVyNTxSUtyI4kaQHPSDSe62muwSVWuRwVZOCpqKZGjrs8vefGXjGVqdtQsIwfg8fcOrr3hhvkYYHmngetmIXM71W5iefN2IbNWGYoXniaeCUDvFQ7VRLFx3pQOHywMtX4osy6D4T0HzA-aMQyA"
+    },
+    {
+      "position": 5,
+      "title": "Casa Do Pastel",
+      "place_id": "ChIJoc8jbkrerAcRh20OFIzRlDc",
+      "data_id": "0x7acde4a6e23cfa1:0x3794d18c140e6d87",
+      "data_cid": "4005056368201330055",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde4a6e23cfa1%3A0x3794d18c140e6d87&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde4a6e23cfa1%3A0x3794d18c140e6d87&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.019472299999999,
+        "longitude": -34.839647899999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJoc8jbkrerAcRh20OFIzRlDc",
+      "provider_id": "/g/11c2l7gtfs",
+      "rating": 4.2,
+      "reviews": 20,
+      "unclaimed_listing": true,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira",
+        "Restaurante"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria",
+        "restaurant"
+      ],
+      "address": "R. Honório Patrício dos Santos, 328 - Recanto do Poço, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "00:00–13:00, 18:00–00:00",
+        "terça-feira": "00:00–13:00, 18:00–00:00",
+        "quarta-feira": "00:00–13:00, 18:00–00:00",
+        "quinta-feira": "00:00–13:00, 18:00–00:00",
+        "sexta-feira": "00:00–13:00, 18:00–00:00",
+        "sábado": "00:00–13:00, 18:00–00:00",
+        "domingo": "00:00–13:00, 18:00–00:00"
+      },
+      "phone": "(83) 98663-1487",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"A tia é maravilhosa e o pastel, sequinho e bem recheado!\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=SjWO0kziWJPm0IFp_-vjkw&cb_client=search.gws-prod.gps&w=80&h=92&yaw=208.36478&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/dk0GSXicHc3BDcIgFADQbbgVqBqtJsSbiV408dBjQynCb2n5KQjqNK7lNhoXeO_ztjFi2DEW4qx1TKAzwkO7UKCkxnvjtEQIVPmRpZJFex_bSYLbo5w8dOLa12c-vKA-XUZ-PGBTpH7IRLWNcqCnKIKWs7LU5J84-44aDCSLihMrtgvylFkseEWX69WmIghRWcHJf7n5JErOv4xaOco"
+    },
+    {
+      "position": 6,
+      "title": "PARCEIRO Rosa Lanches",
+      "place_id": "ChIJKfbziSchrQcRUM5eTvB19FU",
+      "data_id": "0x7ad212789f3f629:0x55f475f04e5ece50",
+      "data_cid": "6193705062508711504",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad212789f3f629%3A0x55f475f04e5ece50&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad212789f3f629%3A0x55f475f04e5ece50&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9708638999999994,
+        "longitude": -34.833857699999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJKfbziSchrQcRUM5eTvB19FU",
+      "provider_id": "/g/11fsz11gyh",
+      "rating": 4.5,
+      "reviews": 120,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "R. Ten. Antônio Pontes, 139 - Ponta de Matos, Cabedelo - PB, 58100-645",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–01:00",
+        "terça-feira": "18:00–01:00",
+        "quarta-feira": "18:00–01:00",
+        "quinta-feira": "18:00–01:00",
+        "sexta-feira": "18:00–01:00",
+        "sábado": "18:00–01:00",
+        "domingo": "18:00–01:00"
+      },
+      "phone": "(83) 98836-3792",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFmc3oxMWd5aBgAOgMI8A0%3D&g2lbs=AEzIGDtV9Va4xrJg1UyObFTWbo3fYe2Re7_22ouOdPby2F_DmD3f_P-1391VbqOLWo6kWqRkcnYK&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=QwVMauvSAtK59u8P97aP4AY&ei=QwVMauvSAtK59u8P97aP4AY&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Excelente ótimo atendimento e pedidos rápidos e ambiente muito 👍\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF3ZO5xwiY3HiLSLEx7-_0OQnfCu6J_MSGbTU08JiM_PB7nXQF5Vuz2m7Ih3UpxHbwfowkCil-dUl6JkdAygVdApAZar5yPy3b-4nt0jujjv8xcUXD0DlKxxuWrvnkKVGywXWy8=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/p9qMHXicHcTbboIwAADQL6p0dggx2UPVeUGdEAWZL2QU5FZbQlvb-oN-w_7GxPNw_p-1lL2YOg6t0ajivKKlEuVAOJMlkyPCb07VC0AEEA4Of6IOL9Hl4Brd_KJ1szvuvo0HMniI2HWuJkG2P67yUwz9oNln4cxjabR0E_UY37xNjeLerHN95bqbNxQUMZ0EXYFtlRS4x5e_wbWhRTn4ZBK2qm3vviFxuoALujVGnYc767bJyur0bP0v_QEhBPV7AtgLMx9FWw"
+    },
+    {
+      "position": 7,
+      "title": "Panificadora do Poço",
+      "place_id": "ChIJD-aUzE3erAcRIs-tCW7mU0Q",
+      "data_id": "0x7acde4dcc94e60f:0x4453e66e09adcf22",
+      "data_cid": "4923532177929260834",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde4dcc94e60f%3A0x4453e66e09adcf22&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde4dcc94e60f%3A0x4453e66e09adcf22&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0209212,
+        "longitude": -34.8318927
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJD-aUzE3erAcRIs-tCW7mU0Q",
+      "provider_id": "/g/11c54mqv9k",
+      "rating": 4.2,
+      "reviews": 293,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Padaria",
+      "types": [
+        "Padaria"
+      ],
+      "type_id": "bakery",
+      "type_ids": [
+        "bakery"
+      ],
+      "address": "R. Carolino Cardoso, 177-245 - Lot. Vitorino Cardoso, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:30",
+      "hours": "Aberto · Fecha 19:30",
+      "operating_hours": {
+        "segunda-feira": "06:00–19:30",
+        "terça-feira": "06:00–19:30",
+        "quarta-feira": "06:00–19:30",
+        "quinta-feira": "06:00–19:30",
+        "sexta-feira": "06:00–19:30",
+        "sábado": "06:00–19:30",
+        "domingo": "06:00–19:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Excelente o sabor do pão, preço e atendimento.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAE2vtYRMnL6ETSwfU3XZsfo8EtWz_0zBmGbWF5uLh-BPJq2NjUk8PE2yrQL9Isb8glWZOGcCHs4-3zTqc-R4EsWz45mCZzy0FmxqtssDSOQZsdpfQSMO3pEB_-Mh3cy09jQoDh8=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/LFpDw3icHcRLDoIwFADAE1UqBYMmLkTqLyBUMCgbEyvQKFDw1Q-9oGfwNibOYr4foVQLE8OoBBmUUpZV_oD8zmWj8kYNuKyNsgXEAYExi7bsNqPmUx13QeOPaBK_ij05ZFBIh6pUn7B26-U5XdgPXyA32nTm9rq_ORE1-zvzx2s4O2WVZuGSz1dgIaKTjqOdRSHVll3PM93jRf3uFIAXhyyDS1uwOAhJS90TCgThPR5fmfSEM30NMcZI_Oeo-QE_w0Q2"
+    },
+    {
+      "position": 8,
+      "title": "Recanto do Pastel",
+      "place_id": "ChIJTbQRGwDfrAcRtHi9QRdHtfw",
+      "data_id": "0x7acdf001b11b44d:0xfcb5471741bd78b4",
+      "data_cid": "18209538833555224756",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf001b11b44d%3A0xfcb5471741bd78b4&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf001b11b44d%3A0xfcb5471741bd78b4&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.020205499999999,
+        "longitude": -34.8382338
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJTbQRGwDfrAcRtHi9QRdHtfw",
+      "provider_id": "/g/11mzbr2hcl",
+      "rating": 5,
+      "reviews": 2,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. Gov. Antônio Mariz, 76 - Recanto do Poço, Cabedelo - PB, 58105-126",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 17:00",
+      "hours": "Fechado · Abre ter. às 17:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "17:00–23:00",
+        "quarta-feira": "17:00–23:00",
+        "quinta-feira": "17:00–23:00",
+        "sexta-feira": "17:00–23:00",
+        "sábado": "17:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Super recomendo o pastel é uma delícia 😋👏🏻👏🏻👏🏻\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFmlB-LHbexUVuDPLiK5bPFr6CaxjjMStL1vSRsGgQsCuwxfxlSXxerHQ8s17-EpKZ29hVfZe_Te1CjQOpMjp_VQX8PV1ZbdOcdx_OTX_IPXGX801arugFk6WfGEvjV0etdIZf-8YvyAxJK=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/FjuZqXicHcTBToMwAADQL-poNU408cBwsAkb7Zi1ciGjlGLHoKGF1a_0vL9Z4ju8219rrTavnte1jws5DLITkxEjH3orervgw8WT2gBugPECvCfnILp0K5BuKuE-6fSO05_kqcLRuAxPTqldblM05wcTS2LC6eoa1-XMiXFDfIOewVonxcNLS5tClEeBQkUyvVO6pIT5mKKiqjNeuzI7snKLWcx8iE7jJKPz8quJ17OiUNh6WzTA_55_A_eRvF0RhBC0_3PQ3wHlEUfx"
+    },
+    {
+      "position": 9,
+      "title": "Big lanches camboinha",
+      "place_id": "ChIJg_1fFG3frAcRQ_tg6GDYS08",
+      "data_id": "0x7acdf6d145ffd83:0x4f4bd860e860fb43",
+      "data_cid": "5713898462976736067",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf6d145ffd83%3A0x4f4bd860e860fb43&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf6d145ffd83%3A0x4f4bd860e860fb43&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0071977,
+        "longitude": -34.8341347
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJg_1fFG3frAcRQ_tg6GDYS08",
+      "provider_id": "/g/11kjmd9kw4",
+      "rating": 5,
+      "reviews": 6,
+      "unclaimed_listing": true,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. Márcia Travassos, 165 - Camboinha, Cabedelo - PB, 58103-718",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 19:00",
+      "hours": "Fechado · Abre ter. às 19:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "19:00–00:00",
+        "quarta-feira": "19:00–00:00",
+        "quinta-feira": "19:00–00:00",
+        "sexta-feira": "19:00–00:00",
+        "sábado": "19:00–00:00",
+        "domingo": "19:00–00:00"
+      },
+      "phone": "(83) 99136-4218",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Amei, fui muito bem atendido e sem falar nos lanches que são deliciosos.\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=oIUAWB0nkJowuT8LbDQuyQ&cb_client=search.gws-prod.gps&w=80&h=92&yaw=289.33762&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/v-TwbXicHc1RCsIgGADg2_iWug1qCySKXopeBkWP4exPJecv0812m67VbYou8H2ft0kpxDVjMQ0AabKQg32Bi4sgqUbUDmSwkSrs2VSwZMa-89K6TZAe7V3g4bK97rh_HjGP5_rU7dtxbonqbspZ8ElEkIMyVOefOOCd6hBJFjUnRjQlmWUWZd3QqlotSxJsUkZw8l8eOImC8y-ESTmz"
+    },
+    {
+      "position": 10,
+      "title": "Cabedelo-PB",
+      "place_id": "ChIJ3wT1750hrQcRs2veaxaoWXo",
+      "data_id": "0x7ad219deff504df:0x7a59a8166bde6bb3",
+      "data_cid": "8816262559806942131",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad219deff504df%3A0x7a59a8166bde6bb3&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad219deff504df%3A0x7a59a8166bde6bb3&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9686007,
+        "longitude": -34.8378982
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ3wT1750hrQcRs2veaxaoWXo",
+      "provider_id": "/g/11tn5ffxg8",
+      "rating": 4.9,
+      "reviews": 15,
+      "unclaimed_listing": true,
+      "type": "Desenvolvimento de moradias",
+      "types": [
+        "Desenvolvimento de moradias"
+      ],
+      "type_id": "housing_development",
+      "type_ids": [
+        "housing_development"
+      ],
+      "address": "R. Cel. José Téles - Vila Sao Joao, Cabedelo - PB, 58100-503",
+      "country": "Brasil",
+      "open_state": "Aberto agora",
+      "extensions": [
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        }
+      ],
+      "user_review": "\"Muito lindo, por do sol do jacaré é simplesmente fantástico.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGH_Y9onzWLbghTlDSxLY2VWbzOre6c5kTikkjPzyGqV5cUid0MbbmC0ovTI7isvmqj9JqAVaGcNd2-xRvlNGfqXJ4KAVg4Z3UJSeVg-I9ZtzFH2TUdB7_Xl3_d9RMAfM2ElQrQBg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/U-gdtXicHcRJDoIwAADAF1UquAQTD3VDUVAU6nIhUmpBChVaEfmhT_A3Js5hvp9EqYccaRpPjA4TgnH6lLQiolC0UB0ico09JCASSA3tXC9D1jI8m6Joj5uIJT6fHZrNWcfHqN1WdED6mZ9m2X3Xvq0S90mQxtCJonwKRe2vhqms8_Ju2iXCV4u4sQ6afc1d61ae7N4aYda7GIF9oJiBlXlR7WKp-0E8GYYnboSxuXfQzdHn3Ku8CRu_uhBCkPwnoPgBVQBFjg"
+    },
+    {
+      "position": 11,
+      "title": "Pastelaria Arretada",
+      "place_id": "ChIJu3uW1J3frAcRSD7yg4vEUJg",
+      "data_id": "0x7acdf9dd4967bbb:0x9850c48b83f23e48",
+      "data_cid": "10975488395395087944",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf9dd4967bbb%3A0x9850c48b83f23e48&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf9dd4967bbb%3A0x9850c48b83f23e48&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0308603,
+        "longitude": -34.8483979
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJu3uW1J3frAcRSD7yg4vEUJg",
+      "provider_id": "/g/11ysz4ph70",
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira",
+        "Restaurante",
+        "Lanchonete"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria",
+        "restaurant",
+        "snack_bar"
+      ],
+      "address": "R. Jair Cunha Cavalcanti - Jacaré, Cabedelo - PB, 58105-700",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:00",
+      "hours": "Fechado · Abre ter. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:00–23:00",
+        "quarta-feira": "18:00–23:00",
+        "quinta-feira": "18:00–23:00",
+        "sexta-feira": "18:00–23:00",
+        "sábado": "18:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "phone": "(83) 99380-1327",
+      "website": "https://delivery.yooga.app/pastelaria-arretada",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFvoJgThXLWOc-llDHZrUiN8LWu3sttuEFMxbrOIFq2CBd8nXraC4B4pNxOVgiBXDcDrk-0jmbjhFklFIBqoLIwcWAX-btdcUzr3aA3C6GaY2cGOXAO_RC7Nlu4B3FB1sYoaNTfvlux3cP-=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/pttB13icHcTdTsIwGADQJyobdFFi4kW7WZyZLRpwxRuzfcwWVtbRH1h8Sa95GxPPxbn96hBG_5AkRuOZslaZLvrOgR1CN4QZ2FOiRo_AI5-QNX_rCbvYF7XRsqoFIGOK50-3PfBlVUfsQ4hP7HVqnSjZeZHT_XKQrskzmo18Eh_qQGUBhetRejy1R816w0p6tlV5hZpI1IY9bH8cbgjO71bNbgErIYn4es_vuYkZxYzO_c42fPN9MXHCsEaP13mapkj_D2j4A8QVRzs"
+    },
+    {
+      "position": 12,
+      "title": "Padaria Pandine",
+      "place_id": "ChIJP6gJ7w3erAcREADxKhazvuY",
+      "data_id": "0x7acde0def09a83f:0xe6beb3162af10010",
+      "data_cid": "16626923782089539600",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde0def09a83f%3A0xe6beb3162af10010&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde0def09a83f%3A0xe6beb3162af10010&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.043929599999999,
+        "longitude": -34.845576699999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJP6gJ7w3erAcREADxKhazvuY",
+      "provider_id": "/g/1tdqnw6s",
+      "rating": 4.4,
+      "reviews": 1096,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Padaria",
+      "types": [
+        "Padaria"
+      ],
+      "type_id": "bakery",
+      "type_ids": [
+        "bakery"
+      ],
+      "address": "Av. Mar Vermelho, 357 - Intermares, Cabedelo - PB, 58102-120",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "06:00–20:00",
+        "terça-feira": "06:00–20:00",
+        "quarta-feira": "06:00–20:00",
+        "quinta-feira": "06:00–20:00",
+        "sexta-feira": "06:00–20:00",
+        "sábado": "06:00–20:00",
+        "domingo": "06:00–11:30, 15:30–19:00"
+      },
+      "phone": "(83) 3248-1069",
+      "website": "https://www.instagram.com/padariapandine/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Comi pao dr queijo, inhame com carne de sol e estava tudo muito bom.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHZWXaY4sZzuS9iHpcigYSpf71RBCV8_jPPkBN2n033AwreDpT-AS1bRHPZCxlVUN_dZnu2buNkj2EGV066end-NppxEI_QVEnEdzIMduqFQ4Vq7l5qT369sgG5709tQuehlCcsaQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/bCRdpHicHcTBDoIgAADQLyJRS7Otg5llh5hkUXlxhYQlIQas1h_2Cf1NW-_wvp_GGKUnjiMaf8C7jgtmNXvQThomzYB2d4crDagG2olzhNs4K_eH03Goy7ctomum6JUfC3UJ3c0sIePqluftDHkS-n78fLC52oK4cM-bLC-TlyA7VNWltN7ZovbmpUsCg4DJGiClXumqwiSVaf1erWvbL_CQ9KEY9Vs_iDRfjkIYGWxZIxKqT3j6dCGEoPlPgfwBuj9ErA"
+    },
+    {
+      "position": 13,
+      "title": "Pista de Skate Praça G Menezes",
+      "place_id": "ChIJV9bufG4grQcR-CKQS9WJMCM",
+      "data_id": "0x7ad206e7ceed657:0x233089d54b9022f8",
+      "data_cid": "2535678139398365944",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad206e7ceed657%3A0x233089d54b9022f8&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad206e7ceed657%3A0x233089d54b9022f8&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9694310999999995,
+        "longitude": -34.834384199999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJV9bufG4grQcR-CKQS9WJMCM",
+      "provider_id": "/g/11bc7s8f51",
+      "rating": 4,
+      "reviews": 163,
+      "type": "Pista de skate",
+      "types": [
+        "Pista de skate"
+      ],
+      "type_id": "skateboard_park",
+      "type_ids": [
+        "skateboard_park"
+      ],
+      "address": "R. Arthur Santos Viana, 279 - Vila Sao Joao, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto 24 horas",
+      "hours": "Aberto 24 horas",
+      "operating_hours": {
+        "segunda-feira": "Atendimento 24 horas",
+        "terça-feira": "Atendimento 24 horas",
+        "quarta-feira": "Atendimento 24 horas",
+        "quinta-feira": "Atendimento 24 horas",
+        "sexta-feira": "Atendimento 24 horas",
+        "sábado": "Atendimento 24 horas",
+        "domingo": "Atendimento 24 horas"
+      },
+      "extensions": [
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "user_review": "\"Um ótimo lugar para almoçar.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGcnZ8vKbI_uQlEup-5HS8yFXCqGvyABP-pGIlFy-wj-gsfhwIFqMAYdizp87efPW4xlt7coqHg74n-K-VuzaOwNCu7TpLC5OZSn7yiYMccE-e0moTfYSCr_r7ivSWUqaP_BpLHQw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/2eUdvnicHcRbjoIwFADQFV3BjKbExA8k8ogvCL7wh2gtBa1toS0Vd-gSZjeTzPk4v99aa6lmjsPqnxEVgjJiFOmw4JpwPcLi5VCpACtQjp9us6cfYX7x-tUtKU3GlkbCNM69ITwHbdQP_iIFGSUsHMA-gKqqtknYbvzi3nykh0iVniZvphEWbUzRhMMKjuZz3dltYNBeroPp7pJzNDTFBuMlEPcl9lWRB13ZoabPT4f2mpYLuY4zO7dj13Wh_h8D_wMuaUY1"
+    },
+    {
+      "position": 14,
+      "title": "Padaria Eldorado Intermares",
+      "place_id": "ChIJ8fLcFhXfrAcRa8uPR7mcTcU",
+      "data_id": "0x7acdf1516dcf2f1:0xc54d9cb9478fcb6b",
+      "data_cid": "14217191918262012779",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1516dcf2f1%3A0xc54d9cb9478fcb6b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1516dcf2f1%3A0xc54d9cb9478fcb6b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0445728,
+        "longitude": -34.8439851
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ8fLcFhXfrAcRa8uPR7mcTcU",
+      "provider_id": "/g/11sm8z1q09",
+      "rating": 4.3,
+      "reviews": 573,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Padaria",
+      "types": [
+        "Padaria"
+      ],
+      "type_id": "bakery",
+      "type_ids": [
+        "bakery"
+      ],
+      "address": "Av. Mar Vermelho, 263 - Intermares, Cabedelo - PB, 58102-120",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 21:00",
+      "hours": "Aberto · Fecha 21:00",
+      "operating_hours": {
+        "segunda-feira": "06:00–21:00",
+        "terça-feira": "06:00–21:00",
+        "quarta-feira": "06:00–21:00",
+        "quinta-feira": "06:00–21:00",
+        "sexta-feira": "06:00–21:00",
+        "sábado": "06:00–21:00",
+        "domingo": "06:00–21:00"
+      },
+      "phone": "(83) 3032-6121",
+      "website": "https://www.instagram.com/eldoradogourmetof?igsh=cnZ4N3A0czlsZDZx&utm_source=qr",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Fui muito bem atendida, comidinha deliciosa.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH1puA7BmQYdzovkMvjdDS59fg52xlArYmh0Vr7t-F24APmrsZDN89JEwQWU_tWTRbxCg3OaPCQX90i6evh_g5pIFgMe6dfZWiQoNYctsqJtW17AmEqcL7Fu9l_hb_5O8jfeXdHIQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/dQ7R_XicHcTbDoIgAADQLyKxMrOtB_KyamXSzfTFFSJUIiZorT_sE_qbts7D-X641rWaGEbJBz0mJStpq2hDZKVppXtECoPVChAFlIGiEN_R3KxbZM8ETvK37O7r7pZ7O8spmNV_lahJBIfHxtYg6A9RJBqVeuHYWfpPHB8yHe-3l5fLBptz5OKTA68j2vGMWfUiYGs6yos0vmIZJkSrx1LHpo2E_yArO2idMuOXzNqMbwU95fMFnj5NCCHg_wmofu6VRVo"
+    },
+    {
+      "position": 15,
+      "title": "Pastelle (Pastelaria artesanal)",
+      "place_id": "ChIJKdiJIC7drAcRSmw3uvlT1t0",
+      "data_id": "0x7acdd2e2089d829:0xddd653f9ba376c4a",
+      "data_cid": "15985056259434310730",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd2e2089d829%3A0xddd653f9ba376c4a&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd2e2089d829%3A0xddd653f9ba376c4a&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0727449,
+        "longitude": -34.8557281
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJKdiJIC7drAcRSmw3uvlT1t0",
+      "provider_id": "/g/11g0473qb0",
+      "rating": 4.8,
+      "reviews": 6,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria"
+      ],
+      "address": "R. Raul Seixas - Renascer, Cabedelo - PB, 58108-122",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:00",
+      "hours": "Fechado · Abre ter. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:00–00:00",
+        "quarta-feira": "18:00–00:00",
+        "quinta-feira": "18:00–00:00",
+        "sexta-feira": "18:00–00:00",
+        "sábado": "18:00–00:00",
+        "domingo": "18:00–00:00"
+      },
+      "phone": "(83) 98690-5043",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Excelente o atendimento\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGpBU0MyCi_0MjtNVrQ2VKF4RVjF1_lvX5H0cWor_S1T2_K990QFm9BHwdeaB4SrsCiE1bh2HxT3krm7NSW9xBO3Gtno6PZ5529vONriSBa0CS-OROrDnutxOs95frlDHwbZRiZJg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/YX1KAHicHcRdDoIgAADgE5H4V6Oth7DM1ZKUsuaLUzK1FBxQ2hE7Qrdp63v4vp9a617NDaOt7UklRNWWT1VKJrguuZ4w0RlVrwBTQBnLQxg9lpsen-D-7TUZ3N91mMjISna-Eyd338za18UNIDsLmVHzaGU7hGDkdwgHw7XMsUOl8pq1WdRWMB7th-xmIT2jERN7o7mYHlLXtdCLhLKhOIceBSQmcsWfeiQKuTfZroKhSOMm3VaLwYQQgvo_A_wHRgpD3A"
+    }
+  ]
+}

@@ -1,0 +1,227 @@
+{
+  "id": "ec6b2565-934c-4278-9a8a-63168eb819f2",
+  "name": "DAWN BURGUER",
+  "instagram": "https://www.instagram.com/dawn.burguer/",
+  "followers": 9786,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_profile_1783385182430.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385186856_1.jpg",
+      "score": 40,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385187997_2.jpg",
+      "score": 33,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385188534_3.jpg",
+      "score": 32,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385189374_4.jpg",
+      "score": 30,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385190087_5.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385190705_6.jpg",
+      "score": 27,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385191375_7.jpg",
+      "score": 25,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385192141_8.jpg",
+      "score": 24,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "4e512a45-fbe3-4501-a662-fd0679d06e8a",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385186856_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "ac7605f7-6055-42f5-a855-3bb197676f14",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385187997_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "57634794-ea7f-4b5e-ac67-39bcedbdc8c0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385188534_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "7e689bd3-d61a-437f-9cbe-4c4942643af9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385189374_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "c96496fb-db8d-47a7-b0c0-1378c7e1c25f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385190087_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "0303d507-8a4a-4178-87dd-a9e850e69e9b",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385190705_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "d632d058-d12b-4b09-93c7-19e343b55724",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385191375_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "e27b9807-dec5-42bb-9473-5992b1f811db",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ec6b2565-934c-4278-9a8a-63168eb819f2/instagram_1783385192141_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 40,
+      "caption": "🔥 AGORA É OFICIAL! 🔥 O Dia do Hambúrguer passou, mas a gente não podia deixar essa data especial sem uma promoção à altura. ✨ Compre 1 hambúrguer e leve outro pela METADE DO PREÇ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 33,
+      "caption": "👑 CHEGOU A RAINHA SUPREMA! 👑 A nova majestade da DAWN BURGUER acaba de desembarcar no nosso cardápio! ▪️Blend artesanal de 180g ▪️Queijo cheddar ▪️Costela desfiada ao molho barbe",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 32,
+      "caption": "NOTÍCIA URGENTE: 🚨 Neste Dia das Mães, as mães decretaram: amanhã ninguém vai cozinhar. O jantar é na Dawn Burguer. 💛 Porque ela merece descanso, carinho e um hambúrguer à altura",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 30,
+      "caption": "💍 Tem pedido que é impossível dizer não. Você aceita comer um Dawn Burguer comigo? 🫶🏻✨",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Já conheceram nosso super lançamento e exclusividade na cidade? 🔥 A Dawn Burguer conseguiu deixar ainda melhor o que já era bom: agora todos os nossos burgers artesanais são feito",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "Hexa eu não sei… mas o burger de milhões é garantido! 🇧🇷 A convocação é oficial: é hoje! Às 21h30, temos um encontro marcado na DAWN BURGUER para torcer pelo Brasil do jeito que ",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 25,
+      "caption": "CAMISA 10 DO SABOR. 🍔🇧🇷🔥 Tem hambúrguer… E tem o BRABO. O queridinho DAWN 5 chegou pesado: 🥓 bacon crocante 🧀 muito cheddar 🔥 smash na medida 🤤 geleia de abacaxi sem dó Sel",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 24,
+      "caption": "Pra gente, quinta já tem gostinho de fim de semana. ✨ Então chama quem você ama, vem saborear nossos burguers e aproveita pra pedir a nossa batata recheada… porque ela é amor à pri",
+      "vision": null
+    }
+  ]
+}

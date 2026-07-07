@@ -1,0 +1,91 @@
+{
+  "id": "fbf76b65-220f-4ae7-89fc-fec690985eda",
+  "name": "Tapiocaria do Dinho",
+  "instagram": "https://www.instagram.com/tapiocariadinho/",
+  "followers": 3977,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://api.whatsapp.com/send?phone=5583986457353"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "9e84f963-8ca5-4178-841c-22ca4421f8b8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/fbf76b65-220f-4ae7-89fc-fec690985eda/instagram_1783384752407_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "9aa3c6b5-5ab5-4665-affe-4205918c085d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/fbf76b65-220f-4ae7-89fc-fec690985eda/instagram_1783384753719_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "882fab61-b681-4349-acc4-0fe5eed37ebc",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/fbf76b65-220f-4ae7-89fc-fec690985eda/instagram_1783384754496_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "adcc86c9-2254-49f2-83d6-e11917952bb6",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/fbf76b65-220f-4ae7-89fc-fec690985eda/instagram_1783384755246_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "809a8047-04f2-457d-b1f3-a43d70b5435f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/fbf76b65-220f-4ae7-89fc-fec690985eda/instagram_1783384756162_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "d18a62a9-199d-40b4-b1c5-a5edf0c1080f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/fbf76b65-220f-4ae7-89fc-fec690985eda/instagram_1783384757009_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "cb405b7d-1499-4e6d-9f70-91a00a1ff866",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/fbf76b65-220f-4ae7-89fc-fec690985eda/instagram_1783384757823_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "8123cc75-12cf-4c68-b43a-289f99cf5116",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/fbf76b65-220f-4ae7-89fc-fec690985eda/instagram_1783384758568_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

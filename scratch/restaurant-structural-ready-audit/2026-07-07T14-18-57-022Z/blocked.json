@@ -1,0 +1,30 @@
+[
+  {
+    "id": "2ef9ccde-0e20-4108-a8ac-874108b3c16b",
+    "name": "Porto do açaí",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  },
+  {
+    "id": "2ed733a0-a4c7-4bb4-b280-21d7752c0409",
+    "name": "Sushiyaki Restaurante",
+    "redCount": 1,
+    "issueCodes": [
+      "galeria_sem_evidencia_visual_forte"
+    ],
+    "firstIssues": [
+      {
+        "severity": "red",
+        "code": "galeria_sem_evidencia_visual_forte"
+      }
+    ]
+  }
+]

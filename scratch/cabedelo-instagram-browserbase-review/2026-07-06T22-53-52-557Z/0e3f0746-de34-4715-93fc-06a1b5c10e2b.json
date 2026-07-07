@@ -1,0 +1,52 @@
+{
+  "id": "0e3f0746-de34-4715-93fc-06a1b5c10e2b",
+  "name": "D Lay Refeições - Marmitaria",
+  "category": "Restaurante de almoço",
+  "neighborhood": "Cabedelo",
+  "reviews_count": null,
+  "rating": null,
+  "instagramCandidate": "https://instagram.com/d_lay_refeicoes",
+  "score": 120,
+  "title": "Photo by D Lay Refeições (@d_lay_refeicoes) · January 8, ...",
+  "queries": [
+    "D Lay Refeições - Marmitaria cantinhodoreallanches Cabedelo Instagram"
+  ],
+  "reasons": [
+    "no_location_or_phone_support"
+  ],
+  "evidenceSample": "Photo by D Lay Refeições (@d_lay_refeicoes) · January 8, ... Chama no WhatsApp. Delivery até às 15h. Almoço de 12,00 e 15,00 ... Photo by D Lay Refeições on January 17, 2025. https://instagram.com/d_lay_refeicoes",
+  "rowName": "D Lay Refeições - Marmitaria",
+  "status": "hold",
+  "best": {
+    "status": "hold",
+    "score": 89,
+    "url": "https://instagram.com/d_lay_refeicoes",
+    "handle": "d_lay_refeicoes",
+    "tokens": [
+      "lay",
+      "refeicoes",
+      "marmitaria"
+    ],
+    "handleMatches": [
+      "lay",
+      "refeicoes"
+    ],
+    "textMatches": [
+      "lay",
+      "refeicoes"
+    ],
+    "cityConfirmed": false,
+    "stateConfirmed": false,
+    "neighborhoodConfirmed": false,
+    "phraseMatches": [],
+    "phones": [],
+    "exactPhone": false,
+    "ddd83": false,
+    "conflicts": [],
+    "outOfScope": false,
+    "evidenceSample": "Photo by D Lay Refeições (@d_lay_refeicoes) · January 8, ... Photo by D Lay Refeições (@d_lay_refeicoes) · January 8, ... Chama no WhatsApp. Delivery até às 15h. Almoço de 12,00 e 15,00 ... Photo by D Lay Refeições on January 17, 2025. https://instagram.com/d_lay_refeicoes www.instagram.com This page isn’t working If the problem continues, contact the site owner. HTTP ERROR 429 Reload light dark #fff width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+    "pageUrl": "chrome-error://chromewebdata/",
+    "pageTitle": "www.instagram.com"
+  },
+  "sessionId": "5c6809ac-89bc-4f95-864a-a5dfbbb79b1f"
+}

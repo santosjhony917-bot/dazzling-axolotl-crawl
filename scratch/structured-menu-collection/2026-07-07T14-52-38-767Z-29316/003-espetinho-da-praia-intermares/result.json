@@ -1,0 +1,17 @@
+{
+  "restaurantId": "f90edcb3-31a7-4922-9bdd-930817bba3c9",
+  "restaurantName": "Espetinho da praia Intermares",
+  "platform": "anota_ai",
+  "sourceUrl": "https://pedido.anota.ai/loja/espetinho-da-praia-1",
+  "evidenceDir": "scratch\\structured-menu-collection\\2026-07-07T14-52-38-767Z-29316\\003-espetinho-da-praia-intermares",
+  "startedAt": "2026-07-07T14:52:42.620Z",
+  "details": null,
+  "rawSummary": null,
+  "evidencePath": null,
+  "dryRun": null,
+  "review": null,
+  "committed": false,
+  "commit": null,
+  "error": "Protocol error (Runtime.callFunctionOn): Target closed",
+  "finishedAt": "2026-07-07T16:24:06.527Z"
+}

@@ -1,0 +1,42 @@
+{
+  "url": "https://app.cardapioweb.com/manifest.json",
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "resourceType": "manifest",
+  "method": "GET",
+  "textLength": 550,
+  "textSample": "{\"theme_color\":\"#0d4007\",\"background_color\":\"#0d4007\",\"display\":\"standalone\",\"scope\":\"/\",\"start_url\":\"https://app.cardapioweb.com/ilove_pizza\",\"name\":\"Ilove Pizza \",\"short_name\":\"Ilove Pizza \",\"description\":null,\"icons\":[{\"src\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/40575/thumb_ac18e7f7avatar-instagram-2_7388xa.png\",\"sizes\":\"192x192\",\"type\":\"image/png\"},{\"src\":\"https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/40575/ac18e7f7avatar-instagram-2_7388xa.png\",\"sizes\":\"512x512\",\"type\":\"image/png\"}]}",
+  "jsonKeys": [
+    "theme_color",
+    "background_color",
+    "display",
+    "scope",
+    "start_url",
+    "name",
+    "short_name",
+    "description",
+    "icons"
+  ],
+  "json": {
+    "theme_color": "#0d4007",
+    "background_color": "#0d4007",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "https://app.cardapioweb.com/ilove_pizza",
+    "name": "Ilove Pizza ",
+    "short_name": "Ilove Pizza ",
+    "description": null,
+    "icons": [
+      {
+        "src": "https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/40575/thumb_ac18e7f7avatar-instagram-2_7388xa.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "https://storage.googleapis.com/prod-cardapio-web/uploads/company/logo/40575/ac18e7f7avatar-instagram-2_7388xa.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+}

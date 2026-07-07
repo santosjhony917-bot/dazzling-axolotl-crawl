@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-07-07T11:58:05.237Z",
+  "filters": {
+    "city": "Cabedelo",
+    "state": "PB",
+    "active": "is_deleted is false or null",
+    "menu_status": "needs_recollection",
+    "queue_source_rule": "other_url or external_url present and selected source is non-iFood",
+    "note": "The raw fetch includes missing-source and iFood-only rows so the pre-audit can classify them as red exclusions."
+  },
+  "output_paths": {
+    "directory": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T11-58-05-237Z",
+    "json": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T11-58-05-237Z\\queue.json",
+    "csv": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\scratch\\menu-collection-queue\\2026-07-07T11-58-05-237Z\\queue.csv"
+  },
+  "summary": {
+    "all_active_needs_recollection": 0,
+    "queue_count": 0,
+    "excluded_count": 0,
+    "by_tier": {},
+    "by_platform": {},
+    "by_tier_platform": {},
+    "excluded_by_tier": {},
+    "excluded_by_platform": {},
+    "excluded_by_reason": {}
+  },
+  "top50": [],
+  "queue": [],
+  "excluded": []
+}

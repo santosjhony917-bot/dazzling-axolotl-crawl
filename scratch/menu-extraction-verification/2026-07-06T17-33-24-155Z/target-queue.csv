@@ -1,0 +1,9 @@
+tier,score,platform,restaurantName,sourceUrl,flags,nextAction,restaurantId
+green,7,cardapioweb,Bar da Curva - Sandro's Bar,https://app.cardapioweb.com/sandros_bar?s=cb,,fast_visual_review_then_import,395c5d1a-99f7-40e3-82f3-af6e22406e75
+green,7,cardapioweb,Bom Sabor Pizzaria,https://app.cardapioweb.com/pizzaria_bomsabor?s=insta,,fast_visual_review_then_import,a270e4fe-e0a7-4c8e-8213-8766bbb053c6
+green,7,cardapioweb,Chinatown Campina Grande,https://app.cardapioweb.com/_chinatown,,fast_visual_review_then_import,8911ead0-193d-403a-8728-d857bc9e0df5
+green,7,cardapioweb,Dan Pizza,https://app.cardapioweb.com/dan_pizza?s=cb,,fast_visual_review_then_import,2fa16117-987d-414e-bb67-9e73fc568007
+green,7,cardapioweb,DinDin Alegria,https://app.cardapioweb.com/dindin_alegria,,fast_visual_review_then_import,7a564e31-faab-4bf2-9c1a-791be4da2968
+green,7,cardapioweb,Doha Esfiharia - CG,https://app.cardapioweb.com/doha_esfiharia,,fast_visual_review_then_import,d716d71f-e1c9-41da-a7de-bb32b7bc5854
+green,7,cardapioweb,Dom Brie Pizzaria,https://app.cardapioweb.com/dom_brie,,fast_visual_review_then_import,a00d132c-437d-414f-8297-08b106fec9f8
+green,7,cardapioweb,Don Lisita,https://app.cardapioweb.com/don_lisita,,fast_visual_review_then_import,86800c1f-985b-413a-b0b4-a9272d46ea77

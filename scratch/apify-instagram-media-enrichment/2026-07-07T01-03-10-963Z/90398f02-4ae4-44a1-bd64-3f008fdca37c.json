@@ -1,0 +1,90 @@
+{
+  "id": "90398f02-4ae4-44a1-bd64-3f008fdca37c",
+  "name": "Bar e Restaurante Solânense",
+  "instagram": "https://www.instagram.com/restaurante_solanense/",
+  "followers": 4351,
+  "match": {
+    "score": 115,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "food_category",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/message/RBLO33SUVCVWH1"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "af8d853d-5e54-4152-b2f0-c3874d872e2e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/90398f02-4ae4-44a1-bd64-3f008fdca37c/instagram_1783384900824_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "13ceb581-6646-466c-b88b-99d9939f4aac",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/90398f02-4ae4-44a1-bd64-3f008fdca37c/instagram_1783384903111_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "bb30594b-585a-44cc-9bde-e2c5f03b08c8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/90398f02-4ae4-44a1-bd64-3f008fdca37c/instagram_1783384904235_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "5d48e113-3e6b-4402-a854-8ed7c9b6a6d9",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/90398f02-4ae4-44a1-bd64-3f008fdca37c/instagram_1783384904958_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "35b56c62-0e43-44de-86e2-321fbaabe0b2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/90398f02-4ae4-44a1-bd64-3f008fdca37c/instagram_1783384905762_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "f9e0a004-6775-4e4b-8cfb-b83c22ea18d4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/90398f02-4ae4-44a1-bd64-3f008fdca37c/instagram_1783384906599_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "b524e0a7-871d-4ebf-8b40-47356b5f2c0d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/90398f02-4ae4-44a1-bd64-3f008fdca37c/instagram_1783384907224_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "80b0003c-a922-4d05-bc26-d709beed10de",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/90398f02-4ae4-44a1-bd64-3f008fdca37c/instagram_1783384908041_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

@@ -1,0 +1,331 @@
+{
+  "runId": "2026-07-06T19-32-09-190Z",
+  "outDir": "scratch\\serpapi-google-maps-phase1\\2026-07-06T19-32-09-190Z",
+  "apply": true,
+  "city": "Cabedelo",
+  "state": "PB",
+  "skippedQueries": 40,
+  "queryCount": 40,
+  "serpApiErrors": 0,
+  "rawResultCount": 755,
+  "acceptedCount": 33,
+  "rejectedCount": 170,
+  "duplicateInRunCount": 38,
+  "alreadyInDatabaseCount": 514,
+  "insertedCount": 33,
+  "failed": [],
+  "existingBefore": 145,
+  "querySamples": [
+    {
+      "query": "restaurantes Cabedelo PB",
+      "term": "restaurantes",
+      "area": "Ponta de Campina",
+      "lat": -7.0374,
+      "lng": -34.8347,
+      "ll": "@-7.0374,-34.8347,15z",
+      "start": 0
+    },
+    {
+      "query": "pizzaria Cabedelo PB",
+      "term": "pizzaria",
+      "area": "Ponta de Campina",
+      "lat": -7.0374,
+      "lng": -34.8347,
+      "ll": "@-7.0374,-34.8347,15z",
+      "start": 0
+    },
+    {
+      "query": "hamburgueria Cabedelo PB",
+      "term": "hamburgueria",
+      "area": "Ponta de Campina",
+      "lat": -7.0374,
+      "lng": -34.8347,
+      "ll": "@-7.0374,-34.8347,15z",
+      "start": 0
+    },
+    {
+      "query": "lanchonete Cabedelo PB",
+      "term": "lanchonete",
+      "area": "Ponta de Campina",
+      "lat": -7.0374,
+      "lng": -34.8347,
+      "ll": "@-7.0374,-34.8347,15z",
+      "start": 0
+    },
+    {
+      "query": "sushi Cabedelo PB",
+      "term": "sushi",
+      "area": "Ponta de Campina",
+      "lat": -7.0374,
+      "lng": -34.8347,
+      "ll": "@-7.0374,-34.8347,15z",
+      "start": 0
+    },
+    {
+      "query": "acai Cabedelo PB",
+      "term": "acai",
+      "area": "Ponta de Campina",
+      "lat": -7.0374,
+      "lng": -34.8347,
+      "ll": "@-7.0374,-34.8347,15z",
+      "start": 0
+    },
+    {
+      "query": "cafeteria Cabedelo PB",
+      "term": "cafeteria",
+      "area": "Ponta de Campina",
+      "lat": -7.0374,
+      "lng": -34.8347,
+      "ll": "@-7.0374,-34.8347,15z",
+      "start": 0
+    },
+    {
+      "query": "bar restaurante Cabedelo PB",
+      "term": "bar restaurante",
+      "area": "Ponta de Campina",
+      "lat": -7.0374,
+      "lng": -34.8347,
+      "ll": "@-7.0374,-34.8347,15z",
+      "start": 0
+    },
+    {
+      "query": "restaurantes Cabedelo PB",
+      "term": "restaurantes",
+      "area": "Intermares",
+      "lat": -7.0477,
+      "lng": -34.8456,
+      "ll": "@-7.0477,-34.8456,15z",
+      "start": 0
+    },
+    {
+      "query": "pizzaria Cabedelo PB",
+      "term": "pizzaria",
+      "area": "Intermares",
+      "lat": -7.0477,
+      "lng": -34.8456,
+      "ll": "@-7.0477,-34.8456,15z",
+      "start": 0
+    },
+    {
+      "query": "hamburgueria Cabedelo PB",
+      "term": "hamburgueria",
+      "area": "Intermares",
+      "lat": -7.0477,
+      "lng": -34.8456,
+      "ll": "@-7.0477,-34.8456,15z",
+      "start": 0
+    },
+    {
+      "query": "lanchonete Cabedelo PB",
+      "term": "lanchonete",
+      "area": "Intermares",
+      "lat": -7.0477,
+      "lng": -34.8456,
+      "ll": "@-7.0477,-34.8456,15z",
+      "start": 0
+    }
+  ],
+  "acceptedSamples": [
+    {
+      "name": "Galeteria D'intermares",
+      "type": "Restaurante de carne",
+      "address": "R. Golfo Veneza, 28 - Intermares, Cabedelo - PB, 58102-122",
+      "rating": 4.1,
+      "reviews": 470,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJu2aD0g7erAcRzicvJXx-8yI"
+    },
+    {
+      "name": "Burguer Hall",
+      "type": "Hamburgueria",
+      "address": "R. Maurício de Alençar Cavalcante - bessa, Cabedelo - PB, 58102-552",
+      "rating": 5,
+      "reviews": 1,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJn5l8jiLdrAcRC0sy1cAQjNk"
+    },
+    {
+      "name": "Empadinhas Barnabé - Intermares",
+      "type": "Lanchonete",
+      "address": "Av. Mar Mediterrâneo - Intermares, Cabedelo - PB, 58102-256",
+      "rating": 4.5,
+      "reviews": 1029,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJaQNSPQ3erAcR5qVhxyOyVfs"
+    },
+    {
+      "name": "Me gusta Açaí",
+      "type": "Praça de alimentação",
+      "address": "R. José Marcos de Melo Peixoto - Intermares, Cabedelo - PB, 58102-362",
+      "rating": 5,
+      "reviews": 1,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJM7g6PabdrAcRD4l1OtN97-s"
+    },
+    {
+      "name": "Davi do Coco",
+      "type": "Restaurante de café da manhã",
+      "address": "Av. Oceano Atlântico, 1990 - Intermares, Cabedelo - PB, 58102-252",
+      "rating": 5,
+      "reviews": 7,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJY7G1ZQDfrAcRbUxHZIZ1vwE"
+    },
+    {
+      "name": "Oliver Grill e Espetos",
+      "type": "Restaurante brasileiro",
+      "address": "Av. Oceano Índico, 928 - Intermares, Cabedelo - PB, 58102-222",
+      "rating": 4.9,
+      "reviews": 54,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJf5cN1cDfrAcRCKHM1M2eY_Y"
+    },
+    {
+      "name": "Barraca Do Anão",
+      "type": "Bar e restaurante de ostras",
+      "address": "Ponta de Campina, Cabedelo - PB, 58033-455",
+      "rating": 4.5,
+      "reviews": 12,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ5w-RfAbfrAcRLNpFL3L__3w"
+    },
+    {
+      "name": "Tempero De Casa",
+      "type": "Restaurante",
+      "address": "R. Maurício de Alençar Cavalcante - Jardim America, Cabedelo - PB, 58310-000",
+      "rating": 4.5,
+      "reviews": 65,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJlzh1S-zdrAcRiCUL7fIKsMI"
+    },
+    {
+      "name": "Tapiocaria do Dinho",
+      "type": "Restaurante",
+      "address": "Av. Ambrósio Miranda de Araújo - Renascer, Cabedelo - PB, 58033-455",
+      "rating": 4.6,
+      "reviews": 154,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJZyUKWFjdrAcRuY-QSDtiyL8"
+    },
+    {
+      "name": "Renapizza",
+      "type": "Pizzaria",
+      "address": "R. São Sebastião - Renascer, Cabedelo - PB, 58108-328",
+      "rating": 5,
+      "reviews": 3,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJGf6COs3drAcRRL4pQtCrayw"
+    },
+    {
+      "name": "Bebel & Jó Pizzaria",
+      "type": "Restaurante",
+      "address": "Av. Ambrósio Miranda de Araújo - Renascer, Cabedelo - PB, 58310-000",
+      "rating": 5,
+      "reviews": 1,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJV1vGm4zdrAcRQbCh2jh_K7w"
+    },
+    {
+      "name": "Sonne Haus Hambúrgueria",
+      "type": "Bar",
+      "address": "R. José Bartolomeu Cabral, 40 - Jardim America, Cabedelo - PB, 58035-320",
+      "rating": 5,
+      "reviews": 33,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJU2L8NADdrAcRKkTMbkfH-wA"
+    },
+    {
+      "name": "Erste Sonne Cervejaria Independente",
+      "type": "Hamburgueria",
+      "address": "R. José Bartolomeu Cabral, 40 - Jardim America, Cabedelo - PB, 58102-566",
+      "rating": 4.8,
+      "reviews": 119,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_WjNaO7drAcRMt7pzVwopjI"
+    },
+    {
+      "name": "Caribe burger",
+      "type": "Lanchonete",
+      "address": "Rodovia 230 km 13,2 anexo 1, Bessa, Cabedelo - PB, 58102-800",
+      "rating": 5,
+      "reviews": 1,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJNQuuVHfdrAcRH3GYCGlWdfw"
+    },
+    {
+      "name": "Kikão Cachorro Quente",
+      "type": "Lanchonete",
+      "address": "Av. Mar Vermelho, 185 - Lj 9 - Intermares, Cabedelo - PB, 58310-000",
+      "rating": 4.5,
+      "reviews": 46,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJidxR6g3erAcRdUI4Gzz93yQ"
+    },
+    {
+      "name": "Cosmo Lanches",
+      "type": "Lanchonete",
+      "address": "Av. Pres. Venceslau Braz, 192-220 - Jardim Beta, Cabedelo - PB, 58310-000",
+      "rating": 5,
+      "reviews": 6,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJqbY_Pu3drAcR5JzH2to00K4"
+    },
+    {
+      "name": "Tapiocaria da zeti",
+      "type": "Lanchonete",
+      "address": "Av. Pôr do Sol, Cabedelo - PB, 58310-000",
+      "rating": 5,
+      "reviews": 20,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJYwNhcVnfrAcRJ4jZPLua8uw"
+    },
+    {
+      "name": "Pastelão da BR",
+      "type": "Lanchonete",
+      "address": "BR-230 - Amazonia Park, Cabedelo - PB, 58310-000",
+      "rating": 4.7,
+      "reviews": 7,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJO4tJgrbfrAcRLO65dWwzeeg"
+    },
+    {
+      "name": "Daniel do Açaí",
+      "type": "Loja de açaí",
+      "address": "R. Raul Seixas - Renascer, Cabedelo - PB, 58310-000",
+      "rating": 3,
+      "reviews": 2,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJc1z110XdrAcROcEd0F9eCdw"
+    },
+    {
+      "name": "Ethic Alimentos",
+      "type": "Sorveteria",
+      "address": "Av Santa Isabel, n 220, Renascer, Cabedelo - PB, 58108-096",
+      "rating": 4.4,
+      "reviews": 49,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJBYufY4norAcRYwi07Mym2rc"
+    },
+    {
+      "name": "JKZ Alimentos (AÇAÍto)",
+      "type": "Loja de sucos",
+      "address": "R. José Faustino da Silva Filho - Lot. Parque Esperanca, Cabedelo - PB, 58310-000",
+      "rating": 2.6,
+      "reviews": 7,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJI4UU843drAcR971yUPBblMQ"
+    },
+    {
+      "name": "Primo Rico",
+      "type": "Restaurante self-service",
+      "address": "Av. Oceano Atlântico, S/N - Intermares, Cabedelo - PB, 58102-236",
+      "rating": 4.3,
+      "reviews": 903,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ7aVpYzjfrAcRexvAqkdbRwU"
+    },
+    {
+      "name": "Mirante Lounge",
+      "type": "Restaurante",
+      "address": "R. Jair Cunha Cavalcanti - Jacaré, Cabedelo - PB, 58105-700",
+      "rating": 4.8,
+      "reviews": 4,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJhToWNbrfrAcRhRAkuZdTfLE"
+    },
+    {
+      "name": "Bras Coffee",
+      "type": "Lanchonete",
+      "address": "Av. Maria José Alexandre de Lucena, 154 - Jardim America, Cabedelo - PB, 58102-600",
+      "rating": 5,
+      "reviews": 25,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJAdd4IcndrAcRjaRIrBDA0Ww"
+    },
+    {
+      "name": "Pizzaria nock_nhock",
+      "type": "Pizza para levar",
+      "address": "R. Airton Sena, 27 - Lot. Parque Esperanca, Cabedelo - PB, 58310-000",
+      "rating": 5,
+      "reviews": 6,
+      "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ9brdaqTdrAcR2cplnet7yCw"
+    }
+  ],
+  "errors": []
+}

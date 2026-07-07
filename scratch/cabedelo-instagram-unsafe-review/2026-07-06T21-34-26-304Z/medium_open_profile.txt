@@ -1,0 +1,4 @@
+65ebdb63-241a-4831-8015-09a936d25b61	Obra Fest Verão	152	out_of_scope_name_or_category	https://instagram.com/festverao_pb	Fest Verão Paraíba (@festverao_pb)
+2d89c5e8-5bf4-4d1f-9720-58513e1ab377	Chapa Quente Lanches e Refeições	142	phone_area_conflict:47	https://instagram.com/chapa_quente_burguer_22	CHAPA QUENTE BURGUER (@chapa_quente_burguer_22)
+2ebf5453-9be4-469d-afd8-be3ac7833f00	Restaurante e pizzaria chapa quente	142	phone_area_conflict:51	https://instagram.com/chapaquenteviamao	Chapa Quente - Restaurante & bar (@chapaquenteviamao)
+4ddf6e22-ced9-47e4-b213-c378d233f04d	MB Marmitas | Marmitaria em João Pessoa	57	no_instagram_candidate	https://instagram.com/marmitafitjpa	Marmita Fit João Pessoa (@marmitafitjpa)

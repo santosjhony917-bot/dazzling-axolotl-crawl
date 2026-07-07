@@ -1,0 +1,200 @@
+{
+  "apply": false,
+  "overwrite": false,
+  "safeOnly": true,
+  "skipExisting": true,
+  "minScore": 100,
+  "city": "Cabedelo",
+  "state": "PB",
+  "runDir": "scratch\\serpapi-menu-discovery\\2026-07-06T21-19-31-972Z",
+  "processed": 11,
+  "approved": 0,
+  "baseApproved": 3,
+  "safe": 0,
+  "rejected": 11,
+  "applied": 0,
+  "failures": [],
+  "reasonCounts": {
+    "score_below_100": 2,
+    "brand_not_confirmed": 4,
+    "existing_instagram_present": 2,
+    "no_distinctive_restaurant_token,brand_not_confirmed": 1,
+    "no_instagram_candidate": 1,
+    "no_location_or_phone_support": 1
+  },
+  "approvedSamples": [],
+  "rejectedSamples": [
+    {
+      "name": "Me gusta Açaí",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/acai_megusta",
+        "title": "ME GUSTA AÇAÍ® (@acai_megusta) · Vespasiano, MG",
+        "score": 89,
+        "tokens": [
+          "gusta"
+        ],
+        "handleMatches": [
+          "gusta"
+        ],
+        "textMatches": [
+          "gusta"
+        ]
+      }
+    },
+    {
+      "name": "Caribe burger",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/gigantedomaroficial",
+        "title": "gigantedomaroficial • Instagram photos and videos",
+        "score": -2,
+        "tokens": [
+          "caribe"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Sabor da infância no pôr do sol",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/pordosoldojacare",
+        "title": "Pôr do Sol do Jacaré (@pordosoldojacare) · Cabedelo, PB",
+        "score": -6,
+        "tokens": [
+          "sabor",
+          "infancia"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Porto do açaí",
+      "reason": "existing_instagram_present",
+      "best": {
+        "url": "https://instagram.com/portodoacai01",
+        "title": "Porto do Açaí (@portodoacai01) · Cabedelo, PB",
+        "score": 103,
+        "tokens": [
+          "porto"
+        ],
+        "handleMatches": [
+          "porto"
+        ],
+        "textMatches": [
+          "porto"
+        ]
+      }
+    },
+    {
+      "name": "Bebel & Jó Pizzaria",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/bellapizza.en",
+        "title": "Bella Pizza (@bellapizza.en)",
+        "score": -2,
+        "tokens": [
+          "bebel"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Açai",
+      "reason": "no_distinctive_restaurant_token,brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/danieldoacai",
+        "title": "Daniel Do Açaí (@danieldoacai)",
+        "score": -2,
+        "tokens": [],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Fatia do Céu",
+      "reason": "score_below_100",
+      "best": {
+        "url": "https://instagram.com/ceunabocaoficial",
+        "title": "Céu na Boca (@ceunabocaoficial)",
+        "score": 92,
+        "tokens": [
+          "fatia",
+          "ceu"
+        ],
+        "handleMatches": [
+          "ceu"
+        ],
+        "textMatches": [
+          "fatia",
+          "ceu"
+        ]
+      }
+    },
+    {
+      "name": "Pastelaria Arretada",
+      "reason": "existing_instagram_present",
+      "best": {
+        "url": "https://instagram.com/pastelaria.arretadapb",
+        "title": "Pastelaria Arretada (@pastelaria.arretadapb)",
+        "score": 107,
+        "tokens": [
+          "arretada"
+        ],
+        "handleMatches": [
+          "arretada"
+        ],
+        "textMatches": [
+          "arretada"
+        ]
+      }
+    },
+    {
+      "name": "Cafeteria Deus Seja Louvado",
+      "reason": "brand_not_confirmed",
+      "best": {
+        "url": "https://instagram.com/saxcafe",
+        "title": "saxcafe · Cabedelo, PB",
+        "score": -6,
+        "tokens": [
+          "deus",
+          "seja",
+          "louvado"
+        ],
+        "handleMatches": [],
+        "textMatches": []
+      }
+    },
+    {
+      "name": "Espetinho São Paulo",
+      "reason": "no_instagram_candidate",
+      "best": null
+    },
+    {
+      "name": "Rainha da tapioca",
+      "reason": "no_location_or_phone_support",
+      "best": {
+        "url": "https://instagram.com/rainhadatapioca",
+        "title": "Rainha da Tapioca Nordestina 👑 (@rainhadatapioca)",
+        "score": 138,
+        "tokens": [
+          "rainha",
+          "tapioca"
+        ],
+        "handleMatches": [
+          "rainha",
+          "tapioca"
+        ],
+        "textMatches": [
+          "rainha",
+          "tapioca"
+        ]
+      }
+    }
+  ],
+  "updates": []
+}

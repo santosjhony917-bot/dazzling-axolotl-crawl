@@ -1,0 +1,49 @@
+{
+  "runId": "2026-07-07T16-40-46-456Z",
+  "mode": "scrape",
+  "restaurant": "Pizzaria tá no ponto",
+  "url": "https://www.pizzariatanoponto.com.br/",
+  "platform": "unknown",
+  "success": true,
+  "evidence": {
+    "tier": "green",
+    "priceCount": 15,
+    "samplePrices": [
+      "R$ 5,00",
+      "R$ 65,00",
+      "R$ 85,00",
+      "R$ 105,00",
+      "R$ 145,00",
+      "R$ 150,00",
+      "R$ 110,00",
+      "R$ 25,00",
+      "R$ 45,00",
+      "R$ 10,00",
+      "R$ 6,00",
+      "R$ 8,00",
+      "R$ 15,00"
+    ],
+    "menuWords": [
+      "menu",
+      "pedido",
+      "delivery",
+      "combo",
+      "pizza",
+      "bebida"
+    ],
+    "cityConfirmed": false,
+    "matchedNameTokens": [
+      "ponto"
+    ],
+    "operationalJunk": [],
+    "flags": [
+      "city_not_confirmed"
+    ]
+  },
+  "files": {
+    "rawPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T16-40-46-456Z\\raw-response.json",
+    "markdownPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T16-40-46-456Z\\markdown.md",
+    "jsonPath": null,
+    "summaryPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T16-40-46-456Z\\summary.json"
+  }
+}

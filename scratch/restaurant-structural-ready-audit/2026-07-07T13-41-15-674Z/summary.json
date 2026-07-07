@@ -1,0 +1,21 @@
+{
+  "runId": "2026-07-07T13-41-15-674Z",
+  "outDir": "scratch\\restaurant-structural-ready-audit\\2026-07-07T13-41-15-674Z",
+  "scope": {
+    "ids": [
+      "60d131e5-d7fb-4aa2-b3b0-83af50747ff2"
+    ]
+  },
+  "options": {
+    "includePublished": false,
+    "onlyWithMenu": true,
+    "limit": null,
+    "applyBlockers": false
+  },
+  "restaurants": 0,
+  "ready": 0,
+  "needsReview": 0,
+  "blocked": 0,
+  "issueCounts": {},
+  "audits": []
+}

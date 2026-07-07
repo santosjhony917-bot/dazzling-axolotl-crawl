@@ -1,0 +1,1547 @@
+{
+  "search": {
+    "query": "esfiharia Cabedelo PB",
+    "term": "esfiharia",
+    "area": "Ponta de Campina",
+    "lat": -7.0374,
+    "lng": -34.8347,
+    "ll": "@-7.0374,-34.8347,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c05a804e10a0cd0a357ba",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/GDXQqv-FtBzkGhkgbVTAiQ/6a4c05a804e10a0cd0a357ba.json",
+    "created_at": "2026-07-06 19:44:40 UTC",
+    "processed_at": "2026-07-06 19:44:40 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/esfiharia+Cabedelo+PB/@-7.0374,-34.8347,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/GDXQqv-FtBzkGhkgbVTAiQ/6a4c05a804e10a0cd0a357ba.html",
+    "prettify_html_file": "https://serpapi.com/searches/GDXQqv-FtBzkGhkgbVTAiQ/6a4c05a804e10a0cd0a357ba.prettify",
+    "total_time_taken": 1.05
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "esfiharia Cabedelo PB",
+    "ll": "@-7.0374,-34.8347,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "ESFIELDS",
+      "place_id": "ChIJDwCxzV7frAcR4SxYIDnucFw",
+      "data_id": "0x7acdf5ecdb1000f:0x5c70ee3920582ce1",
+      "data_cid": "6661085778004159713",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf5ecdb1000f%3A0x5c70ee3920582ce1&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf5ecdb1000f%3A0x5c70ee3920582ce1&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.032400399999999,
+        "longitude": -34.835090699999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJDwCxzV7frAcR4SxYIDnucFw",
+      "provider_id": "/g/11xfllmckc",
+      "rating": 4.4,
+      "reviews": 12,
+      "type": "Delivery",
+      "types": [
+        "Delivery"
+      ],
+      "type_id": "meal_delivery",
+      "type_ids": [
+        "meal_delivery"
+      ],
+      "address": "Av. Oceano Atlântico - Ponta de Campina, Cabedelo - PB, 58101-650",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 23:00",
+      "hours": "Aberto · Fecha 23:00",
+      "operating_hours": {
+        "segunda-feira": "16:00–23:00",
+        "terça-feira": "16:00–23:00",
+        "quarta-feira": "16:00–23:00",
+        "quinta-feira": "16:00–23:00",
+        "sexta-feira": "16:00–23:00",
+        "sábado": "16:00–23:00",
+        "domingo": "16:00–23:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Ótimo atendimento!\"",
+      "thumbnail": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=LDkHcep32dvWnEMQz05R4A&cb_client=search.gws-prod.gps&w=80&h=92&yaw=329.64124&pitch=0&thumbfov=100",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/JcGHInicHc1NCgIhGADQ27hLnZ-iCSSCgha1qE3LMOdLJUc_RtPqNF2r2xRd4L3P26SEccFYTCNAyhYK2ge4OEFJdQjagUQbqQoDyxVL5j5cvLRuidIH24vd-rZVgE3d55Pf7A8vPj22K6IuZ-Us-CQiyFEZqstPHENPNUZSxJwTI7qaPGURTd3RWVvVLUGblBGc_JdryKLi_AtUXjkP"
+    },
+    {
+      "position": 2,
+      "title": "Pizza Família Cipriano",
+      "place_id": "ChIJBw8J2x3frAcR-t64wKV4XEg",
+      "data_id": "0x7acdf1ddb090f07:0x485c78a5c0b8defa",
+      "data_cid": "5214175121886469882",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1ddb090f07%3A0x485c78a5c0b8defa&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1ddb090f07%3A0x485c78a5c0b8defa&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.04559,
+        "longitude": -34.843196999999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJBw8J2x3frAcR-t64wKV4XEg",
+      "provider_id": "/g/11yw2wqzwv",
+      "rating": 5,
+      "reviews": 13,
+      "price": "R$ 40–60",
+      "extracted_price": 40,
+      "type": "Delivery de Pizza",
+      "types": [
+        "Delivery de Pizza",
+        "Pizzaria"
+      ],
+      "type_id": "pizza_delivery_service",
+      "type_ids": [
+        "pizza_delivery_service",
+        "pizza_restaurant"
+      ],
+      "address": "R. Golfo Danzig, 56 - Intermares, Cabedelo - PB, 58102-133",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qui. às 18:00",
+      "hours": "Fechado · Abre qui. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "18:00–22:00",
+        "sexta-feira": "18:00–22:00",
+        "sábado": "18:00–22:00",
+        "domingo": "18:00–22:00"
+      },
+      "phone": "(83) 98153-5458",
+      "website": "https://www.instagram.com/pizzafamiliacipriano/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Refeição no local"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "entrega": true
+      },
+      "user_review": "\"Super recomendo!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGEHbTGJDou2Wx6NtQnwjgIHpbdhVebofk-g25lmMxoyC3qXFyQM0j6y36ESRyNdlAyI-lYmgLUP4lHiG6h-HpnZs7uuKuxEW8BLLNDklaIK9pcptTk_c5CK0Qwxi3XLomEGkOP5m75n7I=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/gBRPj3icHcRLcoIwAADQEwWiFKid6YIqAgUptLbabjoSMNF8NclALum-t3Gmb_H-bsQYpZ98n5HAw1JiNlg9XJEUZhDGQ5L7WGmANNB-0tQtTbI077bZ60ra-W6KatOK8YyLXHU9-Ro6eaQAz0PGN5N0y-CyX7t2A8-RC6L0493VPUtcAdg3x9Vn88DyUxYRkCvxo2NrSzulu8eXqqpXlB2KcqGQMlv6i8JlCdtxOgX7SvI0o29NyONQxMXzOIMQAvI_AuIOmQRHTw"
+    },
+    {
+      "position": 3,
+      "title": "Mega Pizza",
+      "place_id": "ChIJP6gJ7w3erAcRPbZmhVXL0gQ",
+      "data_id": "0x7acde0def09a83f:0x4d2cb558566b63d",
+      "data_cid": "347563689431709245",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde0def09a83f%3A0x4d2cb558566b63d&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde0def09a83f%3A0x4d2cb558566b63d&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0442924,
+        "longitude": -34.8446941
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJP6gJ7w3erAcRPbZmhVXL0gQ",
+      "provider_id": "/g/1tp_6lxb",
+      "rating": 4,
+      "reviews": 506,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Pizzaria",
+      "types": [
+        "Pizzaria"
+      ],
+      "type_id": "pizza_restaurant",
+      "type_ids": [
+        "pizza_restaurant"
+      ],
+      "address": "Av. Mar Vermelho, 357 - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 17:45",
+      "hours": "Fechado · Abre às 17:45",
+      "operating_hours": {
+        "segunda-feira": "17:45–23:00",
+        "terça-feira": "17:45–23:00",
+        "quarta-feira": "17:45–23:00",
+        "quinta-feira": "17:45–23:00",
+        "sexta-feira": "17:45–23:00",
+        "sábado": "17:45–23:00",
+        "domingo": "17:45–23:00"
+      },
+      "phone": "(83) 3248-2118",
+      "description": "Delivery de pizzas e massas artesanais. Pizzaria de entregas por telefone tem os sabores tradicionais e especiais compartilhados, com opções de massa.",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"- Preço ok, em torno de 12/16 +-\n- Não demorou para sair meu pedido;\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGvWQY88Fh5_bU5Bcj93lHAdKEqR3I_mSevZQ-bh6584aLRQpGPwm0jcfggRBjnDxmYyG7ABpnJDZyxWCK96lMLdvxitYZ_ye5brz3IrH-cgNy5V8vqtvPRlPAvaVTFUhVFjuOw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/p2_ovXicHcRRboIwAADQE1VYsIgmfhQVdDoHKBj4IVBrO1YK0lpgF_QM3maJ7-O9nkypVi4MgzNrQpuGcvKQpMONUESoCW5qg7YSYAmkgYJj-It8fQlTx_EYzMsYuriaW3yLrvvNPbJ2eX0iOgtByWzoTItDFLZ-0NdmhW-URm4l1kOdjv4Mua34XGfjcFnt5zb_Olz18KPSLB8JLLs_a9dtAabHESaOvisdRDxAukjOXswSr3p898v-wzRNwN5jIP4BPeRFRg"
+    },
+    {
+      "position": 4,
+      "title": "Pizzaria Bom Sabor",
+      "place_id": "ChIJJwFhsjXfrAcR5WUPKUu6Li8",
+      "data_id": "0x7acdf35b2610127:0x2f2eba4b290f65e5",
+      "data_cid": "3399859600685491685",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf35b2610127%3A0x2f2eba4b290f65e5&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf35b2610127%3A0x2f2eba4b290f65e5&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0308525,
+        "longitude": -34.8483941
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJJwFhsjXfrAcR5WUPKUu6Li8",
+      "provider_id": "/g/11pr0l8btm",
+      "rating": 4,
+      "reviews": 134,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "unclaimed_listing": true,
+      "type": "Pizzaria",
+      "types": [
+        "Pizzaria"
+      ],
+      "type_id": "pizza_restaurant",
+      "type_ids": [
+        "pizza_restaurant"
+      ],
+      "address": "R. Jair Cunha Cavalcanti, 248 - Lot. Oceania, Cabedelo - PB, 58105-700",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qua. às 18:00",
+      "hours": "Fechado · Abre qua. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "18:00–23:30",
+        "quinta-feira": "18:00–23:30",
+        "sexta-feira": "18:00–00:00",
+        "sábado": "18:00–00:00",
+        "domingo": "18:00–00:00"
+      },
+      "phone": "(83) 98762-6366",
+      "website": "https://pizzariabomsaborpb.com.br/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Excelente atendimento\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEjRHhHmhb2wbw3u2xjCqPYJRyFe0J5Ki9PqTGVlYnU6KaIZCx4spu8PWLaaLdCQ2hDrrW-ogJF8KPOQgwGuYXaC1-G6lw4CfEs4ZVAnpEL1M60LU03Vk4BkAEW5mZ8t8eM0wgMaA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/BlJ9unicHc1LcoIwAADQE0XCRwadcUEjonza4FQQdhFjUoUESZjoEXsEb9OOm7d9r1-u9aCWltVxd8akZB2dFB1bKTQVetbK3mKDAq0CygrxZ3ELo-t-y7c9PznmZNzJeVzRHdfJ_rmhMJmnPwt8_47LrhYHPyW7Bj08NUwBrjJCsjMqHL4exwpIlmyCFH8VzMRTfSTIBrHfGQ9dIuU1ZSiGKLNzH2YH6JY37-P_reZ9E-iA5tCwnIQrY0MIAX_bAvEHrtBDrQ"
+    },
+    {
+      "position": 5,
+      "title": "GETMall",
+      "place_id": "ChIJX7HMo6rdrAcRCeFWODir8Rw",
+      "data_id": "0x7acddaaa3ccb15f:0x1cf1ab383856e109",
+      "data_cid": "2085636360400986377",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acddaaa3ccb15f%3A0x1cf1ab383856e109&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acddaaa3ccb15f%3A0x1cf1ab383856e109&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.032432999999999,
+        "longitude": -34.835043899999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJX7HMo6rdrAcRCeFWODir8Rw",
+      "provider_id": "/g/11rhw2g7k5",
+      "rating": 4.3,
+      "reviews": 103,
+      "price": "R$ 20–80",
+      "extracted_price": 20,
+      "type": "Praça de alimentação",
+      "types": [
+        "Praça de alimentação",
+        "Padaria",
+        "Parque",
+        "Hamburgueria",
+        "Mercado",
+        "Pet Shop"
+      ],
+      "type_id": "food_court",
+      "type_ids": [
+        "food_court",
+        "bakery",
+        "fairground",
+        "hamburger_restaurant",
+        "market",
+        "pet_store"
+      ],
+      "address": "Av. Oceano Atlântico, 1592 - Ponta de Campina, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 00:00",
+      "hours": "Aberto · Fecha 00:00",
+      "operating_hours": {
+        "segunda-feira": "14:30–00:00",
+        "terça-feira": "14:30–00:00",
+        "quarta-feira": "14:30–00:00",
+        "quinta-feira": "14:30–00:00",
+        "sexta-feira": "14:30–00:00",
+        "sábado": "14:30–00:00",
+        "domingo": "14:30–00:00"
+      },
+      "website": "https://www.instagram.com/getmall.oficial?igsh=MWZsMzY5dGxiZ25tZw==",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento descoberto pago",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Analisando custo/ benefício, nem sei se recomendo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH6SwWf3VQytbMpJBb2zr_gvrYj5gU3NH-GUxUAB38ahG3T9vNssE4kRYHYL82x-sCV48eNTGHUBFix8i7pibFg9hU-FkcQja1uki4Y3Wm5Rj909EXwAZdu9jWZZpdP9l6knqKIJ3QTS6Ny=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/1kDBonicHcTBboIwAADQL6qgRUZNPIARmJuNKBXhYqRiC0WotAj6kzvvb5bsHd7vD9daqoVh1BxOWNuyuuhV0dG20UWjJ7S9G0wqQBVQhrvDkXBD-zAkN3iMXjrfyo2Xz97dmT27tJozAnEIAjIS14POhQcwRk-s1NoS-zRMv53ZCNTqaDkFjoOQeH45OuWHLHOfIU6AL2hUXaa9KK0UJvf5vkImWp8GN7v2qEqyTF53qLZF8_j63MAoPtj4tRympmkC_j8FzR88b0YK"
+    },
+    {
+      "position": 6,
+      "title": "Hórus Esfihas e Gelados",
+      "place_id": "ChIJWYMEcFLdrAcRJ7ODRj95ups",
+      "data_id": "0x7acdd5270048359:0x9bba793f4683b327",
+      "data_cid": "11221414734219948839",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd5270048359%3A0x9bba793f4683b327&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd5270048359%3A0x9bba793f4683b327&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0773772,
+        "longitude": -34.8464232
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJWYMEcFLdrAcRJ7ODRj95ups",
+      "provider_id": "/g/11j9zqv9n8",
+      "rating": 4.9,
+      "reviews": 27,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "type": "Esfiharia",
+      "types": [
+        "Esfiharia",
+        "Sorveteria",
+        "Delivery"
+      ],
+      "type_id": "sfiha_restaurant",
+      "type_ids": [
+        "sfiha_restaurant",
+        "ice_cream_shop",
+        "meal_delivery"
+      ],
+      "address": "R. Bacharel Irenaldo de Albuquerque Chaves, 825 - Aeroclube, João Pessoa - PB, 58036-460",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 18:00",
+      "hours": "Fechado · Abre ter. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "18:00–23:45",
+        "quarta-feira": "18:00–23:45",
+        "quinta-feira": "18:00–23:45",
+        "sexta-feira": "18:00–23:45",
+        "sábado": "18:00–23:45",
+        "domingo": "18:00–23:45"
+      },
+      "phone": "(83) 99398-9752",
+      "website": "https://instadelivery.com.br/HorusEsfihaseGelados",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Serviços no local",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFqOXpxdjluOBgAOgMI8A0%3D&g2lbs=AEzIGDscRyI7YuueJppLVfFnmhh8d0aQvRkTcbzvJuHW4tGtwgaWrbWYq0rd_Von8zCKb0H4jevi&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=qAVMau-1DJGPvr0Pp8jQmAQ&ei=qAVMau-1DJGPvr0Pp8jQmAQ&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Fenomenal Horus e Esfirras.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF4rr7fnY2BNxpgLuT2fGd51dApJUBZsgAk2s6NofYLVvj-Oet_GU18CGWrtGGzOAlCt0rx291d14hjYVF16jwbnoLCrnfil7VM5qgW6aAPrGd3AhLQjHZvGOvco-hnLGQCFm8=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Tgr5j3icHcRdDoIgAADgE5FiZdbWA7pJa-TPVjp9aYUKmYEBauuA3aHbtPU9fN8PN6bXG8vq-HzGpGRdPehaUSlMLcyMyofFeg2oBtpCSZTeUbhQatWIwvGjV8_IcHQaXC1hhfr9yS81Q3dHu5FsCpKNLYhrc8Yn6AU4Vwbjd4y6wNjq5axhBRe8LbIQuu10FZIESjS3bpUdlk-WuxeUKFzNESdpuytHHI9UAi4IToPw4W0naNs24P8pED_t80PE"
+    },
+    {
+      "position": 7,
+      "title": "Pizzaria Jacaré",
+      "place_id": "ChIJLSlV8DrerAcRdEpwqq-GS2Y",
+      "data_id": "0x7acde3af055292d:0x664b86afaa704a74",
+      "data_cid": "7371133304158833268",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde3af055292d%3A0x664b86afaa704a74&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde3af055292d%3A0x664b86afaa704a74&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.026230099999999,
+        "longitude": -34.8491468
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJLSlV8DrerAcRdEpwqq-GS2Y",
+      "provider_id": "/g/11c6dz_040",
+      "rating": 4.5,
+      "reviews": 59,
+      "unclaimed_listing": true,
+      "type": "Pizzaria",
+      "types": [
+        "Pizzaria"
+      ],
+      "type_id": "pizza_restaurant",
+      "type_ids": [
+        "pizza_restaurant"
+      ],
+      "address": "R. Arco Íris, 250 - Lot. Oceania VI, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 20:00",
+      "hours": "Fechado · Abre às 20:00",
+      "operating_hours": {
+        "segunda-feira": "20:00–00:00",
+        "terça-feira": "20:00–00:00",
+        "quarta-feira": "20:00–00:00",
+        "quinta-feira": "20:00–00:00",
+        "sexta-feira": "20:00–00:00",
+        "sábado": "20:00–00:00",
+        "domingo": "20:00–00:00"
+      },
+      "website": "https://pizzariabomsaborpb.com.br/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEiYIRczjo1gqF3beTxpaViK8CUV3M1cZijoop5lUmZxACjd6Q2Q2daOiPCDGqFJKJuNMRsMJHZEFfmzfdw7Ldim5w5t0WSH5l4c_PiyiYP1qrqIIr-xHx3PKMtX3myAOr8ZOpafg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Wnidz3icHcTbToMwAADQLyqXVZSY-EAQ5DJG2RwKLwYLlCKlhXbh8od-gn-zxPNw_n47pYR81vWhgxrhnAzNTTYz5qNqRqVhznQiJMASSN1Bp-zH8WgRnvHec5NMPvxu3ldR5TS23WsOExOXtOdcWMOVlavj9vVjdsgOdZVS5L6-TX4UR7dTcpZJFJSe37K9rZenY02ZtVjK-LgE1vCAvxDdaIHMaZ7CcAZrsEIUJ-oTss1JZ7tMRdWSl8U0DAN0_2Mw3gEhjUX6"
+    },
+    {
+      "position": 8,
+      "title": "Lary's pizzaria e lanchonete",
+      "place_id": "ChIJ1zlHHqffrAcRvEgStdnRDMs",
+      "data_id": "0x7acdfa71e4739d7:0xcb0cd1d9b51248bc",
+      "data_cid": "14631300022395881660",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfa71e4739d7%3A0xcb0cd1d9b51248bc&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfa71e4739d7%3A0xcb0cd1d9b51248bc&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.005608199999999,
+        "longitude": -34.8309231
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ1zlHHqffrAcRvEgStdnRDMs",
+      "provider_id": "/g/11hf27qdvj",
+      "rating": 4.3,
+      "reviews": 88,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Pizzaria",
+      "types": [
+        "Pizzaria"
+      ],
+      "type_id": "pizza_restaurant",
+      "type_ids": [
+        "pizza_restaurant"
+      ],
+      "address": "R. Antônia Fernandes Oliveira, 810 - Jardim Camboinha, Cabedelo - PB, 58103-706",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 17:30",
+      "hours": "Fechado · Abre ter. às 17:30",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "17:30–23:30",
+        "quarta-feira": "17:30–23:30",
+        "quinta-feira": "17:30–23:30",
+        "sexta-feira": "17:30–23:30",
+        "sábado": "17:30–23:30",
+        "domingo": "17:30–23:30"
+      },
+      "phone": "(83) 98877-2470",
+      "website": "https://pedido.anota.ai/loja/larys-pizzaria-e-lanchonete",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Banheiro de gênero neutro",
+            "Bar no local",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFoZjI3cWR2ahgAOgMI8A0%3D&g2lbs=AEzIGDsvf8fGh-fEW8Ew22f0OWdw6tDx5-c1GKuHuyqfVx_99IS7Ts9s45gr6jV9aI1FVOPjX9tW&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=qAVMau-1DJGPvr0Pp8jQmAQ&ei=qAVMau-1DJGPvr0Pp8jQmAQ&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"E preço justo!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG886pWLiGF3ZyKtSMSoWwBxrG5Dk6_1ShRKUpaYI5FftReBAlDC83b3PMo6CSL6HATkxSUu_NoTDNGAH-j_if-S8mghlft2R72YNahe-kW9tMdI4WrDRQbwNsVquoBHwgIhACk=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/o3-Q9XicHcRRDoIgAADQE5GWadbWB-pSVzKVzNmPM0MoTExw1gk7Q7dp632874cp1cuNprXMmFEhaEtGSYZadIp0alaLh0Z7CWoJpAZjlHDo27bV54ebvzPO773CERb55LwG3_S4Vc4xS_dZXxWhuWtUShzYeq5tXIw4EpaLD1YAj_yFs7FE4ughHwbgXt4agO0HZW2jFulqUaCKEcDztYqu4TIfvDS5TEienqNwgomGDLp8O811XQfsfw26H9eyQ50"
+    },
+    {
+      "position": 9,
+      "title": "Pérsia Esfiha Diferente",
+      "place_id": "ChIJXaMZFSLdrAcRDcClKwtA6h0",
+      "data_id": "0x7acdd221519a35d:0x1dea400b2ba5c00d",
+      "data_cid": "2155605788371304461",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd221519a35d%3A0x1dea400b2ba5c00d&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd221519a35d%3A0x1dea400b2ba5c00d&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.101035899999999,
+        "longitude": -34.8353927
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJXaMZFSLdrAcRDcClKwtA6h0",
+      "provider_id": "/g/11cjkdt6w4",
+      "rating": 4.7,
+      "reviews": 1345,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Esfiharia",
+      "types": [
+        "Esfiharia",
+        "Restaurante fast-food",
+        "Restaurante"
+      ],
+      "type_id": "sfiha_restaurant",
+      "type_ids": [
+        "sfiha_restaurant",
+        "fast_food_restaurant",
+        "restaurant"
+      ],
+      "address": "Av. Umbuzeiro, 1099 - Manaíra, João Pessoa - PB, 58038-182",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–23:00",
+        "terça-feira": "18:00–23:00",
+        "quarta-feira": "18:00–23:00",
+        "quinta-feira": "18:00–23:00",
+        "sexta-feira": "18:00–00:00",
+        "sábado": "18:00–00:00",
+        "domingo": "18:00–23:30"
+      },
+      "phone": "(83) 3247-6667",
+      "website": "https://persia.campsite.bio/",
+      "description": "Fartas esfihas em ambiente familiar. Variedade em esfihas clássicas e especiais com destaque às opções doces, espaço casual e entrega em domicílio.",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas",
+            "Universitários"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"O atendimento é excepcional!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGYQ8pKC5sMc3PeE1oXsWBO49BeSV3zG2fJSweIjS_P5r1JYT9jgpAP6GAQQ2G2MgVaFeVECvrUmaEqLGlPUoTukeHkP9YuDtje2on_4HoR9suazP0YNOALq2i3Ndn2mXbZNK19sQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/nv9DcXicHcRbcoIwFADQFSEQtGOc6Ue0ND4xEaXSH4emt0EeCXJDnXGHXUJ305mej_P7UzrX4cz3mzIaaWt1AwNCr6xxYNxI2dbXHXoKPfSZSGTNeC6n3WYxwZ2KBMShPePbfD-mc0iz6MHJ1zq9w6pKL2LSh-v8SCvdMfHEmZSEk53OilfI4sV3f2qL-LbljTjZ41DDshY0H15cBcSay3hpDxSH4iGCPNmz7Y1co-TTkPb88Z5sQory-R4GQeCV_yvP_AFk0UQ0"
+    },
+    {
+      "position": 10,
+      "title": "Chié artesanato e comedoria",
+      "place_id": "ChIJTwa4MA_frAcR4t0Vizs3ozY",
+      "data_id": "0x7acdf0f30b8064f:0x36a3373b8b15dde2",
+      "data_cid": "3937051228128009698",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0f30b8064f%3A0x36a3373b8b15dde2&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0f30b8064f%3A0x36a3373b8b15dde2&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.040131199999999,
+        "longitude": -34.8552082
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJTwa4MA_frAcR4t0Vizs3ozY",
+      "provider_id": "/g/11j1kkyn2s",
+      "rating": 4,
+      "reviews": 40,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Café",
+      "types": [
+        "Café"
+      ],
+      "type_id": "cafe",
+      "type_ids": [
+        "cafe"
+      ],
+      "address": "R. Praia do Jacaré - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "15:00–19:00",
+        "terça-feira": "15:00–19:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "15:00–19:00",
+        "sexta-feira": "15:00–19:00",
+        "sábado": "15:00–19:00",
+        "domingo": "15:00–19:00"
+      },
+      "phone": "(83) 98885-0093",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Atendimento fantástico.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFDpkAg0GezNNcTooCOeDzwURTC7D45jYefn_k3Z_vb6VUp5o2F28lMg2ZNj4vwkDDmP7mo3xOh_sLm2oUa5-_CuX6P2jdfGtk1vt4Mckizb4eCeTHHr7_HbLYRW0k1jegyCC1I=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/HsmdlnicHcTdboIwGADQJ6qUAmKW7IK0UZYoooH5c9OM7rOMAh-xFTZecM-wt1niuTh_v7Vzg33xvLYOFhpRt_CwcFfYO-jdQmHn6cESZYn1kjw7mGQtBpNouoE5y1SByPcg5qk8FjwWYdRc4NZLE1zlWC3fyyFCtmardqfZNWvCcTJCdHncYfC9r6XddgzLj4hI_jgvc9Z83jbO-KMLd8p8zVUIHIo0vccyrbaX44kavwH9w7n_9jr5lFJSP1ek_wdYCERj"
+    },
+    {
+      "position": 11,
+      "title": "Pizzaria Bom Sabor Camboinha",
+      "place_id": "ChIJ23LpoCvfrAcRK0glALWQRYA",
+      "data_id": "0x7acdf2ba0e972db:0x804590b50025482b",
+      "data_cid": "9242952917313734699",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf2ba0e972db%3A0x804590b50025482b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf2ba0e972db%3A0x804590b50025482b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0051748,
+        "longitude": -34.832741399999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ23LpoCvfrAcRK0glALWQRYA",
+      "provider_id": "/g/11q2qvfycz",
+      "rating": 4.1,
+      "reviews": 54,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "unclaimed_listing": true,
+      "type": "Pizzaria",
+      "types": [
+        "Pizzaria"
+      ],
+      "type_id": "pizza_restaurant",
+      "type_ids": [
+        "pizza_restaurant"
+      ],
+      "address": "R. Prof. João Lelis de Luna Freire, 288 - Jardim Camboinha, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre qua. às 18:00",
+      "hours": "Fechado · Abre qua. às 18:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "Fechado",
+        "quarta-feira": "18:00–23:00",
+        "quinta-feira": "18:00–23:00",
+        "sexta-feira": "18:00–23:00",
+        "sábado": "18:00–23:00",
+        "domingo": "18:00–23:00"
+      },
+      "phone": "(83) 99680-7485",
+      "website": "http://pizzariabomsaborcamboinha.com.br/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Comida tarde da noite",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"Ótima qualidade, saborosa e sai rápido nas entregas.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHdmp22hVTuYMGfcV1XNlzHanHWNj6CfC7jOJHXZQqhCaHTB2gNznrctjxqIGe0HysqfIxQePLqx8frJgKtsWn-Lk4OYPJLcPQ700ggUg9xJDzCd6MEmg5hXvxN8KJDeyl7XXQR=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/wDomSHicHcTdbsIgGADQJ8JiddaZeOHqImLFYlxF7wzSj9SW_oCKfcE9g2-zZOfivH-1c42dBUGpRwOoayjV3apO1sYp4wayrgJoLJIW2WCRMn5bkGvVhKHODvfTdpXLbChY2ZOLIUdWTOI8joodJeLMWx1fyOErBNabTrrCt-uVwuRl23ztuUqT1k_zjsLG2aNByW28O6U0kSmPMAb4gU9Pl318nWy_K_jQ4uHZdEOX6lVGQvD9_DnEGCP9v0TmD6GRRTs"
+    },
+    {
+      "position": 12,
+      "title": "La casa de pastel e La Pizza Premium",
+      "place_id": "ChIJYSxGk8ghrQcRk9Nz0uySHBE",
+      "data_id": "0x7ad21c893462c61:0x111c92ecd273d393",
+      "data_cid": "1233021943833416595",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7ad21c893462c61%3A0x111c92ecd273d393&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7ad21c893462c61%3A0x111c92ecd273d393&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -6.9676383,
+        "longitude": -34.8344258
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJYSxGk8ghrQcRk9Nz0uySHBE",
+      "provider_id": "/g/11fhrdm515",
+      "rating": 4.1,
+      "reviews": 261,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Pastelaria brasileira",
+      "types": [
+        "Pastelaria brasileira",
+        "Pizzaria"
+      ],
+      "type_id": "brazilian_pastelaria",
+      "type_ids": [
+        "brazilian_pastelaria",
+        "pizza_restaurant"
+      ],
+      "address": "Rua por trás do Campo Municipal, R. Primo José Viana, 463 - Centro, Cabedelo - PB, 58100-521",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre às 18:00",
+      "hours": "Fechado · Abre às 18:00",
+      "operating_hours": {
+        "segunda-feira": "18:00–00:00",
+        "terça-feira": "Fechado",
+        "quarta-feira": "18:00–00:00",
+        "quinta-feira": "18:00–00:00",
+        "sexta-feira": "18:00–00:00",
+        "sábado": "18:00–00:00",
+        "domingo": "18:00–00:00"
+      },
+      "phone": "(83) 98625-2145",
+      "website": "https://pedido.anota.ai/loja/la-casa-de-pastel-e-lanches?from=site",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Drive-through",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Esportes",
+            "Mesas na cobertura",
+            "Música ao vivo"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida tarde da noite",
+            "Opções vegetarianas",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Banheiro de gênero neutro",
+            "Bar no local",
+            "Wi-Fi",
+            "Wi-Fi gratuito"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "drive_through": true,
+        "entrega_sem_contato": true
+      },
+      "pedir_on_line": "https://www.google.com/searchviewer/42?cvd=CLw_EicKJeICIjIgEhkiF9LX29IPEQoNL2cvMTFmaHJkbTUxNRgAOgMI8A0%3D&g2lbs=AEzIGDsJEElILJU_JgdoHldQOlnXJcgjbLR4IyM7Ek2mKLDIjk6tEDhwSTgZObDVnx3lTz-SaUfo&hl=pt-BR&gl=br&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=qAVMau-1DJGPvr0Pp8jQmAQ&ei=qAVMau-1DJGPvr0Pp8jQmAQ&fo_s=OA,SOE&opi=79508299&ebb=1&cs=0&foub=mcpp",
+      "user_review": "\"Gostei muito do atendimento!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFcGCyy1TdQ5e5eaxPocYnxtf5aQq3KAtiHz2RRuO7lOmr0HIPs_RcuwVOxplts-8fiAy8PWkKNmg_Q3z3rIvAfLS4XcDLEQXnyc9ZsPfjRgrYX5JaiXsO9Sjo8FCYG=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/n9vajHicHcRLDoIwFADAE1VQJKKJi8b_J9KiUXBjyLMUFFrkFQUv5zm8jYmzmO8nNabEkWXlqdORWstc1Cgq0MoIZTqgC0uWSAAJWpTt-J3OYTFp2-7hyl3hirhhGiLVmMSN-cPZUJMt370gqP1B7heVvVwxvARQv45-U-YGiZdktPXY6b7ZFfLCnbdTrZ402e77IUy3Mx6qFoZnZMktkFUUuus4C9Ef7m_am0-ixfjVtW2bpP-BqB-ljEMU"
+    },
+    {
+      "position": 13,
+      "title": "Laila Comida Oriente Médio",
+      "place_id": "ChIJI_h-O8vfrAcRLDfid-iNmQw",
+      "data_id": "0x7acdfcb3b7ef823:0xc998de877e2372c",
+      "data_cid": "907912829475108652",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfcb3b7ef823%3A0xc998de877e2372c&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfcb3b7ef823%3A0xc998de877e2372c&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.031324499999999,
+        "longitude": -34.8336999
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJI_h-O8vfrAcRLDfid-iNmQw",
+      "provider_id": "/g/11vjz462kt",
+      "rating": 4.6,
+      "reviews": 9,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Restaurante árabe",
+      "types": [
+        "Restaurante árabe",
+        "Restaurante de doner kebab",
+        "Restaurante de falafel",
+        "Centro de comida de rua",
+        "Esfiharia",
+        "Restaurante de shawarma"
+      ],
+      "type_id": "arab_restaurant",
+      "type_ids": [
+        "arab_restaurant",
+        "doner_kebab_restaurant",
+        "falafel_restaurant",
+        "hawker_centre",
+        "sfiha_restaurant",
+        "shawarma_restaurant"
+      ],
+      "address": "R. da Enseada, 1215 - Lot. Bela Vista, Ponta de Campina, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Permanently closed",
+      "hours": "Permanently closed",
+      "phone": "(92) 99282-9712",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento coberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega": true,
+        "para_viagem": true,
+        "refeição_no_local": true
+      },
+      "user_review": "\"Atendimento de excelência.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGSbeiTYdNaZ68uz8Y921dQ_7FK5cJ5a6oXB5bvkM2Nn7L3klpl5ti-BP96kKkM4Krso5nQcUnH6z4-H9nhdjxqHd-5XFfuaz8ECsn5bzyMtJRXvqLs0oc7jN7vp8QDJj31sKw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/gjyTinicHcRJDoIwFADQE1VAKIOJC3AiIEQcEnRjoCBIsQV-QeWA3sHbmPgW7_sphWhgJkl1qU4Kzos67yHvCGciZ2JC-EMqGkAEEEj2LoyovTmk-f14zsLkopv9aJ6tqZJFV2PtY-LhROexg9OBBtOQGVuV1k2NxR05O0unPg00vwOOWUROzNVHDbkWK7Pq1boZwvH61iejuVoAw-n4DoS3j4d2CzInRhUaQ2NGS69SFfCf86ciyzIq_xPEfqtnQ5A"
+    },
+    {
+      "position": 14,
+      "title": "Sarau Pizza Bar",
+      "place_id": "ChIJD-87p8zfrAcRwHD2v5gO-2c",
+      "data_id": "0x7acdfcca73bef0f:0x67fb0e98bff670c0",
+      "data_cid": "7492598454279368896",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfcca73bef0f%3A0x67fb0e98bff670c0&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfcca73bef0f%3A0x67fb0e98bff670c0&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.038282,
+        "longitude": -34.839225899999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJD-87p8zfrAcRwHD2v5gO-2c",
+      "provider_id": "/g/11t4_wt2vb",
+      "rating": 4.6,
+      "reviews": 74,
+      "price": "R$ 40–60",
+      "extracted_price": 40,
+      "type": "Delivery de Pizza",
+      "types": [
+        "Delivery de Pizza",
+        "Pizzaria"
+      ],
+      "type_id": "pizza_delivery_service",
+      "type_ids": [
+        "pizza_delivery_service",
+        "pizza_restaurant"
+      ],
+      "address": "Av. Oceano Índico, 250 - Intermares, Cabedelo - PB, 58102-222",
+      "country": "Brasil",
+      "open_state": "Temporarily closed",
+      "hours": "Temporarily closed",
+      "phone": "(83) 98127-6028",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "entrega": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Super recomendo!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHVHx0ndBJIS99N13tG-7eQg8pnXddvFUONC4likHoJfwLiRbIF3DD8M3Sw-QXCvOF6ORWRBC0yIF8KmUeYjo0x5HehGBWVhKZFE1SAMW6KM-qyrHxGDRrIDY-bg7ivziEJT4Q=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/VZ2-eXicHcRLcoIwAADQE0XC4Ac744JfCFCggIq4FNKEigmSFNADeofepjO-xft7MaV6-aFpHTMWVAjakV9JhlpwRbha1OKm0V6CWgKpWV9JdrXwEc-QN3YYFNttohvKBxuSUbPnp6YZ0SFNnGXXXrEIv6fPNr8EyHBdMzaKCWQnZ0zROs3L3HbgI0BmdDuQ6kfAeYUJ8-3yyKIz8vTCist1FIP7Y8Cz7-ZD4FbgQjft-Gy9cL_MdpMOIQTsfQ34P0dkQgA"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "id": "3549abc7-3261-4ec3-af59-820112bd2358",
+  "name": "Cibelly Mar - Restaurante no Por do Sol do Jacaré",
+  "instagram": "https://www.instagram.com/cibellymarr/",
+  "followers": 78881,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://linktr.ee/cibellymar"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "bda02cb0-e675-4a9c-befa-07af5346693e",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3549abc7-3261-4ec3-af59-820112bd2358/instagram_1783384888132_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "152df548-b518-40f2-ac9e-aeab9053fbc3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3549abc7-3261-4ec3-af59-820112bd2358/instagram_1783384888922_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "639b47b7-491b-41ae-a207-8fc34f622ac4",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3549abc7-3261-4ec3-af59-820112bd2358/instagram_1783384890690_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "e4402bb2-a84b-4f44-8456-78b71f8dafad",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3549abc7-3261-4ec3-af59-820112bd2358/instagram_1783384891470_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "d490985a-9e34-44ed-b544-629d0a5c2950",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3549abc7-3261-4ec3-af59-820112bd2358/instagram_1783384892078_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "0328d695-185e-4b60-b639-23ab3f1ec190",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3549abc7-3261-4ec3-af59-820112bd2358/instagram_1783384892676_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "73f68d35-48f3-49f1-9308-47f1044d0f39",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3549abc7-3261-4ec3-af59-820112bd2358/instagram_1783384893637_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "29ad764f-57f1-4129-9028-af47aeeccd16",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/3549abc7-3261-4ec3-af59-820112bd2358/instagram_1783384894431_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

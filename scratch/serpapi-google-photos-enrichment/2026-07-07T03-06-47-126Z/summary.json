@@ -1,0 +1,52 @@
+{
+  "runId": "2026-07-07T03-06-47-126Z",
+  "applied": false,
+  "outDir": "scratch\\serpapi-google-photos-enrichment\\2026-07-07T03-06-47-126Z",
+  "results": [
+    {
+      "id": "8322d0f6-8e08-4de7-a73f-d71c57f0291d",
+      "name": "Ilovepizzapb",
+      "status": "ok",
+      "photoCount": 1,
+      "approved": 1,
+      "uploads": 1,
+      "after": {
+        "hasLogo": true,
+        "hasCover": false,
+        "galleryCount": 0,
+        "galleryRows": []
+      },
+      "promotion": null
+    },
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "status": "ok",
+      "photoCount": 4,
+      "approved": 1,
+      "uploads": 1,
+      "after": {
+        "hasLogo": true,
+        "hasCover": false,
+        "galleryCount": 0,
+        "galleryRows": []
+      },
+      "promotion": null
+    },
+    {
+      "id": "ecac91e3-52c0-4780-9867-6b3b1d096089",
+      "name": "I love burguer",
+      "status": "ok",
+      "photoCount": 17,
+      "approved": 4,
+      "uploads": 4,
+      "after": {
+        "hasLogo": true,
+        "hasCover": false,
+        "galleryCount": 0,
+        "galleryRows": []
+      },
+      "promotion": null
+    }
+  ]
+}

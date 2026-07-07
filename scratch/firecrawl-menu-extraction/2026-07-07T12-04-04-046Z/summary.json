@@ -1,0 +1,43 @@
+{
+  "runId": "2026-07-07T12-04-04-046Z",
+  "mode": "scrape",
+  "restaurant": "Pizzaria Bom Sabor",
+  "url": "https://pizzariabomsaborpb.com.br",
+  "platform": "unknown",
+  "success": true,
+  "evidence": {
+    "tier": "green",
+    "priceCount": 14,
+    "samplePrices": [
+      "9.13",
+      "6.95",
+      "36.67",
+      "34.84",
+      "7.03",
+      "7.02",
+      "38.87"
+    ],
+    "menuWords": [
+      "menu",
+      "pedido",
+      "delivery",
+      "pizza",
+      "lanche"
+    ],
+    "cityConfirmed": false,
+    "matchedNameTokens": [
+      "bom",
+      "sabor"
+    ],
+    "operationalJunk": [],
+    "flags": [
+      "city_not_confirmed"
+    ]
+  },
+  "files": {
+    "rawPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T12-04-04-046Z\\raw-response.json",
+    "markdownPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T12-04-04-046Z\\markdown.md",
+    "jsonPath": null,
+    "summaryPath": "scratch\\firecrawl-menu-extraction\\2026-07-07T12-04-04-046Z\\summary.json"
+  }
+}

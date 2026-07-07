@@ -1,0 +1,77 @@
+{
+  "summary": {
+    "city": "Cabedelo",
+    "state": "PB",
+    "apply": true,
+    "selected": 1,
+    "ok": 1,
+    "rejected": 0,
+    "failed": 0,
+    "promoted": 0,
+    "completedMedia": 0,
+    "outDir": "scratch\\apify-instagram-media-enrichment\\2026-07-07T02-51-19-344Z"
+  },
+  "results": [
+    {
+      "id": "8bae41e4-1365-4def-9857-34e4abdbf329",
+      "name": "Eu Quero Pizza",
+      "instagram": "https://www.instagram.com/euqueropizzafoodtruck/",
+      "followers": 8518,
+      "match": {
+        "score": 170,
+        "reasons": [
+          "name_tokens",
+          "google_name_tokens",
+          "city",
+          "phone",
+          "same_username"
+        ]
+      },
+      "bioHours": null,
+      "before": {
+        "hasLogo": false,
+        "hasCover": false,
+        "galleryCount": 0,
+        "missing": [
+          "logo",
+          "capa",
+          "galeria_min_3"
+        ]
+      },
+      "uploads": [
+        {
+          "kind": "logo",
+          "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/8bae41e4-1365-4def-9857-34e4abdbf329/instagram_profile_1783392685142.jpg"
+        }
+      ],
+      "skipped": [],
+      "applied": true,
+      "status": "ok",
+      "after": {
+        "hasLogo": true,
+        "hasCover": false,
+        "galleryCount": 0,
+        "missing": [
+          "capa",
+          "galeria_min_3"
+        ]
+      },
+      "promotion": {
+        "promoted": false,
+        "reason": "missing_capa_galeria_min_3",
+        "mediaStatus": {
+          "complete": false,
+          "missing": [
+            "capa",
+            "galeria_min_3"
+          ],
+          "galleryCount": 0,
+          "galleryRows": [],
+          "hasLogo": true,
+          "hasCover": false
+        }
+      },
+      "candidates": []
+    }
+  ]
+}

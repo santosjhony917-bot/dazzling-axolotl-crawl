@@ -1,0 +1,91 @@
+{
+  "id": "d7d014d6-8d90-440c-a2ab-caee3b86bb0d",
+  "name": "Tenda Formosa Bar & Restaurante",
+  "instagram": "https://www.instagram.com/tendaformosaoficial/",
+  "followers": 75185,
+  "match": {
+    "score": 170,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://wa.me/5583988501112"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "12a6aa2f-c15d-4b36-a2f5-d41511ba1550",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/d7d014d6-8d90-440c-a2ab-caee3b86bb0d/instagram_1783384352243_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "a9b08c15-9476-4418-b61b-7591a55c5d52",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/d7d014d6-8d90-440c-a2ab-caee3b86bb0d/instagram_1783384354001_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "ab03c80d-0fdf-492d-bb83-43bb836ad151",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/d7d014d6-8d90-440c-a2ab-caee3b86bb0d/instagram_1783384354642_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "950cd45f-8b82-40e9-a92f-098568925e3f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/d7d014d6-8d90-440c-a2ab-caee3b86bb0d/instagram_1783384355619_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "c82c3d44-68f9-4d42-8bd3-0b98735e7197",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/d7d014d6-8d90-440c-a2ab-caee3b86bb0d/instagram_1783384356428_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "f39b72b3-7c9b-4125-95c2-cf22e5c9c2dd",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/d7d014d6-8d90-440c-a2ab-caee3b86bb0d/instagram_1783384357284_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "a8a957e0-405b-4689-8363-9913e8330943",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/d7d014d6-8d90-440c-a2ab-caee3b86bb0d/instagram_1783384358128_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "3e321595-2495-44a2-9df9-b56dc3ccb15f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/d7d014d6-8d90-440c-a2ab-caee3b86bb0d/instagram_1783384359014_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

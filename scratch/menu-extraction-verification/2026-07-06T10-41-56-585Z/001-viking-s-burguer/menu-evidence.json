@@ -1,0 +1,37 @@
+{
+  "success": false,
+  "sourceUrl": "https://cardapio.ai/vikings-burguer",
+  "finalUrl": "https://cardapio.ai/vikings-burguer",
+  "platform": "visible_text",
+  "extractionLevel": 1,
+  "confidence": 0.45,
+  "categories": [],
+  "visualVerification": {
+    "status": "pending_manual_codex_review",
+    "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783334539460_8ccudnbj.jpg",
+    "snapshotFile": "cmd_1783334539460_8ccudnbj.jpg",
+    "viewportSnapshots": [
+      {
+        "ratio": 0,
+        "target": "document",
+        "scrollTop": 0,
+        "maxScrollTop": 0,
+        "reachedEnd": true,
+        "snapshotPath": "C:\\Users\\meuno\\Downloads\\dazzling-axolotl-crawl-main\\dazzling-axolotl-crawl-main\\.tmp\\extension-monitor\\snapshots\\cmd_1783334547767_7mzb26ow.jpg",
+        "snapshotFile": "cmd_1783334547767_7mzb26ow.jpg"
+      }
+    ],
+    "fullPage": true,
+    "segmentCount": 1,
+    "capturedHeight": 674,
+    "truncated": null
+  },
+  "restaurant": {
+    "id": "26796a3b-6d44-4338-b7bd-74c6e1af43a8",
+    "name": "VIKING'S BURGUER",
+    "category": "",
+    "address": "R. Vicente Gomes Almeida",
+    "phone": "(83) 98695-0793",
+    "instagram": "https://www.instagram.com/vikingsburguercg/"
+  }
+}

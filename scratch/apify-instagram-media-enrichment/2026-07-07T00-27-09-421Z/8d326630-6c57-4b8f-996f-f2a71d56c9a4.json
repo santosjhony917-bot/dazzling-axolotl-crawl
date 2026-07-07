@@ -1,0 +1,122 @@
+{
+  "id": "8d326630-6c57-4b8f-996f-f2a71d56c9a4",
+  "name": "Pastelaria Arretada",
+  "instagram": "https://www.instagram.com/pastelaria.arretadapb/",
+  "followers": 968,
+  "match": {
+    "score": 140,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "phone",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "dryRunUrl": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-19/600853693_17845338576625007_8461792352095874177_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2gESHUiAo0ooxFwiU5y2tGjds5q6J_omTXf_fPLKC5rxeoA5xdCa1rJnuCbHsCt8DEA&_nc_ohc=KuvxeccuUi4Q7kNvwE5B1w8&_nc_gid=x1INz0jL1YeH2vpoCBAFIA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQAxe5Ur3V_77naqQTEnIRVUYdUIP0xL2AqdBHTd2YCyVQ&oe=6A520347&_nc_sid=8b3546"
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-15/639512148_17853585555625007_8839936404379573594_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2gESHUiAo0ooxFwiU5y2tGjds5q6J_omTXf_fPLKC5rxeoA5xdCa1rJnuCbHsCt8DEA&_nc_ohc=KTRHi2O7ZFgQ7kNvwF6rjz-&_nc_gid=x1INz0jL1YeH2vpoCBAFIA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQC7de4bXsMU1HelFIr5eLgOGRDlSy-JEFCTT1bVMRYhCg&oe=6A52077D&_nc_sid=8b3546",
+      "score": 31,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-15/639500514_17853585810625007_655915650939793816_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2gESHUiAo0ooxFwiU5y2tGjds5q6J_omTXf_fPLKC5rxeoA5xdCa1rJnuCbHsCt8DEA&_nc_ohc=MLHx1yNCtacQ7kNvwE8s5qK&_nc_gid=x1INz0jL1YeH2vpoCBAFIA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQC6KjQ5d4MV2KpDFZ5HkylrbucOmtxHy6y_G9c9jsf8yw&oe=6A521FA8&_nc_sid=8b3546",
+      "score": 28,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-15/601342332_17845329879625007_7038298915507194271_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2gESHUiAo0ooxFwiU5y2tGjds5q6J_omTXf_fPLKC5rxeoA5xdCa1rJnuCbHsCt8DEA&_nc_ohc=U2VbOOFOkZUQ7kNvwEQfYWL&_nc_gid=x1INz0jL1YeH2vpoCBAFIA&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=Mzc4OTEwMDkzMDQ4MjQzMzQ2OA%3D%3D.3-ccb7-5&oh=00_AQA-RWViJLcc-D1G6rDPme2rw-Tgd_mUDvwC2-5ghYWz-A&oe=6A5209EA&_nc_sid=8b3546",
+      "score": 27,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-dfw6-1.cdninstagram.com/v/t51.71878-15/618057418_907800125020561_4017089943077408777_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-dfw6-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2gESHUiAo0ooxFwiU5y2tGjds5q6J_omTXf_fPLKC5rxeoA5xdCa1rJnuCbHsCt8DEA&_nc_ohc=uobbQolARJYQ7kNvwFJgvIZ&_nc_gid=x1INz0jL1YeH2vpoCBAFIA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQBi3et1duzQTo3-1sYD8f9SIrD3vulrDXOPanmM4mGMEQ&oe=6A522476&_nc_sid=8b3546",
+      "score": 22,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-dfw5-1.cdninstagram.com/v/t51.82787-15/601187304_17845329291625007_5260739834467952039_n.jpg?stp=dst-jpg_e35_p1080x1080_sh2.08_tt6&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2gESHUiAo0ooxFwiU5y2tGjds5q6J_omTXf_fPLKC5rxeoA5xdCa1rJnuCbHsCt8DEA&_nc_ohc=gT4UP8bfz_kQ7kNvwFaSKXW&_nc_gid=x1INz0jL1YeH2vpoCBAFIA&edm=AOQ1c0wBAAAA&ccb=7-5&ig_cache_key=Mzc4OTA5OTgwNTM2MDM0MjYwNg%3D%3D.3-ccb7-5&oh=00_AQAihvyfllf316Wa8iEPqfjtpqjpr4b1gQd9NfR8P8dZLA&oe=6A522DFB&_nc_sid=8b3546",
+      "score": 22,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-dfw6-2.cdninstagram.com/v/t51.71878-15/610873198_2399561750477866_4796830070990401254_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-dfw6-2.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2gESHUiAo0ooxFwiU5y2tGjds5q6J_omTXf_fPLKC5rxeoA5xdCa1rJnuCbHsCt8DEA&_nc_ohc=83b5izO8TA8Q7kNvwFWkgIN&_nc_gid=x1INz0jL1YeH2vpoCBAFIA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQCqZTBj0YRbCmmzP6VY2qRXi35TZmwKFteSe96XPZPHuQ&oe=6A51FED9&_nc_sid=8b3546",
+      "score": 20,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "dryRunUrl": "https://scontent-dfw5-1.cdninstagram.com/v/t51.71878-15/630409147_1993135971248826_4412928904272125324_n.jpg?stp=dst-jpg_e15_tt6&_nc_ht=scontent-dfw5-1.cdninstagram.com&_nc_cat=106&_nc_oc=Q6cZ2gESHUiAo0ooxFwiU5y2tGjds5q6J_omTXf_fPLKC5rxeoA5xdCa1rJnuCbHsCt8DEA&_nc_ohc=QJiDG9b_crYQ7kNvwF11FmM&_nc_gid=x1INz0jL1YeH2vpoCBAFIA&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AQCWo4eac3DZJE4qafLb3wrVtUHW1-lDfkNqB4N4FNrirw&oe=6A5211FB&_nc_sid=8b3546",
+      "score": 18,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": false,
+  "status": "ok",
+  "after": null,
+  "promotion": null,
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 31,
+      "caption": "Nosso crepe é Simplesmente irresistível! 🤩🤤 Quem já provou sabe, corre e faz teu pedido no link da bio. Estamos localizados: 📍Av jair cunha cavalcanti, ao lado do jacaré sushi A",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Passando na sua telinha uma combinação perfeita! 🍓+🍫 Nosso pastel de morango com chocolate é de dar água na boca! Quer um desse? Clica no link da bio e pede o seu! 🤩 Estamos loc",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 27,
+      "caption": "Quem resiste um combo desse?😍 Estamos Chegando e com muita novidade, segue para não perder nada 💛🧡 . . . . . #pastelería #viralvídeo #inauguração #lanchonete",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "CURTIU? Então já marca o @ que vai contigo!! 💛😍 📍Av jair cunha cavalcanti, jacaré, Cabedelo/PB Fazemos Entrega para Cabedelo e Região #pastel #paraiba #joaopessoa #cabedelo #vir",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 22,
+      "caption": "Estamos Chegando e com muita novidade, segue para não perder nada 💛🧡 . . . . . #pastelería #viralvídeo #inauguração #lanchonete",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 20,
+      "caption": "É de dar água na bocaa!! 😋🤤 Vem conferir nossos diversos sabores, combinações perfeitas, muita EXPLOSÃO de sabor e ingredientes de altíssima qualidade!! 💛 #virałreels #comida #p",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 18,
+      "caption": "Cuscuz recheado e batata recheada?? Nós temos!! 💛😍😋 . . . . . #viralvídeo #comida #viral #viralreels",
+      "vision": null
+    }
+  ]
+}

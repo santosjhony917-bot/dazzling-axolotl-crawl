@@ -1,0 +1,2235 @@
+{
+  "search": {
+    "query": "tapiocaria Cabedelo PB",
+    "term": "tapiocaria",
+    "area": "Intermares",
+    "lat": -7.0477,
+    "lng": -34.8456,
+    "ll": "@-7.0477,-34.8456,15z",
+    "start": 0
+  },
+  "search_metadata": {
+    "id": "6a4c05b8b7942fc7c6f6f83c",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/Do5mw8Ewi45f6kcPVqodTg/6a4c05b8b7942fc7c6f6f83c.json",
+    "created_at": "2026-07-06 19:44:56 UTC",
+    "processed_at": "2026-07-06 19:44:56 UTC",
+    "google_maps_url": "https://www.google.com/maps/search/tapiocaria+Cabedelo+PB/@-7.0477,-34.8456,15z/data=!3m1!4b1!4m2!2m1!6e5?hl=pt&gl=br",
+    "raw_html_file": "https://serpapi.com/searches/Do5mw8Ewi45f6kcPVqodTg/6a4c05b8b7942fc7c6f6f83c.html",
+    "prettify_html_file": "https://serpapi.com/searches/Do5mw8Ewi45f6kcPVqodTg/6a4c05b8b7942fc7c6f6f83c.prettify",
+    "total_time_taken": 0.77
+  },
+  "search_parameters": {
+    "engine": "google_maps",
+    "type": "search",
+    "q": "tapiocaria Cabedelo PB",
+    "ll": "@-7.0477,-34.8456,15z",
+    "google_domain": "google.com.br",
+    "hl": "pt",
+    "gl": "br"
+  },
+  "local_results": [
+    {
+      "position": 1,
+      "title": "Tapiocaria do Dinho",
+      "place_id": "ChIJZyUKWFjdrAcRuY-QSDtiyL8",
+      "data_id": "0x7acdd58580a2567:0xbfc8623b48908fb9",
+      "data_cid": "13819403463346393017",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd58580a2567%3A0xbfc8623b48908fb9&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd58580a2567%3A0xbfc8623b48908fb9&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.072823,
+        "longitude": -34.8560458
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJZyUKWFjdrAcRuY-QSDtiyL8",
+      "provider_id": "/g/11j0j5csq2",
+      "rating": 4.6,
+      "reviews": 154,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Av. Ambrósio Miranda de Araújo - Renascer, Cabedelo - PB, 58033-455",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 00:00",
+      "hours": "Aberto · Fecha 00:00",
+      "operating_hours": {
+        "segunda-feira": "16:00–00:00",
+        "terça-feira": "16:00–00:00",
+        "quarta-feira": "16:00–00:00",
+        "quinta-feira": "Fechado",
+        "sexta-feira": "16:00–00:00",
+        "sábado": "16:00–00:00",
+        "domingo": "16:00–00:00"
+      },
+      "phone": "(83) 98645-7353",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Jantar",
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Comida tarde da noite",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Boa comida, entrega rápida e ótimo atendimento!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHgpP9yzIqAbPU-Ywbt_5XdkVRKUFhX-5xt0cVdMELh-JG2cm6vhHXIcV9uTAmD9dpCLZhpQ13P_jDKY2dr2DS6OoZn-0SuaRdJKCBxGzZvhDI4t2DJsNxvPXbsOIBjp8CHROQQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/unri53icHcRJDoIwAADAF1UKLhETD0BVFpUCSpCLkZbQqNBKC6If9A3-xsQ5zPfDlBJyoWl3Nh5VnFf3spNlS3ijykaNCK-1SkhAJJCahffRzXIrgc3X23tYBT6C07NQ52lGb2kcHNcsA9NBQZLS3WrLgL8xSD3rmZt5JDW7g1UjkwpnmzMR6WN8vqLgZNDWQMks5HkDYNJdYuoHjj1s3nnPkDdRBvLlfuhxVsjQs69i7rhxGEXLpw4hBOw_Ac0PMQtD2Q"
+    },
+    {
+      "position": 2,
+      "title": "Tapioca Da Cleide- Onda Mar",
+      "place_id": "ChIJDcsJwQ3erAcR04pQAVkyyEM",
+      "data_id": "0x7acde0dc109cb0d:0x43c8325901508ad3",
+      "data_cid": "4884209153738836691",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde0dc109cb0d%3A0x43c8325901508ad3&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde0dc109cb0d%3A0x43c8325901508ad3&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0444852,
+        "longitude": -34.8447092
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJDcsJwQ3erAcR04pQAVkyyEM",
+      "provider_id": "/g/11c6rh6rm9",
+      "rating": 4.5,
+      "reviews": 51,
+      "price": "R$ 1–20",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Onda Mar Praia Shopping, 58102-120, Av. Mar Vermelho, 357 - Intermares, Cabedelo - PB, 58102-120",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:30",
+      "hours": "Aberto · Fecha 20:30",
+      "operating_hours": {
+        "segunda-feira": "07:00–20:30",
+        "terça-feira": "07:00–20:30",
+        "quarta-feira": "07:00–20:30",
+        "quinta-feira": "07:00–20:30",
+        "sexta-feira": "07:00–20:30",
+        "sábado": "07:00–20:30",
+        "domingo": "07:00–20:30"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Foi bem legal,atendimento bom e comida deliciosa,super recomendo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHuI6Zr9DsvzweSzbMG8Wi5OzY_3ur0BRkwLjIKObIJDkn-0U3oS-9rwvAV9Wuk6qIBFyqxya-isR6-xIvjjkZ8BLqSYyZoUHBi0nPJScVJKL9bTOA-zYa0ho7e_9yW6-qmoD7P=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/4znob3icHcRLDoIwFADAEz2oIaI1cQEhahEFRSWwMdI0fCqtUD7CBT2DtzFxFvP95G37Uitdf-aGlkmZPVmnWEOlaJloNSorPXspoAqUbgXHE7d2HTGTBjuqnwYWTulhu4yKuT_Fd6NrkH3mg1eSvZ8S1-EC0NWQIeBm6K0bjjpu1sTejPV7fEChzia8SV-WPFnaXh3GYyKvO7tAInBDenP3Hk4vvgVT_EC5XLA7HiMT6ko6i2A9zBBCkP-nIH6IKkSv"
+    },
+    {
+      "position": 3,
+      "title": "Tapiocaria da zeti",
+      "place_id": "ChIJYwNhcVnfrAcRJ4jZPLua8uw",
+      "data_id": "0x7acdf5971610363:0xecf29abb3cd98827",
+      "data_cid": "17073879266285422631",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf5971610363%3A0xecf29abb3cd98827&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf5971610363%3A0xecf29abb3cd98827&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.041143,
+        "longitude": -34.8551345
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJYwNhcVnfrAcRJ4jZPLua8uw",
+      "provider_id": "/g/11l68hdc98",
+      "rating": 5,
+      "reviews": 20,
+      "price": "R$ 1–40",
+      "extracted_price": 1,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Pôr do Sol, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "15:00–19:00",
+        "terça-feira": "15:00–19:00",
+        "quarta-feira": "15:00–19:00",
+        "quinta-feira": "15:00–19:00",
+        "sexta-feira": "15:00–19:00",
+        "sábado": "14:30–20:00",
+        "domingo": "14:30–20:00"
+      },
+      "website": "https://instagram.com/tapiocariadazeti2003?igshid=OGQ5ZDc2ODk2ZA==",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Opções veganas",
+            "Opções vegetarianas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cardápio infantil"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento coberto gratuito",
+            "Estacionamento descoberto gratuito"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida",
+            "Cães podem ficar na área externa",
+            "Permite a entrada de cães"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true
+      },
+      "user_review": "\"Não deixou nada a desejar super recomendo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHvApPgz4vBw0MsSlxBqLJcC2lkxKKuQjsA0K3icl_P6wtn_sJxh02xKsqmOFZCxZR0zB03KU-BgUmgQLCWEWmqgL2gwnsmQAEo2JwQ_VCtw7TdzgZWdaHvDEblb18jfj7l1LSR=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/jqXhV3icHcTdToMwGADQJ-ooYJwx8aIgZqGodHOScENchx-y_oBfRxte0GfwbUw8F-f3Z3BuwvsoUkO6AWtB9Vfsv6U1rjduI62OYEIikWDE6hdxYbuFTTWsN0vm6TMeVMjmqpR5oi6B86sYkVGefknV1bfemQ7LMNAkcJz161Obh3ZP14ym_EgyOGoQVd4UjZ6hSsAb1IIVNim96N5z57dv5xXa5vyxWx6LkzrFd-PnuFVxddg_-JhSSob_JTF_zMJFpA"
+    },
+    {
+      "position": 4,
+      "title": "Tia Graça Cafeteria e Doceria",
+      "place_id": "ChIJV8XbnLXfrAcRTzFbB-0OVFg",
+      "data_id": "0x7acdfb59cdbc557:0x58540eed075b314f",
+      "data_cid": "6364728584574808399",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfb59cdbc557%3A0x58540eed075b314f&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfb59cdbc557%3A0x58540eed075b314f&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.048125499999999,
+        "longitude": -34.847117499999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJV8XbnLXfrAcRTzFbB-0OVFg",
+      "provider_id": "/g/11zkg5wg7b",
+      "rating": 4.5,
+      "reviews": 67,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "R. Golfo da China, 326 - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "11:00–20:00",
+        "terça-feira": "11:00–20:00",
+        "quarta-feira": "11:00–20:00",
+        "quinta-feira": "11:00–20:00",
+        "sexta-feira": "11:00–20:00",
+        "sábado": "11:00–20:00",
+        "domingo": "Fechado"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima sobremesa",
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós",
+            "Bom para trabalhar com o laptop"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Espaço privativo para eventos",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Romântico",
+            "Sofisticado",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"Preço excelente,  comida de qualidade e atendimento nota 10!!!!!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGpkcvr76GUT3W5PMl-oYp9VHn5AkFkuMqydVM_YsfRgUYbEQczgKcQjtjIaueXfUNFGusMDSxi3QYZvmX6z7VN8wqof1AhUQs7wccFuZqH_g9kkJ4eQpVMh70-7zd831lQuRbJq-XWeXtl=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/bIDmiXicHcTBboIwGADgJ6pAmFaXeCBxoC4l1g0EL2b-llZbabGtOF5yZ99mid_he_4J54x9DwIl4hHXmivmLbuBbh1r3Qj0NeDGIrDIBskmpzLJjIT7DU-y4jvejTdEIV2bWblsx4lMpSfd76kkh9o2W17Uxw8KA_8EenGX1Y9nVVPkaeYtWXw9zjGt9_drNRlwmU_7TjdRIgpqcQ-Q-n23PPCZlOs3Rk1JBA4RHk7TOFLUb4_rDlU7Vjk176MwDJF4Daj9BxwuSI8"
+    },
+    {
+      "position": 5,
+      "title": "Chié artesanato e comedoria",
+      "place_id": "ChIJTwa4MA_frAcR4t0Vizs3ozY",
+      "data_id": "0x7acdf0f30b8064f:0x36a3373b8b15dde2",
+      "data_cid": "3937051228128009698",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0f30b8064f%3A0x36a3373b8b15dde2&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0f30b8064f%3A0x36a3373b8b15dde2&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.040131199999999,
+        "longitude": -34.8552082
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJTwa4MA_frAcR4t0Vizs3ozY",
+      "provider_id": "/g/11j1kkyn2s",
+      "rating": 4,
+      "reviews": 40,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Café",
+      "types": [
+        "Café"
+      ],
+      "type_id": "cafe",
+      "type_ids": [
+        "cafe"
+      ],
+      "address": "R. Praia do Jacaré - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "15:00–19:00",
+        "terça-feira": "15:00–19:00",
+        "quarta-feira": "Fechado",
+        "quinta-feira": "15:00–19:00",
+        "sexta-feira": "15:00–19:00",
+        "sábado": "15:00–19:00",
+        "domingo": "15:00–19:00"
+      },
+      "phone": "(83) 98885-0093",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Comida muito bem preparada e preços justos!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHU9tOdUjeKluwXm_KdTAzPssAoiQXTIlG1TNE2j6Qos_7zHZzzw2zjwP3W1ansa3vcBpLX3pWF3sYhk2L6RcDr8jUy_XFs8aSkDlzAu9FpFNVAmsxW-_5Byh2eDKC-nzbbKI7o=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/LEZ04nicHcTbboIwGADgJ6ocGo_JLqrINBgGCoLeEKwNHZS28S8y-4J7Bt9myb6L7_3LjdGwchzB8aRRqhFsAPagShomzYSq3mk0IAoIHJLEaUd2-dJ83fOWRWIYy76K7hmxCQBR32mZ7cWnl8Vbv52lCqq53V2tHX3bjgkuvFpCjZ90rQ8l1kWI4cI7_zA70uCxaPNXVYawqE9dICwZlqEO4zPp4adA1XT94j4Log2S9naL9nP1MXqu6yL-P0XyD92jRZg"
+    },
+    {
+      "position": 6,
+      "title": "Praçaí - Intermares",
+      "place_id": "ChIJ1cAVK23erAcRCUpJ50T3ULs",
+      "data_id": "0x7acde6d2b15c0d5:0xbb50f744e7494a09",
+      "data_cid": "13497559958539553289",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde6d2b15c0d5%3A0xbb50f744e7494a09&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde6d2b15c0d5%3A0xbb50f744e7494a09&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0415529,
+        "longitude": -34.8402641
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ1cAVK23erAcRCUpJ50T3ULs",
+      "provider_id": "/g/11bw6zc0g7",
+      "rating": 4.5,
+      "reviews": 238,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Oceano Pacífico, s/n - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:30",
+      "hours": "Aberto · Fecha 22:30",
+      "operating_hours": {
+        "segunda-feira": "16:00–22:30",
+        "terça-feira": "16:00–22:30",
+        "quarta-feira": "16:00–22:30",
+        "quinta-feira": "16:00–22:30",
+        "sexta-feira": "16:00–22:30",
+        "sábado": "16:00–22:30",
+        "domingo": "16:00–22:30"
+      },
+      "phone": "(83) 98701-9413",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida"
+          ]
+        }
+      ],
+      "unsupported_extensions": [
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"A minha preferida é carne de sol com diversos acompanhamentos.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAE39Fd1oS8mQX4n5d5Z7wPbENZSsIlNV8EBmhgXhCXsJio5mUF0fCID_EavTSvBMzELDwBeLGspTTD7HU0oJepEdVPDA5m18R3gDZzU5D3hx1alGlN5kI6VO3CjEmLkB-AvNMVjag=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/CG0Pq3icHcRdboIwAADgE1VKuioz8QFodRisOH5CeDEItZ20lKwIizfcEbyNid_D9_yX4zjYteMoiRbCGKH43fLfxvQj78dFY7QjBgsaC6zjJ-zU-RR9blvXpJ4-lR89bnG1mpMLZVVqI8UKjwZailKGpd3_GKzzLbyGETnTesrSKTg8aEzmgMc7O2QZWX3l0Oz5QNsiIT7WrveNBKkeOSZI_rm12imGu2hZHFF4ozruAuBP7FDcarGZXQghkO8b0L8ASP5DZQ"
+    },
+    {
+      "position": 7,
+      "title": "Tapiocaria da Edna Paraiba",
+      "place_id": "ChIJUY5qWRvfrAcRK8-qD7N9ni4",
+      "data_id": "0x7acdf1b596a8e51:0x2e9e7db30faacf2b",
+      "data_cid": "3359260580080439083",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1b596a8e51%3A0x2e9e7db30faacf2b&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1b596a8e51%3A0x2e9e7db30faacf2b&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.041162,
+        "longitude": -34.8551296
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJUY5qWRvfrAcRK8-qD7N9ni4",
+      "provider_id": "/g/11ny0gfgs6",
+      "rating": 3.5,
+      "reviews": 8,
+      "unclaimed_listing": true,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "R. Praia do Jacaré - Jacaré, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–19:00",
+        "terça-feira": "14:00–19:00",
+        "quarta-feira": "14:00–19:00",
+        "quinta-feira": "14:00–19:00",
+        "sexta-feira": "14:00–19:00",
+        "sábado": "14:00–19:00",
+        "domingo": "14:30–19:00"
+      },
+      "phone": "(83) 98821-2431",
+      "extensions": [
+        {
+          "service_options": [
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Refeição rápida"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Cuscuz muito bom\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHxsq0YCyyf8PYANAv3J2lRsgHZjK-2JLQuxc9ggTl4LM7Hpi60tbiy0kZoN8u5OXzvjn4xxKAQh6Ehr-4-JXgp4rSpvoFRmB_hX4Ba8PKAWRD0dH6q0DZbTMC90P7cWPy7bpMqcKObIpU=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/4mf6n3icHcTBboIwGADgJ6r80w5wiYeiWxAEC9OIXJbRsVZFWmhB2EN6922W-B2-x10Yo_SbZVViNuFS8qrsdNkyWZuyNhMmrxZXGjGNtEVonFyIP-gGjstx_HXpkcSknwXTKtXcz88hmgabpBvYnPNdhTeR46uTDaY4jXDJZex2r9vsrz_XeBhCkgj7XbQIoyDjCrefqpcf6dX7Ehn2vl0akkO6gh_fbmCVF7toOQfqsAMdnUJFDQu3xVrtF7cXAEDiOUP1PzEnRig"
+    },
+    {
+      "position": 8,
+      "title": "Bonitinha das tapiocas",
+      "place_id": "ChIJ5WIHvhrfrAcRFwG3RLaJgCA",
+      "data_id": "0x7acdf1abe0762e5:0x208089b644b70117",
+      "data_cid": "2342023222162555159",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf1abe0762e5%3A0x208089b644b70117&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf1abe0762e5%3A0x208089b644b70117&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0404998999999995,
+        "longitude": -34.8552274
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ5WIHvhrfrAcRFwG3RLaJgCA",
+      "provider_id": "/g/11fq9pfxy_",
+      "rating": 4.2,
+      "reviews": 9,
+      "unclaimed_listing": true,
+      "type": "Café",
+      "types": [
+        "Café"
+      ],
+      "type_id": "cafe",
+      "type_ids": [
+        "cafe"
+      ],
+      "address": "Av. Pôr do Sol, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "phone": "(87) 99906-3738",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Sobremesa"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "user_review": "\"A melhor tapioca que já comi na vida!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGOPp817WKU0D7KtQaWrcRqUZnAYa_CQXcSGegnVoZm8ufaagt3-eRdIyLz7A2K2349sUfuMTk5ZNSQ7D72phDLkfaTC12A8xl1ux-Z-7mt7FBD_22W8zwg2OpHsXCJVST5OvNG=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/WlzKCnicHcRLjoIwAADQE1WgaIoms6gQUVEQ-Skb09RSEqCttoyOF_QM3mYS3-J93q0xSi8sq2_dCZeS92zU7E6lMEyYCZWDxZUGVANt4UOcdjhMDspzUBUVdoAik5LqTo-3ohb4TC5-eqJZyLgoZT14Y0MINy5gx-vmb_dCGEbQnc510Yz7vJvVcZaiAEHVBruuIbnvQOw9e2d8ghqgwaDVMrhAWHmvB4eJWuuTvy2zfJb8xuHPw7FtG7TfKRD_2rdCsw"
+    },
+    {
+      "position": 9,
+      "title": "Ralacoko Tapiocaria - João Pessoa",
+      "place_id": "ChIJg73doTvdrAcRYQwQ1CbwgiM",
+      "data_id": "0x7acdd3ba1ddbd83:0x2382f026d4100c61",
+      "data_cid": "2558871587857108065",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd3ba1ddbd83%3A0x2382f026d4100c61&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd3ba1ddbd83%3A0x2382f026d4100c61&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.064727599999999,
+        "longitude": -34.8405258
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJg73doTvdrAcRYQwQ1CbwgiM",
+      "provider_id": "/g/11s9hm1fj0",
+      "rating": 4,
+      "reviews": 62,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "Av. Arthur Monteiro de Paiva, 425 - Bessa, João Pessoa - PB, 58035-010",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 16:00",
+      "hours": "Fechado · Abre ter. às 16:00",
+      "operating_hours": {
+        "segunda-feira": "Fechado",
+        "terça-feira": "16:00–23:00",
+        "quarta-feira": "16:00–23:00",
+        "quinta-feira": "16:00–23:00",
+        "sexta-feira": "16:00–23:00",
+        "sábado": "16:00–23:00",
+        "domingo": "16:00–23:00"
+      },
+      "phone": "(83) 99884-0608",
+      "website": "https://instagram.com/ralacokojp?igshid=YmMyMTA2M2Y=",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Café da manhã",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "entrega": true
+      },
+      "user_review": "\"Por ser uma tapiocaria, esperava uma tapioca mais saborosa e bem servida.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEClXvnYQsJy5js8pj0bbKsIPIUfOVwsuEr_BmQviZzjtr_MZmUy2ogfHVQ_vzOMbIKYdDYpo0o-hphLO7mffAQFoOmCBM-oNfMr9EuHRislPaZwBspCYKWj0BM_BOeO2vrtz__rQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/vFkfZXicHcTdToMwGADQJ-qoM4s_iRcUMUPsSk02hZtmIKVDytf0K5Dxhj6Cb2PiuTi_PyYEh49RNJjbTQfQDe2ErW9gDO0YNg3YqHNIGiQYxcVBfsdpMnzOYynx9brr8d71tK5zzIrsqMVpwSn1ilk5X6q1D17xyh6vW-j0_iTVvApeZ3n59Vw6oECMM2_izmodyxcQNmGcwEFz_5BO-_cLDsW5Whi6pMw_esq4YqIV29mHVSkvn5YbSikx_zdk_APcsUfH"
+    },
+    {
+      "position": 10,
+      "title": "TreeHouse Bar Lounge - Por do sol João Pessoa",
+      "place_id": "ChIJ33JsoxverAcRwnzfHW9fJTI",
+      "data_id": "0x7acde1ba36c72df:0x32255f6f1ddf7cc2",
+      "data_cid": "3613399206881885378",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde1ba36c72df%3A0x32255f6f1ddf7cc2&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde1ba36c72df%3A0x32255f6f1ddf7cc2&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.039621899999999,
+        "longitude": -34.8551417
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ33JsoxverAcRwnzfHW9fJTI",
+      "provider_id": "/g/11b5ysgbvk",
+      "rating": 4.5,
+      "reviews": 1125,
+      "price": "R$ 40–140",
+      "extracted_price": 40,
+      "type": "Bar",
+      "types": [
+        "Bar"
+      ],
+      "type_id": "bar",
+      "type_ids": [
+        "bar"
+      ],
+      "address": "R. Pôr do Sol, s/n, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–20:00",
+        "terça-feira": "14:00–20:00",
+        "quarta-feira": "14:00–20:00",
+        "quinta-feira": "14:00–20:00",
+        "sexta-feira": "14:00–20:00",
+        "sábado": "14:00–20:00",
+        "domingo": "Atendimento 24 horas"
+      },
+      "phone": "(83) 98873-2029",
+      "description": "Boemia temática com áreas de estar. Boteco rústico repleto de temas regionais de ambiente descontraído com espaço lounge descolado e intimista.",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Música ao vivo",
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis",
+            "Shows ao vivo"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Comida",
+            "Comida no bar",
+            "Coquetéis",
+            "Dança",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Excelente restaurante em cabedelo.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAErieS3wB7kq-VLtWf66eIgTzw0ThdztjYHuLGxKli8WhhKydlVBP8o4fBeQWPRdn_6gAiEilrKi_Y9fWU88ubeYv0GIJ54SzSJu9VDTgSffSDzp87Oby2ZTGpEf3Ohv0B9x4f7ZA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/dwLrknicHcRdboIwAADgE1WqIBQTHyASBMxEyyD4YiL0TzvKaBHlhjvCbrNk38P3-8ON6fXGsiS3F0wpJsmoydCozpDOLBr1ZbFeg0YDbQX5x-kRRIMg2J5C7_ENyoOpqOuShBXzBAvezuZe78dD_MqkQBXn2buVZZgj5dCQnKr83HZXlwUiEnLIxLX2afWJ0Hgj9RPGSbp28IzT0S93BcOU4t3cI-94e68uRdxH1D7yJwz9l0O9S7CdlhBCwP9vQPcHOH5Fdw"
+    },
+    {
+      "position": 11,
+      "title": "Rainha da tapioca",
+      "place_id": "ChIJ93ysPw3frAcRBYFSISTdBS4",
+      "data_id": "0x7acdf0d3fac7cf7:0x2e05dd2421528105",
+      "data_cid": "3316299847875854597",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf0d3fac7cf7%3A0x2e05dd2421528105&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf0d3fac7cf7%3A0x2e05dd2421528105&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0277654,
+        "longitude": -34.8490347
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ93ysPw3frAcRBYFSISTdBS4",
+      "provider_id": "/g/11njc7rkrc",
+      "type": "Cafeteria",
+      "types": [
+        "Cafeteria"
+      ],
+      "type_id": "coffee_shop",
+      "type_ids": [
+        "coffee_shop"
+      ],
+      "address": "R. Milton Macedo da Cruz - Lot. Oceania, Cabedelo - PB, 58105-565",
+      "country": "Brasil",
+      "open_state": "Fechado · Abre ter. às 07:00",
+      "hours": "Fechado · Abre ter. às 07:00",
+      "operating_hours": {
+        "segunda-feira": "07:00–10:30",
+        "terça-feira": "07:00–10:30",
+        "quarta-feira": "07:00–10:30",
+        "quinta-feira": "Fechado",
+        "sexta-feira": "07:00–10:30",
+        "sábado": "07:00–10:30",
+        "domingo": "07:00–10:30"
+      },
+      "phone": "(83) 98711-6152",
+      "extensions": [
+        {
+          "service_options": [
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true
+      },
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHXRuuNpOnZzFNrLaoBdhO3zY7nD-ZcpbdOgOLJIHMPUsfLeXwAobLLTP8eefZw974TS1-bg0SBOVZ1Ruh9QaCqClod512Rwr0Vn0ZWIq9e_uiOJBe6QzBECdVTmQvgD5gbSlpy1hjy6uLH=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/QVgCbXicHcTNboIwAADgJyq0c-ow8QC4BU1H-RtzvSxQarsN20qpRF5y572Nyb7D9_crx9HYje_3cuEJrUXPneUD02rkavSYPvvCWMAssH6YpflPmBwL51JDFJ1f0gE3OuokWcwfa7UDlJm2I4Lgwz55zd7sCfPjFOoW4yp74vxEp2D9WJUItAKWEakpKpwM8ia-xL3uluihmAZYK0jf95eAf7ovcoj4Kp-j57irq3N-FbulaMve3JD8vq0cTrYTghAC-T8D6g617Udu"
+    },
+    {
+      "position": 12,
+      "title": "Casa de Taipa",
+      "place_id": "ChIJH9sgyE_erAcROIxiz0-fEqI",
+      "data_id": "0x7acde4fc820db1f:0xa2129f4fcf628c38",
+      "data_cid": "11678571948855692344",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde4fc820db1f%3A0xa2129f4fcf628c38&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde4fc820db1f%3A0xa2129f4fcf628c38&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0244085,
+        "longitude": -34.8307421
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJH9sgyE_erAcROIxiz0-fEqI",
+      "provider_id": "/g/11g9nfq5t7",
+      "rating": 4.5,
+      "reviews": 58,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "R. Vitorino Cardoso, s/n - Praia do poço, Cabedelo - PB, 58101-502",
+      "country": "Brasil",
+      "open_state": "Fecha em breve · 17:00 · Abre ter. às 09:00",
+      "hours": "Fecha em breve · 17:00 · Abre ter. às 09:00",
+      "operating_hours": {
+        "segunda-feira": "09:00–17:00",
+        "terça-feira": "09:00–17:00",
+        "quarta-feira": "09:00–17:00",
+        "quinta-feira": "09:00–17:00",
+        "sexta-feira": "09:00–17:00",
+        "sábado": "09:00–17:00",
+        "domingo": "09:00–17:00"
+      },
+      "phone": "(83) 99195-9104",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótima seleção de cervejas"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Cerveja",
+            "Porções pequenas"
+          ]
+        },
+        {
+          "dining_options": [
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Recomendação de reserva para almoço",
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Comida muito saborosa e atendimento impecável.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHU42kwSAs-73y-7MJvMfMKn5Ba_rJfbt4av42xlYFDzM7CRoN3TIsUgvA2nClBOr_TtWfdUmqPn4h0rEwsbrXuG3G-IntcIzIQwAOv2d0sYl2WuFIuONgIUdjb-nQAsGhkt6jQcQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/OvOsOHicHcTdboIwGADQJ6rUgpIs8aL-YV0AOyXOKyMF2khttV-BzTf0EfY2JjsX5--lvL_DRxBoFY6ktVLXHdROWONr40fC3gJ5ByQAQUB3GW_ppohIO-wpoDj8RXG67dMm_TST-eXstk3po0sfkR99Wi-fabz4sll4YFDInhKz0PPcnQ_-2FTF7bEzkcJuNUDpvrskTBAzXrAn4wPNe1JhOGly7NasyzPJiupaIsMpJKr10ysXfDaMMcZI_S-QeQPGJEWL"
+    },
+    {
+      "position": 13,
+      "title": "Praça do açaí de Intermares",
+      "place_id": "ChIJ-60_Km3erAcRRKoxlE8MUyc",
+      "data_id": "0x7acde6d2a3fadfb:0x27530c4f9431aa44",
+      "data_cid": "2833622126474406468",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde6d2a3fadfb%3A0x27530c4f9431aa44&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde6d2a3fadfb%3A0x27530c4f9431aa44&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0416118999999995,
+        "longitude": -34.8400082
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ-60_Km3erAcRRKoxlE8MUyc",
+      "provider_id": "/g/11bxg9wtmy",
+      "rating": 4.5,
+      "reviews": 176,
+      "unclaimed_listing": true,
+      "type": "Playground",
+      "types": [
+        "Playground"
+      ],
+      "type_id": "playground",
+      "type_ids": [
+        "playground"
+      ],
+      "address": "1548, Av. Oceano Atlântico, 1164 - Intermares, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto 24 horas",
+      "hours": "Aberto 24 horas",
+      "operating_hours": {
+        "segunda-feira": "Atendimento 24 horas",
+        "terça-feira": "Atendimento 24 horas",
+        "quarta-feira": "Atendimento 24 horas",
+        "quinta-feira": "Atendimento 24 horas",
+        "sexta-feira": "Atendimento 24 horas",
+        "sábado": "Atendimento 24 horas",
+        "domingo": "Atendimento 24 horas"
+      },
+      "extensions": [
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Balanços",
+            "Escorregadores"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "user_review": "\"Tapioca bem feita, preços acessíveis e local aprazível,  frente ao mar\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFfsLjs1Zg1M34OqV3HCSNhRJaNFcrnrgipYzqQF8ljD2Q50VjS8T11zpZn7T1LYYnMwVO_EEvcHwHslKQfl24Aznr_-4RYhodLYaygaTYyQbu1MJeo7NTlin_nY60YaoZC2rp7rQ=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/FVBXjXicHcRRboIwGADgE1VaQDEmeyAoIQ5wVUJSXgjrsJV1f2uLErnhjuBtTPwevue_HEfjNp6nZLAQWgvV31xvuYaxh3HB9Z8njEPcIefFXyX9jdOzywdHGkGKIDxc6yBLTqU87rsy5RasuBg2X2m6VsPWp0tcD6d1RchsGogqkjMGxVQf2t3uzrMpc-qTnpUfxjPYFoVHJvVPzrqH6Cr2oN83Uux7HZWVukALbIVZp5vEtyay9GMiGGMk33MEL-ZJRak"
+    },
+    {
+      "position": 14,
+      "title": "Sax Café - Por do Sol da Praia do Jacaré Cabedelo/PB",
+      "place_id": "ChIJ42uw2z3frAcRpvqGhKXp_LM",
+      "data_id": "0x7acdf3ddbb06be3:0xb3fce9a58486faa6",
+      "data_cid": "12969497924022500006",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdf3ddbb06be3%3A0xb3fce9a58486faa6&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdf3ddbb06be3%3A0xb3fce9a58486faa6&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0406189999999995,
+        "longitude": -34.855243099999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ42uw2z3frAcRpvqGhKXp_LM",
+      "provider_id": "/g/11g1kkqgnj",
+      "rating": 4.5,
+      "reviews": 102,
+      "price": "R$ 1–60",
+      "extracted_price": 1,
+      "unclaimed_listing": true,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant"
+      ],
+      "address": "Pôr do Sol, R. Praia do Jacaré, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "14:30–20:00",
+        "terça-feira": "14:30–20:00",
+        "quarta-feira": "14:30–20:00",
+        "quinta-feira": "14:30–20:00",
+        "sexta-feira": "14:30–20:00",
+        "sábado": "14:30–20:00",
+        "domingo": "14:30–20:00"
+      },
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Café da manhã",
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Café",
+            "Cerveja",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã",
+            "Almoço",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento pago na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true
+      },
+      "user_review": "\"Super recomendo\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH-1bXCM46jQBFBmoO3Oit6Giv0F_mwWr4GBwLb8n7u7EC0HyHbhSnLRRj-uNwlhMAXV4MMhrP74B3kGdYFcfbj3Rwe0fuo_KDYgffPNsvmcuDjc_6zsFKSOv6Y25v6xxkptB_W=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/bR1qX3icHcTbCoIwAADQL5qutBlBD65SobxkUPkkuNR528RtrvrBvqG_CToP5_uhUo5iY5o9tYya87ovlSgnwpksmTQIH8x6FIAIIEw3ic6dG4BFcd-FNmrP2MMDj624kchvZujlg75Nto_1qVgzRzmHHQxeQUEv7JSmLVCR7mno3q92GNIpcWxsdf4j80hVtFaqS1gpnh_3WV1VSSTmgah9S3L0Ft7xEs8oW65m9Hx2o8T5basXEEJA_xPAfvocRIk"
+    },
+    {
+      "position": 15,
+      "title": "Lovina Ponta de Campina | Bar | Restaurante em Cabedelo",
+      "place_id": "ChIJdbKCxUTerAcRNmBt0eRrdX8",
+      "data_id": "0x7acde44c582b275:0x7f756be4d16d6036",
+      "data_cid": "9184365645602316342",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde44c582b275%3A0x7f756be4d16d6036&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde44c582b275%3A0x7f756be4d16d6036&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.029314899999999,
+        "longitude": -34.8302167
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJdbKCxUTerAcRNmBt0eRrdX8",
+      "provider_id": "/g/11b67f3d1y",
+      "rating": 4.4,
+      "reviews": 10742,
+      "type": "Restaurante",
+      "types": [
+        "Restaurante",
+        "Restaurante brasileiro",
+        "Bar",
+        "Bares"
+      ],
+      "type_id": "restaurant",
+      "type_ids": [
+        "restaurant",
+        "brazilian_restaurant",
+        "cocktail_bar",
+        "pub"
+      ],
+      "address": "R. Vitorino Cardoso, 908 - Ponta de Campina, Cabedelo - PB, 58101-510",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 18:00",
+      "hours": "Aberto · Fecha 18:00",
+      "operating_hours": {
+        "segunda-feira": "09:00–18:00",
+        "terça-feira": "09:00–18:00",
+        "quarta-feira": "09:00–18:00",
+        "quinta-feira": "09:00–18:00",
+        "sexta-feira": "09:00–18:00",
+        "sábado": "09:00–18:00",
+        "domingo": "09:00–18:00"
+      },
+      "phone": "(83) 99408-6293",
+      "website": "https://grupolovina.github.io/lovinapontadecampina",
+      "description": "Pescados, drinques e música na praia. Frutos do mar e acompanhamentos, além de bebidas, em espaço descontraído com música ao vivo e acesso à praia.",
+      "extensions": [
+        {
+          "from_the_business": [
+            "Se identifica como uma empresa de empreendedoras"
+          ]
+        },
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Música ao vivo",
+            "Ótima carta de vinhos",
+            "Ótima seleção de cervejas",
+            "Ótimos coquetéis"
+          ]
+        },
+        {
+          "popular_for": [
+            "Almoço",
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Bebidas alcoólicas",
+            "Bebidas destiladas",
+            "Bebidas para happy hour",
+            "Buffet de saladas",
+            "Café",
+            "Cerveja",
+            "Coquetéis",
+            "Espaço privativo para eventos",
+            "Porções pequenas",
+            "Pratos orgânicos",
+            "Pratos para happy hour",
+            "Vinho"
+          ]
+        },
+        {
+          "dining_options": [
+            "Brunch",
+            "Almoço",
+            "Atendimento no balcão",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro",
+            "Bar no local"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Aconchegante",
+            "Casual",
+            "Romântico",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Ambiente familiar",
+            "Empresa que acolhe a comunidade LGBTQ+",
+            "Espaço seguro para pessoas transgênero",
+            "Grupos",
+            "Turistas"
+          ]
+        },
+        {
+          "planning": [
+            "Aceita reservas"
+          ]
+        },
+        {
+          "payments": [
+            "Alelo",
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee",
+            "Ticket Restaurante",
+            "Vale refeição",
+            "VR"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças",
+            "Cadeirinhas altas",
+            "Cardápio infantil",
+            "Tem fraldários"
+          ]
+        },
+        {
+          "parking": [
+            "Há muitas vagas disponíveis",
+            "Estacionamento coberto gratuito",
+            "Estacionamento coberto pago",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento descoberto pago",
+            "Estacionamento gratuito na rua",
+            "Estacionamento no local",
+            "Estacionamento pago na rua"
+          ]
+        },
+        {
+          "pets": [
+            "A presença de cães é permitida"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "retirada_na_porta": true,
+        "entrega": true
+      },
+      "user_review": "\"Gastronomia impecável,  refeições completas e muito saborosas.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF06rfvlQ6TaJPd1VmnCTIxmYlCzTCLkfCjE-RfcMb57xPwwpCuZp4W1EJvm1mY0lsck8QDZwx5TfzUigv832DgfzMoxxMwXgTIYlPhMk155zEchJhs3FpDIAzOf47QvKpOySvL=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/2nFhLnicHcRRTsMgAADQE7GCXbdliR8N7ZLWdWuVqd2fYoGtUMjoALmgZ_A2Jr6P9_sj5tnYbZJIkS641lwOdzvcqJ7mYZoXVKuEGwuoBTbJ20M35ju4ujEnuxX5qNsv9KomTKqgeokjwfuR4WsJnhltPrN1aL03-H42yzdU1k4h1UNp6bjpirMPGWHxdOFukz4UnMVGh9D4d06qXraiGVGWxZKKWth0Z4oqj0e2XHfuyRy_X9z-0SMIIRD_UzD9AaLWRZs"
+    },
+    {
+      "position": 16,
+      "title": "Padaria Pandine",
+      "place_id": "ChIJP6gJ7w3erAcREADxKhazvuY",
+      "data_id": "0x7acde0def09a83f:0xe6beb3162af10010",
+      "data_cid": "16626923782089539600",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde0def09a83f%3A0xe6beb3162af10010&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde0def09a83f%3A0xe6beb3162af10010&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.043929599999999,
+        "longitude": -34.845576699999995
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJP6gJ7w3erAcREADxKhazvuY",
+      "provider_id": "/g/1tdqnw6s",
+      "rating": 4.4,
+      "reviews": 1096,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Padaria",
+      "types": [
+        "Padaria"
+      ],
+      "type_id": "bakery",
+      "type_ids": [
+        "bakery"
+      ],
+      "address": "Av. Mar Vermelho, 357 - Intermares, Cabedelo - PB, 58102-120",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "06:00–20:00",
+        "terça-feira": "06:00–20:00",
+        "quarta-feira": "06:00–20:00",
+        "quinta-feira": "06:00–20:00",
+        "sexta-feira": "06:00–20:00",
+        "sábado": "06:00–20:00",
+        "domingo": "06:00–11:30, 15:30–19:00"
+      },
+      "phone": "(83) 3248-1069",
+      "website": "https://www.instagram.com/padariapandine/",
+      "extensions": [
+        {
+          "service_options": [
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "planning": [
+            "Visita rápida"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC",
+            "Pluxee"
+          ]
+        },
+        {
+          "parking": [
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega": true
+      },
+      "user_review": "\"Frequento e recomendo!!!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGFdi2E0ow3ulRwuYsr9G19MzRWwG9-ch5g3kTt_pgGzZgP5wO5VqRWZqIKtqtogbiwRM8zbGPbsqDgW2DBdnsoDzBQdaGKzGmz18Cv3XjZVo75wgc4SxkHhQK5Gz9M0RmQ-xA=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/mpjlqHicHcTdToMwGADQJyqUYSOY7IKJdgthQl3G5MZIIV8ZPwVa7NIH9B18myU7F-f_T2g9qRfX7YXvgJTQN6tqFi5H3Yza4XJwYVKIK6TcKDvmXUTf63bzhqXx156Z9UstIfXC1LLC0BBxQcDvTvp7AmpLyIj5IOeZFeV8SPSsJVStYWlgK5pVao6h2MS7elQytru8_qGJpYP1gtdf_3Itz_KZGOBPn7duL_KEUBummA05ukVb42GMkXjM0XgHeFlFJA"
+    },
+    {
+      "position": 17,
+      "title": "Tapiocaria Tambau",
+      "place_id": "ChIJCTDizSPdrAcREkvCI1z9gU0",
+      "data_id": "0x7acdd23cde23009:0x4d81fd5c23c24b12",
+      "data_cid": "5585023585094880018",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdd23cde23009%3A0x4d81fd5c23c24b12&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdd23cde23009%3A0x4d81fd5c23c24b12&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.1103692999999994,
+        "longitude": -34.8241965
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJCTDizSPdrAcREkvCI1z9gU0",
+      "provider_id": "/g/11gbks_zcg",
+      "rating": 4.6,
+      "reviews": 167,
+      "price": "R$ 20–40",
+      "extracted_price": 20,
+      "type": "Lanchonete",
+      "types": [
+        "Lanchonete"
+      ],
+      "type_id": "snack_bar",
+      "type_ids": [
+        "snack_bar"
+      ],
+      "address": "Av. Sen. Ruy Carneiro, 17 - Manaíra, João Pessoa - PB, 58039-181",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 22:00",
+      "hours": "Aberto · Fecha 22:00",
+      "operating_hours": {
+        "segunda-feira": "07:00–22:00",
+        "terça-feira": "07:00–22:00",
+        "quarta-feira": "07:00–22:00",
+        "quinta-feira": "07:00–22:00",
+        "sexta-feira": "07:00–22:00",
+        "sábado": "07:00–22:00",
+        "domingo": "07:00–22:00"
+      },
+      "phone": "(83) 98888-8225",
+      "website": "https://www.instagram.com/tapiocariatambauoficial",
+      "extensions": [
+        {
+          "service_options": [
+            "Mesas externas",
+            "Entrega sem contato",
+            "Entrega",
+            "Para viagem",
+            "Refeição no local"
+          ]
+        },
+        {
+          "highlights": [
+            "Ótimo café"
+          ]
+        },
+        {
+          "popular_for": [
+            "Comer a sós"
+          ]
+        },
+        {
+          "accessibility": [
+            "Assento com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "offerings": [
+            "Café",
+            "Porções pequenas",
+            "Refeição rápida"
+          ]
+        },
+        {
+          "dining_options": [
+            "Café da manhã",
+            "Almoço",
+            "Jantar",
+            "Sobremesa",
+            "Lugar para sentar",
+            "Garçons"
+          ]
+        },
+        {
+          "atmosphere": [
+            "Casual",
+            "Tendência",
+            "Tranquilo"
+          ]
+        },
+        {
+          "crowd": [
+            "Grupos",
+            "Turistas",
+            "Universitários"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        },
+        {
+          "parking": [
+            "É um pouco difícil encontrar uma vaga",
+            "Estacionamento descoberto gratuito",
+            "Estacionamento gratuito na rua"
+          ]
+        }
+      ],
+      "service_options": {
+        "refeição_no_local": true,
+        "para_viagem": true,
+        "entrega_sem_contato": true
+      },
+      "user_review": "\"A melhor tapiocaria que eu conheço na cidade!\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFxWn5GQ19cFnLMA9iJrbC2KGAvSxPkWYZqg6uvEAuSoafD-8b_VRqbLXTUKknB1lOp55MiBzu3bSOI-37LXKC18uoYaK9GVK1ljilaAeijcPF31Ze5Na-YCkFXvpzNGlcaF6KRWqrz9dM0=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/iSnwLXicHcTBboIwAADQL6rQEZws2aGiJa6AKJuAl6XUCkjXAqXM8JOe_Zsle4f3fNTj2Ok3yxK1s6iUqgQ3mg9MyZHLccHUj1V1GjANtIWS-NAifM-kGxygx7AMI-Q1H0Ppv5AATek9abPi3FdLM22RSRW9bsCq_D4d-zLMP79IK9dQ7DvXjZr1bJwy3e-A8xrmxIcrowpKvOBEoLg1giLe3FiCHXjmbkxB4bc4n7o5DgSjeEmOWT_M3iWy33-hbdug_p8B-Qc2gkY1"
+    },
+    {
+      "position": 18,
+      "title": "Feira de Artesanato do Jacaré",
+      "place_id": "ChIJC2LpUhrerAcRdOHDGQGTnqU",
+      "data_id": "0x7acde1a52e9620b:0xa59e930119c3e174",
+      "data_cid": "11934137695514911092",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde1a52e9620b%3A0xa59e930119c3e174&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde1a52e9620b%3A0xa59e930119c3e174&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0398464,
+        "longitude": -34.8552566
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJC2LpUhrerAcRdOHDGQGTnqU",
+      "provider_id": "/g/1tcy4j2b",
+      "rating": 4.7,
+      "reviews": 3453,
+      "unclaimed_listing": true,
+      "type": "Feira de artesanato",
+      "types": [
+        "Feira de artesanato"
+      ],
+      "type_id": "handicraft_fair",
+      "type_ids": [
+        "handicraft_fair"
+      ],
+      "address": "Pôr do Sol do Jacaré, R. Praia do Jacaré, 76, Cabedelo - PB, 58310-000",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 19:00",
+      "hours": "Aberto · Fecha 19:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–19:00",
+        "terça-feira": "14:00–19:00",
+        "quarta-feira": "14:00–19:00",
+        "quinta-feira": "14:00–19:00",
+        "sexta-feira": "14:00–19:00",
+        "sábado": "14:00–19:00",
+        "domingo": "14:00–19:00"
+      },
+      "extensions": [
+        {
+          "accessibility": [
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "user_review": "\"Cabedelo é a melhor do Brasil\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGXQLvbqukCYUSfzgtXVdnouEJbQFf9cyQbaPu7Frdk0B16NC1CfM11YmsJ4pqobGp-XOc9nEX243q9QWlypkQIkE5hlj0fm5cV19eFX5MeXfajP0L5MSpn9TQrDaC40L2LUTljJw=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/8iyKkHicHcRRboIwAADQE1VaBU2X7MMhGAk4GpXVT6gthJa20DLjbrgjeBsT38d7_nfeW_cRBKpbLVpjWsVnxydmtOfaL5gZgtY6wBxwwbY8ErndU5L_NuMs4-vlJP5aT6ubNnOSNSQVmD1IU5fzJp1uEn6h9TFGsSgQug4uC-1omr0F9JthndBluBox-VEPK8lBJlGneiiGiFUI85RGBaei7kuYR8XJanwm066OQ5gv88tZ9dn9844ghKB7z4B-AQKpRK8"
+    },
+    {
+      "position": 19,
+      "title": "Pôr do Sol do Jacaré",
+      "place_id": "ChIJiSlKohverAcRs6qL-6MnGJE",
+      "data_id": "0x7acde1ba24a2989:0x911827a3fb8baab3",
+      "data_cid": "10455150120193993395",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acde1ba24a2989%3A0x911827a3fb8baab3&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acde1ba24a2989%3A0x911827a3fb8baab3&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -7.0396693,
+        "longitude": -34.855367199999996
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJiSlKohverAcRs6qL-6MnGJE",
+      "provider_id": "/g/11g68_kg70",
+      "rating": 4.8,
+      "reviews": 5597,
+      "type": "Atração turística",
+      "types": [
+        "Atração turística"
+      ],
+      "type_id": "tourist_attraction",
+      "type_ids": [
+        "tourist_attraction"
+      ],
+      "address": "Av. Pôr do Sol - Jacaré, Cabedelo - PB, 58105-820",
+      "country": "Brasil",
+      "open_state": "Aberto · Fecha 20:00",
+      "hours": "Aberto · Fecha 20:00",
+      "operating_hours": {
+        "segunda-feira": "14:00–20:00",
+        "terça-feira": "14:00–20:00",
+        "quarta-feira": "14:00–20:00",
+        "quinta-feira": "14:00–20:00",
+        "sexta-feira": "14:00–20:00",
+        "sábado": "14:00–20:00",
+        "domingo": "14:00–20:00"
+      },
+      "phone": "(83) 98829-1569",
+      "website": "https://www.omelhordaparaiba.com.br/",
+      "extensions": [
+        {
+          "service_options": [
+            "Serviços no local"
+          ]
+        },
+        {
+          "accessibility": [
+            "Banheiro com acessibilidade para pessoas em cadeira de rodas",
+            "Entrada com acessibilidade para pessoas em cadeira de rodas",
+            "Estacionamento com acessibilidade para pessoas em cadeira de rodas"
+          ]
+        },
+        {
+          "amenities": [
+            "Banheiro"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de crédito",
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        },
+        {
+          "children": [
+            "Bom para ir com crianças"
+          ]
+        }
+      ],
+      "service_options": {
+        "serviços_no_local": true
+      },
+      "user_review": "\"O por do sol em cabedelo é espetacular.\"",
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH9zWD9UZyyyTpzxMVMhfSqSPN91z6U6T3bGtE0IKL-XzqhwumZi1DrXetKn4VoPoO4VeU_zdN5zvH8VkPY1QQkWhM_3ofPt4w5ypLX-7WYakv1WcEod7WmhQ1sfP6wDz3gk5xf=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/cbeMvnicHcRdDoIgAADgE6Eyf8q2Htps1VLDmWK9tCKUhooGaXLBztBt2voevu-HKdXJhWnWzDYqIaqaviR9EtEq2iqDiMasOgmIBNJcoTjhq62vceBn52majp1-R3nEyrRPUexD7WXe0b5t1Nra7UNQ6J6Nr-b8gMGzoGrfOrlA4uDkNLvoe-zqYTvPOTrBJOGYRRdblEg5ozt1YQFm-HTlA8RkLe4z3LAEyhJ5Y6DtirvvcjlCy7IA-09A-wOr9kWI"
+    },
+    {
+      "position": 20,
+      "title": "Tapiocaria da Leuda",
+      "place_id": "ChIJ71V6ieLfrAcRTnwSGZtpHW8",
+      "data_id": "0x7acdfe2897a55ef:0x6f1d699b19127c4e",
+      "data_cid": "8006671827396099150",
+      "reviews_link": "https://serpapi.com/search.json?data_id=0x7acdfe2897a55ef%3A0x6f1d699b19127c4e&engine=google_maps_reviews&hl=pt",
+      "photos_link": "https://serpapi.com/search.json?data_id=0x7acdfe2897a55ef%3A0x6f1d699b19127c4e&engine=google_maps_photos&hl=pt",
+      "gps_coordinates": {
+        "latitude": -14.4095262,
+        "longitude": -51.31668
+      },
+      "place_id_search": "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=pt&place_id=ChIJ71V6ieLfrAcRTnwSGZtpHW8",
+      "provider_id": "/g/11kcj6n73w",
+      "rating": 4,
+      "reviews": 1,
+      "type": "Loja de comidas naturais",
+      "types": [
+        "Loja de comidas naturais",
+        "Service establishment"
+      ],
+      "type_id": "natural_foods_store",
+      "type_ids": [
+        "natural_foods_store",
+        "establishment_service"
+      ],
+      "open_state": "Aberto · Fecha 19:30",
+      "hours": "Aberto · Fecha 19:30",
+      "operating_hours": {
+        "segunda-feira": "15:00–19:30",
+        "terça-feira": "15:00–19:30",
+        "quarta-feira": "15:00–19:30",
+        "quinta-feira": "15:00–19:30",
+        "sexta-feira": "15:00–19:30",
+        "sábado": "15:00–19:30",
+        "domingo": "15:00–19:30"
+      },
+      "phone": "(83) 99949-6857",
+      "extensions": [
+        {
+          "highlights": [
+            "Bons produtos"
+          ]
+        },
+        {
+          "payments": [
+            "Cartão de débito",
+            "Pagamentos por dispositivo móvel via NFC"
+          ]
+        }
+      ],
+      "thumbnail": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGVMpbpSM2bWvcGo1PcLPMB9YY2ahHTkMOy1AjmumNhTwCsPnGLOKnul8sPSmf12B7HCKk_kgi-D6MNvDjEJfB5pyv8UFuaeyRzzfLhl3GmG66UKE3rHguMzqu-HWoJxj0sfpj3Wg=w1000-h1000-c-n",
+      "serpapi_thumbnail": "https://serpapi.com/images/url/Dt59uXicHcRJDoIwAADAF1W2iEviAVxKhGJdiSejDbQCXbQUhR_6BH9j4hzm-2FNo_TUsmrmDaiUtM6Nzp9EiiYXzYBIblGlAdFAWwFOt1UAT0jd1B65t6wlUDqYJBiFk_PZvbLoUKFN5wQlNzxlh9dcYwGTTSxMPdZ4zwvHDUfRPK4uFb2DhY_SdlEu10U4VF07Pq7MNe92fV8krPYgh75_jJfeM6IG9Q8Dokyu36WtC1V6GZ29HNu2AftPgPgBATRF4w"
+    }
+  ]
+}

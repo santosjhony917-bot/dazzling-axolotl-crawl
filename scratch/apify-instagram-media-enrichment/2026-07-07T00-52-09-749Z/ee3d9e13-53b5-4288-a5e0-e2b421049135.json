@@ -1,0 +1,225 @@
+{
+  "id": "ee3d9e13-53b5-4288-a5e0-e2b421049135",
+  "name": "Espetinho do xandao",
+  "instagram": "https://www.instagram.com/petiscariadoxandao/",
+  "followers": 1694,
+  "match": {
+    "score": 75,
+    "reasons": [
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": false,
+    "hasCover": false,
+    "galleryCount": 0,
+    "missing": [
+      "logo",
+      "capa",
+      "galeria_min_3"
+    ]
+  },
+  "uploads": [
+    {
+      "kind": "logo",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/logos/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_profile_1783385775147.jpg"
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385779474_1.jpg",
+      "score": 34,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385780798_2.jpg",
+      "score": 31,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385781615_3.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385782103_4.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385782734_5.jpg",
+      "score": 28,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385783407_6.jpg",
+      "score": 26,
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385784392_7.jpg",
+      "score": 23,
+      "vision": null
+    },
+    {
+      "kind": "gallery",
+      "url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385785350_8.jpg",
+      "score": 23,
+      "vision": null
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "e5434502-2bad-41b3-aafd-31bd6814088d",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385779474_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "88dade54-7968-4177-808f-a7e4f418fc78",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385780798_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "ba562477-c435-4cae-ad6f-d8f742a614af",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385781615_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "d2d3ecd3-4c0d-44fc-aeb3-f5114369acd2",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385782103_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "ec136db7-5639-4786-8b2f-15de8502c0d3",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385782734_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "20e68178-b849-47aa-b21a-0f81882ee1d0",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385783407_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "578daf90-c94c-43e1-9126-09eaedd83818",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385784392_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "74db89ff-e678-4d0c-9d6b-86d526bfe416",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/ee3d9e13-53b5-4288-a5e0-e2b421049135/instagram_1783385785350_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": [
+    {
+      "source": "latest_post",
+      "score": 34,
+      "caption": "🔥❤️ CORAÇÃO ACEBOLADO ❤️🔥 Quem é apaixonado por um petisco raiz vai amar essa delícia! 😋 🥩 Coração acebolado suculento 🍟 Acompanhado de fritas crocantes 🥗 Salada fresquinha P",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 31,
+      "caption": "🥩 Carne de Sol com Fritas – carne macia e suculenta acompanhada de uma porção caprichada de fritas crocantes. 🥘 Arrumadinho de Carne de Sol – a combinação perfeita de carne de so",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 28,
+      "caption": "Uma identidade visual renovada, para um ciclo brilhante, e cheio de novidades para nossa galera. . . . #barjoaopessoa #espetinhojoaopessoa",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 28,
+      "caption": "🔥❤️ CORAÇÃO ACEBOLADO ❤️🔥 Quem é apaixonado por um petisco raiz vai amar essa delícia! 😋 🥩 Coração acebolado suculento 🍟 Acompanhado de fritas crocantes 🥗 Salada fresquinha P",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "child_post",
+      "score": 28,
+      "caption": "🔥❤️ CORAÇÃO ACEBOLADO ❤️🔥 Quem é apaixonado por um petisco raiz vai amar essa delícia! 😋 🥩 Coração acebolado suculento 🍟 Acompanhado de fritas crocantes 🥗 Salada fresquinha P",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 26,
+      "caption": "🚨 PROMOÇÃO NA PETISCARIA DO XANDÃO! 🍻🔥 Segunda, Quarta e Quinta tem chopp gelado por apenas R$ 7,99 na caneca de 400ML! E não para por aí… 👀 Também tem Happy de Petiscos e Enso",
+      "vision": {
+        "ok": null,
+        "reason": "vision_failed: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."
+      }
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "Estamos esperando por você ✨ Lugar aconchegante para curtir com sua família e amigos. 🫡 . .",
+      "vision": null
+    },
+    {
+      "source": "latest_post",
+      "score": 23,
+      "caption": "✨ Nosso delicioso Arrumadinho de Carne de Sol! Uma porção caprichada, preparada com muito sabor e ingredientes selecionados. Perfeita para compartilhar, serve duas pessoas tranquil",
+      "vision": null
+    }
+  ]
+}

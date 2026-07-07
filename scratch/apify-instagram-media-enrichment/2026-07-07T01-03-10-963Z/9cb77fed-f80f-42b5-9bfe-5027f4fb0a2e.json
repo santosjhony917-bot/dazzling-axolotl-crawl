@@ -1,0 +1,90 @@
+{
+  "id": "9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e",
+  "name": "Villa Porto",
+  "instagram": "https://www.instagram.com/villaportocabedelo/",
+  "followers": 1898,
+  "match": {
+    "score": 135,
+    "reasons": [
+      "name_tokens",
+      "google_name_tokens",
+      "city",
+      "same_username"
+    ]
+  },
+  "before": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "uploads": [
+    {
+      "kind": "bio_link",
+      "url": "https://maps.app.goo.gl/SavGqTgiEeRFzp5BA?g_st=ac"
+    }
+  ],
+  "skipped": [],
+  "applied": true,
+  "status": "ok",
+  "after": {
+    "hasLogo": true,
+    "hasCover": true,
+    "galleryCount": 8,
+    "missing": []
+  },
+  "promotion": {
+    "promoted": false,
+    "reason": "menu_not_ready",
+    "mediaStatus": {
+      "complete": true,
+      "missing": [],
+      "galleryCount": 8,
+      "galleryRows": [
+        {
+          "id": "e409cc6b-1703-41a2-adbb-270de909d6fe",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e/instagram_1783385703485_1.jpg",
+          "order_index": 0
+        },
+        {
+          "id": "cf6963fa-bdd7-4491-9bba-10079e3a7c87",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e/instagram_1783385704827_2.jpg",
+          "order_index": 1
+        },
+        {
+          "id": "640f4c72-9a86-4614-9a70-db580b61f848",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e/instagram_1783385705778_3.jpg",
+          "order_index": 2
+        },
+        {
+          "id": "e9599199-9ad7-4614-bf9f-912e53a2f270",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e/instagram_1783385706495_4.jpg",
+          "order_index": 3
+        },
+        {
+          "id": "0b090df4-29db-44be-923a-e4234327d7f8",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e/instagram_1783385707125_5.jpg",
+          "order_index": 4
+        },
+        {
+          "id": "e4dd35f4-5d3e-4b10-8cf0-6159cfbdd3a7",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e/instagram_1783385707966_6.jpg",
+          "order_index": 5
+        },
+        {
+          "id": "028913fa-dcb7-4221-ac6d-663c370b689f",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e/instagram_1783385708520_7.jpg",
+          "order_index": 6
+        },
+        {
+          "id": "388738ce-52e6-4d71-8241-2b93becf4adb",
+          "image_url": "https://gaawiewmlhorzbaixoqo.supabase.co/storage/v1/object/public/restaurant-images/gallery/9cb77fed-f80f-42b5-9bfe-5027f4fb0a2e/instagram_1783385709067_8.jpg",
+          "order_index": 7
+        }
+      ],
+      "hasLogo": true,
+      "hasCover": true
+    }
+  },
+  "candidates": []
+}

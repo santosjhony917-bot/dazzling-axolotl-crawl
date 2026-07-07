@@ -1,0 +1,151 @@
+{
+  "endpoint": "https://delivery2.yooga.com.br/v2/stores/restaurante-primo-rico",
+  "status": 200,
+  "textLength": 3586,
+  "payload": {
+    "idi": 65258,
+    "id": 19100,
+    "name": "Restaurante Primo Rico",
+    "description": "D  00 ",
+    "url": "restaurante-primo-rico",
+    "img": "https://cdn-production.yooga.com.br/6b94b5d43a1d91f8362cd4130e9b6723.jpeg",
+    "opened": 0,
+    "blocked": 0,
+    "currency": "R$",
+    "country": "br",
+    "close_until": null,
+    "open_until": null,
+    "latitude": null,
+    "longitude": null,
+    "delivery_fee": null,
+    "delivery_fee_json": null,
+    "has_bairro": 1,
+    "schedule_available": 0,
+    "schedule_json": "[{\"day_of_week\":0,\"day\":\"Domingo\",\"hours\":[{\"end\":\"2023-03-28T17:15:49Z\",\"start\":\"2023-03-20T12:00:16Z\",\"type\":\"IMEDIATE\"}]},{\"day_of_week\":1,\"day\":\"Segunda-feira\",\"hours\":[{\"end\":\"2023-03-28T17:15:58Z\",\"start\":\"2023-03-20T12:00:25Z\",\"type\":\"IMEDIATE\"}]},{\"day_of_week\":2,\"day\":\"Terça-feira\",\"hours\":[{\"end\":\"2023-03-28T17:15:06Z\",\"start\":\"2023-03-20T12:00:33Z\",\"type\":\"IMEDIATE\"}]},{\"day_of_week\":3,\"day\":\"Quarta-feira\",\"hours\":[{\"end\":\"2023-04-05T17:15:15Z\",\"start\":\"2023-03-20T12:00:44Z\",\"type\":\"IMEDIATE\"}]},{\"day_of_week\":4,\"day\":\"Quinta-feira\",\"hours\":[{\"end\":\"2023-03-28T17:15:23Z\",\"start\":\"2023-03-20T12:00:52Z\",\"type\":\"IMEDIATE\"}]},{\"day_of_week\":5,\"day\":\"Sexta-feira\",\"hours\":[{\"end\":\"2023-03-28T17:15:29Z\",\"start\":\"2023-03-20T12:00:58Z\",\"type\":\"IMEDIATE\"}]},{\"day_of_week\":6,\"day\":\"Sábado\",\"hours\":[{\"end\":\"2023-07-22T17:15:59Z\",\"start\":\"2023-03-20T12:00:07Z\",\"type\":\"IMEDIATE\"}]}]",
+    "manual_address": 1,
+    "minimum_order": 0,
+    "user_withdraw": 1,
+    "only_schedule": 0,
+    "only_withdrawal": 0,
+    "free_delivery_value": 0,
+    "pixel": "",
+    "timezone": "America/Sao_Paulo",
+    "google_analytics_token": null,
+    "google_ads_token": null,
+    "marketplace_id": "70a81565-09d8-4258-98bd-5070a2da7e5e",
+    "segment_name": "D  00 ",
+    "status_label": "Fechado agora",
+    "status_color": "warning",
+    "status_label_additional": "Abre hoje às ",
+    "time": "2026-07-07T12:00:00Z",
+    "current_status": "IMEDIATE",
+    "min_delivery_time": 35,
+    "max_delivery_time": 55,
+    "multiple": false,
+    "use_greater_option_price": true,
+    "required_document": false,
+    "schedule_type": true,
+    "hide_pix_banner": false,
+    "feature_toggle_payment_discount": true,
+    "delivery_require_contractor_data": false,
+    "has_club_yooga": false,
+    "modulo_cashback": true,
+    "cashback_delivery_enabled": false,
+    "cashback_percentage": 0,
+    "cashback_minimum_order_value": 0,
+    "show_full_description": false,
+    "disable_offline_payments": false,
+    "has_promo_clube": false,
+    "cupom_boost_available_a": false,
+    "cupom_boost_available_b": false,
+    "clube_cupom_delivery": true,
+    "clube_cupom_delivery_checkout_banner": false,
+    "club_coupon_delivery_menu_banner": true,
+    "enableWhatsappV2": false,
+    "delivery_use_new_checkout": false,
+    "has_schedule_type_products": [],
+    "pixel_id": null,
+    "pixel_access_token": null,
+    "bairros": [
+      {
+        "id": 39043,
+        "name": "Amazonia Park",
+        "value": 7,
+        "delivery_time": 39,
+        "store_id": 19100
+      },
+      {
+        "id": 38175,
+        "name": "Bessa",
+        "value": 10,
+        "delivery_time": 45,
+        "store_id": 19100
+      },
+      {
+        "id": 135025,
+        "name": "cabedelo",
+        "value": 15,
+        "delivery_time": 55,
+        "store_id": 19100
+      },
+      {
+        "id": 56819,
+        "name": "camboina",
+        "value": 8,
+        "delivery_time": 35,
+        "store_id": 19100
+      },
+      {
+        "id": 38171,
+        "name": "Intermares",
+        "value": 3,
+        "delivery_time": 39,
+        "store_id": 19100
+      },
+      {
+        "id": 38176,
+        "name": "Jacaré",
+        "value": 7,
+        "delivery_time": 39,
+        "store_id": 19100
+      },
+      {
+        "id": 42237,
+        "name": "manaira",
+        "value": 10,
+        "delivery_time": 40,
+        "store_id": 19100
+      },
+      {
+        "id": 38173,
+        "name": "Poço",
+        "value": 7,
+        "delivery_time": 39,
+        "store_id": 19100
+      },
+      {
+        "id": 38172,
+        "name": "Ponta de Campina",
+        "value": 3,
+        "delivery_time": 39,
+        "store_id": 19100
+      },
+      {
+        "id": 39199,
+        "name": "Portal do Poço",
+        "value": 7,
+        "delivery_time": 39,
+        "store_id": 19100
+      },
+      {
+        "id": 135024,
+        "name": "tambaú",
+        "value": 15,
+        "delivery_time": 40,
+        "store_id": 19100
+      }
+    ],
+    "address": null,
+    "integrations": []
+  }
+}
