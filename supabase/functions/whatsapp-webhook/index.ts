@@ -12,6 +12,145 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+type ResponseKind =
+  | 'auto_reply'
+  | 'bot_menu'
+  | 'human_reply'
+  | 'owner_identified'
+  | 'interested'
+  | 'objection'
+  | 'opt_out'
+  | 'needs_human'
+  | 'unknown'
+
+type MessageClassification = {
+  kind: ResponseKind
+  is_human: boolean
+  is_automatic: boolean
+  owner_identified: boolean
+  interested: boolean
+  needs_human: boolean
+  opt_out: boolean
+  confidence: number
+  reason: string
+}
+
+const normalizeText = (value: string) =>
+  String(value || '')
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+
+const classifyInboundMessage = (text: string): MessageClassification => {
+  const normalized = normalizeText(text)
+  if (!normalized) {
+    return { kind: 'unknown', is_human: false, is_automatic: false, owner_identified: false, interested: false, needs_human: false, opt_out: false, confidence: 0, reason: 'Mensagem vazia.' }
+  }
+
+  const hasAny = (patterns: RegExp[]) => patterns.some((pattern) => pattern.test(normalized))
+  const optOut = hasAny([/\bnao quero\b/, /\bremover\b/, /\bpare\b/, /\bdescadastrar\b/, /\bsem interesse\b/])
+  const botMenu = hasAny([/\bdigite\s*\d\b/, /\btecle\s*\d\b/, /\bescolha uma opcao\b/, /\bmenu de atendimento\b/, /(^|\n)\s*\d+\s*[-.)]/])
+  const autoReply = hasAny([
+    /\batendimento automatico\b/,
+    /\bmensagem automatica\b/,
+    /\bseja bem[- ]?vindo\b/,
+    /\bobrigad[oa] por entrar em contato\b/,
+    /\bnosso horario\b/,
+    /\bhorario de funcionamento\b/,
+    /\bresponderemos em breve\b/,
+    /\bem instantes\b/,
+    /\bcardapio\b.*\blink\b/,
+  ])
+  const ownerIdentified = hasAny([
+    /\bsou (o |a )?(dono|dona|proprietario|proprietaria|responsavel|gerente)\b/,
+    /\bpode falar comigo\b/,
+    /\bsou eu\b/,
+    /\beu sou .*responsavel\b/,
+  ])
+  const interested = hasAny([
+    /\bpode mandar\b/,
+    /\bmanda\b/,
+    /\bme envia\b/,
+    /\bcomo funciona\b/,
+    /\bquero ver\b/,
+    /\bmanda o link\b/,
+    /\bqual valor\b/,
+    /\bquanto custa\b/,
+    /\btenho interesse\b/,
+  ])
+  const needsHuman = hasAny([/\bgolpe\b/, /\bquem autorizou\b/, /\bautorizacao\b/, /\bcontrato\b/, /\bpreco\b/, /\bvalor\b/, /\breclamacao\b/, /\bfinanceiro\b/])
+  const objection = hasAny([/\bja tenho\b/, /\bnao preciso\b/, /\bnao entendi\b/, /\bpor que\b/, /\bifood\b/])
+
+  if (optOut) return { kind: 'opt_out', is_human: true, is_automatic: false, owner_identified: ownerIdentified, interested: false, needs_human: false, opt_out: true, confidence: 0.92, reason: 'Pedido de parada ou rejeicao direta.' }
+  if (botMenu) return { kind: 'bot_menu', is_human: false, is_automatic: true, owner_identified: false, interested: false, needs_human: false, opt_out: false, confidence: 0.9, reason: 'Menu ou fluxo automatico do WhatsApp.' }
+  if (autoReply && !ownerIdentified && !interested) return { kind: 'auto_reply', is_human: false, is_automatic: true, owner_identified: false, interested: false, needs_human: false, opt_out: false, confidence: 0.86, reason: 'Saudacao ou informacao automatica.' }
+  if (ownerIdentified) return { kind: 'owner_identified', is_human: true, is_automatic: false, owner_identified: true, interested, needs_human: needsHuman, opt_out: false, confidence: 0.9, reason: 'Responsavel se identificou ou aceitou falar.' }
+  if (needsHuman) return { kind: 'needs_human', is_human: true, is_automatic: false, owner_identified: false, interested, needs_human: true, opt_out: false, confidence: 0.84, reason: 'Resposta sensivel para revisao humana.' }
+  if (interested) return { kind: 'interested', is_human: true, is_automatic: false, owner_identified: false, interested: true, needs_human: false, opt_out: false, confidence: 0.82, reason: 'Demonstrou curiosidade ou pediu proximo passo.' }
+  if (objection) return { kind: 'objection', is_human: true, is_automatic: false, owner_identified: false, interested: false, needs_human: true, opt_out: false, confidence: 0.76, reason: 'Objeção ou duvida comercial.' }
+
+  return { kind: 'human_reply', is_human: true, is_automatic: false, owner_identified: false, interested: false, needs_human: false, opt_out: false, confidence: 0.62, reason: 'Texto livre sem padrao automatico conhecido.' }
+}
+
+const toPipelineStage = (classification: MessageClassification) => {
+  if (classification.opt_out) return 'OptOut'
+  if (classification.needs_human || classification.kind === 'objection') return 'Handoff'
+  if (classification.is_human) return 'Responded'
+  return null
+}
+
+const toLegacyPipelineStage = (stage: string | null) => {
+  if (stage === 'OptOut') return 'Lost'
+  if (stage === 'Handoff') return 'Negotiating'
+  if (stage === 'Responded') return 'Qualified'
+  return null
+}
+
+async function updateLeadResponseQuality(lead: any, classification: MessageClassification, text: string) {
+  const now = new Date().toISOString()
+  const nextStage = toPipelineStage(classification)
+  const patch: Record<string, unknown> = {
+    last_response_kind: classification.kind,
+    last_response_is_human: classification.is_human,
+    last_response_summary: classification.reason,
+    response_quality_score: classification.confidence,
+    last_event_at: now,
+  }
+
+  if (nextStage) patch.pipeline_stage = nextStage
+  if (classification.is_human) {
+    patch.human_reply_count = Number(lead.human_reply_count || 0) + 1
+    patch.last_human_reply_at = now
+  }
+  if (classification.is_automatic) {
+    patch.auto_reply_count = Number(lead.auto_reply_count || 0) + 1
+    patch.last_auto_reply_at = now
+  }
+  if (classification.owner_identified) patch.owner_identified_at = lead.owner_identified_at || now
+  if (classification.interested) patch.interested_at = lead.interested_at || now
+  if (classification.opt_out) {
+    patch.opt_out_at = now
+    patch.is_ai_active = false
+  }
+  if (classification.needs_human) {
+    patch.automation_paused_reason = 'Resposta classificada como sensivel pelo webhook'
+  }
+
+  const { error } = await supabase.from('commercial_leads').update(patch).eq('id', lead.id)
+  if (!error) return
+
+  const legacyPatch: Record<string, unknown> = {}
+  const legacyStage = toLegacyPipelineStage(nextStage)
+  if (legacyStage) legacyPatch.pipeline_stage = legacyStage
+  if (classification.opt_out) legacyPatch.is_ai_active = false
+
+  if (Object.keys(legacyPatch).length > 0) {
+    await supabase.from('commercial_leads').update(legacyPatch).eq('id', lead.id)
+  }
+  console.warn('CRM response quality columns unavailable; saved legacy status only.', error.message, text.slice(0, 80))
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') { return new Response('ok', { headers: corsHeaders }) }
 
@@ -69,10 +208,45 @@ serve(async (req) => {
       if (!l || !l.is_ai_active) return new Response(JSON.stringify({ status: 'ignored', reason: 'AI disabled' }), { headers: corsHeaders });
       lead = l;
 
+      const classification = classifyInboundMessage(textMessage);
+
       // Event Sourcing Inbound
       await supabase.from('commercial_events').insert({
-        lead_id: lead.id, event_type: 'WhatsAppMessageReceived', actor_type: 'Lead', payload: { text: textMessage }
+        lead_id: lead.id,
+        event_type: 'WhatsAppMessageReceived',
+        actor_type: 'Lead',
+        payload: {
+          text: textMessage,
+          from_number: fromNumber,
+          classification,
+        }
       })
+
+      await updateLeadResponseQuality(lead, classification, textMessage)
+
+      if (classification.is_automatic) {
+        return new Response(JSON.stringify({
+          status: 'classified',
+          response_kind: classification.kind,
+          action: 'no_ai_reply_for_auto_response',
+        }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
+      }
+
+      if (classification.opt_out) {
+        return new Response(JSON.stringify({
+          status: 'classified',
+          response_kind: classification.kind,
+          action: 'opt_out_registered',
+        }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
+      }
+
+      if (classification.needs_human) {
+        return new Response(JSON.stringify({
+          status: 'classified',
+          response_kind: classification.kind,
+          action: 'handoff_required',
+        }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
+      }
     }
 
     // 3. Recuperar histórico RAG
