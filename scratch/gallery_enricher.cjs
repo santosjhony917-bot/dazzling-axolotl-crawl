@@ -165,6 +165,57 @@ async function downloadAndUploadImage(url, filePath) {
 }
 
 // 1. Método Oficial: Google Places API
+async function mediaStatus(restaurantId) {
+  const { data: restaurant } = await supabase
+    .from('restaurants')
+    .select('image_url, cover_image_url')
+    .eq('id', restaurantId)
+    .single();
+  const { count } = await supabase
+    .from('restaurant_gallery')
+    .select('id', { count: 'exact', head: true })
+    .eq('restaurant_id', restaurantId);
+  const galleryCount = Number(count || 0);
+  const missing = [];
+  if (!String(restaurant?.image_url || '').trim()) missing.push('logo');
+  if (!String(restaurant?.cover_image_url || '').trim()) missing.push('capa');
+  if (galleryCount < 3) missing.push('galeria_min_3');
+  return {
+    complete: missing.length === 0,
+    missing,
+    galleryCount,
+    hasLogo: Boolean(String(restaurant?.image_url || '').trim()),
+    hasCover: Boolean(String(restaurant?.cover_image_url || '').trim()),
+  };
+}
+
+async function hasStructuredMenu(restaurantId) {
+  const { count, error } = await supabase
+    .from('menu_categories')
+    .select('id', { count: 'exact', head: true })
+    .eq('restaurant_id', restaurantId);
+  return !error && Number(count || 0) > 0;
+}
+
+async function promoteIfMediaComplete(restaurantId) {
+  const status = await mediaStatus(restaurantId);
+  const menuReady = await hasStructuredMenu(restaurantId);
+  if (!menuReady) return { promoted: false, reason: 'menu_not_ready', mediaStatus: status };
+  if (!status.complete) return { promoted: false, reason: `missing_${status.missing.join('_')}`, mediaStatus: status };
+
+  const { error } = await supabase
+    .from('restaurants')
+    .update({
+      ai_validated: true,
+      menu_status: 'found',
+      menu_status_reason: `Cardapio estruturado e midia minima completa: logo, capa e ${status.galleryCount} fotos de galeria.`,
+      menu_last_checked_at: new Date().toISOString(),
+    })
+    .eq('id', restaurantId);
+  if (error) return { promoted: false, reason: error.message, mediaStatus: status };
+  return { promoted: true, reason: 'media_gate_complete', mediaStatus: status };
+}
+
 async function fetchPhotosFromPlacesAPI(name, city) {
   if (!PLACES_API_KEY) {
     console.log('   ⚠️ Chave do Google Places API não configurada no .env');
@@ -887,6 +938,7 @@ async function run() {
   await supabase.from('restaurant_gallery').delete().eq('restaurant_id', rest.id);
 
   let insertedCount = 0;
+  const insertedUrls = [];
   for (let i = 0; i < bestUrls.length; i++) {
     const url = bestUrls[i];
     const filePath = `gallery/${rest.id}/photo_${i + 1}_${Date.now()}.jpg`;
@@ -906,6 +958,7 @@ async function run() {
         
       if (!dbErr) {
         insertedCount++;
+        insertedUrls.push(publicUrl);
       } else {
         console.error('      ⚠️ Erro ao inserir na tabela de galeria:', dbErr.message);
       }
@@ -913,6 +966,13 @@ async function run() {
   }
 
   // Se coletou fotos do cardápio e precisa processar
+  if (!String(rest.cover_image_url || '').trim() && insertedUrls[0]) {
+    await supabase
+      .from('restaurants')
+      .update({ cover_image_url: insertedUrls[0] })
+      .eq('id', rest.id);
+  }
+
   const allMenuUrls = [...menuPhotoUrls, ...highlightUrls];
   if (allMenuUrls.length > 0) {
     console.log(`✨ Fotos do cardápio prontas (${menuPhotoUrls.length} do Google, ${highlightUrls.length} do Instagram). Iniciando OCR e extração...`);
@@ -922,8 +982,10 @@ async function run() {
     }
   }
 
+  const promotion = await promoteIfMediaComplete(rest.id);
+
   console.log(`\n🎉 Processo concluído! ${insertedCount} fotos salvas na galeria do restaurante.`);
-  console.log(`RESULT:{"success":true,"message":"Galeria de fotos enriquecida com ${insertedCount} fotos."}`);
+  console.log(`RESULT:${JSON.stringify({ success: true, message: `Galeria de fotos enriquecida com ${insertedCount} fotos.`, promotion })}`);
 }
 
 if (require.main === module) {
