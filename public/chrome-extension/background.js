@@ -1,9 +1,9 @@
 
 try {
   importScripts(
-    'universal-agent.js?v=1.10.42',
-    'platform-adapters.js?v=1.10.42',
-    'hybrid-audit.js?v=1.10.42'
+    'universal-agent.js?v=1.10.53',
+    'platform-adapters.js?v=1.10.53',
+    'hybrid-audit.js?v=1.10.53'
   );
 } catch (error) {
   console.warn('[FilterFood Extension] optional helper scripts failed to load', error);
@@ -14,6 +14,12 @@ const FF_LOCAL_TELEMETRY_ENDPOINT = 'http://localhost:8080/api/local-collector/e
 const FF_COMMAND_ENDPOINT = 'http://localhost:8080/api/local-collector/extension-command';
 const FF_COMMAND_RESULT_ENDPOINT = 'http://localhost:8080/api/local-collector/extension-command-result';
 const FF_COMMAND_POLL_INTERVAL_MS = 1400;
+const FF_COMMAND_IDLE_POLL_INTERVAL_MS = 5000;
+const FF_COMMAND_ERROR_POLL_INTERVAL_MS = 10000;
+const FF_LOCAL_FETCH_TIMEOUT_MS = 5000;
+const FF_TELEMETRY_FETCH_TIMEOUT_MS = 1500;
+const FF_DEFAULT_LANE_ID = 'default';
+const FF_TAB_UPDATED_TELEMETRY_MIN_INTERVAL_MS = 1200;
 const FF_DEFAULT_WORK_TAB_PATTERNS = [
   'http://localhost:8080/admin/expansion',
   'http://127.0.0.1:8080/admin/expansion',
@@ -21,9 +27,39 @@ const FF_DEFAULT_WORK_TAB_PATTERNS = [
   'http://127.0.0.1:8080/restaurant/'
 ];
 const ffTelemetryEvents = [];
+const ffRecentTabTelemetry = new Map();
 let ffCommandPollingStarted = false;
 let ffCommandInFlight = false;
 let ffLastWorkTabId = null;
+let ffCachedLaneId = null;
+
+function normalizeLaneId(value) {
+  const normalized = String(value || '')
+    .trim()
+    .replace(/[^A-Za-z0-9_.:-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80);
+  return normalized || FF_DEFAULT_LANE_ID;
+}
+
+async function getExtensionLaneId() {
+  if (ffCachedLaneId) return ffCachedLaneId;
+  try {
+    const stored = await chrome.storage.local.get(['ffLaneId']);
+    ffCachedLaneId = normalizeLaneId(stored?.ffLaneId);
+  } catch (_) {
+    ffCachedLaneId = FF_DEFAULT_LANE_ID;
+  }
+  return ffCachedLaneId;
+}
+
+async function setExtensionLaneId(laneId) {
+  ffCachedLaneId = normalizeLaneId(laneId);
+  try {
+    await chrome.storage.local.set({ ffLaneId: ffCachedLaneId });
+  } catch (_) {}
+  return ffCachedLaneId;
+}
 
 function redactTelemetryUrl(rawUrl) {
   if (!rawUrl || typeof rawUrl !== 'string') return '';
@@ -67,11 +103,35 @@ function pushExtensionTelemetry(event) {
   if (ffTelemetryEvents.length > FF_TELEMETRY_LIMIT) {
     ffTelemetryEvents.splice(0, ffTelemetryEvents.length - FF_TELEMETRY_LIMIT);
   }
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), FF_TELEMETRY_FETCH_TIMEOUT_MS);
   fetch(FF_LOCAL_TELEMETRY_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  }).catch(() => {});
+    body: JSON.stringify(payload),
+    signal: controller.signal
+  }).catch(() => {}).finally(() => clearTimeout(timeoutId));
+}
+
+function shouldSkipTabUpdatedTelemetry(tabId, changeInfo = {}, tab = {}) {
+  const signature = [
+    changeInfo.status || '',
+    redactTelemetryUrl(changeInfo.url || tab.url || tab.pendingUrl || ''),
+    changeInfo.title || tab.title || ''
+  ].join('|');
+  const now = Date.now();
+  const previous = ffRecentTabTelemetry.get(tabId);
+  if (previous?.signature === signature && now - previous.ts < FF_TAB_UPDATED_TELEMETRY_MIN_INTERVAL_MS) {
+    return true;
+  }
+  ffRecentTabTelemetry.set(tabId, { signature, ts: now });
+  if (ffRecentTabTelemetry.size > 200) {
+    const cutoff = now - 60000;
+    for (const [key, value] of ffRecentTabTelemetry) {
+      if (value.ts < cutoff) ffRecentTabTelemetry.delete(key);
+    }
+  }
+  return false;
 }
 
 function setupExtensionTelemetryListeners() {
@@ -99,6 +159,7 @@ function setupExtensionTelemetryListeners() {
 
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       if (!changeInfo.url && !changeInfo.status && !changeInfo.title) return;
+      if (shouldSkipTabUpdatedTelemetry(tabId, changeInfo, tab)) return;
       pushExtensionTelemetry({
         type: 'tab.updated',
         tabId,
@@ -136,27 +197,43 @@ function setupExtensionTelemetryListeners() {
 setupExtensionTelemetryListeners();
 
 async function fetchLocalJson(url, options = {}) {
-  const response = await fetch(url, options);
-  const text = await response.text();
-  let payload = {};
+  const timeoutMs = Math.max(1000, Number(options.timeoutMs || FF_LOCAL_FETCH_TIMEOUT_MS));
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  const fetchOptions = { ...options, signal: options.signal || controller.signal };
+  delete fetchOptions.timeoutMs;
   try {
-    payload = text ? JSON.parse(text) : {};
-  } catch (_) {
-    payload = { raw: text };
+    const response = await fetch(url, fetchOptions);
+    const text = await response.text();
+    let payload = {};
+    try {
+      payload = text ? JSON.parse(text) : {};
+    } catch (_) {
+      payload = { raw: text };
+    }
+    if (!response.ok) {
+      throw new Error(payload.error || `HTTP ${response.status}`);
+    }
+    return payload;
+  } catch (error) {
+    if (error?.name === 'AbortError') {
+      throw new Error(`Timeout chamando servidor local: ${url}`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
-  if (!response.ok) {
-    throw new Error(payload.error || `HTTP ${response.status}`);
-  }
-  return payload;
 }
 
 async function postExtensionCommandResult(command, payload) {
+  const laneId = normalizeLaneId(command?.laneId || command?.lane || await getExtensionLaneId());
   const resultPayload = {
+    laneId,
     commandId: command?.id || null,
     command,
     ...payload
   };
-  await fetchLocalJson(FF_COMMAND_RESULT_ENDPOINT, {
+  await fetchLocalJson(`${FF_COMMAND_RESULT_ENDPOINT}?laneId=${encodeURIComponent(laneId)}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(resultPayload)
@@ -164,6 +241,20 @@ async function postExtensionCommandResult(command, payload) {
 }
 
 async function getCommandTargetTab(command = {}) {
+  const explicitPatterns = [
+    command.targetUrl,
+    command.urlPrefix,
+    command.matchUrl,
+    command.url
+  ]
+    .filter(Boolean)
+    .map(value => String(value));
+  const patterns = explicitPatterns.length ? explicitPatterns : FF_DEFAULT_WORK_TAB_PATTERNS;
+  const matchesPatterns = (tab) => {
+    const tabUrl = String(tab?.url || tab?.pendingUrl || '');
+    return patterns.some(pattern => tabUrl.startsWith(pattern) || tabUrl.includes(pattern));
+  };
+
   if (typeof command.tabId === 'number') {
     try {
       const tab = await chrome.tabs.get(command.tabId);
@@ -178,29 +269,21 @@ async function getCommandTargetTab(command = {}) {
     try {
       const tab = await chrome.tabs.get(ffLastWorkTabId);
       const tabUrl = String(tab?.url || tab?.pendingUrl || '');
-      if (tab?.id && !tabUrl.startsWith('chrome://')) return tab;
+      if (tab?.id && !tabUrl.startsWith('chrome://') && (!explicitPatterns.length || matchesPatterns(tab))) return tab;
     } catch (_) {
       ffLastWorkTabId = null;
     }
   }
 
-  const explicitPatterns = [
-    command.targetUrl,
-    command.urlPrefix,
-    command.matchUrl,
-    command.url
-  ]
-    .filter(Boolean)
-    .map(value => String(value));
-
-  const patterns = explicitPatterns.length ? explicitPatterns : FF_DEFAULT_WORK_TAB_PATTERNS;
   const allTabs = await chrome.tabs.query({});
-  const matchingTab = allTabs
+  const matchingTabs = allTabs
     .filter(tab => typeof tab.id === 'number')
-    .find(tab => {
-      const tabUrl = String(tab.url || tab.pendingUrl || '');
-      return patterns.some(pattern => tabUrl.startsWith(pattern) || tabUrl.includes(pattern));
+    .filter(matchesPatterns)
+    .sort((a, b) => {
+      if (a.active !== b.active) return a.active ? -1 : 1;
+      return Number(b.lastAccessed || 0) - Number(a.lastAccessed || 0);
     });
+  const matchingTab = matchingTabs[0] || null;
 
   if (matchingTab?.id) {
     ffLastWorkTabId = matchingTab.id;
@@ -345,9 +428,78 @@ function scrollInPage(deltaY) {
   };
 }
 
+function scrollLargestContainerInPage(options = {}) {
+  const serializeTarget = (target) => {
+    if (!target || target === document.scrollingElement || target === document.documentElement || target === document.body) {
+      return 'document';
+    }
+    const id = target.id ? `#${target.id}` : '';
+    const classes = String(target.className || '')
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 4)
+      .map(value => `.${value}`)
+      .join('');
+    return `${target.tagName?.toLowerCase?.() || 'element'}${id}${classes}`;
+  };
+  const isVisible = (el) => {
+    const rect = el.getBoundingClientRect?.();
+    const style = window.getComputedStyle(el);
+    return rect && rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
+  };
+  const documentScroller = document.scrollingElement || document.documentElement || document.body;
+  const candidates = [documentScroller, ...document.querySelectorAll('*')]
+    .filter(Boolean)
+    .filter(el => {
+      const overflow = (el.scrollHeight || 0) - (el.clientHeight || 0);
+      if (overflow < 80) return false;
+      if (el !== documentScroller && !isVisible(el)) return false;
+      if (el === documentScroller) return true;
+      const style = window.getComputedStyle(el);
+      const overflowText = `${style.overflowY} ${style.overflow}`;
+      return /(auto|scroll|overlay)/i.test(overflowText) || el.getAttribute('role') === 'main' || el.getAttribute('role') === 'feed';
+    })
+    .sort((a, b) => ((b.scrollHeight || 0) - (b.clientHeight || 0)) - ((a.scrollHeight || 0) - (a.clientHeight || 0)));
+  const target = candidates[0] || documentScroller;
+  const maxScrollTop = Math.max(0, (target.scrollHeight || 0) - (target.clientHeight || window.innerHeight || 0));
+  const ratio = options && options.ratio !== undefined ? Number(options.ratio) : null;
+  const position = options && options.position !== undefined ? Number(options.position) : null;
+  const deltaY = Number(options?.deltaY ?? options?.y ?? 700);
+  let nextTop;
+  if (Number.isFinite(position)) nextTop = Math.max(0, Math.min(maxScrollTop, position));
+  else if (Number.isFinite(ratio)) nextTop = Math.max(0, Math.min(maxScrollTop, maxScrollTop * ratio));
+  else nextTop = Math.max(0, Math.min(maxScrollTop, Number(target.scrollTop || window.scrollY || 0) + deltaY));
+
+  if (target === documentScroller || target === document.documentElement || target === document.body) {
+    window.scrollTo({ top: nextTop, left: 0, behavior: 'smooth' });
+  } else {
+    target.scrollTo({ top: nextTop, left: 0, behavior: 'smooth' });
+  }
+
+  return {
+    success: true,
+    target: serializeTarget(target),
+    scrollTop: Math.round(nextTop),
+    maxScrollTop: Math.round(maxScrollTop),
+    scrollHeight: Math.round(target.scrollHeight || 0),
+    clientHeight: Math.round(target.clientHeight || window.innerHeight || 0),
+    reachedEnd: maxScrollTop <= 0 || nextTop >= maxScrollTop - 8
+  };
+}
+
 async function executeVisualCommand(command) {
   const type = String(command?.type || command?.action || '').trim();
   if (!type) throw new Error('Comando sem tipo.');
+
+  if (type === 'set_lane' || type === 'set_extension_lane') {
+    const laneId = await setExtensionLaneId(command.laneId || command.lane || command.value || FF_DEFAULT_LANE_ID);
+    return { success: true, laneId };
+  }
+
+  if (type === 'get_lane' || type === 'get_extension_lane') {
+    const laneId = await getExtensionLaneId();
+    return { success: true, laneId };
+  }
 
   if (type === 'open_url') {
     const url = String(command.url || '');
@@ -362,6 +514,19 @@ async function executeVisualCommand(command) {
     return { opened: true, tabId: tab.id, url: redactTelemetryUrl(url) };
   }
 
+  if (type === 'google_maps_place_info' || type === 'scrape_google_hours' || type === 'google_maps_hours') {
+    const query = String(command.query || command.name || command.restaurantName || '').trim();
+    const mapUrl = String(command.mapUrl || command.googleMapsUrl || command.targetUrl || command.url || '').trim();
+    if (!query && !mapUrl) throw new Error('Comando Google Maps sem query/mapUrl.');
+    return await handleGoogleHoursScrape(query, mapUrl, command);
+  }
+
+  if (type === 'google_search_place_info' || type === 'google_search_knowledge_panel') {
+    const query = String(command.query || command.name || command.restaurantName || '').trim();
+    if (!query) throw new Error('Comando Google Search sem query.');
+    return await handleGoogleSearchPlaceInfo(query, command);
+  }
+
   const tab = await getCommandTargetTab(command);
   if (!tab?.id) throw new Error('Nenhuma aba do Chrome disponivel para executar o comando.');
 
@@ -372,6 +537,16 @@ async function executeVisualCommand(command) {
 
   if (type === 'snapshot') {
     const captured = await handleCaptureTab(tab.id);
+    return {
+      ...captured,
+      tabId: tab.id,
+      url: redactTelemetryUrl(tab.url || tab.pendingUrl),
+      title: tab.title || ''
+    };
+  }
+
+  if (type === 'full_page_snapshot' || type === 'long_snapshot' || type === 'snapshot_full_page') {
+    const captured = await handleCaptureFullPageTab(tab.id, command);
     return {
       ...captured,
       tabId: tab.id,
@@ -402,6 +577,12 @@ async function executeVisualCommand(command) {
     return { tabId: tab.id, ...result };
   }
 
+  if (type === 'scroll_largest_container' || type === 'scroll_container') {
+    const result = await executeOnCommandTab(tab.id, scrollLargestContainerInPage, [command]);
+    await new Promise(resolve => setTimeout(resolve, Number(command.waitMs) || 700));
+    return { tabId: tab.id, ...result };
+  }
+
   if (type === 'wait') {
     await new Promise(resolve => setTimeout(resolve, Math.min(Number(command.ms) || 1000, 30000)));
     return { waited: true, ms: Math.min(Number(command.ms) || 1000, 30000) };
@@ -411,23 +592,30 @@ async function executeVisualCommand(command) {
 }
 
 function scheduleExtensionCommandPoll(delay = FF_COMMAND_POLL_INTERVAL_MS) {
-  setTimeout(pollExtensionCommands, delay);
+  const safeDelay = Math.max(1000, Number(delay) || FF_COMMAND_POLL_INTERVAL_MS);
+  setTimeout(pollExtensionCommands, safeDelay);
 }
 
 async function pollExtensionCommands() {
   if (ffCommandInFlight) {
-    scheduleExtensionCommandPoll(FF_COMMAND_POLL_INTERVAL_MS);
+    scheduleExtensionCommandPoll(FF_COMMAND_IDLE_POLL_INTERVAL_MS);
     return;
   }
   ffCommandInFlight = true;
+  let nextPollDelay = FF_COMMAND_IDLE_POLL_INTERVAL_MS;
   try {
     const version = encodeURIComponent(chrome.runtime.getManifest().version);
-    const pulled = await fetchLocalJson(`${FF_COMMAND_ENDPOINT}?client=chrome-extension&version=${version}`);
+    const laneId = await getExtensionLaneId();
+    const pulled = await fetchLocalJson(`${FF_COMMAND_ENDPOINT}?client=chrome-extension&version=${version}&laneId=${encodeURIComponent(laneId)}`, {
+      timeoutMs: FF_LOCAL_FETCH_TIMEOUT_MS
+    });
     const command = pulled?.command;
     if (command) {
+      nextPollDelay = FF_COMMAND_POLL_INTERVAL_MS;
       pushExtensionTelemetry({
         type: 'command.received',
         commandId: command.id,
+        laneId: normalizeLaneId(command.laneId || laneId),
         commandType: command.type || command.action
       });
       try {
@@ -436,6 +624,7 @@ async function pollExtensionCommands() {
         pushExtensionTelemetry({
           type: 'command.completed',
           commandId: command.id,
+          laneId: normalizeLaneId(command.laneId || laneId),
           commandType: command.type || command.action,
           success: result?.success !== false
         });
@@ -448,26 +637,33 @@ async function pollExtensionCommands() {
         pushExtensionTelemetry({
           type: 'command.failed',
           commandId: command.id,
+          laneId: normalizeLaneId(command.laneId || laneId),
           commandType: command.type || command.action,
           error: error?.message || String(error)
         });
       }
     }
   } catch (error) {
+    nextPollDelay = FF_COMMAND_ERROR_POLL_INTERVAL_MS;
     pushExtensionTelemetry({
       type: 'command.poll.error',
+      laneId: await getExtensionLaneId().catch(() => FF_DEFAULT_LANE_ID),
       error: error?.message || String(error)
     });
   } finally {
     ffCommandInFlight = false;
-    scheduleExtensionCommandPoll(FF_COMMAND_POLL_INTERVAL_MS);
+    scheduleExtensionCommandPoll(nextPollDelay);
   }
 }
 
 function startExtensionCommandPolling() {
   if (ffCommandPollingStarted) return;
   ffCommandPollingStarted = true;
-  pushExtensionTelemetry({ type: 'command.polling.ready' });
+  getExtensionLaneId().then((laneId) => {
+    pushExtensionTelemetry({ type: 'command.polling.ready', laneId });
+  }).catch(() => {
+    pushExtensionTelemetry({ type: 'command.polling.ready', laneId: FF_DEFAULT_LANE_ID });
+  });
   scheduleExtensionCommandPoll(1000);
 }
 
@@ -556,7 +752,8 @@ async function createTabWithRetry(options, maxRetries = 10) {
   if (typeof options !== 'object' || options === null) {
     throw new TypeError('options must be an object');
   }
-  const dedupeKey = normalizeTabUrlForDedupe(options.url || '');
+  const { dedupe, ...tabOptions } = options;
+  const dedupeKey = dedupe === false ? '' : normalizeTabUrlForDedupe(tabOptions.url || '');
   if (dedupeKey && /^https?:\/\//i.test(dedupeKey)) {
     const existingLock = ffTabCreationLocks.get(dedupeKey);
     if (existingLock) {
@@ -569,7 +766,7 @@ async function createTabWithRetry(options, maxRetries = 10) {
     if (recent && Date.now() - recent.createdAt < 45000) {
       const existing = await findExistingTabByDedupeKey(dedupeKey);
       if (existing?.id) {
-        try { await chrome.tabs.update(existing.id, { active: options.active === true }); } catch (_) {}
+        try { await chrome.tabs.update(existing.id, { active: tabOptions.active === true }); } catch (_) {}
         return existing;
       }
     }
@@ -580,7 +777,7 @@ async function createTabWithRetry(options, maxRetries = 10) {
   if (dedupeKey && creationPromise) ffTabCreationLocks.set(dedupeKey, creationPromise);
   for (let i = 0; i < maxRetries; i++) {
     try {
-      const created = await chrome.tabs.create(options);
+      const created = await chrome.tabs.create(tabOptions);
       if (dedupeKey) {
         ffRecentTabKeys.set(dedupeKey, { tabId: created.id, createdAt: Date.now() });
         creationResolve?.(created);
@@ -958,8 +1155,8 @@ function handleExtensionMessage(message, sender, sendResponse) {
   }
 
   if (message.action === "searchGoogleNative") {
-    const { query } = message;
-    handleSearchGoogleNative(query)
+    const { query, kgmid, skipPhotos } = message;
+    handleSearchGoogleNative(query, { kgmid, skipPhotos })
       .then(result => sendResponse(result))
       .catch(err => sendResponse({ success: false, error: err.message }));
     return true;
@@ -1016,10 +1213,19 @@ chrome.runtime.onConnectExternal.addListener((port) => {
   });
 });
 
-async function handleSearchGoogleNative(query) {
-  console.log("Iniciando busca nativa no Google para:", query);
-  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-  const tab = await createTabWithRetry({ url: searchUrl, active: false });
+async function handleSearchGoogleNative(query, options = {}) {
+  const sanitizedQuery = String(query || '')
+    .replace(/\b(fotos?|photos?|imagens?|images?)\b/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  console.log("Iniciando busca nativa no Google para:", sanitizedQuery);
+  const params = new URLSearchParams({ q: sanitizedQuery });
+  const kgmid = String(options?.kgmid || '').trim();
+  if (/^\/g\/[A-Za-z0-9_-]+$/.test(kgmid)) {
+    params.set('kgmid', kgmid);
+  }
+  const searchUrl = `https://www.google.com/search?${params.toString()}`;
+  const tab = await createTabWithRetry({ url: searchUrl, active: Boolean(kgmid) });
   const tabId = tab.id;
   
   try {
@@ -1036,7 +1242,8 @@ async function handleSearchGoogleNative(query) {
           } else {
             tries++;
             if (tries > 30) {
-              reject(new Error("Tempo limite na busca do Google."));
+              console.warn("Google nao marcou a aba como complete dentro do limite; prosseguindo com DOM parcial.");
+              resolve();
             } else {
               setTimeout(checkStatus, 500);
             }
@@ -1050,20 +1257,29 @@ async function handleSearchGoogleNative(query) {
       let captchaSeen = false;
       const deadline = Date.now() + 45 * 1000;
       while (Date.now() < deadline) {
-        const stateResult = await chrome.scripting.executeScript({
-          target: { tabId: tabId },
-          func: () => {
-            const bodyText = (document.body?.innerText || '').toLowerCase();
-            const html = document.documentElement?.innerHTML || '';
-            const href = location.href.toLowerCase();
-            const hasCaptcha = href.includes('/sorry/')
-              || /captcha|recaptcha|unusual traffic|trafego incomum|tráfego incomum|not a robot|nao sou um robo|não sou um robô/i.test(bodyText)
-              || Boolean(document.querySelector('iframe[src*="recaptcha"], form[action*="/sorry/"], input[name="captcha"]'));
-            const hasSearchContent = Boolean(document.querySelector('#search a[href], a[href*="instagram.com"]'))
-              || /instagram\.com/i.test(html);
-            return { hasCaptcha, hasSearchContent, href: location.href, title: document.title };
+        let stateResult = null;
+        try {
+          stateResult = await chrome.scripting.executeScript({
+            target: { tabId: tabId },
+            func: () => {
+              const bodyText = (document.body?.innerText || '').toLowerCase();
+              const html = document.documentElement?.innerHTML || '';
+              const href = location.href.toLowerCase();
+              const hasCaptcha = href.includes('/sorry/')
+                || /captcha|recaptcha|unusual traffic|trafego incomum|tráfego incomum|not a robot|nao sou um robo|não sou um robô/i.test(bodyText)
+                || Boolean(document.querySelector('iframe[src*="recaptcha"], form[action*="/sorry/"], input[name="captcha"]'));
+              const hasSearchContent = Boolean(document.querySelector('#search a[href], a[href*="instagram.com"]'))
+                || /instagram\.com/i.test(html);
+              return { hasCaptcha, hasSearchContent, href: location.href, title: document.title };
+            }
+          });
+        } catch (error) {
+          if (/frame.*removed|no frame|cannot access/i.test(error?.message || String(error))) {
+            await ffSleep(1200);
+            continue;
           }
-        });
+          throw error;
+        }
         const state = stateResult && stateResult[0] && stateResult[0].result;
         if (!state?.hasCaptcha && state?.hasSearchContent) return { success: true };
         if (state?.hasCaptcha) captchaSeen = true;
@@ -1081,10 +1297,250 @@ async function handleSearchGoogleNative(query) {
 
     const readiness = await waitForGoogleSearchReady();
     if (readiness?.requiresHuman) return readiness;
+    if (kgmid) {
+      await ffSleep(3500);
+    }
 
-    const results = await chrome.scripting.executeScript({
+    const openGooglePhotosModal = async () => {
+      let debuggerAttached = false;
+      try {
+        await chrome.tabs.update(tabId, { active: true });
+        const currentTab = await chrome.tabs.get(tabId);
+        if (currentTab?.windowId) await chrome.windows.update(currentTab.windowId, { focused: true });
+      } catch (_) {}
+
+      const readTarget = async () => {
+        let target = null;
+        try {
+          [target] = await chrome.scripting.executeScript({
+            target: { tabId },
+            func: () => {
+            const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+            const visibleRect = (node) => {
+              if (!node || typeof node.getBoundingClientRect !== 'function') return null;
+              const rect = node.getBoundingClientRect();
+              if (!rect || rect.width < 20 || rect.height < 20) return null;
+              if (rect.right <= 0 || rect.bottom <= 0 || rect.left >= viewportWidth || rect.top >= viewportHeight) return null;
+              return {
+                left: rect.left,
+                top: rect.top,
+                width: rect.width,
+                height: rect.height,
+                right: rect.right,
+                bottom: rect.bottom
+              };
+            };
+            const textOf = (node) => String(
+              node?.innerText ||
+              node?.textContent ||
+              node?.getAttribute?.('aria-label') ||
+              node?.getAttribute?.('title') ||
+              ''
+            ).replace(/\s+/g, ' ').trim();
+            const normalizedTextOf = (node) => textOf(node)
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/\s+/g, ' ')
+              .trim()
+              .toLowerCase();
+            const isSeePhotosControlText = (value) => {
+              const normalized = String(value || '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/\s+/g, ' ')
+                .trim()
+                .toLowerCase();
+              if (!normalized) return false;
+              if (/(add photo|adicionar foto|upload|contribuir|contribute|review|avaliar)/i.test(normalized)) return false;
+              return /\b(see photos|ver fotos|fotos)\b/i.test(normalized);
+            };
+            const looksLikePhotosModal = (node) => {
+              const rect = visibleRect(node);
+              if (!rect) return false;
+              const text = textOf(node);
+              const imageCount = node.querySelectorAll('img, [style*="background-image"]').length;
+              const hasPhotoTabs = /(by owner|do propriet|food & drink|comida e bebida|street view|all|todas|latest|mais recentes|videos)/i.test(text);
+              const looksLikeSearchPage = /AI Mode|Search Results|Shopping|Short videos|Tools|Resultados da pesquisa/i.test(text);
+              const hasClose = [...node.querySelectorAll('button, [role="button"], div[aria-label]')]
+                .some((button) => /^(close|fechar|×|x)$/i.test(textOf(button)));
+              return rect.width >= Math.min(680, viewportWidth * 0.55)
+                && rect.height >= Math.min(420, viewportHeight * 0.45)
+                && rect.width <= viewportWidth * 0.98
+                && rect.height <= viewportHeight * 0.98
+                && rect.left <= viewportWidth * 0.35
+                && rect.top <= viewportHeight * 0.25
+                && imageCount >= 4
+                && !looksLikeSearchPage
+                && (hasPhotoTabs || hasClose);
+            };
+            const explicitPanels = [...document.querySelectorAll('div[role="dialog"], div[aria-modal="true"]')];
+            if (explicitPanels.some(looksLikePhotosModal)) {
+              return { hasModal: true };
+            }
+            const broadPanels = [...document.querySelectorAll('body > div, div')]
+              .filter(looksLikePhotosModal);
+            if (broadPanels.length > 0) {
+              return { hasModal: true };
+            }
+
+            const textTarget = [...document.querySelectorAll('a, button, div[role="button"], [jsaction]')]
+              .map((node) => ({ node, rect: visibleRect(node), text: textOf(node) }))
+              .filter(({ rect, text, node }) => {
+                if (!rect) return false;
+                const aria = node?.getAttribute?.('aria-label') || node?.getAttribute?.('title') || '';
+                return isSeePhotosControlText(text) || isSeePhotosControlText(aria);
+              })
+              .sort((a, b) => {
+                const aScore = (a.rect.left > viewportWidth * 0.5 ? 0 : 1000) + a.rect.top;
+                const bScore = (b.rect.left > viewportWidth * 0.5 ? 0 : 1000) + b.rect.top;
+                return aScore - bScore;
+              })[0];
+            if (textTarget?.rect) {
+              return {
+                hasModal: false,
+                target: {
+                  x: textTarget.rect.left + textTarget.rect.width / 2,
+                  y: textTarget.rect.top + textTarget.rect.height / 2,
+                  text: textTarget.text,
+                  method: 'see_photos_text'
+                }
+              };
+            }
+
+            const imageTarget = [...document.querySelectorAll('img')]
+              .map((img) => {
+                const rect = visibleRect(img);
+                return {
+                  rect,
+                  src: img.currentSrc || img.src || '',
+                  target: img.closest('a, button, div[role="button"], [jsaction]') || img
+                };
+              })
+              .filter(({ rect, src, target }) => {
+                if (!rect) return false;
+                if (rect.width < 110 || rect.height < 70) return false;
+                if (rect.left <= viewportWidth * 0.5 || rect.top >= viewportHeight * 0.72) return false;
+                if (/\.(svg|gif)(\?|#|$)/i.test(src)) return false;
+                const targetText = normalizedTextOf(target);
+                if (/(products?|produtos?|menu|cardapio|cardapio|view all|ver tudo|order pickup|order delivery|pedido|delivery)/i.test(targetText)) return false;
+                return true;
+              })
+              .sort((a, b) => {
+                const topDiff = a.rect.top - b.rect.top;
+                if (Math.abs(topDiff) > 40) return topDiff;
+                return (b.rect.width * b.rect.height) - (a.rect.width * a.rect.height);
+              })[0];
+            if (imageTarget?.target) {
+              const rect = visibleRect(imageTarget.target) || imageTarget.rect;
+              return {
+                hasModal: false,
+                target: {
+                  x: rect.left + Math.min(rect.width - 4, Math.max(4, rect.width / 2)),
+                  y: rect.top + Math.min(rect.height - 4, Math.max(4, rect.height / 2)),
+                  text: textOf(imageTarget.target),
+                  method: 'knowledge_panel_photo'
+                }
+              };
+            }
+            return { hasModal: false };
+            }
+          });
+        } catch (error) {
+          if (/frame.*removed|no frame|cannot access/i.test(error?.message || String(error))) {
+            await ffSleep(1200);
+            return { hasModal: false, frameChanging: true };
+          }
+          throw error;
+        }
+        return target?.result || { hasModal: false };
+      };
+
+      try {
+        for (let attempt = 0; attempt < 8; attempt += 1) {
+          const state = await readTarget();
+          if (state?.hasModal) return true;
+          if (!state?.target) {
+            await ffSleep(1500);
+            continue;
+          }
+          try {
+            try {
+              await chrome.scripting.executeScript({
+                target: { tabId },
+                args: [state.target.x, state.target.y],
+                func: async (x, y) => {
+                  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+                  const el = document.elementFromPoint(Number(x), Number(y));
+                  const target = el?.closest?.('a, button, div[role="button"], [jsaction]') || el;
+                  if (!target) return { clicked: false };
+                  const rect = target.getBoundingClientRect();
+                  const eventOptions = {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window,
+                    clientX: Number(x) || (rect.left + rect.width / 2),
+                    clientY: Number(y) || (rect.top + rect.height / 2),
+                    pointerId: 1,
+                    button: 0,
+                    buttons: 1
+                  };
+                  try { target.scrollIntoView({ block: 'center', inline: 'center' }); } catch (_) {}
+                  await sleep(100);
+                  for (const eventName of ['pointerover', 'mouseover', 'pointermove', 'mousemove', 'pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click']) {
+                    try {
+                      const EventCtor = eventName.startsWith('pointer') && typeof PointerEvent !== 'undefined' ? PointerEvent : MouseEvent;
+                      target.dispatchEvent(new EventCtor(eventName, eventOptions));
+                    } catch (_) {}
+                  }
+                  try { target.click(); } catch (_) {}
+                  return {
+                    clicked: true,
+                    tag: target.tagName,
+                    text: String(target.innerText || target.textContent || target.getAttribute?.('aria-label') || '').replace(/\s+/g, ' ').trim().slice(0, 120)
+                  };
+                }
+              });
+              await ffSleep(1400);
+              const afterDomClick = await readTarget();
+              if (afterDomClick?.hasModal) return true;
+            } catch (_) {}
+
+            if (!debuggerAttached) {
+              await attachDebuggerToTab(tabId);
+              debuggerAttached = true;
+            }
+            const { x, y } = state.target;
+            await sendDebuggerCommand(tabId, 'Input.dispatchMouseEvent', { type: 'mouseMoved', x, y, modifiers: 0 });
+            await sendDebuggerCommand(tabId, 'Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', clickCount: 1, modifiers: 0 });
+            await sendDebuggerCommand(tabId, 'Input.dispatchMouseEvent', { type: 'mouseReleased', x, y, button: 'left', clickCount: 1, modifiers: 0 });
+          } catch (_) {}
+          await ffSleep(1800);
+        }
+        const finalState = await readTarget();
+        return Boolean(finalState?.hasModal);
+      } finally {
+        if (debuggerAttached) await detachDebuggerFromTab(tabId);
+      }
+    };
+
+    const photosModalOpenedBeforeScrape = options?.skipPhotos ? false : await ffWithTimeout(
+      openGooglePhotosModal(),
+      30 * 1000,
+      'Abertura do modal See photos no Google'
+    ).catch(error => {
+      console.warn('Nao consegui abrir o modal See photos dentro do tempo limite:', error?.message || error);
+      return false;
+    });
+    if (photosModalOpenedBeforeScrape) {
+      await ffSleep(3000);
+    }
+
+    const results = await ffWithTimeout(chrome.scripting.executeScript({
       target: { tabId: tabId },
-      func: () => {
+      args: [photosModalOpenedBeforeScrape],
+      func: async (photosModalOpenedBeforeScrape) => {
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         // Extrai Título, Link e Snippet (resumo) dos resultados
         const items = Array.from(document.querySelectorAll('.g'));
         const scraped = [];
@@ -1101,13 +1557,297 @@ async function handleSearchGoogleNative(query) {
             });
           }
         }
-        return scraped;
+        const imageCandidates = [];
+        const seenImages = new Set();
+        const addImage = (url, context = '') => {
+          const cleanUrl = String(url || '').trim();
+          if (!cleanUrl || seenImages.has(cleanUrl)) return;
+          if (!/^data:image\//i.test(cleanUrl) && !/^https?:\/\//i.test(cleanUrl)) return;
+          if (/\.(svg|gif)(\?|#|$)/i.test(cleanUrl)) return;
+          seenImages.add(cleanUrl);
+          imageCandidates.push({ image: cleanUrl, context: String(context || '').trim().slice(0, 240) });
+        };
+        document.querySelectorAll('#search img, [data-attrid] img, g-img img, img').forEach((img) => {
+          const rect = img.getBoundingClientRect();
+          if (rect.width < 80 || rect.height < 60) return;
+          const context = img.closest('.g, [data-attrid], div')?.innerText || img.alt || '';
+          addImage(img.currentSrc || img.src, context);
+          const srcset = img.getAttribute('srcset') || '';
+          srcset.split(',').forEach(part => addImage(part.trim().split(/\s+/)[0], context));
+        });
+        const panelPhotoCandidates = [];
+        const seenPanelImages = new Set();
+        const isGooglePlaceGalleryPhotoUrl = (value) => {
+          const cleanUrl = String(value || '').trim();
+          if (!/^https?:\/\//i.test(cleanUrl)) return false;
+          if (!/googleusercontent\.com/i.test(cleanUrl)) return false;
+          if (!/(\/gps-cs-s\/|\/p\/AF1Qip|\/p\/)/i.test(cleanUrl)) return false;
+          if (/\/a-\/|\/glsgmb\/|\/proxy\/|maps\/vt|streetviewpixels|\/maps\/api\/staticmap/i.test(cleanUrl)) return false;
+          if (/=w\d+-h\d+-p-k-no|=w\d+-h\d+-k-no/i.test(cleanUrl)) return false;
+          if (/\.(svg|gif)(\?|#|$)/i.test(cleanUrl)) return false;
+          return true;
+        };
+        const upgradeGoogleGalleryPhotoResolution = (value) => {
+          const cleanUrl = String(value || '').trim();
+          if (!cleanUrl) return '';
+          if (/=(?:w\d+-h\d+|s\d+)[^/?#]*/i.test(cleanUrl)) {
+            return cleanUrl.replace(/=(?:w\d+-h\d+|s\d+)[^/?#]*/i, '=s1600-w1600-h1200-rw');
+          }
+          return `${cleanUrl}=s1600-w1600-h1200-rw`;
+        };
+        const addPanelImage = (url, context = '') => {
+          const cleanUrl = upgradeGoogleGalleryPhotoResolution(url);
+          if (!cleanUrl || seenPanelImages.has(cleanUrl)) return;
+          if (!isGooglePlaceGalleryPhotoUrl(cleanUrl)) return;
+          seenPanelImages.add(cleanUrl);
+          panelPhotoCandidates.push({ image: cleanUrl, context: String(context || '').trim().slice(0, 240) });
+        };
+        const getVisibleRect = (node) => {
+          if (!node || typeof node.getBoundingClientRect !== 'function') return null;
+          const rect = node.getBoundingClientRect();
+          const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+          const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+          if (!rect || rect.width < 20 || rect.height < 20) return null;
+          if (rect.right <= 0 || rect.bottom <= 0 || rect.left >= viewportWidth || rect.top >= viewportHeight) return null;
+          return rect;
+        };
+        const elementText = (node) => String(
+          node?.innerText ||
+          node?.textContent ||
+          node?.getAttribute?.('aria-label') ||
+          node?.getAttribute?.('title') ||
+          ''
+        ).replace(/\s+/g, ' ').trim();
+        const normalizedElementText = (node) => elementText(node)
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLowerCase();
+        const isSeePhotosControlText = (value) => {
+          const normalized = String(value || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .toLowerCase();
+          if (!normalized) return false;
+          if (/(add photo|adicionar foto|upload|contribuir|contribute|review|avaliar)/i.test(normalized)) return false;
+          return /\b(see photos|ver fotos|fotos)\b/i.test(normalized);
+        };
+        const findActivePhotoPanel = () => {
+          const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+          const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+          const looksLikePhotosModal = (node) => {
+            const rect = getVisibleRect(node);
+            if (!rect) return false;
+            const text = elementText(node);
+            const imageCount = node.querySelectorAll('img, [style*="background-image"]').length;
+            const hasPhotoTabs = /(by owner|do propriet|food & drink|comida e bebida|street view|all|todas|latest|mais recentes|videos)/i.test(text);
+            const looksLikeSearchPage = /AI Mode|Search Results|Shopping|Short videos|Tools|Resultados da pesquisa/i.test(text);
+            const hasClose = [...node.querySelectorAll('button, [role="button"], div[aria-label]')]
+              .some((button) => /^(close|fechar|×|x)$/i.test(elementText(button)));
+            return rect.width >= Math.min(680, viewportWidth * 0.55)
+              && rect.height >= Math.min(420, viewportHeight * 0.45)
+              && rect.width <= viewportWidth * 0.98
+              && rect.height <= viewportHeight * 0.98
+              && rect.left <= viewportWidth * 0.35
+              && rect.top <= viewportHeight * 0.25
+              && imageCount >= 4
+              && !looksLikeSearchPage
+              && (hasPhotoTabs || hasClose);
+          };
+          const explicitPanels = [...document.querySelectorAll('div[role="dialog"], div[aria-modal="true"]')];
+          const explicitPhotoPanels = explicitPanels.filter(looksLikePhotosModal);
+          const possiblePanels = explicitPhotoPanels.length > 0
+            ? explicitPhotoPanels
+            : [...document.querySelectorAll('body > div, div')].filter(looksLikePhotosModal);
+          return possiblePanels
+            .map((node) => ({ node, rect: node.getBoundingClientRect() }))
+            .filter(({ node }) => looksLikePhotosModal(node))
+            .sort((a, b) => (b.rect.width * b.rect.height) - (a.rect.width * a.rect.height))[0]?.node;
+        };
+        const getPanelScroller = () => {
+          const panel = findActivePhotoPanel();
+          if (!panel) return null;
+          return [...panel.querySelectorAll('*')]
+            .filter((node) => node.scrollHeight > node.clientHeight + 120)
+            .sort((a, b) => (b.clientHeight * b.clientWidth) - (a.clientHeight * a.clientWidth))[0] || panel;
+        };
+        const collectPanelImages = (sourceTab = '') => {
+          const panel = findActivePhotoPanel();
+          if (!panel) return;
+          const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+          const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+          const isUsablePanelPhoto = (node, rect) => {
+            if (!rect || rect.width < 80 || rect.height < 80) return false;
+            if (rect.right <= 0 || rect.bottom <= 0 || rect.left >= viewportWidth || rect.top >= viewportHeight) return false;
+            const context = node.closest('button, a, div')?.innerText || node.alt || node.textContent || '';
+            if (/change collection|browse photos|alterar colecao|mudar colecao|ver colecao/i.test(context)) return false;
+            if (/products?|produtos?|view all|ver tudo|order pickup|order delivery|pedido|delivery/i.test(context)) return false;
+            if (/\b\d{1,2}:\d{2}\b|videos?|vídeos?|reels?|play/i.test(context)) return false;
+            return true;
+          };
+          panel.querySelectorAll('img').forEach((img) => {
+            const rect = img.getBoundingClientRect();
+            if (!isUsablePanelPhoto(img, rect)) return;
+            const context = [sourceTab, img.closest('button, a, div')?.innerText || img.alt || '']
+              .filter(Boolean)
+              .join(' | ');
+            addPanelImage(img.currentSrc || img.src, context);
+            const srcset = img.getAttribute('srcset') || '';
+            srcset.split(',').forEach(part => addPanelImage(part.trim().split(/\s+/)[0], context));
+          });
+          panel.querySelectorAll('[style*="background-image"]').forEach((node) => {
+            const rect = node.getBoundingClientRect();
+            if (!isUsablePanelPhoto(node, rect)) return;
+            const match = (node.getAttribute('style') || '').match(/url\(["']?(.*?)["']?\)/i);
+            if (match) addPanelImage(match[1], [sourceTab, node.textContent || ''].filter(Boolean).join(' | '));
+          });
+        };
+        const scrollPhotoPanelDeep = async () => {
+          const panel = findActivePhotoPanel();
+          if (!panel) return;
+          const scrollables = [panel, ...panel.querySelectorAll('*')]
+            .filter((node) => node.scrollHeight > node.clientHeight + 80)
+            .sort((a, b) => (b.scrollHeight - b.clientHeight) - (a.scrollHeight - a.clientHeight))
+            .slice(0, 6);
+          for (const node of scrollables) {
+            try { node.scrollTop += 760; } catch (_) {}
+            try { node.dispatchEvent(new WheelEvent('wheel', { bubbles: true, cancelable: true, deltaY: 760 })); } catch (_) {}
+          }
+          await sleep(650);
+        };
+        const clickLikeUser = async (node) => {
+          if (!node) return false;
+          try { node.scrollIntoView({ block: 'center', inline: 'center' }); } catch (_) {}
+          await sleep(250);
+          const rect = getVisibleRect(node);
+          const clientX = rect ? rect.left + Math.min(rect.width - 4, Math.max(4, rect.width / 2)) : undefined;
+          const clientY = rect ? rect.top + Math.min(rect.height - 4, Math.max(4, rect.height / 2)) : undefined;
+          const eventOptions = { bubbles: true, cancelable: true, view: window, clientX, clientY };
+          try { node.dispatchEvent(new PointerEvent('pointerdown', eventOptions)); } catch (_) {}
+          try { node.dispatchEvent(new MouseEvent('mousedown', eventOptions)); } catch (_) {}
+          try { node.dispatchEvent(new MouseEvent('mouseup', eventOptions)); } catch (_) {}
+          try { node.dispatchEvent(new MouseEvent('click', eventOptions)); } catch (_) {}
+          try { node.click(); } catch (_) {}
+          await sleep(1400);
+          return Boolean(findActivePhotoPanel());
+        };
+        const findKnowledgePanelPhotoTarget = () => {
+          const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+          const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+          const images = [...document.querySelectorAll('img')]
+            .map((img) => {
+              const rect = getVisibleRect(img);
+              const src = img.currentSrc || img.src || '';
+              return {
+                rect,
+                src,
+                target: img.closest('a, button, div[role="button"], [jsaction]') || img
+              };
+            })
+              .filter(({ rect, src, target }) => {
+                if (!rect) return false;
+                if (rect.width < 110 || rect.height < 70) return false;
+                if (rect.left <= viewportWidth * 0.5 || rect.top >= viewportHeight * 0.72) return false;
+                if (/\.(svg|gif)(\?|#|$)/i.test(src)) return false;
+                const targetText = normalizedElementText(target);
+                if (/(products?|produtos?|menu|cardapio|cardapio|view all|ver tudo|order pickup|order delivery|pedido|delivery)/i.test(targetText)) return false;
+                return true;
+              })
+            .sort((a, b) => {
+              const topDiff = a.rect.top - b.rect.top;
+              if (Math.abs(topDiff) > 40) return topDiff;
+              return (b.rect.width * b.rect.height) - (a.rect.width * a.rect.height);
+            });
+          return images[0]?.target || null;
+        };
+        const textPhotoControl = [...document.querySelectorAll('a, button, div[role="button"], [jsaction]')]
+          .find((node) => {
+            if (!getVisibleRect(node)) return false;
+            const text = elementText(node);
+            const aria = node?.getAttribute?.('aria-label') || node?.getAttribute?.('title') || '';
+            return isSeePhotosControlText(text) || isSeePhotosControlText(aria);
+          });
+        const photoControl = textPhotoControl || findKnowledgePanelPhotoTarget();
+        const photosModalOpened = Boolean(findActivePhotoPanel()) || (
+          photoControl
+            ? (await clickLikeUser(photoControl)) || (await clickLikeUser(findKnowledgePanelPhotoTarget()))
+            : false
+        );
+        if (photosModalOpened) {
+          const preferredPhotoTabs = [
+            'By owner',
+            'Do proprietário',
+            'Do proprietario',
+            'Proprietário',
+            'Proprietario',
+            'Food & drink',
+            'Comida e bebida',
+            'Gastronomia',
+            'Pizza',
+            'Latest',
+            'Mais recentes'
+          ];
+          let selectedPhotoTabs = 0;
+          for (const tabLabel of preferredPhotoTabs) {
+            if (/^(menu|cardapio|card.pio|all|todas|tudo)$/i.test(tabLabel)) continue;
+            const tab = [...document.querySelectorAll('button, div[role="button"], a')]
+              .find((node) => {
+                const text = (node.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+                const wanted = tabLabel.toLowerCase();
+                return text === wanted || text.includes(wanted);
+              });
+            if (!tab) continue;
+            try {
+              tab.scrollIntoView({ block: 'center', inline: 'center' });
+              tab.click();
+            } catch (_) {}
+            await sleep(900);
+            selectedPhotoTabs += 1;
+            collectPanelImages(tabLabel);
+            for (let tabPass = 0; tabPass < 1; tabPass += 1) {
+              await scrollPhotoPanelDeep();
+              collectPanelImages(tabLabel);
+            }
+            if (panelPhotoCandidates.length >= 14 || selectedPhotoTabs >= 3) break;
+          }
+          if (selectedPhotoTabs > 0) {
+            for (let pass = 0; pass < 2; pass += 1) {
+              collectPanelImages('Selected non-menu tab');
+              await scrollPhotoPanelDeep();
+            }
+          } else {
+            for (let pass = 0; pass < 2; pass += 1) {
+              collectPanelImages('Google photos modal');
+              await scrollPhotoPanelDeep();
+            }
+          }
+        }
+        return {
+          results: scraped,
+          imageCandidates: imageCandidates.slice(0, 20),
+          panelPhotoCandidates: panelPhotoCandidates.slice(0, 30),
+          photosModalOpened: Boolean(photosModalOpened && findActivePhotoPanel()),
+          pageText: (document.body?.innerText || '').slice(0, 5000)
+        };
       }
-    });
+    }), 65 * 1000, 'Coleta de resultados/fotos do Google Search');
 
-    const foundResults = results && results[0] && results[0].result;
-    if (foundResults && foundResults.length > 0) {
-      return { success: true, results: foundResults };
+    const foundPayload = results && results[0] && results[0].result;
+    const foundResults = foundPayload?.results || [];
+    const imageCandidates = foundPayload?.imageCandidates || [];
+    const panelPhotoCandidates = foundPayload?.panelPhotoCandidates || [];
+    if ((foundResults && foundResults.length > 0) || imageCandidates.length > 0 || panelPhotoCandidates.length > 0) {
+      return {
+        success: true,
+        results: foundResults,
+        imageCandidates,
+        panelPhotoCandidates,
+        photosModalOpened: Boolean(foundPayload?.photosModalOpened),
+        pageText: foundPayload?.pageText || ''
+      };
     } else {
       return { success: false, error: "Nenhum resultado encontrado no Google." };
     }
@@ -1121,9 +1861,128 @@ async function handleSearchGoogleNative(query) {
   }
 }
 
+async function handleGoogleSearchPlaceInfo(query, options = {}) {
+  const sanitizedQuery = String(query || '').replace(/\s+/g, ' ').trim();
+  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(sanitizedQuery)}`;
+  const visibleDelayMs = Math.max(0, Math.min(30000, Number(options.visibleDelayMs || options.keepTabOpenMs || 0) || 0));
+  const closeTabAfter = options.closeTabAfter !== false;
+  const waitBeforeClosingVisibleTab = async () => {
+    if (visibleDelayMs > 0) await ffSleep(visibleDelayMs);
+  };
+  const tab = await createTabWithRetry({ url: searchUrl, active: options.active !== false, dedupe: false });
+  const tabId = tab.id;
+
+  try {
+    await waitForTabToComplete(tabId, 45000).catch(() => {});
+    await ffSleep(3000);
+    const results = await chrome.scripting.executeScript({
+      target: { tabId },
+      args: [sanitizedQuery],
+      func: (expectedQuery) => {
+        const compact = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+        const normalize = (value) => compact(value)
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        const rawPageText = String(document.body?.innerText || '').replace(/\r/g, '\n');
+        const lines = rawPageText.split('\n').map(compact).filter(Boolean);
+        const pageText = compact(rawPageText);
+        const normalizedText = normalize(pageText);
+        const closedPermanently = /permanentemente fechado|fechado permanentemente|permanently closed/i.test(pageText);
+        const temporarilyClosed = /temporariamente fechado|fechado temporariamente|temporarily closed/i.test(pageText);
+        const queryTokens = normalize(expectedQuery)
+          .split(/[^a-z0-9]+/)
+          .filter(token => token.length > 2 && !['campina', 'grande', 'paraiba', 'brasil', 'google'].includes(token));
+        const tokenHits = queryTokens.filter(token => normalizedText.includes(token)).length;
+        const hasExpectedPlaceText = queryTokens.length === 0 || tokenHits >= Math.min(2, queryTokens.length);
+        const lineAfterLabel = (labels) => {
+          const labelPattern = new RegExp(`^(?:${labels.join('|')}):?\\s*(.*)$`, 'i');
+          for (let i = 0; i < lines.length; i += 1) {
+            const match = lines[i].match(labelPattern);
+            if (!match) continue;
+            const inline = compact(match[1] || '');
+            if (inline) return inline;
+            for (let j = i + 1; j < Math.min(lines.length, i + 4); j += 1) {
+              if (!/^(website|directions|order|service|located|phone|menu|hours|reviews|price|suggest|own this business|endereco|telefone|horario|cardapio)\b/i.test(lines[j])) return lines[j];
+            }
+          }
+          return '';
+        };
+        const cleanupPanelValue = (value) => compact(String(value || '')
+          .split(/\b(?:Get there|Suggest an edit|Own this business|Add missing|Website|Directions|Order pickup|Order delivery|Service options|Reviews|Price per person|Como chegar|Sugerir|Adicionar|Avalia[cç][oõ]es)\b/i)[0]
+          .replace(/\s*[·•]\s*$/, ''));
+        const robustAddress = cleanupPanelValue(
+          lineAfterLabel(['Address', 'Endere[cç]o'])
+          || lines.find((line) =>
+            /(?:Campina Grande\s*-\s*PB|Campina Grande\/PB)/i.test(line)
+            && /(?:R\.|Rua|Av\.|Avenida|Travessa|Tv\.|Rod\.|Rodovia|Pra[cç]a|Alameda|Estrada)/i.test(line)
+          )
+          || ''
+        );
+        const robustPhoneMatch = lineAfterLabel(['Phone', 'Telefone']).match(/(\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}|0800\s?\d{3}\s?\d{4})/i);
+        const googleSearchHoursText = cleanupPanelValue(lineAfterLabel(['Hours', 'Hor[aá]rios?', 'Horario']));
+        const reviewText = lines.find((line) => /\b(?:reviews?|avalia[cç][oõ]es)\b/i.test(line) && /\d/.test(line)) || pageText;
+        const ratingMatch = reviewText.match(/\b([0-5](?:[.,]\d)?)\s*(?:\u2605|stars?|estrelas?)\b/i)
+          || pageText.match(/\b([0-5](?:[.,]\d)?)\s*(?:\u2605|stars?|estrelas?)\b/i)
+          || lines.join(' ').match(/\b([0-5](?:[.,]\d)?)\s+(?=\d{1,3}(?:[.,]\d{3})*\s*(?:reviews?|avalia[cç][oõ]es)\b)/i);
+        const reviewsMatch = reviewText.match(/\b(\d[\d.,\s]*)\s+(?:Google\s+)?(?:reviews?|avalia[cç][oõ]es)\b/i)
+          || pageText.match(/\b(\d[\d.,\s]*)\s+(?:Google\s+)?(?:reviews?|avalia[cç][oõ]es)\b/i);
+        const combinedRatingReviewsMatch = pageText.match(/\b([0-5])[.,](\d)\s*([\d.,]{1,12})\s+(?:Google\s+)?(?:reviews?|avalia[cç][oõ]es)\b/i);
+        const rating = combinedRatingReviewsMatch
+          ? Number(`${combinedRatingReviewsMatch[1]}.${combinedRatingReviewsMatch[2]}`)
+          : (ratingMatch ? Number(String(ratingMatch[1]).replace(',', '.')) : null);
+        const reviewsCountDigits = combinedRatingReviewsMatch
+          ? String(combinedRatingReviewsMatch[3]).replace(/[^\d]/g, '')
+          : (reviewsMatch ? String(reviewsMatch[1]).replace(/[^\d]/g, '') : '');
+        const reviewsCount = reviewsCountDigits ? Number(reviewsCountDigits) : null;
+        const addressMatch = pageText.match(/(?:Address|Endere[cç]o):?\s*([^\n]{8,180})/i)
+          || pageText.match(/((?:R\.|Rua|Av\.|Avenida|Travessa|PB-\d{2,4})[^\n]{8,180})/i);
+        const phoneMatch = pageText.match(/(?:Phone|Telefone):?\s*(\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}|0800\s?\d{3}\s?\d{4})/i);
+        const titleName = compact((document.title || '').replace(/\s*[-–]\s*Google.*$/i, ''));
+        const headingName = compact(document.querySelector('h1, h2, [role="heading"]')?.textContent || '');
+        const fallbackName = compact(String(expectedQuery || '').replace(/\b(campina grande|paraiba|pb|brasil|brazil)\b/ig, ' '));
+        const badHeading = /choose what|feedback|ajuda|acessibilidade|google|search results|resultados/i.test(headingName);
+        const name = (!badHeading && headingName) || titleName || fallbackName || expectedQuery;
+        const cleanAddress = addressMatch
+          ? compact(addressMatch[1].split(/\b(?:Get there|Suggest an edit|Own this business|Add missing|Como chegar|Sugerir|Adicionar)\b/i)[0])
+          : '';
+        return {
+          success: Boolean(hasExpectedPlaceText && (closedPermanently || temporarilyClosed || robustAddress || addressMatch || robustPhoneMatch || phoneMatch || rating || reviewsCount || googleSearchHoursText)),
+          currentUrl: location.href,
+          finalUrl: location.href,
+          name,
+          title: name,
+          pageText: pageText.slice(0, 5000),
+          address: robustAddress || cleanAddress,
+          phone: robustPhoneMatch ? compact(robustPhoneMatch[1]) : (phoneMatch ? compact(phoneMatch[1]) : ''),
+          rating,
+          reviewsCount,
+          reviews_count: reviewsCount,
+          google_reviews_count: reviewsCount,
+          hoursText: googleSearchHoursText,
+          googleSearchHoursText,
+          businessStatus: closedPermanently ? 'permanently_closed' : (temporarilyClosed ? 'temporarily_closed' : ''),
+          statusText: closedPermanently ? 'Permanentemente fechado' : (temporarilyClosed ? 'Temporariamente fechado' : ''),
+          isPermanentlyClosed: closedPermanently,
+          isTemporarilyClosed: temporarilyClosed,
+          source: 'google_search_place_info'
+        };
+      }
+    });
+    return results?.[0]?.result || { success: false, error: 'Google Search nao retornou dados do painel.' };
+  } catch (err) {
+    return { success: false, error: err.message, source: 'google_search_place_info' };
+  } finally {
+    try {
+      await waitBeforeClosingVisibleTab();
+      if (closeTabAfter) await removeTabWithRetry(tabId);
+    } catch (_) {}
+  }
+}
+
 async function handleSearchGoogleForInstagram(query, blocklist) {
   console.log("Iniciando busca por Instagram para:", query);
-  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent('site:instagram.com ' + query)}`;
+  const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
   const tab = await createTabWithRetry({ url: searchUrl, active: false });
   const tabId = tab.id;
   let keepTabOpenForHuman = false;
@@ -1198,23 +2057,41 @@ async function handleSearchGoogleForInstagram(query, blocklist) {
 
     const results = await chrome.scripting.executeScript({
       target: { tabId: tabId },
-      func: (blist) => {
-        // Extrai os links do Google
-        const anchors = Array.from(document.querySelectorAll('#search a'));
+      func: (blist, rawQuery) => {
+        const normalize = (value) => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        const compact = (value) => normalize(value).replace(/[^a-z0-9]+/g, '');
+        const queryTokens = normalize(rawQuery)
+          .replace(/site\s*:\s*instagram\.com/g, ' ')
+          .replace(/\b(instagram|campina|grande|pb|paraiba)\b/g, ' ')
+          .split(/[^a-z0-9]+/)
+          .filter(token => token.length >= 3 && !['bar', 'restaurante', 'pizzaria', 'ltda', 'delivery', 'com', 'para', 'das', 'dos', 'uma', 'uns'].includes(token));
+        const hasNameEvidence = (context, handle = '') => {
+          const haystack = `${normalize(context)} ${normalize(handle)} ${compact(handle)}`;
+          const unique = Array.from(new Set(queryTokens));
+          if (unique.length === 0) return true;
+          const matched = unique.filter(token => haystack.includes(token) || compact(haystack).includes(compact(token)));
+          return matched.length >= Math.min(2, unique.length);
+        };
         const links = [];
-        for (const a of anchors) {
-          if (a.href && a.href.includes('instagram.com')) links.push(a.href);
-        }
+        const addLink = (href, context = '') => {
+          if (!href || !href.includes('instagram.com')) return;
+          links.push({ href, context });
+        };
+        Array.from(document.querySelectorAll('#search .g, #search [data-sokoban-container], #search div')).forEach((item) => {
+          const context = item.innerText || item.textContent || '';
+          Array.from(item.querySelectorAll('a[href*="instagram.com"]')).forEach((a) => addLink(a.href, context));
+        });
         if (links.length === 0) {
           for (const a of Array.from(document.querySelectorAll('a[href]'))) {
-            if (a.href && a.href.includes('instagram.com')) links.push(a.href);
+            const context = a.closest('.g, div, article, section')?.innerText || a.innerText || a.href;
+            addLink(a.href, context);
           }
         }
         if (links.length === 0) {
           const html = document.documentElement.innerHTML || document.body.innerHTML || document.body.innerText || '';
           const rawMatches = html.match(/https?:\\?\/\\?\/(?:www\\?\.)?instagram\.com\\?\/[a-zA-Z0-9._]+/gi) || [];
           for (const raw of rawMatches) {
-            links.push(raw.replace(/\\\//g, '/').replace(/\\/g, ''));
+            addLink(raw.replace(/\\\//g, '/').replace(/\\/g, ''), document.body?.innerText || '');
           }
         }
         if (links.length === 0) {
@@ -1224,15 +2101,16 @@ async function handleSearchGoogleForInstagram(query, blocklist) {
           for (const raw of handleMatches) {
             const handle = raw.replace(/^@/, '').replace(/[.\s]+$/g, '');
             if (!handle || ignored.has(`@${handle.toLowerCase()}`)) continue;
-            links.push(`https://www.instagram.com/${handle}/`);
+            addLink(`https://www.instagram.com/${handle}/`, visibleText);
           }
         }
         
         // Regex para extrair só perfil
         const validProfiles = [];
         for (const link of links) {
-          let normalizedLink = link;
-          try { normalizedLink = decodeURIComponent(link); } catch(e) {}
+          let normalizedLink = typeof link === 'string' ? link : link.href;
+          const context = typeof link === 'string' ? '' : link.context;
+          try { normalizedLink = decodeURIComponent(normalizedLink); } catch(e) {}
           try {
             const parsedLink = new URL(normalizedLink, location.href);
             const target = parsedLink.searchParams.get('url') || parsedLink.searchParams.get('q') || parsedLink.searchParams.get('u');
@@ -1241,7 +2119,7 @@ async function handleSearchGoogleForInstagram(query, blocklist) {
           const m = normalizedLink.match(/instagram\.com\/([a-zA-Z0-9._]+)\/?/);
           if (m && m[1] && m[1] !== 'p' && m[1] !== 'reel' && m[1] !== 'explore' && !m[1].includes('?')) {
             const cleanUrl = `https://www.instagram.com/${m[1]}/`;
-            if (!blist.includes(cleanUrl)) {
+            if (!blist.includes(cleanUrl) && hasNameEvidence(context, m[1])) {
               validProfiles.push(cleanUrl);
             }
           }
@@ -1250,7 +2128,7 @@ async function handleSearchGoogleForInstagram(query, blocklist) {
         const unique = [...new Set(validProfiles)];
         return unique.length > 0 ? unique.slice(0, 3) : null;
       },
-      args: [blocklist]
+      args: [blocklist, query]
     });
 
     const foundUrls = results && results[0] && results[0].result;
@@ -1609,11 +2487,54 @@ async function scrapePageLogic() {
   const pathParts = window.location.pathname.split('/').filter(Boolean);
   const username = pathParts[0] ? pathParts[0].toLowerCase() : '';
 
+  function getBestImageUrl(img) {
+    if (!img) return '';
+    const candidates = [];
+    const addCandidate = (rawUrl, score = 0) => {
+      const url = String(rawUrl || '').trim();
+      if (!url || !url.startsWith('http')) return;
+      candidates.push({ url, score });
+    };
+
+    const naturalScore = Math.max(0, Number(img.naturalWidth || img.width || 0)) * Math.max(0, Number(img.naturalHeight || img.height || 0));
+    addCandidate(img.currentSrc, naturalScore + 1000);
+    addCandidate(img.src, naturalScore);
+
+    const srcsets = [
+      img.getAttribute('srcset') || '',
+      img.getAttribute('data-srcset') || ''
+    ].filter(Boolean);
+
+    for (const srcset of srcsets) {
+      for (const part of String(srcset).split(',')) {
+        const pieces = part.trim().split(/\s+/);
+        const url = pieces[0] || '';
+        const descriptor = pieces[1] || '';
+        let score = naturalScore;
+        const widthMatch = descriptor.match(/^(\d+)w$/i);
+        const densityMatch = descriptor.match(/^([\d.]+)x$/i);
+        if (widthMatch) score = Number(widthMatch[1]) * Number(widthMatch[1]);
+        if (densityMatch) score = naturalScore * Number(densityMatch[1]);
+        addCandidate(url, score);
+      }
+    }
+
+    const seen = new Set();
+    return candidates
+      .filter((candidate) => {
+        const key = candidate.url.replace(/[?#].*$/, '');
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .sort((a, b) => b.score - a.score)[0]?.url || '';
+  }
+
   // Passo A: Tenta localizar a imagem pelo alt contendo o username da conta (evitando destaques)
   if (username) {
     for (const img of allImgs) {
       const alt = (img.alt || '').toLowerCase();
-      const src = img.src || '';
+      const src = getBestImageUrl(img) || img.src || '';
       
       const isProfileAlt = alt.includes('perfil') || alt.includes('profile') || alt.includes('avatar');
       const hasUsername = alt.includes(username);
@@ -1642,8 +2563,9 @@ async function scrapePageLogic() {
     
     for (const sel of imgSelectors) {
       const el = document.querySelector(sel);
-      if (el && el.src && el.src.startsWith('http')) {
-        profilePicUrl = el.src;
+      const src = getBestImageUrl(el) || el?.src || '';
+      if (el && src && src.startsWith('http')) {
+        profilePicUrl = src;
         break;
       }
     }
@@ -1653,7 +2575,7 @@ async function scrapePageLogic() {
   if (!profilePicUrl) {
     for (const img of allImgs) {
       const alt = (img.alt || '').toLowerCase();
-      const src = img.src || '';
+      const src = getBestImageUrl(img) || img.src || '';
       const isInsideHighlight = !!img.closest('a[href*="/stories/"]');
       
       if ((alt.includes('perfil') || alt.includes('profile') || alt.includes('avatar')) && !isInsideHighlight) {
@@ -1795,7 +2717,7 @@ async function scrapePageLogic() {
     const text = `${url || ''} ${label || ''}`.toLowerCase();
     let score = 0;
     if (/card[aá]pio|menu|pedido|pe[çc]a|delivery|loja|comprar|order/.test(text)) score += 45;
-    if (/saipos|livemenu|ola\.click|olaclick|anota|ifood|menudino|deliverymuch|goomer|aiqfome|linklist|linktr\.ee|bio\.link|msha\.ke|beacons\.ai|lnk\.bio|taplink/.test(text)) score += 35;
+    if (/saipos|livemenu|ola\.click|olaclick|anota|menudino|deliverymuch|deliverydireto|instadelivery|goomer|aiqfome|linklist|linktr\.ee|bio\.link|msha\.ke|beacons\.ai|lnk\.bio|taplink/.test(text)) score += 35;
     if (/jo[aã]o\s*pessoa|pessoa|patos|sousa|campina|recife|fortaleza|natal/.test(text)) score += 15;
     return score;
   }
@@ -1833,10 +2755,10 @@ async function scrapePageLogic() {
       .replace(/\\\//g, '/')
       .replace(/%3A/gi, ':')
       .replace(/%2F/gi, '/');
-    const matches = decodedText.match(/https?:\/\/[^"'<>\s)]+/gi) || [];
+    const matches = decodedText.match(/(?:https?:\/\/[^"'<>\s)]+|(?:www\.)?(?:deliverydireto\.com\.br|deliverymuch\.com\.br|instadelivery\.com\.br|menudino\.com|aiqfome\.com|goomer\.app|goomer\.com\.br|saipos\.com|livemenu\.app|ola\.click|ola\.menu|pedido\.anota\.ai|app\.cardapioweb\.com|cardapioweb\.com)\/[^\s"'<>),]+)/gi) || [];
     for (const raw of matches) {
       const trimmed = raw.replace(/[\\),.;]+$/g, '');
-      const url = normalizeInstagramOutgoingUrl(trimmed);
+      const url = normalizeInstagramOutgoingUrl(/^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`);
       if (!url || !isUsefulExternalLink(url)) continue;
       const key = url.replace(/#.*$/, '');
       if (seenLinks.has(key)) continue;
@@ -1866,7 +2788,19 @@ async function scrapePageLogic() {
         const text = `${el.textContent || ''} ${el.getAttribute?.('aria-label') || ''}`.trim().toLowerCase();
         const rect = el.getBoundingClientRect?.();
         const visible = rect && rect.width > 0 && rect.height > 0;
-        return visible && /links?|link na bio|ver links|bio/.test(text) && text.length <= 120;
+        const hasLinkIconText = /icone de link|ícone de link|link icon/.test(text);
+        const hasMoreLinksText = /\be\s+mais\s+\d+\b|\band\s+\d+\s+more\b/.test(text);
+        return visible && (/links?|link na bio|ver links|bio/.test(text) || hasLinkIconText || hasMoreLinksText) && text.length <= 180;
+      })
+      .sort((a, b) => {
+        const rank = (el) => {
+          const rect = el.getBoundingClientRect?.() || { width: 9999, height: 9999 };
+          const text = `${el.textContent || ''} ${el.getAttribute?.('aria-label') || ''}`.trim().toLowerCase();
+          const clickable = el.tagName === 'BUTTON' || el.getAttribute?.('role') === 'button' || el.tagName === 'A';
+          const exactMore = /\be\s+mais\s+\d+\b|\band\s+\d+\s+more\b/.test(text);
+          return (clickable ? 0 : 1000) + (exactMore ? 0 : 100) + (rect.width * rect.height) / 1000;
+        };
+        return rank(a) - rank(b);
       });
     const linkOpener = clickableElements[0];
     if (linkOpener) {
@@ -1971,8 +2905,12 @@ async function scrapePageLogic() {
   const feedImages = [];
   try {
     const isInvalidImage = (img) => {
-      if (!img.src || !img.src.startsWith('http')) return true;
-      if (profilePicUrl && img.src === profilePicUrl) return true;
+      const src = getBestImageUrl(img) || img.src || '';
+      if (!src || !src.startsWith('http')) return true;
+      if (profilePicUrl && src.replace(/[?#].*$/, '') === profilePicUrl.replace(/[?#].*$/, '')) return true;
+      const postLink = img.closest && img.closest('a[href]');
+      const postHref = String(postLink?.getAttribute?.('href') || '');
+      if (postHref.includes('/reel/')) return true;
       
       // Filter out small icons < 150px
       const rect = img.getBoundingClientRect ? img.getBoundingClientRect() : null;
@@ -1985,10 +2923,11 @@ async function scrapePageLogic() {
       return false;
     };
 
-    const feedImgs = Array.from(document.querySelectorAll('a[href*="/p/"] img, a[href*="/reel/"] img'));
+    const feedImgs = Array.from(document.querySelectorAll('a[href*="/p/"] img'));
     for (const img of feedImgs) {
-      if (!isInvalidImage(img) && !feedImages.includes(img.src)) {
-        feedImages.push(img.src);
+      const src = getBestImageUrl(img) || img.src || '';
+      if (!isInvalidImage(img) && src && !feedImages.includes(src)) {
+        feedImages.push(src);
         if (feedImages.length >= 12) break;
       }
     }
@@ -1996,8 +2935,9 @@ async function scrapePageLogic() {
     if (feedImages.length < 12) {
       const articleImgs = Array.from(document.querySelectorAll('article img'));
       for (const img of articleImgs) {
-        if (!isInvalidImage(img) && !feedImages.includes(img.src)) {
-          feedImages.push(img.src);
+        const src = getBestImageUrl(img) || img.src || '';
+        if (!isInvalidImage(img) && src && !feedImages.includes(src)) {
+          feedImages.push(src);
           if (feedImages.length >= 12) break;
         }
       }
@@ -2230,7 +3170,7 @@ async function handleMenuScrape(url, sender) {
     try {
       const parsed = new URL(value);
       const hostPath = `${parsed.hostname}${parsed.pathname}`.toLowerCase();
-      return /anota\.ai|saipos\.com|livemenu\.app|cardapioweb|cardapio-web|ola\.click|goomer|menudino|aiqfome/.test(hostPath);
+      return /anota\.ai|saipos\.com|livemenu\.app|cardapioweb|cardapio-web|ola\.click|goomer|menudino|deliverymuch|deliverydireto|instadelivery|aiqfome/.test(hostPath);
     } catch (_) {
       return false;
     }
@@ -3201,6 +4141,73 @@ function parseAnotaAiMenu(json) {
   return removeGenericAnotaDuplicateCategories(categories);
 }
 
+const CARDAPIO_WEB_PROMO_DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+const CARDAPIO_WEB_PROMO_DAY_ALIASES = {
+  domingo: 'sunday',
+  segunda: 'monday',
+  'segunda-feira': 'monday',
+  terca: 'tuesday',
+  'terca-feira': 'tuesday',
+  quarta: 'wednesday',
+  'quarta-feira': 'wednesday',
+  quinta: 'thursday',
+  'quinta-feira': 'thursday',
+  sexta: 'friday',
+  'sexta-feira': 'friday',
+  sabado: 'saturday',
+};
+
+function normalizeCardapioWebPromoDay(value) {
+  const normalized = String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+  return CARDAPIO_WEB_PROMO_DAYS.includes(normalized) ? normalized : CARDAPIO_WEB_PROMO_DAY_ALIASES[normalized] || '';
+}
+
+function cardapioWebPromoMinutesOfDay(value) {
+  const match = String(value || '').match(/(\d{1,2}):(\d{2})/);
+  if (!match) return null;
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes) || hours > 23 || minutes > 59) return null;
+  return hours * 60 + minutes;
+}
+
+function isCardapioWebPromoScheduleActiveNow(schedule, now = new Date()) {
+  const start = cardapioWebPromoMinutesOfDay(schedule?.start || schedule?.start_at || schedule?.starts_at);
+  const end = cardapioWebPromoMinutesOfDay(schedule?.end || schedule?.end_at || schedule?.ends_at);
+  if (start == null && end == null) return true;
+  const current = now.getHours() * 60 + now.getMinutes();
+  if (start != null && end != null) {
+    return start <= end ? current >= start && current <= end : current >= start || current <= end;
+  }
+  if (start != null) return current >= start;
+  return current <= end;
+}
+
+function isCardapioWebPromoActiveNow(item, now = new Date()) {
+  if (!item?.promotional_price_active || typeof item.promotional_price !== 'number') return false;
+  const today = CARDAPIO_WEB_PROMO_DAYS[now.getDay()];
+  const schedules = Array.isArray(item.promotional_price_schedules) ? item.promotional_price_schedules : [];
+  const matchingSchedules = schedules.filter(schedule => {
+    const day = normalizeCardapioWebPromoDay(schedule?.day || schedule?.weekday || schedule?.week_day || schedule?.day_of_week);
+    return !day || day === today;
+  });
+  if (schedules.length) return matchingSchedules.some(schedule => isCardapioWebPromoScheduleActiveNow(schedule, now));
+  const availability = Array.isArray(item.promotional_price_availability) ? item.promotional_price_availability : [];
+  const availableDays = availability.map(normalizeCardapioWebPromoDay).filter(Boolean);
+  return !availableDays.length || availableDays.includes(today);
+}
+
+function isCardapioWebEntityUnavailable(entry) {
+  if (!entry) return false;
+  if (entry.status && entry.status !== 'ACTIVE') return true;
+  const stock = Number(entry.stock);
+  return entry.active_stock_control === true && Number.isFinite(stock) && stock < 0;
+}
+
 function parseCardapioWebMenu(json) {
   if (!Array.isArray(json)) return null;
   
@@ -3215,14 +4222,14 @@ function parseCardapioWebMenu(json) {
     
     if (Array.isArray(cat.items)) {
       cat.items.forEach(item => {
-        if (item.status !== 'ACTIVE') return;
+        if (isCardapioWebEntityUnavailable(item)) return;
         
         const itemName = item.name || '';
         const itemDesc = item.description || '';
         
         // Calcular preço
         let itemPrice = item.price || 0;
-        if (item.promotional_price_active && typeof item.promotional_price === 'number') {
+        if (isCardapioWebPromoActiveNow(item)) {
           itemPrice = item.promotional_price;
         }
         
@@ -3237,7 +4244,7 @@ function parseCardapioWebMenu(json) {
               optionsList.push({
                 title: addOn.name || 'Opcionais',
                 itens: addOn.subitems
-                  .filter(sub => sub.status === 'ACTIVE')
+                  .filter(sub => !isCardapioWebEntityUnavailable(sub))
                   .map(sub => ({
                     name: sub.name || '',
                     price: sub.price || 0
@@ -3572,6 +4579,15 @@ async function waitForTabComplete(tabId, timeoutMs = 45000) {
 }
 
 const ffSleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+function ffWithTimeout(promise, ms, label) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      setTimeout(() => reject(new Error(`${label || 'Operacao'} excedeu ${ms}ms`)), ms);
+    })
+  ]);
+}
 
 async function attachDebuggerToTab(tabId) {
   if (!chrome.debugger?.attach) {
@@ -4297,15 +5313,46 @@ async function handleSearchGoogleMapsLeads(query, city, state, maxResults = 80) 
 // ============================================================================
 // NOVO FLUXO: Extração de Horários via Google Maps (Aba Física)
 // ============================================================================
-async function handleGoogleHoursScrape(query, mapUrl) {
+async function handleGoogleHoursScrape(query, mapUrl, options = {}) {
   console.log("Iniciando busca de horários no Google Maps para:", query, mapUrl);
   
   // Se tivermos a URL direta do Maps, usamos ela. Caso contrário, usamos a busca de locais do Maps
-  const searchUrl = mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+  const canonicalizeGoogleMapsPlaceUrl = (value) => {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    try {
+      const parsed = new URL(raw);
+      if (parsed.searchParams.get('cid')) return raw;
+      if (/\/maps\/place\//i.test(parsed.pathname)) return raw;
+    } catch (_) {}
+    const cidHexMatch = raw.match(/:0x([0-9a-f]+)(?:[!/?&#]|$)/i);
+    if (cidHexMatch?.[1]) {
+      try {
+        return `https://www.google.com/maps?cid=${BigInt('0x' + cidHexMatch[1]).toString(10)}`;
+      } catch (_) {
+        return raw;
+      }
+    }
+    return raw;
+  };
+  const normalizedMapUrl = canonicalizeGoogleMapsPlaceUrl(mapUrl);
+  const searchUrl = normalizedMapUrl || `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
   
   // Cria aba ativa para garantir que os scripts de interação do Google rodem
-  const tab = await createTabWithRetry({ url: searchUrl, active: true });
+  const tab = await createTabWithRetry({ url: 'about:blank', active: true, dedupe: false });
   const tabId = tab.id;
+  const navigatedTab = await chrome.tabs.update(tabId, { url: searchUrl }).catch(() => tab);
+  const debugMapsRequest = {
+    requestedUrl: searchUrl,
+    normalizedMapUrl,
+    originalMapUrl: String(mapUrl || '').trim(),
+    createdTabUrl: navigatedTab?.pendingUrl || navigatedTab?.url || tab.pendingUrl || tab.url || ''
+  };
+  const visibleDelayMs = Math.max(0, Math.min(30000, Number(options.visibleDelayMs || options.keepTabOpenMs || 0) || 0));
+  const closeTabAfter = options.closeTabAfter !== false;
+  const waitBeforeClosingVisibleTab = async () => {
+    if (visibleDelayMs > 0) await new Promise(resolve => setTimeout(resolve, visibleDelayMs));
+  };
   
   try {
     // Aguarda a aba carregar completamente
@@ -4333,11 +5380,22 @@ async function handleGoogleHoursScrape(query, mapUrl) {
     });
 
     // Aguarda mais 3 segundos para garantir a renderização inicial do painel lateral
+    const expectsSpecificMapPlace = /[?&]cid=|place_id:|\/maps\/place\//i.test(searchUrl);
+    if (expectsSpecificMapPlace) {
+      for (let placeUrlAttempt = 0; placeUrlAttempt < 60; placeUrlAttempt++) {
+        const currentTab = await chrome.tabs.get(tabId).catch(() => null);
+        const currentTabUrl = String(currentTab?.pendingUrl || currentTab?.url || '');
+        if (/\/maps\/place\//i.test(currentTabUrl)) break;
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    }
+
     await new Promise(resolve => setTimeout(resolve, 3000));
 
     const results = await chrome.scripting.executeScript({
       target: { tabId: tabId },
-      func: async () => {
+      args: [query, normalizedMapUrl],
+      func: async (expectedQuery, requestedMapUrl) => {
         const sleep = (ms) => new Promise(r => setTimeout(r, ms));
         const normalizeHoursText = (value) => String(value || '')
           .toLowerCase()
@@ -4345,6 +5403,26 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           .replace(/[\u0300-\u036f]/g, '')
           .replace(/\s+/g, ' ')
           .trim();
+        const isGenericMapsHeading = (value) => /^(esta area|this area|campina grande|joao pessoa|paraiba|pb|brasil|brazil)$/i.test(normalizeHoursText(value));
+        const expectedTokens = normalizeHoursText(expectedQuery)
+          .replace(/\b(campina grande|paraiba|pb|brasil|brazil|rua|r|avenida|av|travessa|tv|centro|bairro|jose|sao|santa|\d+)\b/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .split(' ')
+          .filter(token => token.length > 2)
+          .slice(0, 3);
+        const expectedCore = expectedTokens.join(' ');
+
+        for (let placeAttempt = 0; placeAttempt < 70; placeAttempt++) {
+          const headingNow = document.querySelector('h1, [role="heading"], .DUwDvf, .fontHeadlineLarge')?.textContent || '';
+          const textNow = normalizeHoursText(document.body?.innerText || '');
+          const hrefNow = String(window.location.href || '');
+          const placeUrlLoaded = /\/maps\/place\//i.test(hrefNow);
+          const expectedTextLoaded = expectedCore && textNow.includes(expectedCore);
+          const realHeadingLoaded = headingNow && !isGenericMapsHeading(headingNow);
+          if (placeUrlLoaded || expectedTextLoaded || realHeadingLoaded) break;
+          await sleep(500);
+        }
         
         // 1. Rola o painel lateral para trazer os detalhes para o viewport se necessário
         const panel = document.querySelector('div[role="main"]') || document.querySelector('.m6ZQ1b') || document.querySelector('.DxyBCb');
@@ -4671,18 +5749,79 @@ async function handleGoogleHoursScrape(query, mapUrl) {
             }
           }
         }
+        if (panel) {
+          try { panel.scrollTop = 0; } catch (_) {}
+          await sleep(500);
+        }
 
         // 4. Extrai endereço, telefone, site e Instagram da página do Maps
-        const extractedInfo = {};
+        const extractedInfo = {
+          currentUrl: window.location.href,
+          finalUrl: window.location.href
+        };
 
         const compactText = (value) => String(value || '').replace(/\s+/g, ' ').trim();
         const pageText = compactText(document.body?.innerText || '');
         const headingText = compactText(document.querySelector('h1, [role="heading"], .DUwDvf, .fontHeadlineLarge')?.textContent || '');
         const titleName = compactText((document.title || '').replace(/\s*[-–]\s*Google Maps\s*$/i, ''));
-        const placeName = headingText || titleName;
+        const isBadPlaceName = (value) => /^(hor[aá]rios?|opening hours|avalia[cç][oõ]es?|reviews?|rotas?|directions?|salvar|save|compartilhar|share|ligar|call|menu|card[aá]pio|fotos?|photos?|vis[aã]o geral|overview|mais informa[cç][oõ]es?|more info)$/i
+          .test(compactText(value).toLowerCase());
+        const placeName = (!isBadPlaceName(headingText) && headingText) || (!isBadPlaceName(titleName) && titleName) || '';
         if (placeName) {
           extractedInfo.name = placeName;
           extractedInfo.title = placeName;
+        }
+
+        const parseLocalizedInteger = (value) => {
+          const raw = String(value || '').replace(/\s+/g, ' ');
+          const match = raw.match(/(\d[\d.,\s]*)/);
+          if (!match) return null;
+          const digits = match[1].replace(/[^\d]/g, '');
+          if (!digits) return null;
+          const parsed = Number(digits);
+          return Number.isFinite(parsed) ? parsed : null;
+        };
+        const parseLocalizedRating = (value) => {
+          const raw = String(value || '').replace(/\s+/g, ' ');
+          const explicit = raw.match(/(\d(?:[,.]\d)?)\s*(?:estrelas?|stars?|star|\/\s*5)?/i);
+          if (!explicit) return null;
+          const parsed = Number(explicit[1].replace(',', '.'));
+          return Number.isFinite(parsed) && parsed >= 0 && parsed <= 5 ? parsed : null;
+        };
+        const ratingCandidates = [];
+        const reviewsCandidates = [];
+        const pushRatingCandidate = (value) => {
+          const parsed = parseLocalizedRating(value);
+          if (parsed !== null) ratingCandidates.push(parsed);
+        };
+        const pushReviewsCandidate = (value) => {
+          const text = String(value || '');
+          if (!/(avalia[cç][aã]o|avalia[cç][oõ]es|coment[aá]rios?|reviews?)/i.test(text)) return;
+          const parsed = parseLocalizedInteger(text);
+          if (parsed !== null) reviewsCandidates.push(parsed);
+        };
+
+        Array.from(document.querySelectorAll('.F7nice, [aria-label*="estrela"], [aria-label*="star"], button[jsaction*="review"], button[aria-label*="avalia"], button[aria-label*="review"], a[aria-label*="avalia"], a[aria-label*="review"]')).forEach(el => {
+          pushRatingCandidate(el.getAttribute('aria-label'));
+          pushRatingCandidate(el.textContent);
+          pushReviewsCandidate(el.getAttribute('aria-label'));
+          pushReviewsCandidate(el.textContent);
+        });
+        const ratingLineMatch = pageText.match(/(\d(?:[,.]\d)?)\s*(?:estrelas?|stars?)\s*(?:\(?\s*([\d.,\s]+)\s*(?:avalia[cç][oõ]es|reviews?)\s*\)?)/i);
+        if (ratingLineMatch) {
+          pushRatingCandidate(ratingLineMatch[1]);
+          pushReviewsCandidate(ratingLineMatch[2] ? `${ratingLineMatch[2]} avaliações` : '');
+        }
+        const reviewsLineMatch = pageText.match(/([\d.,\s]+)\s*(?:avalia[cç][oõ]es|reviews?)/i);
+        if (reviewsLineMatch) pushReviewsCandidate(`${reviewsLineMatch[1]} avaliações`);
+        if (ratingCandidates.length > 0) {
+          extractedInfo.rating = ratingCandidates.find(value => value > 0) || ratingCandidates[0];
+          extractedInfo.google_rating = extractedInfo.rating;
+        }
+        if (reviewsCandidates.length > 0) {
+          extractedInfo.reviewsCount = Math.max(...reviewsCandidates);
+          extractedInfo.reviews_count = extractedInfo.reviewsCount;
+          extractedInfo.google_reviews_count = extractedInfo.reviewsCount;
         }
 
         const closedPermanently = /permanentemente fechado|fechado permanentemente|permanently closed/i.test(pageText);
@@ -4691,6 +5830,7 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           extractedInfo.businessStatus = closedPermanently ? 'permanently_closed' : 'temporarily_closed';
           extractedInfo.statusText = closedPermanently ? 'Permanentemente fechado' : 'Temporariamente fechado';
           extractedInfo.isPermanentlyClosed = closedPermanently;
+          extractedInfo.isTemporarilyClosed = temporarilyClosed;
         }
 
         const isBadCategoryCandidate = (text) => {
@@ -4795,7 +5935,38 @@ async function handleGoogleHoursScrape(query, mapUrl) {
         // Extrai fotos da galeria / capa
         const photos = [];
         const photoMeta = [];
-        const imgElements = Array.from(document.querySelectorAll('button[aria-label^="Foto"] img, div[aria-label^="Foto"] img, img[decoding="async"], .gallery-image, img.gallery-image, div[role="img"], img[src*="googleusercontent.com/p/AF1Qip"]'));
+        const isGooglePlacePhotoUrl = (value) => {
+          const src = String(value || '');
+          return /googleusercontent\.com/i.test(src)
+            && /(\/gps-cs-s\/|\/p\/AF1Qip|\/p\/)/i.test(src)
+            && !/\/a-\/|\/glsgmb\/|\/proxy\//i.test(src)
+            && !/google\.com\/maps\/vt|streetviewpixels|\/maps\/api\/staticmap|=w\d+-h\d+-p-k-no|=w\d+-h\d+-k-no/i.test(src)
+            && !/\.(svg|gif)(\?|#|$)/i.test(src)
+            && !/R0lGODlhAQABAIAA/i.test(src);
+        };
+        const upgradeGooglePhotoResolution = (value) => {
+          const src = String(value || '').trim();
+          if (!src) return '';
+          if (/=w\d+-h\d+[^/?#]*/i.test(src) || /=s\d+[^/?#]*/i.test(src)) {
+            return src.replace(/=(?:w\d+-h\d+|s\d+)[^/?#]*/i, '=s1600-w1600-h1200-rw');
+          }
+          return `${src}=s1600-w1600-h1200-rw`;
+        };
+        const findGooglePlacePhotoPanel = () => {
+          const panels = Array.from(document.querySelectorAll('div[role="dialog"], div[aria-modal="true"]'));
+          return panels.find(panel => {
+            const text = compactText(panel.innerText || panel.textContent || '');
+            const imageCount = panel.querySelectorAll('img, [style*="background-image"]').length;
+            return imageCount >= 3
+              && /(todas|all|do propriet|by owner|comida|food|pizza|mais recentes|latest|street view|360)/i.test(text);
+          }) || null;
+        };
+        const isDisallowedGalleryContext = (value) =>
+          /(products?|produtos?|menu|cardapio|cardápio|view all|ver tudo|order pickup|order delivery|pedido|delivery|add photo|adicionar foto|contribuir|contribute)/i.test(String(value || ''));
+        const initialPhotoPanel = findGooglePlacePhotoPanel();
+        const imgElements = initialPhotoPanel
+          ? Array.from(initialPhotoPanel.querySelectorAll('button[aria-label^="Foto"] img, div[aria-label^="Foto"] img, img[decoding="async"], .gallery-image, img.gallery-image, div[role="img"], img[src*="googleusercontent.com"]'))
+          : [];
         
         imgElements.forEach(img => {
           let src = img.getAttribute('src') || '';
@@ -4805,12 +5976,13 @@ async function handleGoogleHoursScrape(query, mapUrl) {
             if (match) src = match[1];
           }
           
-          if (src && src.includes('googleusercontent.com/p/AF1Qip') && !src.includes('w50-h50') && !src.includes('w24-h24') && !src.includes('w36-h36')) {
+          if (src && isGooglePlacePhotoUrl(src) && !src.includes('w50-h50') && !src.includes('w24-h24') && !src.includes('w36-h36')) {
             // Aumenta a resolução da imagem do google
-            const cleanSrc = src.replace(/=w\d+-h\d+.*$/, '=s800');
+            const cleanSrc = upgradeGooglePhotoResolution(src);
             if (!photos.includes(cleanSrc)) {
               const container = img.closest('button, a, div[role="button"], div') || img.parentElement;
               const localText = (container?.innerText || container?.getAttribute?.('aria-label') || '').replace(/\s+/g, ' ').trim();
+              if (isDisallowedGalleryContext(localText)) return;
               const pageText = document.body?.innerText || '';
               const dateMatch = localText.match(/(?:hoje|ontem|h[áa]\s+\d+\s+(?:dia|dias|semana|semanas|m[eê]s|meses|ano|anos)|\d+\s+(?:dia|dias|semana|semanas|m[eê]s|meses|ano|anos)|20\d{2})/i)
                 || pageText.slice(Math.max(0, pageText.indexOf(localText) - 500), pageText.indexOf(localText) + 500).match(/(?:hoje|ontem|h[áa]\s+\d+\s+(?:dia|dias|semana|semanas|m[eê]s|meses|ano|anos)|\d+\s+(?:dia|dias|semana|semanas|m[eê]s|meses|ano|anos)|20\d{2})/i);
@@ -4819,13 +5991,65 @@ async function handleGoogleHoursScrape(query, mapUrl) {
             }
           }
         });
-        
+
+        if (photos.length < 3 && extractedInfo.address) {
+          const readExtraGooglePlacePhotos = () => {
+            const activePhotoPanel = findGooglePlacePhotoPanel();
+            if (!activePhotoPanel) return;
+            const extraImages = Array.from(activePhotoPanel.querySelectorAll('button[aria-label^="Foto"] img, button[aria-label^="Photo"] img, div[aria-label^="Foto"] img, div[aria-label^="Photo"] img, img[decoding="async"], div[role="img"], img[src*="googleusercontent.com"]'));
+            extraImages.forEach(img => {
+              let src = img.getAttribute('src') || '';
+              if (img.tagName.toLowerCase() === 'div') {
+                const style = img.getAttribute('style') || '';
+                const match = style.match(/url\(['"]?(.*?)['"]?\)/);
+                if (match) src = match[1];
+              }
+              if (src && isGooglePlacePhotoUrl(src) && !src.includes('w50-h50') && !src.includes('w24-h24') && !src.includes('w36-h36')) {
+                const cleanSrc = upgradeGooglePhotoResolution(src);
+                if (!photos.includes(cleanSrc)) {
+                  const container = img.closest('button, a, div[role="button"], div') || img.parentElement;
+                  const localText = (container?.innerText || container?.getAttribute?.('aria-label') || '').replace(/\s+/g, ' ').trim();
+                  if (isDisallowedGalleryContext(localText)) return;
+                  photos.push(cleanSrc);
+                  photoMeta.push({ image: cleanSrc, dateText: '', context: localText.slice(0, 180) });
+                }
+              }
+            });
+          };
+
+          const photoControls = Array.from(document.querySelectorAll('button, a, div[role="button"]'))
+            .map(el => {
+              const text = compactText(el.innerText || el.textContent || '');
+              const label = compactText(el.getAttribute?.('aria-label') || el.getAttribute?.('data-tooltip') || '');
+              return { el, joined: `${text} ${label}` };
+            })
+            .filter(item =>
+              /(ver fotos|see photos|fotos do local|photos of|photos|foto)/i.test(item.joined)
+              && !/(adicionar foto|add photo|upload|contribuir|contribute)/i.test(item.joined)
+            );
+          const photoControl = photoControls.find(item => /(ver fotos|see photos)/i.test(item.joined)) || photoControls[0];
+          if (photoControl) {
+            try { photoControl.el.scrollIntoView({ block: 'center', inline: 'center' }); } catch (_) {}
+            await sleep(300);
+            try { photoControl.el.click(); } catch (_) {}
+            try {
+              photoControl.el.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window }));
+              photoControl.el.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true, view: window }));
+              photoControl.el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+            } catch (_) {}
+            await sleep(3000);
+            readExtraGooglePlacePhotos();
+          }
+        }
+
         if (photos.length > 0) {
           extractedInfo.coverImage = photos[0];
           extractedInfo.coverImageDateText = photoMeta[0]?.dateText || '';
           extractedInfo.galleryImages = photos.slice(1, 13);
           extractedInfo.galleryImageMeta = photoMeta.slice(1, 13);
           extractedInfo.galleryImageDates = photoMeta.slice(1, 13).map(item => item.dateText || '');
+          extractedInfo.galleryImageSource = 'google_maps_place_panel';
+          extractedInfo.galleryAddress = extractedInfo.address || '';
         }
 
         if (foundAny) {
@@ -4841,7 +6065,17 @@ async function handleGoogleHoursScrape(query, mapUrl) {
           };
         } else {
           // Mesmo sem horários, retorna os outros dados se encontrou algo
-          const hasOtherData = extractedInfo.address || extractedInfo.phone || extractedInfo.website || (extractedInfo.socialLinks && extractedInfo.socialLinks.length > 0) || extractedInfo.coverImage;
+          const hasOtherData = extractedInfo.address
+            || extractedInfo.phone
+            || extractedInfo.website
+            || extractedInfo.name
+            || extractedInfo.category
+            || extractedInfo.businessStatus
+            || extractedInfo.statusText
+            || extractedInfo.isPermanentlyClosed === true
+            || extractedInfo.isTemporarilyClosed === true
+            || (extractedInfo.socialLinks && extractedInfo.socialLinks.length > 0)
+            || extractedInfo.coverImage;
           if (hasOtherData) {
             return { success: true, schedule: null, ...extractedInfo };
           }
@@ -4850,19 +6084,63 @@ async function handleGoogleHoursScrape(query, mapUrl) {
       }
     });
 
-    // Remove a aba logo em seguida
-    await removeTabWithRetry(tabId);
+    // Mantem a aba visivel por alguns segundos quando solicitado pelo operador.
+    await waitBeforeClosingVisibleTab();
+    if (closeTabAfter) await removeTabWithRetry(tabId);
     
     if (results && results[0] && results[0].result) {
-      return results[0].result;
+      const result = results[0].result;
+      const normalizedPlaceName = String(result?.name || result?.title || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const genericAreaNames = /^(esta area|this area|campina grande|joao pessoa|paraiba|pb|brasil|brazil)$/i;
+      const resultHasPlaceEvidence = Boolean(
+        result.address ||
+        result.phone ||
+        result.website ||
+        result.category ||
+        result.businessStatus ||
+        result.statusText ||
+        result.coverImage ||
+        (result.socialLinks && result.socialLinks.length > 0)
+      );
+      const openedAsGenericArea = Boolean(result?.success && genericAreaNames.test(normalizedPlaceName) && !resultHasPlaceEvidence);
+      if (openedAsGenericArea) {
+        const googleSearchFallback = query ? await handleGoogleSearchPlaceInfo(query) : null;
+        if (googleSearchFallback?.success) {
+          return {
+            ...googleSearchFallback,
+            ...debugMapsRequest,
+            success: true,
+            schedule: null,
+            googleSearchFallback: true,
+            mapsFailure: {
+              name: result?.name || result?.title || '',
+              currentUrl: result?.currentUrl || '',
+              genericMapsArea: true
+            }
+          };
+        }
+        return {
+          ...result,
+          ...debugMapsRequest,
+          success: false,
+          error: `Google Maps abriu area/cidade generica (${result?.name || result?.title || 'sem nome'}), nao o painel do estabelecimento.`,
+          genericMapsArea: true
+        };
+      }
+      return { ...result, ...debugMapsRequest };
     }
     
-    return { success: false, error: "Nenhum resultado retornado do script do Google Maps." };
+    return { success: false, error: "Nenhum resultado retornado do script do Google Maps.", ...debugMapsRequest };
 
   } catch (err) {
     console.error("Erro na captura de horários do Google Maps:", err);
     try { await removeTabWithRetry(tabId); } catch (_) {}
-    return { success: false, error: err.message };
+    return { success: false, error: err.message, ...debugMapsRequest };
   }
 }
 
@@ -4884,10 +6162,10 @@ async function handleSearchGoogleForMenu(query) {
           'goomer.app', 'pedir.to', 'ola.click', 'cardapio.menu', 'delivery',
           'menudigital', 'instamenu', 'abrahahot', 'tagme.com.br', 'wa.me',
           'api.whatsapp', 'cardapiomenu', 'comutat', 'cardapio', 'menu',
-          'saipos.com', 'livemenu.app', 'anota.ai', 'ifood.com.br', 'aiqfome',
-          'deliverymuch', 'menudino', 'olaclick'
+          'saipos.com', 'livemenu.app', 'anota.ai', 'aiqfome', 'instadelivery',
+          'deliverymuch', 'deliverydireto', 'menudino', 'olaclick'
         ];
-        const blocked = ['google.com', 'instagram.com', 'facebook.com', 'youtube.com', 'tiktok.com', 'tripadvisor.', 'reclameaqui.', 'wikipedia.org'];
+        const blocked = ['google.com', 'instagram.com', 'facebook.com', 'youtube.com', 'tiktok.com', 'tripadvisor.', 'reclameaqui.', 'wikipedia.org', 'ifood.com.br'];
         const unsafeNonMenuUrlPattern = /casino|poker|bonus|bono|bet\b|betting|aposta|apostas|slot|slots|gambling|holdem|reward\s*code|cupom|coupon|cashback|fidelidade|loyalty|promocao|promocoes|promo|promotions?|pagamento|payment|wallet|voucher|gift|viagra|forex|crypto|binary|adult|escort|seo-spam|meta\.ai/i;
         const normalize = value => String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ' ');
         const queryTokens = normalize(searchQuery).split(/[^a-z0-9]+/).filter(token => token.length >= 4 && !['cardapio','menu','restaurante','delivery','pedido','oficial'].includes(token));
@@ -4973,7 +6251,9 @@ async function handleInstagramMenuLinkDiscovery(instagramUrl, restaurantName, ci
     try {
       const parsed = new URL(raw);
       const host = parsed.hostname.toLowerCase();
+      if (host === 'ifood.com.br' || host.endsWith('.ifood.com.br')) return false;
       if (['instagram.com','facebook.com','threads.net','threads.com','tiktok.com','x.com','twitter.com','youtube.com','meta.ai'].some(domain => host === domain || host.endsWith('.' + domain))) return false;
+      if (/^(wa\.me|api\.whatsapp\.com|whatsapp\.com)$/.test(host) || host.endsWith('.whatsapp.com')) return false;
       if (/\/(?:promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty|pagamento|payment|wallet|orders?|checkout|cart)(?:\/|$|\?)/i.test(parsed.pathname + parsed.search)) return false;
       if (/[?&](?:tab|origin)=[^&]*(?:cashback|promo|cupom|coupon|fidelidade|payment|pagamento)/i.test(parsed.search)) return false;
       if (unsafeNonMenuUrlPattern.test(`${host} ${parsed.pathname} ${parsed.search}`.toLowerCase())) return false;
@@ -4982,7 +6262,7 @@ async function handleInstagramMenuLinkDiscovery(instagramUrl, restaurantName, ci
   };
   const rank = candidates => {
     const menuWords = ['cardapio','cardápio','menu','pedido','pedir','delivery','comprar'];
-    const domains = ['saipos.com','anota.ai','goomer.app','goomer.com.br','livemenu.app','ola.click','ola.menu','cardapio','menu','msha.ke','linktr.ee','bio.link','beacons.ai','lnk.bio'];
+    const domains = ['saipos.com','anota.ai','goomer.app','goomer.com.br','livemenu.app','ola.click','ola.menu','deliverydireto.com.br','deliverymuch.com.br','instadelivery.com.br','cardapio','menu','msha.ke','linktr.ee','bio.link','beacons.ai','lnk.bio'];
     const dedup = [];
     for (const candidate of candidates) {
       const url = cleanUrl(candidate.url);
@@ -5109,7 +6389,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
         if (loginRequired) return { requiresHuman: true, blocker: 'instagram_login', message: 'Faça login no Instagram na aba aberta para liberar os links da bio.' };
         return new Promise((resolve) => {
           const deliveryDomains = [
-            'saipos.com', 'anota.ai', 'goomer.app', 'goomer.com.br', 'linktr.ee',
+            'saipos.com', 'anota.ai', 'goomer.app', 'goomer.com.br', 'deliverydireto.com.br', 'deliverymuch.com.br', 'linktr.ee',
             'msha.ke', 'bio.link', 'beacons.ai', 'lnk.bio', 'livemenu.app', 'livemenu', 'ola.menu', 'wa.me',
             'whatsapp.com', 'cardapio.digital', 'instadelivery.com.br',
             'menu.com.br', 'meumenu.com'
@@ -5126,7 +6406,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
             const pathAndSearch = `${pathname}${url.search || ''}`;
             if (/^(msha\.ke|linktr\.ee|bio\.link|beacons\.ai|lnk\.bio|taplink\.cc)$/.test(hostname) || hostname.endsWith('.linktr.ee')) return true;
             if ((hostname === 'pedido.anota.ai' || hostname.endsWith('.anota.ai')) && (pathname.startsWith('/loja/') || pathname.startsWith('/login') || pathname.startsWith('/m/'))) return true;
-            if ((hostname.includes('saipos.com') || hostname.includes('livemenu.app') || hostname.includes('goomer') || hostname.includes('ola.click') || hostname.includes('ola.menu')) && !/\/(?:cart|checkout|payment|pagamento|wallet|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty)(?:\/|$|\?)/i.test(pathAndSearch)) return true;
+            if ((hostname.includes('saipos.com') || hostname.includes('livemenu.app') || hostname.includes('goomer') || hostname.includes('ola.click') || hostname.includes('ola.menu') || hostname.includes('deliverydireto.com.br') || hostname.includes('deliverymuch.com.br') || hostname.includes('instadelivery.com.br')) && !/\/(?:cart|checkout|payment|pagamento|wallet|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty)(?:\/|$|\?)/i.test(pathAndSearch)) return true;
             if (hostname.includes('cardapio') || hostname.includes('menu')) return true;
             return false;
           };
@@ -5153,6 +6433,9 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
               if (['instagram.com', 'threads.net', 'threads.com', 'facebook.com', 'tiktok.com', 'x.com', 'twitter.com', 'youtube.com', 'meta.ai'].some(domain => hostname === domain || hostname.endsWith('.' + domain))) {
                 return false;
               }
+              if (/^(wa\.me|api\.whatsapp\.com|whatsapp\.com)$/.test(hostname) || hostname.endsWith('.whatsapp.com')) {
+                return false;
+              }
               if (isKnownMenuOrHubUrl(url)) {
                 return true;
               }
@@ -5173,6 +6456,19 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
 
           const parseCandidates = (anchors) => {
             const candidates = [];
+            const seenCandidateUrls = new Set();
+            const addCandidate = (label, href) => {
+              if (!href) return;
+              let normalizedHref = cleanUrl(href);
+              if (!/^https?:\/\//i.test(normalizedHref) && /^[a-z0-9.-]+\.[a-z]{2,}\//i.test(normalizedHref)) {
+                normalizedHref = `https://${normalizedHref}`;
+              }
+              if (!normalizedHref || !isExternalLink(normalizedHref)) return;
+              const key = normalizedHref.replace(/#.*$/, '');
+              if (seenCandidateUrls.has(key)) return;
+              seenCandidateUrls.add(key);
+              candidates.push({ label: label || normalizedHref, url: normalizedHref });
+            };
             const bestLabelFor = (a) => {
               const parts = [];
               const push = value => {
@@ -5192,12 +6488,33 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
               })[0] || '';
             };
             for (const a of anchors) {
-              const href = cleanUrl(a.href || '');
+              addCandidate(bestLabelFor(a), a.href || a.getAttribute('href') || '');
+            }
+            return candidates;
+          };
+
+          const parseVisibleTextCandidates = (root = document) => {
+            const text = [
+              root?.innerText || '',
+              root?.textContent || '',
+              document.querySelector('meta[property="og:description"]')?.content || '',
+              document.querySelector('meta[name="description"]')?.content || ''
+            ].join('\n');
+            const matches = text.match(/(?:https?:\/\/)?(?:www\.)?(?:msha\.ke|linktr\.ee|bio\.link|beacons\.ai|lnk\.bio|taplink\.cc|deliverydireto\.com\.br|deliverymuch\.com\.br|instadelivery\.com\.br|menudino\.com|aiqfome\.com|goomer\.app|goomer\.com\.br|saipos\.com|livemenu\.app|ola\.click|ola\.menu|pedido\.anota\.ai|[^ \n\t/]+\.anota\.ai|app\.cardapioweb\.com|cardapioweb\.com)\/[^\s"'<>]+/gi) || [];
+            const candidates = [];
+            const seen = new Set();
+            for (const raw of matches) {
+              let href = raw.replace(/[),.;]+$/g, '');
+              if (!/^https?:\/\//i.test(href)) href = `https://${href}`;
+              href = cleanUrl(href);
               if (!href || !isExternalLink(href)) continue;
-              const label = bestLabelFor(a);
-              if (!candidates.some(c => c.url === href)) {
-                candidates.push({ label, url: href });
-              }
+              const key = href.replace(/#.*$/, '');
+              if (seen.has(key)) continue;
+              seen.add(key);
+              candidates.push({
+                label: href,
+                url: href
+              });
             }
             return candidates;
           };
@@ -5205,7 +6522,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
           const findSelectedUrl = (candidates) => {
             if (candidates.length === 0) return null;
             const menuWords = ['cardapio', 'cardápio', 'menu', 'pedido', 'pedir', 'delivery', 'comprar'];
-            const deliveryDomains = ['saipos.com', 'anota.ai', 'goomer.app', 'goomer.com.br', 'livemenu.app', 'ola.click', 'ola.menu', 'cardapio', 'menu', 'msha.ke', 'linktr.ee', 'bio.link', 'beacons.ai', 'lnk.bio'];
+            const deliveryDomains = ['saipos.com', 'anota.ai', 'goomer.app', 'goomer.com.br', 'livemenu.app', 'ola.click', 'ola.menu', 'deliverydireto.com.br', 'deliverymuch.com.br', 'instadelivery.com.br', 'cardapio', 'menu', 'msha.ke', 'linktr.ee', 'bio.link', 'beacons.ai', 'lnk.bio'];
             const ranked = candidates.map((candidate, index) => {
               const label = normalize(candidate.label);
               const url = normalize(candidate.url);
@@ -5227,6 +6544,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
 
           const findMultipleLinksButton = () => {
             const elements = [...document.querySelectorAll('button, [role="button"], a'), ...document.querySelectorAll('div, span')];
+            const matches = [];
             for (const el of elements) {
               const text = (el.textContent || '').trim();
               if (!text || text.length > 220) continue;
@@ -5234,6 +6552,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
               if (!hasMoreText) continue;
               
               const hasLinkText = text.toLowerCase().includes('link');
+              const hasLinkIconText = /icone de link|ícone de link|link icon/i.test(text);
               const svg = el.querySelector('svg');
               const hasLinkIcon = svg && (
                 (svg.getAttribute('aria-label') || '').toLowerCase().includes('link') ||
@@ -5241,24 +6560,43 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
                 Array.from(svg.attributes).some(attr => attr.value.toLowerCase().includes('link'))
               );
               
-              if (hasLinkText || hasLinkIcon) {
+              if (hasLinkText || hasLinkIcon || hasLinkIconText || /e mais \d+/i.test(text) || /and \d+ more/i.test(text)) {
                 let clickable = el;
                 while (clickable && clickable !== document.body) {
                   if (clickable.tagName === 'BUTTON' || clickable.getAttribute('role') === 'button' || clickable.onclick) {
-                    return clickable;
+                    break;
                   }
                   clickable = clickable.parentElement;
                 }
-                return el;
+                const rect = (clickable || el).getBoundingClientRect?.() || { width: 9999, height: 9999 };
+                matches.push({
+                  el: clickable || el,
+                  score: (((clickable || el).tagName === 'BUTTON' || (clickable || el).getAttribute?.('role') === 'button' || (clickable || el).tagName === 'A') ? 0 : 1000)
+                    + ((/e mais \d+/i.test(text) || /and \d+ more/i.test(text)) ? 0 : 100)
+                    + (rect.width * rect.height) / 1000
+                });
               }
             }
-            return null;
+            matches.sort((a, b) => a.score - b.score);
+            return matches[0]?.el || null;
           };
 
           const scanProfileHeader = () => {
             const header = document.querySelector('header');
-            const container = header || document;
-            return parseCandidates(Array.from(container.querySelectorAll('a')));
+            const main = document.querySelector('main');
+            const container = header || main || document;
+            const candidates = [
+              ...parseCandidates(Array.from(container.querySelectorAll('a'))),
+              ...parseVisibleTextCandidates(container),
+              ...parseVisibleTextCandidates(document)
+            ];
+            const seen = new Set();
+            return candidates.filter((candidate) => {
+              const key = String(candidate.url || '').replace(/#.*$/, '');
+              if (!key || seen.has(key)) return false;
+              seen.add(key);
+              return true;
+            });
           };
 
           const closeDialog = (dialog) => {
@@ -5295,20 +6633,56 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
             }
           };
 
+          const readLinksDialogSelection = () => {
+            const dialogs = Array.from(document.querySelectorAll('div[role="dialog"], [aria-modal="true"]'));
+            for (const dialog of dialogs) {
+              const candidates = [
+                ...parseCandidates(Array.from(dialog.querySelectorAll('a'))),
+                ...parseVisibleTextCandidates(dialog)
+              ];
+              const selectedUrl = findSelectedUrl(candidates);
+              if (selectedUrl) return { selectedUrl, dialog };
+            }
+            return null;
+          };
+
+          const existingDialogSelection = readLinksDialogSelection();
+          if (existingDialogSelection) {
+            closeDialog(existingDialogSelection.dialog);
+            resolve(existingDialogSelection.selectedUrl);
+            return;
+          }
+
           const multiLinkButton = findMultipleLinksButton();
           if (multiLinkButton) {
             console.log('Multi-link button found, clicking it...');
-            multiLinkButton.click();
+            try { multiLinkButton.scrollIntoView({ block: 'center', inline: 'center' }); } catch (_) {}
+            const rect = multiLinkButton.getBoundingClientRect?.();
+            const clickOptions = {
+              bubbles: true,
+              cancelable: true,
+              view: window,
+              clientX: rect ? rect.left + rect.width / 2 : undefined,
+              clientY: rect ? rect.top + rect.height / 2 : undefined,
+              button: 0
+            };
+            try {
+              multiLinkButton.dispatchEvent(new PointerEvent('pointerdown', { ...clickOptions, pointerId: 1, buttons: 1 }));
+              multiLinkButton.dispatchEvent(new MouseEvent('mousedown', clickOptions));
+              multiLinkButton.dispatchEvent(new PointerEvent('pointerup', { ...clickOptions, pointerId: 1, buttons: 0 }));
+              multiLinkButton.dispatchEvent(new MouseEvent('mouseup', clickOptions));
+              multiLinkButton.dispatchEvent(new MouseEvent('click', clickOptions));
+            } catch (_) {
+              multiLinkButton.click();
+            }
 
             const observer = new MutationObserver((mutations, obs) => {
-              const dialog = document.querySelector('div[role="dialog"]');
-              if (dialog) {
+              const dialogSelection = readLinksDialogSelection();
+              if (dialogSelection) {
                 obs.disconnect();
                 setTimeout(() => {
-                  const candidates = parseCandidates(Array.from(dialog.querySelectorAll('a')));
-                  const selectedUrl = findSelectedUrl(candidates);
-                  closeDialog(dialog);
-                  resolve(selectedUrl);
+                  closeDialog(dialogSelection.dialog);
+                  resolve(dialogSelection.selectedUrl);
                 }, 800);
               }
             });
@@ -5318,19 +6692,25 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
               subtree: true
             });
 
-            setTimeout(() => {
-              observer.disconnect();
-              const dialog = document.querySelector('div[role="dialog"]');
-              if (dialog) {
-                const candidates = parseCandidates(Array.from(dialog.querySelectorAll('a')));
-                const selectedUrl = findSelectedUrl(candidates);
-                closeDialog(dialog);
-                resolve(selectedUrl);
-              } else {
-                const fallbackCandidates = scanProfileHeader();
-                resolve(findSelectedUrl(fallbackCandidates));
+            let pollAttempts = 0;
+            const pollDialog = () => {
+              pollAttempts += 1;
+              const dialogSelection = readLinksDialogSelection();
+              if (dialogSelection) {
+                observer.disconnect();
+                closeDialog(dialogSelection.dialog);
+                resolve(dialogSelection.selectedUrl);
+                return;
               }
-            }, 5000);
+              if (pollAttempts < 20) {
+                setTimeout(pollDialog, 500);
+                return;
+              }
+              observer.disconnect();
+              const fallbackCandidates = scanProfileHeader();
+              resolve(findSelectedUrl(fallbackCandidates));
+            };
+            setTimeout(pollDialog, 500);
           } else {
             const candidates = scanProfileHeader();
             resolve(findSelectedUrl(candidates));
@@ -5384,7 +6764,8 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
         const pathAndQuery = `${pathname}${parsed.search}`;
         if ((host === 'pedido.anota.ai' || host.endsWith('.anota.ai')) && (pathname.startsWith('/loja/') || pathname.startsWith('/m/') || (pathname.startsWith('/login') && parsed.searchParams.get('access_token')))) return true;
         if (host.includes('saipos.com') && !/\/(?:cart|checkout|payment|pagamento|wallet|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty)(?:\/|$|\?)/i.test(pathAndQuery)) return true;
-        if ((host.includes('livemenu.app') || host.includes('goomer') || host.includes('ola.click') || host.includes('ola.menu')) && !/\/(?:cart|checkout|payment|pagamento|wallet|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty)(?:\/|$|\?)/i.test(pathAndQuery)) return true;
+        if (host.includes('cardapioweb.com') && pathname.length > 1 && !/\/(?:cart|checkout|payment|pagamento|wallet|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty)(?:\/|$|\?)/i.test(pathAndQuery)) return true;
+        if ((host.includes('livemenu.app') || host.includes('goomer') || host.includes('ola.click') || host.includes('ola.menu') || host.includes('deliverydireto.com.br') || host.includes('deliverymuch.com.br') || host.includes('instadelivery.com.br')) && !/\/(?:cart|checkout|payment|pagamento|wallet|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty)(?:\/|$|\?)/i.test(pathAndQuery)) return true;
         return false;
       } catch (_) {
         return false;
@@ -5419,6 +6800,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
         const parsed = new URL(value || '');
         const host = parsed.hostname.replace(/^www\./, '').toLowerCase();
         const pathAndQuery = `${parsed.pathname}${parsed.search}`.toLowerCase();
+        if (host === 'ifood.com.br' || host.endsWith('.ifood.com.br')) return true;
         if (['meta.ai', 'meta.com', 'about.meta.com'].some(domain => host === domain || host.endsWith('.' + domain))) return true;
         if (isKnownNativeMenuPlatformUrl(value) || isLinkHubDestinationUrl(value)) return false;
         if (/\/(?:promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty|pagamento|payment|wallet|orders?|checkout|cart)(?:\/|$|\?)/i.test(pathAndQuery)) return true;
@@ -5486,7 +6868,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
         args: [city, neighborhood],
         func: (targetCity, targetNeighborhood) => {
           const anchors = Array.from(document.querySelectorAll('a'));
-          const keywords = ['cardapio', 'cardápio', 'menu', 'pedido', 'pedir', 'ifood', 'delivery', 'comprar'];
+          const keywords = ['cardapio', 'cardápio', 'menu', 'pedido', 'pedir', 'delivery', 'comprar'];
           const normalize = value => String(value || '')
             .toLowerCase()
             .normalize('NFD')
@@ -5503,7 +6885,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
               const host = url.hostname.replace(/^www\./, '').toLowerCase();
               const pathAndQuery = `${url.pathname}${url.search}`.toLowerCase();
               if ((host === 'pedido.anota.ai' || host.endsWith('.anota.ai')) && (url.pathname.toLowerCase().startsWith('/loja/') || url.pathname.toLowerCase().startsWith('/m/') || url.pathname.toLowerCase().startsWith('/login'))) return true;
-              if (/saipos|livemenu|ola\.click|ola\.menu|goomer|cardapio|menu/i.test(host) && !/\/(?:cart|checkout|payment|pagamento|wallet|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty)(?:\/|$|\?)/i.test(pathAndQuery)) return true;
+              if (/saipos|livemenu|ola\.click|ola\.menu|goomer|deliverydireto|deliverymuch|instadelivery|cardapio|menu/i.test(host) && !/\/(?:cart|checkout|payment|pagamento|wallet|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty)(?:\/|$|\?)/i.test(pathAndQuery)) return true;
               return false;
             } catch (_) {
               return false;
@@ -5514,6 +6896,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
               const url = new URL(href || '');
               const host = url.hostname.replace(/^www\./, '').toLowerCase();
               const pathAndQuery = `${url.pathname}${url.search}`.toLowerCase();
+              if (host === 'ifood.com.br' || host.endsWith('.ifood.com.br')) return true;
               if (['instagram.com', 'threads.net', 'threads.com', 'facebook.com', 'tiktok.com', 'x.com', 'twitter.com', 'youtube.com', 'meta.ai', 'meta.com', 'about.meta.com'].some(domain => host === domain || host.endsWith('.' + domain))) return true;
               if (isKnownMenuPlatformHref(href)) return false;
               if (/\/(?:share|sharer|intent|login|auth|account|cart|checkout|promotions?|promos?|cashback|cupom|coupons?|fidelidade|loyalty|pagamento|payment|wallet|orders?|wp-json|feed\b|tag\/|author\/|category\/(?:bookkeeping|contabilidade|blog|noticias|news))|[?&](?:share|u|url)=https?%3a|[?&](?:tab|origin)=[^&]*(?:cashback|promo|cupom|coupon|fidelidade|payment|pagamento)/i.test(pathAndQuery)) return true;
@@ -5531,7 +6914,7 @@ async function handleMenuScrapeFromInstagram(instagramUrl, restaurantName, city,
               if (city && (text.includes(city) || normalizedHref.includes(compactCity))) score += 120;
               if (neighborhood && (text.includes(neighborhood) || normalizedHref.includes(compact(neighborhood)))) score += 35;
               if (keywords.some(k => text.includes(normalize(k)) || normalizedHref.includes(normalize(k)))) score += 35;
-              if (/saipos|livemenu|ola\.click|olaclick|anota|ifood|goomer|menudino|aiqfome|cardapio|menu/i.test(href)) score += 25;
+              if (/saipos|livemenu|ola\.click|olaclick|anota|goomer|menudino|deliverydireto|deliverymuch|instadelivery|aiqfome|cardapio|menu/i.test(href)) score += 25;
               return { href, index, score };
             })
             .filter(item => /^https?:\/\//i.test(item.href) && !isBlockedHubHref(item.href) && item.score > 0)
@@ -5780,4 +7163,208 @@ async function handleCaptureTab(tabId) {
       }
     });
   });
+}
+
+function captureVisibleTabDataUrl(windowId, quality = 78) {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.captureVisibleTab(windowId, { format: 'jpeg', quality }, (dataUrl) => {
+      if (chrome.runtime.lastError) {
+        reject(new Error(chrome.runtime.lastError.message));
+      } else if (!dataUrl) {
+        reject(new Error('Falha ao capturar a aba.'));
+      } else {
+        resolve(dataUrl);
+      }
+    });
+  });
+}
+
+async function getPageCaptureMetrics(tabId) {
+  const [result] = await chrome.scripting.executeScript({
+    target: { tabId },
+    func: () => {
+      const scrollingElement = document.scrollingElement || document.documentElement || document.body;
+      const body = document.body || document.documentElement;
+      const width = Math.max(
+        scrollingElement?.scrollWidth || 0,
+        document.documentElement?.scrollWidth || 0,
+        body?.scrollWidth || 0,
+        window.innerWidth || 0
+      );
+      const height = Math.max(
+        scrollingElement?.scrollHeight || 0,
+        document.documentElement?.scrollHeight || 0,
+        body?.scrollHeight || 0,
+        window.innerHeight || 0
+      );
+      return {
+        scrollX: Math.round(window.scrollX || 0),
+        scrollY: Math.round(window.scrollY || 0),
+        viewportWidth: Math.round(window.innerWidth || document.documentElement.clientWidth || 0),
+        viewportHeight: Math.round(window.innerHeight || document.documentElement.clientHeight || 0),
+        scrollWidth: Math.round(width),
+        scrollHeight: Math.round(height),
+        devicePixelRatio: Number(window.devicePixelRatio || 1),
+      };
+    }
+  });
+  return result?.result || null;
+}
+
+async function scrollPageForCapture(tabId, x, y) {
+  const [result] = await chrome.scripting.executeScript({
+    target: { tabId },
+    func: (nextX, nextY) => {
+      window.scrollTo(Number(nextX) || 0, Number(nextY) || 0);
+      return {
+        scrollX: Math.round(window.scrollX || 0),
+        scrollY: Math.round(window.scrollY || 0),
+      };
+    },
+    args: [x, y]
+  });
+  return result?.result || { scrollX: 0, scrollY: 0 };
+}
+
+async function dataUrlToImageBitmap(dataUrl) {
+  const response = await fetch(dataUrl);
+  const blob = await response.blob();
+  return createImageBitmap(blob);
+}
+
+async function blobToDataUrl(blob) {
+  const buffer = await blob.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+  return `data:${blob.type || 'image/jpeg'};base64,${btoa(binary)}`;
+}
+
+async function handleCaptureFullPageTab(tabId, options = {}) {
+  console.log(`[Extension] Iniciando captura extensa para a aba ${tabId}...`);
+
+  await chrome.tabs.update(tabId, { active: true });
+  await new Promise(resolve => setTimeout(resolve, 800));
+
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      func: closeCookiePopupsAndOverlays
+    });
+  } catch (err) {
+    console.warn('[Extension] Erro ao remover overlays antes da captura extensa:', err.message);
+  }
+
+  await new Promise(resolve => setTimeout(resolve, 400));
+
+  const tab = await chrome.tabs.get(tabId);
+  const windowId = tab ? tab.windowId : chrome.windows.WINDOW_ID_CURRENT;
+  const initialMetrics = await getPageCaptureMetrics(tabId);
+  if (!initialMetrics?.viewportWidth || !initialMetrics?.viewportHeight) {
+    throw new Error('Nao foi possivel medir a pagina para captura extensa.');
+  }
+
+  const quality = Math.max(45, Math.min(92, Number(options.quality) || 72));
+  const overlapCss = Math.max(0, Math.min(180, Number(options.overlap) || 80));
+  const maxHeightCss = Math.max(
+    initialMetrics.viewportHeight,
+    Math.min(Number(options.maxHeight) || 28000, initialMetrics.scrollHeight || initialMetrics.viewportHeight)
+  );
+  const maxSegments = Math.max(1, Math.min(60, Number(options.maxSegments) || 40));
+  const stepCss = Math.max(240, initialMetrics.viewportHeight - overlapCss);
+  const positions = [];
+  let y = 0;
+  while (y < maxHeightCss && positions.length < maxSegments) {
+    positions.push(Math.round(y));
+    const nextY = y + stepCss;
+    if (nextY >= maxHeightCss - initialMetrics.viewportHeight) {
+      const lastY = Math.max(0, maxHeightCss - initialMetrics.viewportHeight);
+      if (!positions.includes(Math.round(lastY))) positions.push(Math.round(lastY));
+      break;
+    }
+    y = nextY;
+  }
+
+  const segments = [];
+  try {
+    for (const position of positions) {
+      const scrollState = await scrollPageForCapture(tabId, 0, position);
+      await new Promise(resolve => setTimeout(resolve, Number(options.waitMs) || 420));
+      const metrics = await getPageCaptureMetrics(tabId);
+      const dataUrl = await captureVisibleTabDataUrl(windowId, quality);
+      segments.push({
+        y: Math.max(0, Math.min(scrollState.scrollY || position, maxHeightCss)),
+        viewportHeight: metrics?.viewportHeight || initialMetrics.viewportHeight,
+        viewportWidth: metrics?.viewportWidth || initialMetrics.viewportWidth,
+        dataUrl
+      });
+      await new Promise(resolve => setTimeout(resolve, 240));
+    }
+  } finally {
+    await scrollPageForCapture(tabId, initialMetrics.scrollX || 0, initialMetrics.scrollY || 0).catch(() => {});
+  }
+
+  if (!segments.length) throw new Error('Nenhum segmento capturado na captura extensa.');
+
+  const firstBitmap = await dataUrlToImageBitmap(segments[0].dataUrl);
+  const nativeScale = firstBitmap.width / Math.max(1, segments[0].viewportWidth || initialMetrics.viewportWidth);
+  const totalHeightCss = Math.min(maxHeightCss, initialMetrics.scrollHeight || maxHeightCss);
+  const rawCanvasWidth = Math.max(1, Math.round((segments[0].viewportWidth || initialMetrics.viewportWidth) * nativeScale));
+  const rawCanvasHeight = Math.max(1, Math.round(totalHeightCss * nativeScale));
+  const maxPixels = Math.max(6_000_000, Math.min(90_000_000, Number(options.maxPixels) || 56_000_000));
+  const outputScale = Math.min(1, Math.sqrt(maxPixels / Math.max(1, rawCanvasWidth * rawCanvasHeight)));
+  const canvasWidth = Math.max(1, Math.round(rawCanvasWidth * outputScale));
+  const canvasHeight = Math.max(1, Math.round(rawCanvasHeight * outputScale));
+  const canvas = new OffscreenCanvas(canvasWidth, canvasHeight);
+  const context = canvas.getContext('2d', { alpha: false });
+  context.fillStyle = '#ffffff';
+  context.fillRect(0, 0, canvasWidth, canvasHeight);
+
+  const drawSegment = async (segment, bitmap) => {
+    const cssTop = Math.max(0, Math.min(segment.y, totalHeightCss));
+    const cssBottom = Math.min(totalHeightCss, cssTop + (segment.viewportHeight || initialMetrics.viewportHeight));
+    const sourceHeight = Math.max(1, Math.round((cssBottom - cssTop) * nativeScale));
+    const destY = Math.round(cssTop * nativeScale * outputScale);
+    const destHeight = Math.max(1, Math.round(sourceHeight * outputScale));
+    context.drawImage(
+      bitmap,
+      0,
+      0,
+      Math.min(bitmap.width, rawCanvasWidth),
+      Math.min(bitmap.height, sourceHeight),
+      0,
+      destY,
+      canvasWidth,
+      destHeight
+    );
+  };
+
+  await drawSegment(segments[0], firstBitmap);
+  if (typeof firstBitmap.close === 'function') firstBitmap.close();
+
+  for (let index = 1; index < segments.length; index += 1) {
+    const bitmap = await dataUrlToImageBitmap(segments[index].dataUrl);
+    await drawSegment(segments[index], bitmap);
+    if (typeof bitmap.close === 'function') bitmap.close();
+  }
+
+  const blob = await canvas.convertToBlob({ type: 'image/jpeg', quality: quality / 100 });
+  const dataUrl = await blobToDataUrl(blob);
+  return {
+    success: true,
+    fullPage: true,
+    dataUrl,
+    segmentCount: segments.length,
+    scrollHeight: initialMetrics.scrollHeight,
+    capturedHeight: totalHeightCss,
+    viewportWidth: initialMetrics.viewportWidth,
+    viewportHeight: initialMetrics.viewportHeight,
+    outputWidth: canvasWidth,
+    outputHeight: canvasHeight,
+    outputScale,
+    truncated: totalHeightCss < initialMetrics.scrollHeight || segments.length >= maxSegments,
+  };
 }

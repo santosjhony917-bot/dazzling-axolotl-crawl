@@ -40,6 +40,27 @@ const FilterFoodPlatformAdapters = (() => {
       || /^min\s*\d+$/i.test(line);
   };
 
+  const isAvailabilityOnlyLine = value => /^(esgotado|indisponivel|indispon.vel|fora de estoque|sem estoque|produto indisponivel|produto indispon.vel)$/i.test(normalizeLookupKey(value));
+
+  const parseStandalonePriceLine = value => {
+    const raw = text(value);
+    const decimal = raw.match(/^(?:R\$\s*)?(\d{1,4})[,.](\d{2})$/i);
+    if (decimal) return Number(`${decimal[1]}.${decimal[2]}`);
+    const whole = raw.match(/^(?:R\$\s*)?(\d{1,4})$/i);
+    if (!whole) return null;
+    const price = Number(whole[1]);
+    return price >= 5 && price <= 9999 ? price : null;
+  };
+
+  const preferBestMenuImageSource = value => {
+    const cleanUrl = text(value);
+    if (!cleanUrl) return '';
+    if (/instadelivery-public\.nyc3\.cdn\.digitaloceanspaces\.com\/itens\//i.test(cleanUrl)) {
+      return cleanUrl.replace(/_(?:75|100|150|200|300|400|600|800)_(?:75|100|150|200|300|400|600|800)(\.(?:jpe?g|png|webp|avif)(?:[?#].*)?)$/i, '$1');
+    }
+    return cleanUrl;
+  };
+
   function parseChoiceLimits(line) {
     const normalized = normalizeLookupKey(line);
     const number = Number((normalized.match(/\d+/) || [0])[0] || 0);
@@ -57,6 +78,49 @@ const FilterFoodPlatformAdapters = (() => {
     if (/bebida|refri|suco/.test(key)) return 'combo_component';
     return /escolha/.test(key) ? 'required_choice' : 'addon';
   }
+
+  const cleanPublicOptionVariantName = value => text(value)
+    .replace(/^\s*(?:[0-9]+\s*\/\s*[0-9]+|1\/2|meia|meio)\s*/i, '')
+    .replace(/^\s*(?:add|adc|adicional)\s+/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const buildPublicOptionVariantLabel = (itemName, optionName) => {
+    const base = text(itemName);
+    const option = cleanPublicOptionVariantName(optionName);
+    if (!base) return option || null;
+    if (!option) return base;
+    const baseKey = normalizeLookupKey(base);
+    const optionKey = normalizeLookupKey(option);
+    if (optionKey && baseKey.includes(optionKey)) return base;
+    return `${base} - ${option}`;
+  };
+
+  const roundMoney = value => {
+    const number = Number(value);
+    return Number.isFinite(number) ? Number(number.toFixed(2)) : null;
+  };
+
+  const isPizzaSizeOrBaseItemName = value => {
+    const key = normalizeLookupKey(value);
+    return /^(grande|pequena|media|broto|familia|individual|mini)$/.test(key)
+      || /^pizza(?:s)?(?:\s+(?:grande|pequena|media|broto|familia|individual|mini))?$/.test(key)
+      || /monte sua pizza|pizza com \d+\s+sabores?/.test(key);
+  };
+
+  const isFlavorChoiceGroupName = value => {
+    const key = normalizeLookupKey(value);
+    return /sabor|sabores|escolha.*sabor|mont(e|ar).*pizza/.test(key);
+  };
+
+  const isInstructionalMenuItemName = value => {
+    const key = normalizeLookupKey(value);
+    return /^(?:click|clique)\s+aqui\b/.test(key)
+      || /^(?:click|clique)\s+aqui.*(?:escolha|monte|selecione)/.test(key)
+      || /^escolha\s+(?:ate\s+)?\d+\s+sabores?$/.test(key)
+      || /^selecione\s+(?:ate\s+)?\d+\s+sabores?$/.test(key)
+      || /^monte\s+sua\s+pizza$/.test(key);
+  };
 
   const isNonMenuOperationalChoiceGroup = value => {
     const key = normalizeLookupKey(value);
@@ -105,6 +169,59 @@ const FilterFoodPlatformAdapters = (() => {
         return true;
       })
       .map((group, index) => ({ ...group, order_index: index }));
+  }
+
+  function normalizeAbsoluteFlavorPricesToDeltas(groups = [], itemName = '', itemBasePrice = null) {
+    for (const group of Array.isArray(groups) ? groups : []) {
+      const semantic = group.semantic_type || inferOptionSemantic(group.name);
+      const isFlavorGroup = semantic === 'flavor' || isFlavorChoiceGroupName(group.name);
+
+      const items = Array.isArray(group.items) ? group.items : [];
+      const isPizzaContext = isPizzaSizeOrBaseItemName(itemName)
+        || /pizza/.test(normalizeLookupKey(`${group.name} ${items.slice(0, 20).map(option => option?.name || '').join(' ')}`));
+      if (!isFlavorGroup || !isPizzaContext) continue;
+
+      const prices = items
+        .map(option => roundMoney(option?.price))
+        .filter(value => value != null && value > 0)
+        .sort((a, b) => a - b);
+      if (!prices.length) continue;
+
+      if (itemBasePrice == null && prices[0] < 8) continue;
+      const reference = roundMoney(itemBasePrice) ?? prices[0];
+      if (reference == null || reference <= 0) continue;
+      const absoluteLikeCount = prices.filter(value => value >= reference * 0.8 && value <= reference * 3).length;
+      if (absoluteLikeCount < Math.ceil(prices.length * 0.55)) continue;
+
+      group.semantic_type = 'flavor';
+      group.price_behavior = 'price_delta';
+      group.raw_data = {
+        ...(group.raw_data || {}),
+        normalized_price_behavior: 'absolute_flavor_price_to_delta',
+        delta_reference_price: reference
+      };
+
+      for (const option of items) {
+        const absolutePrice = roundMoney(option?.price);
+        if (absolutePrice == null || absolutePrice <= 0) continue;
+        const delta = roundMoney(Math.max(0, absolutePrice - reference));
+        option.semantic_type = 'flavor';
+        option.price_behavior = 'price_delta';
+        option.price_delta = delta;
+        option.is_searchable_variant = true;
+        option.search_label = option.search_label || buildPublicOptionVariantLabel(
+          isPizzaSizeOrBaseItemName(itemName) ? 'Pizza' : itemName,
+          option.name
+        );
+        option.raw_data = {
+          ...(option.raw_data || {}),
+          absolute_price: absolutePrice,
+          delta_reference_price: reference,
+          normalized_price_behavior: 'absolute_flavor_price_to_delta'
+        };
+      }
+    }
+    return groups;
   }
 
   function extractAnotaDetailFromRaw(rawText, url, imageUrl) {
@@ -395,6 +512,7 @@ const FilterFoodPlatformAdapters = (() => {
         if (!item || item.out === true) continue;
         const itemName = text(item.title || item.name || item.label);
         if (!itemName) continue;
+        if (isInstructionalMenuItemName(itemName)) continue;
 
         const basePrice = anotaMoney(item.price ?? item.price_base ?? item.minimal_price);
         const optionGroups = [];
@@ -429,12 +547,6 @@ const FilterFoodPlatformAdapters = (() => {
         });
 
         const finalOptionGroups = sanitizeAnotaOptionGroups(optionGroups);
-        const finalFlatOptions = finalOptionGroups.flatMap(group => (group.items || []).map(option => ({
-          ...option,
-          group_name: group.name,
-          group_order_index: group.order_index,
-          search_label: option.is_searchable_variant ? `${itemName} ${option.name}` : null
-        })));
 
         const requiredChoicePriceRanges = finalOptionGroups
           .filter(group => (
@@ -465,6 +577,13 @@ const FilterFoodPlatformAdapters = (() => {
           priceMin = requiredChoicePriceRanges.reduce((sum, range) => sum + range.min, 0);
           priceMax = requiredChoicePriceRanges.reduce((sum, range) => sum + range.max, 0);
         }
+        normalizeAbsoluteFlavorPricesToDeltas(finalOptionGroups, itemName, basePrice);
+        const finalFlatOptions = finalOptionGroups.flatMap(group => (group.items || []).map(option => ({
+          ...option,
+          group_name: group.name,
+          group_order_index: group.order_index,
+          search_label: option.is_searchable_variant ? (option.search_label || buildPublicOptionVariantLabel(itemName, option.name)) : null
+        })));
         const priceType = basePrice != null
           ? (finalFlatOptions.length ? 'starting_at' : 'fixed')
           : (requiredChoicePriceRanges.length ? (priceMin === priceMax ? 'option_only' : 'range') : 'unknown');
@@ -709,7 +828,7 @@ const FilterFoodPlatformAdapters = (() => {
       for (const child of node.menus || []) walk(child, categoryPath, [inheritedPrice, ...inheritedPrices].filter(value => value != null));
     };
     for (const root of Array.isArray(payload) ? payload : [payload]) walk(root, []);
-    return categories.filter(category => category.items.length);
+    return mergeDuplicateCategories(categories.filter(category => category.items.length));
   }
 
   function saiposName(node) {
@@ -863,20 +982,118 @@ const FilterFoodPlatformAdapters = (() => {
     return number > 1000 && Number.isInteger(number) ? Number(number) / 100 : Number(number);
   }
 
+  const CARDAPIO_WEB_DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const CARDAPIO_WEB_DAY_ALIASES = {
+    domingo: 'sunday',
+    segunda: 'monday',
+    'segunda-feira': 'monday',
+    terca: 'tuesday',
+    'terca-feira': 'tuesday',
+    terça: 'tuesday',
+    'terça-feira': 'tuesday',
+    quarta: 'wednesday',
+    'quarta-feira': 'wednesday',
+    quinta: 'thursday',
+    'quinta-feira': 'thursday',
+    sexta: 'friday',
+    'sexta-feira': 'friday',
+    sabado: 'saturday',
+    sábado: 'saturday',
+  };
+
+  function cardapioWebNormalizeDay(value) {
+    const normalized = String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+    return CARDAPIO_WEB_DAYS.includes(normalized) ? normalized : CARDAPIO_WEB_DAY_ALIASES[normalized] || '';
+  }
+
+  function cardapioWebMinutesOfDay(value) {
+    const match = String(value || '').match(/(\d{1,2}):(\d{2})/);
+    if (!match) return null;
+    const hours = Number(match[1]);
+    const minutes = Number(match[2]);
+    if (!Number.isFinite(hours) || !Number.isFinite(minutes) || hours > 23 || minutes > 59) return null;
+    return hours * 60 + minutes;
+  }
+
+  function cardapioWebScheduleActiveNow(schedule, now = new Date()) {
+    const start = cardapioWebMinutesOfDay(schedule?.start || schedule?.start_at || schedule?.starts_at);
+    const end = cardapioWebMinutesOfDay(schedule?.end || schedule?.end_at || schedule?.ends_at);
+    if (start == null && end == null) return true;
+    const current = now.getHours() * 60 + now.getMinutes();
+    if (start != null && end != null) {
+      return start <= end ? current >= start && current <= end : current >= start || current <= end;
+    }
+    if (start != null) return current >= start;
+    return current <= end;
+  }
+
+  function cardapioWebPromotionActiveNow(item, now = new Date()) {
+    if (!item?.promotional_price_active || cardapioWebPrice(item.promotional_price) == null) return false;
+    const today = CARDAPIO_WEB_DAYS[now.getDay()];
+    const schedules = Array.isArray(item.promotional_price_schedules) ? item.promotional_price_schedules : [];
+    const matchingSchedules = schedules.filter(schedule => {
+      const day = cardapioWebNormalizeDay(schedule?.day || schedule?.weekday || schedule?.week_day || schedule?.day_of_week);
+      return !day || day === today;
+    });
+    if (schedules.length) return matchingSchedules.some(schedule => cardapioWebScheduleActiveNow(schedule, now));
+    const availability = Array.isArray(item.promotional_price_availability) ? item.promotional_price_availability : [];
+    const availableDays = availability.map(cardapioWebNormalizeDay).filter(Boolean);
+    return !availableDays.length || availableDays.includes(today);
+  }
+
+  function cardapioWebEntityUnavailable(entry) {
+    if (!entry) return false;
+    if (entry.status && entry.status !== 'ACTIVE') return true;
+    const stock = Number(entry.stock);
+    return entry.active_stock_control === true && Number.isFinite(stock) && stock < 0;
+  }
+
+  function inferCardapioWebGroupRule(group, children = []) {
+    const groupName = text(group?.name || group?.title || '');
+    const minRaw = group?.min ?? group?.minimum ?? group?.min_quantity ?? group?.min_qty ?? group?.min_items;
+    const maxRaw = group?.max ?? group?.maximum ?? group?.max_quantity ?? group?.max_qty ?? group?.max_items;
+    const requiredRaw = group?.required ?? group?.is_required ?? group?.mandatory ?? group?.obligatory;
+    let min = Number.isFinite(Number(minRaw)) ? Number(minRaw) : null;
+    let max = Number.isFinite(Number(maxRaw)) ? Number(maxRaw) : null;
+    let required = typeof requiredRaw === 'boolean'
+      ? requiredRaw
+      : requiredRaw != null
+        ? ['true', '1', 'yes', 'sim', 'required', 'obrigatorio'].includes(String(requiredRaw).toLowerCase())
+        : null;
+    const key = normalizeLookupKey(groupName);
+    const chooseMatch = key.match(/(?:escolha|selecione|obrigatorio|obrigatoria)\s*(?:ate|at[eé])?\s*(\d+)/);
+    const atMostMatch = key.match(/(?:ate|at[eé])\s*(\d+)/);
+    if (min == null && /obrigator|escolha\s+\d+/.test(key)) min = chooseMatch ? Number(chooseMatch[1]) : 1;
+    if (max == null && chooseMatch) max = Number(chooseMatch[1]);
+    else if (max == null && atMostMatch) max = Number(atMostMatch[1]);
+    if (required == null && min != null) required = min > 0;
+    if (max == null && children.length === 1 && min === 1) max = 1;
+    return {
+      min_quantity: Math.max(0, Number(min || 0)),
+      max_quantity: max != null && Number.isFinite(Number(max)) && Number(max) > 0 ? Number(max) : null,
+      is_required: Boolean(required),
+    };
+  }
+
   function normalizeCardapioWeb(payload, sourceUrl) {
     const categories = [];
     for (const category of Array.isArray(payload) ? payload : []) {
       if (category.status && category.status !== 'ACTIVE') continue;
       const items = [];
       for (const item of category.items || []) {
-        if (item.status && item.status !== 'ACTIVE') continue;
-        const directPrice = cardapioWebPrice(item.promotional_price_active ? item.promotional_price : item.price);
+        if (cardapioWebEntityUnavailable(item)) continue;
+        const directPrice = cardapioWebPrice(cardapioWebPromotionActiveNow(item) ? item.promotional_price : item.price);
         const options = [];
         for (const group of item.add_ons || item.addons || item.options || []) {
           if (group.status && group.status !== 'ACTIVE') continue;
           const children = group.subitems || group.items || group.options || [];
+          const groupRule = inferCardapioWebGroupRule(group, children);
           children.forEach((option, index) => {
-            if (option.status && option.status !== 'ACTIVE') return;
+            if (cardapioWebEntityUnavailable(option)) return;
             options.push({
               external_id: externalId(option),
               group_name: text(group.name || group.title || 'Opcionais'),
@@ -884,9 +1101,9 @@ const FilterFoodPlatformAdapters = (() => {
               description: text(option.description),
               price: cardapioWebPrice(option.price),
               price_delta: cardapioWebPrice(option.price),
-              min_quantity: Number(group.min || group.minimum || group.min_quantity || 0),
-              max_quantity: Number(group.max || group.maximum || group.max_quantity || 0) || null,
-              is_required: Number(group.min || group.minimum || group.min_quantity || 0) > 0,
+              min_quantity: groupRule.min_quantity,
+              max_quantity: groupRule.max_quantity,
+              is_required: groupRule.is_required,
               order_index: Number(option.order || option.position || index),
               raw_data: option
             });
@@ -993,25 +1210,81 @@ const FilterFoodPlatformAdapters = (() => {
       if (current.items.length) categories.push(current);
       current = { name: 'Cardápio', order_index: categories.length, items: [] };
     };
+    const normalizeCategoryLine = value => text(value)
+      .replace(/[‹›»«]+/g, ' ')
+      .replace(/^[\s\-–—•*|:;,.]+|[\s\-–—•*|:;,.]+$/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const categoryKey = value => normalizeCategoryLine(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^\w\s,()&/-]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const categoryNamePattern = /^(?:x-?burguers(?:\s*\(.+\))?|smashs?\s+burgers?(?:\s*\(.+\))?|burguer(?:es)?\s*,\s*fritas(?:\s*e\s*bebidas?)?|burguer premium(?:\s*-\s*\(.+\))?|campeoes?\s+da\s+.+|combos?\s+(?:pra|para)\s+.+|acompanhamentos?|bebidas?\s+geladas?|pizzas?(?:\s+.+)?|lanches?(?:\s+.+)?|hamburguers(?:\s+.+)?|sobremesas?|promocoes|promocionais|tradicionais|especiais|bordas|adicionais?|entradas?|porcoes|executivos?|massas?|salgados?|acai|pasteis|cafes?)$/i;
+    const categoryNoisePattern = /^(?:os mais pedidos!?|mais pedidos!?|mais pedido|confira.*|telefone:?|tecnologia:?|meus pedidos|taxa e tempo de entrega|fechado|aberto|cardapio|menu)$/i;
     const categoryLike = line => {
-      if (/(r\$\s*)?\d{1,4}[,.]\d{2}/i.test(line) || line.length > 54) return false;
-      const letters = line.replace(/[^\\p{L}]/gu, '');
+      const normalized = normalizeCategoryLine(line);
+      const key = categoryKey(normalized);
+      if (!normalized || /(r\$\s*)?\d{1,4}[,.]\d{2}/i.test(normalized) || normalized.length > 96) return false;
+      if (categoryNoisePattern.test(key)) return false;
+      const letters = key.replace(/[^a-z]/g, '');
       if (letters.length < 4) return false;
-      return line === line.toUpperCase() || /^categor[ií]a\s*\d+$/i.test(line) || /^(pizzas?|lanches?|hamb[uú]rguer|bebidas?|combos?|sobremesas?|promo[cç][oõ]es|promocionais|tradicionais|especiais|bordas|adicional|entradas?|por[cç][oõ]es|executivos?|massas?|salgados?|a[cç]a[ií]|past[eé]is|caf[eé]s?)$/i.test(line);
+      if (/^categoria\s*\d+$/i.test(key)) return true;
+      return categoryNamePattern.test(key);
+    };
+    const isMenuBadgeLine = line => /^(?:mais pedido|mais pedidos|destaque|destaques|novo|novidade|oferta|ofertas)$/i.test(categoryKey(line));
+    const mergeDuplicateCategories = inputCategories => {
+      const merged = [];
+      const byKey = new Map();
+      for (const category of inputCategories || []) {
+        const name = normalizeCategoryLine(category?.name || 'Cardapio') || 'Cardapio';
+        const key = categoryKey(name) || `cat-${merged.length}`;
+        let target = byKey.get(key);
+        if (!target) {
+          target = { ...category, name, order_index: merged.length, items: [] };
+          target._seenItemKeys = new Set();
+          byKey.set(key, target);
+          merged.push(target);
+        }
+        for (const item of category?.items || []) {
+          if (isMenuBadgeLine(item?.name)) continue;
+          const itemKey = `${categoryKey(item?.name || '')}|${item?.price ?? ''}`;
+          if (!itemKey.trim() || target._seenItemKeys.has(itemKey)) continue;
+          target._seenItemKeys.add(itemKey);
+          target.items.push({ ...item, order_index: target.items.length });
+        }
+      }
+      return merged
+        .map(({ _seenItemKeys, ...category }) => category)
+        .filter(category => category.items.length);
     };
     let pendingName = '';
     let pendingDescription = '';
     const addItem = (name, price, description = '') => {
-      const cleanName = text(name).replace(/^(saiba mais|ver mais)\s*/i, '').trim();
+      let cleanName = text(name).replace(/^(saiba mais|ver mais)\s*/i, '').trim();
+      let cleanDescription = text(description);
+      const availabilityStatus = isAvailabilityOnlyLine(cleanName) ? cleanName : '';
+      if (availabilityStatus) {
+        if (cleanDescription && !isAvailabilityOnlyLine(cleanDescription) && cleanDescription.length <= 160) {
+          cleanName = cleanDescription;
+          cleanDescription = '';
+        } else {
+          return;
+        }
+      }
       if (!cleanName || cleanName.length < 2 || /^(r\$|saiba mais|ver op[cç][oõ]es|adicionar)$/i.test(cleanName)) return;
-      if (/^categor[ií]a\s*\d+$/i.test(cleanName) || /^(pizzas?|lanches?|hamb[uú]rguer|bebidas?|combos?|sobremesas?|promo[cç][oõ]es|promocionais|tradicionais|especiais|bordas|adicional|entradas?|por[cç][oõ]es|executivos?|massas?|salgados?|a[cç]a[ií]|past[eé]is|caf[eé]s?)$/i.test(cleanName)) return;
+      if (isMenuBadgeLine(cleanName)) return;
+      if (categoryLike(cleanName)) return;
       if (/gerencie seu neg[oó]cio|card[aá]pio digital|chatbot|pdv|pedido m[ií]nimo|endere[cç]o|administrador|promo[cç][aã]o v[aá]lida/i.test(cleanName)) return;
       if (/(fechado|aberto|retirada|delivery|entrega|pedido m[ií]nimo|endere[cç]o|joão pessoa|brasil|\b\d{2,}\s*-\s*\d{2,}min)/i.test(description) && cleanName.split(/\s+/).length <= 3) return;
       if (/(fechado|aberto|retirada|delivery|entrega|pedido m[ií]nimo|endere[cç]o|joão pessoa|brasil|\b\d{2,}\s*-\s*\d{2,}min)/i.test(`${cleanName} ${description}`) && !/(combo|pizza|burger|hamb[uú]rguer|frango|carne|queijo|a[cç]a[ií]|pastel|bebida|refrigerante|batata|sushi|calabresa|mussarela|bacon|lombo|alho)/i.test(`${cleanName} ${description}`)) return;
+      if (isAvailabilityOnlyLine(cleanName)) return;
       current.items.push({
         external_id: null,
         name: cleanName,
-        description: text(description) || null,
+        description: cleanDescription || null,
         image_url: null,
         price,
         price_min: price,
@@ -1021,7 +1294,7 @@ const FilterFoodPlatformAdapters = (() => {
         options: [],
         order_index: current.items.length,
         source_url: sourceUrl,
-        raw_data: { parser: 'visible_text', name: cleanName, price },
+        raw_data: { parser: 'visible_text', name: cleanName, price, availability_status: availabilityStatus || null },
         extraction_confidence: price != null ? 0.78 : 0.55,
         needs_review: price == null
       });
@@ -1029,18 +1302,34 @@ const FilterFoodPlatformAdapters = (() => {
     for (const line of lines) {
       if (categoryLike(line)) {
         flush();
-        current.name = line;
+        current.name = normalizeCategoryLine(line);
+        pendingName = '';
+        pendingDescription = '';
+        continue;
+      }
+      if (isAvailabilityOnlyLine(line) || isMenuBadgeLine(line)) continue;
+      const standalonePrice = parseStandalonePriceLine(line);
+      if (pendingName && standalonePrice != null) {
+        addItem(pendingName, standalonePrice, pendingDescription);
         pendingName = '';
         pendingDescription = '';
         continue;
       }
       const matches = [...line.matchAll(/(?:R\$\s*)?(\d{1,4}[,.]\d{2})/gi)];
       if (matches.length) {
-        const match = matches[matches.length - 1];
-        const price = Number(match[1].replace(',', '.'));
+        const pricedMatches = matches
+          .map(match => ({ match, price: Number(match[1].replace(',', '.')) }))
+          .filter(entry => Number.isFinite(entry.price));
+        const bestPrice = pricedMatches.reduce((best, entry) => (
+          !best || (entry.price > 0 && entry.price < best.price) ? entry : best
+        ), pricedMatches[0] || null);
+        if (!bestPrice) continue;
+        const match = bestPrice.match;
+        const price = bestPrice.price;
         const before = text(line.slice(0, match.index));
         const after = text(line.slice(match.index + match[0].length));
-        addItem(before || pendingName, price, after || pendingDescription);
+        const beforeIsOnlyPrice = before && normalizeMoney(before) != null && before.replace(/(?:R\$\s*)?\d{1,4}[,.]\d{2}/ig, '').replace(/[^\p{L}a-zA-Z]/gu, '').trim().length < 3;
+        addItem((before && !beforeIsOnlyPrice) ? before : pendingName, price, after || pendingDescription);
         pendingName = '';
         pendingDescription = '';
       } else if (!/saiba mais|adicionar|selecionar|escolha|obrigat[oó]rio/i.test(line)) {
@@ -1049,13 +1338,14 @@ const FilterFoodPlatformAdapters = (() => {
       }
     }
     flush();
-    return categories.filter(category => category.items.length);
+    return mergeDuplicateCategories(categories.filter(category => category.items.length));
   }
 
   const normalizeMoney = value => {
     const raw = text(value);
     const match = raw.match(/(?:\+\s*)?(?:R\$\s*)?(\d{1,4}[,.]\d{2})/i);
-    return match ? Number(match[1].replace(',', '.')) : null;
+    if (match) return Number(match[1].replace(',', '.'));
+    return parseStandalonePriceLine(raw);
   };
 
   const waitForTabLoad = (tabId, timeoutMs = 22000) => new Promise(resolve => {
@@ -1106,6 +1396,7 @@ const FilterFoodPlatformAdapters = (() => {
     const isPriceLine = line => normalizeMoney(line) != null && line.replace(/(?:\+\s*)?(?:R\$\s*)?\d{1,4}[,.]\d{2}/ig, '').trim().length < 24;
     const titleIndex = lines.findIndex((line, index) => (
       !ignored.test(line)
+      && !isAvailabilityOnlyLine(line)
       && !isPriceLine(line)
       && line.length >= 3
       && index > -1
@@ -1125,7 +1416,7 @@ const FilterFoodPlatformAdapters = (() => {
     };
     while (cursor < lines.length && !looksGroupHeader(cursor)) {
       const line = lines[cursor];
-      if (!ignored.test(line) && !isPriceLine(line) && line !== title) descriptionParts.push(line);
+      if (!ignored.test(line) && !isAvailabilityOnlyLine(line) && !isPriceLine(line) && line !== title) descriptionParts.push(line);
       cursor++;
     }
 
@@ -1149,7 +1440,7 @@ const FilterFoodPlatformAdapters = (() => {
 
       while (cursor < lines.length && !looksGroupHeader(cursor)) {
         let optionName = lines[cursor++];
-        if (!optionName || ignored.test(optionName) || isPriceLine(optionName)) continue;
+        if (!optionName || ignored.test(optionName) || isAvailabilityOnlyLine(optionName) || isPriceLine(optionName)) continue;
         if (/^(buscar|pesquise|alguma observa[cç][aã]o|avan[cç]ar|adicionar)$/i.test(optionName)) continue;
 
         const descParts = [];
@@ -1202,11 +1493,20 @@ const FilterFoodPlatformAdapters = (() => {
     };
   }
 
-  function mergeProductDetailsIntoVisibleMenu(categories, productDetails) {
+  function mergeProductDetailsIntoVisibleMenu(categories, productDetails, options = {}) {
     if (!Array.isArray(productDetails) || !productDetails.length) return categories;
-    const normalizeKey = value => text(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const normalizeKey = value => text(value)
+      .replace(/\bcomprar\s+online\b/gi, '')
+      .replace(/\besgotado\b/gi, '')
+      .replace(/[-–—\s]+$/g, '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
     const used = new Set();
-    return (categories || []).map(category => ({
+    const mergedCategories = (categories || []).map(category => ({
       ...category,
       items: (category.items || []).map(item => {
         const itemKey = normalizeKey(item.name);
@@ -1240,6 +1540,325 @@ const FilterFoodPlatformAdapters = (() => {
         };
       })
     }));
+
+    if (!options.restoreMissing) return mergedCategories;
+
+    const existingKeys = new Set();
+    for (const category of mergedCategories) {
+      for (const item of category.items || []) {
+        const key = normalizeKey(item.name);
+        if (key) existingKeys.add(key);
+      }
+    }
+    const hasSimilarExistingKey = key => {
+      if (!key) return true;
+      if (existingKeys.has(key)) return true;
+      return [...existingKeys].some(existingKey => (
+        key.length >= 4
+        && existingKey.length >= 4
+        && (key.includes(existingKey) || existingKey.includes(key))
+      ));
+    };
+
+    const missingItems = productDetails
+      .filter((detail, index) => {
+        if (used.has(index)) return false;
+        const key = normalizeKey(detail?.name);
+        return Boolean(key && !hasSimilarExistingKey(key) && detail?.price != null && Number(detail.price) > 0);
+      })
+      .map((detail, index) => ({
+        external_id: null,
+        name: detail.name,
+        description: detail.description || null,
+        image_url: detail.image_url || null,
+        price: detail.price,
+        price_min: detail.price,
+        price_max: detail.price,
+        price_type: detail.options?.length ? 'starting_at' : 'fixed',
+        price_source: 'visible_product_detail',
+        options: detail.options || [],
+        option_groups: detail.option_groups || [],
+        order_index: (mergedCategories[0]?.items?.length || 0) + index,
+        source_url: detail.source_url || '',
+        raw_data: { parser: 'visible_product_detail', restored_missing_from_detail: true, detail },
+        extraction_confidence: detail.options?.length ? 0.9 : 0.84,
+        needs_review: false,
+      }));
+
+    if (missingItems.length) {
+      if (!mergedCategories.length) mergedCategories.push({ name: 'Cardapio', items: [] });
+      mergedCategories[0].items = [...(mergedCategories[0].items || []), ...missingItems];
+    }
+
+    return mergedCategories;
+  }
+
+  async function collectInstadelivery(url) {
+    if (isUnsafeMenuDestination(url)) throw new Error('URL bloqueada: destino nÃ£o parece ser cardÃ¡pio.');
+    const previous = await chrome.tabs.query({ active: true, currentWindow: true });
+    const tab = await chrome.tabs.create({ url, active: true });
+    try {
+      await waitForTabLoad(tab.id, 30000);
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: async () => {
+          const normalize = value => String(value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+          for (const element of Array.from(document.querySelectorAll('button, [role="button"], a')).slice(0, 120)) {
+            const label = normalize(element.textContent || element.getAttribute('aria-label') || '');
+            if (/^(ok|ok!|aceitar|entendi|continuar|fechar)$/.test(label) || /ver card[aÃ¡]pio|apenas visualizar|quero continuar/.test(label)) {
+              try { element.click(); } catch (_) {}
+            }
+          }
+          await new Promise(resolve => setTimeout(resolve, 900));
+          let lastHeight = 0;
+          for (let pass = 0; pass < 32; pass++) {
+            window.scrollBy(0, Math.max(520, window.innerHeight * 0.78));
+            await new Promise(resolve => setTimeout(resolve, 220));
+            const height = document.documentElement.scrollHeight || document.body.scrollHeight || 0;
+            if (height === lastHeight && window.scrollY + window.innerHeight >= height - 40 && pass > 10) break;
+            lastHeight = height;
+          }
+          window.scrollTo(0, 0);
+        }
+      });
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      const result = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: () => {
+          const normalize = value => String(value || '').replace(/\s+/g, ' ').trim();
+          const normalizeKey = value => normalize(value)
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, ' ')
+            .trim();
+          const isVisible = element => {
+            if (!element) return false;
+            const rect = element.getBoundingClientRect();
+            const style = getComputedStyle(element);
+            return rect.width > 8 && rect.height > 8 && style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity || 1) !== 0;
+          };
+          const priceFromText = value => {
+            const matches = [...String(value || '').matchAll(/(?:R\$\s*)?(\d{1,4})[,.](\d{2})/gi)];
+            if (!matches.length) return null;
+            const match = matches[matches.length - 1];
+            return Number(`${match[1]}.${match[2]}`);
+          };
+          const cleanImageUrl = value => {
+            const src = String(value || '').trim();
+            if (!/^https?:\/\//i.test(src)) return '';
+            if (/placeholder|blank|sprite|avatar|icon|logo|no[_-]?image|sem[_-]?foto|default/i.test(src)) return '';
+            if (/instadelivery\.com\.br\/[a-f0-9]{16,}\.png(?:[?#].*)?$/i.test(src)) return '';
+            if (/instadelivery-public\.nyc3\.cdn\.digitaloceanspaces\.com\/itens\//i.test(src)) {
+              return src.replace(/_(?:75|100|150|200|300|400|600|800)_(?:75|100|150|200|300|400|600|800)(\.(?:jpe?g|png|webp|avif)(?:[?#].*)?)$/i, '$1');
+            }
+            return src;
+          };
+          const bestImageFrom = root => {
+            const images = Array.from(root?.querySelectorAll?.('img') || [])
+              .map(img => {
+                const rect = img.getBoundingClientRect();
+                const src = cleanImageUrl(img.currentSrc || img.src || img.getAttribute('src') || '');
+                return {
+                  src,
+                  alt: normalize(img.alt || img.getAttribute('aria-label') || ''),
+                  area: Math.max(Number(img.naturalWidth || 0), rect.width || 0) * Math.max(Number(img.naturalHeight || 0), rect.height || 0),
+                  isItemCdn: /instadelivery-public\.nyc3\.cdn\.digitaloceanspaces\.com\/itens\//i.test(src)
+                };
+              })
+              .filter(img => img.src && !/logo|avatar|instagram|facebook|whatsapp|google/i.test(`${img.src} ${img.alt}`));
+            images.sort((a, b) => Number(b.isItemCdn) - Number(a.isItemCdn) || b.area - a.area);
+            return images[0]?.src || '';
+          };
+          const isBadHeading = value => {
+            const key = normalizeKey(value);
+            return !key
+              || key.length < 3
+              || /^(mais pedidos|mais pedido|inicio|produtos|contato|pesquisar|buscar|sacola|carrinho(?: \d+)?|subtotal|total|perfil|pedidos|cashback|horarios?|aberto|fechado|entrega|retirada)$/.test(key)
+              || /(?:R\$|\d{1,4}[,.]\d{2})/.test(value);
+          };
+          const headerSelectors = [
+            '.group-name',
+            '.group-image-name',
+            '.category-name',
+            '.categoryName',
+            '.card-header',
+            '[class*="group-name"]',
+            '[class*="groupName"]',
+            '[class*="category-name"]',
+            '[class*="categoryName"]'
+          ];
+          const seenHeaderNodes = new Set();
+          const headers = [];
+          for (const selector of headerSelectors) {
+            for (const element of Array.from(document.querySelectorAll(selector))) {
+              if (seenHeaderNodes.has(element) || !isVisible(element)) continue;
+              seenHeaderNodes.add(element);
+              const label = normalize((element.innerText || element.textContent || '').split(/\n+/)[0]);
+              if (isBadHeading(label)) continue;
+              const rect = element.getBoundingClientRect();
+              headers.push({ name: label, top: rect.top + window.scrollY });
+            }
+          }
+          headers.sort((a, b) => a.top - b.top);
+          const categoryForTop = top => {
+            let selected = null;
+            for (const header of headers) {
+              if (header.top <= top + 8) selected = header;
+              if (header.top > top + 8) break;
+            }
+            return selected?.name || 'Cardapio';
+          };
+          const cleanDescription = (description, name) => {
+            let value = normalize(description)
+              .replace(/\bVer mais\b/gi, ' ')
+              .replace(/\bEsgotado\b/gi, ' ')
+              .replace(/\s+/g, ' ')
+              .trim();
+            const nameKey = normalizeKey(name);
+            if (normalizeKey(value) === nameKey) return '';
+            if (/^(R\$|adicionar|selecionar|escolher|op[cç][oõ]es|obrigat[oó]rio)/i.test(value)) return '';
+            return value.length > 500 ? value.slice(0, 500).trim() : value;
+          };
+          const cards = [];
+          const seenCards = new Set();
+          const addCard = card => {
+            if (!card || seenCards.has(card) || !isVisible(card)) return;
+            seenCards.add(card);
+            cards.push(card);
+          };
+          for (const nameElement of Array.from(document.querySelectorAll('.itemName, [class*="itemName"]'))) {
+            if (nameElement.closest('.horizontal-scrollable, [class*="horizontal-scrollable"]')) continue;
+            addCard(nameElement.closest('.item') || nameElement.closest('[class*="item"]') || nameElement.closest('article, li, section, [role="listitem"]') || nameElement.parentElement);
+          }
+          if (!cards.length) {
+            for (const element of Array.from(document.querySelectorAll('.item, [class*="item"], article, li, section'))) {
+              const body = normalize(element.innerText || element.textContent || '');
+              if (body.length >= 8 && body.length <= 900 && /(?:R\$\s*)?\d{1,4}[,.]\d{2}/i.test(body)) addCard(element);
+            }
+          }
+          const categories = [];
+          const categoryMap = new Map();
+          const seenItems = new Set();
+          const ensureCategory = name => {
+            const cleanName = normalize(name) || 'Cardapio';
+            const key = normalizeKey(cleanName) || 'cardapio';
+            if (!categoryMap.has(key)) {
+              const category = { external_id: null, name: cleanName, order_index: categories.length, items: [] };
+              categoryMap.set(key, category);
+              categories.push(category);
+            }
+            return categoryMap.get(key);
+          };
+          for (const card of cards) {
+            const cardText = normalize(card.innerText || card.textContent || '');
+            if (!cardText || /sacola vazia|carrinho vazio|pedido m[ií]nimo|pedido minimo/i.test(cardText)) continue;
+            const nameElement = card.querySelector('.itemName, [class*="itemName"]');
+            let name = normalize(nameElement?.innerText || nameElement?.textContent || '');
+            if (!name) {
+              const firstLine = cardText.split(/\n+/).map(normalize).find(line => line && !/(?:R\$\s*)?\d{1,4}[,.]\d{2}/i.test(line));
+              name = normalize(firstLine || '');
+            }
+            name = name.replace(/\bEsgotado\b/gi, '').trim();
+            if (!name || name.length < 2 || /^(ver mais|adicionar|selecionar|esgotado)$/i.test(name)) continue;
+            const price = priceFromText(cardText);
+            const imageUrl = bestImageFrom(card);
+            const descElement = card.querySelector('.item-desc, [class*="item-desc"], [class*="itemDesc"], .description, [class*="description"]');
+            let description = cleanDescription(descElement?.innerText || descElement?.textContent || '', name);
+            if (!description) {
+              const lines = cardText.split(/\n+/).map(normalize).filter(Boolean);
+              const usable = lines.filter(line => {
+                const key = normalizeKey(line);
+                if (!key || key === normalizeKey(name)) return false;
+                if (/^(ver mais|adicionar|selecionar|esgotado)$/.test(key)) return false;
+                if (/(?:R\$\s*)?\d{1,4}[,.]\d{2}/i.test(line)) return false;
+                return line.length >= 8 && line.length <= 260;
+              });
+              description = cleanDescription(usable[0] || '', name);
+            }
+            const rect = card.getBoundingClientRect();
+            const category = ensureCategory(categoryForTop(rect.top + window.scrollY));
+            const dedupeKey = `${normalizeKey(category.name)}::${normalizeKey(name)}::${price ?? ''}`;
+            if (seenItems.has(dedupeKey)) continue;
+            seenItems.add(dedupeKey);
+            const availabilityStatus = /\b(esgotado|indispon[ií]vel|fora de estoque)\b/i.test(cardText) ? 'sold_out' : 'available';
+            category.items.push({
+              external_id: null,
+              name,
+              description: description || null,
+              image_url: imageUrl || null,
+              price,
+              price_min: price,
+              price_max: price,
+              price_type: price != null ? 'fixed' : 'unknown',
+              price_source: price != null ? 'instadelivery_dom' : null,
+              options: [],
+              option_groups: [],
+              order_index: category.items.length,
+              source_url: location.href,
+              raw_data: {
+                parser: 'instadelivery_dom',
+                availability_status: availabilityStatus,
+                card_text: cardText.slice(0, 1400),
+                category: category.name,
+                image_url: imageUrl || null
+              },
+              extraction_confidence: price != null ? 0.94 : 0.76,
+              needs_review: price == null
+            });
+          }
+          const finalCategories = categories.filter(category => category.items.length);
+          const itemCount = finalCategories.reduce((total, category) => total + category.items.length, 0);
+          const pricedCount = finalCategories.reduce((total, category) => total + category.items.filter(item => item.price != null).length, 0);
+          const imageCount = finalCategories.reduce((total, category) => total + category.items.filter(item => item.image_url).length, 0);
+          return {
+            title: document.title,
+            url: location.href,
+            rawText: String(document.body?.innerText || '').slice(0, 220000),
+            categories: finalCategories,
+            metrics: { itemCount, pricedCount, imageCount, categoryCount: finalCategories.length }
+          };
+        }
+      });
+      const payload = result[0]?.result || {};
+      const categories = (Array.isArray(payload.categories) ? payload.categories : []).map((category, categoryIndex) => ({
+        ...category,
+        order_index: categoryIndex,
+        items: (category.items || []).map((item, itemIndex) => ({
+          ...item,
+          image_url: preferBestMenuImageSource(item.image_url || ''),
+          order_index: itemIndex,
+          raw_data: {
+            ...(item.raw_data || {}),
+            source_image_url: item.image_url || null,
+            parser: 'instadelivery_dom'
+          }
+        }))
+      }));
+      const itemCount = categories.reduce((total, category) => total + (category.items || []).length, 0);
+      const pricedCount = categories.reduce((total, category) => total + (category.items || []).filter(item => item.price != null).length, 0);
+      const imageCount = categories.reduce((total, category) => total + (category.items || []).filter(item => item.image_url).length, 0);
+      return {
+        platform: 'instadelivery_dom',
+        categories,
+        rawText: payload.rawText || '',
+        sourceUrl: payload.url || url,
+        finalUrl: payload.url || url,
+        title: payload.title || '',
+        confidence: itemCount >= 5 && pricedCount >= 3 ? 0.94 : 0.62,
+        metrics: {
+          ...(payload.metrics || {}),
+          itemCount,
+          pricedCount,
+          imageCount,
+          categoryCount: categories.length
+        }
+      };
+    } finally {
+      try { await chrome.tabs.remove(tab.id); } catch (_) {}
+      if (previous[0]?.id) try { await chrome.tabs.update(previous[0].id, { active: true }); } catch (_) {}
+    }
   }
 
   async function collectVisibleTextMenu(url) {
@@ -1289,12 +1908,34 @@ const FilterFoodPlatformAdapters = (() => {
         target: { tabId: tab.id },
         func: () => {
           const normalize = value => String(value || '').replace(/\s+/g, ' ').trim();
+          const bestImageFrom = root => {
+            const image = Array.from(root.querySelectorAll?.('img') || []).find(img => {
+              const src = img.currentSrc || img.src || '';
+              const alt = String(img.alt || img.getAttribute('aria-label') || '').trim();
+              if (!src || img.naturalWidth <= 80 || img.naturalHeight <= 80) return false;
+              if (/logo|icon|sprite|avatar|placeholder|whatsapp|facebook|instagram|google/i.test(`${src} ${alt}`)) return false;
+              return /produtos|products|mitiendanube|nuvem|anota|client-assets|s3|blob/i.test(src);
+            });
+            return image ? {
+              url: image.currentSrc || image.src || '',
+              alt: normalize(image.alt || image.getAttribute('aria-label') || ''),
+            } : { url: '', alt: '' };
+          };
           const links = [];
           for (const anchor of Array.from(document.querySelectorAll('a[href]'))) {
             const href = anchor.href || '';
-            if (!/\/product\//i.test(href)) continue;
+            let pathname = '';
+            try { pathname = new URL(href, location.href).pathname.replace(/\/+$/g, ''); } catch (_) {}
+            if (!/\/(?:product|produtos?)\/[^/]+$/i.test(pathname)) continue;
             const card = anchor.closest('article, li, section, [role="listitem"], [class*="card"], [class*="item"], [class*="product"]') || anchor;
-            links.push({ url: href, text: normalize(card.textContent || anchor.textContent || '') });
+            const image = bestImageFrom(card);
+            links.push({
+              url: href,
+              text: normalize(card.textContent || anchor.textContent || ''),
+              image_url: image.url,
+              image_alt: image.alt,
+              name: image.alt || normalize(card.getAttribute?.('aria-label') || anchor.getAttribute?.('title') || ''),
+            });
           }
           const seen = new Set();
           return links.filter(link => {
@@ -1330,7 +1971,19 @@ const FilterFoodPlatformAdapters = (() => {
       }
       let categories = parseVisibleTextMenu(payload.rawText, payload.url || url);
       const productDetails = [];
-      if (new URL(payload.url || url).hostname.includes('anota.ai') && productLinks.length) {
+      const visibleHost = new URL(payload.url || url).hostname;
+      const shouldCollectProductDetails = productLinks.length && (
+        visibleHost.includes('anota.ai')
+        || visibleHost.includes('lojavirtualnuvem.com.br')
+        || productLinks.some(link => {
+          try {
+            return /\/produtos?\/[^/]+$/i.test(new URL(String(link.url || '')).pathname.replace(/\/+$/g, ''));
+          } catch (_) {
+            return false;
+          }
+        })
+      );
+      if (shouldCollectProductDetails) {
         for (const link of productLinks.slice(0, 45)) {
           try {
             await chrome.tabs.update(tab.id, { url: link.url, active: true });
@@ -1351,21 +2004,75 @@ const FilterFoodPlatformAdapters = (() => {
             const detailResult = await chrome.scripting.executeScript({
               target: { tabId: tab.id },
               func: () => {
-                const img = Array.from(document.images || []).find(image => {
+                const isProductImage = image => {
                   const src = image.currentSrc || image.src || '';
-                  return /anota|client-assets|produtos|s3|blob/i.test(src) && image.naturalWidth > 80 && image.naturalHeight > 80;
+                  const alt = String(image.alt || image.getAttribute('aria-label') || '').trim();
+                  if (!src || image.naturalWidth <= 80 || image.naturalHeight <= 80) return false;
+                  if (/logo|icon|sprite|avatar|placeholder|whatsapp|facebook|instagram|google/i.test(`${src} ${alt}`)) return false;
+                  return /anota|client-assets|produtos|products|mitiendanube|nuvem|s3|blob/i.test(src);
+                };
+                const images = Array.from(document.images || [])
+                  .filter(isProductImage)
+                  .map(image => image.currentSrc || image.src || '')
+                  .filter(Boolean);
+                const seen = new Set();
+                const uniqueImages = images.filter(src => {
+                  const key = src.split('?')[0];
+                  if (seen.has(key)) return false;
+                  seen.add(key);
+                  return true;
                 });
+                const img = uniqueImages[0] || '';
                 return {
                   title: document.title,
                   rawText: String(document.body?.innerText || ''),
                   url: location.href,
-                  image_url: img ? (img.currentSrc || img.src || '') : '',
+                  image_url: img,
+                  image_urls: uniqueImages.slice(0, 8),
                 };
               }
             });
             const detailPayload = detailResult[0]?.result || {};
-            if (!/\/product\//i.test(detailPayload.url || link.url)) continue;
-            const parsedDetail = extractAnotaDetailFromRaw(detailPayload.rawText || '', detailPayload.url || link.url, detailPayload.image_url || '');
+            const detailPath = (() => {
+              try { return new URL(detailPayload.url || link.url).pathname.replace(/\/+$/g, ''); } catch (_) { return ''; }
+            })();
+            if (!/\/(?:product|produtos?)\/[^/]+$/i.test(detailPath)) continue;
+            const isAnotaDetail = /anota\.ai/i.test(detailPayload.url || link.url);
+            const parsedDetail = isAnotaDetail
+              ? extractAnotaDetailFromRaw(detailPayload.rawText || '', detailPayload.url || link.url, detailPayload.image_url || '')
+              : (() => {
+                const parsed = parseAnotaVisibleDetailText(detailPayload.rawText || '', detailPayload.url || link.url, '');
+                return {
+                  itemName: parsed.name,
+                  price: parsed.price,
+                  description: parsed.description || '',
+                  image_url: detailPayload.image_url || '',
+                  image_urls: detailPayload.image_urls || [],
+                  option_groups: [],
+                  rawText: parsed.rawText || detailPayload.rawText || '',
+                  url: detailPayload.url || link.url,
+                };
+              })();
+            const productSlugName = (() => {
+              try {
+                return decodeURIComponent(new URL(detailPayload.url || link.url).pathname.split('/').filter(Boolean).pop() || '')
+                  .replace(/[-_]+/g, ' ')
+                  .trim();
+              } catch (_) {
+                return '';
+              }
+            })();
+            const linkName = text(link.name || link.image_alt || '');
+            const parsedName = text(parsedDetail.itemName || '');
+            const fallbackName = isAnotaDetail
+              ? text(parsedName || linkName || productSlugName || String(link.text || '').split(/R\$/i)[0])
+              : text(linkName || productSlugName || parsedName || String(link.text || '').split(/R\$/i)[0]);
+            const fallbackImage = parsedDetail.image_url || detailPayload.image_url || link.image_url || '';
+            const fallbackImages = [
+              ...(Array.isArray(parsedDetail.image_urls) ? parsedDetail.image_urls : []),
+              ...(Array.isArray(detailPayload.image_urls) ? detailPayload.image_urls : []),
+              link.image_url || '',
+            ].filter(Boolean);
             const flatOptions = (parsedDetail.option_groups || []).flatMap((group, groupIndex) => (group.items || []).map((option, optionIndex) => ({
               external_id: null,
               group_name: group.name,
@@ -1384,14 +2091,15 @@ const FilterFoodPlatformAdapters = (() => {
               group_order_index: groupIndex,
               raw_data: { source: 'anota_ai_detail_text', detail_url: parsedDetail.url, option }
             })));
-            if (parsedDetail.itemName) {
+            if (fallbackName) {
               productDetails.push({
-                name: parsedDetail.itemName,
-                price: parsedDetail.price,
+                name: fallbackName,
+                price: parsedDetail.price ?? normalizeMoney(link.text),
                 description: parsedDetail.description || '',
-                image_url: parsedDetail.image_url || detailPayload.image_url || '',
+                image_url: fallbackImage,
                 options: flatOptions,
                 option_groups: parsedDetail.option_groups || [],
+                extra_image_urls: [...new Set(fallbackImages.map(src => src.split('?')[0]))].slice(0, 8),
                 rawText: parsedDetail.rawText || detailPayload.rawText || '',
                 source_url: detailPayload.url || link.url,
                 preview_text: link.text || '',
@@ -1399,10 +2107,20 @@ const FilterFoodPlatformAdapters = (() => {
             }
           } catch (_) {}
         }
-        categories = mergeProductDetailsIntoVisibleMenu(categories, productDetails);
+        categories = mergeProductDetailsIntoVisibleMenu(categories, productDetails, { restoreMissing: true });
       }
       const itemCount = categories.reduce((total, category) => total + category.items.length, 0);
       const pricedCount = categories.reduce((total, category) => total + category.items.filter(item => item.price != null).length, 0);
+      const optionCount = categories.reduce((total, category) => total + category.items.reduce((itemTotal, item) => (
+        itemTotal
+        + (Array.isArray(item.options) ? item.options.length : 0)
+        + (Array.isArray(item.option_groups) ? item.option_groups.reduce((groupTotal, group) => groupTotal + (Array.isArray(group.items) ? group.items.length : 0), 0) : 0)
+      ), 0), 0);
+      const imageCount = categories.reduce((total, category) => total + category.items.reduce((itemTotal, item) => (
+        itemTotal
+        + (item.image_url ? 1 : 0)
+        + (Array.isArray(item.extra_image_urls) ? item.extra_image_urls.length : 0)
+      ), 0), 0);
       return {
         platform: 'visible_text',
         categories,
@@ -1410,6 +2128,14 @@ const FilterFoodPlatformAdapters = (() => {
         productDetails,
         sourceUrl: payload.url || url,
         title: payload.title,
+        metrics: {
+          itemCount,
+          pricedCount,
+          optionCount,
+          imageCount,
+          categoryCount: categories.length,
+          productDetailCount: productDetails.length
+        },
         confidence: productDetails.some(detail => detail.options?.length) ? 0.9 : (itemCount >= 5 && pricedCount >= 3 ? 0.74 : 0.45)
       };
     } finally {
@@ -2264,6 +2990,18 @@ const FilterFoodPlatformAdapters = (() => {
         return { success: categories.length > 0, platform: 'anota_ai', extractionLevel: 0, confidence: 0.97, categories, sourceUrl: response.url };
       }
     }
+    if (parsed.hostname.endsWith('instadelivery.com.br')) {
+      const result = await collectInstadelivery(url);
+      const itemCount = result.categories.reduce((total, category) => total + ((category.items || []).length || 0), 0);
+      const pricedCount = result.categories.reduce((total, category) => total + ((category.items || []).filter(item => item.price != null).length || 0), 0);
+      return {
+        success: itemCount >= 1 && pricedCount >= Math.min(3, itemCount),
+        extractionLevel: 0,
+        confidence: result.confidence,
+        ...result,
+        error: itemCount >= 1 ? undefined : 'Instadelivery carregou, mas nenhum item de cardapio foi encontrado.'
+      };
+    }
     if (/cardapioweb|cardapio-web|cardapio\.menu/i.test(`${parsed.hostname}${parsed.pathname}`)) {
       const result = await collectCardapioWeb(url);
       return { success: result.categories.length > 0, extractionLevel: 0, confidence: result.categories.length ? 0.97 : 0, ...result };
@@ -2299,7 +3037,15 @@ const FilterFoodPlatformAdapters = (() => {
     };
   }
 
-  return { extract, normalizeLiveMenu, normalizeSaipos, normalizeCardapioWeb, parseVisibleTextMenu };
+  return {
+    extract,
+    normalizeLiveMenu,
+    normalizeSaipos,
+    normalizeCardapioWeb,
+    normalizeAnotaNetworkMenu,
+    countAnotaMenuStats,
+    parseVisibleTextMenu
+  };
 })();
 
 globalThis.FilterFoodPlatformAdapters = FilterFoodPlatformAdapters;
@@ -2317,7 +3063,11 @@ const filterFoodPlatformCacheKey = value => {
 const filterFoodPlatformItemCount = result => Array.isArray(result?.categories)
   ? result.categories.reduce((total, category) => total + ((category.items || []).length || 0), 0)
   : 0;
-chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = FilterFoodPlatformAdapters;
+}
+
+if (typeof chrome !== 'undefined' && chrome.runtime?.onMessageExternal) chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
   if (message?.action !== 'extractMenuPlatform') return false;
   const cacheKey = filterFoodPlatformCacheKey(message.url);
   FilterFoodPlatformAdapters.extract(message.url)

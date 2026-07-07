@@ -8,4 +8,4 @@ try {
   // Local dev reload is optional and disabled when dev-reload-config.js is absent.
 }
 // __FILTERFOOD_DEV_RELOAD_BOOTSTRAP_END__
-importScripts('background.js?v=1.10.51');
+importScripts('background.js?v=1.10.52');

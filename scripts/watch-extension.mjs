@@ -63,6 +63,21 @@ function writeDevConfig() {
   writeFileSync(configPath, body, 'utf8');
 }
 
+function writeStableConfig() {
+  const body = [
+    "'use strict';",
+    '',
+    '// Local dev reload is disabled unless npm run dev:extension is actively running.',
+    'self.__FILTERFOOD_EXTENSION_DEV_RELOAD__ = {',
+    '  enabled: false,',
+    `  url: ${JSON.stringify(endpoint)},`,
+    `  pollMs: ${pollMs}`,
+    '};',
+    ''
+  ].join('\n');
+  writeFileSync(configPath, body, 'utf8');
+}
+
 function ensureBackgroundBootstrap() {
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
   const worker = manifest?.background?.service_worker;
@@ -144,9 +159,31 @@ console.log(`[extension-watch] Background worker: ${worker}`);
 console.log(`[extension-watch] Poll endpoint: ${endpoint}`);
 
 if (prepareOnly) {
-  console.log('[extension-watch] Prepared dev reload files. Start npm run dev:extension to keep watching.');
+  writeStableConfig();
+  console.log('[extension-watch] Prepared extension files with dev reload disabled. Start npm run dev:extension to watch and reload.');
   process.exit(0);
 }
+
+let cleanedUp = false;
+function cleanupAndExit(code = 0) {
+  if (!cleanedUp) {
+    cleanedUp = true;
+    try {
+      writeStableConfig();
+      console.log('[extension-watch] Dev reload disabled.');
+    } catch (error) {
+      console.warn(`[extension-watch] Failed to disable dev reload: ${error.message}`);
+    }
+  }
+  process.exit(code);
+}
+
+process.on('SIGINT', () => cleanupAndExit(0));
+process.on('SIGTERM', () => cleanupAndExit(0));
+process.on('uncaughtException', (error) => {
+  console.error(`[extension-watch] Fatal error: ${error.stack || error.message}`);
+  cleanupAndExit(1);
+});
 
 const server = http.createServer((request, response) => {
   if (request.method === 'OPTIONS') {
