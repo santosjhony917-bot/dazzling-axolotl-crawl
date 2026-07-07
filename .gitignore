@@ -41,9 +41,26 @@ scratch/chrome-default-cdp-profile/
 scratch/.tesseract-cache/
 scratch/screenshots/
 scratch/backups/
+scratch/archive/
+
+# Generated scraping operation outputs.
+# Existing tracked checkpoint data remains tracked; force-add new run evidence only when needed.
+scratch/*/
+scratch/*.json
+scratch/*.jsonl
+scratch/*.csv
+scratch/*.txt
+scratch/*.md
+scratch/*.jpg
+scratch/*.jpeg
+scratch/*.pdf
+scratch/*.bin
 
 # Local diagnostics and browser bridge artifacts
 .tmp/
+
+# Local cleanup archives
+archive/local-ignored/
 
 # Local Chrome extension development reload config
 public/chrome-extension/dev-reload-config.js
