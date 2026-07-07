@@ -45,9 +45,9 @@ const AdminLayout: React.FC = () => {
   const currentFullPath = window.location.pathname; // Obtém o caminho completo da URL
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen overflow-x-hidden bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-none p-4 flex flex-col">
+      <aside className="w-64 shrink-0 bg-white shadow-none p-4 flex flex-col">
         <h1 className="text-2xl font-bold text-primary mb-6">Admin Panel</h1>
         
         <nav className="flex-grow space-y-2">
@@ -92,7 +92,7 @@ const AdminLayout: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="min-w-0 flex-1 overflow-x-hidden p-8">
         <Outlet />
       </main>
     </div>

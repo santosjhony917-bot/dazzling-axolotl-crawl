@@ -523,7 +523,7 @@ export default function CityCollection() {
       addLog(`[PLANO] Potencial bruto: até ${queries.length * MAPS_RESULTS_PER_SEARCH} posições do Maps antes de deduplicar por link do Google Maps.`);
       addLog('[CONTRATO] Fase 1 salva apenas nome candidato + link do Google Maps. Endereço, telefone, categoria, Instagram, cardápio e elegibilidade ficam para o Validar IA.');
       if (completedSearches.size) {
-        addLog(`[RESUME] ${completedSearches.size} buscas jÃ¡ concluÃ­das neste navegador serÃ£o puladas nesta retomada.`);
+        addLog(`[RESUME] ${completedSearches.size} buscas já concluídas neste navegador serão puladas nesta retomada.`);
       }
       let saved = 0;
       let skipped = 0;
@@ -538,7 +538,7 @@ export default function CityCollection() {
         const searchKey = normalizeKey(searchPlan.query);
         if (completedSearches.has(searchKey)) {
           setProgress(Math.round(((i + 1) / queries.length) * 100));
-          addLog(`[SKIP ${i + 1}/${queries.length}] Busca jÃ¡ concluÃ­da anteriormente â†’ ${searchPlan.query}`);
+          addLog(`[SKIP ${i + 1}/${queries.length}] Busca já concluída anteriormente → ${searchPlan.query}`);
           continue;
         }
 

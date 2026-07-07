@@ -11,8 +11,8 @@ interface PhotoGalleryProps {
 }
 
 const GalleryImage = memo(({ item, className }: { item: GalleryItem, className?: string }) => (
-  <div className={cn("relative h-full rounded-2xl overflow-hidden", className)}>
-    <img className="w-full h-full object-cover" alt={item.caption} src={item.imageUrl} />
+  <div className={cn("relative h-full rounded-2xl overflow-hidden bg-neutral-950", className)}>
+    <img className="w-full h-full object-contain" alt={item.caption} src={item.imageUrl} />
     <div className="absolute bottom-0 left-0 p-2 bg-gradient-to-t from-black/50 to-transparent w-full">
       <p className="text-white text-sm font-semibold">{item.caption}</p>
     </div>

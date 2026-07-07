@@ -513,7 +513,7 @@ export default function RestaurantSignup() {
                 onClick={togglePasswordVisibility}
                 className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-primary transition-colors mt-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 rounded-2xl"
                 type="button"
-                aria-label={passwordVisible ? 'Ocultar confirmaÃ§Ã£o de senha' : 'Mostrar confirmaÃ§Ã£o de senha'}
+                aria-label={passwordVisible ? 'Ocultar confirmação de senha' : 'Mostrar confirmação de senha'}
               >
                 {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>

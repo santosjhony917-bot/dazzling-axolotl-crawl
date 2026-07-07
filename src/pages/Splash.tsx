@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils/url";
 import { useAuthData } from "@/context/AuthContext";
 
+const easeOut = [0.16, 1, 0.3, 1] as const;
+const logoLetters = "FilterFood".split("");
+
 export default function Splash() {
   const navigate = useNavigate();
   const { user, isLoading, restaurant, isRestaurantLoading } = useAuthData();
@@ -16,7 +19,7 @@ export default function Splash() {
     }
 
     const targetPath = createPageUrl("onboarding");
-    const delay = user ? 50 : 2200;
+    const delay = user ? 2600 : 3600;
 
     console.log(`Splash screen loaded. Redirecting to ${targetPath} in ${delay}ms...`);
 
@@ -29,31 +32,34 @@ export default function Splash() {
 
   return (
     <div className="min-h-screen w-full bg-[#f1f5f9] flex justify-center">
-      <div className="flex min-h-screen w-full max-w-md mx-auto items-center justify-center overflow-hidden bg-[#df4b1c] font-['Poppins']">
-        <motion.div
-          initial={{ scale: 0.92, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10"
+      <div className="relative flex min-h-screen w-full max-w-md mx-auto items-center justify-center overflow-hidden bg-[#df4b1c] font-['Poppins']">
+        <h1
+          aria-label="FilterFood"
+          className="relative z-10 flex items-baseline justify-center px-6 font-['Lobster'] text-[72px] leading-none text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.20)]"
         >
-          <motion.div
-            initial={{ clipPath: "inset(0 100% 0 0)" }}
-            animate={{ clipPath: "inset(0 0% 0 0)" }}
-            transition={{ delay: 0.18, duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-            className="relative overflow-hidden px-8 py-4"
-          >
-            <motion.h1
-              aria-label="FilterFood"
-              initial={{ y: 18 }}
-              animate={{ y: 0 }}
-              transition={{ delay: 0.18, duration: 0.62, ease: [0.22, 1, 0.36, 1] }}
-              className="font-['Lobster'] text-[76px] leading-none text-white"
+          {logoLetters.map((letter, index) => (
+            <motion.span
+              aria-hidden="true"
+              key={`${letter}-${index}`}
+              initial={{ opacity: 0, y: 24, rotate: index % 2 === 0 ? -8 : 8, scale: 0.88 }}
+              animate={{
+                opacity: 1,
+                y: [24, -12, 5, -4, 0],
+                rotate: [index % 2 === 0 ? -8 : 8, index % 2 === 0 ? 5 : -5, 0],
+                scale: [0.88, 1.08, 0.98, 1.03, 1],
+              }}
+              transition={{
+                delay: 0.24 + index * 0.055,
+                duration: 1.28,
+                ease: easeOut,
+                times: [0, 0.42, 0.64, 0.82, 1],
+              }}
+              className="inline-block origin-bottom"
             >
-              FilterFood
-            </motion.h1>
-          </motion.div>
-
-        </motion.div>
+              {letter}
+            </motion.span>
+          ))}
+        </h1>
       </div>
     </div>
   );

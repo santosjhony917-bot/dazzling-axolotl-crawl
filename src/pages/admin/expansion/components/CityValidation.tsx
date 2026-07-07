@@ -61,18 +61,60 @@ type ExtensionTelemetryEvent = {
   receivedAt?: string;
 };
 
+type TrainingValidateRequest = number | {
+  limit?: number;
+  search?: string;
+  force?: boolean;
+  includePublished?: boolean;
+  ids?: string[];
+};
+
+type QaStats = {
+  pendentes: number;
+  prontos: number;
+  sem_cardapio: number;
+  revisao: number;
+  rejeitados: number;
+  importados: number;
+};
+
+const EMPTY_QA_STATS: QaStats = {
+  pendentes: 0,
+  prontos: 0,
+  sem_cardapio: 0,
+  revisao: 0,
+  rejeitados: 0,
+  importados: 0,
+};
+
 const MENU_REVIEW_STATUSES = ['manual_required', 'blocked', 'failed', 'invalid_source'];
 const MENU_RECOLLECT_STATUSES = ['needs_recollection'];
 const MENU_NO_CARDAPIO_STATUSES = ['not_found', 'unavailable'];
+const MENU_PENDING_EXCLUDED_STATUSES = [
+  'found',
+  ...MENU_REVIEW_STATUSES,
+  ...MENU_RECOLLECT_STATUSES,
+  ...MENU_NO_CARDAPIO_STATUSES,
+];
+const applyPendingMenuStatusFilter = (query: any) => (
+  query.or(`menu_status.is.null,menu_status.not.in.(${MENU_PENDING_EXCLUDED_STATUSES.join(',')})`)
+);
 const MIN_PUBLIC_GALLERY_IMAGES = 3;
 const MAX_PUBLIC_GALLERY_IMAGES = 8;
 const AUTO_VALIDATE_BATCH_LIMIT = 20;
+const TRAINING_VALIDATE_BATCH_LIMIT = 10;
 const VALIDATION_FETCH_BATCH_SIZE = 20;
 const VALIDATION_INITIAL_ROW_LIMIT = VALIDATION_FETCH_BATCH_SIZE;
 const AUTO_VALIDATE_ROW_COOLDOWN_MS = 1500;
 const APPROVE_BATCH_LIMIT = 20;
 const FIXED_EXTENSION_ID = 'kehbedmdplkodjgfiohgnebicblmhghe';
-const REQUIRED_EXTENSION_VERSION = '1.10.42';
+const REQUIRED_EXTENSION_VERSION = '1.10.53';
+const CHROME_EXTENSION_ID_RE = /^[a-p]{32}$/;
+const normalizeExtensionTargetId = (value?: string | null) => {
+  const candidate = String(value || '').trim();
+  if (candidate === 'content-bridge') return FIXED_EXTENSION_ID;
+  return CHROME_EXTENSION_ID_RE.test(candidate) ? candidate : FIXED_EXTENSION_ID;
+};
 const VALIDATION_LIST_SELECT = [
   'id',
   'name',
@@ -124,6 +166,33 @@ const compareVersions = (current = '', required = '') => {
   return 0;
 };
 
+const imageDataUrlToBlob = (dataUrl: string): { blob: Blob; contentType: string; extension: string } | null => {
+  const match = String(dataUrl || '').match(/^data:(image\/(?:png|jpe?g|webp|gif));base64,(.+)$/i);
+  if (!match) return null;
+
+  const contentType = match[1].toLowerCase();
+  const byteString = atob(match[2]);
+  const buffer = new ArrayBuffer(byteString.length);
+  const view = new Uint8Array(buffer);
+  for (let index = 0; index < byteString.length; index += 1) {
+    view[index] = byteString.charCodeAt(index);
+  }
+
+  const extension = contentType.includes('png')
+    ? 'png'
+    : contentType.includes('webp')
+      ? 'webp'
+      : contentType.includes('gif')
+        ? 'gif'
+        : 'jpg';
+
+  return {
+    blob: new Blob([buffer], { type: contentType }),
+    contentType,
+    extension,
+  };
+};
+
 const isCompatibleExtensionPing = (response: any) => {
   if (!response?.success) return false;
   const versionOk = compareVersions(response.version || '0.0.0', REQUIRED_EXTENSION_VERSION) >= 0;
@@ -168,7 +237,8 @@ const isBareGenericMenuPlatformRoot = (value: string) => {
       host === 'goomer.app' ||
       host === 'ola.click' ||
       host === 'olaclick.com' ||
-      host === 'saipos.com'
+      host === 'saipos.com' ||
+      host === 'instadelivery.com.br'
     );
   } catch (_) {
     return false;
@@ -181,12 +251,12 @@ const sanitizeGoogleMapsAddressInput = (fullAddress: string) => {
     .replace(/\s+/g, ' ')
     .trim();
 
-  // Alguns botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes do Google Maps entram no textContent junto com o endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o:
+  // Alguns botÃµes do Google Maps entram no textContent junto com o endereÃ§o:
   // "Zap (81)98871 - 6083R. Paulo de Frontin, 60..."
-  // O endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel deve comeÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ar no primeiro marcador real de logradouro.
-  const streetMarker = value.match(/(?:^|[^A-Za-z0-9])(R\.|Rua|Av\.|Avenida|Travessa|Tv\.|Rod\.|Rodovia|PraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a|Praca|Alameda|Estrada)\s+/i);
+  // O endereÃ§o publicÃ¡vel deve comeÃ§ar no primeiro marcador real de logradouro.
+  const streetMarker = value.match(/(?:^|[^A-Za-z0-9])(R\.|Rua|Av\.|Avenida|Travessa|Tv\.|Rod\.|Rodovia|PraÃ§a|Praca|Alameda|Estrada)\s+/i);
   if (streetMarker && streetMarker.index !== undefined) {
-    const markerOffset = streetMarker[0].search(/(R\.|Rua|Av\.|Avenida|Travessa|Tv\.|Rod\.|Rodovia|PraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a|Praca|Alameda|Estrada)\s+/i);
+    const markerOffset = streetMarker[0].search(/(R\.|Rua|Av\.|Avenida|Travessa|Tv\.|Rod\.|Rodovia|PraÃ§a|Praca|Alameda|Estrada)\s+/i);
     const markerIndex = streetMarker.index + Math.max(markerOffset, 0);
     if (markerIndex > 0) value = value.slice(markerIndex).trim();
   }
@@ -430,7 +500,7 @@ const isLikelyNonContactTechnicalText = (value: any, label = '', source = '') =>
   if (!raw) return false;
 
   const normalizedContext = `${normalizedLabel} ${normalizedSource}`;
-  const hasExplicitContactMarker = /\b(?:wa\.me|whatsapp|api\.whatsapp|web\.whatsapp|tel:|phone=|telefone=|telefone|celular|contato|whats|zap|wpp|numero=|nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero=|ligue|pedidos? pelo whats|pe[ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§c]a pelo whats)\b/i.test(raw)
+  const hasExplicitContactMarker = /\b(?:wa\.me|whatsapp|api\.whatsapp|web\.whatsapp|tel:|phone=|telefone=|telefone|celular|contato|whats|zap|wpp|numero=|nÃºmero=|ligue|pedidos? pelo whats|pe[Ã§c]a pelo whats)\b/i.test(raw)
     || /\b(?:phone|telefone|whatsapp|whats|zap|wpp|contato)\b/i.test(normalizedContext);
 
   if (/(^|[_-])(geom|geometry|coordinates?|latitude|longitude|lat|lng|place[_-]?id|cid|hex|hash|cache|stored|timestamp|expires|ttl|token|secret|key|session|rayid|ray[_-]?id)($|[_-])/i.test(normalizedLabel) && !hasExplicitContactMarker) {
@@ -440,12 +510,12 @@ const isLikelyNonContactTechnicalText = (value: any, label = '', source = '') =>
   const isRawBlobLabel = /(^|[_-])(raw|rawtext|raw_text|visualrawtext|visual_raw_text|html|json|payload|response|debug|cache|cachedata|cached|textblocks?|body|document|dom|snapshot|ocr|screenshot)($|[_-])/i.test(normalizedLabel);
   const isRawBlobSource = /\b(rawtext|visualrawtext|raw_text|visual_raw_text|html|json|payload|response|debug|cache|cached|ocr|screenshot|menu_source_validation|native_menu|adapter_raw)\b/i.test(normalizedSource);
 
-  // Textos brutos de API/cache/HTML tÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªm IDs, timestamps e preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os que parecem telefone.
-  // SÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o aceitos como evidÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia se o prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³prio texto tiver marcador explÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cito de contato.
+  // Textos brutos de API/cache/HTML tÃªm IDs, timestamps e preÃ§os que parecem telefone.
+  // SÃ³ sÃ£o aceitos como evidÃªncia se o prÃ³prio texto tiver marcador explÃ­cito de contato.
   if ((isRawBlobLabel || isRawBlobSource) && !hasExplicitContactMarker) return true;
   if (isRawBlobLabel && /^[\[{]/.test(raw) && !/\b(?:whatsapp|telefone|phone|contact|contato|wa\.me|tel:)\b/i.test(raw)) return true;
 
-  // PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ginas de bloqueio/erro e dumps tÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©cnicos nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o fonte confiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel para contato.
+  // PÃ¡ginas de bloqueio/erro e dumps tÃ©cnicos nÃ£o sÃ£o fonte confiÃ¡vel para contato.
   if (/sorry,\s*you have been blocked|you are unable to access|cloudflare|ray\s*id|security service|access denied|erro\s+\d{3}|stack trace|__NEXT_DATA__|window\.__|application\/json|cacheStoredAt|cache stored at/i.test(raw) && !hasExplicitContactMarker) {
     return true;
   }
@@ -455,7 +525,7 @@ const isLikelyNonContactTechnicalText = (value: any, label = '', source = '') =>
     return true;
   }
 
-  // Timestamps, ids e contadores puros nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o telefones.
+  // Timestamps, ids e contadores puros nÃ£o sÃ£o telefones.
   if (/^\d{12,}$/.test(raw) && (!hasExplicitContactMarker || /\b(cache|timestamp|stored|expires|ttl|id|token|ray)\b/i.test(normalizedContext))) return true;
 
   const looksLikeUrl = /^https?:\/\//i.test(raw);
@@ -513,7 +583,7 @@ const extractContactCandidatesFromString = (value: any, source: string, sourceUr
   const normalizedLabel = String(label || '').toLowerCase();
   const normalizedSource = String(source || '').toLowerCase();
   const rawBlobLabel = /(^|[_-])(raw|rawtext|raw_text|visualrawtext|visual_raw_text|html|json|payload|response|debug|cache|cachedata|textblocks?)($|[_-])/i.test(normalizedLabel);
-  const explicitContactContext = /\b(?:wa\.me|whatsapp|api\.whatsapp|web\.whatsapp|tel:|phone=|telefone=|telefone|celular|contato|whats|zap|wpp|numero=|nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero=|ligue|pedidos? pelo whats|pe[ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§c]a pelo whats)\b/i.test(cleanRaw)
+  const explicitContactContext = /\b(?:wa\.me|whatsapp|api\.whatsapp|web\.whatsapp|tel:|phone=|telefone=|telefone|celular|contato|whats|zap|wpp|numero=|nÃºmero=|ligue|pedidos? pelo whats|pe[Ã§c]a pelo whats)\b/i.test(cleanRaw)
     || /\b(?:phone|telefone|whatsapp|whats|zap|wpp|contato)\b/i.test(`${normalizedLabel} ${normalizedSource}`);
   if (rawBlobLabel && !explicitContactContext) return [];
   const isUrlWithoutContactMarker = /^https?:\/\//i.test(cleanRaw)
@@ -596,7 +666,7 @@ const getPhoneAreaCode = (contact: ContactCandidate) => {
 const expectedAreaCodesForRestaurant = (restaurant: any) => {
   const city = String(restaurant?.city || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const state = String(restaurant?.state || '').toUpperCase();
-  if (state === 'PB' || /campina grande|joao pessoa|joÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o pessoa/.test(city)) return ['83'];
+  if (state === 'PB' || /campina grande|joao pessoa|joÃ£o pessoa/.test(city)) return ['83'];
   return [];
 };
 
@@ -613,7 +683,8 @@ const isStrongPrimaryContact = (contact: ContactCandidate, restaurant: any) => {
   if (!contact) return false;
   if (contact.kind === 'whatsapp') return true;
   if (contact.kind === 'mobile') return true;
-  if (contact.kind === 'tollfree') return false;
+  const trustedMapsSource = /\bgoogle_maps\b/i.test(String(contact.source || ''));
+  if (contact.kind === 'tollfree') return Boolean(trustedMapsSource && Number(contact.confidence || 0) >= 0.6);
   const trustedBioSource = /\b(?:instagram_profile|instagram_bio|instagram_bio_menu_discovery|bio_menu|gpt_navigation|menu_source_validation)\b/i.test(String(contact.source || ''));
   if (trustedBioSource && Number(contact.confidence || 0) >= 0.65) return true;
   const expectedAreaCodes = expectedAreaCodesForRestaurant(restaurant);
@@ -639,12 +710,14 @@ export default function CityValidation() {
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isValidating, setIsValidating] = useState(false);
+  const [isTrainingValidarIa, setIsTrainingValidarIa] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [loadedRowLimit, setLoadedRowLimit] = useState(VALIDATION_INITIAL_ROW_LIMIT);
   const [hasMoreRestaurants, setHasMoreRestaurants] = useState(false);
   const [activeTab, setActiveTab] = useState<ValidationTab>('pendentes');
+  const [serverQaStats, setServerQaStats] = useState<QaStats | null>(null);
   const [activeTriageFilter, setActiveTriageFilter] = useState<LeadTriageKey | 'all'>('all');
   const [showValidationDiagnostics, setShowValidationDiagnostics] = useState(false);
   const [isApproving, setIsApproving] = useState(false);
@@ -654,7 +727,7 @@ export default function CityValidation() {
   const [cityScope, setCityScope] = useState<{ name: string; state: string } | null>(null);
 
   const [logs, setLogs] = useState<string[]>([
-    '[SYSTEM] MÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³dulo de ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o e Enriquecimento IA iniciado.',
+    '[SYSTEM] MÃ³dulo de ValidaÃ§Ã£o e Enriquecimento IA iniciado.',
     '[SYSTEM] Aguardando comandos...'
   ]);
   const [showExtensionTelemetry, setShowExtensionTelemetry] = useState(false);
@@ -674,13 +747,13 @@ export default function CityValidation() {
   const [extensionVersion, setExtensionVersion] = useState<string | null>(null);
   const [isExtensionCompatible, setIsExtensionCompatible] = useState(false);
   const [extensionCapabilities, setExtensionCapabilities] = useState<any>(null);
-  const [extensionId, setExtensionId] = useState<string | null>(() => localStorage.getItem('chrome_extension_id') || FIXED_EXTENSION_ID);
-  const extensionTargetId = extensionId || 'content-bridge';
+  const [extensionId, setExtensionId] = useState<string | null>(() => normalizeExtensionTargetId(localStorage.getItem('chrome_extension_id') || FIXED_EXTENSION_ID));
+  const extensionTargetId = normalizeExtensionTargetId(extensionId);
   const isExtensionReady = isExtensionActive && isExtensionCompatible;
 
   const sendExtensionMessage = (id: string, message: Record<string, any>, timeoutMs = 30000) => new Promise<any>((resolve) => {
     const chromeObj = (window as any).chrome;
-    const directTargetId = id === 'content-bridge' ? FIXED_EXTENSION_ID : id;
+    const directTargetId = normalizeExtensionTargetId(id);
     if (directTargetId && chromeObj?.runtime?.sendMessage) {
       let directSettled = false;
       const directTimer = window.setTimeout(() => {
@@ -704,7 +777,7 @@ export default function CityValidation() {
           finishDirect(response);
           return;
           if (!directError && response) resolve(response);
-          else resolve({ success: false, error: directError || 'A extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o respondeu.' });
+          else resolve({ success: false, error: directError || 'A extensÃ£o nÃ£o respondeu.' });
         });
         return;
       } catch (error: any) {
@@ -726,12 +799,40 @@ export default function CityValidation() {
       const data = event.data || {};
       if (data.source !== 'filterfood-extension-bridge' || data.requestId !== requestId) return;
       if (data.error) finish({ success: false, error: data.error });
-      else finish(data.response || { success: false, error: 'A extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o respondeu.' });
+      else finish(data.response || { success: false, error: 'A extensÃ£o nÃ£o respondeu.' });
     };
-    const timer = window.setTimeout(() => finish({ success: false, error: 'Ponte da extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o respondeu.' }), timeoutMs);
+    const timer = window.setTimeout(() => finish({ success: false, error: 'Ponte da extensÃ£o nÃ£o respondeu.' }), timeoutMs);
     window.addEventListener('message', listener);
     window.postMessage({ source: 'filterfood-admin-bridge', requestId, message }, '*');
   });
+
+  const probeExtensionReadyNow = async (timeoutMs = 7000) => {
+    const storedId = localStorage.getItem('chrome_extension_id') || FIXED_EXTENSION_ID;
+    const id = normalizeExtensionTargetId(storedId);
+    if (storedId !== id) localStorage.setItem('chrome_extension_id', id);
+    setExtensionId(id);
+
+    const response = await sendExtensionMessage(id, { action: "ping" }, timeoutMs);
+    const active = !!(response && response.success);
+    const compatible = isCompatibleExtensionPing(response);
+    setIsExtensionActive(active);
+    setExtensionVersion(response?.version || null);
+    setExtensionCapabilities(response?.capabilities || null);
+    setIsExtensionCompatible(compatible);
+
+    return {
+      ready: active && compatible,
+      active,
+      compatible,
+      version: response?.version || null,
+      response,
+      reason: !active
+        ? 'Extensao inativa.'
+        : compatible
+          ? ''
+          : `Extensao desatualizada/incompleta (${response?.version || 'sem versao'}). Versao minima: ${REQUIRED_EXTENSION_VERSION}.`
+    };
+  };
 
   const refreshExtensionTelemetry = async () => {
     setIsLoadingExtensionTelemetry(true);
@@ -789,9 +890,11 @@ export default function CityValidation() {
       if (isValidating || validatingId || extensionPingInFlightRef.current) return;
       extensionPingInFlightRef.current = true;
       try {
-        const id = localStorage.getItem('chrome_extension_id') || FIXED_EXTENSION_ID;
-        if (!localStorage.getItem('chrome_extension_id')) localStorage.setItem('chrome_extension_id', id);
-        const response = await sendExtensionMessage(id || 'content-bridge', { action: "ping" }, 2000);
+        const storedId = localStorage.getItem('chrome_extension_id') || FIXED_EXTENSION_ID;
+        const id = normalizeExtensionTargetId(storedId);
+        if (storedId !== id) localStorage.setItem('chrome_extension_id', id);
+        setExtensionId(id);
+        const response = await sendExtensionMessage(id, { action: "ping" }, 6000);
         setIsExtensionActive(!!(response && response.success));
         setExtensionVersion(response?.version || null);
         setExtensionCapabilities(response?.capabilities || null);
@@ -801,8 +904,14 @@ export default function CityValidation() {
       }
     };
     checkConnection();
+    const retryShort = window.setTimeout(checkConnection, 2500);
+    const retryLong = window.setTimeout(checkConnection, 8000);
     const interval = setInterval(checkConnection, 45000);
-    return () => clearInterval(interval);
+    return () => {
+      window.clearTimeout(retryShort);
+      window.clearTimeout(retryLong);
+      clearInterval(interval);
+    };
   }, [isValidating, validatingId]);
 
   const handleDownloadExtension = () => {
@@ -812,13 +921,20 @@ export default function CityValidation() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    toast.success("Download da extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o iniciado!");
+    toast.success("Download da extensÃ£o iniciado!");
   };
 
-  const handleSaveExtensionId = () => {
+  const handleSaveExtensionId = async () => {
     if (extensionId) {
-      localStorage.setItem('chrome_extension_id', extensionId.trim());
-      toast.success("ID da extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o salvo!");
+      const id = normalizeExtensionTargetId(extensionId);
+      setExtensionId(id);
+      localStorage.setItem('chrome_extension_id', id);
+      const response = await sendExtensionMessage(id, { action: "ping" }, 6000);
+      setIsExtensionActive(!!(response && response.success));
+      setExtensionVersion(response?.version || null);
+      setExtensionCapabilities(response?.capabilities || null);
+      setIsExtensionCompatible(isCompatibleExtensionPing(response));
+      toast.success("ID da extensÃ£o salvo!");
     }
   };
 
@@ -973,7 +1089,7 @@ export default function CityValidation() {
       nextAction = 'inspect_error_and_retry';
     }
 
-    if (/captcha|login|bloqueio|blocked|cloudflare|sessao|sess[aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o|intervencao|interven[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o/.test(haystack)) {
+    if (/captcha|login|bloqueio|blocked|cloudflare|sessao|sess[aÃ£]o|intervencao|interven[cÃ§][aÃ£]o/.test(haystack)) {
       route = 'human_review';
       reasonCode = 'access_blocked_login_captcha';
       nextAction = 'manual_login_or_review';
@@ -989,6 +1105,10 @@ export default function CityValidation() {
       route = 'recollection';
       reasonCode = 'wrong_or_mixed_source';
       nextAction = 'find_another_menu_source';
+    } else if (/404|not found|loja nao encontrada|nao esta mais disponivel|indisponivel|pagina nao encontrada|fora do ar|source_unavailable|bio_menu_source_unavailable/.test(haystack)) {
+      route = 'not_publishable';
+      reasonCode = 'menu_source_unavailable_or_404';
+      nextAction = 'try_alternative_menu_source_or_keep_without_menu';
     }
 
     return {
@@ -1088,7 +1208,7 @@ export default function CityValidation() {
         throw result.error;
       }
     } catch (logError) {
-      console.warn('[Validar IA] Falha ao persistir diagnÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³stico:', logError);
+      console.warn('[Validar IA] Falha ao persistir diagnÃ³stico:', logError);
     }
   };
 
@@ -1098,6 +1218,46 @@ export default function CityValidation() {
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+
+  const getMapsClosedStatus = (source: any) => {
+    const statusText = normalizeText([
+      source?.businessStatus,
+      source?.statusText,
+      source?.mapsStatusText,
+      source?.title,
+      source?.name,
+      source?.isPermanentlyClosed === true ? 'permanentemente fechado' : '',
+      source?.isTemporarilyClosed === true ? 'temporariamente fechado' : '',
+    ].filter(Boolean).join(' | '));
+
+    if (
+      source?.isPermanentlyClosed === true ||
+      statusText.includes('permanently closed') ||
+      statusText.includes('permanentemente fechado') ||
+      statusText.includes('fechado permanentemente')
+    ) {
+      return {
+        type: 'permanently_closed',
+        label: 'permanentemente fechado',
+        reason: 'O Google/Maps indica que o estabelecimento esta permanentemente fechado.',
+      };
+    }
+
+    if (
+      source?.isTemporarilyClosed === true ||
+      statusText.includes('temporarily closed') ||
+      statusText.includes('temporariamente fechado') ||
+      statusText.includes('fechado temporariamente')
+    ) {
+      return {
+        type: 'temporarily_closed',
+        label: 'temporariamente fechado',
+        reason: 'O Google/Maps indica que o estabelecimento esta temporariamente fechado.',
+      };
+    }
+
+    return null;
+  };
 
   const buildOptionGroupKey = (option: any) => [
     normalizeText(option?.group_name || 'Opcoes'),
@@ -1141,10 +1301,10 @@ export default function CityValidation() {
     const originalName = String(restaurant?.name || '');
     const nameLooksLikeMapsSnippet =
       /^\s*[a-z]?\s*\d+(?:[,.]\d+)?\s*\(\d+\)/i.test(originalName) ||
-      /[ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â·ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¢]\s*(r\.|rua|av\.|avenida|travessa|rod\.|rodovia)\b/i.test(originalName) ||
+      /[Â·â€¢]\s*(r\.|rua|av\.|avenida|travessa|rod\.|rodovia)\b/i.test(originalName) ||
       /\btemporariamente fechado\b|\bpermanentemente fechado\b/i.test(originalName);
     const nameLooksLikeAddress =
-      /^(r\.\s+|rua\b|av\.\s+|avenida\b|travessa\b|rod\.\s+|rodovia\b|bairro\b|loteamento\b|condominio\b|condom[iÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­]nio\b)/.test(cleanName) ||
+      /^(r\.\s+|rua\b|av\.\s+|avenida\b|travessa\b|rod\.\s+|rodovia\b|bairro\b|loteamento\b|condominio\b|condom[iÃ­]nio\b)/.test(cleanName) ||
       (/\b(campina grande|pb)\b/.test(cleanName) && /\b(r\.\s+|rua\b|av\.\s+|avenida\b|travessa\b|rod\.\s+|rodovia\b)\b/.test(cleanName));
     const nameLooksLikeArea = Boolean(cleanName && (
       cleanName === cleanNeighborhood ||
@@ -1162,6 +1322,10 @@ export default function CityValidation() {
 
     if (
       extra.isPermanentlyClosed === true ||
+      extra.isTemporarilyClosed === true ||
+      mapsStatusText.includes('temporarily closed') ||
+      mapsStatusText.includes('temporariamente fechado') ||
+      mapsStatusText.includes('fechado temporariamente') ||
       mapsStatusText.includes('permanently closed') ||
       mapsStatusText.includes('permanentemente fechado') ||
       mapsStatusText.includes('fechado permanentemente')
@@ -1169,8 +1333,8 @@ export default function CityValidation() {
       return {
         key: 'maps_status_closed',
         label: 'Fechado no Maps',
-        action: 'Remover no Validar IA',
-        reason: 'O Google Maps indica fechamento permanente; essa decisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o depende de evidÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia do Maps.',
+        action: 'Validar IA confirma',
+        reason: 'O Google Maps indica fechamento temporario ou permanente; essa decisao depende de evidencia do Maps.',
         confidence: 0.99,
         className: 'bg-rose-50 text-rose-700 border-rose-200',
       };
@@ -1179,9 +1343,9 @@ export default function CityValidation() {
     if (nameLooksLikeMapsSnippet || nameLooksLikeAddress || nameLooksLikeArea) {
       return {
         key: 'maps_result_noise',
-        label: 'RuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­do do Maps',
-        action: 'Remover automaticamente',
-        reason: 'Parece endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o, bairro, ponto do mapa ou snippet do Google, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o um estabelecimento publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.',
+        label: 'RuÃ­do do Maps',
+        action: 'Validar IA confirma',
+        reason: 'Parece endereÃ§o, bairro, ponto do mapa ou snippet do Google, nÃ£o um estabelecimento publicÃ¡vel.',
         confidence: 0.94,
         className: 'bg-slate-50 text-slate-700 border-slate-200',
       };
@@ -1189,45 +1353,45 @@ export default function CityValidation() {
 
     const strongFood = hasTerm([
       'restaurante', 'pizzaria', 'hamburgueria', 'lanchonete', 'pastelaria', 'sorveteria',
-      'gelateria', 'acai', 'aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­', 'churrascaria', 'bar e restaurante', 'bar/restaurante',
-      'petiscaria', 'cafeteria', 'bistro', 'bistrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´', 'cantina', 'cozinha', 'esfiharia',
-      'temakeria', 'sushi', 'japones', 'japonÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs', 'italiana', 'self service', 'self-service',
+      'gelateria', 'acai', 'aÃ§aÃ­', 'churrascaria', 'bar e restaurante', 'bar/restaurante',
+      'petiscaria', 'cafeteria', 'bistro', 'bistrÃ´', 'cantina', 'cozinha', 'esfiharia',
+      'temakeria', 'sushi', 'japones', 'japonÃªs', 'italiana', 'self service', 'self-service',
       'marmitaria', 'food truck', 'frutos do mar', 'doceria', 'confeitaria', 'buffet',
       'espetinho', 'espetos', 'lanche', 'lanches', 'burger', 'burguer', 'pizza', 'crepe',
-      'tapioca', 'yakisoba', 'chinesa', 'asiatica', 'asiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡tica', 'oriental', 'delivery de comida',
-      'salgaderia', 'rotisserie', 'parrilla', 'rodizio', 'rodÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­zio'
+      'tapioca', 'yakisoba', 'chinesa', 'asiatica', 'asiÃ¡tica', 'oriental', 'delivery de comida',
+      'salgaderia', 'rotisserie', 'parrilla', 'rodizio', 'rodÃ­zio'
     ]);
 
     const expandedFoodSignal = strongFood || hasTerm([
       'marmita', 'marmitas', 'quentinha', 'quentinhas', 'empada', 'empadas',
       'salgado', 'salgados', 'cookie', 'cookies', 'bolo', 'bolos', 'torta', 'tortas',
-      'sanduba', 'sanduiche', 'sanduÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­che', 'sanduicheria', 'sandwich',
+      'sanduba', 'sanduiche', 'sanduÃ­che', 'sanduicheria', 'sandwich',
       'panqueca', 'panquecaria', 'grill', 'brasa', 'braseiro', 'galeto',
-      'frango', 'assado', 'assados', 'cafe', 'cafÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©', 'sobremesa', 'sobremesas',
-      'coxinha', 'coxinhas', 'pastel', 'pastÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©is', 'pastelzinho', 'hot dog', 'dog',
+      'frango', 'assado', 'assados', 'cafe', 'cafÃ©', 'sobremesa', 'sobremesas',
+      'coxinha', 'coxinhas', 'pastel', 'pastÃ©is', 'pastelzinho', 'hot dog', 'dog',
       'massa', 'massas', 'caldo', 'caldos', 'pamonha', 'canjica',
     ]);
 
     const serviceOnly = hasTerm([
       'cooperativa', 'motoboy', 'moto boy', 'entregador', 'entregadores', 'delivery de entregas',
-      'logistica', 'logÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­stica', 'transportadora', 'farmacia', 'farmÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡cia', 'drogaria',
-      'barbearia', 'salao de beleza', 'salÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de beleza', 'academia', 'igreja', 'clinica',
-      'clÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nica', 'hospital', 'escola', 'oficina', 'lava jato', 'pet shop', 'agropecuaria',
-      'agropecuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria', 'material de construcao', 'material de construÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', 'deposito', 'depÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³sito',
+      'logistica', 'logÃ­stica', 'transportadora', 'farmacia', 'farmÃ¡cia', 'drogaria',
+      'barbearia', 'salao de beleza', 'salÃ£o de beleza', 'academia', 'igreja', 'clinica',
+      'clÃ­nica', 'hospital', 'escola', 'oficina', 'lava jato', 'pet shop', 'agropecuaria',
+      'agropecuÃ¡ria', 'material de construcao', 'material de construÃ§Ã£o', 'deposito', 'depÃ³sito',
       'hotel', 'pousada', 'posto de gasolina', 'posto petrobras', 'posto ipiranga'
     ]);
 
     const retail = hasTerm([
-      'supermercado', 'hipermercado', 'atacadao', 'atacadÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', 'atacarejo', 'mercado publico',
-      'mercado pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico', 'mercearia', 'mercadinho', 'hortifruti', 'sacolao', 'sacolÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o',
-      'aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ougue', 'acougue', 'peixaria', 'distribuidora', 'bebidas e conveniencia',
-      'bebidas e conveniÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia', 'conveniencia', 'conveniÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia', 'br mania'
+      'supermercado', 'hipermercado', 'atacadao', 'atacadÃ£o', 'atacarejo', 'mercado publico',
+      'mercado pÃºblico', 'mercearia', 'mercadinho', 'hortifruti', 'sacolao', 'sacolÃ£o',
+      'aÃ§ougue', 'acougue', 'peixaria', 'distribuidora', 'bebidas e conveniencia',
+      'bebidas e conveniÃªncia', 'conveniencia', 'conveniÃªncia', 'br mania'
     ]);
 
     const expandedRetailSignal = retail || hasTerm(['multivarejo', 'embalagens', 'bomboniere', 'atacado', 'varejo']);
 
     const bakery = hasTerm([
-      'padaria', 'panificadora', 'panificacao', 'panificaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', 'panificadora e confeitaria'
+      'padaria', 'panificadora', 'panificacao', 'panificaÃ§Ã£o', 'panificadora e confeitaria'
     ]);
 
     const weakBar = hasWord(['bar']) || hasTerm(['boteco', 'pub']);
@@ -1235,48 +1399,48 @@ export default function CityValidation() {
     const buffetFoodQualifier = hasTerm([
       'restaurante', 'marmitaria', 'marmita', 'quentinha', 'salgado', 'salgados',
       'pizza', 'pizzaria', 'churrasco', 'churrascaria', 'massas', 'feijoes',
-      'feijÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes', 'self service', 'self-service', 'lanchonete', 'prato feito',
+      'feijÃµes', 'self service', 'self-service', 'lanchonete', 'prato feito',
       'pf', 'galeto', 'espetinho', 'espetos'
     ]);
     const buffetCateringNeedsMenu = buffetSignal && !buffetFoodQualifier;
     const hasFoodInsideRetail = hasTerm([
       'marmitaria', 'marmita', 'marmitas', 'quentinha', 'quentinhas', 'espetinho', 'espetos',
       'assado', 'assados', 'lanches', 'pizza', 'pizzaria', 'cafeteria', 'restaurante',
-      'sanduiche', 'sanduÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­che', 'salgado', 'salgados', 'salgaderia', 'frango', 'galeto',
-      'cafe', 'cafÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©', 'doceria', 'confeitaria', 'bolo', 'bolos', 'torta', 'tortas',
+      'sanduiche', 'sanduÃ­che', 'salgado', 'salgados', 'salgaderia', 'frango', 'galeto',
+      'cafe', 'cafÃ©', 'doceria', 'confeitaria', 'bolo', 'bolos', 'torta', 'tortas',
       'sobremesa', 'sobremesas', 'empada', 'empadas', 'cookie', 'cookies', 'pastel',
-      'pastelaria', 'hamburgueria', 'burger', 'burguer', 'acai', 'aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­'
+      'pastelaria', 'hamburgueria', 'burger', 'burguer', 'acai', 'aÃ§aÃ­'
     ]);
     const hardVenueOrEvent = hasTerm([
-      'hotel', 'pousada', 'motel', 'sitio', 'sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­tio', 'chacara', 'chÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡cara', 'fazenda', 'resort', 'area de lazer', 'ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rea de lazer',
-      'recepcoes', 'recepÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes', 'espaco de eventos', 'espaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o de eventos', 'casa de festas',
+      'hotel', 'pousada', 'motel', 'sitio', 'sÃ­tio', 'chacara', 'chÃ¡cara', 'fazenda', 'resort', 'area de lazer', 'Ã¡rea de lazer',
+      'recepcoes', 'recepÃ§Ãµes', 'espaco de eventos', 'espaÃ§o de eventos', 'casa de festas',
       'buffet de eventos', 'buffet festas', 'buffet e eventos', 'cerimonial', 'eventos', 'festas',
-      'campestre', 'balneario', 'balneÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio'
+      'campestre', 'balneario', 'balneÃ¡rio'
     ]);
     const softVenueOrEvent = hasTerm(['clube', 'food park']);
     const publicPlaceOrMapPoint = hasTerm([
-      'mercado publico', 'mercado pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico', 'praca publica', 'praÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblica',
-      'praca de alimentacao', 'praÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a de alimentaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', 'terminal rodoviario',
-      'terminal rodoviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio', 'rodoviaria', 'rodoviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria', 'rodoviaria velha',
-      'rodoviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria velha', 'parque da liberdade', 'parque do povo', 'parque de bodocongo',
-      'parque de bodocongÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³', 'parque da crianca', 'parque da crianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a',
-      'cras', 'creas', 'posto de saude', 'posto de saÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºde', 'hospital', 'igreja',
-      'escola', 'colegio', 'colÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©gio', 'universidade', 'faculdade', 'museu',
-      'centro de convencoes', 'centro de convenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes'
-    ]) || /^(r\.\s+|rua\b|av\.\s+|avenida\b|travessa\b|rod\.\s+|rodovia\b|bairro\b|loteamento\b|condominio\b|condom[iÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­]nio\b)/.test(cleanName)
-      || /\b(praca|praÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a|parque|terminal|rodoviaria|rodoviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria|cras|creas|hospital|igreja|escola|universidade|faculdade|museu)\b/.test(cleanName)
-      || ['campina grande', 'galante', 'sao jose da mata', 'sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o josÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© da mata', 'centro'].includes(cleanName);
+      'mercado publico', 'mercado pÃºblico', 'praca publica', 'praÃ§a pÃºblica',
+      'praca de alimentacao', 'praÃ§a de alimentaÃ§Ã£o', 'terminal rodoviario',
+      'terminal rodoviÃ¡rio', 'rodoviaria', 'rodoviÃ¡ria', 'rodoviaria velha',
+      'rodoviÃ¡ria velha', 'parque da liberdade', 'parque do povo', 'parque de bodocongo',
+      'parque de bodocongÃ³', 'parque da crianca', 'parque da crianÃ§a',
+      'cras', 'creas', 'posto de saude', 'posto de saÃºde', 'hospital', 'igreja',
+      'escola', 'colegio', 'colÃ©gio', 'universidade', 'faculdade', 'museu',
+      'centro de convencoes', 'centro de convenÃ§Ãµes'
+    ]) || /^(r\.\s+|rua\b|av\.\s+|avenida\b|travessa\b|rod\.\s+|rodovia\b|bairro\b|loteamento\b|condominio\b|condom[iÃ­]nio\b)/.test(cleanName)
+      || /\b(praca|praÃ§a|parque|terminal|rodoviaria|rodoviÃ¡ria|cras|creas|hospital|igreja|escola|universidade|faculdade|museu)\b/.test(cleanName)
+      || ['campina grande', 'galante', 'sao jose da mata', 'sÃ£o josÃ© da mata', 'centro'].includes(cleanName);
     const genericLowSignal =
       nameWordCount <= 2 &&
-      hasTerm(['bar', 'lanchonete', 'restaurante', 'acai', 'aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­', 'cafe', 'cafÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©', 'pizzaria', 'pastelaria']) &&
-      !/[a-z0-9]{4,}/.test(cleanName.replace(/\b(bar|lanchonete|restaurante|acai|aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­|cafe|cafÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©|pizzaria|pastelaria|do|da|de|o|a)\b/g, '').trim());
+      hasTerm(['bar', 'lanchonete', 'restaurante', 'acai', 'aÃ§aÃ­', 'cafe', 'cafÃ©', 'pizzaria', 'pastelaria']) &&
+      !/[a-z0-9]{4,}/.test(cleanName.replace(/\b(bar|lanchonete|restaurante|acai|aÃ§aÃ­|cafe|cafÃ©|pizzaria|pastelaria|do|da|de|o|a)\b/g, '').trim());
 
     if (publicPlaceOrMapPoint && !expandedFoodSignal && !weakBar) {
       return {
         key: 'public_place_or_map_point',
-        label: 'Ponto pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico / mapa',
-        action: 'Remover automaticamente',
-        reason: 'Ruas, praÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§as, parques, terminais e pontos pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblicos nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o entram no app.',
+        label: 'Ponto pÃºblico / mapa',
+        action: 'Validar IA confirma',
+        reason: 'Ruas, praÃ§as, parques, terminais e pontos pÃºblicos nÃ£o entram no app.',
         confidence: 0.97,
         className: 'bg-slate-50 text-slate-700 border-slate-200',
       };
@@ -1286,8 +1450,8 @@ export default function CityValidation() {
       return {
         key: 'bakery_or_confectionery_needs_menu',
         label: 'Padaria / panificadora',
-        action: 'Remover automaticamente',
-        reason: 'Padarias e panificadoras nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o entram no app por regra de produto.',
+        action: 'Validar IA confirma',
+        reason: 'Padarias e panificadoras nÃ£o entram no app por regra de produto.',
         confidence: 0.95,
         className: 'bg-amber-50 text-amber-700 border-amber-200',
       };
@@ -1296,9 +1460,9 @@ export default function CityValidation() {
     if (hardVenueOrEvent || (softVenueOrEvent && !expandedFoodSignal && !weakBar)) {
       return {
         key: 'venue_or_event_needs_menu',
-        label: 'SÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­tio/eventos/hospedagem',
-        action: 'Remover automaticamente',
-        reason: 'SÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­tios, hotÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©is, pousadas, resorts, ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡reas de lazer e eventos nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o entram no app.',
+        label: 'SÃ­tio/eventos/hospedagem',
+        action: 'Validar IA confirma',
+        reason: 'SÃ­tios, hotÃ©is, pousadas, resorts, Ã¡reas de lazer e eventos nÃ£o entram no app.',
         confidence: 0.94,
         className: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200',
       };
@@ -1308,8 +1472,8 @@ export default function CityValidation() {
       return {
         key: 'buffet_catering_needs_menu',
         label: 'Buffet / catering',
-        action: 'CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio',
-        reason: 'Buffet isolado costuma ser evento/catering. SÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ entra se o Validar IA achar cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico organizado.',
+        action: 'CardÃ¡pio obrigatÃ³rio',
+        reason: 'Buffet isolado costuma ser evento/catering. SÃ³ entra se o Validar IA achar cardÃ¡pio pÃºblico organizado.',
         confidence: 0.72,
         className: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200',
       };
@@ -1318,9 +1482,9 @@ export default function CityValidation() {
     if (serviceOnly && !expandedFoodSignal && !weakBar) {
       return {
         key: 'likely_reject_service',
-        label: 'ServiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o / nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o restaurante',
+        label: 'ServiÃ§o / nÃ£o restaurante',
         action: 'Descartar se Maps confirmar',
-        reason: 'Parece serviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o, hotel, posto, clÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nica, barbearia ou logÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­stica; nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o deve entrar no app.',
+        reason: 'Parece serviÃ§o, hotel, posto, clÃ­nica, barbearia ou logÃ­stica; nÃ£o deve entrar no app.',
         confidence: 0.96,
         className: 'bg-rose-50 text-rose-700 border-rose-200',
       };
@@ -1330,8 +1494,8 @@ export default function CityValidation() {
       return {
         key: 'likely_reject_retail',
         label: 'Varejo / mercado',
-        action: 'Descartar se nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o houver cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio',
-        reason: 'Parece mercado, supermercado, conveniÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia, distribuidora, aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ougue ou peixaria sem operaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de restaurante.',
+        action: 'Descartar se nÃ£o houver cardÃ¡pio',
+        reason: 'Parece mercado, supermercado, conveniÃªncia, distribuidora, aÃ§ougue ou peixaria sem operaÃ§Ã£o de restaurante.',
         confidence: 0.92,
         className: 'bg-orange-50 text-orange-700 border-orange-200',
       };
@@ -1340,9 +1504,9 @@ export default function CityValidation() {
     if ((expandedFoodSignal || hasFoodInsideRetail || weakBar) && (serviceOnly || expandedRetailSignal || bakery)) {
       return {
         key: 'mixed_needs_maps_menu',
-        label: 'NegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³cio misto',
-        action: 'Maps + cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rios',
-        reason: 'Tem sinal gastronÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´mico, mas tambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m sinal de varejo/serviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o. O Validar IA precisa confirmar se existe cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio real.',
+        label: 'NegÃ³cio misto',
+        action: 'Maps + cardÃ¡pio obrigatÃ³rios',
+        reason: 'Tem sinal gastronÃ´mico, mas tambÃ©m sinal de varejo/serviÃ§o. O Validar IA precisa confirmar se existe cardÃ¡pio real.',
         confidence: 0.68,
         className: 'bg-violet-50 text-violet-700 border-violet-200',
       };
@@ -1351,9 +1515,9 @@ export default function CityValidation() {
     if (genericLowSignal) {
       return {
         key: 'generic_low_signal',
-        label: 'Nome genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rico fraco',
-        action: 'Baixa prioridade atÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© Maps/cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio',
-        reason: 'Nome muito genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rico ou sem marca. O Maps/cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio precisa provar que existe operaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o real.',
+        label: 'Nome genÃ©rico fraco',
+        action: 'Baixa prioridade atÃ© Maps/cardÃ¡pio',
+        reason: 'Nome muito genÃ©rico ou sem marca. O Maps/cardÃ¡pio precisa provar que existe operaÃ§Ã£o real.',
         confidence: 0.6,
         className: 'bg-sky-50 text-sky-700 border-sky-200',
       };
@@ -1362,9 +1526,9 @@ export default function CityValidation() {
     if (expandedFoodSignal) {
       return {
         key: 'likely_food_service',
-        label: 'ProvÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel restaurante',
+        label: 'ProvÃ¡vel restaurante',
         action: 'Rodar Validar IA',
-        reason: 'Nome/categoria indica operaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o gastronÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´mica elegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel, mas ainda precisa de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio para publicar.',
+        reason: 'Nome/categoria indica operaÃ§Ã£o gastronÃ´mica elegÃ­vel, mas ainda precisa de cardÃ¡pio para publicar.',
         confidence: 0.86,
         className: 'bg-emerald-50 text-emerald-700 border-emerald-200',
       };
@@ -1373,9 +1537,9 @@ export default function CityValidation() {
     if (weakBar) {
       return {
         key: 'unknown_need_maps_ai',
-        label: 'Bar ambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­guo',
-        action: 'IA decide pelo cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio',
-        reason: 'Bar/boteco pode ou nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ter comida organizada. Precisa de evidÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio.',
+        label: 'Bar ambÃ­guo',
+        action: 'IA decide pelo cardÃ¡pio',
+        reason: 'Bar/boteco pode ou nÃ£o ter comida organizada. Precisa de evidÃªncia de cardÃ¡pio.',
         confidence: 0.55,
         className: 'bg-blue-50 text-blue-700 border-blue-200',
       };
@@ -1383,9 +1547,9 @@ export default function CityValidation() {
 
     return {
       key: 'unknown_need_maps_ai',
-      label: 'IA/Maps obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio',
-      action: 'NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o decidir sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ pelo nome',
-      reason: 'Dados da Fase 1 nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o bastam para decidir. O Validar IA deve abrir Maps, redes e cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio.',
+      label: 'IA/Maps obrigatÃ³rio',
+      action: 'NÃ£o decidir sÃ³ pelo nome',
+      reason: 'Dados da Fase 1 nÃ£o bastam para decidir. O Validar IA deve abrir Maps, redes e cardÃ¡pio.',
       confidence: 0.45,
       className: 'bg-blue-50 text-blue-700 border-blue-200',
     };
@@ -1504,6 +1668,12 @@ export default function CityValidation() {
     };
     if (primary) {
       payload.primary_contact_source = primary.source;
+      if (!String(currentRestaurant?.phone || '').trim()) {
+        payload.phone = primary.phone;
+      }
+      if (primary.kind === 'whatsapp' && primary.whatsapp_url && !String(currentRestaurant?.whatsapp_url || '').trim()) {
+        payload.whatsapp_url = primary.whatsapp_url;
+      }
     }
 
     await updateRestaurantWithSchemaFallback(restaurantId, payload);
@@ -1513,15 +1683,15 @@ export default function CityValidation() {
       ? (primary.kind === 'whatsapp'
         ? `WhatsApp salvo como candidato CRM: ${primary.phone}`
         : `Contato salvo como candidato CRM: ${primary.phone}`)
-      : 'Contato fraco salvo apenas como candidato CRM; nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o vou preencher telefone pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico';
+      : 'Contato fraco salvo apenas como candidato CRM; nÃ£o vou preencher telefone pÃºblico';
     addLog(`${message}${contextLabel ? ` (${contextLabel})` : ''}. Total de contatos candidatos: ${mergedContacts.length}.`);
-    if (hasNewWhatsapp && primary) toast.success(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ WhatsApp encontrado para CRM: ${primary.phone}`);
+    if (hasNewWhatsapp && primary) toast.success(`âœ… WhatsApp encontrado para CRM: ${primary.phone}`);
 
     return {
       ...currentRestaurant,
       ...payload,
-      phone: currentRestaurant?.phone,
-      whatsapp_url: currentRestaurant?.whatsapp_url,
+      phone: payload.phone ?? currentRestaurant?.phone,
+      whatsapp_url: payload.whatsapp_url ?? currentRestaurant?.whatsapp_url,
       primary_contact_source: payload.primary_contact_source ?? currentRestaurant?.primary_contact_source,
     };
   };
@@ -1591,6 +1761,7 @@ export default function CityValidation() {
 
     const hasMapsStatusEvidence = Boolean(
       extra.isPermanentlyClosed === true ||
+      extra.isTemporarilyClosed === true ||
       extra.businessStatus ||
       extra.statusText
     );
@@ -1598,6 +1769,7 @@ export default function CityValidation() {
       extra.businessStatus,
       extra.statusText,
       extra.isPermanentlyClosed === true ? 'permanentemente fechado' : '',
+      extra.isTemporarilyClosed === true ? 'temporariamente fechado' : '',
       restaurant?.visit_notes,
       restaurant?.menu_status_reason,
       restaurant?.ai_log,
@@ -1606,64 +1778,68 @@ export default function CityValidation() {
     if (
       hasMapsStatusEvidence && (
       extra.isPermanentlyClosed === true ||
+      extra.isTemporarilyClosed === true ||
       mapsStatusText.includes('permanently closed') ||
       mapsStatusText.includes('permanentemente fechado') ||
-      mapsStatusText.includes('fechado permanentemente')
+      mapsStatusText.includes('fechado permanentemente') ||
+      mapsStatusText.includes('temporarily closed') ||
+      mapsStatusText.includes('temporariamente fechado') ||
+      mapsStatusText.includes('fechado temporariamente')
       )
     ) {
-      return { status: 'ineligible' as const, confidence: 0.99, reason: 'Estabelecimento aparece como permanentemente fechado no Google Maps.', source: 'local_rules' };
+      return { status: 'ineligible' as const, confidence: 0.99, reason: 'Estabelecimento aparece como fechado no Google Maps.', source: 'local_rules' };
     }
 
     const strongPositive = hasTerm([
       'restaurante', 'pizzaria', 'hamburgueria', 'lanchonete', 'pastelaria', 'sorveteria',
-      'gelateria', 'acai', 'aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­', 'churrascaria', 'bar e restaurante', 'bar/restaurante',
-      'petiscaria', 'cafeteria', 'bistro', 'bistrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´', 'cantina', 'cozinha', 'esfiharia',
-      'temakeria', 'sushi', 'japones', 'japonÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs', 'italiana', 'self service', 'self-service',
+      'gelateria', 'acai', 'aÃ§aÃ­', 'churrascaria', 'bar e restaurante', 'bar/restaurante',
+      'petiscaria', 'cafeteria', 'bistro', 'bistrÃ´', 'cantina', 'cozinha', 'esfiharia',
+      'temakeria', 'sushi', 'japones', 'japonÃªs', 'italiana', 'self service', 'self-service',
       'marmitaria', 'food truck', 'frutos do mar', 'doceria', 'confeitaria', 'buffet',
       'espetinho', 'espetos', 'lanche', 'lanches', 'burger', 'burguer', 'pizza',
-      'salgaderia', 'rotisserie', 'parrilla', 'rodizio', 'rodÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­zio',
+      'salgaderia', 'rotisserie', 'parrilla', 'rodizio', 'rodÃ­zio',
     ]);
 
     const expandedPositive = strongPositive || hasTerm([
       'marmita', 'marmitas', 'quentinha', 'quentinhas', 'empada', 'empadas',
       'salgado', 'salgados', 'cookie', 'cookies', 'bolo', 'bolos', 'torta', 'tortas',
-      'sanduba', 'sanduiche', 'sanduÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­che', 'sanduicheria', 'sandwich',
+      'sanduba', 'sanduiche', 'sanduÃ­che', 'sanduicheria', 'sandwich',
       'panqueca', 'panquecaria', 'grill', 'brasa', 'braseiro', 'galeto',
-      'frango', 'assado', 'assados', 'cafe', 'cafÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©', 'sobremesa', 'sobremesas',
-      'coxinha', 'coxinhas', 'pastel', 'pastÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©is', 'pastelzinho', 'hot dog', 'dog',
+      'frango', 'assado', 'assados', 'cafe', 'cafÃ©', 'sobremesa', 'sobremesas',
+      'coxinha', 'coxinhas', 'pastel', 'pastÃ©is', 'pastelzinho', 'hot dog', 'dog',
       'massa', 'massas', 'caldo', 'caldos', 'pamonha', 'canjica',
     ]);
 
     const hardNegative = hasTerm([
       'cooperativa', 'motoboy', 'moto boy', 'entregador', 'entregadores', 'delivery de entregas',
-      'logistica', 'logÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­stica', 'transportadora', 'farmacia', 'farmÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡cia', 'drogaria',
-      'barbearia', 'salao de beleza', 'salÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de beleza', 'academia', 'igreja', 'clinica',
-      'clÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nica', 'hospital', 'escola', 'oficina', 'lava jato', 'pet shop', 'agropecuaria',
-      'agropecuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria', 'material de construcao', 'material de construÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', 'deposito',
-      'depÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³sito', 'cesta basica', 'cesta bÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡sica',
+      'logistica', 'logÃ­stica', 'transportadora', 'farmacia', 'farmÃ¡cia', 'drogaria',
+      'barbearia', 'salao de beleza', 'salÃ£o de beleza', 'academia', 'igreja', 'clinica',
+      'clÃ­nica', 'hospital', 'escola', 'oficina', 'lava jato', 'pet shop', 'agropecuaria',
+      'agropecuÃ¡ria', 'material de construcao', 'material de construÃ§Ã£o', 'deposito',
+      'depÃ³sito', 'cesta basica', 'cesta bÃ¡sica',
     ]);
 
     const retailOrLodging = hasTerm([
-      'supermercado', 'hipermercado', 'atacadao', 'atacadÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', 'atacarejo', 'mercado publico',
-      'mercado pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico', 'mercearia', 'conveniencia', 'conveniÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia', 'posto de gasolina',
-      'hotel', 'pousada', 'motel', 'distribuidora', 'bebidas e conveniencia', 'bebidas e conveniÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia',
+      'supermercado', 'hipermercado', 'atacadao', 'atacadÃ£o', 'atacarejo', 'mercado publico',
+      'mercado pÃºblico', 'mercearia', 'conveniencia', 'conveniÃªncia', 'posto de gasolina',
+      'hotel', 'pousada', 'motel', 'distribuidora', 'bebidas e conveniencia', 'bebidas e conveniÃªncia',
     ]);
 
     const bakeryMarket = hasTerm([
-      'padaria', 'panificadora', 'panificacao', 'panificaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', 'super market', 'mercadinho',
-      'hortifruti', 'sacolao', 'sacolÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', 'aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ougue', 'acougue', 'peixaria',
+      'padaria', 'panificadora', 'panificacao', 'panificaÃ§Ã£o', 'super market', 'mercadinho',
+      'hortifruti', 'sacolao', 'sacolÃ£o', 'aÃ§ougue', 'acougue', 'peixaria',
     ]);
     const hardVenueOrPublicPlace = hasTerm([
-      'hotel', 'pousada', 'sitio', 'sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­tio', 'chacara', 'chÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡cara', 'fazenda', 'resort',
-      'area de lazer', 'ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rea de lazer', 'recepcoes', 'recepÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes', 'espaco de eventos',
-      'espaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o de eventos', 'casa de festas', 'buffet de eventos', 'buffet festas',
+      'hotel', 'pousada', 'sitio', 'sÃ­tio', 'chacara', 'chÃ¡cara', 'fazenda', 'resort',
+      'area de lazer', 'Ã¡rea de lazer', 'recepcoes', 'recepÃ§Ãµes', 'espaco de eventos',
+      'espaÃ§o de eventos', 'casa de festas', 'buffet de eventos', 'buffet festas',
       'buffet e eventos', 'cerimonial', 'eventos', 'festas', 'clube', 'campestre',
-      'balneario', 'balneÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio', 'food park', 'mercado publico', 'mercado pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico',
-      'praca publica', 'praÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblica', 'praca de alimentacao', 'praÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a de alimentaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o',
-      'terminal rodoviario', 'terminal rodoviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio', 'rodoviaria', 'rodoviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria',
-      'parque da liberdade', 'parque do povo', 'parque de bodocongo', 'parque de bodocongÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³',
-      'parque da crianca', 'parque da crianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a',
-    ]) || /^(r\.|rua|av\.|avenida|travessa|rod\.|rodovia|bairro|loteamento|condominio|condom[iÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­]nio)\b/.test(normalizeText(restaurant?.name));
+      'balneario', 'balneÃ¡rio', 'food park', 'mercado publico', 'mercado pÃºblico',
+      'praca publica', 'praÃ§a pÃºblica', 'praca de alimentacao', 'praÃ§a de alimentaÃ§Ã£o',
+      'terminal rodoviario', 'terminal rodoviÃ¡rio', 'rodoviaria', 'rodoviÃ¡ria',
+      'parque da liberdade', 'parque do povo', 'parque de bodocongo', 'parque de bodocongÃ³',
+      'parque da crianca', 'parque da crianÃ§a',
+    ]) || /^(r\.|rua|av\.|avenida|travessa|rod\.|rodovia|bairro|loteamento|condominio|condom[iÃ­]nio)\b/.test(normalizeText(restaurant?.name));
 
     const expandedRetailOrLodging = retailOrLodging || hasTerm(['multivarejo', 'embalagens', 'bomboniere', 'atacado', 'varejo']);
     const mixedFoodBusiness = expandedPositive && (expandedRetailOrLodging || bakeryMarket);
@@ -1672,7 +1848,7 @@ export default function CityValidation() {
     const buffetFoodQualifier = hasTerm([
       'restaurante', 'marmitaria', 'marmita', 'quentinha', 'salgado', 'salgados',
       'pizza', 'pizzaria', 'churrasco', 'churrascaria', 'massas', 'feijoes',
-      'feijÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes', 'self service', 'self-service', 'lanchonete', 'prato feito',
+      'feijÃµes', 'self service', 'self-service', 'lanchonete', 'prato feito',
       'pf', 'galeto', 'espetinho', 'espetos'
     ]);
     const buffetCateringNeedsMenu = buffetSignal && !buffetFoodQualifier;
@@ -1680,31 +1856,31 @@ export default function CityValidation() {
     if (hardVenueOrPublicPlace) {
       return { status: 'ineligible' as const, confidence: 0.96, reason: 'Ponto publico, hotel/evento/sitio ou area similar nao entra no app por regra de produto.', source: 'local_rules' };
     }
-    if (hasTerm(['padaria', 'panificadora', 'panificacao', 'panificaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o'])) {
+    if (hasTerm(['padaria', 'panificadora', 'panificacao', 'panificaÃ§Ã£o'])) {
       return { status: 'ineligible' as const, confidence: 0.95, reason: 'Padaria/panificadora nao entra no app por regra de produto.', source: 'local_rules' };
     }
     if (hardNegative && !expandedPositive && !weakFoodCue) {
-      return { status: 'ineligible' as const, confidence: 0.98, reason: 'Tipo de estabelecimento incompatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel com restaurante/cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico.', source: 'local_rules' };
+      return { status: 'ineligible' as const, confidence: 0.98, reason: 'Tipo de estabelecimento incompatÃ­vel com restaurante/cardÃ¡pio pÃºblico.', source: 'local_rules' };
     }
     if ((expandedRetailOrLodging || bakeryMarket) && !expandedPositive) {
-      return { status: 'ineligible' as const, confidence: 0.93, reason: 'Mercado/padaria/hotel/conveniÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia sem sinal claro de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio de restaurante.', source: 'local_rules' };
+      return { status: 'ineligible' as const, confidence: 0.93, reason: 'Mercado/padaria/hotel/conveniÃªncia sem sinal claro de cardÃ¡pio de restaurante.', source: 'local_rules' };
     }
     if (buffetCateringNeedsMenu) {
       return { status: 'unknown' as const, confidence: 0.58, reason: 'Buffet isolado parece catering/evento; so pode avancar se o Validar IA encontrar cardapio publico organizado.', source: 'local_rules' };
     }
     if (hardNegative && weakFoodCue) {
-      return { status: 'unknown' as const, confidence: 0.6, reason: 'NegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³cio misto com bar/pub e serviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o gastronÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´mico; precisa confirmar no Maps/IA.', source: 'local_rules' };
+      return { status: 'unknown' as const, confidence: 0.6, reason: 'NegÃ³cio misto com bar/pub e serviÃ§o nÃ£o gastronÃ´mico; precisa confirmar no Maps/IA.', source: 'local_rules' };
     }
     if (mixedFoodBusiness) {
-      return { status: 'unknown' as const, confidence: 0.62, reason: 'NegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³cio misto: tem comida, mas tambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m varejo/hotel/conveniÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia. Precisa confirmar cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio no Maps/IA.', source: 'local_rules' };
+      return { status: 'unknown' as const, confidence: 0.62, reason: 'NegÃ³cio misto: tem comida, mas tambÃ©m varejo/hotel/conveniÃªncia. Precisa confirmar cardÃ¡pio no Maps/IA.', source: 'local_rules' };
     }
     if (expandedPositive) {
-      return { status: 'eligible' as const, confidence: 0.88, reason: 'Nome/categoria indica food service elegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel.', source: 'local_rules' };
+      return { status: 'eligible' as const, confidence: 0.88, reason: 'Nome/categoria indica food service elegÃ­vel.', source: 'local_rules' };
     }
     if (weakFoodCue) {
-      return { status: 'unknown' as const, confidence: 0.58, reason: 'Bar/boteco precisa confirmar se serve comida ou tem cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºtil.', source: 'local_rules' };
+      return { status: 'unknown' as const, confidence: 0.58, reason: 'Bar/boteco precisa confirmar se serve comida ou tem cardÃ¡pio Ãºtil.', source: 'local_rules' };
     }
-    return { status: 'unknown' as const, confidence: 0.45, reason: 'Categoria insuficiente; precisa de avaliaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o por IA/Google Maps.', source: 'local_rules' };
+    return { status: 'unknown' as const, confidence: 0.45, reason: 'Categoria insuficiente; precisa de avaliaÃ§Ã£o por IA/Google Maps.', source: 'local_rules' };
   };
 
   const classifyRestaurantEligibilityAI = async (restaurant: any, context: Record<string, any> = {}) => {
@@ -1715,7 +1891,7 @@ export default function CityValidation() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          systemContext: 'VocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª decide se um lugar deve entrar em um app de busca de restaurantes/cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pios. Responda SOMENTE JSON: {"status":"eligible|ineligible|unknown","confidence":0_a_1,"reason":"curto"}. ElegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel: restaurante, lanchonete, pizzaria, bar com comida, cafeteria, doceria/confeitaria, food truck, marmitaria. InelegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel por regra de produto: cooperativa de motoboy, supermercado, mercado, padaria/panificadora, posto, farmÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡cia, loja, serviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o, hotel, pousada, sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­tio, chÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡cara, ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rea de lazer, espaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o de eventos, buffet/catering de eventos sem cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico, praÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a, parque, rua, ponto pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico, academia, distribuidora e estabelecimento permanentemente fechado no Google Maps.',
+          systemContext: 'VocÃª decide se um lugar deve entrar em um app de busca de restaurantes/cardÃ¡pios. Responda SOMENTE JSON: {"status":"eligible|ineligible|unknown","confidence":0_a_1,"reason":"curto"}. ElegÃ­vel: restaurante, lanchonete, pizzaria, bar com comida, cafeteria, doceria/confeitaria, food truck, marmitaria. InelegÃ­vel por regra de produto: cooperativa de motoboy, supermercado, mercado, padaria/panificadora, posto, farmÃ¡cia, loja, serviÃ§o, hotel, pousada, sÃ­tio, chÃ¡cara, Ã¡rea de lazer, espaÃ§o de eventos, buffet/catering de eventos sem cardÃ¡pio pÃºblico, praÃ§a, parque, rua, ponto pÃºblico, academia, distribuidora e estabelecimento permanentemente fechado no Google Maps.',
           message: JSON.stringify({
             name: restaurant?.name,
             category: restaurant?.category,
@@ -1743,7 +1919,7 @@ export default function CityValidation() {
       return {
         status,
         confidence: Math.max(0, Math.min(1, Number(decision.confidence || 0))),
-        reason: String(decision.reason || 'AvaliaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o IA sem motivo.'),
+        reason: String(decision.reason || 'AvaliaÃ§Ã£o IA sem motivo.'),
         source: 'ai'
       };
     } catch (error: any) {
@@ -1761,11 +1937,11 @@ export default function CityValidation() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           systemContext: [
-            'VocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© o ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rbitro de nome comercial de restaurantes para um app pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico.',
-            'Sua tarefa ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© escolher o nome que o dono provavelmente cadastraria no perfil dele.',
-            'Remova slogans, textos de SEO, cidade/bairro e descriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ricas vindas do Google Maps.',
-            "Exemplos: \"La Migliore - O melhor rodÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­zio de Campina Grande\" => \"La Migliore\"; \"Brazile Pizzaria - Delivery de Pizza em Campina Grande\" => \"Brazile Pizzaria\"; \"Domino's Pizza - Campina Grande\" => \"Domino's Pizza\".",
-            'Preserve palavras que faÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§am parte do nome real. NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o invente nome novo. Se estiver em dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºvida, mantenha o nome do Google com confianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a menor.',
+            'VocÃª Ã© o Ã¡rbitro de nome comercial de restaurantes para um app pÃºblico.',
+            'Sua tarefa Ã© escolher o nome que o dono provavelmente cadastraria no perfil dele.',
+            'Remova slogans, textos de SEO, cidade/bairro e descriÃ§Ãµes genÃ©ricas vindas do Google Maps.',
+            "Exemplos: \"La Migliore - O melhor rodÃ­zio de Campina Grande\" => \"La Migliore\"; \"Brazile Pizzaria - Delivery de Pizza em Campina Grande\" => \"Brazile Pizzaria\"; \"Domino's Pizza - Campina Grande\" => \"Domino's Pizza\".",
+            'Preserve palavras que faÃ§am parte do nome real. NÃ£o invente nome novo. Se estiver em dÃºvida, mantenha o nome do Google com confianÃ§a menor.',
             'Responda SOMENTE JSON no formato {"official_name":"...","raw_google_name":"...","confidence":0_a_1,"reason":"curto","changed":true|false}.'
           ].join(' '),
           message: JSON.stringify({
@@ -1806,7 +1982,8 @@ export default function CityValidation() {
   };
 
   const markRestaurantIneligible = async (restaurant: any, decision: any, phase = 'eligibility_gate') => {
-    const statusReason = `Removido por regra do Validar IA: ${decision?.reason || 'fora do escopo do app'}.`;
+    const cleanDecisionReason = String(decision?.reason || 'fora do escopo do app').trim().replace(/[.ã€‚]+$/g, '');
+    const statusReason = `Removido por regra do Validar IA: ${cleanDecisionReason}.`;
     const payload = {
       pipeline: 'validar-ia-extension',
       status: 'ineligible_removed',
@@ -1837,7 +2014,7 @@ export default function CityValidation() {
       } as any)
       .eq('id', restaurant.id);
     await markDuplicateRestaurantsIneligible(restaurant, decision, phase, payload);
-    addLog(`Estabelecimento removido da validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ${restaurant.name}. Motivo: ${decision.reason}`);
+    addLog(`Estabelecimento removido da validaÃ§Ã£o: ${restaurant.name}. Motivo: ${decision.reason}`);
   };
 
   const markDuplicateRestaurantsIneligible = async (restaurant: any, decision: any, phase: string, basePayload: any) => {
@@ -1885,9 +2062,9 @@ export default function CityValidation() {
         } as any)
         .in('id', duplicateIds);
 
-      addLog(`Duplicados canÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´nicos removidos junto com ${restaurant.name}: ${duplicateIds.length}.`);
+      addLog(`Duplicados canÃ´nicos removidos junto com ${restaurant.name}: ${duplicateIds.length}.`);
     } catch (error: any) {
-      addLog(`NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o consegui remover duplicados automaticamente: ${error?.message || error}`);
+      addLog(`NÃ£o consegui remover duplicados automaticamente: ${error?.message || error}`);
     }
   };
 
@@ -2022,7 +2199,7 @@ export default function CityValidation() {
       || clean !== raw
       || /\b(zap|whats|whatsapp|telefone|tel|ligar|pedido|pedir)\b/i.test(normalized)
       || /\(?\d{2}\)?\s*\d{4,5}[-\s]?\d{4}/.test(raw)
-      || /\d{4,5}\s*[-\u2013]\s*\d{4}\s*(?:R\.|Rua|Av\.|Avenida|Travessa|Tv\.|Rod\.|Rodovia|PraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a|Praca|Alameda|Estrada)/i.test(raw);
+      || /\d{4,5}\s*[-\u2013]\s*\d{4}\s*(?:R\.|Rua|Av\.|Avenida|Travessa|Tv\.|Rod\.|Rodovia|PraÃ§a|Praca|Alameda|Estrada)/i.test(raw);
   };
 
   const normalizePublicAddressAI = async (
@@ -2040,25 +2217,28 @@ export default function CityValidation() {
       fullAddress: deterministicAddress || rawAddress,
       source: 'local_address_parser',
       confidence: shouldUseAI ? 0.55 : 0.85,
-      reason: shouldUseAI ? 'Fallback local usado; IA indisponÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel ou sem confianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a.' : 'EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o normalizado por regras locais.',
+      reason: shouldUseAI ? 'Fallback local usado; IA indisponÃ­vel ou sem confianÃ§a.' : 'EndereÃ§o normalizado por regras locais.',
     };
 
     if (!shouldUseAI) return fallbackResult;
 
     try {
-      addLog('EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o parece contaminado/ambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­guo; IA vai normalizar antes de salvar.');
+      addLog('EndereÃ§o parece contaminado/ambÃ­guo; IA vai normalizar antes de salvar.');
       const restaurantCtx = context.restaurant || {};
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 12000);
       const response = await fetch('/api/local-collector/ai-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           systemContext: [
-            'VocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© um normalizador de endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os brasileiros para um app pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico de restaurantes.',
-            'Recebe texto bruto do Google Maps que pode misturar ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cones, botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes, WhatsApp, telefone e endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o.',
-            'Extraia SOMENTE o endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel. Remova telefone, WhatsApp, Zap, botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes, emojis, ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cones e textos de interface.',
-            'NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o invente rua, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero ou CEP. Se souber cidade/UF pelo contexto, pode preencher cidade/UF.',
-            'Se o texto contiver algo como "Zap (81)98871 - 6083R. Paulo de Frontin, 60", o endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o correto comeÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a em "R. Paulo de Frontin".',
-            'Responda SOMENTE JSON vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido no formato {"street":"","number":"","neighborhood":"","city":"","state":"","cep":"","confidence":0_a_1,"reason":"curto"}.'
+            'VocÃª Ã© um normalizador de endereÃ§os brasileiros para um app pÃºblico de restaurantes.',
+            'Recebe texto bruto do Google Maps que pode misturar Ã­cones, botÃµes, WhatsApp, telefone e endereÃ§o.',
+            'Extraia SOMENTE o endereÃ§o publicÃ¡vel. Remova telefone, WhatsApp, Zap, botÃµes, emojis, Ã­cones e textos de interface.',
+            'NÃ£o invente rua, nÃºmero ou CEP. Se souber cidade/UF pelo contexto, pode preencher cidade/UF.',
+            'Se o texto contiver algo como "Zap (81)98871 - 6083R. Paulo de Frontin, 60", o endereÃ§o correto comeÃ§a em "R. Paulo de Frontin".',
+            'Responda SOMENTE JSON vÃ¡lido no formato {"street":"","number":"","neighborhood":"","city":"","state":"","cep":"","confidence":0_a_1,"reason":"curto"}.'
           ].join(' '),
           message: JSON.stringify({
             rawAddress,
@@ -2078,10 +2258,11 @@ export default function CityValidation() {
           })
         })
       });
+      window.clearTimeout(timeoutId);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const payload = await response.json();
       const decision = extractJsonObject(payload.reply || '');
-      if (!decision) throw new Error('IA nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o retornou JSON de endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o.');
+      if (!decision) throw new Error('IA nÃ£o retornou JSON de endereÃ§o.');
 
       const confidence = Math.max(0, Math.min(1, Number(decision.confidence || 0)));
       const street = sanitizeGoogleMapsAddressInput(String(decision.street || decision.address || fallback.street || '').trim());
@@ -2093,7 +2274,7 @@ export default function CityValidation() {
         state: String(decision.state || fallback.state || restaurantCtx.state || '').trim().toUpperCase().slice(0, 2),
         cep: String(decision.cep || fallback.cep || '').trim(),
         confidence,
-        reason: String(decision.reason || 'EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o normalizado pela IA.').trim(),
+        reason: String(decision.reason || 'EndereÃ§o normalizado pela IA.').trim(),
         source: 'ai_address_normalizer',
       };
 
@@ -2102,7 +2283,7 @@ export default function CityValidation() {
         || /\(?\d{2}\)?\s*\d{4,5}[-\s]?\d{4}/.test(normalized.street);
 
       if (confidence < 0.55 || stillDirty) {
-        addLog(`IA de endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o teve confianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a suficiente; usando fallback local. Motivo: ${normalized.reason}`);
+        addLog(`IA de endereÃ§o nÃ£o teve confianÃ§a suficiente; usando fallback local. Motivo: ${normalized.reason}`);
         return fallbackResult;
       }
 
@@ -2114,10 +2295,10 @@ export default function CityValidation() {
         normalized.state,
         normalized.cep
       ].filter(Boolean).join(', ');
-      addLog(`IA normalizou endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel: ${fullAddress}`);
+      addLog(`IA normalizou endereÃ§o publicÃ¡vel: ${fullAddress}`);
       return { ...normalized, fullAddress };
     } catch (error: any) {
-      addLog(`IA de endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o falhou; usando fallback local: ${error.message || error}`);
+      addLog(`IA de endereÃ§o falhou; usando fallback local: ${error.message || error}`);
       return fallbackResult;
     }
   };
@@ -2199,40 +2380,40 @@ export default function CityValidation() {
       : null;
 
     if (referenceCoords && mapCoordsAreExact) {
-      addLog(`Coordenadas validadas pelo link especÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­fico do Google Maps: ${referenceCoords.lat}, ${referenceCoords.lng}`);
+      addLog(`Coordenadas validadas pelo link especÃ­fico do Google Maps: ${referenceCoords.lat}, ${referenceCoords.lng}`);
       return {
         ...referenceCoords,
         source: 'google_maps_place_url',
         confidence: 0.98,
-        reason: 'Link do Google Maps trouxe coordenadas especÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­ficas do lugar.',
+        reason: 'Link do Google Maps trouxe coordenadas especÃ­ficas do lugar.',
       };
     }
 
     const localQueries = buildAddressQueryCandidates(address, restaurantCtx);
     const geocoded = await geocodeFirstUsable(localQueries, referenceCoords);
     if (geocoded) {
-      addLog(`Coordenadas validadas por geocode do endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o: ${geocoded.lat}, ${geocoded.lng} (${geocoded.query})`);
+      addLog(`Coordenadas validadas por geocode do endereÃ§o: ${geocoded.lat}, ${geocoded.lng} (${geocoded.query})`);
       return {
         lat: geocoded.lat,
         lng: geocoded.lng,
         source: 'address_geocode',
         confidence: referenceCoords ? 0.9 : 0.82,
-        reason: `Geocode validado a partir do endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o: ${geocoded.query}`,
+        reason: `Geocode validado a partir do endereÃ§o: ${geocoded.query}`,
       };
     }
 
     try {
-      addLog('Coordenadas nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o validadas pelo endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o; IA vai propor novas buscas de localizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.');
+      addLog('Coordenadas nÃ£o validadas pelo endereÃ§o; IA vai propor novas buscas de localizaÃ§Ã£o.');
       const response = await fetch('/api/local-collector/ai-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           systemContext: [
-            'VocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© um agente de validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de coordenadas para restaurantes no Brasil.',
-            'Objetivo: gerar buscas de geocodificaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o para encontrar latitude/longitude corretas do restaurante.',
-            'Use nome, rua, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero, bairro, cidade e UF. Remova telefone, WhatsApp, Zap e textos de interface.',
-            'NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o invente endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o. Se faltar nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero, gere busca sem nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero e com nome do restaurante.',
-            'Responda SOMENTE JSON vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido: {"queries":["...","..."],"reason":"curto"}.'
+            'VocÃª Ã© um agente de validaÃ§Ã£o de coordenadas para restaurantes no Brasil.',
+            'Objetivo: gerar buscas de geocodificaÃ§Ã£o para encontrar latitude/longitude corretas do restaurante.',
+            'Use nome, rua, nÃºmero, bairro, cidade e UF. Remova telefone, WhatsApp, Zap e textos de interface.',
+            'NÃ£o invente endereÃ§o. Se faltar nÃºmero, gere busca sem nÃºmero e com nome do restaurante.',
+            'Responda SOMENTE JSON vÃ¡lido: {"queries":["...","..."],"reason":"curto"}.'
           ].join(' '),
           message: JSON.stringify({
             restaurant: {
@@ -2259,13 +2440,13 @@ export default function CityValidation() {
       if (mergedQueries.length) {
         const aiGeocoded = await geocodeFirstUsable(mergedQueries, referenceCoords);
         if (aiGeocoded) {
-          addLog(`IA encontrou busca geocodificÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel: ${aiGeocoded.query} ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ ${aiGeocoded.lat}, ${aiGeocoded.lng}`);
+          addLog(`IA encontrou busca geocodificÃ¡vel: ${aiGeocoded.query} â†’ ${aiGeocoded.lat}, ${aiGeocoded.lng}`);
           return {
             lat: aiGeocoded.lat,
             lng: aiGeocoded.lng,
             source: 'ai_geocode_query',
             confidence: referenceCoords ? 0.88 : 0.78,
-            reason: decision?.reason || `IA gerou busca de endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o validada: ${aiGeocoded.query}`,
+            reason: decision?.reason || `IA gerou busca de endereÃ§o validada: ${aiGeocoded.query}`,
           };
         }
       }
@@ -2279,11 +2460,11 @@ export default function CityValidation() {
         ...referenceCoords,
         source: 'google_maps_url_fallback',
         confidence: 0.72,
-        reason: 'Geocode nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o confirmou, mas a URL do Maps trouxe coordenadas vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lidas.',
+        reason: 'Geocode nÃ£o confirmou, mas a URL do Maps trouxe coordenadas vÃ¡lidas.',
       };
     }
 
-    addLog('Coordenadas nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o validadas. Este restaurante nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o poderÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ ficar pronto para app sem nova coleta.');
+    addLog('Coordenadas nÃ£o validadas. Este restaurante nÃ£o poderÃ¡ ficar pronto para app sem nova coleta.');
     return null;
   };
 
@@ -2294,15 +2475,15 @@ export default function CityValidation() {
     const normalized = normalizeText(address);
     const latitude = Number(restaurant?.latitude);
     const longitude = Number(restaurant?.longitude);
-    if (!address) issues.push('EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o ausente.');
-    if (cleanAddress && cleanAddress !== address) issues.push(`EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o contaminado por texto de interface/telefone; sugerido: ${cleanAddress}.`);
-    if (/\b(zap|whats|whatsapp|telefone|tel|ligar)\b/i.test(normalized)) issues.push('EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o contÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m telefone/WhatsApp ou texto de botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.');
-    if (/\(?\d{2}\)?\s*\d{4,5}[-\s]?\d{4}/.test(address)) issues.push('EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o contÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero de telefone.');
-    if (address && !/(^|\b)(r\.|rua|av\.|avenida|travessa|tv\.|rod\.|rodovia|pra[ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§c]a|alameda|estrada|shopping)(\b|\s|\.|,)/i.test(address)) {
-      issues.push('EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o parece comeÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ar/indicar logradouro publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.');
+    if (!address) issues.push('EndereÃ§o ausente.');
+    if (cleanAddress && cleanAddress !== address) issues.push(`EndereÃ§o contaminado por texto de interface/telefone; sugerido: ${cleanAddress}.`);
+    if (/\b(zap|whats|whatsapp|telefone|tel|ligar)\b/i.test(normalized)) issues.push('EndereÃ§o contÃ©m telefone/WhatsApp ou texto de botÃ£o.');
+    if (/\(?\d{2}\)?\s*\d{4,5}[-\s]?\d{4}/.test(address)) issues.push('EndereÃ§o contÃ©m nÃºmero de telefone.');
+    if (address && !/(^|\b)(r\.|rua|av\.|avenida|travessa|tv\.|rod\.|rodovia|pra[Ã§c]a|alameda|estrada|shopping)(\b|\s|\.|,)/i.test(address)) {
+      issues.push('EndereÃ§o nÃ£o parece comeÃ§ar/indicar logradouro publicÃ¡vel.');
     }
     if (!isUsableCoordinatePair(latitude, longitude)) {
-      issues.push('Coordenadas latitude/longitude ausentes ou invÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lidas; app precisa delas para busca por proximidade.');
+      issues.push('Coordenadas latitude/longitude ausentes ou invÃ¡lidas; app precisa delas para busca por proximidade.');
     }
     return issues;
   };
@@ -2314,19 +2495,19 @@ export default function CityValidation() {
     const sourceName = mapsName || name;
     const normalizedName = normalizeText(sourceName);
     const triage = getLeadTriage(restaurant);
-    const genericOnly = /^(bar|restaurante|lanchonete|pizzaria|acai|aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­|cafe|cafÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©|pastelaria|hamburgueria|delivery)$/i.test(normalizedName);
+    const genericOnly = /^(bar|restaurante|lanchonete|pizzaria|acai|aÃ§aÃ­|cafe|cafÃ©|pastelaria|hamburgueria|delivery)$/i.test(normalizedName);
 
     if (!sourceName || normalizedName.length < 3) {
-      issues.push('Nome pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico ausente ou curto demais para publicar.');
+      issues.push('Nome pÃºblico ausente ou curto demais para publicar.');
     }
     if (triage.key === 'generic_low_signal' || genericOnly) {
-      issues.push('Nome pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rico/fraco; precisa confirmar identidade real no Google Maps/cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio antes de publicar.');
+      issues.push('Nome pÃºblico genÃ©rico/fraco; precisa confirmar identidade real no Google Maps/cardÃ¡pio antes de publicar.');
     }
     if (/\b(permanentemente|temporariamente)\s+fechad[oa]\b/i.test(sourceName)) {
-      issues.push('Nome pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico contÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m status de fechamento do Google; precisa revalidar e remover/rejeitar antes de publicar.');
+      issues.push('Nome pÃºblico contÃ©m status de fechamento do Google; precisa revalidar e remover/rejeitar antes de publicar.');
     }
     if (!String(restaurant?.google_maps_url || '').trim()) {
-      issues.push('Link do Google Maps ausente; a Fase 1 deve fornecer a fonte de identidade/localizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o antes do Validar IA publicar.');
+      issues.push('Link do Google Maps ausente; a Fase 1 deve fornecer a fonte de identidade/localizaÃ§Ã£o antes do Validar IA publicar.');
     }
     return issues;
   };
@@ -2334,7 +2515,7 @@ export default function CityValidation() {
   const buildMenuQualitySnapshotFromCategories = (inputCategories: any[] = []) => {
     const normalizedCategories = (inputCategories || []).map((category: any, categoryIndex: number) => ({
       id: category.id || `preview-${categoryIndex}`,
-      name: category.name || category.category_name || 'CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio',
+      name: category.name || category.category_name || 'CardÃ¡pio',
       order_index: Number(category.order_index ?? categoryIndex),
       items: (category.menu_items || category.items || category.samples || [])
         .sort((a: any, b: any) => Number(a.order_index || 0) - Number(b.order_index || 0))
@@ -2350,15 +2531,15 @@ export default function CityValidation() {
 
     const allItems = normalizedCategories.flatMap((category: any) => category.items.map((item: any) => ({ ...item, category: category.name })));
     const junkPatterns = [
-      /ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºltimo update|ultimo update|para o menu|cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio|cardapio$/i,
-      /pedido\s+m[iÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­]n|pedido\s+min|cupom\s+para\s+pagar|aberto\s+at[eÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©]|loja\s+fechando/i,
-      /^almo[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§]o$/i,
+      /Ãºltimo update|ultimo update|para o menu|cardÃ¡pio|cardapio$/i,
+      /pedido\s+m[iÃ­]n|pedido\s+min|cupom\s+para\s+pagar|aberto\s+at[eÃ©]|loja\s+fechando/i,
+      /^almo[cÃ§]o$/i,
       /^destaques$/i,
-      /^crian[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§]as$/i,
+      /^crian[cÃ§]as$/i,
       /^zero lactose$/i,
-      /\u2605|\bavalia[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o\b|\bcomida:\s*\d|\batmosfera:\s*\d/i,
+      /\u2605|\bavalia[cÃ§][aÃ£]o\b|\bcomida:\s*\d|\batmosfera:\s*\d/i,
     ];
-    const unrelatedRestaurantNames = ['fresh cake', 'daikÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´n', 'daikon', 'bar do cuscuz', 'la paloma', 'picanha 200'];
+    const unrelatedRestaurantNames = ['fresh cake', 'daikÃ´n', 'daikon', 'bar do cuscuz', 'la paloma', 'picanha 200'];
     const junkItems = allItems.filter((item: any) => {
       const text = `${item.name || ''} ${item.description || ''}`;
       const normalized = normalizeText(text);
@@ -2404,15 +2585,15 @@ export default function CityValidation() {
 
     const allItems = normalizedCategories.flatMap((category: any) => category.items.map((item: any) => ({ ...item, category: category.name })));
     const junkPatterns = [
-      /ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºltimo update|ultimo update|para o menu|cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio|cardapio$/i,
-      /pedido\s+m[iÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­]n|pedido\s+min|cupom\s+para\s+pagar|aberto\s+at[eÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©]|loja\s+fechando/i,
-      /^almo[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§]o$/i,
+      /Ãºltimo update|ultimo update|para o menu|cardÃ¡pio|cardapio$/i,
+      /pedido\s+m[iÃ­]n|pedido\s+min|cupom\s+para\s+pagar|aberto\s+at[eÃ©]|loja\s+fechando/i,
+      /^almo[cÃ§]o$/i,
       /^destaques$/i,
-      /^crian[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§]as$/i,
+      /^crian[cÃ§]as$/i,
       /^zero lactose$/i,
-      /ÃƒÆ’Ã‚Â¢Ãƒâ€¹Ã…â€œÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦|\bavalia[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o\b|\bcomida:\s*\d|\batmosfera:\s*\d/i,
+      /â˜…|\bavalia[cÃ§][aÃ£]o\b|\bcomida:\s*\d|\batmosfera:\s*\d/i,
     ];
-    const unrelatedRestaurantNames = ['fresh cake', 'daikÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´n', 'daikon', 'bar do cuscuz', 'la paloma', 'picanha 200'];
+    const unrelatedRestaurantNames = ['fresh cake', 'daikÃ´n', 'daikon', 'bar do cuscuz', 'la paloma', 'picanha 200'];
     const junkItems = allItems.filter((item: any) => {
       const text = `${item.name || ''} ${item.description || ''}`;
       const normalized = normalizeText(text);
@@ -2456,7 +2637,12 @@ export default function CityValidation() {
     if (!option?.is_searchable_variant) return null;
     const baseName = String(itemName || '').trim();
     const optionName = cleanOptionNameForSearchLabel(option?.name);
-    return [baseName, optionName].filter(Boolean).join(' ').trim() || null;
+    if (!baseName) return optionName || null;
+    if (!optionName) return baseName || null;
+    const baseKey = normalizeText(baseName);
+    const optionKey = normalizeText(optionName);
+    if (optionKey && baseKey.includes(optionKey)) return baseName;
+    return `${baseName} - ${optionName}`.trim() || null;
   };
 
   const normalizeComboComponents = (item: any) => {
@@ -2543,7 +2729,7 @@ export default function CityValidation() {
         : [];
       for (const nestedGroup of nestedGroups) {
         const nestedItems = Array.isArray(nestedGroup?.items) ? nestedGroup.items : [];
-        const nestedGroupName = [parentComponent.name, nestedGroup.name || 'OpÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes'].filter(Boolean).join(' > ');
+        const nestedGroupName = [parentComponent.name, nestedGroup.name || 'OpÃ§Ãµes'].filter(Boolean).join(' > ');
         const nestedBaseOption = {
           group_name: nestedGroupName,
           min_quantity: Number(nestedGroup.min_quantity || 0),
@@ -2637,9 +2823,9 @@ export default function CityValidation() {
     const addOption = (option: any, group: any = {}, groupIndex = 0, optionIndex = 0) => {
       const name = String(option?.name || option?.title || option?.label || '').trim();
       if (name.length < 2) return;
-      const groupName = String(option?.group_name || option?.groupName || group?.name || group?.group_name || 'OpÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes').trim() || 'OpÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes';
+      const groupName = String(option?.group_name || option?.groupName || group?.name || group?.group_name || 'OpÃ§Ãµes').trim() || 'OpÃ§Ãµes';
       const normalizedGroupName = normalizeText(groupName);
-      const isOperationalBinaryGroup = /^(deseja|quer|precisa|adicionar|enviar|retirar).*(ketchup|talher|guardanapo|cpf|observacao|observaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o|troco|sacola|descartavel|embalagem)/.test(normalizedGroupName);
+      const isOperationalBinaryGroup = /^(deseja|quer|precisa|adicionar|enviar|retirar).*(ketchup|talher|guardanapo|cpf|observacao|observaÃ§Ã£o|troco|sacola|descartavel|embalagem)/.test(normalizedGroupName);
       if (isComboCompositionOnlyGroup(groupName)) return;
       if (isNonMenuOperationalChoiceGroup(`${groupName} ${name}`)) return;
       if (isOperationalBinaryGroup && isBinaryOrInterfaceOptionName(name)) return;
@@ -2721,7 +2907,7 @@ export default function CityValidation() {
     const rows = normalizeItemOptionRows(item);
     const groups = new Map<string, any>();
     rows.forEach((option: any) => {
-      const groupName = option.group_name || 'OpÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes';
+      const groupName = option.group_name || 'OpÃ§Ãµes';
       const groupOrder = Number(option.group_order_index || 0);
       const key = buildOptionGroupKey(option);
       if (!groups.has(key)) {
@@ -2772,7 +2958,7 @@ export default function CityValidation() {
       ? description
       : name;
     const rawPieces = preferredSource
-      .replace(/\b(combo|super|big|promocao|promoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o)\b/gi, ' ')
+      .replace(/\b(combo|super|big|promocao|promoÃ§Ã£o)\b/gi, ' ')
       .split(/\s*(?:\+|,| e | com )\s*/i)
       .map((piece: string) => piece.trim())
       .filter(Boolean);
@@ -2782,14 +2968,14 @@ export default function CityValidation() {
       const numeric = lower.match(/\b([2-9])\s*x\b|\b([2-9])\s+(pizza|pizzas|hamburguer|hamburgueres|burguer|burgers|refri|refrigerante|bebida|bebidas)\b/);
       if (numeric) return Number(numeric[1] || numeric[2] || 1);
       if (/\b(duas|dois)\b/.test(lower)) return 2;
-      if (/\b(tres|trÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs)\b/.test(lower)) return 3;
+      if (/\b(tres|trÃªs)\b/.test(lower)) return 3;
       if (/\b(quatro)\b/.test(lower)) return 4;
       return 1;
     };
 
     const cleanPiece = (piece: string) => {
       let cleaned = piece
-        .replace(/\b(duas|dois|tres|trÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs|quatro)\b/gi, '')
+        .replace(/\b(duas|dois|tres|trÃªs|quatro)\b/gi, '')
         .replace(/\b[2-9]\s*x\b/gi, '')
         .replace(/\b[2-9]\s+(?=pizza|pizzas|hamburguer|hamburgueres|burguer|burgers|refri|refrigerante|bebida|bebidas)/gi, '')
         .replace(/\s+/g, ' ')
@@ -2840,10 +3026,10 @@ export default function CityValidation() {
     const normalizedText = `${normalizedName} ${normalizedDescription}`.trim();
 
     if (!normalizedText) return false;
-    if (/\b(combo|combos|kit|pague|leve|promocao|promoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o)\b/.test(normalizedText)) return true;
+    if (/\b(combo|combos|kit|pague|leve|promocao|promoÃ§Ã£o)\b/.test(normalizedText)) return true;
     if (/\b(super\s+big|super\s+pizza|pizza\s+dupla|duas\s+pizzas|dois\s+burg|dois\s+hamburg|2\s*x\s*(pizza|burg|hamburg|refri|bebida))\b/.test(normalizedText)) return true;
-    if (/[+]/.test(`${name} ${description}`) && /\b(coca|refri|refrigerante|bebida|batata|pizza|burger|burguer|hamburguer|hambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºrguer|esfiha|combo)\b/.test(normalizedText)) return true;
-    if (/\bpromocoes|promoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes|promocao|promoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o\b/.test(normalizedCategory) && /\b(coca|refri|refrigerante|bebida|dupla|duas|dois|combo|kit|[2-9]\s*x)\b/.test(normalizedText)) return true;
+    if (/[+]/.test(`${name} ${description}`) && /\b(coca|refri|refrigerante|bebida|batata|pizza|burger|burguer|hamburguer|hambÃºrguer|esfiha|combo)\b/.test(normalizedText)) return true;
+    if (/\bpromocoes|promoÃ§Ãµes|promocao|promoÃ§Ã£o\b/.test(normalizedCategory) && /\b(coca|refri|refrigerante|bebida|dupla|duas|dois|combo|kit|[2-9]\s*x)\b/.test(normalizedText)) return true;
 
     return false;
   };
@@ -2853,7 +3039,7 @@ export default function CityValidation() {
     const description = String(item?.description || '').trim();
     const hasNamePlus = /[+]/.test(name);
     const hasDescriptionPlus = /[+]/.test(description);
-    const hasQuantityBundle = /\b(duas|dois|tres|trÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs|quatro|[2-9]\s*x)\b/i.test(`${name} ${description}`);
+    const hasQuantityBundle = /\b(duas|dois|tres|trÃªs|quatro|[2-9]\s*x)\b/i.test(`${name} ${description}`);
 
     let source = '';
     if (hasDescriptionPlus) source = description;
@@ -2861,11 +3047,11 @@ export default function CityValidation() {
     else if (hasQuantityBundle) source = description || name;
     else return [];
 
-    const compositionMatch = source.match(/\b(?:vem\s+com|inclui|acompanha(?:do|da)?\s+de?|cont[eÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©]m)\s+(.+)$/i);
+    const compositionMatch = source.match(/\b(?:vem\s+com|inclui|acompanha(?:do|da)?\s+de?|cont[eÃ©]m)\s+(.+)$/i);
     if (compositionMatch?.[1]) source = compositionMatch[1];
 
     source = source
-      .replace(/\b(al[eÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©]m\s+disso|tamb[eÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©]m|para\s+voc[eÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª]).*$/i, '')
+      .replace(/\b(al[eÃ©]m\s+disso|tamb[eÃ©]m|para\s+voc[eÃª]).*$/i, '')
       .replace(/\s+/g, ' ')
       .trim();
 
@@ -2887,7 +3073,7 @@ export default function CityValidation() {
         type: 'fixed_item',
         name: (() => {
           const cleaned = piece
-            .replace(/\b(duas|dois|tres|trÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs|quatro)\b/gi, '')
+            .replace(/\b(duas|dois|tres|trÃªs|quatro)\b/gi, '')
             .replace(/\b[2-9]\s*x\b/gi, '')
             .replace(/\b[2-9]\s+(?=pizza|pizzas|hamburguer|hamburgueres|burguer|burgers|refri|refrigerante|bebida|bebidas)\b/gi, '')
             .replace(/\s+/g, ' ')
@@ -2899,7 +3085,7 @@ export default function CityValidation() {
           const numeric = lower.match(/\b([2-9])\s*x\b|\b([2-9])\s+(pizza|pizzas|hamburguer|hamburgueres|burguer|burgers|refri|refrigerante|bebida|bebidas)\b/);
           if (numeric) return Number(numeric[1] || numeric[2] || 1);
           if (/\b(duas|dois)\b/.test(lower)) return 2;
-          if (/\b(tres|trÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªs)\b/.test(lower)) return 3;
+          if (/\b(tres|trÃªs)\b/.test(lower)) return 3;
           if (/\bquatro\b/.test(lower)) return 4;
           return 1;
         })(),
@@ -2926,10 +3112,10 @@ export default function CityValidation() {
   };
 
   const COMBO_BUCKET_KEYWORDS: Record<string, RegExp> = {
-    pizza: /\b(pizza|pizzas|sabor|sabores|massa|massas|borda|bordas|calabresa|marguerita|margherita|mussarela|mu[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§]arela|frango|requeijao|catupiry|pepperoni|portuguesa|quatro queijos|4 queijos)\b/i,
-    beverage: /\b(coca|coca-cola|cocacola|refri|refrigerante|bebida|bebidas|guarana|guaran[aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡]|fanta|sprite|pepsi|suco|agua|[0-9]+ ?ml|[0-9]+(?:[,.][0-9]+)? ?l\b|lata)\b/i,
+    pizza: /\b(pizza|pizzas|sabor|sabores|massa|massas|borda|bordas|calabresa|marguerita|margherita|mussarela|mu[cÃ§]arela|frango|requeijao|catupiry|pepperoni|portuguesa|quatro queijos|4 queijos)\b/i,
+    beverage: /\b(coca|coca-cola|cocacola|refri|refrigerante|bebida|bebidas|guarana|guaran[aÃ¡]|fanta|sprite|pepsi|suco|agua|[0-9]+ ?ml|[0-9]+(?:[,.][0-9]+)? ?l\b|lata)\b/i,
     side: /\b(batata|fritas|anel de cebola|onion|acompanhamento|acompanhamentos|molho|molhos)\b/i,
-    burger: /\b(burger|burguer|hamburguer|hamb[ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºu]rguer|x-|smash|artesanal|salada|bacon|cheddar)\b/i,
+    burger: /\b(burger|burguer|hamburguer|hamb[Ãºu]rguer|x-|smash|artesanal|salada|bacon|cheddar)\b/i,
     dessert: /\b(sobremesa|doce|brownie|chocolate|bolo|pudim)\b/i,
   };
 
@@ -2957,7 +3143,7 @@ export default function CityValidation() {
 
   const isBinaryOrInterfaceOptionName = (value: any) => {
     const text = normalizeText(value);
-    return /^(sim|nao|nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o|ok|opcao|opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o|selecionar|escolher)$/.test(text);
+    return /^(sim|nao|nÃ£o|ok|opcao|opÃ§Ã£o|selecionar|escolher)$/.test(text);
   };
 
   const isNonMenuOperationalChoiceGroup = (value: any) => {
@@ -3025,7 +3211,7 @@ export default function CityValidation() {
         const targetInOutput = output.find((entry: any) => entry === target || (entry?.type === 'fixed_item' && entry?.name === target?.name));
         const normalizedGroup = {
           ...component,
-          name: component.name || (bucket === 'pizza' ? `Escolha da ${target.name}` : `OpÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes de ${target.name}`),
+          name: component.name || (bucket === 'pizza' ? `Escolha da ${target.name}` : `OpÃ§Ãµes de ${target.name}`),
           parent_component_name: target.name,
           semantic_type: bucket === 'pizza' ? 'flavor' : bucket === 'beverage' ? 'beverage_choice' : component.semantic_type,
           items: bucketOptions,
@@ -3158,11 +3344,132 @@ export default function CityValidation() {
     if (!realCategories.length) return categories;
     return realCategories;
   };
+  const preferBestMenuImageResolution = (imageUrl: string) => {
+    const cleanUrl = String(imageUrl || '').trim();
+    if (/instadelivery-public\.nyc3\.cdn\.digitaloceanspaces\.com\/itens\//i.test(cleanUrl)) {
+      return cleanUrl.replace(/_(?:75|100|150|200|300|400|600|800)_(?:75|100|150|200|300|400|600|800)(\.(?:jpe?g|png|webp|avif)(?:[?#].*)?)$/i, '$1');
+    }
+    return cleanUrl;
+  };
+  const collectMenuImageUrlsFromObject = (item: any): string[] => {
+    const urls: string[] = [];
+    const pushUrl = (value: any) => {
+      const url = preferBestMenuImageResolution(String(value || '').trim());
+      if (!url) return;
+      if (!/^https?:\/\//i.test(url) && !/^data:image\//i.test(url)) return;
+      if (/^data:video\//i.test(url) || /\.(mp4|mov|webm|m4v)(\?|#|$)/i.test(url)) return;
+      if (/placeholder|blank|sprite|avatar|icon|logo|no[_-]?image|sem[_-]?foto|default[_-]?image/i.test(url)) return;
+      const looksLikeImage = /^data:image\//i.test(url)
+        || /\.(jpg|jpeg|png|gif|webp|avif)(\?|#|$)/i.test(url)
+        || /(googleusercontent|fbcdn|cdninstagram|cdn|cloudinary|client-assets|storage\.googleapis|mitiendanube|nuvemshop|anota|instadelivery-public)/i.test(url);
+      if (!looksLikeImage) return;
+      urls.push(url);
+    };
+    const visit = (value: any, depth = 0) => {
+      if (!value || depth > 4) return;
+      if (typeof value === 'string') {
+        pushUrl(value);
+        return;
+      }
+      if (Array.isArray(value)) {
+        value.forEach((entry) => visit(entry, depth + 1));
+        return;
+      }
+      if (typeof value !== 'object') return;
+      [
+        value.image_url,
+        value.imageUrl,
+        value.photo,
+        value.photo_url,
+        value.photoUrl,
+        value.thumbnail_url,
+        value.thumbnailUrl,
+        value.url_image,
+        value.image,
+        value.src,
+        value.url,
+      ].forEach(pushUrl);
+      [
+        value.images,
+        value.image_urls,
+        value.imageUrls,
+        value.extra_image_urls,
+        value.extraImageUrls,
+        value.gallery_images,
+        value.photos,
+      ].forEach((list) => visit(list, depth + 1));
+      visit(value.raw_data, depth + 1);
+      visit(value.rawData, depth + 1);
+      visit(value.detail, depth + 1);
+      visit(value.productDetail, depth + 1);
+      visit(value.anota_detail, depth + 1);
+      visit(value.detailPayload, depth + 1);
+    };
+    visit(item, 0);
+    const seen = new Set<string>();
+    return urls.filter((url) => {
+      const key = url.replace(/[?#].*$/, '');
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+
+  const extractBestMenuImageUrl = (item: any) => collectMenuImageUrlsFromObject(item)[0] || '';
+
+  const escapeRegexText = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const cleanMenuItemDescription = (description: any, currentName: any, siblingNames: string[] = []) => {
+    let text = String(description || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (!text) return '';
+
+    const cutAtPatterns = [
+      /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i,
+      /\bCopyright\b/i,
+      /\bTodos os direitos reservados\b/i,
+      /\b(Rua|R\.|Avenida|Av\.|Travessa|Tv\.|PraÃ§a|Praca)\s+[A-Za-zÀ-ÖØ-öø-ÿ][^.;|]{4,90},?\s*\d+/i,
+      /\b(In[iÃ­]cio|Produtos|Contato|Carrinho|Entrar|Minha conta)\b/i,
+    ];
+
+    let cutIndex = text.length;
+    for (const pattern of cutAtPatterns) {
+      const match = pattern.exec(text);
+      if (match?.index !== undefined && match.index >= 0) {
+        cutIndex = Math.min(cutIndex, match.index);
+      }
+    }
+
+    const normalizedCurrentName = normalizeText(currentName);
+    for (const siblingName of siblingNames) {
+      const cleanSiblingName = String(siblingName || '').trim();
+      if (cleanSiblingName.length < 4 || normalizeText(cleanSiblingName) === normalizedCurrentName) continue;
+      const match = new RegExp(`(^|[\\sâ€¢|,.;:-])${escapeRegexText(cleanSiblingName)}([\\sâ€¢|,.;:-]|$)`, 'i').exec(text);
+      if (match?.index !== undefined && match.index > 24) {
+        cutIndex = Math.min(cutIndex, match.index + (match[1] ? match[1].length : 0));
+      }
+    }
+
+    if (cutIndex < text.length) {
+      text = text.slice(0, cutIndex).trim();
+    }
+
+    text = text
+      .replace(/\s+[â€¢|,.;:-]\s*$/g, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+
+    const normalizedDescription = normalizeText(text);
+    if (!text || normalizedDescription === normalizedCurrentName) return '';
+    return text;
+  };
+
   const normalizeAuditMenu = (categories: any[]) => {
-    const junkName = /^(ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºltimo update:?|para o menu|cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio|cardapio|destaques)$/i;
+    const junkName = /^(Ãºltimo update:?|para o menu|cardÃ¡pio|cardapio|destaques)$/i;
     const normalizedCategories = (Array.isArray(categories) ? categories : [])
       .map((category: any) => ({
-        name: String(category?.name || 'CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio').trim(),
+        name: String(category?.name || 'CardÃ¡pio').trim(),
         items: (Array.isArray(category?.items) ? category.items : [])
           .map((item: any) => {
             const categoryName = String(category?.name || '').trim();
@@ -3179,9 +3486,7 @@ export default function CityValidation() {
             const explicitComboComponents = normalizeComboComponents(item);
             const explicitOptions = normalizeItemOptionRows(item);
             const inferredCommercialType = String(item?.commercial_type || item?.commercial_kind || (explicitOptions.length ? 'configurable_item' : 'simple_item')).trim();
-            const inferredComboComponents = explicitComboComponents.length
-              ? explicitComboComponents
-              : buildLiteralComboComponents(item, categoryName);
+            const inferredComboComponents = explicitComboComponents;
             const options = explicitOptions
               .filter((option: any) => option.name.length >= 2);
             const optionAbsolutePriceValues = options
@@ -3200,7 +3505,11 @@ export default function CityValidation() {
             const price = sourcePrice > 0
               ? sourcePrice
               : (optionAbsolutePriceValues.length ? Math.min(...optionAbsolutePriceValues) : 0);
-            const commercialType = inferredComboComponents.length ? 'combo_builder' : inferredCommercialType;
+            const commercialType = inferredComboComponents.length
+              ? 'combo_builder'
+              : (inferredCommercialType === 'combo_builder'
+                ? (options.length ? 'configurable_item' : 'simple_item')
+                : inferredCommercialType);
             const explicitPriceType = String(item?.price_type || '').trim();
             const hasVariableComboChoice = inferredComboComponents.some((component: any) => component.type !== 'fixed_item');
             const priceType = commercialType === 'combo_builder' && !hasVariableComboChoice
@@ -3213,22 +3522,37 @@ export default function CityValidation() {
             const priceMax = item?.price_max === null || item?.price_max === undefined || !shouldTrustProvidedRange
               ? (sourcePrice > 0 ? sourcePrice : (optionAbsolutePriceValues.length ? Math.max(...optionAbsolutePriceValues) : price))
               : toMenuNumber(item.price_max, price);
+            const itemImageUrls = collectMenuImageUrlsFromObject(item);
+            const itemImageUrl = itemImageUrls[0] || '';
+            const itemName = String(item?.name || item?.display_name || '').trim();
+            const siblingNames = (Array.isArray(category?.items) ? category.items : [])
+              .map((sibling: any) => String(sibling?.name || sibling?.display_name || '').trim())
+              .filter((name: string) => name && name !== itemName);
+            const cleanedDescription = cleanMenuItemDescription(item?.description, itemName, siblingNames);
             const rawData = typeof item?.raw_data === 'object' && item.raw_data !== null
               ? {
                 ...item.raw_data,
+                image_url: itemImageUrl || item.raw_data.image_url || item.raw_data.imageUrl || null,
+                image_urls: itemImageUrls,
+                original_description: item.raw_data.original_description || item?.description || '',
+                description_cleaned: cleanedDescription !== String(item?.description || '').trim(),
                 combo_components: inferredComboComponents,
                 combo_rules: item?.combo_rules || item?.comboRules || null,
                 combo_structuring_policy: inferredComboComponents.length ? 'literal_source_only_preserve_original_menu' : undefined,
               }
               : {
                 ...item,
+                image_url: itemImageUrl || null,
+                image_urls: itemImageUrls,
+                original_description: item?.description || '',
+                description_cleaned: cleanedDescription !== String(item?.description || '').trim(),
                 combo_components: inferredComboComponents,
                 combo_rules: item?.combo_rules || item?.comboRules || null,
                 combo_structuring_policy: inferredComboComponents.length ? 'literal_source_only_preserve_original_menu' : undefined,
               };
             return {
-              name: String(item?.name || item?.display_name || '').trim(),
-              description: String(item?.description || '').trim(),
+              name: itemName,
+              description: cleanedDescription,
               price,
               display_price: toMenuNumber(item?.display_price ?? price, price),
               price_type: priceType,
@@ -3236,7 +3560,7 @@ export default function CityValidation() {
               price_max: priceMax,
               commercial_type: commercialType,
               is_configurable: Boolean(item?.is_configurable || options.length || inferredComboComponents.length || commercialType === 'combo_builder'),
-              image_url: String(item?.image_url || '').trim() || null,
+              image_url: itemImageUrl || null,
               search_display_name: String(item?.search_display_name || item?.display_name || item?.name || '').trim(),
               search_keywords: [String(item?.search_keywords || '').trim(), buildComboComponentSearchText(inferredComboComponents)].filter(Boolean).join(' '),
               options,
@@ -3257,6 +3581,81 @@ export default function CityValidation() {
       }))
       .filter((category: any) => category.name.length >= 3 && category.items.length > 0);
     return removeGenericPublicMenuCategoriesWhenRealExist(normalizedCategories);
+  };
+
+  const dedupeExactAuditMenuItems = (categories: any[] = []) => {
+    let removedCount = 0;
+    const normalizedValue = (value: any) => normalizeText(String(value ?? '')).replace(/[^a-z0-9]+/g, ' ').trim();
+    const moneyValue = (value: any) => {
+      const parsed = toNullableMenuNumber(value);
+      return parsed === null ? '' : parsed.toFixed(2);
+    };
+    const optionSignature = (item: any) => normalizeItemOptionRows(item)
+      .map((option: any) => [
+        normalizedValue(option.group_name),
+        normalizedValue(option.name),
+        normalizedValue(option.description),
+        moneyValue(option.price),
+        moneyValue(option.price_delta),
+        option.min_quantity ?? '',
+        option.max_quantity ?? '',
+        option.is_required ? '1' : '0',
+        normalizedValue(option.semantic_type),
+        normalizedValue(option.price_behavior),
+      ].join(':'))
+      .sort()
+      .join('|');
+    const componentSignature = (components: any[] = []): string => JSON.stringify((Array.isArray(components) ? components : [])
+      .map((component: any) => ({
+        type: normalizedValue(component?.type),
+        name: normalizedValue(component?.name || component?.title || component?.label),
+        description: normalizedValue(component?.description),
+        quantity: component?.quantity ?? '',
+        min_quantity: component?.min_quantity ?? component?.min ?? '',
+        max_quantity: component?.max_quantity ?? component?.max ?? '',
+        is_required: Boolean(component?.is_required ?? component?.required),
+        price_behavior: normalizedValue(component?.price_behavior),
+        items: (Array.isArray(component?.items) ? component.items : Array.isArray(component?.options) ? component.options : [])
+          .map((item: any) => ({
+            name: normalizedValue(item?.name || item?.title || item?.label),
+            description: normalizedValue(item?.description),
+            price: moneyValue(item?.price),
+            price_delta: moneyValue(item?.price_delta ?? item?.delta),
+            price_behavior: normalizedValue(item?.price_behavior),
+          }))
+          .sort((a: any, b: any) => JSON.stringify(a).localeCompare(JSON.stringify(b))),
+      }))
+      .sort((a: any, b: any) => JSON.stringify(a).localeCompare(JSON.stringify(b))));
+    const itemSignature = (item: any) => [
+      normalizedValue(item?.name || item?.display_name),
+      normalizedValue(item?.description),
+      moneyValue(item?.price),
+      moneyValue(item?.display_price),
+      moneyValue(item?.price_min),
+      moneyValue(item?.price_max),
+      normalizedValue(item?.price_type),
+      normalizedValue(item?.commercial_type),
+      String(item?.is_configurable ? '1' : '0'),
+      String(item?.image_url || '').trim(),
+      optionSignature(item),
+      componentSignature(item?.combo_components || item?.comboComponents || []),
+    ].join('||');
+
+    const menu = (Array.isArray(categories) ? categories : []).map((category: any) => {
+      const seen = new Set<string>();
+      const items = (Array.isArray(category?.items) ? category.items : []).filter((item: any) => {
+        const signature = itemSignature(item);
+        if (seen.has(signature)) {
+          removedCount += 1;
+          return false;
+        }
+        seen.add(signature);
+        return true;
+      });
+      return { ...category, items };
+    }).filter((category: any) => Array.isArray(category.items) && category.items.length > 0);
+
+    return { menu, removedCount };
   };
 
   const buildMenuSourceEvidence = (categories: any[] = [], rawText = '') => {
@@ -3370,15 +3769,15 @@ export default function CityValidation() {
     for (const category of categories || []) {
       const categoryName = String(category?.name || '').trim();
       const normalizedCategory = normalizeText(categoryName);
-      if (/^(adicionais|acrescimos|acrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©scimos|escolha|escolhas|turbine|bora de combo|deseja)/.test(normalizedCategory)) {
-        push('warning', 'internal_group_as_public_category', categoryName, 'Categoria parece grupo interno de item, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o categoria pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblica.', 'Mover para option_groups/combo_components do item correspondente.');
+      if (/^(adicionais|acrescimos|acrÃ©scimos|escolha|escolhas|turbine|bora de combo|deseja)/.test(normalizedCategory)) {
+        push('warning', 'internal_group_as_public_category', categoryName, 'Categoria parece grupo interno de item, nÃ£o categoria pÃºblica.', 'Mover para option_groups/combo_components do item correspondente.');
       }
 
       for (const item of (category?.items || [])) {
         const itemName = String(item?.name || '').trim();
         const itemRef = [categoryName, itemName].filter(Boolean).join(' > ');
-        if (/^(sim|nao|nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o|ok)$/.test(normalizeText(itemName))) {
-          push('blocking', 'binary_option_as_item', itemRef, 'OpÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o binÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria foi promovida a item pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico.', 'Remover do menu pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico ou manter apenas como pergunta operacional nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o pesquisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.');
+        if (/^(sim|nao|nÃ£o|ok)$/.test(normalizeText(itemName))) {
+          push('blocking', 'binary_option_as_item', itemRef, 'OpÃ§Ã£o binÃ¡ria foi promovida a item pÃºblico.', 'Remover do menu pÃºblico ou manter apenas como pergunta operacional nÃ£o pesquisÃ¡vel.');
         }
 
         const groups = Array.isArray(item?.option_groups) ? item.option_groups : Array.isArray(item?.options) ? item.options : [];
@@ -3387,11 +3786,11 @@ export default function CityValidation() {
           const groupItems = Array.isArray(group?.items) ? group.items : [];
           const binaryCount = groupItems.filter((option: any) => isBinaryOrInterfaceOptionName(option?.name)).length;
           if (binaryCount >= 2 && /^(deseja|quer|precisa|adicionar|enviar|retirar)/.test(normalizeText(groupName))) {
-            push('warning', 'operational_binary_group', `${itemRef} > ${groupName}`, 'Grupo operacional Sim/NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o deve aparecer como adicional pesquisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.', 'Ocultar do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico ou marcar semantic_type="not_searchable".');
+            push('warning', 'operational_binary_group', `${itemRef} > ${groupName}`, 'Grupo operacional Sim/NÃ£o nÃ£o deve aparecer como adicional pesquisÃ¡vel.', 'Ocultar do cardÃ¡pio pÃºblico ou marcar semantic_type="not_searchable".');
           }
           for (const option of groupItems) {
             if (optionPriceLooksLikeVolume(option?.name, option?.price ?? option?.price_delta)) {
-              push('warning', 'volume_saved_as_price', `${itemRef} > ${groupName} > ${option?.name || ''}`, 'Volume em ml/L parece ter sido interpretado como preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o.', 'Zerar price/price_delta se o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero vier do volume do produto.');
+              push('warning', 'volume_saved_as_price', `${itemRef} > ${groupName} > ${option?.name || ''}`, 'Volume em ml/L parece ter sido interpretado como preÃ§o.', 'Zerar price/price_delta se o nÃºmero vier do volume do produto.');
             }
           }
         }
@@ -3409,14 +3808,14 @@ export default function CityValidation() {
               return bucket !== 'unknown' && fixedItems.some((fixed: any) => comboBucketForText(fixed?.name) === bucket);
             });
             if (attachableLooseGroups.length > 0) {
-              push('warning', 'combo_choice_group_not_attached', itemRef, 'Grupo de escolha do combo poderia estar atrelado a um item incluso especÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­fico.', 'Executar attachChoiceGroupsToComboFixedItems antes de salvar/publicar.');
+              push('warning', 'combo_choice_group_not_attached', itemRef, 'Grupo de escolha do combo poderia estar atrelado a um item incluso especÃ­fico.', 'Executar attachChoiceGroupsToComboFixedItems antes de salvar/publicar.');
             }
           }
           for (const component of comboComponents) {
             for (const nestedGroup of (component?.choice_groups || [])) {
               for (const option of (nestedGroup?.items || [])) {
                 if (optionPriceLooksLikeVolume(option?.name, option?.price ?? option?.price_delta)) {
-                  push('warning', 'nested_volume_saved_as_price', `${itemRef} > ${component?.name || ''} > ${nestedGroup?.name || ''} > ${option?.name || ''}`, 'Volume em opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o interna do combo parece preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o.', 'Zerar price/price_delta se for ml/L.');
+                  push('warning', 'nested_volume_saved_as_price', `${itemRef} > ${component?.name || ''} > ${nestedGroup?.name || ''} > ${option?.name || ''}`, 'Volume em opÃ§Ã£o interna do combo parece preÃ§o.', 'Zerar price/price_delta se for ml/L.');
                 }
               }
             }
@@ -3441,7 +3840,7 @@ export default function CityValidation() {
     const cleanUnsupportedDescription = (item: any) => {
       const description = String(item?.description || '').trim();
       if (!description) return item;
-      // DescriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© texto publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel: nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o pode ser reconstruÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­da por palavras soltas.
+      // DescriÃ§Ã£o Ã© texto publicÃ¡vel: nÃ£o pode ser reconstruÃ­da por palavras soltas.
       // Precisa aparecer como trecho literal na fonte (DOM/texto/OCR/print), ou fica vazia.
       const supported = sourceContainsLiteralText(description, evidence);
       if (supported) return item;
@@ -3590,19 +3989,8 @@ export default function CityValidation() {
     const imageByName = new Map<string, string>();
     const addSourceItem = (item: any) => {
       const name = normalizeText(String(item?.name || item?.display_name || item?.title || '').trim());
-      const imageUrl = String(item?.image_url || item?.imageUrl || item?.photo || item?.thumbnail_url || '').trim();
+      const imageUrl = extractBestMenuImageUrl(item);
       if (name && imageUrl && !imageByName.has(name)) imageByName.set(name, imageUrl);
-    };
-    const visitSourceOptions = (options: any[] = []) => {
-      for (const option of options || []) {
-        addSourceItem(option);
-        const nestedItems = Array.isArray(option?.items)
-          ? option.items
-          : Array.isArray(option?.options)
-            ? option.options
-            : [];
-        if (nestedItems.length) visitSourceOptions(nestedItems);
-      }
     };
 
     for (const category of sourceCategories || []) {
@@ -3615,9 +4003,6 @@ export default function CityValidation() {
             : [];
       items.forEach((item: any) => {
         addSourceItem(item);
-        visitSourceOptions(Array.isArray(item?.options) ? item.options : []);
-        visitSourceOptions(Array.isArray(item?.option_groups) ? item.option_groups : []);
-        visitSourceOptions(Array.isArray(item?.combo_components) ? item.combo_components : []);
       });
     }
 
@@ -3628,12 +4013,7 @@ export default function CityValidation() {
       if (!itemName) return '';
       const exactImage = imageByName.get(itemName);
       if (exactImage) return exactImage;
-      const fuzzy = [...imageByName.entries()].find(([sourceName]) => (
-        itemName.length >= 4
-        && sourceName.length >= 4
-        && (sourceName.includes(itemName) || itemName.includes(sourceName))
-      ));
-      return fuzzy ? fuzzy[1] : '';
+      return '';
     };
 
     const mergeComboOptionImages = (components: any[] = []) => (components || []).map((component: any) => ({
@@ -3738,13 +4118,15 @@ export default function CityValidation() {
     const preserveItem = (item: any, sourceItem: any) => {
       if (!sourceItem) return item;
       matchedSourceKeys.add(sourceItem.__sourceKey);
+      const sourceImageUrls = collectMenuImageUrlsFromObject(sourceItem);
+      const sourceImageUrl = sourceImageUrls[0] || '';
 
       if (priceChanged(item, sourceItem)) priceFixes += 1;
       const currentOptionsSignature = optionSignature(item);
       const sourceOptionsSignature = optionSignature(sourceItem);
       if (sourceOptionsSignature && currentOptionsSignature !== sourceOptionsSignature) optionFixes += 1;
       if (normalizeText(item?.description) !== normalizeText(sourceItem?.description)) descriptionFixes += 1;
-      if (String(sourceItem?.image_url || '').trim() && String(item?.image_url || '').trim() !== String(sourceItem.image_url).trim()) imageFixes += 1;
+      if (sourceImageUrl && String(item?.image_url || '').trim() !== sourceImageUrl) imageFixes += 1;
 
       const sourceOptionRows = normalizeItemOptionRows(sourceItem);
       const sourceOptionGroups = normalizeItemOptionGroups(sourceItem);
@@ -3765,7 +4147,7 @@ export default function CityValidation() {
         price_source: sourceItem.price_source || item.price_source || (sourceOptionRows.length ? 'native_platform_options' : 'native_platform_item'),
         commercial_type: sourceItem.commercial_type || item.commercial_type || (sourceOptionRows.length ? 'configurable_item' : 'simple_item'),
         is_configurable: Boolean(sourceItem.is_configurable || sourceOptionRows.length || sourceComboComponents.length),
-        image_url: String(sourceItem.image_url || item.image_url || '').trim() || null,
+        image_url: sourceImageUrl || null,
         search_display_name: item.search_display_name || sourceItem.search_display_name || sourceItem.name || item.name,
         search_keywords: [
           sourceItem.search_keywords,
@@ -3782,6 +4164,8 @@ export default function CityValidation() {
           source_preserved: true,
           source_item_name: sourceItem.name || '',
           source_category_name: sourceItem.__sourceCategoryName || '',
+          source_image_url: sourceImageUrl || null,
+          source_image_urls: sourceImageUrls,
         },
       };
     };
@@ -3795,7 +4179,7 @@ export default function CityValidation() {
     if (options.forceSourceCategories && sourceMenu.length) {
       const categoryByKey = new Map<string, any>();
       const ensureSourceCategory = (name: any, orderIndex: number) => {
-        const cleanName = String(name || '').trim() || 'CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio';
+        const cleanName = String(name || '').trim() || 'CardÃ¡pio';
         const key = itemKey(cleanName);
         if (!categoryByKey.has(key)) {
           categoryByKey.set(key, {
@@ -3819,7 +4203,7 @@ export default function CityValidation() {
           const sourceCategoryName = String(sourceItem?.__sourceCategoryName || '').trim();
           const targetCategory = sourceCategoryName
             ? ensureSourceCategory(sourceCategoryName, sourceItem?.__sourceCategoryIndex)
-            : ensureSourceCategory(currentCategoryName || 'CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio', 9999);
+            : ensureSourceCategory(currentCategoryName || 'CardÃ¡pio', 9999);
 
           if (sourceCategoryName && itemKey(sourceCategoryName) !== itemKey(currentCategoryName)) {
             categoryFixes += 1;
@@ -3883,7 +4267,11 @@ export default function CityValidation() {
   };
 
   const replaceRestaurantMenuFromAudit = async (restaurantId: string, categories: any[]) => {
-    const normalized = normalizeAuditMenu(categories);
+    const dedupedMenu = dedupeExactAuditMenuItems(normalizeAuditMenu(categories));
+    const normalized = dedupedMenu.menu;
+    if (dedupedMenu.removedCount > 0) {
+      addLog(`Auditoria estrutural local removeu ${dedupedMenu.removedCount} item(ns) duplicado(s) exatamente iguais antes de salvar.`);
+    }
     const buildKeywords = (item: any, categoryName: string) => {
       const optionRows = normalizeItemOptionRows(item);
       const parts = [
@@ -3901,6 +4289,41 @@ export default function CityValidation() {
         .filter((part: string) => part.length >= 3)
       )].slice(0, 120).join(' ');
     };
+    const menuImageStorageCache = new Map<string, string>();
+    const getImageExtension = (url: string) => {
+      const match = String(url || '').split(/[?#]/)[0].match(/\.(jpg|jpeg|png|gif|webp|avif)$/i);
+      return match ? match[1].toLowerCase().replace('jpeg', 'jpg') : 'jpg';
+    };
+    const slugForStoragePath = (value: any) => String(value || 'item')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 80) || 'item';
+    const ensureMenuItemImageInStorage = async (imageUrl: string, categoryName: string, itemName: string, itemIdx: number) => {
+      const originalUrl = String(imageUrl || '').trim();
+      if (!originalUrl || !/^https?:\/\//i.test(originalUrl) || /supabase\.co\/storage/i.test(originalUrl)) return originalUrl;
+      const cacheKey = originalUrl.replace(/[?#].*$/, '');
+      if (menuImageStorageCache.has(cacheKey)) return menuImageStorageCache.get(cacheKey) || originalUrl;
+      const ext = getImageExtension(originalUrl);
+      const storagePath = `menu-items/${restaurantId}/${Date.now()}_${slugForStoragePath(categoryName)}_${slugForStoragePath(itemName)}_${itemIdx}.${ext}`;
+      try {
+        const response = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(originalUrl)}&path=${encodeURIComponent(storagePath)}`, {
+          method: 'POST',
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (response.ok && payload?.success && payload?.url) {
+          menuImageStorageCache.set(cacheKey, payload.url);
+          return payload.url;
+        }
+        addLog(`Imagem do item nao foi baixada para Storage (${itemName}): ${payload?.error || `HTTP ${response.status}`}. Usando URL original.`);
+      } catch (error: any) {
+        addLog(`Erro ao baixar imagem do item para Storage (${itemName}): ${error.message || error}. Usando URL original.`);
+      }
+      menuImageStorageCache.set(cacheKey, originalUrl);
+      return originalUrl;
+    };
     const insertMenuItem = async (item: any, categoryId: string, categoryName: string, itemIdx: number) => {
       const comboComponents = Array.isArray(item.combo_components)
         ? item.combo_components.filter((component: any) => component && String(component.name || '').trim())
@@ -3908,6 +4331,9 @@ export default function CityValidation() {
       const hasVariableComboChoice = comboComponents.some((component: any) => component.type !== 'fixed_item');
       const optionRows = normalizeItemOptionRows(item);
       const isConfigurable = Boolean(item.is_configurable || optionRows.length || comboComponents.length);
+      const sourceImageUrl = extractBestMenuImageUrl(item);
+      const finalItemImageUrl = await ensureMenuItemImageInStorage(sourceImageUrl, categoryName, item.name, itemIdx);
+      const itemRawData = typeof item.raw_data === 'object' && item.raw_data !== null ? item.raw_data : item;
       const richPayload: any = {
         category_id: categoryId,
         name: item.name,
@@ -3923,7 +4349,7 @@ export default function CityValidation() {
         price_source: isConfigurable ? 'ai_curated_options' : 'ai_curated_item',
         commercial_type: item.commercial_type || (isConfigurable ? 'configurable_item' : 'simple_item'),
         is_configurable: isConfigurable,
-        image_url: item.image_url || null,
+        image_url: finalItemImageUrl || null,
         order_index: itemIdx,
         is_active: true,
         search_display_name: item.search_display_name || item.name,
@@ -3931,7 +4357,11 @@ export default function CityValidation() {
         combo_components: comboComponents.length ? comboComponents : null,
         combo_rules: item.combo_rules || null,
         combo_display_mode: null,
-        raw_data: item.raw_data || item,
+        raw_data: {
+          ...itemRawData,
+          source_image_url: sourceImageUrl || null,
+          stored_image_url: finalItemImageUrl || null,
+        },
         extraction_confidence: 0.92,
         needs_review: false,
       };
@@ -3945,7 +4375,7 @@ export default function CityValidation() {
         name: item.name,
         description: item.description || '',
         price: item.price || item.display_price || item.price_min || 0,
-        image_url: item.image_url || null,
+        image_url: finalItemImageUrl || null,
         order_index: itemIdx,
         is_active: true,
         search_display_name: item.search_display_name || item.name,
@@ -3964,7 +4394,7 @@ export default function CityValidation() {
       const options = normalizeItemOptionRows(item);
       if (!options.length) return;
       const grouped = options.reduce((acc: Map<string, any[]>, option: any) => {
-        const groupName = option.group_name || 'OpÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes';
+        const groupName = option.group_name || 'OpÃ§Ãµes';
         const key = buildOptionGroupKey(option);
         acc.set(key, [...(acc.get(key) || []), option]);
         return acc;
@@ -3972,7 +4402,7 @@ export default function CityValidation() {
 
       for (const groupOptions of grouped.values()) {
         const first = (groupOptions as any[])[0] || {};
-        const groupName = first.group_name || 'OpÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes';
+        const groupName = first.group_name || 'OpÃ§Ãµes';
         let groupId: string | null = null;
         const groupPayload: any = {
           menu_item_id: menuItemId,
@@ -4080,7 +4510,7 @@ export default function CityValidation() {
       const savedImageCount = savedItems.filter((item: any) => String(item?.image_url || '').trim()).length;
 
       if (expectedImageCount >= 5 && savedImageCount < Math.max(1, Math.floor(expectedImageCount * 0.75))) {
-        throw new Error(`Auditoria pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-salvamento bloqueou publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: a fonte tinha ${expectedImageCount} imagem(ns), mas sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ ${savedImageCount} ficaram no banco.`);
+        throw new Error(`Auditoria pÃ³s-salvamento bloqueou publicaÃ§Ã£o: a fonte tinha ${expectedImageCount} imagem(ns), mas sÃ³ ${savedImageCount} ficaram no banco.`);
       }
 
       if (expectedOptionCount >= 8) {
@@ -4098,11 +4528,11 @@ export default function CityValidation() {
         }
 
         if (savedOptionCount < Math.max(1, Math.floor(expectedOptionCount * 0.85))) {
-          throw new Error(`Auditoria pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-salvamento bloqueou publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: a fonte tinha ${expectedOptionCount} opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o(ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes)/adicional(is), mas sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ ${savedOptionCount} ficaram no banco.`);
+          throw new Error(`Auditoria pÃ³s-salvamento bloqueou publicaÃ§Ã£o: a fonte tinha ${expectedOptionCount} opÃ§Ã£o(Ãµes)/adicional(is), mas sÃ³ ${savedOptionCount} ficaram no banco.`);
         }
       }
 
-      addLog(`Auditoria pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-salvamento OK: ${savedItems.length} item(ns), ${savedImageCount}/${expectedImageCount} imagem(ns) e opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes preservadas no banco.`);
+      addLog(`Auditoria pÃ³s-salvamento OK: ${savedItems.length} item(ns), ${savedImageCount}/${expectedImageCount} imagem(ns) e opÃ§Ãµes preservadas no banco.`);
     }
 
     return normalized;
@@ -4114,19 +4544,19 @@ export default function CityValidation() {
   ) => {
     const currentRestaurant = { ...(context.effectiveRestaurant || restaurant) };
     if (context.menuResult?.success || context.menuEvidence?.success) {
-      // Motivos antigos de QA/recoleta nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o podem contaminar a decisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o atual.
-      // Se esta execuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o achou uma fonte direta e uma prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©via vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lida, a auditoria
-      // deve julgar o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio recÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m-coletado, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o o ai_log de uma tentativa anterior.
+      // Motivos antigos de QA/recoleta nÃ£o podem contaminar a decisÃ£o atual.
+      // Se esta execuÃ§Ã£o achou uma fonte direta e uma prÃ©via vÃ¡lida, a auditoria
+      // deve julgar o cardÃ¡pio recÃ©m-coletado, nÃ£o o ai_log de uma tentativa anterior.
       delete (currentRestaurant as any).ai_log;
       delete (currentRestaurant as any).qa_log;
       delete (currentRestaurant as any).last_error;
       currentRestaurant.menu_status = 'found';
       currentRestaurant.menu_status_reason = context.menuResult?.message
-        || 'CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio coletado e estruturado nesta execuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o; ignore motivos antigos de recoleta.';
+        || 'CardÃ¡pio coletado e estruturado nesta execuÃ§Ã£o; ignore motivos antigos de recoleta.';
       currentRestaurant.menu_last_checked_at = new Date().toISOString();
       if (context.learnedSourceUrl || context.menuEvidence?.sourceUrl) {
         currentRestaurant.other_url = context.learnedSourceUrl || context.menuEvidence?.sourceUrl;
-        currentRestaurant.other_url_label = `CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio validado ${currentRestaurant.city || restaurant.city || ''}`.trim();
+        currentRestaurant.other_url_label = `CardÃ¡pio validado ${currentRestaurant.city || restaurant.city || ''}`.trim();
       }
     }
     const identityIssues = getPublicIdentityIssues(currentRestaurant);
@@ -4160,7 +4590,7 @@ export default function CityValidation() {
       ? nativeEvidenceCategories
       : previewCategories;
     if (nativeEvidenceIsRicher) {
-      addLog(`Fonte nativa rica detectada: preservando ${rawMenuItemCount(nativeEvidenceCategories)} item(ns) e ${rawMenuOptionCount(nativeEvidenceCategories)} opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o(ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes) contra poda da IA/prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©via.`);
+      addLog(`Fonte nativa rica detectada: preservando ${rawMenuItemCount(nativeEvidenceCategories)} item(ns) e ${rawMenuOptionCount(nativeEvidenceCategories)} opÃ§Ã£o(Ãµes) contra poda da IA/prÃ©via.`);
     }
     const menuSnapshot = authoritativeSourceCategories.length
       ? buildMenuQualitySnapshotFromCategories(authoritativeSourceCategories)
@@ -4168,7 +4598,7 @@ export default function CityValidation() {
     const aiLog = readAiLog(restaurant);
     const sourceAudit = context.menuResult?.audit || context.menuEvidence?.audit || aiLog?.extra?.audit || null;
     const sourceUrlForAudit = String(context.learnedSourceUrl || context.menuEvidence?.sourceUrl || '');
-    const isDirectMenuSource = /anota\.ai|saipos|livemenu|cardapioweb|goomer|ola\.click|pedido|menu|cardapio|cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio/i.test(sourceUrlForAudit)
+    const isDirectMenuSource = /anota\.ai|saipos|livemenu|cardapioweb|goomer|ola\.click|deliverydireto|deliverymuch|instadelivery|lojavirtualnuvem|mitiendanube|nuvemshop|\/produtos?\b|pedido|menu|cardapio|cardÃ¡pio/i.test(sourceUrlForAudit)
       && !/google\.[^/]+\/(search|maps)|instagram\.com\/(p|reel|stories)\//i.test(sourceUrlForAudit);
     const nativeSourceSignature = [
       context.menuResult?.platform,
@@ -4179,7 +4609,27 @@ export default function CityValidation() {
       context.menuEvidence?.metrics?.sourceEndpoint,
       context.menuEvidence?.sourceEndpoint,
     ].filter(Boolean).join(' ');
-    const hasNativeStructuredSource = /anota_ai_network|saipos|livemenu|cardapioweb|goomer|ola_click|platform_api|network|api/i.test(nativeSourceSignature);
+    const hasNativeStructuredSource = /anota_ai_network|saipos|livemenu|cardapioweb|goomer|ola_click|instadelivery|platform_api|network|api/i.test(nativeSourceSignature);
+    const authoritativeSourceImageCount = authoritativeSourceCategories.reduce(
+      (total: number, category: any) => total + ((category.items || category.menu_items || category.samples || []) as any[])
+        .filter((item: any) => String(item?.image_url || item?.imageUrl || '').trim()).length,
+      0,
+    );
+    const hasVisibleStructuredProductSource = Boolean(
+      !hasNativeStructuredSource
+      && /visible_text/i.test(nativeSourceSignature)
+      && isDirectMenuSource
+      && rawMenuItemCount(authoritativeSourceCategories) >= 6
+      && menuSnapshot.priceCoverage >= 0.55
+      && (
+        authoritativeSourceImageCount >= 3
+        || /instadelivery|lojavirtualnuvem|mitiendanube|\/produtos?\//i.test(sourceUrlForAudit)
+      )
+    );
+    const shouldPreserveStructuredSourceFacts = hasNativeStructuredSource || hasVisibleStructuredProductSource;
+    if (hasVisibleStructuredProductSource) {
+      addLog(`Fonte visivel estruturada detectada: preservando fatos do cardapio (${rawMenuItemCount(authoritativeSourceCategories)} item(ns), ${authoritativeSourceImageCount} imagem(ns)) contra poda da IA.`);
+    }
     if (hasNativeStructuredSource && nativeEvidenceCategories.length > 0 && authoritativeSourceCategories !== nativeEvidenceCategories) {
       authoritativeSourceCategories = nativeEvidenceCategories;
       addLog(`Fonte nativa estruturada detectada: preservando categorias literais, ${rawMenuItemCount(nativeEvidenceCategories)} item(ns) e ${rawMenuOptionCount(nativeEvidenceCategories)} opcoes da plataforma.`);
@@ -4195,7 +4645,7 @@ export default function CityValidation() {
     let visualStructureAudit: any = null;
     if (isDirectMenuSource && screenshotsForAudit.length && authoritativeSourceCategories.length) {
       try {
-        addLog(`Auditoria visual IA: comparando ${screenshotsForAudit.length} print(s) com a estrutura extraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­da.`);
+        addLog(`Auditoria visual IA: comparando ${screenshotsForAudit.length} print(s) com a estrutura extraÃ­da.`);
         const visualResponse = await fetch('/api/local-collector/audit-menu-visual-structure', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -4208,9 +4658,9 @@ export default function CityValidation() {
         const visualPayload = await visualResponse.json().catch(() => ({}));
         if (visualResponse.ok && visualPayload?.visualAudit) {
           visualStructureAudit = visualPayload.visualAudit;
-          addLog(`Auditoria visual IA: ${visualStructureAudit.recommendation || 'sem recomendaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o'} ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ${visualStructureAudit.reason || visualStructureAudit.visual_summary || 'estrutura conferida'}.`);
+          addLog(`Auditoria visual IA: ${visualStructureAudit.recommendation || 'sem recomendaÃ§Ã£o'} â€” ${visualStructureAudit.reason || visualStructureAudit.visual_summary || 'estrutura conferida'}.`);
         } else {
-          addLog(`Auditoria visual IA indisponÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel: ${visualPayload?.error || 'resposta invÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lida'}.`);
+          addLog(`Auditoria visual IA indisponÃ­vel: ${visualPayload?.error || 'resposta invÃ¡lida'}.`);
         }
       } catch (visualError: any) {
         addLog(`Auditoria visual IA falhou: ${visualError.message || visualError}.`);
@@ -4219,17 +4669,16 @@ export default function CityValidation() {
     const localIssues = [
       ...identityIssues,
       ...addressIssues,
-      menuSnapshot.itemCount < 4 ? `CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio com poucos itens (${menuSnapshot.itemCount}).` : '',
-      menuSnapshot.priceCoverage < 0.75 ? `Cobertura de preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o baixa (${Math.round(menuSnapshot.priceCoverage * 100)}%).` : '',
+      menuSnapshot.itemCount < 4 ? `CardÃ¡pio com poucos itens (${menuSnapshot.itemCount}).` : '',
+      menuSnapshot.priceCoverage < 0.75 ? `Cobertura de preÃ§o baixa (${Math.round(menuSnapshot.priceCoverage * 100)}%).` : '',
       menuSnapshot.itemCount > 0 && menuSnapshot.pricedItemCount === 0 ? 'Cardapio sem precos confiaveis; enviar para revisao humana.' : '',
       Number(sourceAudit?.unresolvedPriceCount || 0) > 0 ? `${Number(sourceAudit?.unresolvedPriceCount || 0)} item(ns) sem preco confiavel no extrator; revisao humana obrigatoria.` : '',
-      menuSnapshot.junkItemCount > 0 ? `CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio contÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m ${menuSnapshot.junkItemCount} item(ns) removÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­veis de interface ou texto ruim; limpe esses itens e publique o restante se houver cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio real suficiente.` : '',
-      isDirectMenuSource && !hasNativeStructuredSource && !screenshotsForAudit.length ? 'CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio direto sem screenshot visual; capture print antes de liberar se houver abas, subcategorias, combos ou adicionais.' : '',
+      menuSnapshot.junkItemCount > 0 ? `CardÃ¡pio contÃ©m ${menuSnapshot.junkItemCount} item(ns) removÃ­veis de interface ou texto ruim; limpe esses itens e publique o restante se houver cardÃ¡pio real suficiente.` : '',
       visualStructureAudit?.recommendation === 'needs_restructure'
-        ? `Auditoria visual encontrou estrutura faltante ou errada: ${visualStructureAudit.reason || visualStructureAudit.visual_summary || 'revisar categorias/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes'}.`
+        ? `Auditoria visual encontrou estrutura faltante ou errada: ${visualStructureAudit.reason || visualStructureAudit.visual_summary || 'revisar categorias/opÃ§Ãµes'}.`
         : '',
       visualStructureAudit?.recommendation === 'needs_more_screenshots'
-        ? `Auditoria visual precisa de mais screenshots: ${visualStructureAudit.reason || 'nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o foi possÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel conferir hierarquia visual'}.`
+        ? `Auditoria visual pediu mais screenshots, mas isso vira aviso: ${visualStructureAudit.reason || 'nÃ£o foi possÃ­vel conferir hierarquia visual'}.`
         : '',
       sourceAudit?.approved === false && Array.isArray(sourceAudit?.issues) && sourceAudit.issues.length > 0
         ? 'Previa tecnica apontou problemas de estrutura; use isso para limpar/reagrupar o cardapio, nao como bloqueio automatico se a fonte for um cardapio direto com itens reais.'
@@ -4237,54 +4686,55 @@ export default function CityValidation() {
     ].filter(Boolean);
 
     const systemContext = [
-      'VocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© a auditoria final de qualidade do FilterFood antes de publicar dados para usuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios finais.',
-      'VocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª DEVE responder SOMENTE JSON vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido.',
-      'Objetivo: corrigir dados publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡veis e decidir se o restaurante pode ficar "pronto para app".',
+      'VocÃª Ã© a auditoria final de qualidade do FilterFood antes de publicar dados para usuÃ¡rios finais.',
+      'VocÃª DEVE responder SOMENTE JSON vÃ¡lido.',
+      'Objetivo: corrigir dados publicÃ¡veis e decidir se o restaurante pode ficar "pronto para app".',
       'Regras duras:',
       '- A IA NAO e redatora de cardapio. Ela so classifica e posiciona textos existentes na fonte: categoria, subcategoria, item, combo, escolha, adicional, preco e horario.',
       '- NUNCA invente nome de item, categoria, subcategoria, combo, descricao, ingrediente, beneficio ou texto de venda.',
       '- Descricao so pode ser texto literal da fonte ou uma descricao vazia. Se a fonte nao trouxe descricao, deixe description="".',
       '- Se um texto nao aparece no cardapio original/print/texto bruto, ele nao pode aparecer no normalizedMenu.',
       '- Se faltar detalhe de combo, sabor, borda, adicional ou subcategoria, use nextAction="recollect_from_source" para o robo abrir detalhes/rolar/tirar novo print; nao complete por imaginacao.',
-      '- EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o pode conter Zap, WhatsApp, telefone, ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­cones, texto de botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ou pedaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os colados.',
-      '- Latitude e longitude sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rias e precisam ser coerentes com o endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o/cidade; sem coordenadas, NUNCA publique.',
-      '- Nome pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nimo ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio: "Bar", "Restaurante", "AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­", "Pizzaria" ou outro nome genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rico/fraco nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o pode ficar pronto sem identidade real confirmada no Google Maps/cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio.',
-      '- Se o Google Maps indicar "permanentemente fechado" ou "temporariamente fechado" no nome/status, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o publique; rejeite ou peÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a recoleta/validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.',
-      '- CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio precisa ter categorias ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºteis e itens que o usuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio pesquisaria. Ex: Pizza Calabresa, X-Burger, AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­ 500ml.',
-      '- NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o aceite itens genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ricos/lixo: "ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â¡ltimo update", "Para o menu", "AlmoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o" como item sem preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o, "Destaques", texto de avaliaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o, nomes de outros restaurantes.',
-      '- VocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© auditor de estrutura, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o redator: NUNCA transforme descriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o longa em nome de item; NUNCA crie categoria final por inferÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia se a fonte nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o mostrar essa categoria/aba/subcategoria.',
-      '- Modele o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio pensando em 4 objetivos: dono preencher/revisar fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡cil, usuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio entender rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pido, busca encontrar o prato correto, e app renderizar sem gambiarra.',
-      '- Categoria pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblica ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© famÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­lia de produtos vendÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­veis (Pizzas, Combos, HambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºrgueres, Massas, Bebidas). NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o crie categoria pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblica para "Adicionais", "Turbine", "Bora de Combo", "Escolha seu sabor" ou similares; isso ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© grupo interno de item.',
-      '- Item ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© o que o restaurante venderia no perfil. Ex: "Combo FamÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­lia", "Pizza P", "Penne ao Molho Branco". Componentes, escolhas e adicionais ficam estruturados dentro do item, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o como itens soltos.',
-      '- Combo deve continuar como item vendÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºnico. Se tiver escolhas/adicionais, use option_groups/options como em qualquer item normal. combo_components ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© apenas metadado opcional; nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o transforme composiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o fixa em grupo pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico clicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.',
-      '- Em combo, NUNCA transforme cada hamburguer/pizza/bebida escolhÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel em item principal. Ex: "Pague 3, leve 4" = item principal + option_group "Escolha 4 burgers"; regra comercial em combo_rules.',
-      '- Em combo com itens inclusos e escolhas, mantenha as escolhas/adicionais como grupos normais do item. NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o crie card especial vermelho, nem grupo pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico "Itens inclusos" quando isso for sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ composiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o textual.',
-      '- Perguntas operacionais como "Deseja ketchup?", "Precisa de talher?", "Enviar guardanapo?", "Deseja descartÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel?" ou embalagem com opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes Sim/NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o itens, adicionais nem categorias pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblicas. Remova do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico ou guarde sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ em raw_data.',
-      '- Se o mesmo adicional tem preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o diferente em contextos diferentes, mantenha como option/addon contextual dentro daquele item/combo. Ex: Batata P avulsa R$10 pode ser addon de combo +R$5.',
-      '- Adicional, borda, molho, escolha de bebida e complemento opcional devem ir em option_groups/options, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o como item principal, salvo se forem vendidos isoladamente. Embalagem/descartÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel operacional nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o deve aparecer no app pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico.',
-      '- Sabores de pizza/aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­/massa em item genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rico devem ir como options com semantic_type="flavor". Se o preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o do sabor soma ao preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o base, use price_behavior="price_delta" e price_delta. Se o preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© final, use price_behavior="absolute_price" e price.',
-      '- Para busca, search_display_name e search_keywords devem usar apenas palavras jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ presentes no item/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o/categoria original. Pode combinar "Pizza P" + "Calabresa" porque ambos aparecem na fonte; nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o invente sinÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´nimos.',
-      '- Se houver item "Combo" com descriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o contendo pizza/hambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºrguer/bebida, mantenha o item como Combo, extraia componentes para combo_components e inclua termos em search_keywords para aparecer em buscas relacionadas sem poluir o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio.',
-      '- Se o problema for apenas item removÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel de interface/lixo do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio (ex: pedido mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nimo, cupom, aberto atÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©, texto promocional), remova esses itens no normalizedMenu e use ready/publish se sobrarem pratos reais.',
-      '- Se a fonte misturou outros restaurantes/listagem/reviews, marque needs_review; nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o publique.',
+      '- EndereÃ§o nÃ£o pode conter Zap, WhatsApp, telefone, Ã­cones, texto de botÃ£o ou pedaÃ§os colados.',
+      '- Latitude e longitude sÃ£o obrigatÃ³rias e precisam ser coerentes com o endereÃ§o/cidade; sem coordenadas, NUNCA publique.',
+      '- Nome pÃºblico mÃ­nimo Ã© obrigatÃ³rio: "Bar", "Restaurante", "AÃ§aÃ­", "Pizzaria" ou outro nome genÃ©rico/fraco nÃ£o pode ficar pronto sem identidade real confirmada no Google Maps/cardÃ¡pio.',
+      '- Se o Google Maps indicar "permanentemente fechado" ou "temporariamente fechado" no nome/status, nÃ£o publique; rejeite ou peÃ§a recoleta/validaÃ§Ã£o.',
+      '- CardÃ¡pio precisa ter categorias Ãºteis e itens que o usuÃ¡rio pesquisaria. Ex: Pizza Calabresa, X-Burger, AÃ§aÃ­ 500ml.',
+      '- NÃ£o aceite itens genÃ©ricos/lixo: "Ãšltimo update", "Para o menu", "AlmoÃ§o" como item sem preÃ§o, "Destaques", texto de avaliaÃ§Ã£o, nomes de outros restaurantes.',
+      '- VocÃª Ã© auditor de estrutura, nÃ£o redator: NUNCA transforme descriÃ§Ã£o longa em nome de item; NUNCA crie categoria final por inferÃªncia se a fonte nÃ£o mostrar essa categoria/aba/subcategoria.',
+      '- Modele o cardÃ¡pio pensando em 4 objetivos: dono preencher/revisar fÃ¡cil, usuÃ¡rio entender rÃ¡pido, busca encontrar o prato correto, e app renderizar sem gambiarra.',
+      '- Categoria pÃºblica Ã© famÃ­lia de produtos vendÃ­veis (Pizzas, Combos, HambÃºrgueres, Massas, Bebidas). NÃ£o crie categoria pÃºblica para "Adicionais", "Turbine", "Bora de Combo", "Escolha seu sabor" ou similares; isso Ã© grupo interno de item.',
+      '- Item Ã© o que o restaurante venderia no perfil. Ex: "Combo FamÃ­lia", "Pizza P", "Penne ao Molho Branco". Componentes, escolhas e adicionais ficam estruturados dentro do item, nÃ£o como itens soltos.',
+      '- Combo deve continuar como item vendÃ­vel Ãºnico. Se tiver escolhas/adicionais, use option_groups/options como em qualquer item normal. combo_components Ã© apenas metadado opcional; nÃ£o transforme composiÃ§Ã£o fixa em grupo pÃºblico clicÃ¡vel.',
+      '- Em combo, NUNCA transforme cada hamburguer/pizza/bebida escolhÃ­vel em item principal. Ex: "Pague 3, leve 4" = item principal + option_group "Escolha 4 burgers"; regra comercial em combo_rules.',
+      '- Em combo com itens inclusos e escolhas, mantenha as escolhas/adicionais como grupos normais do item. NÃ£o crie card especial vermelho, nem grupo pÃºblico "Itens inclusos" quando isso for sÃ³ composiÃ§Ã£o textual.',
+      '- Perguntas operacionais como "Deseja ketchup?", "Precisa de talher?", "Enviar guardanapo?", "Deseja descartÃ¡vel?" ou embalagem com opÃ§Ãµes Sim/NÃ£o nÃ£o sÃ£o itens, adicionais nem categorias pÃºblicas. Remova do cardÃ¡pio pÃºblico ou guarde sÃ³ em raw_data.',
+      '- Se o mesmo adicional tem preÃ§o diferente em contextos diferentes, mantenha como option/addon contextual dentro daquele item/combo. Ex: Batata P avulsa R$10 pode ser addon de combo +R$5.',
+      '- Adicional, borda, molho, escolha de bebida e complemento opcional devem ir em option_groups/options, nÃ£o como item principal, salvo se forem vendidos isoladamente. Embalagem/descartÃ¡vel operacional nÃ£o deve aparecer no app pÃºblico.',
+      '- Sabores de pizza/aÃ§aÃ­/massa em item genÃ©rico devem ir como options com semantic_type="flavor". Se o preÃ§o do sabor soma ao preÃ§o base, use price_behavior="price_delta" e price_delta. Se o preÃ§o jÃ¡ Ã© final, use price_behavior="absolute_price" e price.',
+      '- Para busca, search_display_name e search_keywords devem usar apenas palavras jÃ¡ presentes no item/opÃ§Ã£o/categoria original. Pode combinar "Pizza P" + "Calabresa" porque ambos aparecem na fonte; nÃ£o invente sinÃ´nimos.',
+      '- Se houver item "Combo" com descricao contendo pizza/hamburguer/bebida, mantenha tudo como descricao/search_keywords do item. Nao extraia partes fixas para combo_components automaticamente; so use option_groups/options quando a fonte trouxer escolhas/adicionais reais.',
+      '- Se o problema for apenas item removÃ­vel de interface/lixo do cardÃ¡pio (ex: pedido mÃ­nimo, cupom, aberto atÃ©, texto promocional), remova esses itens no normalizedMenu e use ready/publish se sobrarem pratos reais.',
+      '- Se a fonte misturou outros restaurantes/listagem/reviews, marque needs_review; nÃ£o publique.',
       '- Nao confunda cardapio direto mal estruturado com listagem. Se sourceUrl for Anota AI, Saipos, LiveMenu, CardapioWeb, Goomer, Ola Click ou pagina propria de pedidos e houver muitos itens reais com preco, reclassifique e limpe no normalizedMenu em vez de bloquear.',
       '- Se a extracao colocou bebida/sobremesa/massa dentro de Pizzas, ou repetiu categorias, corrija as categorias no normalizedMenu. Isso e problema de normalizacao, nao motivo para revisao humana.',
       '- Preserve nomes literais de categorias/abas/subcategorias quando a fonte estruturada os trouxer. Ex: "Massas Artesanais", "Produtos Coca-Cola" e "Snack | Sanduiche" devem continuar assim. So encurte ou renomeie categoria quando o nome original for generico ("Menu", "Cardapio", "Geral") ou for grupo interno ("Adicionais", "Escolha sabor", "Bordas").',
-      '- PreÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os devem ser nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmeros em reais. Itens sem preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o confiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o entram.',
-      '- Se existe fonte/link de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio, mas a extraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o atual veio de fonte errada, listagem, reviews ou outro restaurante, use nextAction="recollect_from_source", nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o manual_review.',
-      '- Se a fonte atual jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ foi aberta/validada nesta execuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o (sourceUrl direto com itens), NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£O repita motivo antigo de "usar hub/link da bio"; avalie o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio atual.',
-      '- Se nativeStructuredEvidence/menuSnapshot indicam que a execuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o atual extraiu itens/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes, ignore erros antigos do registro como "erro ao processar resultado", "cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio com 0 itens" ou "needs_recollection"; eles pertencem a tentativas anteriores.',
-      '- ConfianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©dia do extrator nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o bloqueia sozinha: se houver itens reais com preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os, limpe lixo, padronize categorias/nomes e publique o subconjunto confiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.',
-      '- Se a fonte ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© direta do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio e a prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©via tem muitos itens reais com preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os, prefira decision="ready" + normalizedMenu limpo. Use needs_review sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ se realmente houver item de outro restaurante, lista do Google/reviews ou impossibilidade de separar pratos reais.',
-      '- Se houver visualStructureAudit, ele ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio: use os prints para conferir se categorias, abas, subcategorias, combos, escolhas obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rias e adicionais nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o sumiram.',
-      '- Se a fonte for nativa estruturada da plataforma (ex: Anota AI network/API, Saipos API, LiveMenu JSON) e menuForCurator tiver muitos itens com option_groups/options, os prints sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o auditoria secundÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria. NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o bloqueie sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ por needs_more_screenshots quando a fonte nativa jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ provou itens, opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes, preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os e imagens.',
-      '- Se visualStructureAudit indicar needs_restructure, corrija o normalizedMenu para refletir a estrutura visual. Se nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o conseguir corrigir com os dados enviados, use nextAction="recollect_from_source", nunca publique torto.',
-      '- Se screenshots mostram abas/subcategorias (ex: Menu do Chefe > Na Brasa, Favoritos da Galera > combos, categoria + subcategoria), preserve essa hierarquia em categoria/subcategoria/section quando possÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel, ou no nome da categoria com separador curto.',
-      '- Se endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o ou coordenadas estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ausentes/invÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lidos, use nextAction="recollect_from_source" para o robÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´ voltar ao Maps/geocode antes de publicar.',
-      '- Use nextAction="manual_review" somente quando houver login, captcha, bloqueio externo ou falta real de fonte acessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel.',
-      '- O campo reason deve explicar o motivo real em uma frase objetiva. Nunca responda com placeholders como "curto", "...", "ok", "motivo" ou texto genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rico.',
-      'Formato obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio:',
-      '{"decision":"ready|needs_review|reject","nextAction":"publish|recollect_from_source|manual_review|reject","reason":"ex: fonte Anota AI bloqueada por Cloudflare no navegador atual; reexecutar em perfil liberado","restaurantUpdate":{"name":"","category":"","address":"","number":"","neighborhood":"","city":"","state":"","cep":"","phone":"","other_url_label":""},"normalizedMenu":[{"name":"Categoria existente ou familia evidente","items":[{"name":"Nome literal do item","description":"descriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o literal da fonte ou vazio","price":35.9,"display_price":35.9,"price_type":"fixed|starting_at|range|option_only","price_min":35.9,"price_max":35.9,"commercial_type":"simple_item|configurable_item|combo_builder|simple_with_addons","is_configurable":false,"search_display_name":"nome com palavras existentes","search_keywords":"palavras existentes no item/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes/categoria","image_url":null,"combo_rules":{"summary":"Pague 3, leve 4","paid_quantity":3,"received_quantity":4},"combo_components":[{"type":"fixed_item|choice_group|addon_group|upsell_group","name":"Escolha 4 burgers|Batata inclusa|Adicionais do combo","quantity":1,"min_quantity":0,"max_quantity":1,"is_required":false,"price_behavior":"included|price_delta|absolute_price|unknown","items":[{"name":"Blitz Salada","description":"descriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o literal ou vazio","price":null,"price_delta":0,"price_behavior":"included","image_url":null,"is_searchable_variant":true,"search_label":"Combo Blitz Salada","search_aliases":"combo burger salada"}]}],"option_groups":[{"name":"Sabores|Adicionais|Bebidas|Bordas","min_quantity":0,"max_quantity":1,"is_required":false,"semantic_type":"flavor|addon|required_choice|combo_component|not_searchable","price_behavior":"price_delta|absolute_price|included|unknown","items":[{"name":"Calabresa","price":null,"price_delta":10,"semantic_type":"flavor","price_behavior":"price_delta","is_searchable_variant":true,"search_label":"Pizza Calabresa","search_aliases":"pizza calabresa pizza p"}]}]}]}],"deleteExistingMenu":false,"corrections":["..."]}',
+      '- PreÃ§os devem ser nÃºmeros em reais. Itens sem preÃ§o confiÃ¡vel nÃ£o entram.',
+      '- Item marcado como esgotado, indisponivel ou fora de estoque NAO bloqueia o cardapio. Preserve o item e a disponibilidade como informacao; publique/recolha normalmente se nome, preco, fonte e estrutura estiverem confiaveis.',
+      '- Se existe fonte/link de cardÃ¡pio, mas a extraÃ§Ã£o atual veio de fonte errada, listagem, reviews ou outro restaurante, use nextAction="recollect_from_source", nÃ£o manual_review.',
+      '- Se a fonte atual jÃ¡ foi aberta/validada nesta execuÃ§Ã£o (sourceUrl direto com itens), NÃ£O repita motivo antigo de "usar hub/link da bio"; avalie o cardÃ¡pio atual.',
+      '- Se nativeStructuredEvidence/menuSnapshot indicam que a execuÃ§Ã£o atual extraiu itens/opÃ§Ãµes, ignore erros antigos do registro como "erro ao processar resultado", "cardÃ¡pio com 0 itens" ou "needs_recollection"; eles pertencem a tentativas anteriores.',
+      '- ConfianÃ§a mÃ©dia do extrator nÃ£o bloqueia sozinha: se houver itens reais com preÃ§os, limpe lixo, padronize categorias/nomes e publique o subconjunto confiÃ¡vel.',
+      '- Se a fonte Ã© direta do cardÃ¡pio e a prÃ©via tem muitos itens reais com preÃ§os, prefira decision="ready" + normalizedMenu limpo. Use needs_review sÃ³ se realmente houver item de outro restaurante, lista do Google/reviews ou impossibilidade de separar pratos reais.',
+      '- Prints e visualStructureAudit sÃ£o evidÃªncia auxiliar, nÃ£o requisito obrigatÃ³rio. A decisÃ£o principal vem da estrutura extraÃ­da, fonte oficial, preÃ§os, opÃ§Ãµes/adicionais e auditoria estrutural.',
+      '- NÃ£o bloqueie publicaÃ§Ã£o sÃ³ por ausÃªncia de screenshot ou por needs_more_screenshots se a fonte estruturada jÃ¡ trouxe itens, opÃ§Ãµes, preÃ§os e dados suficientes.',
+      '- Se visualStructureAudit indicar needs_restructure com erro concreto, use como alerta forte e corrija o normalizedMenu quando os dados estruturados confirmarem o problema.',
+      '- Se screenshots existirem e mostrarem abas/subcategorias (ex: Menu do Chefe > Na Brasa, Favoritos da Galera > combos, categoria + subcategoria), preserve essa hierarquia em categoria/subcategoria/section quando possÃ­vel, ou no nome da categoria com separador curto.',
+      '- Se endereÃ§o ou coordenadas estÃ£o ausentes/invÃ¡lidos, use nextAction="recollect_from_source" para o robÃ´ voltar ao Maps/geocode antes de publicar.',
+      '- Use nextAction="manual_review" somente quando houver login, captcha, bloqueio externo ou falta real de fonte acessÃ­vel.',
+      '- O campo reason deve explicar o motivo real em uma frase objetiva. Nunca responda com placeholders como "curto", "...", "ok", "motivo" ou texto genÃ©rico.',
+      'Formato obrigatÃ³rio:',
+      '{"decision":"ready|needs_review|reject","nextAction":"publish|recollect_from_source|manual_review|reject","reason":"ex: fonte Anota AI bloqueada por Cloudflare no navegador atual; reexecutar em perfil liberado","restaurantUpdate":{"name":"","category":"","address":"","number":"","neighborhood":"","city":"","state":"","cep":"","phone":"","other_url_label":""},"normalizedMenu":[{"name":"Categoria existente ou familia evidente","items":[{"name":"Nome literal do item","description":"descriÃ§Ã£o literal da fonte ou vazio","price":35.9,"display_price":35.9,"price_type":"fixed|starting_at|range|option_only","price_min":35.9,"price_max":35.9,"commercial_type":"simple_item|configurable_item|combo_builder|simple_with_addons","is_configurable":false,"search_display_name":"nome com palavras existentes","search_keywords":"palavras existentes no item/opÃ§Ãµes/categoria","image_url":null,"combo_rules":{"summary":"Pague 3, leve 4","paid_quantity":3,"received_quantity":4},"combo_components":[{"type":"fixed_item|choice_group|addon_group|upsell_group","name":"Escolha 4 burgers|Batata inclusa|Adicionais do combo","quantity":1,"min_quantity":0,"max_quantity":1,"is_required":false,"price_behavior":"included|price_delta|absolute_price|unknown","items":[{"name":"Blitz Salada","description":"descriÃ§Ã£o literal ou vazio","price":null,"price_delta":0,"price_behavior":"included","image_url":null,"is_searchable_variant":true,"search_label":"Combo Blitz Salada","search_aliases":"combo burger salada"}]}],"option_groups":[{"name":"Sabores|Adicionais|Bebidas|Bordas","min_quantity":0,"max_quantity":1,"is_required":false,"semantic_type":"flavor|addon|required_choice|combo_component|not_searchable","price_behavior":"price_delta|absolute_price|included|unknown","items":[{"name":"Calabresa","price":null,"price_delta":10,"semantic_type":"flavor","price_behavior":"price_delta","is_searchable_variant":true,"search_label":"Pizza Calabresa","search_aliases":"pizza calabresa pizza p"}]}]}]}],"deleteExistingMenu":false,"corrections":["..."]}',
     ].join('\n');
 
     const menuForCurator = authoritativeSourceCategories.length
@@ -4363,16 +4813,35 @@ export default function CityValidation() {
       menuForCurator,
     }).slice(0, 30000);
 
-    addLog('PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA: revisando endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o, cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio e dados publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡veis antes de marcar como pronto.');
-    const response = await fetch('/api/local-collector/ai-chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ systemContext, message, jsonMode: true }),
-    });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data?.error || `Falha na pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA: HTTP ${response.status}`);
-    const audit = extractJsonObject(data.reply || '');
-    if (!audit) throw new Error('PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o retornou JSON interpretÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.');
+    const canUseNativeFastAudit = Boolean(
+      hasNativeStructuredSource
+      && rawMenuItemCount(authoritativeSourceCategories) >= 8
+      && rawMenuOptionCount(authoritativeSourceCategories) >= 8
+      && menuSnapshot.priceCoverage >= 0.55
+    );
+    let audit: any = null;
+    if (canUseNativeFastAudit) {
+      addLog(`PÃ³s-auditoria rÃ¡pida: fonte nativa estruturada forte (${rawMenuItemCount(authoritativeSourceCategories)} itens, ${rawMenuOptionCount(authoritativeSourceCategories)} opÃ§Ãµes). Vou usar auditorias locais e seguir sem travar na IA genÃ©rica.`);
+      audit = {
+        decision: 'ready',
+        nextAction: 'publish',
+        reason: 'Fonte nativa estruturada trouxe cardapio rico com itens, opcoes e precos; aprovado pela auditoria rapida local para seguir ate a etapa final de fotos.',
+        normalizedMenu: normalizeAuditMenu(authoritativeSourceCategories),
+        corrections: [],
+        restaurantUpdate: {},
+      };
+    } else {
+      addLog('PÃ³s-auditoria IA: revisando endereÃ§o, cardÃ¡pio e dados publicÃ¡veis antes de marcar como pronto.');
+      const response = await fetch('/api/local-collector/ai-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ systemContext, message, jsonMode: true }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data?.error || `Falha na pÃ³s-auditoria IA: HTTP ${response.status}`);
+      audit = extractJsonObject(data.reply || '');
+      if (!audit) throw new Error('PÃ³s-auditoria IA nÃ£o retornou JSON interpretÃ¡vel.');
+    }
 
     const restaurantUpdate: any = {};
     const proposed = audit.restaurantUpdate || {};
@@ -4382,16 +4851,16 @@ export default function CityValidation() {
     if (restaurantUpdate.address) restaurantUpdate.address = sanitizeGoogleMapsAddressInput(restaurantUpdate.address);
     if (Object.keys(restaurantUpdate).length) {
       await updateRestaurantWithSchemaFallback(restaurant.id, restaurantUpdate);
-      addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA aplicou correÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes cadastrais: ${Object.keys(restaurantUpdate).join(', ')}.`);
+      addLog(`PÃ³s-auditoria IA aplicou correÃ§Ãµes cadastrais: ${Object.keys(restaurantUpdate).join(', ')}.`);
     }
 
     const staleHubReasonAfterValidatedSource = Boolean(
       (context.menuResult?.success || context.menuEvidence?.success)
       && (context.learnedSourceUrl || context.menuEvidence?.sourceUrl)
-      && /link da bio|hub|usar hub|escolher card[aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡]pio/i.test(String(audit.reason || ''))
+      && /link da bio|hub|usar hub|escolher card[aÃ¡]pio/i.test(String(audit.reason || ''))
     );
     if (staleHubReasonAfterValidatedSource) {
-      audit.reason = 'Fonte direta de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ foi encontrada e validada nesta execuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o; avaliaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o deve considerar apenas qualidade publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio atual.';
+      audit.reason = 'Fonte direta de cardÃ¡pio jÃ¡ foi encontrada e validada nesta execuÃ§Ã£o; avaliaÃ§Ã£o deve considerar apenas qualidade publicÃ¡vel do cardÃ¡pio atual.';
       audit.nextAction = audit.nextAction === 'recollect_from_source' ? 'publish' : audit.nextAction;
       audit.corrections = [
         ...(Array.isArray(audit.corrections) ? audit.corrections : []),
@@ -4401,18 +4870,18 @@ export default function CityValidation() {
     const staleProcessingReasonAfterValidatedSource = Boolean(
       (context.menuResult?.success || context.menuEvidence?.success)
       && (context.learnedSourceUrl || context.menuEvidence?.sourceUrl)
-      && /erro ao processar resultado|card[aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡]pio com 0 itens|muitos itens n[aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o foram coletados|needs_recollection/i.test(String(audit.reason || ''))
+      && /erro ao processar resultado|card[aÃ¡]pio com 0 itens|muitos itens n[aÃ£]o foram coletados|needs_recollection/i.test(String(audit.reason || ''))
       && authoritativeSourceCategories.length > 0
     );
     if (staleProcessingReasonAfterValidatedSource) {
-      audit.reason = 'Fonte direta de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio foi extraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­da com itens nesta execuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o; motivo antigo de erro/processamento foi ignorado.';
+      audit.reason = 'Fonte direta de cardÃ¡pio foi extraÃ­da com itens nesta execuÃ§Ã£o; motivo antigo de erro/processamento foi ignorado.';
       if (Array.isArray(audit.normalizedMenu) && audit.normalizedMenu.length > 0) {
         audit.decision = 'ready';
       }
       audit.nextAction = audit.nextAction === 'recollect_from_source' ? 'publish' : audit.nextAction;
       audit.corrections = [
         ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-        'Motivo antigo de erro/processamento ignorado porque a execuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o atual retornou cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio estruturado.',
+        'Motivo antigo de erro/processamento ignorado porque a execuÃ§Ã£o atual retornou cardÃ¡pio estruturado.',
       ];
     }
 
@@ -4447,7 +4916,7 @@ export default function CityValidation() {
         for (const item of items) {
           assertLiteral('item', item?.name || item?.display_name);
           const optionRows = normalizeItemOptionRows(item);
-          optionRows.forEach((option: any) => assertLiteral('opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o', option?.name));
+          optionRows.forEach((option: any) => assertLiteral('opÃ§Ã£o', option?.name));
           const comboComponents = Array.isArray(item?.combo_components)
             ? item.combo_components
             : Array.isArray(item?.comboComponents)
@@ -4459,14 +4928,14 @@ export default function CityValidation() {
               : Array.isArray(component?.options)
                 ? component.options
                 : [];
-            componentItems.forEach((option: any) => assertLiteral('opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de combo', option?.name || option?.title || option?.label));
+            componentItems.forEach((option: any) => assertLiteral('opÃ§Ã£o de combo', option?.name || option?.title || option?.label));
           });
         }
       }
       return unsupported.slice(0, 12);
     };
     if (
-      hasNativeStructuredSource
+      shouldPreserveStructuredSourceFacts
       && previewNormalizedItemCount >= 8
       && (
         aiNormalizedItemCount === 0
@@ -4478,14 +4947,14 @@ export default function CityValidation() {
       audit.normalizedMenu = normalizedMenu;
       audit.decision = 'ready';
       if (audit.nextAction === 'recollect_from_source' || audit.nextAction === 'manual_review') audit.nextAction = 'publish';
-      audit.reason = 'Fonte nativa estruturada trouxe cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio completo; a auditoria preservou a extraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o nativa por ser mais rica que a resposta da IA.';
+      audit.reason = 'Fonte nativa estruturada trouxe cardÃ¡pio completo; a auditoria preservou a extraÃ§Ã£o nativa por ser mais rica que a resposta da IA.';
       audit.corrections = [
         ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-        'NormalizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o preservou a estrutura nativa completa da plataforma porque a resposta da IA estava vazia ou menor que a fonte.',
+        'NormalizaÃ§Ã£o preservou a estrutura nativa completa da plataforma porque a resposta da IA estava vazia ou menor que a fonte.',
       ];
-      addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria: usando estrutura nativa completa como base (${previewNormalizedItemCount} item(ns), ${previewNormalizedOptionCount} opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o(ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes)), para nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o perder detalhes de itens/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes.`);
+      addLog(`PÃ³s-auditoria: usando estrutura nativa completa como base (${previewNormalizedItemCount} item(ns), ${previewNormalizedOptionCount} opÃ§Ã£o(Ãµes)), para nÃ£o perder detalhes de itens/opÃ§Ãµes.`);
     }
-    if (hasNativeStructuredSource && previewNormalizedItemCount >= 4) {
+    if (shouldPreserveStructuredSourceFacts && previewNormalizedItemCount >= 4) {
       const unsupportedLiteralNames = findUnsupportedLiteralNames(normalizedMenu, authoritativeSourceCategories);
       if (unsupportedLiteralNames.length) {
         normalizedMenu = previewNormalizedMenu;
@@ -4494,21 +4963,21 @@ export default function CityValidation() {
         if (audit.nextAction === 'recollect_from_source' || audit.nextAction === 'manual_review') audit.nextAction = 'publish';
         audit.corrections = [
           ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-          `Estrutura nativa restaurada porque a IA propÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´s nomes que nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o aparecem literalmente na fonte (${unsupportedLiteralNames.join('; ')}).`,
+          `Estrutura nativa restaurada porque a IA propÃ´s nomes que nÃ£o aparecem literalmente na fonte (${unsupportedLiteralNames.join('; ')}).`,
         ];
-        addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria: restaurei a estrutura nativa porque a IA tentou usar nomes sem prova literal (${unsupportedLiteralNames.join('; ')}).`);
+        addLog(`PÃ³s-auditoria: restaurei a estrutura nativa porque a IA tentou usar nomes sem prova literal (${unsupportedLiteralNames.join('; ')}).`);
       }
     }
-    if (hasNativeStructuredSource) {
+    if (shouldPreserveStructuredSourceFacts) {
       const preserved = preserveStructuredSourceMenuFacts(normalizedMenu, authoritativeSourceCategories, { restoreMissingItems: true, forceSourceCategories: true });
       if (preserved.changed) {
         normalizedMenu = preserved.menu;
         audit.normalizedMenu = normalizedMenu;
         audit.corrections = [
           ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-          `Fonte nativa preservada antes de salvar: ${preserved.priceFixes} preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o(s), ${preserved.optionFixes} grupo(s) de opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes/adicionais, ${preserved.descriptionFixes} descriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o(ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes), ${preserved.imageFixes} imagem(ns), ${preserved.categoryFixes} categoria(s) e ${preserved.missingItemsRestored} item(ns) restaurado(s).`,
+          `Fonte nativa preservada antes de salvar: ${preserved.priceFixes} preÃ§o(s), ${preserved.optionFixes} grupo(s) de opÃ§Ãµes/adicionais, ${preserved.descriptionFixes} descriÃ§Ã£o(Ãµes), ${preserved.imageFixes} imagem(ns), ${preserved.categoryFixes} categoria(s) e ${preserved.missingItemsRestored} item(ns) restaurado(s).`,
         ];
-        addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria: fonte nativa ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© autoridade; preservei ${preserved.priceFixes} preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o(s), ${preserved.optionFixes} grupo(s) de adicionais/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes, ${preserved.categoryFixes} categoria(s) originais e restaurei ${preserved.missingItemsRestored} item(ns) que a IA havia omitido.`);
+        addLog(`PÃ³s-auditoria: fonte nativa Ã© autoridade; preservei ${preserved.priceFixes} preÃ§o(s), ${preserved.optionFixes} grupo(s) de adicionais/opÃ§Ãµes, ${preserved.categoryFixes} categoria(s) originais e restaurei ${preserved.missingItemsRestored} item(ns) que a IA havia omitido.`);
       }
     }
     let consistencyAudit: any = null;
@@ -4522,20 +4991,34 @@ export default function CityValidation() {
       Array.isArray(context.menuEvidence?.textBlocks) ? context.menuEvidence.textBlocks.join('\n') : '',
     ].filter(Boolean).join('\n\n').slice(0, 90000);
     const pageTextEvidenceLength = normalizeText(sourceTextForConsistency).length;
-    const evidenceGateMissing = Boolean(isDirectMenuSource && !hasNativeStructuredSource && !screenshotsForAudit.length && pageTextEvidenceLength < 300);
-    const visualAuditRequiredButUnavailable = Boolean(isDirectMenuSource && !hasNativeStructuredSource && screenshotsForAudit.length > 0 && !visualStructureAudit);
-    if (evidenceGateMissing) {
-      addLog('Agente auditor: bloqueando publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o porque nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o hÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ print nem texto bruto suficiente da pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gina para comparar com o menu estruturado.');
+    const weakSourceEvidenceWarning = Boolean(isDirectMenuSource && !hasNativeStructuredSource && !screenshotsForAudit.length && pageTextEvidenceLength < 300);
+    const visualAuditUnavailableWarning = Boolean(isDirectMenuSource && !hasNativeStructuredSource && screenshotsForAudit.length > 0 && !visualStructureAudit);
+    const evidenceGateMissing = false;
+    const visualAuditRequiredButUnavailable = false;
+    if (weakSourceEvidenceWarning) {
+      addLog('Agente auditor: fonte direta sem print/texto bruto amplo; nÃ£o vou bloquear sÃ³ por isso, mas a auditoria estrutural precisa passar sem erros.');
     }
-    if (visualAuditRequiredButUnavailable) {
-      addLog('Agente auditor: bloqueando publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o porque havia print, mas a auditoria visual nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o concluiu a comparaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.');
+    if (visualAuditUnavailableWarning) {
+      addLog('Agente auditor: havia print, mas a auditoria visual nÃ£o concluiu; isso agora Ã© aviso auxiliar, nÃ£o bloqueio.');
     }
+    const shouldRunRemoteConsistencyAudit = Boolean(
+      isDirectMenuSource
+      && normalizedMenu.length > 0
+      && !(hasNativeStructuredSource && canUseNativeFastAudit)
+    );
     if (isDirectMenuSource && normalizedMenu.length > 0) {
+      if (!shouldRunRemoteConsistencyAudit) {
+        addLog('Agente auditor remoto pulado: fonte nativa estruturada forte ja passou pela auditoria rapida/local; nao vou travar o salvamento aguardando servico externo.');
+      }
+      if (shouldRunRemoteConsistencyAudit) {
       try {
-        addLog('Agente auditor: comparando cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio estruturado com fonte original para impedir invenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes.');
+        addLog('Agente auditor: comparando cardÃ¡pio estruturado com fonte original para impedir invenÃ§Ãµes.');
+        const consistencyController = new AbortController();
+        const consistencyTimeoutId = window.setTimeout(() => consistencyController.abort(), 25000);
         const consistencyResponse = await fetch('/api/local-collector/audit-menu-consistency', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: consistencyController.signal,
           body: JSON.stringify({
             proposedMenu: normalizedMenu,
             sourceMenu: authoritativeSourceCategories,
@@ -4544,13 +5027,13 @@ export default function CityValidation() {
             visualAudit: visualStructureAudit,
             images: screenshotsForAudit,
           }),
-        });
+        }).finally(() => window.clearTimeout(consistencyTimeoutId));
         const consistencyPayload = await consistencyResponse.json().catch(() => ({}));
         if (consistencyResponse.ok && consistencyPayload?.consistencyAudit) {
           consistencyAudit = consistencyPayload.consistencyAudit;
           const errors = Array.isArray(consistencyAudit.errors) ? consistencyAudit.errors : [];
           const blockingErrors = errors.filter((error: any) => String(error?.severity || '').toLowerCase() === 'blocking').length;
-          addLog(`Agente auditor: ${consistencyAudit.verdict || 'sem veredito'} ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ${errors.length} erro(s), ${blockingErrors} bloqueante(s). ${consistencyAudit.reason || ''}`.trim());
+          addLog(`Agente auditor: ${consistencyAudit.verdict || 'sem veredito'} â€” ${errors.length} erro(s), ${blockingErrors} bloqueante(s). ${consistencyAudit.reason || ''}`.trim());
           if (
             consistencyAudit.verdict === 'corrected'
             && Array.isArray(consistencyAudit.correctedMenu)
@@ -4559,11 +5042,11 @@ export default function CityValidation() {
             const corrected = mergeSourceImagesIntoMenu(normalizeAuditMenu(consistencyAudit.correctedMenu), authoritativeSourceCategories);
             const correctedCount = corrected.reduce((total: number, category: any) => total + ((category.items || []).length || 0), 0);
             const correctedOptionCount = countStructuredOptions(corrected);
-            const correctedKeepsNativeStructure = !hasNativeStructuredSource
+            const correctedKeepsNativeStructure = !shouldPreserveStructuredSourceFacts
               || previewNormalizedOptionCount < 8
               || correctedOptionCount >= Math.floor(previewNormalizedOptionCount * 0.6);
             if (correctedCount >= 4 && correctedKeepsNativeStructure) {
-              const correctedWithSourceFacts = hasNativeStructuredSource
+              const correctedWithSourceFacts = shouldPreserveStructuredSourceFacts
                 ? preserveStructuredSourceMenuFacts(corrected, authoritativeSourceCategories, { restoreMissingItems: true, forceSourceCategories: true })
                 : { menu: corrected, changed: false, priceFixes: 0, optionFixes: 0, missingItemsRestored: 0 };
               normalizedMenu = correctedWithSourceFacts.menu;
@@ -4575,25 +5058,26 @@ export default function CityValidation() {
               }
               audit.corrections = [
                 ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-                `Agente auditor corrigiu o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio e removeu dados nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o sustentados pela fonte (${correctedCount} itens).`,
+                `Agente auditor corrigiu o cardÃ¡pio e removeu dados nÃ£o sustentados pela fonte (${correctedCount} itens).`,
                 correctedWithSourceFacts.changed
-                  ? `ApÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s correÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o do agente, a fonte nativa restaurou ${correctedWithSourceFacts.priceFixes} preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o(s), ${correctedWithSourceFacts.optionFixes} grupo(s) de opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes/adicionais e ${correctedWithSourceFacts.missingItemsRestored} item(ns).`
+                  ? `ApÃ³s correÃ§Ã£o do agente, a fonte nativa restaurou ${correctedWithSourceFacts.priceFixes} preÃ§o(s), ${correctedWithSourceFacts.optionFixes} grupo(s) de opÃ§Ãµes/adicionais e ${correctedWithSourceFacts.missingItemsRestored} item(ns).`
                   : '',
               ].filter(Boolean);
-              addLog(`Agente auditor aplicou menu corrigido: ${correctedCount} item(ns).${correctedWithSourceFacts.changed ? ' Fonte nativa reaplicada para impedir perda de preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes.' : ''}`);
+              addLog(`Agente auditor aplicou menu corrigido: ${correctedCount} item(ns).${correctedWithSourceFacts.changed ? ' Fonte nativa reaplicada para impedir perda de preÃ§o/opÃ§Ãµes.' : ''}`);
             } else if (correctedCount >= 4 && !correctedKeepsNativeStructure) {
               audit.corrections = [
                 ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-                'CorreÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o do agente auditor ignorada porque removia option_groups/options existentes na fonte nativa.',
+                'CorreÃ§Ã£o do agente auditor ignorada porque removia option_groups/options existentes na fonte nativa.',
               ];
-              addLog(`Agente auditor sugeriu correÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o, mas ela perderia detalhes nativos (${correctedOptionCount}/${previewNormalizedOptionCount} opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes); mantendo estrutura original da plataforma.`);
+              addLog(`Agente auditor sugeriu correÃ§Ã£o, mas ela perderia detalhes nativos (${correctedOptionCount}/${previewNormalizedOptionCount} opÃ§Ãµes); mantendo estrutura original da plataforma.`);
             }
           }
         } else {
-          addLog(`Agente auditor indisponÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel: ${consistencyPayload?.error || 'resposta invÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lida'}.`);
+          addLog(`Agente auditor indisponÃ­vel: ${consistencyPayload?.error || 'resposta invÃ¡lida'}.`);
         }
       } catch (consistencyError: any) {
         addLog(`Agente auditor falhou: ${consistencyError.message || consistencyError}.`);
+      }
       }
 
       sourceFidelityAudit = auditMenuSourceFidelity(normalizedMenu, authoritativeSourceCategories, sourceTextForConsistency);
@@ -4606,14 +5090,14 @@ export default function CityValidation() {
         .join(' | ');
       if (sourceFidelityAudit.changed && Array.isArray(sourceFidelityAudit.correctedMenu)) {
         normalizedMenu = mergeSourceImagesIntoMenu(normalizeAuditMenu(sourceFidelityAudit.correctedMenu), authoritativeSourceCategories);
-        if (hasNativeStructuredSource) {
+        if (shouldPreserveStructuredSourceFacts) {
           const preservedAfterLocalAudit = preserveStructuredSourceMenuFacts(normalizedMenu, authoritativeSourceCategories, { restoreMissingItems: true, forceSourceCategories: true });
           if (preservedAfterLocalAudit.changed) normalizedMenu = preservedAfterLocalAudit.menu;
         }
         audit.normalizedMenu = normalizedMenu;
         addLog(`Agente auditor local removeu texto sem prova da fonte (${fidelityErrors.length} alerta(s), ${fidelityBlocking} bloqueante(s)).${fidelitySamples ? ` Exemplos: ${fidelitySamples}` : ''}`);
       } else if (fidelityErrors.length) {
-        addLog(`Agente auditor local encontrou ${fidelityErrors.length} inconsistÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia(s), ${fidelityBlocking} bloqueante(s).${fidelitySamples ? ` Exemplos: ${fidelitySamples}` : ''}`);
+        addLog(`Agente auditor local encontrou ${fidelityErrors.length} inconsistÃªncia(s), ${fidelityBlocking} bloqueante(s).${fidelitySamples ? ` Exemplos: ${fidelitySamples}` : ''}`);
       }
     }
 
@@ -4656,7 +5140,7 @@ export default function CityValidation() {
         : 0)
     ), 0), 0);
     if (
-      hasNativeStructuredSource
+      shouldPreserveStructuredSourceFacts
       && previewOptionCount >= 8
       && normalizedMenu.length > 0
       && normalizedOptionCount < Math.max(1, Math.floor(previewOptionCount * 0.85))
@@ -4669,24 +5153,38 @@ export default function CityValidation() {
       if (audit.nextAction === 'recollect_from_source' || audit.nextAction === 'manual_review') audit.nextAction = 'publish';
       audit.corrections = [
         ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-        `Estrutura nativa restaurada porque o menu final perderia opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes/adicionais da fonte (${lostNormalizedOptionCount}/${previewOptionCount}).`,
+        `Estrutura nativa restaurada porque o menu final perderia opÃ§Ãµes/adicionais da fonte (${lostNormalizedOptionCount}/${previewOptionCount}).`,
       ];
-      addLog(`Agente auditor: restaurei a estrutura nativa porque a normalizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o estava perdendo grupos de opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes/adicionais (${lostNormalizedOptionCount}/${previewOptionCount}).`);
+      addLog(`Agente auditor: restaurei a estrutura nativa porque a normalizaÃ§Ã£o estava perdendo grupos de opÃ§Ãµes/adicionais (${lostNormalizedOptionCount}/${previewOptionCount}).`);
     }
-    const sourceHasOptionHints = /escolha\s+(?:at[eÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©]\s*)?\d|obrigat[oÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³]rio|massas?\s*&?\s*bordas?|bordas?|adicionais?|complementos?|turbinar|bora de combo|sabores?|selecion[e|a]|op[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][oÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµ]es/i
+    const sourceHasOptionHints = /escolha\s+(?:at[eÃ©]\s*)?\d|obrigat[oÃ³]rio|massas?\s*&?\s*bordas?|bordas?|adicionais?|complementos?|turbinar|bora de combo|sabores?|selecion[e|a]|op[cÃ§][oÃµ]es/i
       .test(`${sourceTextForConsistency || ''}\n${JSON.stringify(visualStructureAudit || {})}`.slice(0, 120000));
+    const visualMissingOptions = Array.isArray(visualStructureAudit?.missing_options_or_addons)
+      ? visualStructureAudit.missing_options_or_addons
+      : [];
+    const optionHintOnlyFalsePositive = Boolean(
+      hasVisibleStructuredProductSource
+      && previewOptionCount === 0
+      && normalizedOptionCount === 0
+      && visualMissingOptions.length === 0
+      && sourceHasOptionHints
+    );
+    if (optionHintOnlyFalsePositive) {
+      addLog('Agente auditor: texto generico de personalizacao em catalogo de produtos nao sera tratado como grupo de opcoes ausente.');
+    }
     const optionDetailsMissingFromNormalizedMenu = Boolean(
       isDirectMenuSource
       && normalizedMenu.length > 0
       && normalizedOptionCount === 0
+      && !optionHintOnlyFalsePositive
       && (
         previewOptionCount > 0
         || sourceHasOptionHints
-        || (Array.isArray(visualStructureAudit?.missing_options_or_addons) && visualStructureAudit.missing_options_or_addons.length > 0)
+        || visualMissingOptions.length > 0
       )
     );
     if (optionDetailsMissingFromNormalizedMenu) {
-      addLog('Agente auditor: bloqueando publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o porque a fonte indica adicionais/escolhas, mas o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio final ficou sem grupos de opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes.');
+      addLog('Agente auditor: bloqueando publicaÃ§Ã£o porque a fonte indica adicionais/escolhas, mas o cardÃ¡pio final ficou sem grupos de opÃ§Ãµes.');
     }
     const nativeStructuredMenuEvidence = Boolean(
       isDirectMenuSource
@@ -4694,23 +5192,32 @@ export default function CityValidation() {
       && menuSnapshot.itemCount >= 8
       && (previewOptionCount >= 8 || normalizedOptionCount >= 8)
     );
+    const structuredProductMenuEvidence = Boolean(
+      isDirectMenuSource
+      && shouldPreserveStructuredSourceFacts
+      && normalizedMenu.length > 0
+      && menuSnapshot.itemCount >= 8
+      && menuSnapshot.priceCoverage >= 0.55
+      && normalizedItemCount >= Math.max(4, Math.floor(previewNormalizedItemCount * 0.85))
+    );
     if (
       nativeStructuredMenuEvidence
       && normalizedMenu.length > 0
-      && /combo.*sem.*(component|op[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o|opcao)|sem componentes ou op/i.test(String(audit.reason || ''))
+      && /combo.*sem.*(component|op[cÃ§][aÃ£]o|opcao)|sem componentes ou op/i.test(String(audit.reason || ''))
     ) {
       audit.decision = 'ready';
       audit.nextAction = 'publish';
-      audit.reason = 'Fonte nativa estruturada trouxe itens, opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes e imagens suficientes; bloqueio anterior por combo sem componentes foi ignorado por haver opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes comprovadas.';
+      audit.reason = 'Fonte nativa estruturada trouxe itens, opÃ§Ãµes e imagens suficientes; bloqueio anterior por combo sem componentes foi ignorado por haver opÃ§Ãµes comprovadas.';
       audit.corrections = [
         ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-        'Bloqueio de combo sem componentes ignorado porque a fonte nativa forneceu option_groups/options verificÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡veis.',
+        'Bloqueio de combo sem componentes ignorado porque a fonte nativa forneceu option_groups/options verificÃ¡veis.',
       ];
     }
     const visualNeedsRestructure = visualStructureAudit?.recommendation === 'needs_restructure' && Number(visualStructureAudit?.confidence ?? 0.8) >= 0.65;
     const visualStillUnresolved = Boolean(
       visualNeedsRestructure
       && !nativeStructuredMenuEvidence
+      && !structuredProductMenuEvidence
       && (
         missingVisualCategories.length > 0
         || ((visualStructureAudit?.missing_options_or_addons || []).length > 0 && normalizedOptionCount === 0)
@@ -4719,11 +5226,20 @@ export default function CityValidation() {
     );
     const visualNeedsMoreScreenshots = isDirectMenuSource
       && visualStructureAudit?.recommendation === 'needs_more_screenshots'
-      && !nativeStructuredMenuEvidence;
+      && !nativeStructuredMenuEvidence
+      && !structuredProductMenuEvidence;
     const consistencyErrors = Array.isArray(consistencyAudit?.errors) ? consistencyAudit.errors : [];
     const sourceFidelityErrors = Array.isArray(sourceFidelityAudit?.errors) ? sourceFidelityAudit.errors : [];
     const consistencyHasBlockingEvidenceRaw = consistencyErrors.some((error: any) => String(error?.severity || '').toLowerCase() === 'blocking')
       || consistencyErrors.some((error: any) => /invented_item|combo_without_components|addon_promoted|price_mismatch|missing_category/i.test(String(error?.type || '')));
+    const consistencyAvailabilityOnlyBlock = Boolean(
+      consistencyErrors.length > 0
+      && consistencyErrors.every((error: any) => {
+        const label = `${error?.type || ''} ${error?.message || ''} ${error?.reason || ''} ${error?.item || ''}`;
+        return /esgotad|indispon[iÃ­]vel|fora de estoque|sem estoque|estoque/i.test(label)
+          && !/invented_item|combo_without_components|addon_promoted|price_mismatch|missing_category|unsupported_category|unsupported_option|pre[cÃ§]o|categoria|op[cÃ§][aÃ£]o|adicional|combo|outro restaurante|listagem|review/i.test(label);
+      })
+    );
     const consistencyOnlyCorrectedUnsupportedDescriptions = Boolean(
       nativeStructuredMenuEvidence
       && consistencyAudit?.verdict === 'corrected'
@@ -4732,11 +5248,12 @@ export default function CityValidation() {
       && consistencyErrors.length > 0
       && consistencyErrors.every((error: any) => {
         const label = `${error?.type || ''} ${error?.message || ''} ${error?.reason || ''}`;
-        return /description|descri[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o/i.test(label)
-          && !/invented_item|combo_without_components|addon_promoted|price_mismatch|missing_category|unsupported_category|unsupported_option|pre[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§]o|categoria|op[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o|adicional|combo/i.test(label);
+        return /description|descri[cÃ§][aÃ£]o/i.test(label)
+          && !/invented_item|combo_without_components|addon_promoted|price_mismatch|missing_category|unsupported_category|unsupported_option|pre[cÃ§]o|categoria|op[cÃ§][aÃ£]o|adicional|combo/i.test(label);
       })
     );
     const consistencyHasBlockingEvidence = consistencyHasBlockingEvidenceRaw
+      && !consistencyAvailabilityOnlyBlock
       && !consistencyOnlyCorrectedUnsupportedDescriptions
       && !consistencyCorrectionAppliedWithoutBlockers;
     if (consistencyCorrectionAppliedWithoutBlockers) {
@@ -4745,13 +5262,44 @@ export default function CityValidation() {
     if (consistencyOnlyCorrectedUnsupportedDescriptions) {
       addLog('Agente auditor: descricoes sem prova foram removidas, mas a fonte nativa estruturada manteve itens, precos e opcoes; isso nao bloqueia publicacao.');
     }
+    if (consistencyAvailabilityOnlyBlock) {
+      addLog('Agente auditor: bloqueio por item esgotado/indisponivel tratado como informacao de disponibilidade, nao como erro do cardapio.');
+    }
     const sourceFidelityHasBlockingEvidence = sourceFidelityErrors.some((error: any) => String(error?.severity || '').toLowerCase() === 'blocking')
       || sourceFidelityErrors.some((error: any) => /invented_item|combo_without_components|unsupported_category|unsupported_option|price_mismatch|missing_category/i.test(String(error?.type || '')));
+    const nativeStructuredSourcePreserved = Boolean(
+      nativeStructuredMenuEvidence
+      && normalizedMenu.length > 0
+      && normalizedItemCount >= Math.max(4, Math.floor(previewNormalizedItemCount * 0.9))
+      && (
+        previewNormalizedOptionCount < 8
+        || normalizedOptionCount >= Math.max(1, Math.floor(previewNormalizedOptionCount * 0.85))
+      )
+    );
+    const nativeStructuredAuditFalsePositive = Boolean(
+      nativeStructuredSourcePreserved
+      && !sourceFidelityHasBlockingEvidence
+      && (
+        consistencyAudit?.verdict === 'block'
+        || consistencyHasBlockingEvidenceRaw
+        || visualNeedsRestructure
+      )
+    );
+    if (nativeStructuredAuditFalsePositive) {
+      audit.decision = 'ready';
+      audit.nextAction = 'publish';
+      audit.reason = 'Fonte nativa estruturada preservada e sem erro real de fidelidade; bloqueio visual/consistencia foi tratado como falso positivo para permitir a etapa final de fotos.';
+      audit.corrections = [
+        ...(Array.isArray(audit.corrections) ? audit.corrections : []),
+        'Bloqueio preventivo de auditoria ignorado porque a fonte oficial estruturada preservou itens/opcoes/precos e a auditoria local nao encontrou erro bloqueante de fidelidade.',
+      ];
+      addLog('Agente auditor: fonte nativa estruturada preservada sem erro real de fidelidade; falso bloqueio visual/consistencia nao impedira a etapa final de fotos.');
+    }
     const consistencyBlockReason = String(consistencyAudit?.reason || '').trim();
     const consistencyVerdictBlockIsActionable = consistencyAudit?.verdict === 'block'
       && (
         consistencyHasBlockingEvidence
-        || (!nativeStructuredMenuEvidence && /invent|falt|ausente|inconsist|pre[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§]o|categoria|op[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o|adicional|combo|n[aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o encontrado|nao encontrado/i.test(consistencyBlockReason))
+        || (!nativeStructuredMenuEvidence && /invent|falt|ausente|inconsist|pre[cÃ§]o|categoria|op[cÃ§][aÃ£]o|adicional|combo|n[aÃ£]o encontrado|nao encontrado/i.test(consistencyBlockReason))
       );
     if (
       nativeStructuredMenuEvidence
@@ -4762,23 +5310,23 @@ export default function CityValidation() {
       && (
         audit.nextAction === 'recollect_from_source'
         || audit.nextAction === 'manual_review'
-        || /screenshot|print|recolet|processar resultado|card[aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡]pio com 0 itens|combo.*sem.*(component|op[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o|opcao)|sem componentes ou op/i.test(String(audit.reason || ''))
+        || /screenshot|print|recolet|processar resultado|card[aÃ¡]pio com 0 itens|combo.*sem.*(component|op[cÃ§][aÃ£]o|opcao)|sem componentes ou op/i.test(String(audit.reason || ''))
       )
     ) {
       audit.decision = 'ready';
       audit.nextAction = 'publish';
-      audit.reason = 'Fonte nativa estruturada trouxe itens, opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes, preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os e imagens suficientes; a auditoria nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o encontrou erro real de fonte.';
+      audit.reason = 'Fonte nativa estruturada trouxe itens, opÃ§Ãµes, preÃ§os e imagens suficientes; a auditoria nÃ£o encontrou erro real de fonte.';
       audit.corrections = [
         ...(Array.isArray(audit.corrections) ? audit.corrections : []),
-        'Bloqueio preventivo ignorado porque a fonte nativa estruturada passou pela auditoria sem inconsistÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncias bloqueantes.',
+        'Bloqueio preventivo ignorado porque a fonte nativa estruturada passou pela auditoria sem inconsistÃªncias bloqueantes.',
       ];
     }
-    if (hasNativeStructuredSource && normalizedMenu.length > 0) {
+    if (shouldPreserveStructuredSourceFacts && normalizedMenu.length > 0) {
       const finalPreservation = preserveStructuredSourceMenuFacts(normalizedMenu, authoritativeSourceCategories, { restoreMissingItems: true, forceSourceCategories: true });
       if (finalPreservation.changed) {
         normalizedMenu = finalPreservation.menu;
         audit.normalizedMenu = normalizedMenu;
-        addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria final: reapliquei a fonte nativa antes do banco (${finalPreservation.priceFixes} preÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o(s), ${finalPreservation.optionFixes} grupo(s) de opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes/adicionais, ${finalPreservation.categoryFixes} categoria(s), ${finalPreservation.missingItemsRestored} item(ns) restaurado(s)).`);
+        addLog(`PÃ³s-auditoria final: reapliquei a fonte nativa antes do banco (${finalPreservation.priceFixes} preÃ§o(s), ${finalPreservation.optionFixes} grupo(s) de opÃ§Ãµes/adicionais, ${finalPreservation.categoryFixes} categoria(s), ${finalPreservation.missingItemsRestored} item(ns) restaurado(s)).`);
       }
     }
     const structuralAudit = auditMenuStructuralCoherence(normalizedMenu);
@@ -4794,9 +5342,11 @@ export default function CityValidation() {
       ];
     }
     const consistencyBlocksPublish = Boolean(
-      consistencyVerdictBlockIsActionable
-      || consistencyHasBlockingEvidence
-      || sourceFidelityHasBlockingEvidence
+      sourceFidelityHasBlockingEvidence
+      || (!nativeStructuredAuditFalsePositive && (
+        consistencyVerdictBlockIsActionable
+        || consistencyHasBlockingEvidence
+      ))
     );
     const priceCompletenessBlocksPublish = Boolean(
       Number(sourceAudit?.unresolvedPriceCount || 0) > 0
@@ -4805,28 +5355,87 @@ export default function CityValidation() {
     if (priceCompletenessBlocksPublish) {
       addLog('Pos-auditoria bloqueou publicacao: cardapio com item(ns) sem preco confiavel deve ir para revisao humana.');
     }
+    const structuredProductVisualFalsePositive = Boolean(
+      hasVisibleStructuredProductSource
+      && structuredProductMenuEvidence
+      && normalizedMenu.length > 0
+      && audit.decision === 'ready'
+      && audit.nextAction === 'publish'
+      && !sourceFidelityHasBlockingEvidence
+      && !consistencyHasBlockingEvidence
+      && structuralAudit.blockingCount === 0
+      && !priceCompletenessBlocksPublish
+    );
+    if (structuredProductVisualFalsePositive && (visualStillUnresolved || visualNeedsMoreScreenshots)) {
+      addLog('Pos-auditoria: alerta visual tratado como falso positivo porque o codigo/DOM da fonte estruturada trouxe produtos, precos e imagens coerentes.');
+    }
+    const normalizedAuditReason = normalizeText(String(audit.reason || ''));
+    const stockAvailabilityOnlyBlock = Boolean(
+      (normalizedMenu.length > 0 || previewNormalizedItemCount > 0)
+      && /esgotad|indisponivel|fora de estoque|sem produtos disponiveis|produto indisponivel/.test(normalizedAuditReason)
+      && !/sem preco|preco confiavel|endereco|coordenad|latitude|longitude|fonte errada|outro restaurante|listagem|review|captcha|login|bloqueio|opcao|adicional|combo|invent|categoria|screenshot|print|recolet/.test(normalizedAuditReason)
+    );
+    if (stockAvailabilityOnlyBlock) {
+      if (normalizedMenu.length === 0 && previewNormalizedMenu.length > 0) {
+        normalizedMenu = previewNormalizedMenu;
+        audit.normalizedMenu = normalizedMenu;
+      }
+      audit.decision = 'ready';
+      audit.nextAction = 'publish';
+      audit.reason = 'Cardapio possui itens marcados como esgotados/indisponiveis, mas disponibilidade nao bloqueia publicacao; itens preservados como informacao da fonte.';
+      audit.corrections = [
+        ...(Array.isArray(audit.corrections) ? audit.corrections : []),
+        'Bloqueio por disponibilidade/estoque ignorado: item esgotado deve ser preservado no cardapio, nao impedir salvamento.',
+      ];
+      addLog('Pos-auditoria: itens esgotados/indisponiveis nao bloqueiam mais o cardapio; vou salvar a estrutura coletada.');
+    }
     const publishCandidateRestaurant = { ...currentRestaurant, ...restaurantUpdate };
     const finalPublicDataIssues = Array.from(new Set([
       ...getPublicIdentityIssues(publishCandidateRestaurant),
       ...getPublicAddressIssues(publishCandidateRestaurant),
     ]));
     if (finalPublicDataIssues.length) {
-      addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria bloqueou publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o por dados pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblicos incompletos: ${finalPublicDataIssues.join(' | ')}`);
+      addLog(`PÃ³s-auditoria bloqueou publicaÃ§Ã£o por dados pÃºblicos incompletos: ${finalPublicDataIssues.join(' | ')}`);
     }
     const canBeReady = audit.decision === 'ready'
       && normalizedMenu.length > 0
       && finalPublicDataIssues.length === 0
       && (!hasBlockingSourceIssue || aiCanRepairDirectMenu)
-      && !evidenceGateMissing
-      && !visualAuditRequiredButUnavailable
-      && !visualStillUnresolved
-      && !visualNeedsMoreScreenshots
+      && (!visualStillUnresolved || structuredProductVisualFalsePositive)
       && !optionDetailsMissingFromNormalizedMenu
       && structuralAudit.blockingCount === 0
       && !consistencyBlocksPublish
       && !priceCompletenessBlocksPublish;
+    const finalGateDebug = {
+      auditDecision: audit.decision,
+      auditNextAction: audit.nextAction,
+      normalizedItemCount,
+      normalizedOptionCount,
+      previewNormalizedItemCount,
+      previewNormalizedOptionCount,
+      menuSnapshot,
+      finalPublicDataIssues,
+      hasBlockingSourceIssue,
+      aiCanRepairDirectMenu,
+      evidenceGateMissing,
+      visualAuditRequiredButUnavailable,
+      weakSourceEvidenceWarning,
+      visualAuditUnavailableWarning,
+      visualStillUnresolved,
+      visualNeedsMoreScreenshots,
+      optionDetailsMissingFromNormalizedMenu,
+      optionHintOnlyFalsePositive,
+      structuralBlockingCount: structuralAudit.blockingCount,
+      consistencyAvailabilityOnlyBlock,
+      consistencyBlocksPublish,
+      priceCompletenessBlocksPublish,
+      hasVisibleStructuredProductSource,
+      structuredProductMenuEvidence,
+      structuredProductVisualFalsePositive,
+      authoritativeSourceImageCount,
+    };
     if (hasBlockingSourceIssue && aiCanRepairDirectMenu) {
-      addLog('PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA assumiu a curadoria: fonte direta com itens reais foi normalizada apesar de alerta tÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©cnico.');
+      addLog('PÃ³s-auditoria IA assumiu a curadoria: fonte direta com itens reais foi normalizada apesar de alerta tÃ©cnico.');
     }
 
     if (audit.deleteExistingMenu === true || (!canBeReady && (menuSnapshot.junkItemCount > 0 || context.menuResult?.dryRun || context.menuResult?.success || context.menuEvidence?.success))) {
@@ -4835,37 +5444,35 @@ export default function CityValidation() {
         const catIds = existingCats.map((cat: any) => cat.id);
         await supabase.from('menu_items').delete().in('category_id', catIds);
         await supabase.from('menu_categories').delete().eq('restaurant_id', restaurant.id);
-        addLog('PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria removeu cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio ruim para impedir publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o acidental.');
+        addLog('PÃ³s-auditoria removeu cardÃ¡pio ruim para impedir publicaÃ§Ã£o acidental.');
       }
     } else if (canBeReady && context.applyMenu !== false) {
       const appliedMenu = await replaceRestaurantMenuFromAudit(restaurant.id, normalizedMenu);
-      addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA padronizou o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio: ${appliedMenu.reduce((total: number, cat: any) => total + cat.items.length, 0)} item(ns) em ${appliedMenu.length} categoria(s).`);
+      addLog(`PÃ³s-auditoria IA padronizou o cardÃ¡pio: ${appliedMenu.reduce((total: number, cat: any) => total + cat.items.length, 0)} item(ns) em ${appliedMenu.length} categoria(s).`);
     } else if (canBeReady) {
-      addLog('PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA aprovou a prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©via; o extrator salvarÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ a versÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o estruturada preservando adicionais/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes.');
+      addLog('PÃ³s-auditoria IA aprovou a prÃ©via; o extrator salvarÃ¡ a versÃ£o estruturada preservando adicionais/opÃ§Ãµes.');
     }
 
     if (!canBeReady) {
       const allLocalIssues = Array.from(new Set([...localIssues, ...finalPublicDataIssues]));
       const reasonText = `${audit.reason || ''} ${allLocalIssues.join(' ')}`;
       const needsRecollection = audit.nextAction === 'recollect_from_source'
-        || evidenceGateMissing
-        || visualAuditRequiredButUnavailable
         || consistencyBlocksPublish
         || finalPublicDataIssues.length > 0
-        || /fonte errada|listagem|reviews?|outro restaurante|misturou|extra[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o ruim|recolet|coordenad|latitude|longitude|geocod|endere[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§]o|identidade|nome p[uÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âº]blico|google maps|maps/i.test(reasonText);
+        || /fonte errada|listagem|reviews?|outro restaurante|misturou|extra[cÃ§][aÃ£]o ruim|recolet|coordenad|latitude|longitude|geocod|endere[cÃ§]o|identidade|nome p[uÃº]blico|google maps|maps/i.test(reasonText);
       const requiresHuman = audit.nextAction === 'manual_review'
         || priceCompletenessBlocksPublish
-        || /\b(login|captcha|bloqueio|interven[cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§][aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o humana|sess[aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£]o)\b/i.test(reasonText);
+        || /\b(login|captcha|bloqueio|interven[cÃ§][aÃ£]o humana|sess[aÃ£]o)\b/i.test(reasonText);
       return {
         ready: false,
         reason: consistencyBlocksPublish
-          ? `Agente auditor bloqueou publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ${consistencyAudit?.reason || sourceFidelityErrors[0]?.message || 'cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio estruturado nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o bate com a fonte original.'}`
+          ? `Agente auditor bloqueou publicaÃ§Ã£o: ${consistencyAudit?.reason || sourceFidelityErrors[0]?.message || 'cardÃ¡pio estruturado nÃ£o bate com a fonte original.'}`
           : (priceCompletenessBlocksPublish
             ? 'Cardapio enviado para revisao humana: ha item(ns) sem preco confiavel.'
           : (finalPublicDataIssues.length
-            ? `Dados pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblicos incompletos: ${finalPublicDataIssues.join(' | ')}`
-            : (audit.reason || allLocalIssues.join(' | ') || 'PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o aprovou para publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.'))),
-        audit: { ...audit, consistencyAudit, sourceFidelityAudit },
+            ? `Dados pÃºblicos incompletos: ${finalPublicDataIssues.join(' | ')}`
+            : (audit.reason || allLocalIssues.join(' | ') || 'PÃ³s-auditoria nÃ£o aprovou para publicaÃ§Ã£o.'))),
+        audit: { ...audit, consistencyAudit, sourceFidelityAudit, finalGateDebug },
         localIssues: allLocalIssues,
         needsRecollection: needsRecollection && !requiresHuman,
         requiresHuman,
@@ -4874,8 +5481,8 @@ export default function CityValidation() {
 
     return {
       ready: true,
-      reason: audit.reason || 'PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria aprovou dados publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡veis.',
-      audit: { ...audit, normalizedMenu, consistencyAudit, sourceFidelityAudit },
+      reason: audit.reason || 'PÃ³s-auditoria aprovou dados publicÃ¡veis.',
+      audit: { ...audit, normalizedMenu, consistencyAudit, sourceFidelityAudit, finalGateDebug },
       localIssues,
     };
   };
@@ -4899,40 +5506,98 @@ export default function CityValidation() {
         setCityScope(cityData);
       }
 
-      const batchSize = VALIDATION_FETCH_BATCH_SIZE;
       const targetLimit = loadedRowLimit + 1;
-      const rows: any[] = [];
       const serverSearchTerm = searchTerm.trim();
       const serverSearchPattern = serverSearchTerm
         ? '%' + serverSearchTerm.replace(/[%,*_]/g, ' ').replace(/\s+/g, ' ').trim() + '%'
         : '';
-
-      for (let from = 0; from < targetLimit; from += batchSize) {
-        const to = Math.min(from + batchSize - 1, targetLimit - 1);
-        let query = supabase
-          .from('restaurants')
-          .select(VALIDATION_LIST_SELECT)
-          .order('created_at', { ascending: false })
-          .range(from, to);
-
+      const applyCityAndSearchFilters = (query: any) => {
+        let scopedQuery = query;
         if (projectCity?.name && projectCity?.state) {
-          query = query.eq('city', projectCity.name).eq('state', projectCity.state);
+          scopedQuery = scopedQuery.eq('city', projectCity.name).eq('state', projectCity.state);
         }
-
         if (serverSearchPattern) {
-          query = query.or('name.ilike.' + serverSearchPattern + ',address.ilike.' + serverSearchPattern + ',category.ilike.' + serverSearchPattern);
+          scopedQuery = scopedQuery.or('name.ilike.' + serverSearchPattern + ',address.ilike.' + serverSearchPattern + ',category.ilike.' + serverSearchPattern);
         }
+        return scopedQuery;
+      };
 
-        const { data, error } = await query;
+      const countRows = async (configureQuery: (query: any) => any) => {
+        const { count, error } = await configureQuery(applyCityAndSearchFilters(
+          supabase.from('restaurants').select('id', { count: 'exact', head: true })
+        ));
         if (error) throw error;
+        return count || 0;
+      };
 
-        rows.push(...(data || []));
-        if (!data || data.length < (to - from + 1)) break;
-        await new Promise(resolve => window.setTimeout(resolve, 0));
-      }
+      const exactStats: QaStats = {
+        ...EMPTY_QA_STATS,
+        pendentes: (
+          await countRows(query => applyPendingMenuStatusFilter(query.eq('is_deleted', false).eq('is_published', false).eq('ai_validated', false)))
+        ) + (
+          await countRows(query => query.eq('is_deleted', false).eq('is_published', false).in('menu_status', MENU_RECOLLECT_STATUSES))
+        ),
+        prontos: await countRows(query => query.eq('is_deleted', false).eq('is_published', false).eq('menu_status', 'found')),
+        sem_cardapio: await countRows(query => query.eq('is_deleted', false).eq('is_published', false).in('menu_status', MENU_NO_CARDAPIO_STATUSES)),
+        revisao: (
+          await countRows(query => query.eq('is_deleted', false).eq('is_published', false).in('menu_status', MENU_REVIEW_STATUSES))
+        ) + (
+          await countRows(query => query.eq('is_deleted', false).eq('is_published', true).neq('menu_status', 'found'))
+        ),
+        rejeitados: await countRows(query => query.eq('is_deleted', true)),
+        importados: await countRows(query => query.eq('is_deleted', false).eq('is_published', true).eq('menu_status', 'found')),
+      };
+      setServerQaStats(exactStats);
 
-      setHasMoreRestaurants(rows.length > loadedRowLimit);
-      setRestaurants(rows.slice(0, loadedRowLimit));
+      const fetchLimitedRows = async (
+        configureQuery: (query: any) => any,
+        limit = targetLimit
+      ) => {
+        const query = configureQuery(applyCityAndSearchFilters(
+          supabase
+            .from('restaurants')
+            .select(VALIDATION_LIST_SELECT)
+        ));
+        const { data, error } = await query
+          .order('created_at', { ascending: false })
+          .limit(limit);
+        if (error) throw error;
+        return data || [];
+      };
+
+      const fetchRowsForTab = async (tab: ValidationTab) => {
+        if (tab === 'pendentes') {
+          const [pendingRows, recollectRows] = await Promise.all([
+            fetchLimitedRows(query => applyPendingMenuStatusFilter(query.eq('is_deleted', false).eq('is_published', false).eq('ai_validated', false))),
+            fetchLimitedRows(query => query.eq('is_deleted', false).eq('is_published', false).in('menu_status', MENU_RECOLLECT_STATUSES), VALIDATION_FETCH_BATCH_SIZE),
+          ]);
+          return [...pendingRows, ...recollectRows];
+        }
+        if (tab === 'prontos') {
+          return fetchLimitedRows(query => query.eq('is_deleted', false).eq('is_published', false).eq('menu_status', 'found'));
+        }
+        if (tab === 'sem_cardapio') {
+          return fetchLimitedRows(query => query.eq('is_deleted', false).eq('is_published', false).in('menu_status', MENU_NO_CARDAPIO_STATUSES));
+        }
+        if (tab === 'revisao') {
+          const [reviewRows, publishedWithoutMenuRows] = await Promise.all([
+            fetchLimitedRows(query => query.eq('is_deleted', false).eq('is_published', false).in('menu_status', MENU_REVIEW_STATUSES)),
+            fetchLimitedRows(query => query.eq('is_deleted', false).eq('is_published', true).neq('menu_status', 'found'), VALIDATION_FETCH_BATCH_SIZE),
+          ]);
+          return [...reviewRows, ...publishedWithoutMenuRows];
+        }
+        if (tab === 'rejeitados') {
+          return fetchLimitedRows(query => query.eq('is_deleted', true));
+        }
+        return fetchLimitedRows(query => query.eq('is_deleted', false).eq('is_published', true).eq('menu_status', 'found'));
+      };
+
+      setHasMoreRestaurants((exactStats[activeTab] || 0) > loadedRowLimit);
+
+      const rows = await fetchRowsForTab(activeTab);
+      const mergedById = new Map<string, any>();
+      rows.slice(0, loadedRowLimit).forEach((row: any) => mergedById.set(row.id, row));
+      setRestaurants([...mergedById.values()]);
     } catch (err) {
       console.error('Error fetching restaurants:', err);
     } finally {
@@ -4961,13 +5626,36 @@ export default function CityValidation() {
     return restaurant?.menu_status_reason || log?.reason || '';
   };
 
+  const ensureRestaurantCoverFromSavedGallery = async (restaurantId: string, sourceLabel = 'galeria ja aprovada') => {
+    const { data: restaurantRow } = await supabase
+      .from('restaurants')
+      .select('cover_image_url, coverImage')
+      .eq('id', restaurantId)
+      .single();
+    if (restaurantRow?.cover_image_url || restaurantRow?.coverImage) return;
+
+    const { data, error } = await supabase
+      .from('restaurant_gallery')
+      .select('image_url')
+      .eq('restaurant_id', restaurantId)
+      .order('order_index', { ascending: true })
+      .limit(MAX_PUBLIC_GALLERY_IMAGES);
+    if (error) throw error;
+
+    const firstImage = (data || []).map((item: any) => String(item?.image_url || '').trim()).find(Boolean);
+    if (!firstImage) return;
+
+    await updateRestaurantWithSchemaFallback(restaurantId, { cover_image_url: firstImage });
+    addLog(`Imagem de capa definida automaticamente a partir da galeria (${sourceLabel}).`);
+  };
+
   useEffect(() => {
     setLoadedRowLimit(VALIDATION_INITIAL_ROW_LIMIT);
-  }, [cityId]);
+  }, [cityId, activeTab, searchTerm]);
 
   useEffect(() => {
     fetchRestaurants();
-  }, [cityId, loadedRowLimit, searchTerm]);
+  }, [cityId, loadedRowLimit, searchTerm, activeTab]);
 
   const hasStructuredMenu = (restaurant: any) => {
     return restaurant?.menu_status === 'found';
@@ -4994,7 +5682,7 @@ export default function CityValidation() {
       return {
         key: 'publicado',
         label: 'Publicado',
-        action: 'VisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel no app',
+        action: 'VisÃ­vel no app',
         className: 'bg-slate-900 text-white border-slate-900',
       };
     }
@@ -5018,7 +5706,7 @@ export default function CityValidation() {
     if (MENU_REVIEW_STATUSES.includes(menuStatus || '')) {
       return {
         key: 'revisao',
-        label: 'RevisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o humana',
+        label: 'RevisÃ£o humana',
         action: 'Resolver bloqueio/login/captcha',
         className: 'bg-violet-50 text-violet-700 border-violet-200',
       };
@@ -5026,8 +5714,8 @@ export default function CityValidation() {
     if (MENU_NO_CARDAPIO_STATUSES.includes(menuStatus || '')) {
       return {
         key: 'sem_cardapio',
-        label: 'Sem cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio',
-        action: 'NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o publicar; possÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel CRM',
+        label: 'Sem cardÃ¡pio',
+        action: 'NÃ£o publicar; possÃ­vel CRM',
         className: 'bg-orange-50 text-orange-700 border-orange-200',
       };
     }
@@ -5042,7 +5730,7 @@ export default function CityValidation() {
     return {
       key: 'revisao',
       label: 'QA incompleto',
-      action: 'Revalidar com extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o',
+      action: 'Revalidar com extensÃ£o',
       className: 'bg-blue-50 text-blue-700 border-blue-200',
     };
   };
@@ -5085,7 +5773,7 @@ export default function CityValidation() {
       : getLeadTriage(restaurant)
   );
 
-  const qaStats = useMemo(() => {
+  const loadedQaStats = useMemo(() => {
     const stats = {
       pendentes: 0,
       prontos: 0,
@@ -5111,6 +5799,8 @@ export default function CityValidation() {
 
     return stats;
   }, [restaurants, qaStateCache]);
+
+  const qaStats = serverQaStats || loadedQaStats;
 
   const triageBaseRestaurants = useMemo(() => (
     activeTab === 'rejeitados'
@@ -5164,30 +5854,30 @@ export default function CityValidation() {
   }, [activeRestaurants, qaStats.prontos, showValidationDiagnostics, triageStats]);
 
   const triageCards: { key: LeadTriageKey; label: string; hint: string; className: string }[] = [
-    { key: 'likely_food_service', label: 'ProvÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡veis restaurantes', hint: 'Bons candidatos, mas ainda exigem Validar IA e cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio.', className: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-    { key: 'unknown_need_maps_ai', label: 'IA/Maps obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio', hint: 'Nome/categoria nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o bastam; a IA deve abrir fontes antes de decidir.', className: 'bg-blue-50 text-blue-700 border-blue-200' },
-    { key: 'generic_low_signal', label: 'Nome genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rico fraco', hint: 'Bar, aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­, lanchonete etc. sem marca clara. Baixa prioridade atÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© haver prova.', className: 'bg-sky-50 text-sky-700 border-sky-200' },
-    { key: 'maps_result_noise', label: 'RuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­do do Maps', hint: 'Ruas, bairros, snippets e pontos do mapa: o Validar IA remove.', className: 'bg-slate-50 text-slate-700 border-slate-200' },
-    { key: 'public_place_or_map_point', label: 'Ponto pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico/mapa', hint: 'Ruas, praÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§as, parques e terminais: remover da base.', className: 'bg-slate-50 text-slate-700 border-slate-200' },
-    { key: 'bakery_or_confectionery_needs_menu', label: 'Padarias/panificadoras', hint: 'Regra de produto: remover, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o validar para o app.', className: 'bg-amber-50 text-amber-700 border-amber-200' },
-    { key: 'mixed_needs_maps_menu', label: 'NegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³cios mistos', hint: 'ConveniÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia/hotel/varejo com comida: exige Maps + cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio.', className: 'bg-violet-50 text-violet-700 border-violet-200' },
-    { key: 'buffet_catering_needs_menu', label: 'Buffet/catering', hint: 'Buffet isolado sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ avanÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a se houver cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico organizado.', className: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
-    { key: 'venue_or_event_needs_menu', label: 'HotÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©is/sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­tios/eventos', hint: 'Regra de produto: remover, mesmo se houver comida ocasional.', className: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
+    { key: 'likely_food_service', label: 'ProvÃ¡veis restaurantes', hint: 'Bons candidatos, mas ainda exigem Validar IA e cardÃ¡pio.', className: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+    { key: 'unknown_need_maps_ai', label: 'IA/Maps obrigatÃ³rio', hint: 'Nome/categoria nÃ£o bastam; a IA deve abrir fontes antes de decidir.', className: 'bg-blue-50 text-blue-700 border-blue-200' },
+    { key: 'generic_low_signal', label: 'Nome genÃ©rico fraco', hint: 'Bar, aÃ§aÃ­, lanchonete etc. sem marca clara. Baixa prioridade atÃ© haver prova.', className: 'bg-sky-50 text-sky-700 border-sky-200' },
+    { key: 'maps_result_noise', label: 'RuÃ­do do Maps', hint: 'Ruas, bairros, snippets e pontos do mapa: o Validar IA remove.', className: 'bg-slate-50 text-slate-700 border-slate-200' },
+    { key: 'public_place_or_map_point', label: 'Ponto pÃºblico/mapa', hint: 'Ruas, praÃ§as, parques e terminais: remover da base.', className: 'bg-slate-50 text-slate-700 border-slate-200' },
+    { key: 'bakery_or_confectionery_needs_menu', label: 'Padarias/panificadoras', hint: 'Regra de produto: remover, nÃ£o validar para o app.', className: 'bg-amber-50 text-amber-700 border-amber-200' },
+    { key: 'mixed_needs_maps_menu', label: 'NegÃ³cios mistos', hint: 'ConveniÃªncia/hotel/varejo com comida: exige Maps + cardÃ¡pio.', className: 'bg-violet-50 text-violet-700 border-violet-200' },
+    { key: 'buffet_catering_needs_menu', label: 'Buffet/catering', hint: 'Buffet isolado sÃ³ avanÃ§a se houver cardÃ¡pio pÃºblico organizado.', className: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
+    { key: 'venue_or_event_needs_menu', label: 'HotÃ©is/sÃ­tios/eventos', hint: 'Regra de produto: remover, mesmo se houver comida ocasional.', className: 'bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200' },
     { key: 'likely_reject_retail', label: 'Varejo/mercado', hint: 'Supermercados, mercearias, distribuidoras e similares.', className: 'bg-orange-50 text-orange-700 border-orange-200' },
-    { key: 'likely_reject_service', label: 'ServiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os/nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o food', hint: 'Posto, hotel, barbearia, logÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­stica, clÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nica e similares.', className: 'bg-rose-50 text-rose-700 border-rose-200' },
-    { key: 'maps_status_closed', label: 'Fechado no Maps', hint: 'Remover somente com evidÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia oficial do Maps.', className: 'bg-rose-50 text-rose-700 border-rose-200' },
+    { key: 'likely_reject_service', label: 'ServiÃ§os/nÃ£o food', hint: 'Posto, hotel, barbearia, logÃ­stica, clÃ­nica e similares.', className: 'bg-rose-50 text-rose-700 border-rose-200' },
+    { key: 'maps_status_closed', label: 'Fechado no Maps', hint: 'Remover somente com evidÃªncia oficial do Maps.', className: 'bg-rose-50 text-rose-700 border-rose-200' },
   ];
   const activeTriageCard = activeTriageFilter === 'all'
     ? null
     : triageCards.find(card => card.key === activeTriageFilter) || null;
 
   const qaTabs: { key: ValidationTab; label: string; count: number; hint: string }[] = [
-    { key: 'pendentes', label: 'Pendentes Validar IA', count: qaStats.pendentes, hint: 'Coletados na Fase 1 e ainda nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o auditados.' },
-    { key: 'prontos', label: 'Prontos p/ App', count: qaStats.prontos, hint: 'Validar IA encontrou cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio estruturado.' },
-    { key: 'sem_cardapio', label: 'Sem CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio', count: qaStats.sem_cardapio, hint: 'Existe no Maps, mas nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o achou cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico confiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.' },
-    { key: 'revisao', label: 'RevisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o Humana', count: qaStats.revisao, hint: 'Bloqueio, captcha, login, fonte invÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lida ou QA incompleto.' },
-    { key: 'rejeitados', label: 'Rejeitados', count: qaStats.rejeitados, hint: 'Removidos por regra de produto: fechado, mercado, padaria, evento, rua/ponto pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico ou nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o-food.' },
-    { key: 'importados', label: 'Base Publicada', count: qaStats.importados, hint: 'JÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ visÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­veis no app pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico.' },
+    { key: 'pendentes', label: 'Pendentes Validar IA', count: qaStats.pendentes, hint: 'Coletados na Fase 1 e ainda nÃ£o auditados.' },
+    { key: 'prontos', label: 'Prontos p/ App', count: qaStats.prontos, hint: 'Validar IA encontrou cardÃ¡pio estruturado.' },
+    { key: 'sem_cardapio', label: 'Sem CardÃ¡pio', count: qaStats.sem_cardapio, hint: 'Existe no Maps, mas nÃ£o achou cardÃ¡pio pÃºblico confiÃ¡vel.' },
+    { key: 'revisao', label: 'RevisÃ£o Humana', count: qaStats.revisao, hint: 'Bloqueio, captcha, login, fonte invÃ¡lida ou QA incompleto.' },
+    { key: 'rejeitados', label: 'Rejeitados', count: qaStats.rejeitados, hint: 'Removidos por regra de produto: fechado, mercado, padaria, evento, rua/ponto pÃºblico ou nÃ£o-food.' },
+    { key: 'importados', label: 'Base Publicada', count: qaStats.importados, hint: 'JÃ¡ visÃ­veis no app pÃºblico.' },
   ];
 
   const normalizedSearchTerm = searchTerm.trim().toLowerCase();
@@ -5228,6 +5918,166 @@ export default function CityValidation() {
     filteredRestaurants.slice(pageStartIndex, pageEndIndex)
   ), [filteredRestaurants, pageEndIndex, pageStartIndex]);
 
+  const countGalleryImages = (restaurant: any) => {
+    const gallery = restaurant?.gallery_images || restaurant?.gallery || restaurant?.images || restaurant?.photos;
+    if (Array.isArray(gallery)) return gallery.filter(Boolean).length;
+    if (typeof gallery === 'string') {
+      try {
+        const parsed = JSON.parse(gallery);
+        if (Array.isArray(parsed)) return parsed.filter(Boolean).length;
+      } catch (_) {
+        return gallery.trim() ? 1 : 0;
+      }
+    }
+    return 0;
+  };
+
+  const buildLearningSnapshot = (restaurant: any) => {
+    const log = readAiLog(restaurant);
+    const menuStatus = getMenuStatus(restaurant);
+    const galleryCount = countGalleryImages(restaurant);
+    const triage = getLeadTriage(restaurant);
+    const evidence = log?.evidence || log?.learning?.evidence || {};
+    const menuEvidence = evidence?.menu || log?.menuEvidence || {};
+    const rawEvidence = evidence?.rawEvidence || {};
+    const review = log?.review || {};
+    const coverImageUrl = restaurant?.cover_image_url || restaurant?.coverImage || restaurant?.image_url || '';
+    const instagramUrl = restaurant?.instagram_url || restaurant?.instagram || '';
+    const menuSourceUrl = restaurant?.other_url || restaurant?.external_url || restaurant?.menuSourceUrl || '';
+    const sourceUrlCandidates = [
+      menuSourceUrl,
+      evidence?.sourceUrl,
+      evidence?.menu?.sourceUrl,
+      evidence?.menu?.source_url,
+      log?.extra?.sourceUrl,
+      log?.extra?.source_url,
+      log?.extra?.requiresHuman?.sourceUrl,
+      log?.extra?.requiresHuman?.source_url,
+      log?.extra?.failedBioMenuSource?.sourceUrl,
+      log?.extra?.failedBioMenuSource?.source_url,
+      log?.extra?.menuEvidence?.sourceUrl,
+      log?.extra?.menuEvidence?.source_url,
+      log?.extra?.failedBioMenuSource?.sourceChain?.[0]?.url,
+      log?.extra?.requiresHuman?.sourceChain?.[0]?.url,
+    ];
+    const sourceUrls = Array.from(new Set(sourceUrlCandidates
+      .map((value: any) => String(value || '').trim())
+      .filter((value: string) => /^https?:\/\//i.test(value))));
+    const rating = Number(restaurant?.rating || restaurant?.google_rating || 0) || null;
+    const reviewsCount = Number(restaurant?.reviews_count || restaurant?.reviewsCount || restaurant?.google_reviews_count || 0) || null;
+    return {
+      id: restaurant?.id,
+      name: restaurant?.name || '',
+      category: restaurant?.category || '',
+      address: [restaurant?.address, restaurant?.number, restaurant?.neighborhood, restaurant?.city, restaurant?.state].filter(Boolean).join(', '),
+      googleMapsUrl: restaurant?.google_maps_url || '',
+      googleMapsName: restaurant?.google_maps_name || '',
+      rating,
+      reviewsCount,
+      qaState: getCachedQaState(restaurant).key,
+      triage: {
+        key: triage.key,
+        confidence: triage.confidence,
+        reason: triage.reason,
+        action: triage.action,
+      },
+      menuStatus,
+      menuStatusReason: getMenuStatusReason(restaurant),
+      isDeleted: restaurant?.is_deleted === true,
+      isPublished: restaurant?.is_published === true,
+      hasPhone: Boolean(restaurant?.phone || restaurant?.whatsapp_phone || restaurant?.primary_phone),
+      hasInstagram: Boolean(instagramUrl),
+      instagramUrl,
+      menuSourceUrl,
+      sourceUrls,
+      hasMenu: menuStatus === 'found',
+      menuEvidence: {
+        sourceUrl: sourceUrls[0] || '',
+        platform: evidence?.platform || '',
+        discoveryMethod: evidence?.discoveryMethod || '',
+        categoryCount: Array.isArray(menuEvidence?.categories) ? menuEvidence.categories.length : Number(menuEvidence?.categoryCount || 0) || null,
+        itemCount: Number(menuEvidence?.itemCount || evidence?.extractorAudit?.itemCount || 0) || null,
+        optionCount: Number(menuEvidence?.optionCount || evidence?.extractorAudit?.optionCount || 0) || null,
+        screenshotCount: Number(rawEvidence?.screenshotCount || 0) || null,
+        imageCandidateCount: Number(rawEvidence?.imageCandidateCount || 0) || null,
+      },
+      galleryCount,
+      hasGallery: galleryCount > 0,
+      hasCover: Boolean(coverImageUrl),
+      coverImageUrl,
+      hasHours: Boolean(restaurant?.opening_hours || restaurant?.hours || restaurant?.business_hours),
+      reviewRoute: review?.route || '',
+      reviewReasonCode: review?.reasonCode || '',
+      pipeline: log?.pipeline || '',
+      status: log?.status || '',
+    };
+  };
+
+  const persistLearningRun = async (beforeRestaurant: any, startedAt: string, error?: any) => {
+    if (!beforeRestaurant?.id) return;
+    const { data: after, error: fetchError } = await supabase
+      .from('restaurants')
+      .select('*')
+      .eq('id', beforeRestaurant.id)
+      .single();
+
+    if (fetchError) throw fetchError;
+
+    const before = buildLearningSnapshot(beforeRestaurant);
+    const afterSnapshot = buildLearningSnapshot(after);
+    const previousLog = readAiLog(after);
+    const lesson =
+      error ? 'failed' :
+      afterSnapshot.isDeleted ? 'rejected' :
+      afterSnapshot.hasMenu && afterSnapshot.hasGallery && afterSnapshot.hasCover ? 'ready_standard' :
+      afterSnapshot.hasMenu && afterSnapshot.hasGallery && !afterSnapshot.hasCover ? 'ready_missing_cover' :
+      afterSnapshot.hasMenu && !afterSnapshot.hasGallery ? 'menu_without_gallery' :
+      !afterSnapshot.hasMenu && afterSnapshot.hasInstagram ? 'instagram_without_public_menu' :
+      !afterSnapshot.hasMenu ? 'no_menu_found' :
+      'needs_review';
+
+    const observation = {
+      isSingleCase: true,
+      shouldGeneralizeAutomatically: false,
+      visualQaRequired: true,
+      notes: [
+        'Learning run records evidence for pattern analysis; do not turn one restaurant into a global rule without repeated cases.',
+        'After a restaurant becomes ready, inspect the Edit screen visually for gallery duplicates, bad photos, missing cover and menu structure errors.',
+      ],
+    };
+
+    const run = {
+      type: 'validar_ia_learning_run',
+      version: 1,
+      startedAt,
+      finishedAt: new Date().toISOString(),
+      before,
+      after: afterSnapshot,
+      lesson,
+      observation,
+      error: error ? (error?.message || String(error)) : '',
+    };
+
+    const previousRuns = Array.isArray(previousLog?.learning?.runs) ? previousLog.learning.runs : [];
+    const nextLog = {
+      ...previousLog,
+      learning: {
+        ...(previousLog?.learning || {}),
+        lastLesson: lesson,
+        lastRunAt: run.finishedAt,
+        runs: [run, ...previousRuns].slice(0, 20),
+      },
+      lastLearningRun: run,
+    };
+
+    await supabase
+      .from('restaurants')
+      .update({ ai_log: JSON.stringify(nextLog) })
+      .eq('id', beforeRestaurant.id);
+
+    return run;
+  };
+
   const handleAutoValidate = async () => {
     setShowValidationDiagnostics(false);
     setPageSize(20);
@@ -5237,55 +6087,44 @@ export default function CityValidation() {
 
     const pendingCandidates = filteredRestaurants.filter(r =>
       r.is_deleted !== true
-      && (!r.ai_validated || MENU_RECOLLECT_STATUSES.includes(getMenuStatus(r) || ''))
+      && getCachedQaState(r).key === 'pendente'
     );
-    const localRejectables = pendingCandidates
+    const localWarnings = pendingCandidates
       .map(r => ({ restaurant: r, decision: classifyRestaurantEligibilityLocal(r) }))
       .filter(item => item.decision.status === 'ineligible' && item.decision.confidence >= 0.9);
 
-    if (localRejectables.length > 0) {
-      setIsValidating(true);
-      addLog(`Triagem local antes da IA: removendo ${localRejectables.length} estabelecimento(s) claramente fora do produto sem abrir navegador nem gastar token.`);
-      try {
-        for (const item of localRejectables) {
-          await markRestaurantIneligible(item.restaurant, item.decision, 'batch_pre_validation_local_rules');
-        }
-        toast.success(`Triagem local removeu ${localRejectables.length} estabelecimento(s) fora do app.`);
-        fetchRestaurants();
-      } catch (localRejectError: any) {
-        toast.error(`Erro na triagem local: ${localRejectError.message || localRejectError}`);
-        addLog(`Triagem local falhou: ${localRejectError.message || localRejectError}`);
-      } finally {
-        setIsValidating(false);
-      }
+    if (localWarnings.length > 0) {
+      addLog(`Triagem local sinalizou ${localWarnings.length} candidato(s) possivelmente fora do escopo; nada sera removido antes do Validar IA completo.`);
     }
 
-    const pendingPool = pendingCandidates.filter(r => {
-      const decision = classifyRestaurantEligibilityLocal(r);
-      return !(decision.status === 'ineligible' && decision.confidence >= 0.9);
-    });
+    const pendingPool = pendingCandidates;
 
-    if (!isExtensionReady) {
-      const reason = !isExtensionActive
-        ? 'ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o inativa.'
-        : `ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o desatualizada/incompleta (${extensionVersion || 'sem versÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o'}). VersÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nima: ${REQUIRED_EXTENSION_VERSION}.`;
-      addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o IA bloqueada para os candidatos restantes: ${reason} A triagem local jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ removeu o que era ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³bvio; atualize a extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o para coletar Maps/cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio/fotos.`);
-      if (localRejectables.length === 0) toast.error(`${reason} Atualize a extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o antes de rodar o Validar IA.`);
+    let extensionProbe = { ready: isExtensionReady, active: isExtensionActive, compatible: isExtensionCompatible, version: extensionVersion, reason: '' };
+    if (!extensionProbe.ready) {
+      addLog('Extensao ainda nao sincronizada no estado visual; testando ping direto antes de bloquear o Validar IA em lote.');
+      extensionProbe = await probeExtensionReadyNow(8000);
+    }
+    if (!extensionProbe.ready) {
+      const reason = extensionProbe.reason || (!extensionProbe.active
+        ? 'ExtensÃ£o inativa.'
+        : `ExtensÃ£o desatualizada/incompleta (${extensionProbe.version || extensionVersion || 'sem versÃ£o'}). VersÃ£o mÃ­nima: ${REQUIRED_EXTENSION_VERSION}.`);
+      addLog(`Validacao IA bloqueada para os candidatos: ${reason} Atualize a extensao para coletar Maps/cardapio/fotos; nenhum registro foi removido pela triagem local.`);
+      toast.error(`${reason} Atualize a extensao antes de rodar o Validar IA.`);
       return;
     }
     if (pendingPool.length === 0) {
-      toast.info('NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o hÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ restaurantes pendentes de validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.');
+      toast.info('NÃ£o hÃ¡ restaurantes pendentes de validaÃ§Ã£o.');
       return;
     }
 
     const pendings = pendingPool.slice(0, AUTO_VALIDATE_BATCH_LIMIT);
     setIsValidating(true);
-    addLog(`Iniciando validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o em lote de ${pendings.length} restaurante(s) pendente(s) usando o mesmo fluxo do botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o individual.`);
+    addLog(`Iniciando validaÃ§Ã£o em lote de ${pendings.length} restaurante(s) pendente(s) usando o mesmo fluxo do botÃ£o individual.`);
     if (pendingPool.length > AUTO_VALIDATE_BATCH_LIMIT) {
       addLog(`Lote limitado a ${AUTO_VALIDATE_BATCH_LIMIT} por clique para controlar custo e evitar loops. Refine por busca/triagem ou clique novamente para continuar.`);
       toast.info(`Vou validar os primeiros ${AUTO_VALIDATE_BATCH_LIMIT} de ${pendingPool.length}. Use filtros para priorizar melhor.`);
     }
-    toast.loading(`Iniciando validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de ${pendings.length} restaurante(s) com IA...`);
+    toast.loading(`Iniciando validaÃ§Ã£o de ${pendings.length} restaurante(s) com IA...`);
 
     try {
       let successCount = 0;
@@ -5307,25 +6146,25 @@ export default function CityValidation() {
           const menuStatus = getMenuStatus(refreshed);
           if (refreshed?.is_deleted === true || Boolean(menuStatus)) {
             successCount++;
-            addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o em lote gerou decisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o terminal para ${r.name}: ${refreshed.is_deleted ? 'rejeitado/removido' : `auditado (${menuStatus || 'sem status de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio'})`}.`);
+            addLog(`ValidaÃ§Ã£o em lote gerou decisÃ£o terminal para ${r.name}: ${refreshed.is_deleted ? 'rejeitado/removido' : `auditado (${menuStatus || 'sem status de cardÃ¡pio'})`}.`);
           } else {
             failureCount++;
-            addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o em lote nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o gerou decisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o terminal para ${r.name}; permanece pendente e nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o serÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ contado como sucesso.`);
+            addLog(`ValidaÃ§Ã£o em lote nÃ£o gerou decisÃ£o terminal para ${r.name}; permanece pendente e nÃ£o serÃ¡ contado como sucesso.`);
           }
         } catch (rowErr: any) {
           failureCount++;
-          addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o em lote falhou para ${r.name}: ${rowErr.message || rowErr}`);
+          addLog(`ValidaÃ§Ã£o em lote falhou para ${r.name}: ${rowErr.message || rowErr}`);
           await persistValidationFailure(r, rowErr, 'validacao_lote');
         }
 
         await new Promise(resolve => window.setTimeout(resolve, AUTO_VALIDATE_ROW_COOLDOWN_MS));
       }
-      toast.success(`Lote concluÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­do: ${successCount} sucesso(s), ${failureCount} falha(s). Atualizando tela...`);
-      addLog(`Lote de validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o IA concluÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­do: ${successCount} sucesso(s), ${failureCount} falha(s).`);
+      toast.success(`Lote concluÃ­do: ${successCount} sucesso(s), ${failureCount} falha(s). Atualizando tela...`);
+      addLog(`Lote de validaÃ§Ã£o IA concluÃ­do: ${successCount} sucesso(s), ${failureCount} falha(s).`);
       // Refresh
       fetchRestaurants();
     } catch (err: any) {
-      toast.error('Erro na validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ' + err.message);
+      toast.error('Erro na validaÃ§Ã£o: ' + err.message);
     } finally {
       setIsValidating(false);
       toast.dismiss();
@@ -5344,26 +6183,19 @@ export default function CityValidation() {
     const initialName = restaurant.name || 'registro vindo do Google Maps';
     const initialEligibility = classifyRestaurantEligibilityLocal(restaurant);
     if (initialEligibility.status === 'ineligible' && initialEligibility.confidence >= 0.9) {
-      try {
-        setValidatingId(restaurant.id);
-        addLog(`Triagem local removeu ${initialName} antes de abrir navegador/IA: ${initialEligibility.reason}`);
-        await markRestaurantIneligible(restaurant, initialEligibility, 'single_pre_validation_local_rules');
-        toast.error(`${initialName} removido: nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© restaurante elegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel.`);
-        fetchRestaurants();
-      } catch (localRejectError: any) {
-        toast.error(`Erro ao remover ${initialName}: ${localRejectError.message || localRejectError}`);
-        addLog(`Triagem local falhou para ${initialName}: ${localRejectError.message || localRejectError}`);
-      } finally {
-        setValidatingId(null);
-      }
-      return;
+      addLog(`Triagem local sinalizou possivel fora de escopo para ${initialName}: ${initialEligibility.reason}. Nada sera removido antes do Validar IA completo.`);
     }
-    if (!isExtensionReady) {
-      const reason = !isExtensionActive
-        ? 'ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o inativa.'
-        : `ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o desatualizada/incompleta (${extensionVersion || 'sem versÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o'}). VersÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nima: ${REQUIRED_EXTENSION_VERSION}.`;
-      addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o IA individual bloqueada: ${reason} Atualize a extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o para garantir coleta item-a-item, imagens e adicionais.`);
-      toast.error(`${reason} Atualize a extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o antes de validar.`);
+    let extensionProbe = { ready: isExtensionReady, active: isExtensionActive, compatible: isExtensionCompatible, version: extensionVersion, reason: '' };
+    if (!extensionProbe.ready) {
+      addLog('Extensao ainda nao sincronizada no estado visual; testando ping direto antes de bloquear o Validar IA individual.');
+      extensionProbe = await probeExtensionReadyNow(8000);
+    }
+    if (!extensionProbe.ready) {
+      const reason = extensionProbe.reason || (!extensionProbe.active
+        ? 'ExtensÃ£o inativa.'
+        : `ExtensÃ£o desatualizada/incompleta (${extensionProbe.version || extensionVersion || 'sem versÃ£o'}). VersÃ£o mÃ­nima: ${REQUIRED_EXTENSION_VERSION}.`);
+      addLog(`ValidaÃ§Ã£o IA individual bloqueada: ${reason} Atualize a extensÃ£o para garantir coleta item-a-item, imagens e adicionais.`);
+      toast.error(`${reason} Atualize a extensÃ£o antes de validar.`);
       return;
     }
     let effectiveRestaurant: any = { ...restaurant };
@@ -5371,7 +6203,7 @@ export default function CityValidation() {
 
     try {
       setValidatingId(restaurant.id);
-      addLog(`Iniciando validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o IA individual para: ${initialName}`);
+      addLog(`Iniciando validaÃ§Ã£o IA individual para: ${initialName}`);
       const toastId = toast.loading(`Validando ${initialName} com IA...`);
       effectiveRestaurant = await persistRestaurantContacts(
         restaurant.id,
@@ -5379,17 +6211,23 @@ export default function CityValidation() {
         restaurant,
         'cadastro_atual',
         '',
-        'dados existentes antes da validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o'
+        'dados existentes antes da validaÃ§Ã£o'
       );
 
-      if (isExtensionActive) {
+      if (extensionProbe.ready) {
         // A Fase 1 agora fornece apenas o link do Google Maps; o Validar IA descobre todo o resto.
-        addLog(`Iniciando fluxo autÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´nomo a partir do Google Maps para: ${initialName}`);
+        addLog(`Iniciando fluxo autÃ´nomo a partir do Google Maps para: ${initialName}`);
 
-        const mapUrl = extractGoogleMapsUrlFromRestaurant(restaurant);
+        let mapUrl = extractGoogleMapsUrlFromRestaurant(restaurant);
+        const mapsLookupQuery = [
+          effectiveRestaurant.name || restaurant.name || initialName,
+          effectiveRestaurant.address || restaurant.address || '',
+          effectiveRestaurant.neighborhood || restaurant.neighborhood || '',
+          effectiveRestaurant.city || restaurant.city || '',
+          effectiveRestaurant.state || restaurant.state || ''
+        ].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
         if (!mapUrl) {
-          await persistMenuStatus(restaurant, 'manual_required', 'Validar IA precisa de um link do Google Maps como entrada da Fase 1.');
-          throw new Error('Link do Google Maps ausente. A nova Fase 1 deve salvar pelo menos o link do Maps no registro.');
+          addLog(`Google Maps sem link salvo; vou buscar pelo nome/local: ${mapsLookupQuery || initialName}`);
         }
 
         let mapsData: any = null;
@@ -5423,22 +6261,46 @@ export default function CityValidation() {
           return 'https://www.instagram.com/' + handle + '/';
         };
         const savedInstagram = normalizeSavedInstagramUrl(restaurant.instagram)
-          || normalizeSavedInstagramUrl(restaurant.social_networks)
-          || normalizeSavedInstagramUrl(effectiveRestaurant.instagram)
-          || normalizeSavedInstagramUrl(effectiveRestaurant.social_networks);
+          || normalizeSavedInstagramUrl(effectiveRestaurant.instagram);
         let activeInstagramUrl = savedInstagram;
         if (activeInstagramUrl) {
-          addLog('Instagram ja salvo/confirmado no cadastro; pulando buscas por handles/Google/Bing: ' + activeInstagramUrl);
+          addLog('Instagram ja salvo/confirmado no cadastro; pulando busca no Google: ' + activeInstagramUrl);
         }
         let instagramBio = '';
         let instagramFollowers = 0;
         let instagramMenuCandidates: any[] = [];
+        let validatedInstagramBioLinks: any[] = [];
+        const mergeInstagramBioLinkCandidates = (current: any[] = [], next: any[] = []) => {
+          const seen = new Set<string>();
+          return [...current, ...next].filter((candidate: any) => {
+            const key = String(candidate?.url || candidate?.href || candidate?.label || JSON.stringify(candidate || {})).trim();
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+        };
         let instagramHighlightMenuImageCandidates: string[] = [];
         let instagramFeedMenuImageCandidates: string[] = [];
-        let googleGalleryImageCandidates: any[] = [];
+        let googleSearchGalleryImageCandidates: any[] = [];
+        let googleMapsGalleryImageCandidates: any[] = [];
         let googleMenuImageCandidates: any[] = [];
         let logoPublicUrl = '';
         let instagramGalleryPublicUrls: string[] = [];
+        let instagramFeedGalleryAllowed = false;
+        let instagramFeedGalleryBlockReason = '';
+        let allowInstagramGallerySaveAfterGooglePriority = false;
+        const clearRejectedInstagramDerivedData = (reason = 'Instagram nao confirmado pela IA') => {
+          activeInstagramUrl = '';
+          instagramBio = '';
+          instagramFollowers = 0;
+          instagramMenuCandidates = [];
+          validatedInstagramBioLinks = [];
+          instagramHighlightMenuImageCandidates = [];
+          instagramFeedMenuImageCandidates = [];
+          instagramGalleryPublicUrls = [];
+          instagramFeedGalleryAllowed = false;
+          instagramFeedGalleryBlockReason = reason;
+        };
         const instagramScrapeIssues: Array<{ url: string; source: string; error: string }> = [];
         const isInstagramScrapeTimeout = (value: any) =>
           /timeout|tempo limite|aguardando resposta/i.test(String(value || ''));
@@ -5446,24 +6308,147 @@ export default function CityValidation() {
           const errorText = String(error || 'sem motivo informado');
           instagramScrapeIssues.push({ url, source, error: errorText });
         };
+        const hasCityEvidenceForInstagramGallery = (url: string, bio: string, reason: string, bioLinks: any[] = []) => {
+          const city = normalizeText(effectiveRestaurant.city || restaurant.city || '').replace(/[^a-z0-9 ]+/g, ' ').trim();
+          if (!city) return { allowed: false, reason: 'cidade do restaurante ausente para comparar com o perfil.' };
+          const cityCompact = city.split(/\s+/).filter(Boolean).join('');
+          const linkEvidence = (bioLinks || [])
+            .map((candidate: any) => [
+              candidate?.url,
+              candidate?.href,
+              candidate?.label,
+              candidate?.title,
+              candidate?.text,
+              candidate?.description,
+              candidate?.source,
+            ].filter(Boolean).join(' '))
+            .join(' ');
+          const evidence = normalizeText(`${url || ''} ${bio || ''} ${linkEvidence}`).replace(/[^a-z0-9 ]+/g, ' ');
+          const evidenceCompact = evidence.split(/\s+/).filter(Boolean).join('');
+          if (evidence.includes(city) || (cityCompact && evidenceCompact.includes(cityCompact))) {
+            return { allowed: true, reason: `perfil ou link oficial da bio menciona ${effectiveRestaurant.city || restaurant.city}.` };
+          }
+          return {
+            allowed: false,
+            reason: `perfil do Instagram nao confirma a unidade/cidade ${effectiveRestaurant.city || restaurant.city} diretamente na URL/bio/links brutos. Validacao IA: ${reason || 'sem motivo informado'}`,
+          };
+        };
+        const googleMapsGalleryAddressMatches = (sourceAddress: string, currentRestaurant: any) => {
+          const source = normalizeText(sourceAddress || '').replace(/[^a-z0-9 ]+/g, ' ').trim();
+          if (!source) return { allowed: false, reason: 'fotos do Google/Maps sem endereco de origem para validar.' };
+
+          const expectedStreet = normalizeText(currentRestaurant?.address || restaurant.address || '').replace(/[^a-z0-9 ]+/g, ' ').trim();
+          const expectedNumber = String(currentRestaurant?.number || restaurant.number || '').replace(/\D+/g, '');
+          const expectedCity = normalizeText(currentRestaurant?.city || restaurant.city || '').replace(/[^a-z0-9 ]+/g, ' ').trim();
+          const sourceCompact = source.replace(/\s+/g, '');
+          const streetTokens = expectedStreet.split(/\s+/).filter(token => token.length >= 3);
+
+          const streetMatches = !streetTokens.length || streetTokens.every(token => source.includes(token));
+          const numberMatches = !expectedNumber || sourceCompact.includes(expectedNumber);
+          const cityMatches = !expectedCity || source.includes(expectedCity);
+
+          if (streetMatches && numberMatches && cityMatches) {
+            return { allowed: true, reason: `endereco das fotos bate com ${[currentRestaurant?.address || restaurant.address, currentRestaurant?.number || restaurant.number, currentRestaurant?.city || restaurant.city].filter(Boolean).join(', ')}.` };
+          }
+
+          return {
+            allowed: false,
+            reason: `endereco do painel de fotos nao bate com o restaurante. Fonte="${sourceAddress || 'vazio'}"; esperado="${[currentRestaurant?.address || restaurant.address, currentRestaurant?.number || restaurant.number, currentRestaurant?.city || restaurant.city].filter(Boolean).join(', ')}".`,
+          };
+        };
+        const preferBestGalleryResolution = (imageUrl: string) => {
+          const cleanUrl = String(imageUrl || '').trim();
+          if (/instadelivery-public\.nyc3\.cdn\.digitaloceanspaces\.com\/itens\//i.test(cleanUrl)) {
+            return cleanUrl.replace(/_(?:75|100|150|200|300|400|600|800)_(?:75|100|150|200|300|400|600|800)(\.(?:jpe?g|png|webp|avif)(?:[?#].*)?)$/i, '$1');
+          }
+          if (!/googleusercontent\.com/i.test(cleanUrl)) return cleanUrl;
+          if (/=s\d+[^/?#]*/i.test(cleanUrl) || /=w\d+-h\d+[^/?#]*/i.test(cleanUrl)) {
+            return cleanUrl.replace(/=(?:s\d+|w\d+-h\d+)[^/?#]*/i, '=s1600-w1600-h1200-rw');
+          }
+          return `${cleanUrl}=s1600-w1600-h1200-rw`;
+        };
+        const galleryDedupeKey = (imageUrl: string) => preferBestGalleryResolution(imageUrl)
+          .replace(/[?#].*$/, '')
+          .replace(/-\d+-\d+(\.[a-z0-9]+)$/i, '$1')
+          .toLowerCase();
+
         const savedGalleryUrls = new Set<string>();
+        const savedGalleryVisualHashes = new Set<string>();
+        const galleryHashDistance = (left: string, right: string) => {
+          const a = String(left || '').trim();
+          const b = String(right || '').trim();
+          if (!a || !b || a.length !== b.length) return Number.POSITIVE_INFINITY;
+          let distance = 0;
+          for (let i = 0; i < a.length; i++) {
+            if (a[i] !== b[i]) distance += 1;
+          }
+          return distance;
+        };
+        const getGalleryVisualHash = async (imageUrl: string, sourceLabel: string) => {
+          const cleanUrl = preferBestGalleryResolution(imageUrl);
+          if (!/^https?:\/\//i.test(cleanUrl)) return '';
+          try {
+            const response = await fetch('/api/local-collector/image-visual-hash', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ image: cleanUrl })
+            });
+            const payload = await response.json().catch(() => null);
+            if (!response.ok || !payload?.success || !payload?.hash) {
+              addLog(`Nao consegui auditar duplicidade visual da foto (${sourceLabel}): ${payload?.error || `HTTP ${response.status}`}.`);
+              return '';
+            }
+            return String(payload.hash);
+          } catch (hashErr: any) {
+            addLog(`Erro ao auditar duplicidade visual da foto (${sourceLabel}): ${hashErr.message || hashErr}`);
+            return '';
+          }
+        };
+        const inspectGalleryVisualDuplicate = async (imageUrl: string, sourceLabel: string) => {
+          const hash = await getGalleryVisualHash(imageUrl, sourceLabel);
+          if (!hash) return { blocked: true, hash: '', reason: 'hash_unavailable' as const };
+          for (const existingHash of savedGalleryVisualHashes) {
+            if (galleryHashDistance(hash, existingHash) <= 5) {
+              return { blocked: true, hash, reason: 'visual_duplicate' as const };
+            }
+          }
+          return { blocked: false, hash, reason: 'unique' as const };
+        };
+        let existingInstagramFeedGalleryCount = 0;
+        let coverImageAlreadySet = Boolean(effectiveRestaurant.cover_image_url || effectiveRestaurant.coverImage || restaurant.cover_image_url || restaurant.coverImage);
         try {
           const { data: existingGallery } = await supabase
             .from('restaurant_gallery')
-            .select('image_url')
+            .select('image_url, caption')
             .eq('restaurant_id', restaurant.id);
-          (existingGallery || []).forEach((item: any) => {
-            if (item?.image_url) savedGalleryUrls.add(String(item.image_url));
-          });
+          for (const item of existingGallery || []) {
+            if (item?.image_url) {
+              const existingUrl = preferBestGalleryResolution(String(item.image_url));
+              savedGalleryUrls.add(existingUrl);
+              const existingHash = await getGalleryVisualHash(existingUrl, 'galeria existente');
+              if (existingHash) savedGalleryVisualHashes.add(existingHash);
+            }
+            if (/feed do instagram/i.test(String(item?.caption || ''))) existingInstagramFeedGalleryCount += 1;
+          }
         } catch (galleryErr: any) {
-          addLog(`NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o consegui ler a galeria existente antes da validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ${galleryErr.message || galleryErr}`);
+          addLog(`NÃ£o consegui ler a galeria existente antes da validaÃ§Ã£o: ${galleryErr.message || galleryErr}`);
         }
 
         const saveGalleryImage = async (imageUrl: string, caption: string, orderIndex: number) => {
-          const cleanUrl = String(imageUrl || '').trim();
+          const cleanUrl = preferBestGalleryResolution(imageUrl);
           if (!cleanUrl || savedGalleryUrls.has(cleanUrl)) return false;
           if (savedGalleryUrls.size >= MAX_PUBLIC_GALLERY_IMAGES) return false;
+          const visualCheck = await inspectGalleryVisualDuplicate(cleanUrl, caption);
+          if (visualCheck.blocked) {
+            if (visualCheck.reason === 'visual_duplicate') {
+              addLog(`Foto da galeria ignorada por duplicidade visual (${caption}).`);
+            } else {
+              addLog(`Foto da galeria ignorada porque nao consegui confirmar se era unica (${caption}).`);
+            }
+            return false;
+          }
           savedGalleryUrls.add(cleanUrl);
+          if (visualCheck.hash) savedGalleryVisualHashes.add(visualCheck.hash);
           const { error } = await supabase.from('restaurant_gallery').insert({
             restaurant_id: restaurant.id,
             image_url: cleanUrl,
@@ -5472,31 +6457,84 @@ export default function CityValidation() {
           });
           if (error) {
             savedGalleryUrls.delete(cleanUrl);
+            if (visualCheck.hash) savedGalleryVisualHashes.delete(visualCheck.hash);
             addLog(`Erro ao salvar foto na galeria (${caption}): ${error.message}`);
             return false;
           }
+          if (/feed do instagram/i.test(String(caption || ''))) existingInstagramFeedGalleryCount += 1;
           return true;
+        };
+
+        const ensureCoverImageFromGallery = async (imageUrls: string[], sourceLabel: string) => {
+          if (coverImageAlreadySet) return;
+          const candidates = (imageUrls || [])
+            .map((image: any) => preferBestGalleryResolution(String(image || '').trim()))
+            .filter(Boolean);
+          if (!candidates.length) return;
+
+          const prefersFoodAfterFacade = /google search|google maps|see photos/i.test(sourceLabel) && candidates.length > 1;
+          const coverImageUrl = prefersFoodAfterFacade ? candidates[1] : candidates[0];
+          try {
+            await updateRestaurantWithSchemaFallback(restaurant.id, { cover_image_url: coverImageUrl });
+            coverImageAlreadySet = true;
+            effectiveRestaurant = {
+              ...effectiveRestaurant,
+              cover_image_url: coverImageUrl,
+              coverImage: coverImageUrl,
+            };
+            addLog(`Imagem de capa definida automaticamente a partir da galeria (${sourceLabel}).`);
+          } catch (coverErr: any) {
+            addLog(`Nao consegui definir capa automatica pela galeria: ${coverErr.message || coverErr}`);
+          }
+        };
+
+        const ensureCoverImageFromSavedGallery = async (sourceLabel = 'galeria ja aprovada') => {
+          if (coverImageAlreadySet) return;
+          try {
+            const { data, error } = await supabase
+              .from('restaurant_gallery')
+              .select('image_url')
+              .eq('restaurant_id', restaurant.id)
+              .order('order_index', { ascending: true })
+              .limit(MAX_PUBLIC_GALLERY_IMAGES);
+            if (error) throw error;
+            const savedUrls = (data || []).map((item: any) => item.image_url).filter(Boolean);
+            if (savedUrls.length) await ensureCoverImageFromGallery(savedUrls, sourceLabel);
+          } catch (coverErr: any) {
+            addLog(`Nao consegui definir capa a partir da galeria salva: ${coverErr.message || coverErr}`);
+          }
         };
 
         const filterGalleryCandidates = async (images: string[], sourceLabel: string, maxImages: number): Promise<string[]> => {
           const limit = Math.max(0, Math.min(MAX_PUBLIC_GALLERY_IMAGES, maxImages));
           if (limit <= 0) return [];
 
+          const seenCandidateUrls = new Set<string>();
           const candidates = (images || [])
             .map((image: any) => String(image || '').trim())
             .filter(Boolean)
             .filter((image: string) => !/^data:video\//i.test(image) && !/\.(mp4|mov|webm|m4v)(\?|#|$)/i.test(image))
+            .filter((image: string) => {
+              const key = /^https?:\/\//i.test(image) ? galleryDedupeKey(image) : image;
+              if (seenCandidateUrls.has(key)) return false;
+              seenCandidateUrls.add(key);
+              return true;
+            })
             .slice(0, Math.max(limit * 3, limit));
 
           if (!candidates.length) return [];
 
           try {
             addLog(`Filtrando ${candidates.length} foto(s) de ${sourceLabel} com IA antes da galeria.`);
+            const controller = new AbortController();
+            const timeoutId = window.setTimeout(() => controller.abort(), 25000);
             const filterResponse = await fetch('/api/local-collector/filter-instagram-gallery', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
+              signal: controller.signal,
               body: JSON.stringify({ images: candidates, maxImages: limit, source: sourceLabel })
             });
+            window.clearTimeout(timeoutId);
 
             if (!filterResponse.ok) {
               addLog(`Filtro de galeria falhou para ${sourceLabel}: HTTP ${filterResponse.status}.`);
@@ -5504,6 +6542,10 @@ export default function CityValidation() {
             }
 
             const filterData = await filterResponse.json();
+            const visualDedupeRemoved = Number(filterData?.visualDedupeRemoved || 0);
+            if (visualDedupeRemoved > 0) {
+              addLog(`Filtro visual removeu ${visualDedupeRemoved} foto(s) repetida(s) de ${sourceLabel} antes de salvar.`);
+            }
             const approved = Array.isArray(filterData?.filteredImages)
               ? filterData.filteredImages.filter(Boolean).slice(0, limit)
               : [];
@@ -5515,24 +6557,345 @@ export default function CityValidation() {
           }
         };
 
+        const saveGalleryImagesFromCandidates = async (images: string[], caption: string, orderBase: number, maxImages: number) => {
+          const limit = Math.max(0, Math.min(MAX_PUBLIC_GALLERY_IMAGES - savedGalleryUrls.size, maxImages));
+          const seenSourceKeys = new Set<string>();
+          const candidates = (images || [])
+            .map((image: any) => String(image || '').trim())
+            .filter(Boolean)
+            .filter((image: string) => {
+              const key = /^https?:\/\//i.test(image) ? galleryDedupeKey(image) : image;
+              if (seenSourceKeys.has(key)) return false;
+              seenSourceKeys.add(key);
+              return true;
+            })
+            .slice(0, limit);
+          const publicUrls: string[] = [];
+          const extensionFromUrl = (url: string) => {
+            const match = String(url || '').split(/[?#]/)[0].match(/\.(jpg|jpeg|png|gif|webp|avif)$/i);
+            return match ? match[1].toLowerCase().replace('jpeg', 'jpg') : 'jpg';
+          };
+
+          for (let i = 0; i < candidates.length; i++) {
+            const image = candidates[i];
+            if (/^data:image\//i.test(image)) {
+              try {
+                const match = image.match(/^data:([^;]+);base64,(.+)$/);
+                if (!match) continue;
+                const contentType = match[1];
+                const byteString = atob(match[2]);
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let j = 0; j < byteString.length; j++) ia[j] = byteString.charCodeAt(j);
+                const blob = new Blob([ab], { type: contentType });
+                const storagePath = `gallery/${restaurant.id}/gallery_candidate_${Date.now()}_${orderBase}_${i}.jpg`;
+                const { error } = await supabase.storage
+                  .from('restaurant-images')
+                  .upload(storagePath, blob, { upsert: true, contentType });
+                if (error) {
+                  addLog(`Erro no upload da foto candidata ${i}: ${error.message}`);
+                  continue;
+                }
+                const { data } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
+                publicUrls.push(data.publicUrl);
+              } catch (uploadErr: any) {
+                addLog(`Erro ao processar foto candidata ${i}: ${uploadErr.message || uploadErr}`);
+              }
+            } else {
+              const storagePath = `gallery/${restaurant.id}/gallery_candidate_${Date.now()}_${orderBase}_${i}.${extensionFromUrl(image)}`;
+              try {
+                const response = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(image)}&path=${encodeURIComponent(storagePath)}`, {
+                  method: 'POST',
+                });
+                const payload = await response.json().catch(() => ({}));
+                if (response.ok && payload?.success && payload?.url) {
+                  publicUrls.push(payload.url);
+                  continue;
+                }
+                addLog(`Foto externa da galeria nao foi baixada para Storage (${caption} ${i + 1}): ${payload?.error || `HTTP ${response.status}`}. Usando URL original.`);
+              } catch (uploadErr: any) {
+                addLog(`Erro ao baixar foto externa da galeria (${caption} ${i + 1}): ${uploadErr.message || uploadErr}. Usando URL original.`);
+              }
+              publicUrls.push(preferBestGalleryResolution(image));
+            }
+          }
+
+          let savedCount = 0;
+          const savedUrls: string[] = [];
+          for (let i = 0; i < publicUrls.length; i++) {
+            const saved = await saveGalleryImage(publicUrls[i], caption, orderBase + i);
+            if (saved) {
+              savedCount += 1;
+              savedUrls.push(publicUrls[i]);
+            }
+          }
+          if (savedUrls.length) await ensureCoverImageFromGallery(savedUrls, caption);
+          return savedCount;
+        };
+
+        const saveInstagramFeedGalleryAfterUnitMatch = async (reason: string) => {
+          if (!instagramFeedMenuImageCandidates.length) return;
+          if (!allowInstagramGallerySaveAfterGooglePriority) {
+            addLog(`Feed do Instagram validado para galeria, mas o salvamento foi adiado: fotos do Google tem prioridade. Motivo: ${reason}`);
+            return;
+          }
+          const availableGallerySlots = MAX_PUBLIC_GALLERY_IMAGES - savedGalleryUrls.size;
+          if (availableGallerySlots <= 0) {
+            addLog('Galeria ja atingiu o limite de 8 fotos aprovadas; nao vou salvar fotos do feed apos confirmar unidade na bio.');
+            return;
+          }
+          addLog(`Feed do Instagram liberado para galeria apos confirmacao da unidade na bio/hub: ${reason}`);
+          const approved = await filterGalleryCandidates(instagramFeedMenuImageCandidates, 'feed do Instagram confirmado pela bio/hub', availableGallerySlots);
+          if (!approved.length) {
+            addLog(`IA aprovou 0/${instagramFeedMenuImageCandidates.length} foto(s) do feed confirmado pela bio/hub. Instagram validado permite usar a fonte, mas nao autoriza foto ruim, com pessoas, mesa suja ou material promocional; galeria ficara sem essas imagens.`);
+            return;
+          }
+
+          const feedPublicUrls: string[] = [];
+          for (let i = 0; i < approved.length; i++) {
+            const image = approved[i];
+            if (/^data:image\//i.test(image)) {
+              try {
+                const match = image.match(/^data:([^;]+);base64,(.+)$/);
+                if (!match) continue;
+                const contentType = match[1];
+                const b64Data = match[2];
+                const byteString = atob(b64Data);
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let j = 0; j < byteString.length; j++) ia[j] = byteString.charCodeAt(j);
+                const blob = new Blob([ab], { type: contentType });
+                const storagePath = `gallery/${restaurant.id}/gallery_feed_unit_${Date.now()}_${i}.jpg`;
+                const { error } = await supabase.storage
+                  .from('restaurant-images')
+                  .upload(storagePath, blob, { upsert: true, contentType });
+                if (error) {
+                  addLog(`Erro no upload da foto do feed confirmado ${i}: ${error.message}`);
+                  continue;
+                }
+                const { data } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
+                feedPublicUrls.push(data.publicUrl);
+              } catch (uploadErr: any) {
+                addLog(`Erro ao processar foto do feed confirmado ${i}: ${uploadErr.message || uploadErr}`);
+              }
+            } else {
+              feedPublicUrls.push(image);
+            }
+          }
+
+          let savedCount = 0;
+          const savedUrls: string[] = [];
+          for (let i = 0; i < feedPublicUrls.length; i++) {
+            const saved = await saveGalleryImage(feedPublicUrls[i], 'Feed do Instagram (unidade confirmada na bio/hub)', i + 20);
+            if (saved) {
+              savedCount += 1;
+              savedUrls.push(feedPublicUrls[i]);
+            }
+          }
+          if (savedUrls.length) await ensureCoverImageFromGallery(savedUrls, 'Feed do Instagram (unidade confirmada na bio/hub)');
+          addLog(`Galeria recebeu ${savedCount}/${approved.length} foto(s) do feed apos confirmar unidade na bio/hub.`);
+        };
+
+        const collectGoogleSearchGalleryCandidates = async () => {
+          if (googleSearchGalleryImageCandidates.length > 0 || savedGalleryUrls.size >= MAX_PUBLIC_GALLERY_IMAGES) return;
+          try {
+            const extractGoogleKnowledgeGraphId = (value: string) => {
+              const raw = String(value || '').trim();
+              if (!raw) return '';
+              const decoded = (() => {
+                try { return decodeURIComponent(raw); } catch (_) { return raw; }
+              })();
+              return decoded.match(/\/g\/[A-Za-z0-9_-]+/)?.[0] || '';
+            };
+            const mapsAddressForSearch = [effectiveRestaurant.address, effectiveRestaurant.number, effectiveRestaurant.neighborhood, effectiveRestaurant.city, effectiveRestaurant.state]
+              .filter(Boolean)
+              .join(' ');
+            const googleSearchQuery = [effectiveRestaurant.name || initialName, mapsAddressForSearch].filter(Boolean).join(' ');
+            const googleKnowledgeGraphId = extractGoogleKnowledgeGraphId(mapUrl || effectiveRestaurant.google_maps_url || restaurant.google_maps_url || '');
+            addLog(`Etapa final de fotos: buscando painel do Google pelo nome/endereco${googleKnowledgeGraphId ? ' + kgmid' : ''}, sem termo "fotos": ${googleSearchQuery}`);
+            const googleSearchRes = await sendExtensionMessage(extensionTargetId, {
+              action: "searchGoogleNative",
+              query: googleSearchQuery,
+              kgmid: googleKnowledgeGraphId,
+              restaurantId: restaurant.id
+            }, 70000);
+            const panelImageCandidates = Array.isArray(googleSearchRes?.panelPhotoCandidates)
+              ? googleSearchRes.panelPhotoCandidates
+              : [];
+            const organicImageCandidates = Array.isArray(googleSearchRes?.imageCandidates)
+              ? googleSearchRes.imageCandidates
+              : [];
+            const photosModalOpened = Boolean(googleSearchRes?.photosModalOpened);
+            const normalizeCandidateImageUrl = (candidate: any) =>
+              String(candidate?.image || candidate?.url || candidate || '').trim();
+            const isUsableGoogleSearchImageCandidate = (candidate: any) => {
+              const image = normalizeCandidateImageUrl(candidate);
+              const context = String(candidate?.context || candidate?.title || candidate?.alt || '').trim();
+              if (!image) return false;
+              if (/^data:image\//i.test(image)) return false;
+              if (/R0lGODlhAQABAIAA/i.test(image)) return false;
+              if (!/^data:image\//i.test(image) && !/^https?:\/\//i.test(image)) return false;
+              if (/google\.com\/logos\/doodles|google\.com\/maps\/vt\/data=/i.test(image)) return false;
+              if (/products?|produtos?|view all|ver tudo|order pickup|order delivery|pedido|delivery/i.test(context)) return false;
+              if (/\b\d{1,2}:\d{2}\b|videos?|vÃ­deos?|reels?|play/i.test(context)) return false;
+              if (/^(menu|cardapio|card.pio|all|todas|tudo)\s*\|/i.test(context)) return false;
+              return true;
+            };
+            const seenGoogleCandidateUrls = new Set<string>();
+            const imageCandidates = (photosModalOpened ? panelImageCandidates : [])
+              .filter(isUsableGoogleSearchImageCandidate)
+              .filter((candidate: any) => {
+                const key = normalizeCandidateImageUrl(candidate);
+                if (!key || seenGoogleCandidateUrls.has(key)) return false;
+                seenGoogleCandidateUrls.add(key);
+                return true;
+              });
+            const searchEvidenceText = normalizeText([
+              googleSearchRes?.pageText || '',
+              ...(Array.isArray(googleSearchRes?.results) ? googleSearchRes.results.map((item: any) => `${item?.title || ''} ${item?.snippet || ''} ${item?.link || ''}`) : []),
+              ...imageCandidates.map((item: any) => item?.context || '')
+            ].join(' '));
+            const expectedCity = normalizeText(effectiveRestaurant.city || restaurant.city || '');
+            const expectedStreetTokens = normalizeText(effectiveRestaurant.address || restaurant.address || '')
+              .split(' ')
+              .filter(token => token.length >= 4 && !['rua', 'avenida', 'travessa', 'centro', 'campina', 'grande'].includes(token));
+            const cityMatches = !expectedCity || searchEvidenceText.includes(expectedCity);
+            const streetMatches = expectedStreetTokens.length === 0 || expectedStreetTokens.some(token => searchEvidenceText.includes(token));
+            if (googleSearchRes?.success && imageCandidates.length > 0 && cityMatches && streetMatches) {
+              googleSearchGalleryImageCandidates = imageCandidates;
+              addLog(`Pesquisa normal do Google confirmou endereco (${mapsAddressForSearch}) e trouxe ${imageCandidates.length} foto(s) candidatas do modal See photos para galeria.`);
+            } else if (googleSearchRes?.success && !photosModalOpened) {
+              addLog('Etapa final de fotos: nao salvei miniaturas da pagina normal porque o modal See photos nao abriu.');
+            } else if (googleSearchRes?.success && imageCandidates.length > 0) {
+              addLog(`Pesquisa normal do Google trouxe ${imageCandidates.length} foto(s), mas ignorei para galeria porque o texto da busca nao confirmou endereco/cidade do Maps.`);
+            } else {
+              addLog('Etapa final de fotos: a pesquisa normal do Google nao trouxe fotos candidatas.');
+            }
+          } catch (googleSearchGalleryErr: any) {
+            addLog(`Falha ao buscar fotos na etapa final pelo Google: ${googleSearchGalleryErr.message || googleSearchGalleryErr}`);
+          }
+        };
+
         const fillGalleryFromGoogleFallback = async () => {
-          if (!googleGalleryImageCandidates.length || savedGalleryUrls.size >= MAX_PUBLIC_GALLERY_IMAGES) return;
+          if ((!googleSearchGalleryImageCandidates.length && !googleMapsGalleryImageCandidates.length) || savedGalleryUrls.size >= MAX_PUBLIC_GALLERY_IMAGES) return;
           const availableSlots = MAX_PUBLIC_GALLERY_IMAGES - savedGalleryUrls.size;
-          const candidates = googleGalleryImageCandidates
+          const sourceCandidates = googleSearchGalleryImageCandidates.length > 0
+            ? googleSearchGalleryImageCandidates
+            : googleMapsGalleryImageCandidates;
+          const sourceLabel = googleSearchGalleryImageCandidates.length > 0
+            ? 'Google Search'
+            : 'Google Maps / See photos';
+          const candidates = sourceCandidates
             .map((candidate: any) => String(candidate?.image || candidate?.url || candidate || '').trim())
             .filter(Boolean)
             .slice(0, Math.max(availableSlots * 3, availableSlots));
           if (!candidates.length) return;
-          addLog(`Google Maps trouxe ${candidates.length} foto(s) candidatas; vou usar apenas comida/ambiente/fachada aprovados para completar a galeria.`);
-          const approved = await filterGalleryCandidates(candidates, 'Google Maps', availableSlots);
+          addLog(`${sourceLabel} trouxe ${candidates.length} foto(s) candidatas com endereco confirmado; vou usar ate 8 fotos de comida/produto ou fachada limpa, priorizando pelo menos uma fachada quando houver.`);
+          const approved = await filterGalleryCandidates(candidates, sourceLabel, availableSlots);
           if (!approved.length) {
-            addLog('Google Maps nao trouxe foto aprovada para completar a galeria.');
+            addLog(`${sourceLabel} nao trouxe foto aprovada para completar a galeria.`);
             return;
           }
-          for (let i = 0; i < approved.length; i++) {
-            await saveGalleryImage(approved[i], 'Google Maps (galeria filtrada por IA)', 80 + i);
+          const savedCount = await saveGalleryImagesFromCandidates(
+            approved,
+            `${sourceLabel} (galeria filtrada por IA)`,
+            80,
+            availableSlots
+          );
+          addLog(`Galeria recebeu ${savedCount}/${approved.length} foto(s) aprovadas de ${sourceLabel}.`);
+        };
+
+        const collectMenuImageUrlsFromCategories = (categories: any[] = []) => {
+          const urls: string[] = [];
+          const pushUrl = (value: any) => {
+            const url = String(value || '').trim();
+            if (!url) return;
+            if (/^data:video\//i.test(url) || /\.(mp4|mov|webm|m4v)(\?|#|$)/i.test(url)) return;
+            urls.push(preferBestGalleryResolution(url));
+          };
+
+          for (const category of categories || []) {
+            const items = Array.isArray(category?.items)
+              ? category.items
+              : Array.isArray(category?.menu_items)
+                ? category.menu_items
+                : [];
+            for (const item of items) {
+              pushUrl(item?.image_url || item?.imageUrl || item?.photo_url || item?.photoUrl || item?.thumbnail_url);
+              const rawData = item?.raw_data || item?.rawData || {};
+              pushUrl(rawData?.image_url || rawData?.imageUrl || rawData?.photo_url || rawData?.thumbnail_url);
+              const detail = rawData?.detail || rawData?.productDetail || {};
+              [
+                item?.image_urls,
+                item?.extra_image_urls,
+                rawData?.image_urls,
+                rawData?.extra_image_urls,
+                detail?.image_urls,
+                detail?.extra_image_urls,
+              ].forEach((list: any) => {
+                if (Array.isArray(list)) list.forEach(pushUrl);
+              });
+            }
+          }
+
+          const seen = new Set<string>();
+          return urls.filter((url) => {
+            const key = url.replace(/[?#].*$/, '');
+            if (!key || seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+        };
+
+        const fillGalleryFromOfficialMenuImages = async (categories: any[] = [], sourceLabel = 'cardapio oficial') => {
+          if (savedGalleryUrls.size >= MIN_PUBLIC_GALLERY_IMAGES) return;
+          const availableSlots = MAX_PUBLIC_GALLERY_IMAGES - savedGalleryUrls.size;
+          const menuImages = collectMenuImageUrlsFromCategories(categories);
+          if (!menuImages.length) {
+            addLog(`Galeria ainda abaixo do minimo e ${sourceLabel} nao trouxe imagens oficiais aproveitaveis.`);
+            return;
+          }
+
+          addLog(`${sourceLabel} trouxe ${menuImages.length} foto(s) oficiais de produto; usando como fallback para completar a galeria ate ${MAX_PUBLIC_GALLERY_IMAGES} imagens.`);
+          const approved = await filterGalleryCandidates(menuImages, `${sourceLabel} - fotos oficiais de produto`, availableSlots);
+          if (!approved.length) {
+            addLog(`IA aprovou 0/${menuImages.length} foto(s) oficiais de produto para completar a galeria.`);
+            return;
+          }
+          const savedCount = await saveGalleryImagesFromCandidates(
+            approved,
+            `${sourceLabel} (fotos oficiais filtradas por IA)`,
+            120,
+            availableSlots
+          );
+          addLog(`Galeria recebeu ${savedCount}/${approved.length} foto(s) oficiais do cardapio.`);
+        };
+
+        const ensureMinimumGalleryForReadyMenu = async (categories: any[] = [], sourceLabel = 'cardapio aprovado') => {
+          if (savedGalleryUrls.size >= MIN_PUBLIC_GALLERY_IMAGES) return;
+
+          addLog(`Galeria com ${savedGalleryUrls.size}/${MIN_PUBLIC_GALLERY_IMAGES}; tentando completar pela pesquisa normal do Google/See photos antes de liberar para o app.`);
+          await collectGoogleSearchGalleryCandidates();
+          await fillGalleryFromGoogleFallback();
+
+          if (savedGalleryUrls.size < MIN_PUBLIC_GALLERY_IMAGES) {
+            await fillGalleryFromOfficialMenuImages(categories, sourceLabel);
+          }
+
+          if (savedGalleryUrls.size < MIN_PUBLIC_GALLERY_IMAGES && instagramFeedGalleryAllowed && instagramFeedMenuImageCandidates.length > 0) {
+            allowInstagramGallerySaveAfterGooglePriority = true;
+            try {
+              await saveInstagramFeedGalleryAfterUnitMatch(`fallback apos Google/See photos e ${sourceLabel}`);
+            } finally {
+              allowInstagramGallerySaveAfterGooglePriority = false;
+            }
+          }
+
+          if (savedGalleryUrls.size < MIN_PUBLIC_GALLERY_IMAGES) {
+            addLog(`Galeria permaneceu abaixo do minimo apos Google/See photos, imagens oficiais e Instagram: ${savedGalleryUrls.size}/${MIN_PUBLIC_GALLERY_IMAGES}.`);
           }
         };
+
         const collectPublicationWarnings = (currentRestaurant: any) => {
           const warnings: string[] = [];
           if (savedGalleryUrls.size < MIN_PUBLIC_GALLERY_IMAGES) {
@@ -5544,14 +6907,229 @@ export default function CityValidation() {
           return warnings;
         };
         const shouldScrapeInstagramNow = () => Boolean(activeInstagramUrl);
+        let instagramSearchRanBeforeMaps = false;
 
-        if (mapUrl) {
-          toast.success('PASSO 1/5: Acessando Google Maps para extrair dados oficiais...');
-          addLog(`PASSO 1/5: Acessando Google Maps...`);
-          const extRes = await sendExtensionMessage(extensionTargetId, { action: "scrapeGoogleHours", query: effectiveRestaurant.name || '', mapUrl, restaurantId: restaurant.id });
+        const extractInstagramProfilesFromGoogleNative = (payload: any, rawQuery: string) => {
+          const normalize = (value: any) => String(value || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+          const compact = (value: any) => normalize(value).replace(/[^a-z0-9]+/g, '');
+          const queryTokens = normalize(rawQuery)
+            .replace(/\b(instagram|campina|grande|pb|paraiba)\b/g, ' ')
+            .split(/[^a-z0-9]+/)
+            .filter((token: string) => token.length >= 3 && !['bar', 'restaurante', 'pizzaria', 'ltda', 'delivery', 'com', 'para', 'das', 'dos', 'uma', 'uns'].includes(token));
+          const hasNameEvidence = (context: string, handle = '') => {
+            const haystack = `${normalize(context)} ${normalize(handle)} ${compact(handle)}`;
+            const compactHaystack = compact(haystack);
+            const unique = Array.from(new Set(queryTokens));
+            if (unique.length === 0) return true;
+            const matched = unique.filter((token: string) => haystack.includes(token) || compactHaystack.includes(compact(token)));
+            return matched.length >= Math.min(2, unique.length);
+          };
+          const urls: string[] = [];
+          const addCandidate = (rawUrl: string, context: string) => {
+            let value = String(rawUrl || '').trim();
+            if (!value) return;
+            try { value = decodeURIComponent(value); } catch (_) {}
+            try {
+              const parsed = new URL(value, window.location.href);
+              const wrapped = parsed.searchParams.get('url') || parsed.searchParams.get('q') || parsed.searchParams.get('u');
+              if (wrapped && /instagram\.com/i.test(wrapped)) value = decodeURIComponent(wrapped);
+            } catch (_) {}
+            const match = value.match(/instagram\.com\/([a-zA-Z0-9._]+)\/?/i);
+            if (!match?.[1]) return;
+            const handle = match[1].toLowerCase();
+            if (['p', 'reel', 'reels', 'explore', 'stories', 'accounts'].includes(handle)) return;
+            const cleanUrl = `https://www.instagram.com/${handle}/`;
+            if (hasNameEvidence(context, handle)) urls.push(cleanUrl);
+          };
+          const texts: string[] = [];
+          (Array.isArray(payload?.results) ? payload.results : []).forEach((result: any) => {
+            const context = [result?.title, result?.snippet, result?.link].filter(Boolean).join(' ');
+            addCandidate(result?.link, context);
+            texts.push(context);
+          });
+          if (payload?.pageText) texts.push(String(payload.pageText));
+          texts.forEach((text) => {
+            const handleMatches = text.match(/@([a-zA-Z0-9._]{3,30})/g) || [];
+            handleMatches.forEach((rawHandle: string) => {
+              const handle = rawHandle.replace(/^@/, '').replace(/[.\s]+$/g, '').toLowerCase();
+              if (!handle || ['instagram', 'google', 'gmail', 'maps'].includes(handle)) return;
+              if (hasNameEvidence(text, handle)) urls.push(`https://www.instagram.com/${handle}/`);
+            });
+            const urlMatches = text.match(/https?:\/\/(?:www\.)?instagram\.com\/[a-zA-Z0-9._]+\/?/gi) || [];
+            urlMatches.forEach((url: string) => addCandidate(url, text));
+          });
+          return Array.from(new Set(urls)).slice(0, 3);
+        };
+
+        const fallbackSearchInstagramViaGoogleNative = async (query: string) => {
+          addLog('Busca principal nao retornou Instagram; tentando resultados organicos do Google normal.');
+          const fallbackRes = await sendExtensionMessage(extensionTargetId, {
+            action: "searchGoogleNative",
+            query,
+            restaurantId: restaurant.id,
+            skipPhotos: true
+          }, 75000);
+          if (fallbackRes?.requiresHuman) return { blocked: true, response: fallbackRes, candidates: [] as string[] };
+          const candidates = extractInstagramProfilesFromGoogleNative(fallbackRes, query);
+          if (candidates.length > 0) {
+            addLog(`Google normal retornou ${candidates.length} candidato(s) de Instagram: ${candidates.join(', ')}`);
+          } else {
+            addLog(`Google normal tambem nao retornou candidato de Instagram com evidencia do nome.`);
+          }
+          return { blocked: false, response: fallbackRes, candidates };
+        };
+
+        const searchInstagramViaGoogle = async (stepLabel: string) => {
+          if (activeInstagramUrl) return { success: true, skipped: true };
+          instagramSearchRanBeforeMaps = true;
+          addLog('Busca direta por handles provaveis ignorada: Instagram sera buscado somente por resultados reais do Google.');
+          toast.success(`${stepLabel}: Buscando Instagram no Google usando nome e cidade...`);
+          addLog(`${stepLabel}: Buscando Instagram no Google...`);
+          const query = `${effectiveRestaurant.name || initialName || ''} ${effectiveRestaurant.city || restaurant.city || ''}`.replace(/\s+/g, ' ').trim();
+          const extRes = await sendExtensionMessage(extensionTargetId, { action: "searchGoogleForInstagram", query, restaurantId: restaurant.id });
+          if (extRes?.requiresHuman) {
+            const reason = extRes.error || extRes.blocker || 'captcha/bloqueio no Google';
+            await persistMenuStatus(restaurant, 'manual_required', `Intervencao necessaria na busca do Instagram pelo Google: ${reason}`, { instagramSearch: extRes });
+            finalMenuStatus = 'manual_required';
+            addLog(`Busca do Instagram pausada por intervencao humana no Google: ${reason}.`);
+            toast.warning('Resolva o captcha/bloqueio da busca do Google e rode Validar IA novamente.');
+            return { success: false, blocked: true };
+          }
+
+          let instagramCandidates = Array.from(new Set([
+            ...((Array.isArray(extRes?.candidates) ? extRes.candidates : []) as string[]),
+            ...((Array.isArray(extRes?.urls) ? extRes.urls : []) as string[]),
+            extRes?.url || '',
+          ].filter((url: string) => /^https?:\/\/(?:www\.)?instagram\.com\/[a-z0-9._-]+\/?$/i.test(String(url || ''))))).slice(0, 3);
+          if (instagramCandidates.length === 0) {
+            const fallback = await fallbackSearchInstagramViaGoogleNative(query);
+            if (fallback.blocked) {
+              const reason = fallback.response?.error || fallback.response?.blocker || 'captcha/bloqueio no Google';
+              await persistMenuStatus(restaurant, 'manual_required', `Intervencao necessaria na busca do Instagram pelo Google: ${reason}`, { instagramSearch: fallback.response });
+              finalMenuStatus = 'manual_required';
+              addLog(`Busca do Instagram pausada por intervencao humana no Google normal: ${reason}.`);
+              toast.warning('Resolva o captcha/bloqueio da busca do Google e rode Validar IA novamente.');
+              return { success: false, blocked: true };
+            }
+            instagramCandidates = fallback.candidates;
+          }
+
+          if (instagramCandidates.length > 0) {
+            addLog(`Google retornou ${instagramCandidates.length} candidato(s) de Instagram: ${instagramCandidates.join(', ')}`);
+            const candidatesWithBio: any[] = [];
+            for (const candidateUrl of instagramCandidates) {
+              addLog(`Raspando candidato de Instagram para validacao: ${candidateUrl}`);
+              const candidateScrape = await sendExtensionMessage(extensionTargetId, {
+                action: "scrapeInstagram",
+                instagramUrl: candidateUrl,
+                restaurantId: restaurant.id,
+                lightweight: true,
+                collectImages: false
+              }, 35000);
+              if (candidateScrape?.success && !candidateScrape?.isLoginRequired) {
+                const candidateBioLinks = Array.isArray(candidateScrape.bioLinks || candidateScrape.linkCandidates)
+                  ? (candidateScrape.bioLinks || candidateScrape.linkCandidates)
+                  : [];
+                candidatesWithBio.push({
+                  url: candidateUrl,
+                  bio: candidateScrape.bio || '',
+                  followers: candidateScrape.followers || 0,
+                  bioLinks: candidateBioLinks
+                });
+              } else {
+                const scrapeError = candidateScrape?.error || candidateScrape?.blocker || 'sem motivo informado';
+                rememberInstagramScrapeIssue(candidateUrl, 'Google Instagram', scrapeError);
+                addLog(`Candidato de Instagram nao pode ser raspado: ${candidateUrl} (${scrapeError}).`);
+              }
+            }
+
+            if (candidatesWithBio.length > 0) {
+              const validateCandidatesResponse = await fetch(`/api/local-collector/validate-instagram?restaurantId=${restaurant.id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  candidates: candidatesWithBio,
+                  restaurantName: effectiveRestaurant.name || initialName || '',
+                  restaurantCity: effectiveRestaurant.city || restaurant.city || '',
+                  restaurantAddress: effectiveRestaurant.address || restaurant.address || '',
+                  restaurantPhone: effectiveRestaurant.phone || restaurant.phone || ''
+                })
+              });
+              const validateCandidatesData = validateCandidatesResponse.ok
+                ? await validateCandidatesResponse.json()
+                : null;
+              if (validateCandidatesData?.isValid && validateCandidatesData?.selectedUrl) {
+                activeInstagramUrl = validateCandidatesData.selectedUrl;
+                const selectedCandidate = candidatesWithBio.find((candidate: any) => normalizeSavedInstagramUrl(candidate.url) === normalizeSavedInstagramUrl(activeInstagramUrl));
+                validatedInstagramBioLinks = Array.isArray(selectedCandidate?.bioLinks) ? selectedCandidate.bioLinks : [];
+                if (validatedInstagramBioLinks.length > 0) {
+                  instagramMenuCandidates = mergeInstagramBioLinkCandidates(instagramMenuCandidates, validatedInstagramBioLinks);
+                  addLog(`Links oficiais da bio preservados da validacao do Instagram pelo Google: ${validatedInstagramBioLinks.length}.`);
+                }
+                toast.success(`Instagram confirmado pela IA: ${activeInstagramUrl}`);
+                addLog(`Instagram confirmado pela IA entre candidatos: ${activeInstagramUrl}. Motivo: ${validateCandidatesData.reason || 'sem motivo'}`);
+                return { success: true, selectedUrl: activeInstagramUrl };
+              }
+              addLog(`IA nao confirmou nenhum candidato de Instagram: ${validateCandidatesData?.reason || validateCandidatesData?.error || 'sem motivo informado'}`);
+            } else {
+              addLog('Nenhum candidato de Instagram pode ser raspado para validar pela IA.');
+            }
+          }
+
+          if (!activeInstagramUrl && extRes && extRes.success && extRes.url && instagramCandidates.length === 0) {
+            addLog(`Instagram candidato encontrado, mas nao usado automaticamente sem validacao: ${extRes.url}`);
+          }
+
+          const searchedProfileScrapeIssues = instagramScrapeIssues.filter((issue) => !/handles provaveis/i.test(issue.source));
+          const timeoutIssues = searchedProfileScrapeIssues.filter((issue) => isInstagramScrapeTimeout(issue.error));
+          if (timeoutIssues.length > 0) {
+            const attemptedUrls = Array.from(new Set(timeoutIssues.map((issue) => issue.url))).join(', ');
+            addLog(`Instagram candidato nao foi validado por timeout ao raspar (${attemptedUrls}). Vou continuar Maps, bio/fotos permitidas e decidir no fim com evidencias, sem travar a fila em revisao humana.`);
+            return { success: false, instagramTimeout: true, attemptedUrls: timeoutIssues.map((issue) => issue.url) };
+          }
+
+          toast.error(`Nenhum Instagram encontrado via Google. ${extRes?.error || ''}`);
+          addLog('Nenhum Instagram encontrado via Google.');
+          return { success: false };
+        };
+
+        const earlyInstagramSearch = await searchInstagramViaGoogle('PASSO 1/5');
+        if (earlyInstagramSearch.blocked) return;
+
+        if (mapUrl || mapsLookupQuery) {
+          const mapsStepLabel = instagramSearchRanBeforeMaps ? 'PASSO 2/5' : 'PASSO 1/5';
+          toast.success(`${mapsStepLabel}: Acessando Google Maps para extrair dados oficiais...`);
+          addLog(`${mapsStepLabel}: Acessando Google Maps...`);
+          const extRes = await sendExtensionMessage(
+            extensionTargetId,
+            { action: "scrapeGoogleHours", query: mapsLookupQuery || effectiveRestaurant.name || '', mapUrl, restaurantId: restaurant.id },
+            120000
+          );
 
           if (extRes && extRes.success) {
             mapsData = extRes;
+            mapUrl = String(extRes.finalUrl || extRes.currentUrl || mapUrl || '').trim();
+            const mapsClosedStatus = getMapsClosedStatus(extRes);
+            if (mapsClosedStatus) {
+              addLog(`Estabelecimento fechado detectado no Google/Maps (${mapsClosedStatus.label}); nao vou procurar cardapio nem publicar.`);
+              await markRestaurantIneligible(restaurant, {
+                status: 'ineligible',
+                confidence: 0.99,
+                reason: mapsClosedStatus.reason,
+                source: extRes.googleSearchFallback ? 'google_search_status_fallback' : 'google_maps_status',
+                businessStatus: extRes.businessStatus || '',
+                statusText: extRes.statusText || mapsClosedStatus.label,
+                closedType: mapsClosedStatus.type,
+                currentUrl: extRes.currentUrl || extRes.finalUrl || mapUrl || '',
+                requestedUrl: extRes.requestedUrl || '',
+              }, 'google_maps_closed_status_gate');
+              toast.error(`${effectiveRestaurant.name || initialName} removido: ${mapsClosedStatus.label} no Google/Maps.`, { id: toastId });
+              fetchRestaurants();
+              return;
+            }
             effectiveRestaurant = await persistRestaurantContacts(
               restaurant.id,
               effectiveRestaurant,
@@ -5587,10 +7165,10 @@ export default function CityValidation() {
             if (officialNameDecision?.officialName) {
               identityUpdate.name = officialNameDecision.officialName;
               identityUpdate.ai_normalized_name = officialNameDecision.officialName;
-              identityUpdate.name_cleanup_notes = `IA definiu nome oficial a partir do Google Maps: ${officialNameDecision.reason} (confianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a ${Math.round(officialNameDecision.confidence * 100)}%).`;
+              identityUpdate.name_cleanup_notes = `IA definiu nome oficial a partir do Google Maps: ${officialNameDecision.reason} (confianÃ§a ${Math.round(officialNameDecision.confidence * 100)}%).`;
             } else if (mapsName && (!restaurant.name || /pendente|google maps|sem nome/i.test(String(restaurant.name)))) {
               identityUpdate.name = mapsName;
-              identityUpdate.name_cleanup_notes = 'IA nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o retornou confianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a suficiente; nome do Google Maps mantido provisoriamente.';
+              identityUpdate.name_cleanup_notes = 'IA nÃ£o retornou confianÃ§a suficiente; nome do Google Maps mantido provisoriamente.';
             }
             identityUpdate.visit_notes = String(restaurant.visit_notes || '').includes(mapUrl)
               ? restaurant.visit_notes
@@ -5608,32 +7186,32 @@ export default function CityValidation() {
               google_maps_url: mapUrl
             };
             if (officialNameDecision?.officialName) {
-              addLog(`IA definiu nome oficial: ${mapsName || officialNameDecision.rawGoogleName} ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ ${officialNameDecision.officialName} (${Math.round(officialNameDecision.confidence * 100)}%).`);
+              addLog(`IA definiu nome oficial: ${mapsName || officialNameDecision.rawGoogleName} â†’ ${officialNameDecision.officialName} (${Math.round(officialNameDecision.confidence * 100)}%).`);
             } else if (mapsName) {
               addLog(`Nome do Maps mantido provisoriamente: ${mapsName}`);
             }
             if (mapsCategory) addLog(`Categoria oficial do Maps: ${mapsCategory}`);
 
             if (extRes.schedule && extRes.scheduleIsWeekly === true) {
-              toast.success('ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ HorÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios encontrados no Google Maps! Salvando...');
-              addLog(`HorÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios salvos.`);
+              toast.success('âœ… HorÃ¡rios encontrados no Google Maps! Salvando...');
+              addLog(`HorÃ¡rios salvos.`);
               await supabase.from('restaurants').update({ opening_hours: extRes.schedule }).eq('id', restaurant.id);
             } else if (extRes.schedule) {
               const missingDays = Array.isArray(extRes.scheduleMissingDays) && extRes.scheduleMissingDays.length ? ` Dias faltantes: ${extRes.scheduleMissingDays.join(', ')}.` : '';
-              addLog(`HorÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios parciais detectados (${extRes.scheduleDaysFound || 0}/7 dias). NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o vou salvar para nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o marcar dias ausentes como fechados.${missingDays}`);
+              addLog(`HorÃ¡rios parciais detectados (${extRes.scheduleDaysFound || 0}/7 dias). NÃ£o vou salvar para nÃ£o marcar dias ausentes como fechados.${missingDays}`);
             }
 
             if (extRes.address) {
-              toast.success(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o oficial encontrado: ${extRes.address}`);
-              addLog(`EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o salvo: ${extRes.address}`);
+              toast.success(`âœ… EndereÃ§o oficial encontrado: ${extRes.address}`);
+              addLog(`EndereÃ§o salvo: ${extRes.address}`);
               const normalizedAddress = await normalizePublicAddressAI(extRes.address, {
                 restaurant: effectiveRestaurant,
                 mapsData: extRes,
                 mapUrl,
               });
               const sanitizedAddress = normalizedAddress.fullAddress || sanitizeGoogleMapsAddressInput(extRes.address);
-              addLog(`EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o capturado: ${extRes.address}`);
-              if (sanitizedAddress !== extRes.address) addLog(`EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o limpo para publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ${sanitizedAddress}`);
+              addLog(`EndereÃ§o capturado: ${extRes.address}`);
+              if (sanitizedAddress !== extRes.address) addLog(`EndereÃ§o limpo para publicaÃ§Ã£o: ${sanitizedAddress}`);
               const parsedAddr = normalizedAddress.street
                 ? normalizedAddress
                 : parseGoogleMapsAddress(sanitizedAddress || extRes.address);
@@ -5659,12 +7237,12 @@ export default function CityValidation() {
                 addrUpdate.location_issue_reason = null;
                 addLog(`Coordenadas salvas (${coordinateResult.source}): ${coordinateResult.lat}, ${coordinateResult.lng}.`);
               } else {
-                addrUpdate.location_issue_reason = 'Validar IA nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o conseguiu validar coordenadas publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡veis para o endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o.';
-                addLog('Coordenadas nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o foram salvas; pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria impedirÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o atÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© nova validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.');
+                addrUpdate.location_issue_reason = 'Validar IA nÃ£o conseguiu validar coordenadas publicÃ¡veis para o endereÃ§o.';
+                addLog('Coordenadas nÃ£o foram salvas; pÃ³s-auditoria impedirÃ¡ publicaÃ§Ã£o atÃ© nova validaÃ§Ã£o.');
               }
               await updateRestaurantWithSchemaFallback(restaurant.id, addrUpdate);
               effectiveRestaurant = { ...effectiveRestaurant, ...addrUpdate };
-              addLog(`EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o salvo limpo: ${[addrUpdate.address, addrUpdate.number, addrUpdate.neighborhood, addrUpdate.city, addrUpdate.state].filter(Boolean).join(', ')}`);
+              addLog(`EndereÃ§o salvo limpo: ${[addrUpdate.address, addrUpdate.number, addrUpdate.neighborhood, addrUpdate.city, addrUpdate.state].filter(Boolean).join(', ')}`);
             }
 
             if (extRes.phone) {
@@ -5672,8 +7250,11 @@ export default function CityValidation() {
             }
 
             if (extRes.coverImage || (extRes.galleryImages && extRes.galleryImages.length > 0)) {
-              toast.success(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ Imagens encontradas via extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o no Google Maps!`);
-              addLog(`Fotos do Google Maps extraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­das via extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.`);
+              const galleryAddressCheck = googleMapsGalleryAddressMatches(extRes.galleryAddress || extRes.address || '', effectiveRestaurant);
+              if (!galleryAddressCheck.allowed) {
+                addLog(`Fotos do Google/Maps ignoradas para galeria: ${galleryAddressCheck.reason}`);
+              } else {
+              addLog(`Fotos do Google Maps extraidas e confirmadas por endereco (${galleryAddressCheck.reason}); serao usadas como fallback filtrado se a pesquisa normal do Google nao entregar o modal See photos.`);
               const googlePhotoCandidates = [
                 ...(extRes.coverImage ? [{ image: extRes.coverImage, source: 'google_cover', dateText: extRes.coverImageDateText || '' }] : []),
                 ...((extRes.galleryImages || []).map((image: string, index: number) => ({
@@ -5682,18 +7263,15 @@ export default function CityValidation() {
                   dateText: extRes.galleryImageDates?.[index] || extRes.galleryImageMeta?.[index]?.dateText || ''
                 })))
               ];
-              googleGalleryImageCandidates = googlePhotoCandidates;
+              googleMapsGalleryImageCandidates = googlePhotoCandidates;
               googleMenuImageCandidates = googlePhotoCandidates;
 
-              const imgUpdates: any = {};
               if (extRes.coverImage) {
-                imgUpdates.cover_image_url = extRes.coverImage;
-                addLog(`Capa provisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ria definida a partir do Google Maps; Instagram poderÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ substituir se houver foto aprovada.`);
+                addLog('Capa candidata do Google Maps guardada apenas como evidencia; capa publica sera definida somente a partir de foto aprovada na galeria.');
               }
-              await supabase.from('restaurants').update(imgUpdates).eq('id', restaurant.id);
-
               if (extRes.galleryImages && extRes.galleryImages.length > 0) {
-                addLog(`${extRes.galleryImages.length} foto(s) do Google Maps guardada(s) como fallback; Instagram tera prioridade na galeria.`);
+                addLog(`${extRes.galleryImages.length} foto(s) do Google Maps guardada(s) para evidencias/cardapio e fallback de galeria com filtro visual.`);
+              }
               }
             }
 
@@ -5705,13 +7283,13 @@ export default function CityValidation() {
               const instaFromMaps = extRes.socialLinks.find((s: any) => s.platform === 'instagram');
               if (instaFromMaps) {
                 activeInstagramUrl = instaFromMaps.url;
-                toast.success(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ Instagram encontrado no Maps: ${activeInstagramUrl}`);
+                toast.success(`âœ… Instagram encontrado no Maps: ${activeInstagramUrl}`);
                 addLog(`Instagram encontrado via Maps: ${activeInstagramUrl}`);
               }
             }
           } else {
             toast.error(`Falha ao obter dados do Google Maps (a aba abriu?). Tentando seguir...`);
-            addLog(`Falha ao coletar dados do Google Maps via extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.`);
+            addLog(`Falha ao coletar dados do Google Maps via extensÃ£o.`);
           }
         }
 
@@ -5721,7 +7299,7 @@ export default function CityValidation() {
         });
         if (enrichedEligibility.status === 'ineligible' && enrichedEligibility.confidence >= 0.8) {
           await markRestaurantIneligible(restaurant, enrichedEligibility, 'post_maps_eligibility_gate');
-          toast.error(`${effectiveRestaurant.name || initialName} removido: nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© restaurante elegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel.`, { id: toastId });
+          toast.error(`${effectiveRestaurant.name || initialName} removido: nÃ£o Ã© restaurante elegÃ­vel.`, { id: toastId });
           fetchRestaurants();
           return;
         }
@@ -5804,13 +7382,20 @@ export default function CityValidation() {
               candidates: candidatesWithBio,
               restaurantName: effectiveRestaurant.name || '',
               restaurantCity: effectiveRestaurant.city || '',
-              restaurantAddress: effectiveRestaurant.address || ''
+              restaurantAddress: effectiveRestaurant.address || '',
+              restaurantPhone: effectiveRestaurant.phone || restaurant.phone || ''
             })
           });
           const validateCandidatesData = validateCandidatesResponse.ok
             ? await validateCandidatesResponse.json()
             : null;
           if (validateCandidatesData?.isValid && validateCandidatesData?.selectedUrl) {
+            const selectedCandidate = candidatesWithBio.find((candidate: any) => normalizeSavedInstagramUrl(candidate.url) === normalizeSavedInstagramUrl(validateCandidatesData.selectedUrl));
+            validatedInstagramBioLinks = Array.isArray(selectedCandidate?.bioLinks) ? selectedCandidate.bioLinks : [];
+            if (validatedInstagramBioLinks.length > 0) {
+              instagramMenuCandidates = mergeInstagramBioLinkCandidates(instagramMenuCandidates, validatedInstagramBioLinks);
+              addLog(`Links oficiais da bio preservados da validacao do Instagram: ${validatedInstagramBioLinks.length}.`);
+            }
             addLog('Instagram confirmado pela IA entre candidatos diretos: ' + validateCandidatesData.selectedUrl + '. Motivo: ' + (validateCandidatesData.reason || 'sem motivo'));
             return validateCandidatesData.selectedUrl;
           }
@@ -5819,69 +7404,40 @@ export default function CityValidation() {
         };
 
         if (!activeInstagramUrl) {
-          const directInstagramUrl = await validateInstagramCandidateUrls(buildDirectInstagramCandidateUrls(), 'Busca direta por handles provaveis');
-          if (directInstagramUrl) {
-            activeInstagramUrl = directInstagramUrl;
-            toast.success('Instagram confirmado pela IA: ' + activeInstagramUrl);
-          }
+          addLog('Busca direta por handles provaveis ignorada: Instagram sera buscado somente por resultados reais do Google.');
         }
 
         if (!activeInstagramUrl) {
-          const query = `${effectiveRestaurant.name || ''} ${effectiveRestaurant.city || ''} instagram`;
-          toast.success('PASSO 2/5: Buscando Instagram em fonte alternativa antes do Google...');
-          addLog('PASSO 2/5: Buscando Instagram em fonte alternativa antes do Google...');
-          const bingFirstRes = await sendExtensionMessage(extensionTargetId, { action: "searchBingForInstagram", query, restaurantId: restaurant.id });
-          if (bingFirstRes?.success) {
-            const bingCandidates = Array.from(new Set([
-              ...((Array.isArray(bingFirstRes?.candidates) ? bingFirstRes.candidates : []) as string[]),
-              ...((Array.isArray(bingFirstRes?.urls) ? bingFirstRes.urls : []) as string[]),
-              bingFirstRes?.url || '',
-            ].filter((url: string) => /^https?:\/\/(?:www\.)?instagram\.com\/[a-z0-9._-]+\/?$/i.test(String(url || ''))))).slice(0, 3);
-            if (bingCandidates.length > 0) {
-              addLog(`Busca alternativa retornou ${bingCandidates.length} candidato(s) de Instagram: ${bingCandidates.join(', ')}`);
-              const bingInstagramUrl = await validateInstagramCandidateUrls(bingCandidates, 'Busca alternativa por perfis Instagram');
-              if (bingInstagramUrl) {
-                activeInstagramUrl = bingInstagramUrl;
-                toast.success('Instagram confirmado pela IA: ' + activeInstagramUrl);
-              }
-            } else {
-              addLog('Busca alternativa nao retornou URLs diretas de Instagram.');
-            }
-          } else if (bingFirstRes?.requiresHuman) {
-            addLog(`Busca alternativa exigiu intervencao (${bingFirstRes.error || bingFirstRes.blocker || 'bloqueio'}). Vou tentar Google antes de enviar para revisao.`);
-          } else {
-            addLog(`Busca alternativa nao encontrou Instagram: ${bingFirstRes?.error || 'sem motivo informado'}.`);
-          }
-        }
-
-        if (!activeInstagramUrl) {
-          toast.success('PASSO 2/5: Buscando Instagram no Google usando nome e endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o...');
+          toast.success('PASSO 2/5: Buscando Instagram no Google usando nome e cidade...');
           addLog(`PASSO 2/5: Buscando Instagram no Google...`);
-          const query = `${effectiveRestaurant.name || ''} ${effectiveRestaurant.city || ''} instagram`;
+          const query = `${effectiveRestaurant.name || initialName || ''} ${effectiveRestaurant.city || restaurant.city || ''}`.replace(/\s+/g, ' ').trim();
           let extRes = await sendExtensionMessage(extensionTargetId, { action: "searchGoogleForInstagram", query, restaurantId: restaurant.id });
           if (extRes?.requiresHuman) {
-            addLog(`Google exigiu intervencao na busca de Instagram (${extRes.error || extRes.blocker || 'captcha/bloqueio'}). Tentando busca alternativa somente para perfis Instagram.`);
-            const bingRes = await sendExtensionMessage(extensionTargetId, { action: "searchBingForInstagram", query, restaurantId: restaurant.id });
-            if (bingRes?.success) {
-              extRes = { ...bingRes, fallbackFrom: 'google_requires_human', googleSearch: extRes };
-              addLog('Busca alternativa encontrou candidato(s) de Instagram sem usar cardapio externo.');
-            } else {
-              const reason = bingRes?.requiresHuman
-                ? (bingRes.error || bingRes.blocker || 'captcha/bloqueio no Bing')
-                : (extRes.error || extRes.blocker || 'captcha/bloqueio no Google');
-              await persistMenuStatus(restaurant, 'manual_required', `Intervencao necessaria na busca do Instagram: ${reason}`, { instagramSearch: extRes, instagramFallbackSearch: bingRes });
-              finalMenuStatus = 'manual_required';
-              addLog(`Busca do Instagram pausada por intervencao humana: ${reason}.`);
-              toast.warning('Resolva o captcha/bloqueio da busca de Instagram e rode Validar IA novamente.');
-              return;
-            }
+            const reason = extRes.error || extRes.blocker || 'captcha/bloqueio no Google';
+            await persistMenuStatus(restaurant, 'manual_required', `Intervencao necessaria na busca do Instagram pelo Google: ${reason}`, { instagramSearch: extRes });
+            finalMenuStatus = 'manual_required';
+            addLog(`Busca do Instagram pausada por intervencao humana no Google: ${reason}.`);
+            toast.warning('Resolva o captcha/bloqueio da busca do Google e rode Validar IA novamente.');
+            return;
           }
-          const instagramCandidates = Array.from(new Set([
+          let instagramCandidates = Array.from(new Set([
             ...((Array.isArray(extRes?.candidates) ? extRes.candidates : []) as string[]),
             ...((Array.isArray(extRes?.urls) ? extRes.urls : []) as string[]),
             extRes?.url || '',
           ].filter((url: string) => /^https?:\/\/(?:www\.)?instagram\.com\/[a-z0-9._-]+\/?$/i.test(String(url || ''))))).slice(0, 3);
-          if (extRes?.success && instagramCandidates.length > 0) {
+          if (instagramCandidates.length === 0) {
+            const fallback = await fallbackSearchInstagramViaGoogleNative(query);
+            if (fallback.blocked) {
+              const reason = fallback.response?.error || fallback.response?.blocker || 'captcha/bloqueio no Google';
+              await persistMenuStatus(restaurant, 'manual_required', `Intervencao necessaria na busca do Instagram pelo Google: ${reason}`, { instagramSearch: fallback.response });
+              finalMenuStatus = 'manual_required';
+              addLog(`Busca do Instagram pausada por intervencao humana no Google normal: ${reason}.`);
+              toast.warning('Resolva o captcha/bloqueio da busca do Google e rode Validar IA novamente.');
+              return;
+            }
+            instagramCandidates = fallback.candidates;
+          }
+          if (instagramCandidates.length > 0) {
             addLog(`${extRes?.source === 'bing' ? 'Busca alternativa' : 'Google'} retornou ${instagramCandidates.length} candidato(s) de Instagram: ${instagramCandidates.join(', ')}`);
             const candidatesWithBio: any[] = [];
             for (const candidateUrl of instagramCandidates) {
@@ -5894,10 +7450,14 @@ export default function CityValidation() {
                 collectImages: false
               }, 35000);
               if (candidateScrape?.success && !candidateScrape?.isLoginRequired) {
+                const candidateBioLinks = Array.isArray(candidateScrape.bioLinks || candidateScrape.linkCandidates)
+                  ? (candidateScrape.bioLinks || candidateScrape.linkCandidates)
+                  : [];
                 candidatesWithBio.push({
                   url: candidateUrl,
                   bio: candidateScrape.bio || '',
-                  followers: candidateScrape.followers || 0
+                  followers: candidateScrape.followers || 0,
+                  bioLinks: candidateBioLinks
                 });
               } else {
                 const scrapeError = candidateScrape?.error || candidateScrape?.blocker || 'sem motivo informado';
@@ -5913,7 +7473,8 @@ export default function CityValidation() {
                   candidates: candidatesWithBio,
                   restaurantName: effectiveRestaurant.name || '',
                   restaurantCity: effectiveRestaurant.city || '',
-                  restaurantAddress: effectiveRestaurant.address || ''
+                  restaurantAddress: effectiveRestaurant.address || '',
+                  restaurantPhone: effectiveRestaurant.phone || restaurant.phone || ''
                 })
               });
               const validateCandidatesData = validateCandidatesResponse.ok
@@ -5921,6 +7482,12 @@ export default function CityValidation() {
                 : null;
               if (validateCandidatesData?.isValid && validateCandidatesData?.selectedUrl) {
                 activeInstagramUrl = validateCandidatesData.selectedUrl;
+                const selectedCandidate = candidatesWithBio.find((candidate: any) => normalizeSavedInstagramUrl(candidate.url) === normalizeSavedInstagramUrl(activeInstagramUrl));
+                validatedInstagramBioLinks = Array.isArray(selectedCandidate?.bioLinks) ? selectedCandidate.bioLinks : [];
+                if (validatedInstagramBioLinks.length > 0) {
+                  instagramMenuCandidates = mergeInstagramBioLinkCandidates(instagramMenuCandidates, validatedInstagramBioLinks);
+                  addLog(`Links oficiais da bio preservados da validacao do Instagram pelo Google: ${validatedInstagramBioLinks.length}.`);
+                }
                 toast.success(`Instagram confirmado pela IA: ${activeInstagramUrl}`);
                 addLog(`Instagram confirmado pela IA entre candidatos: ${activeInstagramUrl}. Motivo: ${validateCandidatesData.reason || 'sem motivo'}`);
               } else {
@@ -5932,38 +7499,23 @@ export default function CityValidation() {
           }
 
           if (!activeInstagramUrl && extRes && extRes.success && extRes.url && instagramCandidates.length === 0) {
-            activeInstagramUrl = extRes.url;
-            toast.success(`Instagram provavel encontrado: ${activeInstagramUrl}`);
-            addLog(`Instagram encontrado no Google: ${activeInstagramUrl}`);
+            addLog(`Instagram candidato encontrado, mas nao usado automaticamente sem validacao: ${extRes.url}`);
           }
           if (!activeInstagramUrl) {
             const searchedProfileScrapeIssues = instagramScrapeIssues.filter((issue) => !/handles provaveis/i.test(issue.source));
             const timeoutIssues = searchedProfileScrapeIssues.filter((issue) => isInstagramScrapeTimeout(issue.error));
             if (timeoutIssues.length > 0) {
               const attemptedUrls = Array.from(new Set(timeoutIssues.map((issue) => issue.url))).join(', ');
-              await persistMenuStatus(
-                restaurant,
-                'manual_required',
-                'Instagram candidato encontrado, mas a extensao nao conseguiu raspar o perfil por timeout. Reexecute com Chrome/Instagram estavel ou revise manualmente.',
-                {
-                  blocker: 'instagram_scrape_timeout',
-                  attemptedInstagramUrls: timeoutIssues.map((issue) => issue.url),
-                  instagramScrapeIssues,
-                  instagramSearch: extRes,
-                }
-              );
-              finalMenuStatus = 'manual_required';
-              addLog(`Instagram nao foi descartado: a extensao falhou por timeout ao raspar candidato(s) encontrado(s): ${attemptedUrls}. Enviando para revisao/recoleta, nao para sem cardapio.`);
-              toast.warning('Instagram encontrado, mas a extensao travou ao raspar. Enviado para revisao/recoleta.');
-              return;
+              addLog(`Instagram candidato nao foi validado por timeout ao raspar (${attemptedUrls}). Vou continuar com as demais fontes permitidas e classificar pelo conjunto de evidencias.`);
+            } else {
+              toast.error(`Nenhum Instagram encontrado via Google. ${extRes?.error || ''}`);
+              addLog(`Nenhum Instagram encontrado via Google.`);
             }
-            toast.error(`Nenhum Instagram encontrado via Google. ${extRes?.error || ''}`);
-            addLog(`Nenhum Instagram encontrado via Google.`);
           }
         }
 
         if (shouldScrapeInstagramNow()) {
-          toast.success('PASSO 3/5: Coletando perfil e verificando relevÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ncia do Instagram...');
+          toast.success('PASSO 3/5: Coletando perfil e verificando relevÃ¢ncia do Instagram...');
           addLog(`PASSO 3/5: Verificando Instagram: ${activeInstagramUrl}`);
           const scrapeRes = await sendExtensionMessage(extensionTargetId, {
             action: "scrapeInstagram",
@@ -5977,35 +7529,24 @@ export default function CityValidation() {
           if (scrapeRes && scrapeRes.success) {
             instagramBio = scrapeRes.bio || '';
             instagramFollowers = scrapeRes.followers || 0;
-            instagramMenuCandidates = Array.isArray(scrapeRes.linkCandidates)
+            const scrapedInstagramMenuCandidates = Array.isArray(scrapeRes.linkCandidates)
               ? scrapeRes.linkCandidates
               : (Array.isArray(scrapeRes.bioLinks) ? scrapeRes.bioLinks : []);
+            instagramMenuCandidates = mergeInstagramBioLinkCandidates(instagramMenuCandidates, scrapedInstagramMenuCandidates);
             if (instagramMenuCandidates.length > 0) {
-              addLog(`Links candidatos coletados no Instagram sem navegaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o externa: ${instagramMenuCandidates.length}.`);
+              addLog(`Links candidatos coletados no Instagram sem navegaÃ§Ã£o externa: ${instagramMenuCandidates.length}.`);
             }
-            effectiveRestaurant = await persistRestaurantContacts(
-              restaurant.id,
-              effectiveRestaurant,
-              { scrapeRes, instagramBio, instagramMenuCandidates, activeInstagramUrl },
-              'instagram_profile',
-              activeInstagramUrl,
-              'Instagram/bio'
-            );
+            const instagramContactPayload = { scrapeRes, instagramBio, instagramMenuCandidates, activeInstagramUrl };
 
-            const socialNameDecision = await decideRestaurantOfficialNameAI(effectiveRestaurant, {
-              ...(mapsData || {}),
-              googleMapsName: mapsData?.name || mapsData?.title || effectiveRestaurant.google_maps_name || effectiveRestaurant.name,
-              bio: instagramBio,
-              website: '',
-            });
+            const socialNameDecision: any = null;
             if (socialNameDecision?.officialName && normalizeText(socialNameDecision.officialName) !== normalizeText(effectiveRestaurant.name)) {
               await updateRestaurantWithSchemaFallback(restaurant.id, {
                 name: socialNameDecision.officialName,
                 ai_normalized_name: socialNameDecision.officialName,
                 google_maps_name: socialNameDecision.rawGoogleName,
-                name_cleanup_notes: `IA revisou nome oficial com Instagram: ${socialNameDecision.reason} (confianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a ${Math.round(socialNameDecision.confidence * 100)}%).`,
+                name_cleanup_notes: `IA revisou nome oficial com Instagram: ${socialNameDecision.reason} (confianÃ§a ${Math.round(socialNameDecision.confidence * 100)}%).`,
               });
-              addLog(`IA revisou nome com Instagram: ${effectiveRestaurant.name} ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ ${socialNameDecision.officialName} (${Math.round(socialNameDecision.confidence * 100)}%).`);
+              addLog(`IA revisou nome com Instagram: ${effectiveRestaurant.name} â†’ ${socialNameDecision.officialName} (${Math.round(socialNameDecision.confidence * 100)}%).`);
               effectiveRestaurant = { ...effectiveRestaurant, name: socialNameDecision.officialName };
             }
 
@@ -6015,16 +7556,17 @@ export default function CityValidation() {
             const socialEligibility = await classifyRestaurantEligibilityAI(effectiveRestaurant, { ...(mapsData || {}), bio: instagramBio });
             if (socialEligibility.status === 'ineligible' && socialEligibility.confidence >= 0.8) {
               await markRestaurantIneligible(restaurant, socialEligibility, 'instagram_bio_eligibility_gate');
-              toast.error(`${effectiveRestaurant.name || initialName} removido: nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© restaurante elegÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel.`, { id: toastId });
+              toast.error(`${effectiveRestaurant.name || initialName} removido: nÃ£o Ã© restaurante elegÃ­vel.`, { id: toastId });
               fetchRestaurants();
               return;
             }
 
             const payload = {
-              candidates: [{ url: activeInstagramUrl, bio: instagramBio, followers: instagramFollowers }],
+              candidates: [{ url: activeInstagramUrl, bio: instagramBio, followers: instagramFollowers, bioLinks: instagramMenuCandidates }],
               restaurantName: effectiveRestaurant.name || '',
               restaurantCity: effectiveRestaurant.city || '',
-              restaurantAddress: effectiveRestaurant.address || ''
+              restaurantAddress: effectiveRestaurant.address || '',
+              restaurantPhone: effectiveRestaurant.phone || restaurant.phone || ''
             };
 
             const validateRes = await fetch(`/api/local-collector/validate-instagram?restaurantId=${restaurant.id}`, {
@@ -6036,9 +7578,75 @@ export default function CityValidation() {
               if (valData.isValid) {
                 toast.success(`Instagram validado pela IA! (${valData.reason})`);
                 addLog(`Instagram VALIDADO pela IA: ${valData.reason}`);
+                effectiveRestaurant = await persistRestaurantContacts(
+                  restaurant.id,
+                  effectiveRestaurant,
+                  instagramContactPayload,
+                  'instagram_profile',
+                  activeInstagramUrl,
+                  'Instagram/bio'
+                );
+                const validatedSocialNameDecision = await decideRestaurantOfficialNameAI(effectiveRestaurant, {
+                  ...(mapsData || {}),
+                  googleMapsName: mapsData?.name || mapsData?.title || effectiveRestaurant.google_maps_name || effectiveRestaurant.name,
+                  bio: instagramBio,
+                  website: '',
+                });
+                if (validatedSocialNameDecision?.officialName && normalizeText(validatedSocialNameDecision.officialName) !== normalizeText(effectiveRestaurant.name)) {
+                  await updateRestaurantWithSchemaFallback(restaurant.id, {
+                    name: validatedSocialNameDecision.officialName,
+                    ai_normalized_name: validatedSocialNameDecision.officialName,
+                    google_maps_name: validatedSocialNameDecision.rawGoogleName,
+                    name_cleanup_notes: `IA revisou nome oficial com Instagram validado: ${validatedSocialNameDecision.reason} (confianca ${Math.round(validatedSocialNameDecision.confidence * 100)}%).`,
+                  });
+                  addLog(`IA revisou nome com Instagram validado: ${effectiveRestaurant.name} -> ${validatedSocialNameDecision.officialName} (${Math.round(validatedSocialNameDecision.confidence * 100)}%).`);
+                  effectiveRestaurant = { ...effectiveRestaurant, name: validatedSocialNameDecision.officialName };
+                }
+                const galleryEligibility = hasCityEvidenceForInstagramGallery(activeInstagramUrl, instagramBio, valData.reason || '', instagramMenuCandidates);
+                instagramFeedGalleryAllowed = galleryEligibility.allowed;
+                instagramFeedGalleryBlockReason = galleryEligibility.allowed
+                  ? galleryEligibility.reason
+                  : `Instagram validado por identidade, mas sem prova de unidade/cidade; feed e fotos publicas bloqueados. ${galleryEligibility.reason}`;
+                if (instagramFeedGalleryAllowed) {
+                  addLog(`Feed do Instagram liberado para galeria: ${instagramFeedGalleryBlockReason}`);
+                } else {
+                  addLog(`Feed do Instagram bloqueado para galeria publica: ${instagramFeedGalleryBlockReason}`);
+                }
                 toast.success('Baixando foto de perfil (Logo)...');
                 addLog(`Baixando foto de perfil (Logo)...`);
-                if (scrapeRes.rawLogoUrl) {
+                const uploadInstagramLogoDataUrl = async (logoDataUrl: string) => {
+                  const parsedLogo = imageDataUrlToBlob(logoDataUrl);
+                  if (!parsedLogo) {
+                    addLog('Logo do Instagram veio em base64 invalido; tentando URL remota.');
+                    return null;
+                  }
+
+                  const storagePath = `restaurants/${restaurant.id}/logo_${Date.now()}.${parsedLogo.extension}`;
+                  const { error } = await supabase.storage
+                    .from('restaurant-images')
+                    .upload(storagePath, parsedLogo.blob, { upsert: true, contentType: parsedLogo.contentType });
+                  if (error) {
+                    addLog(`Erro no upload direto da logo do Instagram: ${error.message}`);
+                    return null;
+                  }
+
+                  const { data } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
+                  return data.publicUrl || null;
+                };
+
+                if (scrapeRes.logoDataUrl) {
+                  try {
+                    logoPublicUrl = await uploadInstagramLogoDataUrl(scrapeRes.logoDataUrl);
+                    if (logoPublicUrl) {
+                      toast.success(`Logo salva com sucesso!`);
+                      addLog(`Logo salva com sucesso via imagem capturada pela extensao.`);
+                    }
+                  } catch (logoErr: any) {
+                    addLog(`Erro ao salvar logo capturada pela extensao: ${logoErr.message || logoErr}`);
+                  }
+                }
+
+                if (!logoPublicUrl && scrapeRes.rawLogoUrl) {
                   const storagePath = `restaurants/${restaurant.id}/logo_${Date.now()}.jpg`;
                   try {
                     const logoRes = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(scrapeRes.rawLogoUrl)}&path=${encodeURIComponent(storagePath)}`, {
@@ -6048,17 +7656,21 @@ export default function CityValidation() {
                       const logoData = await logoRes.json();
                       if (logoData.success && logoData.url) {
                         logoPublicUrl = logoData.url;
-                        toast.success(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ Logo salva com sucesso!`);
+                        toast.success(`âœ… Logo salva com sucesso!`);
                         addLog(`Logo salva com sucesso.`);
                       } else {
                         addLog(`Erro ao salvar logo: ${logoData.error || 'sem URL'}`);
                       }
                     } else {
-                      addLog(`Falha na requisiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de logo: HTTP ${logoRes.status}`);
+                      addLog(`Falha na requisiÃ§Ã£o de logo: HTTP ${logoRes.status}`);
                     }
                   } catch (logoErr: any) {
                     addLog(`Erro ao baixar logo: ${logoErr.message}`);
                   }
+                }
+
+                if (!logoPublicUrl) {
+                  addLog('Logo nao foi salva: a extensao nao entregou imagem utilizavel e o download remoto tambem falhou.');
                 }
 
                 // Destaques ajudam a encontrar cardapio, mas nao entram na galeria publica.
@@ -6068,90 +7680,24 @@ export default function CityValidation() {
                   addLog('Destaques do Instagram nao entram na galeria publica; galeria usa feed do Instagram e Google.');
                 }
 
-                // Coleta, Filtragem por IA e Upload de Feed
+                // Coleta feed do Instagram como candidato; salvamento da galeria prioriza Google.
                 if (scrapeRes.feedImages && scrapeRes.feedImages.length > 0) {
                   instagramFeedMenuImageCandidates = [...instagramFeedMenuImageCandidates, ...scrapeRes.feedImages];
                   const availableGallerySlots = MAX_PUBLIC_GALLERY_IMAGES - savedGalleryUrls.size;
                   if (availableGallerySlots <= 0) {
                     addLog('Galeria ja atingiu o limite de 8 fotos aprovadas; nao vou salvar mais fotos do feed.');
+                  } else if (existingInstagramFeedGalleryCount >= MIN_PUBLIC_GALLERY_IMAGES) {
+                    addLog(`Galeria ja possui ${existingInstagramFeedGalleryCount} foto(s) aprovadas do feed do Instagram; nesta revalidacao o feed ficara somente como evidencia de cardapio para evitar duplicatas visuais.`);
+                  } else if (!instagramFeedGalleryAllowed) {
+                    addLog(`Feed do Instagram mantido apenas como candidato de cardapio; ${scrapeRes.feedImages.length} imagem(ns) nao foram enviadas para galeria porque ${instagramFeedGalleryBlockReason || 'a unidade/cidade nao foi confirmada no perfil.'}`);
                   } else {
-                  toast.success(`Filtrando ${scrapeRes.feedImages.length} fotos do feed com IA...`);
-                  addLog(`Enviando ${scrapeRes.feedImages.length} imagens do feed para filtragem por IA...`);
-
-                  try {
-                    const filterResponse = await fetch('/api/local-collector/filter-instagram-gallery', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json'
-                      },
-                      body: JSON.stringify({ images: scrapeRes.feedImages, maxImages: availableGallerySlots, source: 'feed do Instagram' })
-                    });
-
-                    if (filterResponse.ok) {
-                      const filterData = await filterResponse.json();
-                      if (filterData.success && filterData.filteredImages && filterData.filteredImages.length > 0) {
-                        toast.success(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ IA aprovou ${filterData.filteredImages.length} de ${scrapeRes.feedImages.length} fotos!`);
-                        addLog(`IA aprovou ${filterData.filteredImages.length} foto(s) de comida/ambiente do feed.`);
-
-                        const feedPublicUrls: string[] = [];
-                        for (let i = 0; i < filterData.filteredImages.length; i++) {
-                          try {
-                            const base64Str = filterData.filteredImages[i];
-                            const match = base64Str.match(/^data:([^;]+);base64,(.+)$/);
-                            if (match) {
-                              const contentType = match[1];
-                              const b64Data = match[2];
-                              const byteString = atob(b64Data);
-                              const ab = new ArrayBuffer(byteString.length);
-                              const ia = new Uint8Array(ab);
-                              for (let j = 0; j < byteString.length; j++) {
-                                ia[j] = byteString.charCodeAt(j);
-                              }
-                              const blob = new Blob([ab], { type: contentType });
-
-                              const storagePath = `gallery/${restaurant.id}/gallery_feed_${Date.now()}_${i}.jpg`;
-
-                              const { error } = await supabase.storage
-                                .from('restaurant-images')
-                                .upload(storagePath, blob, { upsert: true, contentType });
-
-                              if (!error) {
-                                const { data } = supabase.storage.from('restaurant-images').getPublicUrl(storagePath);
-                                feedPublicUrls.push(data.publicUrl);
-                              } else {
-                                console.error('Erro ao fazer upload da imagem do feed no Supabase Storage:', error);
-                                addLog(`Erro no upload da foto feed ${i}: ${error.message}`);
-                              }
-                            }
-                          } catch (uploadErr: any) {
-                            console.error(`Erro no processamento da imagem do feed index ${i}:`, uploadErr);
-                            addLog(`Erro ao processar foto feed ${i}: ${uploadErr.message}`);
-                          }
-                        }
-
-                        // Insere as fotos aprovadas na tabela do banco
-                        if (feedPublicUrls.length > 0) {
-                          addLog(`Salvando ${feedPublicUrls.length} fotos aprovadas na galeria...`);
-                          for (let i = 0; i < feedPublicUrls.length; i++) {
-                            await saveGalleryImage(feedPublicUrls[i], 'Feed do Instagram (Filtrado por IA)', i + 10);
-                          }
-                        }
-                      } else {
-                        addLog(`IA nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o aprovou nenhuma foto do feed ou erro no filtro.`);
-                      }
-                    } else {
-                      addLog(`Erro HTTP ao chamar o endpoint de filtro de imagens: HTTP ${filterResponse.status}`);
-                    }
-                  } catch (filterErr: any) {
-                    console.error('Erro ao filtrar/upload da galeria:', filterErr);
-                    addLog(`Erro ao processar galeria do Instagram: ${filterErr.message}`);
-                  }
+                    addLog(`Feed do Instagram validado e guardado como fallback de galeria (${scrapeRes.feedImages.length} imagem(ns)); fotos do Google serao tentadas primeiro para salvar na galeria.`);
                   }
                 }
 
 
                 toast.success('Salvando Instagram como enriquecimento parcial...');
-                addLog(`Salvando Instagram no banco sem concluir a validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o antes do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio...`);
+                addLog(`Salvando Instagram no banco sem concluir a validaÃ§Ã£o antes do cardÃ¡pio...`);
                 const updates: any = {};
                 if (logoPublicUrl) updates.image_url = logoPublicUrl;
 
@@ -6168,17 +7714,23 @@ export default function CityValidation() {
                 await supabase.from('restaurants').update(updates).eq('id', restaurant.id);
 
 
-                toast.success(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ Instagram coletado! Logo e ${instagramFollowers} seguidores salvos.`);
+                toast.success(`âœ… Instagram coletado! Logo e ${instagramFollowers} seguidores salvos.`);
                 addLog(`Finalizado. Instagram salvo.`);
               } else {
-                toast.error(`Instagram rejeitado pela IA: ${valData.reason || 'DivergÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia.'}`);
+                toast.error(`Instagram rejeitado pela IA: ${valData.reason || 'DivergÃªncia.'}`);
                 addLog(`Instagram REJEITADO: ${valData.reason}`);
+                clearRejectedInstagramDerivedData(valData.reason || 'Instagram rejeitado pela IA');
+                addLog('Dados derivados do Instagram rejeitado foram descartados desta execucao: bio, links, feed, destaques e candidatos de cardapio.');
               }
             } else {
               toast.error('Erro ao validar Instagram no servidor.');
+              clearRejectedInstagramDerivedData('Validacao do Instagram falhou no servidor');
+              addLog('Validacao do Instagram falhou no servidor; dados derivados do perfil foram descartados desta execucao.');
             }
           } else {
             toast.error(`Falha ao raspar perfil do Instagram: ${scrapeRes?.error || 'Tente novamente.'}`);
+            clearRejectedInstagramDerivedData(scrapeRes?.error || 'Falha ao raspar perfil do Instagram');
+            addLog('Falha ao raspar Instagram; perfil nao sera usado como fonte de cardapio ou galeria nesta execucao.');
           }
         } else {
           toast.error('Nenhum link de Instagram encontrado para este restaurante.');
@@ -6186,8 +7738,8 @@ export default function CityValidation() {
 
         await fillGalleryFromGoogleFallback();
 
-        toast.success('PASSO 5/5: Extraindo cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio a partir da bio/imagens permitidas...');
-        addLog(`PASSO 5/5: Iniciando extraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio...`);
+        toast.success('PASSO 5/5: Extraindo cardÃ¡pio a partir da bio/imagens permitidas...');
+        addLog(`PASSO 5/5: Iniciando extraÃ§Ã£o de cardÃ¡pio...`);
         try {
           const normalizeKey = (value: string) => String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
           const baseName = effectiveRestaurant.name || restaurant.name || '';
@@ -6195,7 +7747,7 @@ export default function CityValidation() {
           const baseNeighborhood = effectiveRestaurant.neighborhood || restaurant.neighborhood || '';
           const baseAddress = effectiveRestaurant.address || restaurant.address || '';
           const cityKey = normalizeKey(baseCity || '');
-          const unsafeNonMenuUrlPattern = /casino|poker|bonus|bono|bet\b|betting|aposta|apostas|slot|slots|gambling|holdem|reward\s*code|cupom|coupon|cashback|fidelidade|loyalty|promo(?:cao|coes|ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½o|ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½es)?|promotions?|pagamento|payment|wallet|voucher|gift|viagra|forex|crypto|binary|adult|escort|seo-spam|meta\.ai/i;
+          const unsafeNonMenuUrlPattern = /casino|poker|bonus|bono|bet\b|betting|aposta|apostas|slot|slots|gambling|holdem|reward\s*code|cupom|coupon|cashback|fidelidade|loyalty|promo(?:cao|coes|Ã¯Â¿Â½Ã¯Â¿Â½o|Ã¯Â¿Â½Ã¯Â¿Â½es)?|promotions?|pagamento|payment|wallet|voucher|gift|viagra|forex|crypto|binary|adult|escort|seo-spam|meta\.ai/i;
           const isSafeMenuUrl = (value: string) => {
             try {
               const parsed = new URL(value);
@@ -6277,7 +7829,7 @@ export default function CityValidation() {
               const host = parsed.hostname.toLowerCase().replace(/^www\./, '');
               const pathAndQuery = `${parsed.pathname}${parsed.search}`.toLowerCase();
               return (
-                /(^|\.)saipos\.com$|(^|\.)anota\.ai$|(^|\.)goomer\.app$|(^|\.)goomer\.com\.br$|(^|\.)livemenu\.app$|(^|\.)ola\.click$|(^|\.)ola\.menu$|(^|\.)menudino\.com$|(^|\.)deliverymuch\.com\.br$|(^|\.)aiqfome\.com$|(^|\.)ifood\.com\.br$|(^|\.)cardapioweb\.com$/.test(host)
+                /(^|\.)saipos\.com$|(^|\.)anota\.ai$|(^|\.)goomer\.app$|(^|\.)goomer\.com\.br$|(^|\.)livemenu\.app$|(^|\.)ola\.click$|(^|\.)ola\.menu$|(^|\.)menudino\.com$|(^|\.)deliverymuch\.com\.br$|(^|\.)deliverydireto\.com\.br$|(^|\.)instadelivery\.com\.br$|(^|\.)aiqfome\.com$|(^|\.)ifood\.com\.br$|(^|\.)cardapioweb\.com$/.test(host)
                 || /cardapio|card[a?]pio|menu|delivery|pedido|pedir|loja/i.test(`${host}${pathAndQuery}`)
               );
             } catch (_) {
@@ -6309,7 +7861,7 @@ export default function CityValidation() {
           const attachVisualMenuAudit = async (evidence: any, sourceUrl: string) => {
             if (!evidence?.success || !sourceUrl || !isSafeMenuUrl(sourceUrl)) return evidence;
             try {
-              addLog('Conferindo estrutura visual do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio com screenshots antes da curadoria IA...');
+              addLog('Conferindo estrutura visual do cardÃ¡pio com screenshots antes da curadoria IA...');
               const visualEvidence = await sendExtensionAction(
                 'auditMenuHybrid',
                 sourceUrl,
@@ -6318,7 +7870,7 @@ export default function CityValidation() {
               );
               if (!visualEvidence?.success) return evidence;
               const screenshots = Array.isArray(visualEvidence.screenshots) ? visualEvidence.screenshots : [];
-              addLog(`EvidÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia visual capturada: ${screenshots.length} screenshot(s) para comparar estrutura/categorias.`);
+              addLog(`EvidÃªncia visual capturada: ${screenshots.length} screenshot(s) para comparar estrutura/categorias.`);
               return {
                 ...evidence,
                 visualAuditEvidence: {
@@ -6337,13 +7889,47 @@ export default function CityValidation() {
                 visualItems: Array.isArray(visualEvidence.items) ? visualEvidence.items.slice(0, 120) : [],
               };
             } catch (visualError: any) {
-              addLog(`Aviso: nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o consegui capturar evidÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia visual do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio agora (${visualError.message || visualError}). A pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria decidirÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ se precisa recoletar.`);
+              addLog(`Aviso: nÃ£o consegui capturar evidÃªncia visual do cardÃ¡pio agora (${visualError.message || visualError}). A pÃ³s-auditoria decidirÃ¡ se precisa recoletar.`);
               return evidence;
+            }
+          };
+
+          const menuEvidenceLooksUnavailable = (evidence: any) => {
+            const haystack = normalizeText([
+              evidence?.error,
+              evidence?.title,
+              evidence?.rawText,
+              evidence?.visualRawText,
+              evidence?.finalUrl,
+              evidence?.sourceUrl,
+              evidence?.visualAuditEvidence?.title,
+              JSON.stringify(evidence?.visualAuditEvidence?.blockers || []),
+            ].filter(Boolean).join(' '));
+            return /404|not found|loja nao encontrada|nao esta mais disponivel|indisponivel|pagina nao encontrada|fora do ar|store not found|shop not found|cardapio nao encontrado|cardapio indisponivel/.test(haystack);
+          };
+
+          const failedMenuSourceKeys = new Set<string>();
+          const menuSourceUrlKey = (value: string) => {
+            try {
+              const parsed = new URL(value);
+              parsed.hash = '';
+              ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid']
+                .forEach((param) => parsed.searchParams.delete(param));
+              const host = parsed.hostname.toLowerCase().replace(/^www\./, '');
+              const pathname = parsed.pathname.replace(/\/+$/g, '').toLowerCase();
+              return `${host}${pathname}${parsed.search}`.trim();
+            } catch (_) {
+              return normalizeText(value);
             }
           };
 
           const validateCandidateUrl = async (sourceUrl: string, sourceLabel = '', discoveryMethod = 'textual_ai_url_selection') => {
             if (!sourceUrl || !isSafeMenuUrl(sourceUrl)) return false;
+            const sourceKey = menuSourceUrlKey(sourceUrl);
+            if (sourceKey && failedMenuSourceKeys.has(sourceKey)) {
+              addLog(`Fonte ja reprovada nesta execucao; pulando nova tentativa: ${sourceUrl}.`);
+              return false;
+            }
             const previousLearnedSourceUrl = learnedSourceUrl;
             const previousLearnedSourceLabel = learnedSourceLabel;
             const rejectCandidate = () => {
@@ -6352,17 +7938,35 @@ export default function CityValidation() {
               menuEvidence = null;
               return false;
             };
+            const rejectAndRememberCandidate = () => {
+              if (sourceKey) failedMenuSourceKeys.add(sourceKey);
+              return rejectCandidate();
+            };
+            const rememberUnavailableBioSource = (evidence: any) => {
+              if (!menuEvidenceLooksUnavailable(evidence)) return;
+              deferredMenuBlocker = {
+                error: 'Link da bio encontrado, mas a fonte do cardapio esta fora do ar/indisponivel (404).',
+                blocker: 'bio_menu_source_unavailable',
+                sourceUrl: learnedSourceUrl || sourceUrl,
+                sourceLabel,
+                discoveryMethod,
+                visualAuditEvidence: evidence?.visualAuditEvidence || null,
+              };
+              addLog(`Fonte da bio indisponivel/404: ${learnedSourceUrl || sourceUrl}. Vou registrar evidencia visual e continuar com fontes alternativas.`);
+            };
             learnedSourceUrl = sourceUrl;
-            learnedSourceLabel = sourceLabel || `CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio ${baseCity || 'oficial'}`;
+            learnedSourceLabel = sourceLabel || `CardÃ¡pio ${baseCity || 'oficial'}`;
             const nativeResult = await sendExtensionAction('extractMenuPlatform', learnedSourceUrl, {}, 240000);
             if (hasCriticalMenuDetailMiss(nativeResult)) {
               addLog(`Fonte rejeitada para salvar: a coleta profunda detectou detalhes/adicionais incompletos (${nativeResult?.error || learnedSourceUrl}).`);
-              return rejectCandidate();
+              return rejectAndRememberCandidate();
             }
             menuEvidence = nativeResult?.success ? nativeResult : await sendExtensionAction('auditMenuHybrid', learnedSourceUrl, {}, 240000);
             if (nativeResult?.requiresHuman || menuEvidence?.requiresHuman) {
-              addLog(`Fonte exige intervenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o/recoleta assistida: ${nativeResult?.error || menuEvidence?.error || learnedSourceUrl}.`);
-              return rejectCandidate();
+              addLog(`Fonte exige intervenÃ§Ã£o/recoleta assistida: ${nativeResult?.error || menuEvidence?.error || learnedSourceUrl}.`);
+              rememberUnavailableBioSource(nativeResult);
+              rememberUnavailableBioSource(menuEvidence);
+              return rejectAndRememberCandidate();
             }
             if (menuEvidence?.success) menuEvidence = await attachVisualMenuAudit(menuEvidence, learnedSourceUrl);
             effectiveRestaurant = await persistRestaurantContacts(
@@ -6376,16 +7980,17 @@ export default function CityValidation() {
             if (menuEvidence?.success) {
               const evidenceUrl = String(menuEvidence.finalUrl || menuEvidence.sourceUrl || learnedSourceUrl || '');
               if (evidenceUrl && !isSafeMenuUrl(evidenceUrl)) {
-                addLog(`Fonte rejeitada: a navegaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o terminou em URL insegura/irrelevante (${evidenceUrl}).`);
-                return rejectCandidate();
+                addLog(`Fonte rejeitada: a navegaÃ§Ã£o terminou em URL insegura/irrelevante (${evidenceUrl}).`);
+                return rejectAndRememberCandidate();
               }
               menuEvidence = { ...menuEvidence, sourceUrl: learnedSourceUrl, discoveryMethod };
               const confirmedItems = Array.isArray(menuEvidence.categories)
                 ? menuEvidence.categories.reduce((total: number, category: any) => total + (category.items?.length || 0), 0)
                 : Number(menuEvidence.metrics?.itemCandidates || 0);
               if (!confirmedItems || confirmedItems < 1) {
+                rememberUnavailableBioSource(menuEvidence);
                 addLog(`Fonte rejeitada: nenhum item real encontrado em ${learnedSourceUrl}.`);
-                return rejectCandidate();
+                return rejectAndRememberCandidate();
               }
               const sourceMetrics = menuEvidence.metrics || {};
               const optionCount = Number(sourceMetrics.optionCount || 0);
@@ -6395,12 +8000,14 @@ export default function CityValidation() {
                 ? ` Auditoria de detalhes: ${detailVerification.warning}.`
                 : '';
               const structuredSummary = optionCount || imageCount
-                ? ` (${optionCount} opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes/adicionais, ${imageCount} imagens).`
+                ? ` (${optionCount} opÃ§Ãµes/adicionais, ${imageCount} imagens).`
                 : '.';
               addLog(`Fonte validada: ${confirmedItems} itens candidatos em ${learnedSourceUrl}${structuredSummary}${detailWarning}`);
               return true;
             }
-            return rejectCandidate();
+            rememberUnavailableBioSource(nativeResult);
+            rememberUnavailableBioSource(menuEvidence);
+            return rejectAndRememberCandidate();
           };
 
           const normalizeCandidateUrl = (value: string) => {
@@ -6431,7 +8038,7 @@ export default function CityValidation() {
               '',
               reason
             );
-            const menuDomainScore = (value: string) => /saipos|livemenu|ola\.click|olaclick|anota|ifood|menudino|deliverymuch|goomer|aiqfome|cardapio|menu/i.test(value) ? 35 : 0;
+            const menuDomainScore = (value: string) => /saipos|livemenu|ola\.click|olaclick|anota|ifood|menudino|deliverymuch|deliverydireto|instadelivery|goomer|aiqfome|cardapio|menu/i.test(value) ? 35 : 0;
             const cityTokenHit = (candidate: any) => {
               if (!cityKey) return false;
               return normalizeKey(`${candidate.label || ''} ${candidate.url || ''}`).includes(cityKey);
@@ -6466,7 +8073,7 @@ export default function CityValidation() {
             const executePlannedCandidate = async (candidate: any, method: string) => {
               if (!candidate?.url) return false;
               if (candidate.kind === 'link_hub' || isBioBridgeUrl(candidate.url)) {
-                addLog(`IA identificou pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gina agregadora de links (${candidate.url}). O robÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´ abrirÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ o hub e a IA escolherÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ o botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o interno correto.`);
+                addLog(`IA identificou pÃ¡gina agregadora de links (${candidate.url}). O robÃ´ abrirÃ¡ o hub e a IA escolherÃ¡ o botÃ£o interno correto.`);
                 return await runGptNavigationDiscovery(candidate.url, `${method}: ${candidate.label || candidate.url}`);
               }
               return await validateCandidateUrl(candidate.url, candidate.label, method);
@@ -6478,15 +8085,15 @@ export default function CityValidation() {
               addLog(`Fonte candidata forte encontrada nos links do Instagram: ${strongCandidate.label || strongCandidate.url}.`);
               const ok = await executePlannedCandidate(strongCandidate, 'instagram_text_link_selection');
               if (ok) return true;
-              addLog(`Fonte candidata forte nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o passou na validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ${strongCandidate.url}.`);
+              addLog(`Fonte candidata forte nÃ£o passou na validaÃ§Ã£o: ${strongCandidate.url}.`);
             }
-            addLog(`IA textual avaliando ${merged.length} candidato(s) de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio: ${reason}.`);
+            addLog(`IA textual avaliando ${merged.length} candidato(s) de cardÃ¡pio: ${reason}.`);
             try {
               const response = await fetch('/api/local-collector/ai-chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                  systemContext: 'VocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© o planejador do robÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´ de coleta. Escolha a prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³xima fonte para achar o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio correto. Se a URL for hub, encurtador ou ponte intermediÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria da bio, ela NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢O ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio final: escolha action="open_link_hub" para o robÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´ abrir e vocÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âª decidir o botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o interno da cidade/unidade correta. Se for cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio direto, use action="validate_direct". Responda SOMENTE JSON: {"selected_index":numero,"action":"validate_direct|open_link_hub","confidence":0_a_1,"reason":"curto"}. Nunca escolha redes sociais como destino final. Nunca escolha raiz genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rica de plataforma, como cardapioweb.com/, livemenu.app/ ou pedido.anota.ai/ sem caminho da loja/menu. Prefira cidade/unidade correta e domÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­nios de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio/delivery.',
+                  systemContext: 'VocÃª Ã© o planejador do robÃ´ de coleta. Escolha a prÃ³xima fonte para achar o cardÃ¡pio correto. Se a URL for hub, encurtador ou ponte intermediÃ¡ria da bio, ela NÃƒO Ã© o cardÃ¡pio final: escolha action="open_link_hub" para o robÃ´ abrir e vocÃª decidir o botÃ£o interno da cidade/unidade correta. Se for cardÃ¡pio direto, use action="validate_direct". Responda SOMENTE JSON: {"selected_index":numero,"action":"validate_direct|open_link_hub","confidence":0_a_1,"reason":"curto"}. Nunca escolha redes sociais como destino final. Nunca escolha raiz genÃ©rica de plataforma, como cardapioweb.com/, livemenu.app/ ou pedido.anota.ai/ sem caminho da loja/menu. Prefira cidade/unidade correta e domÃ­nios de cardÃ¡pio/delivery.',
                   message: JSON.stringify({
                     restaurantName: baseName,
                     city: baseCity || '',
@@ -6504,16 +8111,16 @@ export default function CityValidation() {
               const selected = merged.find(candidate => candidate.index === Number(decision.selected_index));
               const confidence = Number(decision.confidence || 0);
               if (selected && confidence >= 0.5) {
-                addLog(`IA textual planejou fonte: ${selected.label || selected.url} (${decision.action || selected.kind}, confianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a ${Math.round(confidence * 100)}%). Motivo: ${decision.reason || 'sem motivo'}.`);
+                addLog(`IA textual planejou fonte: ${selected.label || selected.url} (${decision.action || selected.kind}, confianÃ§a ${Math.round(confidence * 100)}%). Motivo: ${decision.reason || 'sem motivo'}.`);
                 const plannedSelected = { ...selected, kind: decision.action === 'open_link_hub' ? 'link_hub' : selected.kind };
                 if (await executePlannedCandidate(plannedSelected, 'textual_ai_url_selection')) return true;
                 const alternates = merged.filter(candidate => candidate.url !== selected.url).slice(0, 3);
                 for (const alternate of alternates) {
-                  addLog(`Tentando fonte alternativa apÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s falha da escolhida: ${alternate.label || alternate.url}.`);
+                  addLog(`Tentando fonte alternativa apÃ³s falha da escolhida: ${alternate.label || alternate.url}.`);
                   if (await executePlannedCandidate(alternate, 'textual_ai_url_selection_alternate')) return true;
                 }
               }
-              addLog('IA textual nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o teve confianÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a suficiente para escolher fonte.');
+              addLog('IA textual nÃ£o teve confianÃ§a suficiente para escolher fonte.');
             } catch (error: any) {
               addLog(`IA textual falhou ao arbitrar fonte: ${error.message || error}.`);
             }
@@ -6522,18 +8129,18 @@ export default function CityValidation() {
 
           async function runGptNavigationDiscovery(startUrl: string, sourceLabel: string) {
             if (!startUrl || !/^https?:\/\//i.test(startUrl)) return false;
-            addLog(`GPT navegador tentando descobrir cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio a partir de ${sourceLabel}...`);
+            addLog(`GPT navegador tentando descobrir cardÃ¡pio a partir de ${sourceLabel}...`);
             try {
               const startHost = new URL(startUrl).hostname.toLowerCase();
               const navResult = await sendExtensionAction('navigateWithAI', startUrl, {
                 goal: [
-                  `Encontrar a URL pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblica de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio/delivery do restaurante "${baseName}".`,
-                  baseCity ? `A unidade/cidade correta ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© ${baseCity}.` : '',
-                  baseNeighborhood ? `Bairro/endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o de referÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia: ${baseNeighborhood}.` : '',
-                  'Se houver vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rios links, escolha o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio da unidade correta.',
-                  'NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o aceite a home/raiz genÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©rica de plataformas como cardapioweb.com, livemenu.app ou pedido.anota.ai; a URL precisa apontar para loja/menu/unidade.',
-                  'Se encontrar login, captcha ou bloqueio, peÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§a intervenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o humana.',
-                  'NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o clique em compra, pedido, pagamento, checkout ou aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes destrutivas.'
+                  `Encontrar a URL pÃºblica de cardÃ¡pio/delivery do restaurante "${baseName}".`,
+                  baseCity ? `A unidade/cidade correta Ã© ${baseCity}.` : '',
+                  baseNeighborhood ? `Bairro/endereÃ§o de referÃªncia: ${baseNeighborhood}.` : '',
+                  'Se houver vÃ¡rios links, escolha o cardÃ¡pio da unidade correta.',
+                  'NÃ£o aceite a home/raiz genÃ©rica de plataformas como cardapioweb.com, livemenu.app ou pedido.anota.ai; a URL precisa apontar para loja/menu/unidade.',
+                  'Se encontrar login, captcha ou bloqueio, peÃ§a intervenÃ§Ã£o humana.',
+                  'NÃ£o clique em compra, pedido, pagamento, checkout ou aÃ§Ãµes destrutivas.'
                 ].filter(Boolean).join(' '),
                 context: {
                   restaurantName: baseName,
@@ -6555,22 +8162,22 @@ export default function CityValidation() {
               );
 
               if (navResult?.requiresHuman) {
-                requiresHuman = navResult;
-                addLog(`GPT navegador pediu intervenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o humana: ${navResult.error || navResult.blocker || 'sem motivo informado'}.`);
+                deferredMenuBlocker = navResult;
+                addLog(`GPT navegador nao conseguiu concluir agora (${navResult.error || navResult.blocker || 'sem motivo informado'}); vou tentar as outras fontes permitidas antes de pedir intervencao.`);
                 return false;
               }
 
               const finalUrl = String(navResult?.finalUrl || '');
               if (!navResult?.success || !finalUrl || !isSafeMenuUrl(finalUrl)) {
-                addLog(`GPT navegador nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o confirmou uma URL segura de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio: ${navResult?.error || finalUrl || 'sem resultado'}.`);
+                addLog(`GPT navegador nÃ£o confirmou uma URL segura de cardÃ¡pio: ${navResult?.error || finalUrl || 'sem resultado'}.`);
                 return false;
               }
 
-              addLog(`GPT navegador encontrou possÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel fonte: ${finalUrl}. Validando com adaptador/auditoria...`);
+              addLog(`GPT navegador encontrou possÃ­vel fonte: ${finalUrl}. Validando com adaptador/auditoria...`);
               const ok = await validateCandidateUrl(finalUrl, `GPT navegador: ${sourceLabel}`, 'gpt_navigation_discovery');
               if (ok) return true;
 
-              addLog(`Fonte encontrada pelo GPT navegador nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o passou na validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio: ${finalUrl}.`);
+              addLog(`Fonte encontrada pelo GPT navegador nÃ£o passou na validaÃ§Ã£o de cardÃ¡pio: ${finalUrl}.`);
               return false;
             } catch (error: any) {
               addLog(`GPT navegador falhou em ${sourceLabel}: ${error.message || error}.`);
@@ -6612,7 +8219,7 @@ export default function CityValidation() {
               .slice(0, 10);
             if (!cleanImages.length) return false;
 
-            addLog(`IA Vision analisando ${cleanImages.length} imagem(ns) candidata(s) de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio (${source}).`);
+            addLog(`IA Vision analisando ${cleanImages.length} imagem(ns) candidata(s) de cardÃ¡pio (${source}).`);
             try {
               const response = await fetch('/api/local-collector/extract-menu-from-images', {
                 method: 'POST',
@@ -6626,14 +8233,14 @@ export default function CityValidation() {
               });
               const data = await response.json().catch(() => ({}));
               if (!response.ok || !data?.success || !data?.menuEvidence) {
-                addLog(`IA Vision nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o confirmou cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio em imagens (${source}): ${data?.error || `HTTP ${response.status}`}`);
+                addLog(`IA Vision nÃ£o confirmou cardÃ¡pio em imagens (${source}): ${data?.error || `HTTP ${response.status}`}`);
                 return false;
               }
               menuEvidence = data.menuEvidence;
-              addLog(`CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio encontrado por imagem (${source}); enviando para OCR/estruturaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.`);
+              addLog(`CardÃ¡pio encontrado por imagem (${source}); enviando para OCR/estruturaÃ§Ã£o.`);
               return true;
             } catch (error: any) {
-              addLog(`Falha ao analisar imagens de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio (${source}): ${error.message || error}.`);
+              addLog(`Falha ao analisar imagens de cardÃ¡pio (${source}): ${error.message || error}.`);
               return false;
             }
           };
@@ -6642,6 +8249,7 @@ export default function CityValidation() {
           let learnedSourceUrl = '';
           let learnedSourceLabel = '';
           let requiresHuman: any = null;
+          let deferredMenuBlocker: any = null;
 
           const instagramBioMenuCandidates = instagramMenuCandidates.filter((candidate: any) => isInstagramBioCandidate(candidate));
           if (instagramMenuCandidates.length > instagramBioMenuCandidates.length) {
@@ -6662,12 +8270,12 @@ export default function CityValidation() {
 
 
           if (!menuEvidence?.success && activeInstagramUrl && instagramMenuCandidates.length === 0) {
-            addLog('Modo seguro anti-abas ativo: descoberta por clique/navegaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o livre foi bloqueada para evitar abrir mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºltiplas abas.');
+            addLog('Modo seguro anti-abas ativo: descoberta por clique/navegaÃ§Ã£o livre foi bloqueada para evitar abrir mÃºltiplas abas.');
           }
 
-          // Prioridade: descoberta nativa da bio por cidade/domÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½nio. Nao usar Google/site oficial para cardapio.
+          // Prioridade: descoberta nativa da bio por cidade/domÃ¯Â¿Â½nio. Nao usar Google/site oficial para cardapio.
           if (!menuEvidence?.success && activeInstagramUrl && !requiresHuman) {
-            addLog(`Descobrindo na bio o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio correspondente a ${baseCity || 'cidade cadastrada'}...`);
+            addLog(`Descobrindo na bio o cardÃ¡pio correspondente a ${baseCity || 'cidade cadastrada'}...`);
             const discoveryResult = await sendExtensionAction('scrapeMenuFromInstagram', activeInstagramUrl, {
               instagramUrl: activeInstagramUrl,
               restaurantName: baseName,
@@ -6688,9 +8296,14 @@ export default function CityValidation() {
                 learnedSourceLabel || 'descoberta nativa da bio'
               );
               if (!isSafeMenuUrl(learnedSourceUrl)) {
-                throw new Error(`A fonte descoberta nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© um destino seguro de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio: ${learnedSourceUrl || 'URL ausente'}`);
+                throw new Error(`A fonte descoberta nÃ£o Ã© um destino seguro de cardÃ¡pio: ${learnedSourceUrl || 'URL ausente'}`);
               }
-              addLog(`CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio de ${baseCity || 'cidade'} selecionado na bio: ${learnedSourceLabel || learnedSourceUrl}`);
+              addLog(`CardÃ¡pio de ${baseCity || 'cidade'} selecionado na bio: ${learnedSourceLabel || learnedSourceUrl}`);
+              if (!instagramFeedGalleryAllowed && instagramFeedMenuImageCandidates.length > 0) {
+                instagramFeedGalleryAllowed = true;
+                instagramFeedGalleryBlockReason = '';
+                await saveInstagramFeedGalleryAfterUnitMatch(`bio/hub selecionou ${learnedSourceLabel || learnedSourceUrl}`);
+              }
               const nativeResult = await sendExtensionAction('extractMenuPlatform', learnedSourceUrl, {}, 240000);
               if (hasCriticalMenuDetailMiss(nativeResult)) {
                 await persistMenuStatus(
@@ -6699,7 +8312,7 @@ export default function CityValidation() {
                   `Coleta profunda detectou detalhes/adicionais incompletos na fonte ${learnedSourceUrl}. Validar IA deve abrir item por item antes de salvar.`,
                   { nativeResult, learnedSourceUrl, learnedSourceLabel }
                 );
-                throw new Error(`CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio encontrado, mas a coleta item-a-item estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ incompleta: ${nativeResult?.error || learnedSourceUrl}`);
+                throw new Error(`CardÃ¡pio encontrado, mas a coleta item-a-item estÃ¡ incompleta: ${nativeResult?.error || learnedSourceUrl}`);
               }
               if (nativeResult?.success && Array.isArray(nativeResult.categories) && nativeResult.categories.length > 0) {
                 menuEvidence = { ...nativeResult, sourceUrl: learnedSourceUrl, discoveryMethod: discoveryResult.discoveryMethod || 'instagram_bio_city_match' };
@@ -6707,22 +8320,42 @@ export default function CityValidation() {
                 addLog(`Adaptador nativo ${nativeResult.platform} confirmou ${nativeItems} itens.`);
                 menuEvidence = await attachVisualMenuAudit(menuEvidence, learnedSourceUrl);
               } else {
-                menuEvidence = {
-                  success: true,
-                  platform: discoveryResult.parsedMenu ? 'instagram_bio_structured' : 'instagram_bio_dom',
-                  categories: discoveryResult.parsedMenu || [],
-                  rawText: discoveryResult.rawText || '',
-                  sourceUrl: learnedSourceUrl,
-                  discoveryMethod: discoveryResult.discoveryMethod || 'instagram_bio_city_match'
-                };
-                menuEvidence = await attachVisualMenuAudit(menuEvidence, learnedSourceUrl);
+                const parsedCategories = Array.isArray(discoveryResult.parsedMenu) ? discoveryResult.parsedMenu : [];
+                const parsedItemCount = parsedCategories.reduce((total: number, category: any) => total + (Array.isArray(category?.items) ? category.items.length : 0), 0);
+                const rawText = String(discoveryResult.rawText || '').trim();
+                if (parsedCategories.length > 0 && parsedItemCount > 0) {
+                  menuEvidence = {
+                    success: true,
+                    platform: 'instagram_bio_structured',
+                    categories: parsedCategories,
+                    rawText,
+                    sourceUrl: learnedSourceUrl,
+                    discoveryMethod: discoveryResult.discoveryMethod || 'instagram_bio_city_match'
+                  };
+                  menuEvidence = await attachVisualMenuAudit(menuEvidence, learnedSourceUrl);
+                } else {
+                  deferredMenuBlocker = {
+                    error: nativeResult?.error || 'Link da bio encontrado, mas ainda sem itens de cardapio estruturados.',
+                    blocker: 'empty_menu_evidence_from_bio_link',
+                    sourceUrl: learnedSourceUrl
+                  };
+                  addLog(`Link da bio encontrado (${learnedSourceUrl}), mas o adaptador nao retornou itens estruturados; vou continuar com destaques/feed/fotos antes de pedir intervencao.`);
+                }
               }
             } else if (discoveryResult?.requiresHuman) {
-              requiresHuman = discoveryResult;
-              addLog(`Descoberta nativa solicitou intervenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ${discoveryResult.error || discoveryResult.blocker || 'sem motivo informado'}.`);
-              addLog('Fallbacks de links bloqueados: quando a bio/hub pede intervenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o humana, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o vou clicar em links soltos nem em promoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes.');
+              if (discoveryResult.blocker === 'instagram_links_unavailable' && instagramBioMenuCandidates.length > 0) {
+                addLog(`Descoberta nativa nao conseguiu reler os links na pagina, mas ${instagramBioMenuCandidates.length} link(s) oficial(is) da bio ja estavam preservados pela validacao do Instagram. Vou usar esses links da bio antes de pedir intervencao.`);
+                const ok = await runTextualMenuArbiter(instagramBioMenuCandidates, 'links oficiais da bio preservados da validacao do Instagram');
+                if (!ok) {
+                  deferredMenuBlocker = discoveryResult;
+                  addLog(`Links oficiais preservados da bio ainda nao confirmaram cardapio automaticamente (${discoveryResult.error || discoveryResult.blocker || 'sem motivo informado'}); vou tentar destaques/feed/fotos antes de pedir intervencao.`);
+                }
+              } else {
+                deferredMenuBlocker = discoveryResult;
+                addLog(`Descoberta nativa nao concluiu agora (${discoveryResult.error || discoveryResult.blocker || 'sem motivo informado'}); vou tentar destaques/feed/fotos permitidas antes de pedir intervencao.`);
+              }
             } else if (!discoveryResult?.success) {
-              addLog(`Descoberta nativa nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o encontrou cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio: ${discoveryResult?.error || 'sem motivo informado'}.`);
+              addLog(`Descoberta nativa nÃ£o encontrou cardÃ¡pio: ${discoveryResult?.error || 'sem motivo informado'}.`);
             }
           }
 
@@ -6735,7 +8368,7 @@ export default function CityValidation() {
             }
           }
           if (!menuEvidence?.success && activeInstagramUrl && !requiresHuman) {
-            addLog('Descoberta nativa completa nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o confirmou o cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio; tentando descoberta rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pida de links da bio...');
+            addLog('Descoberta nativa completa nÃ£o confirmou o cardÃ¡pio; tentando descoberta rÃ¡pida de links da bio...');
             const linkDiscovery = await sendExtensionAction('discoverInstagramMenuLinks', activeInstagramUrl, {
               instagramUrl: activeInstagramUrl,
               restaurantName: baseName,
@@ -6786,15 +8419,114 @@ export default function CityValidation() {
               addLog('Fontes permitidas nao confirmaram cardapio; busca em Google/site oficial e candidatos externos foram bloqueados pela regra do app.');
             }
 
-          if (!menuEvidence?.success && activeInstagramUrl && !requiresHuman) {
+          if (!menuEvidence?.success && !requiresHuman) {
+            const savedMenuSourceUrl = normalizeCandidateUrl(String(
+              effectiveRestaurant?.other_url
+              || restaurant?.other_url
+              || (effectiveRestaurant as any)?.menuSourceUrl
+              || (restaurant as any)?.menuSourceUrl
+              || ''
+            ));
+
+            if (savedMenuSourceUrl && isDirectBioMenuUrl(savedMenuSourceUrl)) {
+              addLog(`Fonte de cardapio ja salva detectada (${savedMenuSourceUrl}). Vou reconciliar a fonte antes de preservar cardapio existente.`);
+              const reconciled = await validateCandidateUrl(
+                savedMenuSourceUrl,
+                String(effectiveRestaurant?.other_url_label || restaurant?.other_url_label || 'Cardapio salvo anteriormente'),
+                'saved_menu_source_reconciliation'
+              );
+              if (!reconciled) {
+                addLog('Fonte salva anteriormente nao passou na reconciliacao agora; so entao vou avaliar se existe cardapio estruturado no banco para preservar.');
+              }
+            }
+          }
+
+          let existingStructuredMenuSnapshot: any = null;
+          if (!menuEvidence?.success) {
+            try {
+              const snapshot = await getMenuQualitySnapshot(restaurant.id);
+              const categoryCount = Array.isArray(snapshot?.categories) ? snapshot.categories.length : 0;
+              const itemCount = Number(snapshot?.itemCount || 0);
+              const junkItemCount = Number(snapshot?.junkItemCount || 0);
+              if (categoryCount > 0 && itemCount > 0 && junkItemCount < itemCount) {
+                existingStructuredMenuSnapshot = snapshot;
+                addLog(`Cardapio estruturado existente encontrado no banco: ${itemCount} item(ns) em ${categoryCount} categoria(s). Vou preserva-lo e seguir para a etapa final de fotos.`);
+              }
+            } catch (snapshotError: any) {
+              addLog(`Nao consegui verificar cardapio estruturado existente antes da etapa final: ${snapshotError.message || snapshotError}`);
+            }
+          }
+
+          if (!menuEvidence?.success && activeInstagramUrl && !requiresHuman && !existingStructuredMenuSnapshot) {
             requiresHuman = {
-              error: 'Cardapio nao confirmado pelas fontes permitidas: bio do Instagram, imagens do Instagram ou fotos recentes do Google Maps.',
-              blocker: 'allowed_menu_sources_exhausted'
+              error: deferredMenuBlocker?.error || deferredMenuBlocker?.blocker || 'Cardapio nao confirmado pelas fontes permitidas: bio do Instagram, imagens do Instagram ou fotos recentes do Google Maps.',
+              blocker: 'allowed_menu_sources_exhausted',
+              sourceBlocker: deferredMenuBlocker?.blocker || '',
+              sourceUrl: deferredMenuBlocker?.sourceUrl || '',
+              sourceLabel: deferredMenuBlocker?.sourceLabel || '',
+              visualAuditEvidence: deferredMenuBlocker?.visualAuditEvidence || null,
             };
           }
 
           if (!menuEvidence?.success) {
-            if (requiresHuman) {
+            if (existingStructuredMenuSnapshot) {
+              await ensureMinimumGalleryForReadyMenu(existingStructuredMenuSnapshot.categories || [], 'cardapio estruturado existente');
+
+              const categoryCount = Array.isArray(existingStructuredMenuSnapshot.categories) ? existingStructuredMenuSnapshot.categories.length : 0;
+              const itemCount = Number(existingStructuredMenuSnapshot.itemCount || 0);
+              const publicationWarnings = collectPublicationWarnings(effectiveRestaurant);
+              const preservedMenuPayload = {
+                sourceUrl: learnedSourceUrl || '',
+                discoveryMethod: 'existing_structured_menu_preserved',
+                platform: '',
+                existingStructuredMenu: {
+                  categoryCount,
+                  itemCount,
+                  pricedItemCount: Number(existingStructuredMenuSnapshot.pricedItemCount || 0),
+                  priceCoverage: Number(existingStructuredMenuSnapshot.priceCoverage || 0),
+                  junkItemCount: Number(existingStructuredMenuSnapshot.junkItemCount || 0),
+                  galleryImageCount: savedGalleryUrls.size,
+                  minGalleryImageCount: MIN_PUBLIC_GALLERY_IMAGES,
+                  googleSearchGalleryCandidateCount: googleSearchGalleryImageCandidates.length,
+                  googleMapsGalleryCandidateCount: googleMapsGalleryImageCandidates.length,
+                },
+                publicationWarnings,
+              };
+
+              if (savedGalleryUrls.size < MIN_PUBLIC_GALLERY_IMAGES) {
+                await persistMenuStatus(
+                  restaurant,
+                  'manual_required',
+                  `Cardapio estruturado existente preservado (${itemCount} itens), mas a galeria ficou com ${savedGalleryUrls.size}/${MIN_PUBLIC_GALLERY_IMAGES} fotos publicaveis. Intervencao humana necessaria para completar a galeria.`,
+                  preservedMenuPayload
+                );
+                finalMenuStatus = 'manual_required';
+                addLog(`Cardapio existente preservado (${itemCount} item(ns)), mas galeria ficou ${savedGalleryUrls.size}/${MIN_PUBLIC_GALLERY_IMAGES}; restaurante segue em revisao ate completar a galeria minima.`);
+                toast.warning('Cardapio existente preservado, mas a galeria ficou abaixo do minimo.');
+              } else {
+                await persistMenuStatus(
+                  restaurant,
+                  'found',
+                  `Cardapio estruturado existente preservado com ${itemCount} itens; Validar IA completou a galeria automaticamente.`,
+                  preservedMenuPayload
+                );
+                finalMenuStatus = 'found';
+                if (publicationWarnings.length) {
+                  addLog(`Avisos nao bloqueantes para publicacao: ${publicationWarnings.join(' | ')}`);
+                  toast.warning(`Pronto com aviso: ${publicationWarnings.join(' | ')}`);
+                } else {
+                  toast.success('Cardapio existente preservado e galeria completada.');
+                }
+              }
+            } else if (requiresHuman?.blocker === 'allowed_menu_sources_exhausted') {
+              const exhaustedReason = requiresHuman?.sourceBlocker === 'bio_menu_source_unavailable'
+                ? `Link da bio encontrado, mas a fonte do cardapio esta fora do ar/indisponivel (404): ${requiresHuman.sourceUrl || 'URL nao registrada'}.`
+                : 'Nenhuma fonte confiavel de cardapio foi encontrada nas fontes permitidas: bio do Instagram, imagens do Instagram e fotos recentes do Google Maps.';
+              await persistMenuStatus(restaurant, 'not_found', exhaustedReason, { requiresHuman });
+              finalMenuStatus = 'not_found';
+              addLog(exhaustedReason);
+              toast.warning('Restaurante validado, mas sem cardapio online confiavel.');
+            } else if (requiresHuman) {
               await persistMenuStatus(restaurant, 'manual_required', `Intervencao necessaria: ${requiresHuman.error || requiresHuman.blocker || 'bloqueio/login/captcha'}`, { requiresHuman });
               finalMenuStatus = 'manual_required';
               addLog(`Cardapio nao coletado automaticamente: intervencao humana necessaria (${requiresHuman.error || requiresHuman.blocker || 'bloqueio'}).`);
@@ -6808,9 +8540,9 @@ export default function CityValidation() {
           }
           if (false && !menuEvidence?.success) {
             if (requiresHuman) {
-              throw new Error(`IntervenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o necessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ria: ${requiresHuman.error} ApÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s o login, execute Validar IA novamente; a aba foi mantida aberta.`);
+              throw new Error(`IntervenÃ§Ã£o necessÃ¡ria: ${requiresHuman.error} ApÃ³s o login, execute Validar IA novamente; a aba foi mantida aberta.`);
             }
-            throw new Error('Nenhuma fonte confiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio foi encontrada para a cidade correta.');
+            throw new Error('Nenhuma fonte confiÃ¡vel de cardÃ¡pio foi encontrada para a cidade correta.');
           }
 
           if (menuEvidence?.success) {
@@ -6821,24 +8553,43 @@ export default function CityValidation() {
             });
             const previewResult = await previewResponse.json().catch(() => ({}));
             if (!previewResponse.ok || !previewResult.success) {
-              const blockedStatus = previewResult?.requiresHuman ? 'manual_required' : 'needs_recollection';
+              const sourceUnavailableFromBio = deferredMenuBlocker?.blocker === 'bio_menu_source_unavailable';
+              const evidenceSource = String(menuEvidence?.discoveryMethod || menuEvidence?.platform || '').toLowerCase();
+              const previewFailureText = normalizeText([
+                previewResult?.message,
+                previewResult?.error,
+                previewResult?.reason,
+              ].filter(Boolean).join(' '));
+              const imageEvidenceDidNotYieldMenu = /instagram_(highlight|feed).*menu_image|google_recent.*menu_image/.test(evidenceSource)
+                && /sem categorias|sem itens|sem categorias itens|no categories|no items|menuevidence recebido|categorias itens suficientes|insuficientes/.test(previewFailureText);
+              const sourcesExhaustedWithoutPublishableMenu = sourceUnavailableFromBio || imageEvidenceDidNotYieldMenu;
+              const blockedStatus = sourcesExhaustedWithoutPublishableMenu
+                ? 'not_found'
+                : (previewResult?.requiresHuman ? 'manual_required' : 'needs_recollection');
+              const blockedReason = sourceUnavailableFromBio
+                ? `Link da bio encontrado, mas a fonte do cardapio esta fora do ar/indisponivel (404): ${deferredMenuBlocker.sourceUrl || 'URL nao registrada'}.`
+                : imageEvidenceDidNotYieldMenu
+                  ? 'Fontes permitidas verificadas, mas nenhuma confirmou cardapio publicavel: bio do Instagram, destaques/feed do Instagram e fotos recentes do Google Maps.'
+                : (previewResult.message || previewResult.error || 'A previa do cardapio nao atingiu qualidade para salvar.');
               await persistMenuStatus(
                 restaurant,
                 blockedStatus,
-                previewResult.message || previewResult.error || 'A prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©via do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o atingiu qualidade para salvar.',
+                blockedReason,
                 {
-                  sourceUrl: menuEvidence?.sourceUrl || learnedSourceUrl || '',
+                  sourceUrl: sourceUnavailableFromBio ? (deferredMenuBlocker.sourceUrl || menuEvidence?.sourceUrl || learnedSourceUrl || '') : (menuEvidence?.sourceUrl || learnedSourceUrl || ''),
                   discoveryMethod: menuEvidence?.discoveryMethod || '',
                   platform: menuEvidence?.platform || '',
                   menuEvidence,
                   previewResult,
+                  failedBioMenuSource: sourceUnavailableFromBio ? deferredMenuBlocker : null,
+                  allowedSourcesExhaustedWithoutMenu: sourcesExhaustedWithoutPublishableMenu,
                 }
               );
               finalMenuStatus = blockedStatus;
-              addLog(`PrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©via do cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio bloqueada antes de salvar: ${previewResult.message || previewResult.error || 'qualidade insuficiente'}.`);
+              addLog(`Previa do cardapio bloqueada antes de salvar: ${blockedReason}`);
             } else {
-              addLog(`PrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©via estruturada sem salvar: ${previewResult.message || `${previewResult.audit?.itemCount || 0} itens candidatos`}.`);
-              addLog('PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ria: revisando endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o, cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio e dados antes de liberar para o app.');
+              addLog(`PrÃ©via estruturada sem salvar: ${previewResult.message || `${previewResult.audit?.itemCount || 0} itens candidatos`}.`);
+              addLog('PÃ³s-auditoria IA obrigatÃ³ria: revisando endereÃ§o, cardÃ¡pio e dados antes de liberar para o app.');
 
               try {
                 const finalAudit = await runReadyForAppAudit(restaurant, {
@@ -6854,7 +8605,7 @@ export default function CityValidation() {
                   await persistMenuStatus(
                     restaurant,
                     blockedStatus,
-                    `PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA bloqueou publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ${finalAudit.reason}`,
+                    `PÃ³s-auditoria IA bloqueou publicaÃ§Ã£o: ${finalAudit.reason}`,
                     {
                       sourceUrl: menuEvidence?.sourceUrl || learnedSourceUrl || '',
                       discoveryMethod: menuEvidence?.discoveryMethod || '',
@@ -6864,21 +8615,23 @@ export default function CityValidation() {
                     }
                   );
                   finalMenuStatus = blockedStatus;
-                  addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA bloqueou pronto p/ app antes de salvar menu: ${finalAudit.reason}`);
+                  addLog(`PÃ³s-auditoria IA bloqueou pronto p/ app antes de salvar menu: ${finalAudit.reason}`);
                 } else {
                   const aiNormalizedMenu = finalAudit.audit?.normalizedMenu || [];
                   const appliedMenu = await replaceRestaurantMenuFromAudit(restaurant.id, aiNormalizedMenu);
                   const appliedItemCount = appliedMenu.reduce((total: number, category: any) => total + (category.items?.length || 0), 0);
                   if (!appliedItemCount) {
-                    await persistMenuStatus(restaurant, 'failed', 'IA aprovou, mas nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o retornou cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio normalizado salvÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.', {
+                    await persistMenuStatus(restaurant, 'failed', 'IA aprovou, mas nÃ£o retornou cardÃ¡pio normalizado salvÃ¡vel.', {
                       sourceUrl: menuEvidence?.sourceUrl || learnedSourceUrl || '',
                       discoveryMethod: menuEvidence?.discoveryMethod || '',
                       platform: menuEvidence?.platform || '',
                       extractorAudit: previewResult.audit || null,
                       finalAudit,
                     });
-                    throw new Error('IA aprovou, mas nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o retornou cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio normalizado salvÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel.');
+                    throw new Error('IA aprovou, mas nÃ£o retornou cardÃ¡pio normalizado salvÃ¡vel.');
                   }
+
+                  await ensureMinimumGalleryForReadyMenu(appliedMenu, 'cardapio oficial aprovado pela IA');
 
                   const publicationWarnings = collectPublicationWarnings({
                     ...effectiveRestaurant,
@@ -6889,34 +8642,51 @@ export default function CityValidation() {
                     toast.warning(`Pronto com aviso: ${publicationWarnings.join(' | ')}`);
                   }
 
-                  await persistMenuStatus(
-                    restaurant,
-                    'found',
-                    finalAudit.reason || `CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio normalizado pela IA com ${appliedItemCount} itens.`,
-                    {
-                      sourceUrl: menuEvidence?.sourceUrl || learnedSourceUrl || '',
-                      discoveryMethod: menuEvidence?.discoveryMethod || '',
-                      platform: menuEvidence?.platform || '',
-                      previewAudit: previewResult.audit || null,
-                      extractorAudit: previewResult.audit || null,
-                      finalAudit,
-                      publicationWarnings,
-                      aiAppliedMenu: {
-                        categoryCount: appliedMenu.length,
-                        itemCount: appliedItemCount,
-                        galleryImageCount: savedGalleryUrls.size,
-                      },
-                    }
-                  );
-                  finalMenuStatus = 'found';
-                  toast.success('ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio extraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­do com sucesso!');
-                  addLog(`CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio persistido pela curadoria IA: ${appliedItemCount} item(ns) em ${appliedMenu.length} categoria(s), preservando combos/opÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes quando informados.`);
+                  const appliedMenuPayload = {
+                    sourceUrl: menuEvidence?.sourceUrl || learnedSourceUrl || '',
+                    discoveryMethod: menuEvidence?.discoveryMethod || '',
+                    platform: menuEvidence?.platform || '',
+                    previewAudit: previewResult.audit || null,
+                    extractorAudit: previewResult.audit || null,
+                    finalAudit,
+                    publicationWarnings,
+                    aiAppliedMenu: {
+                      categoryCount: appliedMenu.length,
+                      itemCount: appliedItemCount,
+                      galleryImageCount: savedGalleryUrls.size,
+                      minGalleryImageCount: MIN_PUBLIC_GALLERY_IMAGES,
+                      googleSearchGalleryCandidateCount: googleSearchGalleryImageCandidates.length,
+                      googleMapsGalleryCandidateCount: googleMapsGalleryImageCandidates.length,
+                    },
+                  };
+
+                  if (savedGalleryUrls.size < MIN_PUBLIC_GALLERY_IMAGES) {
+                    await persistMenuStatus(
+                      restaurant,
+                      'manual_required',
+                      `Cardapio coletado com ${appliedItemCount} itens, mas a galeria ficou com ${savedGalleryUrls.size}/${MIN_PUBLIC_GALLERY_IMAGES} fotos publicaveis. Intervencao humana necessaria para completar a galeria.`,
+                      appliedMenuPayload
+                    );
+                    finalMenuStatus = 'manual_required';
+                    addLog(`Cardapio persistido (${appliedItemCount} item(ns)), mas galeria ficou ${savedGalleryUrls.size}/${MIN_PUBLIC_GALLERY_IMAGES}; restaurante segue em revisao ate completar a galeria minima.`);
+                    toast.warning('Cardapio salvo, mas galeria ficou abaixo do minimo.');
+                  } else {
+                    await persistMenuStatus(
+                      restaurant,
+                      'found',
+                      finalAudit.reason || `CardÃ¡pio normalizado pela IA com ${appliedItemCount} itens.`,
+                      appliedMenuPayload
+                    );
+                    finalMenuStatus = 'found';
+                    toast.success('âœ… CardÃ¡pio extraÃ­do com sucesso!');
+                  }
+                  addLog(`CardÃ¡pio persistido pela curadoria IA: ${appliedItemCount} item(ns) em ${appliedMenu.length} categoria(s), preservando combos/opÃ§Ãµes quando informados.`);
                 }
               } catch (finalAuditError: any) {
                 await persistMenuStatus(
                   restaurant,
                   'manual_required',
-                  `PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA falhou; revisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o humana obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ria: ${finalAuditError.message || finalAuditError}`,
+                  `PÃ³s-auditoria IA falhou; revisÃ£o humana obrigatÃ³ria: ${finalAuditError.message || finalAuditError}`,
                   {
                     sourceUrl: menuEvidence?.sourceUrl || learnedSourceUrl || '',
                     discoveryMethod: menuEvidence?.discoveryMethod || '',
@@ -6925,7 +8695,7 @@ export default function CityValidation() {
                   }
                 );
                 finalMenuStatus = 'manual_required';
-                addLog(`PÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³s-auditoria IA falhou; nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o vou liberar para o app: ${finalAuditError.message || finalAuditError}`);
+                addLog(`PÃ³s-auditoria IA falhou; nÃ£o vou liberar para o app: ${finalAuditError.message || finalAuditError}`);
               }
             }
           }
@@ -6943,69 +8713,249 @@ export default function CityValidation() {
               && menuEvidence?.success
             );
             if (canPersistLearnedSource) {
-              const publicSourceLabel = `CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio ${baseCity || 'oficial'}`.trim();
+              const publicSourceLabel = `CardÃ¡pio ${baseCity || 'oficial'}`.trim();
               await supabase.from('restaurants').update({
                 other_url: persistableSourceUrl,
-                other_url_label: publicSourceLabel || learnedSourceLabel || 'CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio oficial'
+                other_url_label: publicSourceLabel || learnedSourceLabel || 'CardÃ¡pio oficial'
               }).eq('id', restaurant.id);
-              addLog(`Fonte aprendida e salva para as prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ximas execuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes: ${persistableSourceUrl}`);
+              addLog(`Fonte aprendida e salva para as prÃ³ximas execuÃ§Ãµes: ${persistableSourceUrl}`);
             } else if (learnedSourceUrl && !canPersistLearnedSource) {
-              addLog(`Fonte candidata nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o foi salva como aprendizado porque nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o virou link pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºblico reutilizÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel: ${learnedSourceUrl}`);
+              addLog(`Fonte candidata nÃ£o foi salva como aprendizado porque nÃ£o virou link pÃºblico reutilizÃ¡vel: ${learnedSourceUrl}`);
             }
         } catch (menuErr: any) {
-          toast.error(`Erro ao extrair cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio: ${menuErr.message}`);
-          addLog(`Erro ao extrair cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio: ${menuErr.message}`);
+          toast.error(`Erro ao extrair cardÃ¡pio: ${menuErr.message}`);
+          addLog(`Erro ao extrair cardÃ¡pio: ${menuErr.message}`);
           throw menuErr;
         }
       } else {
-        throw new Error('ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o inativa. Informe o ID e confirme o status ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o Ativa antes de validar.');
+        throw new Error('ExtensÃ£o inativa. Informe o ID e confirme o status ExtensÃ£o Ativa antes de validar.');
       }
 
+      await ensureRestaurantCoverFromSavedGallery(restaurant.id, 'galeria aprovada antes da conclusao');
+
       if (finalMenuStatus === 'found') {
-        toast.success(`${effectiveRestaurant.name || initialName} pronto para app: cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio estruturado.`, { id: toastId });
-        addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de ${effectiveRestaurant.name || initialName} concluÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­da: pronto para app.`);
+        toast.success(`${effectiveRestaurant.name || initialName} pronto para app: cardÃ¡pio estruturado.`, { id: toastId });
+        addLog(`ValidaÃ§Ã£o de ${effectiveRestaurant.name || initialName} concluÃ­da: pronto para app.`);
       } else if (finalMenuStatus === 'not_found' || finalMenuStatus === 'manual_required' || finalMenuStatus === 'needs_recollection') {
-        toast.warning(`${effectiveRestaurant.name || initialName} processado, mas ainda nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel no app.`, { id: toastId });
-        addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de ${effectiveRestaurant.name || initialName} concluÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­da sem cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio publicÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel (${finalMenuStatus}).`);
+        toast.warning(`${effectiveRestaurant.name || initialName} processado, mas ainda nÃ£o publicÃ¡vel no app.`, { id: toastId });
+        addLog(`ValidaÃ§Ã£o de ${effectiveRestaurant.name || initialName} concluÃ­da sem cardÃ¡pio publicÃ¡vel (${finalMenuStatus}).`);
       } else {
         toast.success(`${effectiveRestaurant.name || initialName} validado com sucesso!`, { id: toastId });
-        addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de ${effectiveRestaurant.name || initialName} concluÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­da com sucesso.`);
+        addLog(`ValidaÃ§Ã£o de ${effectiveRestaurant.name || initialName} concluÃ­da com sucesso.`);
       }
       fetchRestaurants();
     } catch (err: any) {
-      toast.error('Erro na validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: ' + err.message);
-      addLog(`ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o falhou para ${initialName}: ${err.message || err}`);
+      toast.error('Erro na validaÃ§Ã£o: ' + err.message);
+      addLog(`ValidaÃ§Ã£o falhou para ${initialName}: ${err.message || err}`);
       await persistValidationFailure(restaurant, err);
     } finally {
       setValidatingId(null);
     }
   };
 
+  const openRestaurantEditorById = async (restaurantId: string) => {
+    if (!restaurantId) return { success: false, error: 'restaurantId ausente' };
+    const existing = restaurants.find(r => r.id === restaurantId);
+    if (existing) {
+      setSelectedRestaurant(existing);
+      setIsDialogOpen(true);
+      return { success: true, restaurant: { id: existing.id, name: existing.name || '' } };
+    }
+    const { data, error } = await supabase
+      .from('restaurants')
+      .select('*')
+      .eq('id', restaurantId)
+      .single();
+    if (error || !data) {
+      return { success: false, error: error?.message || 'restaurante nao encontrado' };
+    }
+    setSelectedRestaurant(data);
+    setIsDialogOpen(true);
+    return { success: true, restaurant: { id: data.id, name: data.name || '' } };
+  };
+
+  const normalizeTrainingRequest = (request: TrainingValidateRequest = TRAINING_VALIDATE_BATCH_LIMIT) => {
+    const options = typeof request === 'number' ? { limit: request } : (request || {});
+    return {
+      limit: options.limit ?? TRAINING_VALIDATE_BATCH_LIMIT,
+      search: String(options.search || '').trim(),
+      force: Boolean(options.force),
+      includePublished: Boolean(options.includePublished),
+      ids: Array.isArray(options.ids) ? options.ids.filter(Boolean) : [],
+    };
+  };
+
+  const normalizeTrainingLookup = (value: any) => normalizeText(value)
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const restaurantMatchesTrainingLookup = (restaurant: any, search: string, ids: string[]) => {
+    if (ids.length && ids.includes(String(restaurant?.id || ''))) return true;
+    if (!search) return ids.length === 0;
+    const lookup = normalizeTrainingLookup([
+      restaurant?.name,
+      restaurant?.google_maps_name,
+      restaurant?.address,
+      restaurant?.number,
+      restaurant?.neighborhood,
+      restaurant?.city,
+      restaurant?.state,
+      restaurant?.instagram,
+      restaurant?.other_url,
+      restaurant?.external_url,
+    ].filter(Boolean).join(' '));
+    const terms = normalizeTrainingLookup(search).split(' ').filter(Boolean);
+    return terms.length > 0 && terms.every(term => lookup.includes(term));
+  };
+
+  const fetchTrainingCandidatesByLookup = async (search: string, ids: string[]) => {
+    if (!search && ids.length === 0) return [];
+    try {
+      let query = supabase
+        .from('restaurants')
+        .select(VALIDATION_LIST_SELECT)
+        .order('created_at', { ascending: false })
+        .limit(250);
+
+      if (ids.length) {
+        query = query.in('id', ids);
+      } else if (cityScope?.name && cityScope?.state) {
+        query = query.eq('city', cityScope.name).eq('state', cityScope.state);
+      }
+
+      const { data, error } = await query;
+      if (error) throw error;
+      return (data || []).filter((row: any) => restaurantMatchesTrainingLookup(row, search, ids));
+    } catch (error: any) {
+      addLog(`Modo aprendiz: falha ao buscar candidatos por busca/ID: ${error?.message || error}`);
+      return [];
+    }
+  };
+
+  const handleTrainingValidate = async (request: TrainingValidateRequest = TRAINING_VALIDATE_BATCH_LIMIT) => {
+    if (isTrainingValidarIa || isValidating || validatingId) {
+      addLog('Modo aprendiz ja esta ocupado com outra validacao; aguarde concluir.');
+      return { success: false, error: 'busy', processed: [] };
+    }
+    let extensionProbe = { ready: isExtensionReady, active: isExtensionActive, compatible: isExtensionCompatible, version: extensionVersion, reason: '' };
+    if (!extensionProbe.ready) {
+      addLog('Modo aprendiz: extensao ainda nao sincronizada no estado visual; testando ping direto antes de bloquear.');
+      extensionProbe = await probeExtensionReadyNow(8000);
+    }
+    if (!extensionProbe.ready) {
+      const reason = extensionProbe.reason || (!extensionProbe.active
+        ? 'Extensao inativa.'
+        : `Extensao desatualizada/incompleta (${extensionProbe.version || extensionVersion || 'sem versao'}). Versao minima: ${REQUIRED_EXTENSION_VERSION}.`);
+      addLog(`Modo aprendiz bloqueado: ${reason}`);
+      toast.error(`${reason} Atualize a extensao antes de treinar.`);
+      return { success: false, error: reason, processed: [] };
+    }
+
+    const options = normalizeTrainingRequest(request);
+    const safeLimit = Math.max(1, Math.min(Number(options.limit) || TRAINING_VALIDATE_BATCH_LIMIT, TRAINING_VALIDATE_BATCH_LIMIT));
+    const lookupSearch = normalizeTrainingLookup(options.search);
+    const loadedLookupCandidates = (lookupSearch || options.ids.length)
+      ? restaurants.filter(r => restaurantMatchesTrainingLookup(r, options.search, options.ids))
+      : filteredRestaurants;
+    const remoteLookupCandidates = (lookupSearch || options.ids.length)
+      ? await fetchTrainingCandidatesByLookup(options.search, options.ids)
+      : [];
+    const candidateMap = new Map<string, any>();
+    [...loadedLookupCandidates, ...remoteLookupCandidates].forEach((candidate: any) => {
+      if (candidate?.id) candidateMap.set(candidate.id, candidate);
+    });
+    const candidatePool = Array.from(candidateMap.values());
+    const candidates = candidatePool
+      .filter(r => r.is_deleted !== true)
+      .filter(r => options.includePublished || r.is_published !== true)
+      .filter(r => options.force || getMenuStatus(r) !== 'found' || countGalleryImages(r) === 0)
+      .slice(0, safeLimit);
+
+    if (candidates.length === 0) {
+      const scope = options.search ? ` para "${options.search}"` : ' no filtro atual';
+      addLog(`Modo aprendiz: nenhum candidato util${scope}.`);
+      toast.info(`Nenhum candidato util${scope} para treinar.`);
+      return { success: true, processed: [], message: `nenhum candidato util${scope}` };
+    }
+
+    setIsTrainingValidarIa(true);
+    setLogs(prev => prev.slice(-40));
+    addLog(`Modo aprendiz iniciado: ${candidates.length} restaurante(s), sequencial, sem publicar automaticamente${options.search ? `, busca="${options.search}"` : ''}${options.force ? ', force=true para QA visual dirigido' : ''}.`);
+
+    let successCount = 0;
+    let failureCount = 0;
+    const processed: any[] = [];
+    try {
+      for (const restaurant of candidates) {
+        const startedAt = new Date().toISOString();
+        addLog(`Modo aprendiz validando ${restaurant.name || restaurant.id}...`);
+        try {
+          await handleSingleValidate({ stopPropagation: () => {} } as React.MouseEvent, restaurant);
+          const run = await persistLearningRun(restaurant, startedAt);
+          successCount++;
+          processed.push({
+            id: restaurant.id,
+            name: restaurant.name || '',
+            success: true,
+            lesson: run?.lesson || '',
+            before: run?.before || null,
+            after: run?.after || null,
+          });
+          addLog(`Modo aprendiz registrou licao para ${restaurant.name || restaurant.id}.`);
+        } catch (error: any) {
+          failureCount++;
+          const run = await persistLearningRun(restaurant, startedAt, error).catch(() => null);
+          processed.push({
+            id: restaurant.id,
+            name: restaurant.name || '',
+            success: false,
+            lesson: run?.lesson || 'failed',
+            error: error?.message || String(error),
+            before: run?.before || null,
+            after: run?.after || null,
+          });
+          addLog(`Modo aprendiz falhou em ${restaurant.name || restaurant.id}: ${error?.message || error}`);
+        }
+        await new Promise(resolve => window.setTimeout(resolve, AUTO_VALIDATE_ROW_COOLDOWN_MS));
+      }
+      addLog(`Modo aprendiz concluido: ${successCount} licao(oes), ${failureCount} falha(s).`);
+      toast.success(`Modo aprendiz concluido: ${successCount} licao(oes), ${failureCount} falha(s).`);
+      fetchRestaurants();
+      return { success: true, successCount, failureCount, processed };
+    } finally {
+      setIsTrainingValidarIa(false);
+    }
+  };
+
+  useEffect(() => {
+    (window as any).__filterFoodTrainValidarIa = (request?: TrainingValidateRequest) => handleTrainingValidate(request);
+    (window as any).__filterFoodOpenRestaurantEditor = (restaurantId: string) => openRestaurantEditorById(restaurantId);
+    return () => {
+      if ((window as any).__filterFoodTrainValidarIa) {
+        delete (window as any).__filterFoodTrainValidarIa;
+      }
+      if ((window as any).__filterFoodOpenRestaurantEditor) {
+        delete (window as any).__filterFoodOpenRestaurantEditor;
+      }
+    };
+  }, [filteredRestaurants, isExtensionReady, isTrainingValidarIa, isValidating, validatingId, restaurants, cityScope]);
+
   const handleApproveBatch = async () => {
     if (activeTab !== 'prontos') {
       toast.info('Abra a aba "Prontos p/ App" para publicar restaurantes.');
       return;
     }
-    // Aprova todos os pendentes filtrados atualmente na tela (para nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o aprovar cidades erradas acidentalmente)
-    const ineligibleToRemove = filteredRestaurants
-      .filter(r => r.is_published !== true && r.is_deleted !== true)
-      .map(r => ({ restaurant: r, decision: classifyRestaurantEligibilityLocal(r) }))
-      .filter(item => item.decision.status === 'ineligible' && item.decision.confidence >= 0.9);
-
-    for (const item of ineligibleToRemove) {
-      await markRestaurantIneligible(item.restaurant, item.decision, 'approve_batch_local_rules');
-    }
-
+    // Aprova todos os pendentes filtrados atualmente na tela (para nÃ£o aprovar cidades erradas acidentalmente)
     const approveCandidates = filteredRestaurants.filter(r => {
       if (r.is_published === true || r.is_deleted === true || r.ai_validated !== true) return false;
       if (!hasStructuredMenu(r)) return false;
-      const eligibility = classifyRestaurantEligibilityLocal(r);
-      return !(eligibility.status === 'ineligible' && eligibility.confidence >= 0.9);
+      return true;
     });
     const toApprove = approveCandidates.slice(0, APPROVE_BATCH_LIMIT);
 
     if (toApprove.length === 0) {
-      toast.info('NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o hÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ restaurantes prontos para publicar. O lote agora exige Validar IA + cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio estruturado.');
+      toast.info('NÃ£o hÃ¡ restaurantes prontos para publicar. O lote agora exige Validar IA + cardÃ¡pio estruturado.');
       return;
     }
 
@@ -7027,8 +8977,8 @@ export default function CityValidation() {
 
       if (error) throw error;
 
-      addLog(`Lote aprovado com sucesso. ${toApprove.length} restaurantes publicados. ${ineligibleToRemove.length} inelegiveis removidos.`);
-      toast.success(`${toApprove.length} restaurantes aprovados. ${ineligibleToRemove.length} inelegiveis removidos.`);
+      addLog(`Lote aprovado com sucesso. ${toApprove.length} restaurantes publicados.`);
+      toast.success(`${toApprove.length} restaurantes aprovados.`);
       fetchRestaurants();
 
     } catch (err: any) {
@@ -7043,18 +8993,18 @@ export default function CityValidation() {
     e.stopPropagation();
 
     if (restaurant?.is_published === true) {
-      toast.info('Esse restaurante jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ publicado.');
+      toast.info('Esse restaurante jÃ¡ estÃ¡ publicado.');
       return;
     }
 
     if (restaurant?.ai_validated !== true || !hasStructuredMenu(restaurant) || getMenuStatus(restaurant) !== 'found') {
-      toast.warning('Esse restaurante ainda nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ pronto para publicar.');
+      toast.warning('Esse restaurante ainda nÃ£o estÃ¡ pronto para publicar.');
       return;
     }
 
     const eligibility = classifyRestaurantEligibilityLocal(restaurant);
     if (eligibility.status === 'ineligible' && eligibility.confidence >= 0.9) {
-      toast.warning(`NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o vou publicar: ${eligibility.reason}`);
+      toast.warning(`NÃ£o vou publicar: ${eligibility.reason}`);
       return;
     }
 
@@ -7082,14 +9032,14 @@ export default function CityValidation() {
     <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-black tracking-tight text-slate-900">ValidaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de Dados (QA)</h2>
-          <p className="text-sm font-medium text-slate-500 mt-1">InspeÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o visual e enriquecimento automatizado antes do CRM.</p>
+          <h2 className="text-2xl font-black tracking-tight text-slate-900">ValidaÃ§Ã£o de Dados (QA)</h2>
+          <p className="text-sm font-medium text-slate-500 mt-1">InspeÃ§Ã£o visual e enriquecimento automatizado antes do CRM.</p>
         </div>
         <div className="flex items-center gap-2">
             {!isExtensionActive && (
               <div className="flex items-center gap-2 mr-2">
                 <Input
-                  placeholder="ID da ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o"
+                  placeholder="ID da ExtensÃ£o"
                   value={extensionId || ''}
                   onChange={e => setExtensionId(e.target.value)}
                   className="w-40 h-10 text-xs"
@@ -7102,28 +9052,28 @@ export default function CityValidation() {
             {isExtensionReady ? (
               <Badge variant="outline" className="bg-emerald-50 text-emerald-600 border-emerald-200 shadow-sm h-10">
                 <Check className="w-4 h-4 mr-1.5" />
-                ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o Ativa v{extensionVersion || REQUIRED_EXTENSION_VERSION}
+                ExtensÃ£o Ativa v{extensionVersion || REQUIRED_EXTENSION_VERSION}
               </Badge>
             ) : isExtensionActive ? (
               <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200 shadow-sm h-10" title={`Capacidades: ${JSON.stringify(extensionCapabilities || {})}`}>
                 <AlertCircle className="w-4 h-4 mr-1.5" />
-                Atualize ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o v{extensionVersion || '?'} ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ {REQUIRED_EXTENSION_VERSION}
+                Atualize ExtensÃ£o v{extensionVersion || '?'} â†’ {REQUIRED_EXTENSION_VERSION}
               </Badge>
             ) : (
               <Badge variant="outline" className="bg-amber-50 text-amber-600 border-amber-200 shadow-sm h-10">
                 <AlertCircle className="w-4 h-4 mr-1.5" />
-                ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o Inativa
+                ExtensÃ£o Inativa
               </Badge>
             )}
             <Button variant="outline" className="h-10 border-indigo-200 text-indigo-700 hover:bg-indigo-50" onClick={handleDownloadExtension}>
-              Baixar ExtensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o (ZIP)
+              Baixar ExtensÃ£o (ZIP)
             </Button>
           <Button
             onClick={handleAutoValidate}
             disabled={isValidating || !isExtensionReady}
             variant="outline"
             className="border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 hover:border-indigo-300 font-bold shadow-sm transition-all"
-            title={!isExtensionReady ? `Atualize/carregue a extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ${REQUIRED_EXTENSION_VERSION}+ antes de validar.` : undefined}
+            title={!isExtensionReady ? `Atualize/carregue a extensÃ£o ${REQUIRED_EXTENSION_VERSION}+ antes de validar.` : undefined}
           >
             {isValidating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
             {isValidating ? 'Validando...' : 'Auto-Validar IA'}
@@ -7143,13 +9093,13 @@ export default function CityValidation() {
         <>
       <div className="grid grid-cols-1 lg:grid-cols-6 gap-3">
         <div className="lg:col-span-2 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-white p-4">
-          <p className="text-[11px] font-black uppercase tracking-wider text-indigo-500">RÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©gua do Validar IA</p>
+          <p className="text-[11px] font-black uppercase tracking-wider text-indigo-500">RÃ©gua do Validar IA</p>
           <h3 className="text-lg font-black text-slate-900 mt-1">
             {cityScope ? `${cityScope.name}/${cityScope.state}` : 'Cidade atual'}
           </h3>
           <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-            Fase 1 sÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³ cria candidatos do Maps. O Validar IA decide elegibilidade, status do Maps,
-            cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio e se o restaurante pode ir para o app.
+            Fase 1 sÃ³ cria candidatos do Maps. O Validar IA decide elegibilidade, status do Maps,
+            cardÃ¡pio e se o restaurante pode ir para o app.
           </p>
           <div className="grid grid-cols-2 gap-2 mt-4">
             <div className="rounded-xl bg-white/80 border border-indigo-100 p-2">
@@ -7161,7 +9111,7 @@ export default function CityValidation() {
               <p className="text-lg font-black text-slate-900">{operationStats.ambiguous}</p>
             </div>
             <div className="rounded-xl bg-white/80 border border-indigo-100 p-2">
-              <p className="text-[9px] font-black uppercase text-rose-600">Descarte provÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel</p>
+              <p className="text-[9px] font-black uppercase text-rose-600">Descarte provÃ¡vel</p>
               <p className="text-lg font-black text-slate-900">{operationStats.autoReject}</p>
             </div>
             <div className="rounded-xl bg-white/80 border border-indigo-100 p-2">
@@ -7177,7 +9127,7 @@ export default function CityValidation() {
                   ? `${operationStats.missingLocation} candidato(s) ainda sem coordenadas. `
                   : ''}
                 {operationStats.missingMenuSource > 0
-                  ? `${operationStats.missingMenuSource} sem fonte de cardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio/contato validada. `
+                  ? `${operationStats.missingMenuSource} sem fonte de cardÃ¡pio/contato validada. `
                   : ''}
                 O Validar IA precisa resolver isso antes de publicar.
               </p>
@@ -7205,11 +9155,11 @@ export default function CityValidation() {
       <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
           <div>
-            <p className="text-[11px] font-black uppercase tracking-wider text-slate-500">Triagem prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©-Validar IA</p>
+            <p className="text-[11px] font-black uppercase tracking-wider text-slate-500">Triagem prÃ©-Validar IA</p>
             <h3 className="text-base font-black text-slate-900">O que a Fase 1 trouxe para a fila</h3>
           </div>
           <p className="text-xs text-slate-500 max-w-2xl">
-            Esta leitura nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o publica restaurantes: ela prioriza a fila e evita que padarias, mercados, serviÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os e negÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³cios fechados avancem sem evidÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia forte.
+            Esta leitura nÃ£o publica restaurantes: ela prioriza a fila e evita que padarias, mercados, serviÃ§os e negÃ³cios fechados avancem sem evidÃªncia forte.
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-2">
@@ -7246,12 +9196,12 @@ export default function CityValidation() {
         <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <div>
             <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">
-              {activeTriageCard ? `Filtro ativo: ${activeTriageCard.label}` : 'EstratÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©gia operacional'}
+              {activeTriageCard ? `Filtro ativo: ${activeTriageCard.label}` : 'EstratÃ©gia operacional'}
             </p>
             <p className="text-sm font-semibold text-slate-800 mt-1">
               {activeTriageCard
                 ? activeTriageCard.hint
-                : 'Priorize provÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡veis restaurantes, deixe a IA decidir casos ambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­guos e rejeite automaticamente o que for claramente fora do produto.'}
+                : 'Priorize provÃ¡veis restaurantes, deixe a IA decidir casos ambÃ­guos e rejeite automaticamente o que for claramente fora do produto.'}
             </p>
           </div>
           {activeTriageCard ? (
@@ -7266,7 +9216,7 @@ export default function CityValidation() {
             </Button>
           ) : (
             <span className="text-xs font-bold text-slate-500">
-              Nenhuma publicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o acontece nesta etapa sem Validar IA.
+              Nenhuma publicaÃ§Ã£o acontece nesta etapa sem Validar IA.
             </span>
           )}
         </div>
@@ -7412,7 +9362,7 @@ export default function CityValidation() {
           <div className="relative w-full max-w-sm">
             <Search className="absolute left-3.5 top-2.5 h-4 w-4 text-slate-400" />
             <Input
-              placeholder="Pesquisar por nome, categoria ou endereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o..."
+              placeholder="Pesquisar por nome, categoria ou endereÃ§o..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 h-10 bg-white border-slate-200 shadow-sm focus-visible:ring-indigo-500"
@@ -7428,10 +9378,10 @@ export default function CityValidation() {
               value={pageSize}
               onChange={(event) => setPageSize(Number(event.target.value))}
               className="h-8 rounded-md border border-slate-200 bg-white px-2 text-xs font-semibold text-slate-600 shadow-sm"
-              aria-label="Registros por pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gina"
+              aria-label="Registros por pÃ¡gina"
             >
               {[20].map(size => (
-                <option key={size} value={size}>{size}/pÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gina</option>
+                <option key={size} value={size}>{size}/pÃ¡gina</option>
               ))}
             </select>
             <Button
@@ -7455,7 +9405,7 @@ export default function CityValidation() {
               disabled={safeCurrentPage >= totalPages}
               onClick={() => setCurrentPage(page => Math.min(totalPages, page + 1))}
             >
-              PrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³xima
+              PrÃ³xima
             </Button>
                 {hasMoreRestaurants && (
                   <Button
@@ -7484,7 +9434,7 @@ export default function CityValidation() {
             </div>
             <h3 className="font-bold text-slate-900 text-lg mb-1">Nenhum registro nesta fila</h3>
             <p className="text-sm text-slate-500 max-w-sm">
-              {qaTabs.find(tab => tab.key === activeTab)?.hint || 'Use o Motor de Coleta ou o Validar IA para avanÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ar esta cidade.'}
+              {qaTabs.find(tab => tab.key === activeTab)?.hint || 'Use o Motor de Coleta ou o Validar IA para avanÃ§ar esta cidade.'}
             </p>
           </div>
         ) : (
@@ -7494,13 +9444,13 @@ export default function CityValidation() {
                 <TableRow className="bg-slate-50/50 hover:bg-slate-50/50">
                   <TableHead className="font-bold text-slate-900 text-[13px]">Restaurante</TableHead>
                   <TableHead className="font-bold text-slate-900 text-[13px]">Triagem</TableHead>
-                  <TableHead className="font-bold text-slate-900 text-[13px]">DecisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o QA</TableHead>
+                  <TableHead className="font-bold text-slate-900 text-[13px]">DecisÃ£o QA</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Telefone</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Instagram</TableHead>
-                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">CardÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡pio</TableHead>
+                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">CardÃ¡pio</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Galeria</TableHead>
-                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">HorÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio</TableHead>
-                  <TableHead className="text-right font-bold text-slate-900 text-[13px]">AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o</TableHead>
+                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">HorÃ¡rio</TableHead>
+                  <TableHead className="text-right font-bold text-slate-900 text-[13px]">AÃ§Ã£o</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -7522,7 +9472,7 @@ export default function CityValidation() {
                   const menuUrl = `/restaurant/${r.id}/menu`;
 
                   const StatusDot = ({ active }: { active: boolean }) => (
-                    <div className={`w-3.5 h-3.5 rounded-full mx-auto shadow-sm transition-colors duration-500 ${active ? 'bg-emerald-400 ring-2 ring-emerald-50' : 'bg-rose-500 ring-2 ring-rose-50'}`} title={active ? 'ExtraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­do e validado pela IA' : 'Pendente de validaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ou nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o encontrado'} />
+                    <div className={`w-3.5 h-3.5 rounded-full mx-auto shadow-sm transition-colors duration-500 ${active ? 'bg-emerald-400 ring-2 ring-emerald-50' : 'bg-rose-500 ring-2 ring-rose-50'}`} title={active ? 'ExtraÃ­do e validado pela IA' : 'Pendente de validaÃ§Ã£o ou nÃ£o encontrado'} />
                   );
 
                   return (
@@ -7540,7 +9490,7 @@ export default function CityValidation() {
                           </div>
                         )}
                         <div className="flex items-center text-[12px] text-slate-500 mt-1">
-                          <span className="truncate max-w-[280px]">{r.address || 'EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o disponÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel'}</span>
+                          <span className="truncate max-w-[280px]">{r.address || 'EndereÃ§o nÃ£o disponÃ­vel'}</span>
                         </div>
                       </TableCell>
                       <TableCell className="align-middle min-w-[190px]">
@@ -7607,7 +9557,7 @@ export default function CityValidation() {
                               data-testid={`validate-ai-${r.id}`}
                               data-restaurant-id={r.id}
                               disabled={validatingId === r.id || !isExtensionReady}
-                              title={!isExtensionReady ? `Atualize/carregue a extensÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ${REQUIRED_EXTENSION_VERSION}+ antes de validar.` : undefined}
+                              title={!isExtensionReady ? `Atualize/carregue a extensÃ£o ${REQUIRED_EXTENSION_VERSION}+ antes de validar.` : undefined}
                               className="h-8 px-3 text-xs font-bold text-amber-600 hover:text-amber-700 hover:bg-amber-50"
                             >
                               {validatingId === r.id ? (
@@ -7620,6 +9570,8 @@ export default function CityValidation() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            data-testid={`edit-restaurant-${r.id}`}
+                            data-restaurant-id={r.id}
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedRestaurant(r);
@@ -7672,7 +9624,7 @@ export default function CityValidation() {
                   disabled={safeCurrentPage >= totalPages}
                   onClick={() => setCurrentPage(page => Math.min(totalPages, page + 1))}
                 >
-                  PrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³xima
+                  PrÃ³xima
                 </Button>
                 {hasMoreRestaurants && (
                   <Button
@@ -7694,7 +9646,7 @@ export default function CityValidation() {
                   disabled={safeCurrentPage >= totalPages}
                   onClick={() => setCurrentPage(totalPages)}
                 >
-                  ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â¡ltima
+                  Ãšltima
                 </Button>
               </div>
             </div>
@@ -7707,7 +9659,44 @@ export default function CityValidation() {
           restaurant={selectedRestaurant}
           isOpen={isDialogOpen}
           onClose={() => setIsDialogOpen(false)}
-          onSyncSuccess={() => {
+          onSyncSuccess={async () => {
+            setServerQaStats(null);
+            let nextTab: ValidationTab | null = null;
+
+            if (selectedRestaurant?.id) {
+              const { data: freshRestaurant, error } = await supabase
+                .from('restaurants')
+                .select(VALIDATION_LIST_SELECT)
+                .eq('id', selectedRestaurant.id)
+                .maybeSingle();
+
+              if (!error && freshRestaurant) {
+                setSelectedRestaurant(freshRestaurant);
+                setRestaurants(prevRows => (
+                  prevRows.some(row => row.id === freshRestaurant.id)
+                    ? prevRows.map(row => row.id === freshRestaurant.id ? freshRestaurant : row)
+                    : prevRows
+                ));
+
+                const nextStatus = getMenuStatus(freshRestaurant);
+                if (freshRestaurant.is_deleted === true) {
+                  nextTab = 'rejeitados';
+                } else if (freshRestaurant.is_published === true && nextStatus === 'found') {
+                  nextTab = 'importados';
+                } else if (nextStatus === 'found') {
+                  nextTab = 'prontos';
+                } else if (MENU_REVIEW_STATUSES.includes(nextStatus || '')) {
+                  nextTab = 'revisao';
+                } else if (MENU_NO_CARDAPIO_STATUSES.includes(nextStatus || '')) {
+                  nextTab = 'sem_cardapio';
+                }
+              }
+            }
+
+            if (nextTab && nextTab !== activeTab) {
+              setActiveTab(nextTab);
+              return;
+            }
             fetchRestaurants();
           }}
         />
@@ -7715,6 +9704,8 @@ export default function CityValidation() {
     </div>
   );
 }
+
+
 
 
 

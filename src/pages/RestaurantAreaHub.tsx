@@ -12,6 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuthData } from '@/context/AuthContext';
 import { toast } from 'react-hot-toast';
 import PhoneShell from '@/components/layout/PhoneShell';
+import { FFActionCard, FFIconBadge } from '@/components/filterfood/FilterFoodUI';
 
 interface Option {
   title: string;
@@ -48,7 +49,7 @@ export default function RestaurantAreaHub() {
   const activeOptionIndex = activeOption ? options.findIndex((option) => option.path === activeOption.path) : -1;
 
   return (
-    <PhoneShell shellClassName="relative font-sans antialiased flex flex-col">
+    <PhoneShell shellClassName="relative flex flex-col bg-[var(--ff-surface-warm)] font-sans antialiased">
         
         {/* Unified Header */}
         <Header 
@@ -57,18 +58,15 @@ export default function RestaurantAreaHub() {
           sticky={false}
         />
 
-        <main className="flex-grow flex flex-col justify-center w-full px-4 py-8">
+        <main className="flex w-full flex-grow flex-col justify-center px-4 py-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="w-full"
           >
-            {/* Icon and Title */}
-            <div className="flex flex-col items-center justify-center pb-8 w-full text-center">
-              <div className="flex items-center justify-center size-12 bg-white rounded-2xl mx-auto mb-3 border border-slate-100 shadow-sm">
-                <Store className="w-6 h-6 text-primary" />
-              </div>
+            <div className="flex w-full flex-col items-center justify-center pb-8 text-center">
+              <FFIconBadge icon={Store} className="mx-auto mb-3 h-12 w-12" />
               <h1 className="text-[#3C2F2F] tracking-tight text-[22px] font-semibold leading-tight">
                 Controle sua presença no <span className="text-highlight">FilterFood</span>
               </h1>
@@ -78,35 +76,21 @@ export default function RestaurantAreaHub() {
             </div>
 
             <div className="space-y-4">
-              {options.map((option, index) => {
-                const Icon = option.icon;
-                return (
-                  <motion.button
-                    key={index}
-                    type="button"
-                    ref={(element) => {
-                      optionButtonRefs.current[index] = element;
-                    }}
-                    onClick={() => setActiveOption(option)}
-                    whileHover={{ scale: 1.015, y: -2 }}
-                    whileTap={{ scale: 0.985 }}
-                    className="hub-surface group flex w-full items-center p-5 text-left transition-all duration-300 hover:border-highlight/35 hover:bg-slate-50/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAFAFA]"
-                  >
-                    <div className="hub-icon-tile mr-4 shrink-0 transition-colors group-hover:bg-highlight/10">
-                      <Icon className="w-5 h-5 text-highlight transition-colors" />
-                    </div>
-                    <div className="flex-1 min-w-0 pr-2">
-                      <h3 className="font-semibold text-[#3C2F2F] text-base leading-tight transition-colors">
-                        {option.title}
-                      </h3>
-                      <p className="text-text-secondary text-sm font-normal mt-1 leading-normal">
-                        {option.description}
-                      </p>
-                    </div>
-                    <ArrowLeft className="w-5 h-5 text-slate-400 rotate-180 group-hover:text-highlight group-hover:translate-x-1 transition-all duration-300 shrink-0" />
-                  </motion.button>
-                );
-              })}
+              {options.map((option, index) => (
+                <FFActionCard
+                  key={index}
+                  type="button"
+                  ref={(element) => {
+                    optionButtonRefs.current[index] = element;
+                  }}
+                  onClick={() => setActiveOption(option)}
+                  icon={option.icon}
+                  title={option.title}
+                  description={option.description}
+                  trailing={<ArrowRight className="h-5 w-5 shrink-0 text-slate-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--ff-primary)]" />}
+                  className="p-5"
+                />
+              ))}
             </div>
           </motion.div>
         </main>

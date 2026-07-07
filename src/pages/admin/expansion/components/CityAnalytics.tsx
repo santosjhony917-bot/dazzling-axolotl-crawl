@@ -50,13 +50,22 @@ export default function CityAnalytics() {
       // Coleta contexto rápido para a IA
       const { data: stats } = await supabase
         .from('restaurants')
-        .select('category, visit_status')
+        .select('id, category')
         .eq('city', cityName)
         .eq('state', stateName);
 
       const total = stats?.length || 0;
-      const leads = stats?.filter(r => r.visit_status === 'lead' || r.visit_status === 'Pendente').length || 0;
-      const won = stats?.filter(r => r.visit_status === 'won' || r.visit_status === 'Visitado').length || 0;
+      const restaurantIds = (stats || []).map((r: any) => r.id);
+      let crmRows: any[] = [];
+      if (restaurantIds.length > 0) {
+        const { data: leadRows } = await supabase
+          .from('commercial_leads')
+          .select('restaurant_id, pipeline_stage')
+          .in('restaurant_id', restaurantIds);
+        crmRows = leadRows || [];
+      }
+      const leads = crmRows.filter(r => ['PublishedReady', 'Uncontacted', 'Queued'].includes(r.pipeline_stage)).length;
+      const won = crmRows.filter(r => r.pipeline_stage === 'Won').length;
 
       const systemContext = `
         Você é um Assistente de IA de nível Executivo chamado "Copiloto de Expansão B2B".

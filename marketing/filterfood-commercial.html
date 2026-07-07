@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FilterFood Commercial 10s</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+      :root {
+        --primary: #c45116;
+        --primary-dark: #74270a;
+        --orange-deep: #9a3b10;
+        --orange-light: #e17a24;
+        --ink: #202226;
+        --muted: #6b7280;
+        --paper: #fafafa;
+        --card: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #111418;
+        font-family: "Poppins", Arial, sans-serif;
+        overflow: hidden;
+      }
+
+      #stage {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        color: white;
+        background:
+          radial-gradient(circle at 50% 39%, rgba(255, 195, 108, 0.35), transparent 28%),
+          radial-gradient(circle at 20% 82%, rgba(94, 31, 8, 0.32), transparent 34%),
+          linear-gradient(145deg, #74270a 0%, #a13a0d 42%, #c45116 72%, #e17a24 100%);
+      }
+
+      .texture {
+        position: absolute;
+        inset: 0;
+        opacity: 0.1;
+        background-image: radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px);
+        background-size: 26px 26px;
+      }
+
+      .glow-ring {
+        position: absolute;
+        left: 210px;
+        top: 160px;
+        width: 470px;
+        height: 470px;
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 50%;
+      }
+
+      .copy {
+        position: absolute;
+        left: 116px;
+        top: 166px;
+        width: 760px;
+        z-index: 4;
+      }
+
+      .splash-logo {
+        font-family: "Lobster", cursive;
+        font-size: 128px;
+        line-height: 0.92;
+        color: #fff;
+        text-shadow: 0 20px 46px rgba(92,31,8,0.34);
+        letter-spacing: 0;
+      }
+
+      .message {
+        margin-top: 58px;
+        font-size: 68px;
+        line-height: 1.02;
+        font-weight: 900;
+        letter-spacing: 0;
+        max-width: 820px;
+      }
+
+      .message span {
+        color: #ffe6c9;
+      }
+
+      .sub {
+        margin-top: 34px;
+        max-width: 650px;
+        color: rgba(255,255,255,0.84);
+        font-size: 28px;
+        line-height: 1.35;
+        font-weight: 600;
+      }
+
+      .phone {
+        position: absolute;
+        right: 180px;
+        top: 92px;
+        width: 500px;
+        height: 918px;
+        border-radius: 66px;
+        background: #111418;
+        padding: 18px;
+        box-shadow: 0 42px 120px rgba(84, 29, 8, 0.45);
+        z-index: 5;
+      }
+
+      .phone::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 17px;
+        transform: translateX(-50%);
+        width: 164px;
+        height: 30px;
+        background: #111418;
+        border-radius: 0 0 24px 24px;
+        z-index: 8;
+      }
+
+      .screen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 50px;
+        background: #fafafa;
+        color: var(--ink);
+      }
+
+      .screen-header {
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 184px;
+        padding: 52px 30px 26px;
+        color: white;
+        background: linear-gradient(145deg, #74270a, #c45116 74%, #e17a24);
+        border-radius: 0 0 34px 34px;
+        z-index: 3;
+      }
+
+      .screen-logo {
+        font-family: "Lobster", cursive;
+        font-size: 43px;
+        line-height: 1;
+        text-shadow: 0 10px 26px rgba(92,31,8,0.28);
+      }
+
+      .screen-title {
+        margin-top: 16px;
+        font-size: 19px;
+        line-height: 1.2;
+        font-weight: 800;
+        color: rgba(255,255,255,0.9);
+      }
+
+      .search {
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        top: 154px;
+        z-index: 4;
+        height: 66px;
+        border-radius: 999px;
+        background: white;
+        color: #8a8f98;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 20px;
+        font-size: 15px;
+        font-weight: 800;
+        box-shadow: 0 16px 38px rgba(17, 20, 24, 0.13);
+      }
+
+      .search-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: white;
+        background: var(--primary);
+        font-size: 20px;
+      }
+
+      .menu-feed {
+        position: absolute;
+        top: 248px;
+        left: 24px;
+        right: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        z-index: 1;
+      }
+
+      .restaurant {
+        border-radius: 28px;
+        background: white;
+        box-shadow: 0 12px 32px rgba(17, 20, 24, 0.08);
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.03);
+      }
+
+      .restaurant-top {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 16px;
+      }
+
+      .thumb {
+        width: 82px;
+        height: 82px;
+        border-radius: 22px;
+        object-fit: cover;
+        background: #f3f4f6;
+      }
+
+      .rest-name {
+        font-size: 18px;
+        line-height: 1.1;
+        font-weight: 900;
+      }
+
+      .rest-meta {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .tag {
+        margin-top: 9px;
+        display: inline-flex;
+        padding: 7px 11px;
+        border-radius: 999px;
+        color: var(--primary);
+        background: rgba(196,81,22,0.1);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .items {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        padding: 0 16px 16px;
+      }
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px 0;
+        border-top: 1px solid #f0f1f3;
+        font-size: 13px;
+        font-weight: 800;
+        color: #3a3e45;
+      }
+
+      .item b {
+        color: var(--primary);
+      }
+
+      .floating-card {
+        position: absolute;
+        display: none;
+        right: 596px;
+        bottom: 102px;
+        z-index: 7;
+        padding: 22px 30px;
+        border-radius: 28px;
+        color: var(--primary);
+        background: rgba(255,255,255,0.94);
+        box-shadow: 0 24px 70px rgba(84,29,8,0.22);
+        font-size: 24px;
+        line-height: 1.14;
+        font-weight: 900;
+      }
+
+      .bottom-logo {
+        position: absolute;
+        left: 118px;
+        bottom: 84px;
+        font-family: "Lobster", cursive;
+        font-size: 48px;
+        color: rgba(255,255,255,0.92);
+        z-index: 8;
+        text-shadow: 0 12px 30px rgba(92,31,8,0.28);
+      }
+
+      .fade {
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 150px;
+        background: linear-gradient(0deg, rgba(250,250,250,1), rgba(250,250,250,0));
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="stage">
+      <div class="texture"></div>
+      <div class="glow-ring" data-anim="ring"></div>
+
+      <section class="copy">
+        <div class="splash-logo" data-anim="logo">FilterFood</div>
+        <h1 class="message" data-anim="message">
+          Reunimos todos os <span>cardápios de João Pessoa</span> em um só app.
+        </h1>
+        <p class="sub" data-anim="sub">
+          Veja opções, pratos e preços em uma experiência simples para escolher onde comer.
+        </p>
+      </section>
+
+      <div class="phone" data-anim="phone">
+        <div class="screen">
+          <div class="screen-header">
+            <div class="screen-logo">FilterFood</div>
+            <div class="screen-title">Cardápios perto de você</div>
+          </div>
+          <div class="search">
+            <div class="search-icon">⌕</div>
+            Buscar prato, restaurante ou bairro
+          </div>
+          <div class="menu-feed" data-anim="feed">
+            <article class="restaurant">
+              <div class="restaurant-top">
+                <img class="thumb" src="/images/filterfood_combo_food.png" alt="" />
+                <div>
+                  <div class="rest-name">Burgers & Pizza JP</div>
+                  <div class="rest-meta">Manaíra • Lanches • 1,2 km</div>
+                  <div class="tag">Cardápio completo</div>
+                </div>
+              </div>
+              <div class="items">
+                <div class="item"><span>Combo burger + fritas</span><b>R$ 34,90</b></div>
+                <div class="item"><span>Pizza individual</span><b>R$ 29,90</b></div>
+              </div>
+            </article>
+
+            <article class="restaurant">
+              <div class="restaurant-top">
+                <img class="thumb" src="/images/filterfood_compare_table.png" alt="" />
+                <div>
+                  <div class="rest-name">Sushi da Praia</div>
+                  <div class="rest-meta">Tambaú • Japonês • 2,0 km</div>
+                  <div class="tag">Preços visíveis</div>
+                </div>
+              </div>
+              <div class="items">
+                <div class="item"><span>Combo 20 peças</span><b>R$ 49,90</b></div>
+                <div class="item"><span>Temaki salmão</span><b>R$ 24,90</b></div>
+              </div>
+            </article>
+
+            <article class="restaurant">
+              <div class="restaurant-top">
+                <img class="thumb" src="/images/filterfood_price_search.png" alt="" />
+                <div>
+                  <div class="rest-name">Almoço Caseiro</div>
+                  <div class="rest-meta">Bancários • Brasileiro • 0,8 km</div>
+                  <div class="tag">Bom custo-benefício</div>
+                </div>
+              </div>
+              <div class="items">
+                <div class="item"><span>Executivo de frango</span><b>R$ 22,90</b></div>
+                <div class="item"><span>Prato vegetariano</span><b>R$ 26,90</b></div>
+              </div>
+            </article>
+
+            <article class="restaurant">
+              <div class="restaurant-top">
+                <img class="thumb" src="/images/grubgo_table_spread.png" alt="" />
+                <div>
+                  <div class="rest-name">Pizzaria da Orla</div>
+                  <div class="rest-meta">Cabo Branco • Pizza • 3,1 km</div>
+                  <div class="tag">Compare antes de sair</div>
+                </div>
+              </div>
+              <div class="items">
+                <div class="item"><span>Pizza grande mussarela</span><b>R$ 44,90</b></div>
+                <div class="item"><span>Refrigerante 1L</span><b>R$ 10,00</b></div>
+              </div>
+            </article>
+
+            <article class="restaurant">
+              <div class="restaurant-top">
+                <img class="thumb" src="/images/grubgo_splash_food.png" alt="" />
+                <div>
+                  <div class="rest-name">Fit Bowl JP</div>
+                  <div class="rest-meta">Altiplano • Saudável • 1,7 km</div>
+                  <div class="tag">Opções para todo momento</div>
+                </div>
+              </div>
+              <div class="items">
+                <div class="item"><span>Bowl de frango</span><b>R$ 31,90</b></div>
+                <div class="item"><span>Suco natural</span><b>R$ 9,90</b></div>
+              </div>
+            </article>
+          </div>
+          <div class="fade"></div>
+        </div>
+      </div>
+
+      <div class="floating-card" data-anim="float">Todos os cardápios.<br />Uma busca.</div>
+      <div class="bottom-logo" data-anim="bottom-logo">FilterFood</div>
+    </main>
+
+    <script>
+      const q = (selector) => document.querySelector(selector);
+      const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+      const ease = (x) => 1 - Math.pow(1 - clamp(x), 3);
+      const inOut = (x) => {
+        x = clamp(x);
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      };
+      const between = (t, start, end) => clamp((t - start) / (end - start));
+      const setA = (name, styles) => Object.assign(q(`[data-anim="${name}"]`).style, styles);
+
+      window.renderAt = function renderAt(t) {
+        const logo = ease(between(t, 0.05, 0.68));
+        setA("logo", {
+          opacity: String(logo),
+          transform: `translateY(${(1 - logo) * 32}px) scale(${0.88 + logo * 0.12})`,
+        });
+
+        const message = ease(between(t, 0.55, 1.32));
+        setA("message", {
+          opacity: String(message),
+          transform: `translateY(${(1 - message) * 42}px)`,
+        });
+
+        const sub = ease(between(t, 1.05, 1.8));
+        setA("sub", {
+          opacity: String(sub),
+          transform: `translateY(${(1 - sub) * 28}px)`,
+        });
+
+        const phone = ease(between(t, 0.38, 1.28));
+        setA("phone", {
+          opacity: String(phone),
+          transform: `translateX(${(1 - phone) * 120}px) rotate(${4 - phone * 4}deg) scale(${0.88 + phone * 0.12})`,
+        });
+
+        const scroll = inOut(between(t, 1.55, 8.4));
+        setA("feed", {
+          transform: `translateY(${-scroll * 770}px)`,
+        });
+
+        const ringScale = 1 + Math.sin(t * 1.5) * 0.035;
+        setA("ring", {
+          transform: `scale(${ringScale})`,
+          opacity: String(0.55 + Math.sin(t * 1.2) * 0.12),
+        });
+
+        const floating = ease(between(t, 2.2, 3.05)) * clamp(1 - between(t, 8.7, 9.45));
+        setA("float", {
+          opacity: String(floating),
+          transform: `translateY(${(1 - floating) * 36 + Math.sin(t * 2) * 4}px)`,
+        });
+
+        const bottom = ease(between(t, 8.15, 9.0));
+        setA("bottom-logo", {
+          opacity: String(bottom),
+          transform: `translateY(${(1 - bottom) * 28}px)`,
+        });
+      };
+
+      window.renderAt(Number(new URLSearchParams(location.search).get("t") || 0));
+    </script>
+  </body>
+</html>

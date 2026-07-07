@@ -50,6 +50,7 @@ import AdminLayout from '@/pages/admin/AdminLayout';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminLogin from '@/pages/admin/AdminLogin';
 import GoogleMapsCollector from '@/pages/admin/GoogleMapsCollector';
+import AdminCrm from '@/pages/admin/AdminCrm';
 
 // Novas Rotas de Expansão (City-Centric)
 import ExpansionHub from '@/pages/admin/expansion/ExpansionHub';
@@ -121,6 +122,9 @@ function App() {
           <Route path="/admin/expansion" element={<ExpansionHub />} />
           <Route path="/admin/collector" element={<GoogleMapsCollector />} />
           <Route path="/admin/expansion/:cityId" element={<CityDashboard />} />
+          <Route path="/admin/crm" element={<AdminCrm />} />
+          <Route path="/admin/plans" element={<Navigate to="/admin/crm" replace />} />
+          <Route path="/admin/settings" element={<Navigate to="/admin/crm" replace />} />
         </Route>
         {/* Redirecionamento de Rotas Legadas da Área do Restaurante para as Rotas Unificadas */}
         <Route path="/restaurant-area/search" element={<Navigate to="/search" replace />} />

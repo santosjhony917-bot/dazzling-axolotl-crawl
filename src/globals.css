@@ -28,6 +28,34 @@
     --filterfood-shell-border: rgba(203, 213, 225, 0.6);
     --filterfood-focus-ring: rgba(223, 75, 28, 0.32);
 
+    /* Minimalismo Tecnologico Quente */
+    --ff-primary: var(--filterfood-orange);
+    --ff-primary-dark: var(--filterfood-orange-hover);
+    --ff-background: var(--filterfood-shell);
+    --ff-surface: var(--filterfood-surface);
+    --ff-surface-warm: #fffaf6;
+    --ff-text-primary: var(--filterfood-ink);
+    --ff-text-secondary: #6B7280;
+    --ff-border-soft: var(--filterfood-border);
+    --ff-tech-teal: #14c8c3;
+    --ff-success: #16a34a;
+    --ff-danger: #dc2626;
+    --ff-radius-card: 24px;
+    --ff-radius-button: 9999px;
+    --ff-radius-chip: 9999px;
+    --ff-radius-sheet: 32px;
+    --ff-space-xs: 0.5rem;
+    --ff-space-s: 0.75rem;
+    --ff-space-m: 1rem;
+    --ff-space-l: 1.5rem;
+    --ff-space-xl: 2rem;
+    --ff-shadow-card: 0 10px 30px rgba(15, 23, 42, 0.045);
+    --ff-shadow-button: 0 12px 24px rgba(223, 75, 28, 0.18);
+    --ff-shadow-floating: 0 18px 46px rgba(15, 23, 42, 0.08);
+    --ff-motion-fast: 160ms;
+    --ff-motion-normal: 240ms;
+    --ff-motion-slow: 420ms;
+
     /* Cores Semanticas Oficiais (Hex) - Tema FilterFood */
     --primary-hex: var(--filterfood-orange);
     --highlight-hex: var(--filterfood-orange);

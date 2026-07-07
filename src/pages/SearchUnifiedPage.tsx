@@ -68,15 +68,15 @@ export default function SearchUnifiedPage() {
   const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
   const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
   const [excludedDishCategoryIds, setExcludedDishCategoryIds] = useState<string[]>([]);
-  const [includedRestaurantCategories, setIncludedRestaurantCategories] = useState<string[]>([]); // Alterado para categorias INCLUÃDAS
+  const [includedRestaurantCategories, setIncludedRestaurantCategories] = useState<string[]>([]); // Alterado para categorias INCLUÍDAS
   const [selectedNeighborhoodFilter, setSelectedNeighborhoodFilter] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const userLat = location.latitude;
   const userLon = location.longitude;
 
-  const [page, setPage] = useState(1); // Estado para a pÃ¡gina atual
-  const pageSize = 10; // NÃºmero de itens por pÃ¡gina
+  const [page, setPage] = useState(1); // Estado para a página atual
+  const pageSize = 10; // Número de itens por página
 
   // New states for accumulated results
   const [accumulatedDishResults, setAccumulatedDishResults] = useState<SearchItemResult[]>([]);
@@ -92,7 +92,7 @@ export default function SearchUnifiedPage() {
     return parsedQuery.cleanedQuery || parsedQuery.category || '';
   }, [searchQuery, parsedQuery]);
 
-  // Efeito para ler os parÃ¢metros da URL e inicializar os estados
+  // Efeito para ler os parâmetros da URL e inicializar os estados
   useEffect(() => {
     const urlSearchQuery = searchParams.get('searchQuery') || '';
     const urlMinPrice = searchParams.get('minPrice');
@@ -111,7 +111,7 @@ export default function SearchUnifiedPage() {
     setExcludedDishCategoryIds(urlExcludedCategoryIds ? urlExcludedCategoryIds.split(',') : []);
     setIncludedRestaurantCategories(urlIncludedCategories ? urlIncludedCategories.split(',') : []);
     setSelectedNeighborhoodFilter(urlNeighborhood);
-    setPage(1); // Resetar a pÃ¡gina ao carregar da URL
+    setPage(1); // Resetar a página ao carregar da URL
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     
@@ -194,11 +194,11 @@ export default function SearchUnifiedPage() {
     }
   }, [activeSearchType, restaurantSearchResults, restaurantsLoading, page, restaurantsHasMore]);
 
-  // Group JoÃ£o Pessoa neighborhoods by region
+  // Group João Pessoa neighborhoods by region
   const REGIONS_NEIGHBORHOODS = useMemo(() => ({
-    orla: ['TambaÃº', 'Cabo Branco', 'ManaÃ­ra', 'Bessa', 'Altiplano', 'Jardim Oceania', 'Aeroclube'],
-    zona_sul: ['BancÃ¡rios', 'Mangabeira', 'Geisel', 'Valentina', 'Castelo Branco', 'Portal do Sol', 'JosÃ© AmÃ©rico', 'Cidade UniversitÃ¡ria'],
-    centro_norte: ['Centro', 'Torre', 'TambiÃ¡', 'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre ZÃ©', 'Miramar', 'Tambauzinho', 'ExpedicionÃ¡rios']
+    orla: ['Tambaú', 'Cabo Branco', 'Manaíra', 'Bessa', 'Altiplano', 'Jardim Oceania', 'Aeroclube'],
+    zona_sul: ['Bancários', 'Mangabeira', 'Geisel', 'Valentina', 'Castelo Branco', 'Portal do Sol', 'José Américo', 'Cidade Universitária'],
+    centro_norte: ['Centro', 'Torre', 'Tambiá', 'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre Zé', 'Miramar', 'Tambauzinho', 'Expedicionários']
   }), []);
 
   // Effect to apply filters to accumulated results and set displayedResults
@@ -338,11 +338,11 @@ export default function SearchUnifiedPage() {
   const handleSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto sua localizaÃ§Ã£o Ã© definida para realizar a busca.");
+      showError("Aguarde enquanto sua localização é definida para realizar a busca.");
       return;
     }
     setIsSubmitted(true);
-    setPage(1); // Resetar a pÃ¡gina para 1 ao fazer uma nova busca
+    setPage(1); // Resetar a página para 1 ao fazer uma nova busca
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchDishes(); // This will trigger a fetch for page 1
@@ -362,7 +362,7 @@ export default function SearchUnifiedPage() {
     setAccumulatedRestaurantResults([]);
   };
 
-  // Predefined search suggestion combos mapping JoÃ£o Pessoa neighborhood and categories
+  // Predefined search suggestion combos mapping João Pessoa neighborhood and categories
   const SUGGESTED_COMBOS = useMemo(() => [
     { text: 'Pizzaria em Tambaú', query: 'Pizzaria em Tambaú' },
     { text: 'Hamburgueria nos Bancários', query: 'Hamburgueria nos Bancários' },
@@ -374,7 +374,7 @@ export default function SearchUnifiedPage() {
     { text: 'Açaí em Mangabeira', query: 'Açaí em Mangabeira' },
   ], []);
 
-  // Predictive autocompletes based on typed content mapping JoÃ£o Pessoa details local parser
+  // Predictive autocompletes based on typed content mapping João Pessoa details local parser
   const generateAutocompleteSuggestions = useCallback((query: string) => {
     const normalized = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if (!normalized) return [];
@@ -383,11 +383,11 @@ export default function SearchUnifiedPage() {
 
     // Mappings from searchParser
     const NEIGHBORHOODS_LIST = [
-      'TambaÃº', 'Cabo Branco', 'ManaÃ­ra', 'Bessa', 'BancÃ¡rios', 'Mangabeira', 
-      'Geisel', 'Valentina', 'Centro', 'Torre', 'Altiplano', 'TambiÃ¡', 
-      'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre ZÃ©', 
+      'Tambaú', 'Cabo Branco', 'Manaíra', 'Bessa', 'Bancários', 'Mangabeira',
+      'Geisel', 'Valentina', 'Centro', 'Torre', 'Altiplano', 'Tambiá',
+      'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre Zé',
       'Miramar', 'Tambauzinho', 'Jardim Oceania', 'Aeroclube', 'Castelo Branco', 
-      'Portal do Sol', 'JosÃ© AmÃ©rico', 'Cidade UniversitÃ¡ria', 'ExpedicionÃ¡rios'
+      'Portal do Sol', 'José Américo', 'Cidade Universitária', 'Expedicionários'
     ];
 
     const CATEGORIES_LIST = [
@@ -396,8 +396,8 @@ export default function SearchUnifiedPage() {
       { key: 'sushi', label: 'Japonesa' },
       { key: 'cafe', label: 'Cafeteria' },
       { key: 'churrasco', label: 'Churrascaria' },
-      { key: 'sorvete', label: 'AÃ§aÃ­ / Sorveteria' },
-      { key: 'saudavel', label: 'SaudÃ¡vel / Fit' }
+      { key: 'sorvete', label: 'Açaí / Sorveteria' },
+      { key: 'saudavel', label: 'Saudável / Fit' }
     ];
 
     const REGIONS_LIST = [
@@ -420,7 +420,7 @@ export default function SearchUnifiedPage() {
         type: 'category'
       });
       // Add popular neighborhood combos for category
-      ['TambaÃº', 'Cabo Branco', 'BancÃ¡rios', 'ManaÃ­ra'].forEach(neigh => {
+      ['Tambaú', 'Cabo Branco', 'Bancários', 'Manaíra'].forEach(neigh => {
         suggestionsList.push({
           text: `ðŸ” ${categoryName} em ${neigh}`,
           query: `${categoryName} em ${neigh}`,
@@ -437,7 +437,7 @@ export default function SearchUnifiedPage() {
           type: 'neighborhood'
         });
         // Add popular category combos
-        ['Pizzaria', 'Hamburgueria', 'Cafeteria', 'AÃ§aÃ­ / Sorveteria'].forEach(cat => {
+        ['Pizzaria', 'Hamburgueria', 'Cafeteria', 'Açaí / Sorveteria'].forEach(cat => {
           suggestionsList.push({
             text: `ðŸ” ${cat} em ${neighName}`,
             query: `${cat} em ${neighName}`,
@@ -465,13 +465,13 @@ export default function SearchUnifiedPage() {
     const parsed = parseSearchQuery(query);
     if (parsed.category && parsed.neighborhood) {
       suggestionsList.unshift({
-        text: `âœ¨ Buscar ${parsed.category} em ${parsed.neighborhood}`,
+        text: `✨ Buscar ${parsed.category} em ${parsed.neighborhood}`,
         query: `${parsed.category} em ${parsed.neighborhood}`,
         type: 'combo'
       });
     } else if (parsed.cleanedQuery && parsed.neighborhood) {
       suggestionsList.unshift({
-        text: `âœ¨ Buscar "${parsed.cleanedQuery}" em ${parsed.neighborhood}`,
+        text: `✨ Buscar "${parsed.cleanedQuery}" em ${parsed.neighborhood}`,
         query: `${parsed.cleanedQuery} em ${parsed.neighborhood}`,
         type: 'combo'
       });
@@ -501,7 +501,7 @@ export default function SearchUnifiedPage() {
   
   const handleSearchByPrice = () => {
     if (userLat === null || userLon === null) {
-      showError("Defina sua localizaÃ§Ã£o primeiro para usar o filtro de preÃ§o.");
+      showError("Defina sua localização primeiro para usar o filtro de preço.");
       return;
     }
     setIsPriceModalOpen(true);
@@ -510,9 +510,9 @@ export default function SearchUnifiedPage() {
   const handleApplyPriceFilter = (min: number, max: number) => {
     setMinPriceFilter(min);
     setMaxPriceFilter(max);
-    showInfo(`Filtro de preÃ§o aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
+    showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
     setIsPriceModalOpen(false);
-    setPage(1); // Resetar a pÃ¡gina ao aplicar filtro
+    setPage(1); // Resetar a página ao aplicar filtro
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchDishes(); // Refetch with new price filter
@@ -520,7 +520,7 @@ export default function SearchUnifiedPage() {
 
   const handleSearchNearby = () => {
     if (userLat === null || userLon === null) {
-      showError("Defina sua localizaÃ§Ã£o primeiro para usar o filtro de distÃ¢ncia.");
+      showError("Defina sua localização primeiro para usar o filtro de distância.");
       return;
     }
     setIsDistanceModalOpen(true);
@@ -528,9 +528,9 @@ export default function SearchUnifiedPage() {
   
   const handleApplyDistanceFilter = (distance: number) => {
     setMaxDistanceFilter(distance);
-    showInfo(`Filtro de distÃ¢ncia aplicado: atÃ© ${distance} km. Atualizando resultados.`);
+    showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
     setIsDistanceModalOpen(false);
-    setPage(1); // Resetar a pÃ¡gina ao aplicar filtro
+    setPage(1); // Resetar a página ao aplicar filtro
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchRestaurants(); // Refetch with new distance filter
@@ -539,7 +539,7 @@ export default function SearchUnifiedPage() {
   const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => {
     setExcludedDishCategoryIds(newExcludedIds);
     showInfo(`Filtro de categorias de pratos aplicado. Atualizando resultados.`);
-    setPage(1); // Resetar a pÃ¡gina ao aplicar filtro
+    setPage(1); // Resetar a página ao aplicar filtro
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchDishes(); // Refetch with new category filter
@@ -548,7 +548,7 @@ export default function SearchUnifiedPage() {
   const handleApplyRestaurantCategoryFilter = (newIncludedCategories: string[]) => {
     setIncludedRestaurantCategories(newIncludedCategories);
     showInfo(`Filtro de categorias de restaurantes aplicado. Atualizando resultados.`);
-    setPage(1); // Resetar a pÃ¡gina ao aplicar filtro
+    setPage(1); // Resetar a página ao aplicar filtro
     setAccumulatedDishResults([]); // Clear accumulated results
     setAccumulatedRestaurantResults([]); // Clear accumulated results
     refetchRestaurants(); // Refetch with new category filter
@@ -572,7 +572,7 @@ export default function SearchUnifiedPage() {
   const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
   const handleToggleChange = (type: 'dishes' | 'restaurants') => {
     setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
-    // Resetar filtros e pÃ¡gina ao trocar de aba
+    // Resetar filtros e página ao trocar de aba
     setMinPriceFilter(null);
     setMaxPriceFilter(null);
     setMaxDistanceFilter(null);
@@ -621,7 +621,7 @@ export default function SearchUnifiedPage() {
   const pageContent = (
     <div className="space-y-4 px-5 pb-5 pt-4">
 
-      {/* Filtros RÃ¡pidos â€” estilo pill compacto */}
+      {/* Filtros Rápidos — estilo pill compacto */}
       <div className="flex flex-wrap gap-2">
         <motion.button
           whileTap={{ scale: 0.96 }}
@@ -635,8 +635,8 @@ export default function SearchUnifiedPage() {
         >
           <DollarSign className="h-3.5 w-3.5" />
           {minPriceFilter !== null || maxPriceFilter !== null
-            ? `R$${minPriceFilter || 0}â€“R$${maxPriceFilter || 'âˆž'}`
-            : 'PreÃ§o'}
+            ? `R$${minPriceFilter || 0}–R$${maxPriceFilter || '∞'}`
+            : 'Preço'}
         </motion.button>
 
         <motion.button
@@ -650,7 +650,7 @@ export default function SearchUnifiedPage() {
           )}
         >
           <Compass className="h-3.5 w-3.5" />
-          {maxDistanceFilter !== null ? `AtÃ© ${maxDistanceFilter} km` : 'DistÃ¢ncia'}
+          {maxDistanceFilter !== null ? `Até ${maxDistanceFilter} km` : 'Distância'}
         </motion.button>
 
         {selectedNeighborhoodFilter !== null && (
@@ -666,7 +666,7 @@ export default function SearchUnifiedPage() {
             onClick={handleClearFilters}
             className="flex h-9 items-center gap-1.5 rounded-full border border-highlight/15 bg-highlight/10 px-3.5 text-[13px] font-semibold text-highlight transition-all duration-200"
           >
-            âœ• Limpar
+            ✕ Limpar
           </motion.button>
         )}
       </div>
@@ -751,7 +751,7 @@ export default function SearchUnifiedPage() {
               transition={{ duration: 0.4 }}
               className="flex flex-col items-center justify-center px-6 py-14 text-center"
             >
-              {/* IlustraÃ§Ã£o emoji grande */}
+              {/* Ilustração emoji grande */}
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-slate-100 bg-white text-highlight shadow-soft">
                 <Search className="h-5 w-5" />
               </div>

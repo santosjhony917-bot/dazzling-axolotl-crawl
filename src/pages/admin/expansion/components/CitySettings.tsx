@@ -185,8 +185,8 @@ export default function CitySettings() {
             <Button onClick={() => setSearchParams({ tab: 'validation' })} size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-8">
               Validar IA
             </Button>
-            <Button onClick={() => setSearchParams({ tab: 'crm' })} size="sm" variant="outline" disabled={stats.crmReadyLeads === 0} className="font-bold h-8">
-              CRM
+            <Button onClick={() => setSearchParams({ tab: 'vitrine-crm' })} size="sm" variant="outline" disabled={stats.crmReadyLeads === 0} className="font-bold h-8">
+              Vitrine & CRM
             </Button>
           </div>
         </div>

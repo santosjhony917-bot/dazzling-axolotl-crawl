@@ -75,7 +75,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
     }
   }, [messages, isOpen]);
 
-  // Carrega Happy Hours do usuÃ¡rio para sugestÃ£o rÃ¡pida
+  // Carrega Happy Hours do usuário para sugestão rápida
   useEffect(() => {
     if (currentUserId && isOpen) {
       getHappyHours(currentUserId)
@@ -116,7 +116,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
       },
       {
         id: 'mock-free-restaurant-id',
-        name: 'Lancheira do ZÃ© (Free)',
+        name: 'Lancheira do Zé (Free)',
         category: 'Lanches',
         image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500',
         distance_km: 2.5,
@@ -142,14 +142,14 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
     setMessages(prev => [...prev, {
       id: 'typing',
       sender: 'bot',
-      text: 'Analisando seu pedido e buscando nos cardÃ¡pios...'
+      text: 'Analisando seu pedido e buscando nos cardápios...'
     }]);
 
     try {
       const parsed = parseNaturalQuery(query);
       setParsedInfo(parsed);
 
-      const lat = location.latitude || -7.11532; // Default para PB/JoÃ£o Pessoa se nulo
+      const lat = location.latitude || -7.11532; // Default para PB/João Pessoa se nulo
       const lng = location.longitude || -34.861;
 
       const nearbyRests = await fetchNearbyRestaurantsForCombo(lat, lng, parsed.maxDistance);
@@ -158,7 +158,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
         setMessages(prev => prev.filter(m => m.id !== 'typing').concat({
           id: `bot-${Date.now()}`,
           sender: 'bot',
-          text: `NÃ£o encontrei nenhum restaurante cadastrado em um raio de ${parsed.maxDistance} km. Tente aumentar a distÃ¢ncia na sua busca!`
+          text: `Não encontrei nenhum restaurante cadastrado em um raio de ${parsed.maxDistance} km. Tente aumentar a distância na sua busca!`
         }));
         setLoading(false);
         return;
@@ -183,9 +183,9 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
 
       let responseText = '';
       if (allSuggestedCombos.length > 0) {
-        responseText = `Encontrei ${allSuggestedCombos.length} sugestÃ£o(Ãµes) de combos perfeitos de **${parsed.category === 'geral' ? 'comida' : parsed.category}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}** dentro do seu orÃ§amento de **R$ ${parsed.maxBudget.toFixed(2)}**!\n\nVeja as sugestÃµes abaixo do chat e escolha o seu preferido.ðŸ‘‡`;
+        responseText = `Encontrei ${allSuggestedCombos.length} sugestão(ões) de combos perfeitos de **${parsed.category === 'geral' ? 'comida' : parsed.category}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}** dentro do seu orçamento de **R$ ${parsed.maxBudget.toFixed(2)}**!\n\nVeja as sugestões abaixo do chat e escolha o seu preferido.ðŸ‘‡`;
       } else {
-        responseText = `Infelizmente, varri o cardÃ¡pio dos restaurantes num raio de ${parsed.maxDistance} km mas nenhum deles possui itens de **${parsed.category}** que caibam no orÃ§amento de **R$ ${parsed.maxBudget.toFixed(2)}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}**.\n\nTente aumentar o orÃ§amento ou simplificar o pedido!`;
+        responseText = `Infelizmente, varri o cardápio dos restaurantes num raio de ${parsed.maxDistance} km mas nenhum deles possui itens de **${parsed.category}** que caibam no orçamento de **R$ ${parsed.maxBudget.toFixed(2)}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}**.\n\nTente aumentar o orçamento ou simplificar o pedido!`;
       }
 
       setMessages(prev => prev.filter(m => m.id !== 'typing').concat({
@@ -255,7 +255,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className="flex h-screen min-h-screen w-full max-w-[440px] flex-col overflow-hidden bg-[#FAFAFA] shadow-float pointer-events-auto"
           >
-          {/* CabeÃ§alho */}
+          {/* Cabeçalho */}
           <Header
             title={
               <div className="flex items-center gap-2.5">
@@ -271,7 +271,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
             rightAction={{ icon: ChevronDown, onClick: onClose }}
           />
 
-          {/* Ãrea de Mensagens do Chat */}
+          {/* Área de Mensagens do Chat */}
           <div className={cn(
             "flex min-h-0 flex-grow flex-col space-y-4 overflow-y-auto bg-[#FAFAFA] px-4 py-4 hide-scrollbar",
             messages.length === 1 && combos.length === 0 && "pt-4"
@@ -301,7 +301,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                     />
                   )}
                   
-                  {/* BalÃ£o de Mensagem */}
+                  {/* Balão de Mensagem */}
                   <div 
                     className={cn(
                       "p-3.5 text-[14px] leading-relaxed font-sans font-normal",
@@ -414,7 +414,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                                     <span className="bg-[#df4b1c]/10 text-[#df4b1c] text-[9px] font-black h-6 w-6 rounded-lg flex items-center justify-center shrink-0">1x</span>
                                     <span className="truncate">{item.name}</span>
                                   </div>
-                                  <span className="text-xs font-extrabold shrink-0">{item.price != null ? `R$ ${item.price.toFixed(2)}` : 'PreÃ§o sob consulta'}</span>
+                                  <span className="text-xs font-extrabold shrink-0">{item.price != null ? `R$ ${item.price.toFixed(2)}` : 'Preço sob consulta'}</span>
                                 </div>
                               ))}
                               {hiddenItemsCount > 0 && (
@@ -429,7 +429,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                               </div>
                             </div>
 
-                            {/* ExplicaÃ§Ã£o da IA */}
+                            {/* Explicação da IA */}
                             <div className="bg-amber-50/40 border border-amber-500/10 rounded-[18px] p-3.5 flex gap-2.5 items-start">
                               <Sparkles className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                               <p className="text-xs text-slate-600 leading-relaxed font-semibold line-clamp-5">
@@ -437,7 +437,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                               </p>
                             </div>
 
-                            {/* AÃ§Ãµes RÃ¡pidas */}
+                            {/* Ações Rápidas */}
                             <div className="flex gap-2 pt-0.5">
                               <Button
                                 onClick={() => {
@@ -448,7 +448,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                                 className="flex-grow h-11 rounded-xl text-xs font-bold border-slate-200 text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-1.5 shadow-none"
                               >
                                 <Utensils className="w-3.5 h-3.5" />
-                                CardÃ¡pio
+                                Cardápio
                               </Button>
                               <Button
                                 onClick={() => handleOpenHHModal(combo.restaurant.id)}
@@ -470,7 +470,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Ãrea de Entrada & SugestÃµes RÃ¡pidas */}
+          {/* Área de Entrada & Sugestões Rápidas */}
           <div className="relative z-20 shrink-0 rounded-b-[28px] border-t border-slate-100 bg-white p-4">
             {/* Form de Input */}
             <form onSubmit={handleSend} className="group flex w-full items-center gap-2 rounded-full border border-slate-100 bg-[#FAFAFA] p-2 shadow-sm transition-all duration-300 focus-within:border-highlight/30">
@@ -494,7 +494,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
             </form>
           </div>
 
-          {/* Modal / DiÃ¡logo para selecionar o Happy Hour para sugestÃ£o */}
+          {/* Modal / Diálogo para selecionar o Happy Hour para sugestão */}
           {isModalOpen && (
             <div className="absolute inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end justify-center p-4 rounded-[28px]">
               <motion.div 
@@ -536,7 +536,7 @@ export default function AiChatBalloon({ isOpen, onClose }: AiChatBalloonProps) {
                   ) : (
                     <div className="text-center py-4 text-slate-500 space-y-2">
                       <AlertCircle className="w-6 h-6 text-slate-350 mx-auto" />
-                      <p className="text-[10px] font-bold text-slate-400">VocÃª nÃ£o participa de salas de Happy Hour ativas.</p>
+                      <p className="text-[10px] font-bold text-slate-400">Você não participa de salas de Happy Hour ativas.</p>
                       <Button
                         onClick={() => {
                           setIsModalOpen(false);

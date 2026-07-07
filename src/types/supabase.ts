@@ -209,10 +209,23 @@ export interface CommercialLead {
   id: string;
   restaurant_id: string;
   score: number;
-  pipeline_stage: 'Uncontacted' | 'Qualified' | 'Negotiating' | 'Won' | 'Lost' | 'Nurturing';
+  pipeline_stage: 'PublishedReady' | 'Uncontacted' | 'Queued' | 'Contacted' | 'Responded' | 'Qualified' | 'Handoff' | 'Negotiating' | 'Won' | 'Lost' | 'OptOut' | 'Blocked' | 'Nurturing';
   sentiment: 'Positive' | 'Neutral' | 'Negative' | 'Objection' | 'Ready';
   assigned_agent_id?: string | null;
   is_ai_active: boolean;
+  ai_agent_id?: string | null;
+  primary_phone?: string | null;
+  whatsapp_url?: string | null;
+  contact_source?: string | null;
+  public_profile_url?: string | null;
+  public_profile_screenshot_url?: string | null;
+  opt_out_at?: string | null;
+  last_contacted_at?: string | null;
+  last_event_at?: string | null;
+  next_action_at?: string | null;
+  handoff_reason?: string | null;
+  automation_paused_reason?: string | null;
+  crm_notes?: string | null;
   created_at?: string;
   updated_at?: string;
 }
@@ -253,4 +266,42 @@ export interface AIInsightLog {
   confidence_score?: number;
   action_taken?: string | null;
   created_at?: string;
+}
+
+export interface CrmRobotJob {
+  id: string;
+  lead_id: string;
+  restaurant_id: string;
+  job_type: string;
+  status: 'pending' | 'scheduled' | 'running' | 'waiting_external' | 'succeeded' | 'failed' | 'retrying' | 'cancelled' | 'needs_human';
+  channel: string;
+  provider: string;
+  scheduled_at?: string;
+  started_at?: string | null;
+  finished_at?: string | null;
+  attempts: number;
+  max_attempts: number;
+  locked_at?: string | null;
+  last_error?: string | null;
+  payload?: Json;
+  result?: Json;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface CrmContact {
+  id: string;
+  lead_id: string;
+  restaurant_id: string;
+  kind: string;
+  phone?: string | null;
+  whatsapp_url?: string | null;
+  source?: string | null;
+  source_url?: string | null;
+  confidence?: number | null;
+  is_primary: boolean;
+  consent_status: string;
+  opt_out_at?: string | null;
+  created_at?: string;
+  updated_at?: string;
 }

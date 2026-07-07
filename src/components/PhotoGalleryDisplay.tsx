@@ -33,9 +33,9 @@ const PhotoGalleryDisplay: React.FC<PhotoGalleryDisplayProps> = ({ gallery, rest
       <div className="grid grid-cols-3 gap-2 h-[320px]">
         {/* Imagem Principal */}
         {largeItem && (
-          <div className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden shadow-none">
+          <div className="col-span-2 row-span-2 relative rounded-2xl overflow-hidden shadow-none bg-neutral-950">
             <img 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-contain" 
               alt={largeItem.caption || `Foto de ${restaurantName}`} 
               src={largeItem.image_url} 
             />
@@ -49,9 +49,9 @@ const PhotoGalleryDisplay: React.FC<PhotoGalleryDisplayProps> = ({ gallery, rest
         
         {/* Imagens Pequenas */}
         {smallItems.map((item, index) => (
-          <div key={item.id} className="col-span-1 h-[156px] relative rounded-2xl overflow-hidden shadow-none">
+          <div key={item.id} className="col-span-1 h-[156px] relative rounded-2xl overflow-hidden shadow-none bg-neutral-950">
             <img 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-contain" 
               alt={item.caption || `Foto ${index + 2}`} 
               src={item.image_url} 
             />

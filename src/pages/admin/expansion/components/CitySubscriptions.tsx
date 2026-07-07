@@ -35,12 +35,29 @@ export default function CitySubscriptions() {
         // 2. Fetch restaurants in this city
         const { data: restData, error: restError } = await supabase
           .from('restaurants')
-          .select('id, name, plan, visit_status, created_at')
+          .select('id, name, plan, created_at')
           .eq('city', cityData.name)
           .eq('state', cityData.state);
 
         if (restError) throw restError;
-        setRestaurants(restData || []);
+
+        const restaurantIds = (restData || []).map((r: any) => r.id);
+        const crmStageByRestaurant: Record<string, string> = {};
+        if (restaurantIds.length > 0) {
+          const { data: crmRows, error: crmError } = await supabase
+            .from('commercial_leads')
+            .select('restaurant_id, pipeline_stage')
+            .in('restaurant_id', restaurantIds);
+          if (crmError) throw crmError;
+          (crmRows || []).forEach((lead: any) => {
+            crmStageByRestaurant[lead.restaurant_id] = lead.pipeline_stage;
+          });
+        }
+
+        setRestaurants((restData || []).map((restaurant: any) => ({
+          ...restaurant,
+          crm_stage: crmStageByRestaurant[restaurant.id] || 'Sem CRM',
+        })));
       } catch (err: any) {
         console.error('Error loading subscriptions data:', err);
         toast.error('Erro ao carregar dados financeiros: ' + err.message);
@@ -230,12 +247,12 @@ export default function CitySubscriptions() {
                           </TableCell>
                           <TableCell className="font-medium text-slate-700">{valText}</TableCell>
                           <TableCell>
-                            <Badge variant="outline" className={`font-bold capitalize ${
-                              r.visit_status === 'won' || r.visit_status === 'Visitado' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                              r.visit_status === 'lost' || r.visit_status === 'Não Interessado' ? 'bg-rose-50 text-rose-700 border-rose-200' :
+                            <Badge variant="outline" className={`font-bold ${
+                              r.crm_stage === 'Won' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                              ['Lost', 'OptOut', 'Blocked'].includes(r.crm_stage) ? 'bg-rose-50 text-rose-700 border-rose-200' :
                               'bg-indigo-50 text-indigo-700 border-indigo-200'
                             }`}>
-                              {r.visit_status || 'Pendente'}
+                              {r.crm_stage || 'Sem CRM'}
                             </Badge>
                           </TableCell>
                         </TableRow>

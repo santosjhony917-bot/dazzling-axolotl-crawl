@@ -6,7 +6,6 @@ import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Trash2, 
@@ -96,13 +95,25 @@ const cleanOptionNameForSearchLabel = (value: any) => String(value || '')
   .replace(/\s+/g, ' ')
   .trim();
 
+const normalizeOptionSearchKey = (value: any) => String(value || '')
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase()
+  .replace(/[^\p{L}\p{N}]+/gu, ' ')
+  .trim();
+
 const buildSearchableOptionLabel = (itemName: any, option: any) => {
   const explicit = String(option?.search_label || '').trim();
   if (explicit) return explicit;
   if (!option?.is_searchable_variant) return null;
   const baseName = String(itemName || '').trim();
   const optionName = cleanOptionNameForSearchLabel(option?.name);
-  return [baseName, optionName].filter(Boolean).join(' ').trim() || null;
+  if (!baseName) return optionName || null;
+  if (!optionName) return baseName || null;
+  const baseKey = normalizeOptionSearchKey(baseName);
+  const optionKey = normalizeOptionSearchKey(optionName);
+  if (optionKey && baseKey.includes(optionKey)) return baseName;
+  return `${baseName} - ${optionName}`.trim() || null;
 };
 
 const parseComboLine = (line: string) => {
@@ -164,57 +175,7 @@ const comboLinesFromComponents = (item: any, type: string) => {
 
 const buildEditableComboComponents = (item: any) => {
   if ((item.commercial_type || item.commercialType) !== 'combo_builder') return [];
-
-  const rawComponents = Array.isArray(item.combo_components)
-    ? item.combo_components
-    : Array.isArray(item.comboComponents)
-      ? item.comboComponents
-      : [];
-
-  const included = parseComboLines(item.combo_included_text ?? comboLinesFromComponents(item, 'fixed_item'));
-  const choices = parseComboLines(item.combo_choices_text ?? comboLinesFromComponents(item, 'choice_group'));
-  const addons = parseComboLines(item.combo_addons_text ?? comboLinesFromComponents(item, 'addon_group'));
-
-  if (!included.length && !choices.length && !addons.length && rawComponents.length) return rawComponents;
-
-  const components: any[] = [];
-  if (included.length) {
-    components.push({
-      type: 'fixed_item',
-      name: 'Itens inclusos',
-      quantity: 1,
-      min_quantity: 0,
-      max_quantity: null,
-      is_required: false,
-      price_behavior: 'included',
-      items: included.map((option, index) => ({ ...option, order_index: index })),
-    });
-  }
-  if (choices.length) {
-    const min = parseComboMoney(item.combo_choice_min) ?? 1;
-    const max = parseComboMoney(item.combo_choice_max) ?? min;
-    components.push({
-      type: 'choice_group',
-      name: item.combo_choice_group_name || `Escolha ${max} opÃ§Ãµes`,
-      min_quantity: min,
-      max_quantity: max,
-      is_required: true,
-      price_behavior: 'included',
-      items: choices.map((option, index) => ({ ...option, order_index: index })),
-    });
-  }
-  if (addons.length) {
-    components.push({
-      type: 'addon_group',
-      name: 'Adicionais do combo',
-      min_quantity: 0,
-      max_quantity: null,
-      is_required: false,
-      price_behavior: 'price_delta',
-      items: addons.map((option, index) => ({ ...option, price_behavior: option.price_behavior || 'price_delta', order_index: index })),
-    });
-  }
-  return components;
+  return [];
 };
 
 const createComboComponent = (type: 'fixed_item' | 'choice_group' | 'addon_group' | 'upsell_group') => {
@@ -297,7 +258,7 @@ const normalizeAdminOptionGroups = (item: any) => {
                 : [];
         return {
           id: group?.id || null,
-          name: String(group?.name || group?.title || group?.group_name || 'OpÃ§Ãµes').trim() || 'OpÃ§Ãµes',
+          name: String(group?.name || group?.title || group?.group_name || 'Opções').trim() || 'Opções',
           min_quantity: Number(group?.min_quantity ?? group?.min ?? 0),
           max_quantity: group?.max_quantity ?? group?.max ?? null,
           is_required: Boolean(group?.is_required ?? group?.required ?? false),
@@ -333,7 +294,7 @@ const normalizeAdminOptionGroups = (item: any) => {
 
   const grouped = new Map<string, any>();
   flatOptions.forEach((option: any, optionIndex: number) => {
-    const groupName = String(option?.group_name || option?.groupName || 'OpÃ§Ãµes').trim() || 'OpÃ§Ãµes';
+    const groupName = String(option?.group_name || option?.groupName || 'Opções').trim() || 'Opções';
     if (!grouped.has(groupName)) {
       grouped.set(groupName, {
         name: groupName,
@@ -506,15 +467,15 @@ const enrichMenuItemsWithAI = async (
       description: item.description || ''
     }));
 
-    const promptText = `VocÃª receberÃ¡ uma lista de pratos da categoria "${categoryName}" do restaurante "${restaurantName}" no formato JSON.
-Sua tarefa Ã© analisar o contexto e sugerir um nome de exibiÃ§Ã£o otimizado para a BUSCA GLOBAL (searchDisplayName) para cada um deles.
+    const promptText = `Você receberá uma lista de pratos da categoria "${categoryName}" do restaurante "${restaurantName}" no formato JSON.
+Sua tarefa é analisar o contexto e sugerir um nome de exibição otimizado para a BUSCA GLOBAL (searchDisplayName) para cada um deles.
 Regras:
-1. Nomes genÃ©ricos como "FilÃ©" em uma categoria "Saladas" devem ser transformados em "Salada com FilÃ©".
-2. Nomes genÃ©ricos como "Frango" em uma categoria "Saladas" devem ser transformados em "Salada de Frango".
+1. Nomes genéricos como "Filé" em uma categoria "Saladas" devem ser transformados em "Salada com Filé".
+2. Nomes genéricos como "Frango" em uma categoria "Saladas" devem ser transformados em "Salada de Frango".
 3. Se o nome contiver prefixos redundantes como "011: Pizza", remova-os (retornando apenas "Pizza").
-4. Apenas corrija se necessÃ¡rio. Se o nome jÃ¡ for descritivo e claro, retorne-o exatamente como estÃ¡ (em Title Case).
-5. O nome deve ser curto (mÃ¡ximo 40 caracteres).
-6. Retorne APENAS um array JSON vÃ¡lido sem markdown ou blocos de cÃ³digo. Exemplo: {"results": [{"id": "...", "searchDisplayName": "..."}]}.
+4. Apenas corrija se necessário. Se o nome já for descritivo e claro, retorne-o exatamente como está (em Title Case).
+5. O nome deve ser curto (máximo 40 caracteres).
+6. Retorne APENAS um array JSON válido sem markdown ou blocos de código. Exemplo: {"results": [{"id": "...", "searchDisplayName": "..."}]}.
 
 JSON:
 ${JSON.stringify(listForPrompt, null, 2)}`;
@@ -572,10 +533,10 @@ ${JSON.stringify(listForPrompt, null, 2)}`;
             .eq('id', res.id);
         }
       }
-      console.log(`[IA 2Âº Plano] SanitizaÃ§Ã£o de busca concluÃ­da para a categoria ${categoryName}.`);
+      console.log(`[IA 2º Plano] Sanitização de busca concluída para a categoria ${categoryName}.`);
     }
   } catch (err) {
-    console.warn("Erro ao enriquecer nomes de cardÃ¡pio com IA em 2Âº plano:", err);
+    console.warn("Erro ao enriquecer nomes de cardápio com IA em 2º plano:", err);
   }
 };
 
@@ -677,11 +638,11 @@ const parseAddressString = (addressStr: string) => {
 
 const daysTranslation: Record<string, string> = {
   monday: 'Segunda-feira',
-  tuesday: 'TerÃ§a-feira',
+  tuesday: 'Terça-feira',
   wednesday: 'Quarta-feira',
   thursday: 'Quinta-feira',
   friday: 'Sexta-feira',
-  saturday: 'SÃ¡bado',
+  saturday: 'Sábado',
   sunday: 'Domingo'
 };
 
@@ -712,7 +673,7 @@ const isVideoUrl = (url: string | undefined): boolean => {
 };
 
 const renderOpeningHours = (hours: any) => {
-  if (!hours) return <p className="text-gray-400 text-xs font-semibold">Sem horÃ¡rios informados</p>;
+  if (!hours) return <p className="text-gray-400 text-xs font-semibold">Sem horários informados</p>;
   
   return (
     <div className="grid grid-cols-1 gap-1.5 bg-gray-50 p-4 rounded-2xl border border-gray-100">
@@ -781,7 +742,7 @@ const downloadExternalImage = async (url: string): Promise<string> => {
 
   if (useExtension && extId) {
     const isInstagramPost = /instagram\.com\/(p|reel)\//i.test(url) || /instagr\.am\/(p|reel)\//i.test(url);
-    console.log("Baixando imagem via extensÃ£o:", url, "Insta Post?", isInstagramPost);
+    console.log("Baixando imagem via extensão:", url, "Insta Post?", isInstagramPost);
     const chromeObj = (window as any).chrome;
     return new Promise((resolve, reject) => {
       chromeObj.runtime.sendMessage(
@@ -790,11 +751,11 @@ const downloadExternalImage = async (url: string): Promise<string> => {
         (response: any) => {
           const lastError = chromeObj.runtime.lastError;
           if (lastError) {
-            reject(new Error("Erro na extensÃ£o: " + lastError.message));
+            reject(new Error("Erro na extensão: " + lastError.message));
           } else if (response && response.success && response.logoDataUrl) {
             resolve(response.logoDataUrl);
           } else {
-            reject(new Error(response?.error || "Erro ao baixar imagem via extensÃ£o."));
+            reject(new Error(response?.error || "Erro ao baixar imagem via extensão."));
           }
         }
       );
@@ -815,13 +776,13 @@ const normalizeCategory = (category: string | null | undefined): string => {
   if (!category) return 'Outros';
   const clean = category.toLowerCase().trim();
   
-  if (clean.includes('hambÃºrg') || clean.includes('burg') || clean.includes('lanche') || clean.includes('cachorro-quente') || clean.includes('diner')) {
+  if (clean.includes('hambúrg') || clean.includes('burg') || clean.includes('lanche') || clean.includes('cachorro-quente') || clean.includes('diner')) {
     return 'Hamburgueria';
   }
   if (clean.includes('pizza')) {
     return 'Pizzaria';
   }
-  if (clean.includes('cafÃ©') || clean.includes('cafeteria') || clean.includes('padaria') || clean.includes('casa de chÃ¡')) {
+  if (clean.includes('café') || clean.includes('cafeteria') || clean.includes('padaria') || clean.includes('casa de chá')) {
     return 'Cafeteria';
   }
   if (clean.includes('doce') || clean.includes('confeitaria') || clean.includes('doceria') || clean.includes('sobremesa') || clean.includes('chocolate') || clean.includes('bolo')) {
@@ -839,13 +800,13 @@ const normalizeCategory = (category: string | null | undefined): string => {
   if (clean.includes('bar') || clean.includes('pub') || clean.includes('petiscaria') || clean.includes('cervejaria')) {
     return 'Bar';
   }
-  if (clean.includes('aÃ§aÃ­') || clean.includes('acai') || clean.includes('sorvete')) {
-    return 'AÃ§aÃ­ / Sorveteria';
+  if (clean.includes('açaí') || clean.includes('acai') || clean.includes('sorvete')) {
+    return 'Açaí / Sorveteria';
   }
-  if (clean.includes('saudÃ¡vel') || clean.includes('saudavel') || clean.includes('salada') || clean.includes('fit') || clean.includes('vegano') || clean.includes('vegetariano')) {
-    return 'SaudÃ¡vel / Fit';
+  if (clean.includes('saudável') || clean.includes('saudavel') || clean.includes('salada') || clean.includes('fit') || clean.includes('vegano') || clean.includes('vegetariano')) {
+    return 'Saudável / Fit';
   }
-  if (clean.includes('restaurante') || clean.includes('comida') || clean.includes('almoÃ§o')) {
+  if (clean.includes('restaurante') || clean.includes('comida') || clean.includes('almoço')) {
     return 'Restaurante';
   }
   
@@ -864,6 +825,27 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const [newGalleryUrl, setNewGalleryUrl] = useState('');
   const [aiModel, setAiModel] = useState<'gemini' | 'openai'>('gemini');
   const [expandedPreviewItems, setExpandedPreviewItems] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (!isOpen || !restaurant?.id) return;
+    const automation = {
+      restaurantId: restaurant.id,
+      openEditTab: () => {
+        setActiveDialogTab('edit');
+        setIsEditing(true);
+        return { success: true, restaurantId: restaurant.id };
+      },
+    };
+    (window as any).__filterFoodOpenRestaurantEditTab = automation.openEditTab;
+    (window as any).__filterFoodRestaurantEditAutomation = automation;
+    return () => {
+      const current = (window as any).__filterFoodRestaurantEditAutomation;
+      if (current?.restaurantId === restaurant.id) {
+        delete (window as any).__filterFoodOpenRestaurantEditTab;
+        delete (window as any).__filterFoodRestaurantEditAutomation;
+      }
+    };
+  }, [isOpen, restaurant?.id]);
 
   const getEditedContacts = () => {
     if (Array.isArray(editedData?.contact_candidates)) {
@@ -958,7 +940,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           cep: fullRestaurant.cep || ''
         };
         
-        // Auto-parse se cep/number/neighborhood estiverem vazios mas address contÃ©m a string completa
+        // Auto-parse se cep/number/neighborhood estiverem vazios mas address contém a string completa
         if (!fullRestaurant.cep && fullRestaurant.address && (fullRestaurant.address.includes(',') || fullRestaurant.address.includes('-'))) {
           const parsed = parseAddressString(fullRestaurant.address);
           parsedAddress = {
@@ -971,6 +953,12 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           };
         }
         
+        const galleryImages = (fullRestaurant.restaurant_gallery || [])
+          .slice()
+          .sort((a: any, b: any) => (a.order_index || 0) - (b.order_index || 0))
+          .map((img: any) => img.image_url)
+          .filter(Boolean);
+
         const formattedRestaurant = {
           ...fullRestaurant,
           address: parsedAddress.street,
@@ -982,6 +970,11 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           category: normalizeCategory(fullRestaurant.category),
           logo: fullRestaurant.image_url || fullRestaurant.logo,
           coverImage: fullRestaurant.cover_image_url || fullRestaurant.coverImage,
+          googleMapsUrl: fullRestaurant.google_maps_url || fullRestaurant.googleMapsUrl || '',
+          menuSourceUrl: fullRestaurant.other_url || fullRestaurant.external_url || fullRestaurant.menuSourceUrl || '',
+          menuUrl: fullRestaurant.other_url || fullRestaurant.external_url || fullRestaurant.menuSourceUrl || '',
+          galleryImages,
+          gallery_images: galleryImages,
           whatsapp_url: fullRestaurant.whatsapp_url || '',
           contact_candidates: normalizeContactCandidatesForSave(fullRestaurant)
         };
@@ -1038,7 +1031,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const handleScrapeInstagramLogoAndFollowers = async () => {
     if (isScrapingLogo) return;
     if (!editedData || !editedData.id) {
-      showError("Dados do restaurante nÃ£o disponÃ­veis.");
+      showError("Dados do restaurante não disponíveis.");
       return;
     }
 
@@ -1065,7 +1058,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         return s;
       }).filter((s: any) => s && s.url);
 
-      // Se nÃ£o havia instagram na lista de redes sociais, adiciona
+      // Se não havia instagram na lista de redes sociais, adiciona
       if (!currentSocials.some((s: any) => s && s.platform === 'instagram')) {
         currentSocials.push({ platform: 'instagram', url: rawInstagram.trim() });
       }
@@ -1079,7 +1072,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         console.warn("Aviso ao atualizar Instagram no Supabase:", updateInstaError.message);
       }
 
-      // Tenta usar a extensÃ£o do Chrome se estiver instalada e configurada
+      // Tenta usar a extensão do Chrome se estiver instalada e configurada
       let useExtension = false;
       const extId = localStorage.getItem('chrome_extension_id')?.trim();
       if (extId) {
@@ -1090,7 +1083,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       }
 
       if (useExtension && extId) {
-        console.log("Usando extensÃ£o do Chrome para raspagem:", extId);
+        console.log("Usando extensão do Chrome para raspagem:", extId);
         const chromeObj = (window as any).chrome;
         
         chromeObj.runtime.sendMessage(
@@ -1100,7 +1093,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             const lastError = chromeObj.runtime.lastError;
             if (lastError) {
               setIsScrapingLogo(false);
-              showError("Erro na comunicaÃ§Ã£o com a extensÃ£o: " + lastError.message);
+              showError("Erro na comunicação com a extensão: " + lastError.message);
               return;
             }
             
@@ -1158,7 +1151,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 if (dbUpdateError) {
                   showError("Erro ao salvar no banco: " + dbUpdateError.message);
                 } else {
-                  showSuccess("Coleta de logo e seguidores concluÃ­da via ExtensÃ£o!");
+                  showSuccess("Coleta de logo e seguidores concluída via Extensão!");
                   setLogoTimestamp(Date.now());
                   window.dispatchEvent(new Event('local-sync-restaurants'));
                   localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
@@ -1172,21 +1165,21 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 }
               }
             } else if (response && response.isLoginRequired) {
-              showError("Login do Instagram necessÃ¡rio! A aba do Instagram foi aberta. FaÃ§a login e clique no botÃ£o novamente.");
+              showError("Login do Instagram necessário! A aba do Instagram foi aberta. Faça login e clique no botão novamente.");
             } else {
-              showError(response?.error || "Erro desconhecido na extensÃ£o.");
+              showError(response?.error || "Erro desconhecido na extensão.");
             }
             setIsScrapingLogo(false);
           }
         );
       } else {
-        // Fallback para o robÃ´ local /api
+        // Fallback para o robô local /api
         const res = await fetch(`/api/local-collector/re-scrape-logo?restaurantId=${restaurantId}`, { method: 'POST' });
         
         if (res.ok) {
           const result = await res.json();
           if (result.success) {
-            showSuccess("Coleta de logo e seguidores concluÃ­da com sucesso!");
+            showSuccess("Coleta de logo e seguidores concluída com sucesso!");
             setLogoTimestamp(Date.now());
             window.dispatchEvent(new Event('local-sync-restaurants'));
             localStorage.setItem('local-sync-restaurants-trigger', Date.now().toString());
@@ -1205,7 +1198,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             
             onSyncSuccess();
           } else {
-            showError(result.error || "NÃ£o foi possÃ­vel coletar os dados do Instagram.");
+            showError(result.error || "Não foi possível coletar os dados do Instagram.");
           }
         } else {
           const err = await res.json();
@@ -1215,7 +1208,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       }
     } catch (err: any) {
       if (err.message && err.message.includes('fetch')) {
-        showError("Servidor local offline. Para coletar direto do seu navegador, instale a ExtensÃ£o do Chrome e insira o ID no painel.");
+        showError("Servidor local offline. Para coletar direto do seu navegador, instale a Extensão do Chrome e insira o ID no painel.");
       } else {
         showError(err.message || "Erro desconhecido ao tentar coletar.");
       }
@@ -1286,7 +1279,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           }
 
           if (groupResult.error && /does not exist|schema cache|relation/i.test(groupResult.error.message || '')) {
-            console.warn('Tabelas de opÃ§Ãµes de cardÃ¡pio indisponÃ­veis; mantendo opÃ§Ãµes no raw_data do item.', groupResult.error.message);
+            console.warn('Tabelas de opções de cardápio indisponíveis; mantendo opções no raw_data do item.', groupResult.error.message);
             return;
           }
           if (groupResult.error) throw groupResult.error;
@@ -1330,7 +1323,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             optionResult = await supabase.from('menu_item_options').insert(legacyRows as any);
           }
           if (optionResult.error && /does not exist|schema cache|relation/i.test(optionResult.error.message || '')) {
-            console.warn('Tabela menu_item_options indisponÃ­vel; mantendo opÃ§Ãµes no raw_data do item.', optionResult.error.message);
+            console.warn('Tabela menu_item_options indisponível; mantendo opções no raw_data do item.', optionResult.error.message);
             return;
           }
           if (optionResult.error) throw optionResult.error;
@@ -1339,8 +1332,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
       let latitude = updatedRest.latitude !== undefined && updatedRest.latitude !== null ? updatedRest.latitude : null;
       let longitude = updatedRest.longitude !== undefined && updatedRest.longitude !== null ? updatedRest.longitude : null;
+      const googleMapsUrl = updatedRest.googleMapsUrl || updatedRest.google_maps_url || '';
 
-      // Se as coordenadas nÃ£o estÃ£o definidas ou sÃ£o zero, tentamos geocodificar o endereÃ§o completo
+      // Se as coordenadas não estão definidas ou são zero, tentamos geocodificar o endereço completo
       if (latitude === null || longitude === null || latitude === 0 || longitude === 0) {
         const addrParts = [];
         if (updatedRest.address) {
@@ -1363,7 +1357,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         const fullAddress = addrParts.join(', ');
         if (fullAddress.trim()) {
           try {
-            console.log(`[syncSingleToSupabase] Tentando geocodificar endereÃ§o completo: "${fullAddress}"`);
+            console.log(`[syncSingleToSupabase] Tentando geocodificar endereço completo: "${fullAddress}"`);
             const coords = await geocodeAddress(fullAddress);
             if (coords) {
               latitude = coords.lat;
@@ -1375,25 +1369,25 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
       }
 
-      // Se ainda nÃ£o temos coordenadas, tentamos extrair do googleMapsUrl
-      if ((latitude === null || longitude === null || latitude === 0 || longitude === 0) && updatedRest.googleMapsUrl) {
-        const coords = extractCoordsFromUrl(updatedRest.googleMapsUrl);
+      // Se ainda não temos coordenadas, tentamos extrair do googleMapsUrl
+      if ((latitude === null || longitude === null || latitude === 0 || longitude === 0) && googleMapsUrl) {
+        const coords = extractCoordsFromUrl(googleMapsUrl);
         if (coords) {
           latitude = coords.lat;
           longitude = coords.lng;
         }
       }
 
-      let visitNotes = updatedRest.visit_notes || `Fonte CardÃ¡pio: ${updatedRest.menuSourceUrl || 'NÃ£o informado'}`;
-      if (updatedRest.googleMapsUrl) {
+      let visitNotes = updatedRest.visit_notes || `Fonte Cardápio: ${updatedRest.menuSourceUrl || 'Não informado'}`;
+      if (googleMapsUrl) {
         if (visitNotes.includes('Google Maps:')) {
-          visitNotes = visitNotes.replace(/Google Maps:\s*(https?:\/\/[^\s]+)/, `Google Maps: ${updatedRest.googleMapsUrl}`);
+          visitNotes = visitNotes.replace(/Google Maps:\s*(https?:\/\/[^\s]+)/, `Google Maps: ${googleMapsUrl}`);
         } else {
-          visitNotes = `${visitNotes}\nGoogle Maps: ${updatedRest.googleMapsUrl}`.trim();
+          visitNotes = `${visitNotes}\nGoogle Maps: ${googleMapsUrl}`.trim();
         }
       }
 
-      // Busca o is_published atual do banco para nÃ£o sobrescrever com valor errado
+      // Busca o is_published atual do banco para não sobrescrever com valor errado
       // (evita restaurante sumir da lista quando o editedData tem status desatualizado)
       let currentVisitStatus = updatedRest.is_published === true;
       try {
@@ -1432,6 +1426,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         category: updatedRest.category || '',
         image_url: updatedRest.logo || null,
         cover_image_url: updatedRest.coverImage || updatedRest.cover_image_url || null,
+        google_maps_url: googleMapsUrl || null,
         is_published: currentVisitStatus, // Preserva o status atual do banco
         visit_notes: visitNotes,
         claim_code: updatedRest.claim_code || 'CLAIM-' + uuidId.substring(0, 5).toUpperCase(),
@@ -1486,7 +1481,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           .delete()
           .in('category_id', catIds);
         if (deleteItemsError) {
-          console.warn("Erro ao limpar itens de cardÃ¡pio no Supabase:", deleteItemsError.message);
+          console.warn("Erro ao limpar itens de cardápio no Supabase:", deleteItemsError.message);
         }
       }
 
@@ -1631,7 +1626,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             await insertMenuItemOptionGroups(optionItemId, optionSourceItem);
           }
 
-          // Enriquecer nomes de cardÃ¡pio com IA em segundo plano (fire-and-forget)
+          // Enriquecer nomes de cardápio com IA em segundo plano (fire-and-forget)
           const apiKey = aiModel === 'gemini'
             ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
             : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
@@ -1692,32 +1687,32 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     const phone = r.phone || '';
     const cleanPhoneStr = phone.replace(/\D/g, '');
     if (!phone.trim() || phone.toLowerCase().includes('sem telefone') || phone.toLowerCase().includes('nao informado') || cleanPhoneStr.length < 8) {
-      return 'NÃºmero de telefone invÃ¡lido ou ausente.';
+      return 'Número de telefone inválido ou ausente.';
     }
     
     const cep = r.cep || '';
     const cleanCep = cep.replace(/\D/g, '');
     if (!cep.trim() || cleanCep.length !== 8) {
-      return 'CEP invÃ¡lido ou ausente (deve conter 8 dÃ­gitos).';
+      return 'CEP inválido ou ausente (deve conter 8 dígitos).';
     }
 
     const address = r.address || '';
     const neighborhood = r.neighborhood || '';
     if (!address.trim()) {
-      return 'O endereÃ§o (rua) Ã© obrigatÃ³rio.';
+      return 'O endereço (rua) é obrigatório.';
     }
     if (address.toLowerCase() === 's/n' || address.toLowerCase() === 'sem numero') {
-      return 'O nome da rua Ã© invÃ¡lido.';
+      return 'O nome da rua é inválido.';
     }
     if (neighborhood.trim() && address.trim().toLowerCase() === neighborhood.trim().toLowerCase()) {
-      return 'O endereÃ§o nÃ£o pode ser idÃªntico ao bairro.';
+      return 'O endereço não pode ser idêntico ao bairro.';
     }
 
     return null;
   };
 
   const runGeocodingAndValidate = async (data: any) => {
-    // 1. Validar campos bÃ¡sicos
+    // 1. Validar campos básicos
     const basicError = getDetailsValidationError(data);
     if (basicError) {
       showError(basicError);
@@ -1737,7 +1732,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       }
     }
 
-    // Se ainda nÃ£o temos coordenadas, tentamos geocodificar o endereÃ§o completo
+    // Se ainda não temos coordenadas, tentamos geocodificar o endereço completo
     if (latitude === null || longitude === null || latitude === 0 || longitude === 0) {
       const addrParts = [];
       if (data.address) {
@@ -1765,7 +1760,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           if (coords) {
             latitude = coords.lat;
             longitude = coords.lon;
-            console.log(`[Validation] GeocodificaÃ§Ã£o bem-sucedida: lat=${latitude}, lon=${longitude}`);
+            console.log(`[Validation] Geocodificação bem-sucedida: lat=${latitude}, lon=${longitude}`);
           }
         } catch (e) {
           console.warn('Erro ao geocodificar no validador:', e);
@@ -1775,7 +1770,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
     // 3. Validar coordenadas
     if (!latitude || !longitude || latitude === 0 || longitude === 0) {
-      showError('NÃ£o foi possÃ­vel obter as coordenadas exatas para o endereÃ§o informado. Verifique o CEP/endereÃ§o.');
+      showError('Não foi possível obter as coordenadas exatas para o endereço informado. Verifique o CEP/endereço.');
       return null;
     }
 
@@ -1795,7 +1790,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
       const success = await syncSingleToSupabase(validatedData);
       if (success) {
-        showSuccess('AlteraÃ§Ãµes salvas no Supabase!');
+        showSuccess('Alterações salvas no Supabase!');
         setIsEditing(false);
         // Aguarda 800ms para evitar race condition entre o upsert e o reload da lista
         await new Promise(resolve => setTimeout(resolve, 800));
@@ -1815,7 +1810,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
     try {
       let dataToSave = { ...editedData };
 
-      // AutomatizaÃ§Ã£o da Logo e Seguidores do Instagram junto com o "Validar e Salvar"
+      // Automatização da Logo e Seguidores do Instagram junto com o "Validar e Salvar"
       const rawInstagram = dataToSave.instagram || getSocialUrl(dataToSave, 'instagram') || '';
       const hasLogo = !!(dataToSave.logo || dataToSave.image_url);
       
@@ -1830,7 +1825,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
 
         if (useExtension && extId) {
-          showSuccess("Coletando logo e seguidores do Instagram automaticamente via ExtensÃ£o...");
+          showSuccess("Coletando logo e seguidores do Instagram automaticamente via Extensão...");
           const uuidId = getDeterministicUUID(dataToSave.id);
           
           try {
@@ -1875,7 +1870,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 }
               }
 
-              let finalFollowers = response.followers !== undefined && response.followers !== null ? response.followers : null;
+              const finalFollowers = response.followers !== undefined && response.followers !== null ? response.followers : null;
 
               // Atualiza o objeto de dados com a logo e seguidores coletados
               dataToSave = {
@@ -1885,17 +1880,17 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 followers_override: finalFollowers !== null ? finalFollowers : dataToSave.followers_override
               };
               
-              showSuccess("Logo e seguidores coletados com sucesso via ExtensÃ£o!");
+              showSuccess("Logo e seguidores coletados com sucesso via Extensão!");
             } else if (response && response.isLoginRequired) {
-              showError("A extensÃ£o necessita de login no Instagram. FaÃ§a login e clique novamente.");
+              showError("A extensão necessita de login no Instagram. Faça login e clique novamente.");
               return;
             }
           } catch (scrapeErr) {
-            console.error("Erro ao coletar Instagram automaticamente via ExtensÃ£o:", scrapeErr);
+            console.error("Erro ao coletar Instagram automaticamente via Extensão:", scrapeErr);
           }
         } else {
-          // Fallback para o robÃ´ local /api/local-collector/re-scrape-logo
-          showSuccess("Iniciando coleta automÃ¡tica de logo e seguidores via servidor local...");
+          // Fallback para o robô local /api/local-collector/re-scrape-logo
+          showSuccess("Iniciando coleta automática de logo e seguidores via servidor local...");
           try {
             const res = await fetch(`/api/local-collector/re-scrape-logo?restaurantId=${dataToSave.id}`, { method: 'POST' });
             if (res.ok) {
@@ -1914,11 +1909,11 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 };
                 showSuccess("Logo e seguidores coletados com sucesso via servidor local!");
               } else {
-                console.warn("Aviso na coleta automÃ¡tica via servidor:", result.error);
+                console.warn("Aviso na coleta automática via servidor:", result.error);
               }
             }
           } catch (apiErr) {
-            console.error("Erro na coleta de Instagram automÃ¡tica via API local:", apiErr);
+            console.error("Erro na coleta de Instagram automática via API local:", apiErr);
           }
         }
       }
@@ -1929,9 +1924,9 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       const success = await syncSingleToSupabase(validatedData);
 
       if (success) {
-        showSuccess('AlteraÃ§Ãµes salvas com sucesso no Supabase!');
+        showSuccess('Alterações salvas com sucesso no Supabase!');
         
-        // Atualiza os dados locais para refletir na aba de VisualizaÃ§Ã£o imediatamente
+        // Atualiza os dados locais para refletir na aba de Visualização imediatamente
         setEditedData(validatedData);
         setLogoTimestamp(Date.now());
         setCoverTimestamp(Date.now());
@@ -1986,7 +1981,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
   const handleAIExtraction = async () => {
     const content = aiPastedContent.trim();
     if (!content) {
-      showError('Cole o texto do cardÃ¡pio bruto ou HTML antes de processar.');
+      showError('Cole o texto do cardápio bruto ou HTML antes de processar.');
       return;
     }
 
@@ -2006,25 +2001,25 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         console.log(`[IA Extrator] ${msg}`);
       };
 
-      addLog("Iniciando extraÃ§Ã£o do cardÃ¡pio...");
+      addLog("Iniciando extração do cardápio...");
       addLog(`URL formatada: ${formattedUrl}`);
-      addLog(`ID da extensÃ£o configurada: ${extId || 'Nenhum'}`);
-      addLog(`Ambiente local? ${isLocalhost ? 'Sim' : 'NÃ£o'}`);
+      addLog(`ID da extensão configurada: ${extId || 'Nenhum'}`);
+      addLog(`Ambiente local? ${isLocalhost ? 'Sim' : 'Não'}`);
 
       try {
         if (extId) {
-          addLog("Verificando se a extensÃ£o estÃ¡ instalada e ativa...");
+          addLog("Verificando se a extensão está instalada e ativa...");
           useExtension = await checkExtensionInstalled(extId);
-          addLog(`Resultado da verificaÃ§Ã£o: ExtensÃ£o ativa? ${useExtension ? 'Sim' : 'NÃ£o'}`);
+          addLog(`Resultado da verificação: Extensão ativa? ${useExtension ? 'Sim' : 'Não'}`);
         }
 
         if (!isLocalhost && !useExtension) {
-          addLog("Erro: ExtensÃ£o nÃ£o detectada em produÃ§Ã£o (Vercel).");
-          throw new Error('A extraÃ§Ã£o direta por URL em nuvem (Vercel) precisa da ExtensÃ£o do Chrome instalada e configurada com o ID correspondente no menu da extensÃ£o. Caso contrÃ¡rio, copie o texto do cardÃ¡pio e cole aqui.');
+          addLog("Erro: Extensão não detectada em produção (Vercel).");
+          throw new Error('A extração direta por URL em nuvem (Vercel) precisa da Extensão do Chrome instalada e configurada com o ID correspondente no menu da extensão. Caso contrário, copie o texto do cardápio e cole aqui.');
         }
 
         // 1. Atualizar o link no Supabase
-        addLog("Sincronizando link do cardÃ¡pio com o banco de dados...");
+        addLog("Sincronizando link do cardápio com o banco de dados...");
         const { error: updateError } = await supabase
           .from('restaurants')
           .update({
@@ -2035,7 +2030,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
         if (updateError) {
           if (updateError.code === '23505') {
-            addLog("Aviso: Link jÃ¡ cadastrado em outro restaurante (23505). Continuando mesmo assim...");
+            addLog("Aviso: Link já cadastrado em outro restaurante (23505). Continuando mesmo assim...");
           } else {
             addLog(`Erro ao atualizar URL no banco de dados: ${updateError.message}`);
             throw updateError;
@@ -2043,13 +2038,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         }
 
         if (useExtension && extId) {
-          addLog("Enviando solicitaÃ§Ã£o de leitura de pÃ¡gina para a extensÃ£o...");
+          addLog("Enviando solicitação de leitura de página para a extensão...");
           
           const chromeObj = (window as any).chrome;
           const scrapeResult: any = await new Promise((resolve, reject) => {
             const timeoutId = setTimeout(() => {
-              addLog("Erro: Timeout de 35 segundos atingido esperando a extensÃ£o.");
-              reject(new Error("Tempo limite excedido aguardando resposta da extensÃ£o. Certifique-se de que a extensÃ£o estÃ¡ ativada e atualizada no Chrome."));
+              addLog("Erro: Timeout de 35 segundos atingido esperando a extensão.");
+              reject(new Error("Tempo limite excedido aguardando resposta da extensão. Certifique-se de que a extensão está ativada e atualizada no Chrome."));
             }, 35000); // 35 segundos de timeout
 
             chromeObj.runtime.sendMessage(
@@ -2060,14 +2055,14 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 const lastError = chromeObj.runtime.lastError;
                 
                 if (lastError) {
-                  addLog(`Erro de comunicaÃ§Ã£o com a extensÃ£o: ${lastError.message}`);
-                  reject(new Error("Erro na extensÃ£o: " + lastError.message));
+                  addLog(`Erro de comunicação com a extensão: ${lastError.message}`);
+                  reject(new Error("Erro na extensão: " + lastError.message));
                 } else if (response && response.success) {
-                  addLog("PÃ¡gina lida e estruturada com sucesso pela extensÃ£o!");
+                  addLog("Página lida e estruturada com sucesso pela extensão!");
                   resolve(response);
                 } else {
-                  addLog(`ExtensÃ£o retornou erro: ${response?.error || 'sem detalhes'}`);
-                  reject(new Error(response?.error || "Falha na extraÃ§Ã£o pela extensÃ£o."));
+                  addLog(`Extensão retornou erro: ${response?.error || 'sem detalhes'}`);
+                  reject(new Error(response?.error || "Falha na extração pela extensão."));
                 }
               }
             );
@@ -2076,25 +2071,25 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
           let parsed: any = null;
 
           if ((scrapeResult.isAnotaAi || scrapeResult.isCardapioWeb) && scrapeResult.parsedMenu) {
-            const platformName = scrapeResult.isAnotaAi ? "Anota AI" : "CardÃ¡pio Web";
-            addLog(`CardÃ¡pio do ${platformName} detectado e estruturado diretamente da API (com adicionais e fotos oficiais)!`);
+            const platformName = scrapeResult.isAnotaAi ? "Anota AI" : "Cardápio Web";
+            addLog(`Cardápio do ${platformName} detectado e estruturado diretamente da API (com adicionais e fotos oficiais)!`);
             parsed = scrapeResult.parsedMenu;
           } else {
             const xmlContent = scrapeResult.xmlContent;
-            addLog(`XML recebido da pÃ¡gina: ${xmlContent ? xmlContent.length : 0} caracteres.`);
+            addLog(`XML recebido da página: ${xmlContent ? xmlContent.length : 0} caracteres.`);
 
             if (!xmlContent || xmlContent.trim() === '<menu>\n</menu>' || xmlContent.trim() === '<menu></menu>') {
-              addLog("Erro: XML extraÃ­do estÃ¡ vazio ou sem dados legÃ­veis.");
-              throw new Error("Nenhum prato ou categoria foi detectado na pÃ¡gina pela extensÃ£o.");
+              addLog("Erro: XML extraído está vazio ou sem dados legíveis.");
+              throw new Error("Nenhum prato ou categoria foi detectado na página pela extensão.");
             }
 
-            addLog(`Enviando conteÃºdo para IA do servidor (${aiModel}). Aguarde processamento...`);
+            addLog(`Enviando conteúdo para IA do servidor (${aiModel}). Aguarde processamento...`);
 
             const apiKey = aiModel === 'gemini' 
               ? (import.meta.env.VITE_GEMINI_API_KEY || localStorage.getItem('user_gemini_key') || '')
               : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
 
-            addLog(`Chave da API local configurada? ${apiKey ? 'Sim' : 'NÃ£o (tentarÃ¡ chave global do servidor)'}`);
+            addLog(`Chave da API local configurada? ${apiKey ? 'Sim' : 'Não (tentará chave global do servidor)'}`);
 
             const { data: edgeData, error: edgeError } = await supabase.functions.invoke('parse-menu-with-ai', {
               body: {
@@ -2119,14 +2114,14 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             if (arrayKey) {
               parsed = parsed[arrayKey];
             } else {
-              addLog("Erro: Formato retornado pela IA nÃ£o Ã© compatÃ­vel com uma lista.");
-              throw new Error('Formato retornado pela IA nÃ£o Ã© compatÃ­vel com uma lista.');
+              addLog("Erro: Formato retornado pela IA não é compatível com uma lista.");
+              throw new Error('Formato retornado pela IA não é compatível com uma lista.');
             }
           }
 
           if (!Array.isArray(parsed)) {
-            addLog("Erro: A resposta da IA nÃ£o retornou uma lista.");
-            throw new Error('A resposta da IA nÃ£o retornou uma lista.');
+            addLog("Erro: A resposta da IA não retornou uma lista.");
+            throw new Error('A resposta da IA não retornou uma lista.');
           }
 
           const formattedCategories = parsed.map((cat: any, cIdx: number) => ({
@@ -2146,30 +2141,30 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
             menu_categories: formattedCategories
           }));
 
-          addLog(`ExtraÃ§Ã£o concluÃ­da com sucesso! ${formattedCategories.length} categorias extraÃ­das.`);
-          showSuccess(`Sucesso! ExtensÃ£o + IA extraÃ­ram ${formattedCategories.length} categorias do cardÃ¡pio.`);
+          addLog(`Extração concluída com sucesso! ${formattedCategories.length} categorias extraídas.`);
+          showSuccess(`Sucesso! Extensão + IA extraíram ${formattedCategories.length} categorias do cardápio.`);
           setAiPastedContent('');
-          setIsEditing(true); // Habilita o modo de ediÃ§Ã£o para mostrar o cardÃ¡pio
-          setActiveDialogTab('edit'); // Redireciona para o formulÃ¡rio de ediÃ§Ã£o para visualizar
+          setIsEditing(true); // Habilita o modo de edição para mostrar o cardápio
+          setActiveDialogTab('edit'); // Redireciona para o formulário de edição para visualizar
 
         } else {
-          // Fallback para o robÃ´ do servidor local
-          addLog("Iniciando fallback do robÃ´ local...");
-          showSuccess('Iniciando o robÃ´ extrator local...');
+          // Fallback para o robô do servidor local
+          addLog("Iniciando fallback do robô local...");
+          showSuccess('Iniciando o robô extrator local...');
           const res = await fetch(`/api/local-collector/re-scrape-menu?restaurantId=${restaurant.id}`, {
             method: 'POST'
           });
 
           if (!res.ok) {
-            addLog("Falha na comunicaÃ§Ã£o com o servidor local.");
-            throw new Error('Falha na comunicaÃ§Ã£o com o servidor local.');
+            addLog("Falha na comunicação com o servidor local.");
+            throw new Error('Falha na comunicação com o servidor local.');
           }
 
           const data = await res.json();
-          addLog(`Resposta do robÃ´ local: ${data.success ? 'Sucesso' : 'Falha'}`);
+          addLog(`Resposta do robô local: ${data.success ? 'Sucesso' : 'Falha'}`);
 
           if (data.success) {
-            addLog("CardÃ¡pio extraÃ­do com sucesso pelo robÃ´ local! Atualizando dados do restaurante...");
+            addLog("Cardápio extraído com sucesso pelo robô local! Atualizando dados do restaurante...");
             
             // Buscar os dados atualizados do restaurante direto do Supabase
             const { data: updatedRest, error: fetchError } = await supabase
@@ -2210,7 +2205,11 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 }))
               }));
               
-              const galleryImages = (updatedRest.restaurant_gallery || []).map((img: any) => img.image_url);
+              const galleryImages = (updatedRest.restaurant_gallery || [])
+                .slice()
+                .sort((a: any, b: any) => (a.order_index || 0) - (b.order_index || 0))
+                .map((img: any) => img.image_url)
+                .filter(Boolean);
 
               const mapped = {
                 ...restaurant,
@@ -2232,10 +2231,11 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
                 social_networks: socialNetworks,
                 instagram,
                 facebook,
-                menuSourceUrl: updatedRest.other_url || updatedRest.external_url || '',
-                menuUrl: updatedRest.other_url || updatedRest.external_url || '',
+                menuSourceUrl: updatedRest.other_url || updatedRest.external_url || updatedRest.menuSourceUrl || restaurant.menuSourceUrl || '',
+                menuUrl: updatedRest.other_url || updatedRest.external_url || updatedRest.menuSourceUrl || restaurant.menuSourceUrl || '',
                 menu_categories: menuCategories,
-                galleryImages
+                galleryImages,
+                gallery_images: galleryImages
               };
 
               setEditedData(mapped);
@@ -2246,13 +2246,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
             onSyncSuccess();
           } else {
-            addLog(`O robÃ´ local falhou: ${data.error || 'Erro desconhecido.'}`);
-            showError('O robÃ´ local falhou ao processar o cardÃ¡pio: ' + (data.error || 'Erro desconhecido.'));
+            addLog(`O robô local falhou: ${data.error || 'Erro desconhecido.'}`);
+            showError('O robô local falhou ao processar o cardápio: ' + (data.error || 'Erro desconhecido.'));
           }
         }
       } catch (err: any) {
         addLog(`EXCEPTION capturada no fluxo principal: ${err.message}`);
-        showError('Erro ao executar a extraÃ§Ã£o: ' + err.message);
+        showError('Erro ao executar a extração: ' + err.message);
       } finally {
         setIsExtractingAI(false);
         addLog("Fluxo finalizado.");
@@ -2265,7 +2265,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
 
     if (!apiKey) {
-      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} nÃ£o estÃ¡ configurada. Insira a chave no painel de configuraÃ§Ã£o da ExtensÃ£o.`);
+      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não está configurada. Insira a chave no painel de configuração da Extensão.`);
       return;
     }
 
@@ -2280,7 +2280,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       });
 
       if (edgeError || !edgeData?.success) {
-        throw new Error(edgeError?.message || edgeData?.error || 'Erro ao processar o cardÃ¡pio com a IA do servidor.');
+        throw new Error(edgeError?.message || edgeData?.error || 'Erro ao processar o cardápio com a IA do servidor.');
       }
 
       let parsed = edgeData.data;
@@ -2290,12 +2290,12 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         if (arrayKey) {
           parsed = parsed[arrayKey];
         } else {
-          throw new Error('Formato retornado pela IA nÃ£o Ã© compatÃ­vel com uma lista.');
+          throw new Error('Formato retornado pela IA não é compatível com uma lista.');
         }
       }
 
       if (!Array.isArray(parsed)) {
-        throw new Error('A resposta da IA nÃ£o retornou uma lista.');
+        throw new Error('A resposta da IA não retornou uma lista.');
       }
 
       const formattedCategories = parsed.map((cat: any, cIdx: number) => ({
@@ -2315,13 +2315,13 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
         menu_categories: formattedCategories
       }));
 
-      showSuccess(`Sucesso! IA extraiu ${formattedCategories.length} categorias do cardÃ¡pio.`);
+      showSuccess(`Sucesso! IA extraiu ${formattedCategories.length} categorias do cardápio.`);
       setAiPastedContent('');
-      setIsEditing(true); // Habilita o modo de ediÃ§Ã£o para mostrar o cardÃ¡pio
-      setActiveDialogTab('edit'); // Redireciona para o formulÃ¡rio de ediÃ§Ã£o para visualizar
+      setIsEditing(true); // Habilita o modo de edição para mostrar o cardápio
+      setActiveDialogTab('edit'); // Redireciona para o formulário de edição para visualizar
     } catch (e: any) {
       console.error(e);
-      showError(`Falha na extraÃ§Ã£o de IA: ${e.message || 'Verifique o formato e as chaves de API.'}`);
+      showError(`Falha na extração de IA: ${e.message || 'Verifique o formato e as chaves de API.'}`);
     } finally {
       setIsExtractingAI(false);
     }
@@ -2329,7 +2329,7 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
 
   const handleAIHoursExtraction = async () => {
     if (!aiHoursPastedContent.trim()) {
-      showError('Cole o texto dos horÃ¡rios de funcionamento antes de processar.');
+      showError('Cole o texto dos horários de funcionamento antes de processar.');
       return;
     }
 
@@ -2338,21 +2338,21 @@ export function RestaurantDetailsDialog({ restaurant, isOpen, onClose, onSyncSuc
       : (import.meta.env.VITE_OPENAI_API_KEY || localStorage.getItem('user_openai_key') || '');
 
     if (!apiKey) {
-      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} nÃ£o estÃ¡ configurada. Insira a chave no painel de configuraÃ§Ã£o da ExtensÃ£o.`);
+      showError(`Chave API para ${aiModel === 'gemini' ? 'Gemini' : 'OpenAI'} não está configurada. Insira a chave no painel de configuração da Extensão.`);
       return;
     }
 
     setIsExtractingHoursAI(true);
     try {
-      const prompt = `VocÃª Ã© um assistente de IA especialista em dados de horÃ¡rios de funcionamento de estabelecimentos.
-Analise o seguinte texto bruto contendo horÃ¡rios de funcionamento de um restaurante e formate-o no JSON correto esperado pelo nosso sistema.
+      const prompt = `Você é um assistente de IA especialista em dados de horários de funcionamento de estabelecimentos.
+Analise o seguinte texto bruto contendo horários de funcionamento de um restaurante e formate-o no JSON correto esperado pelo nosso sistema.
 
 Regras importantes:
-1. Os dias da semana no JSON final devem ser estritamente em inglÃªs como chaves: "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday".
-2. Para cada dia da semana, se o restaurante estiver aberto nesse dia, defina "isOpen": true e inclua o slot de horÃ¡rio no array "slots" com "start" e "end" formatados como HH:MM (24 horas, ex: "11:00" ou "22:30").
-3. Se o dia for explicitamente fechado ou nÃ£o mencionado em dias de funcionamento normais, defina "isOpen": false e "slots": [].
-4. Se houver mais de um perÃ­odo de funcionamento no mesmo dia (ex: almoÃ§o 11:30 Ã s 14:30 e jantar 18:00 Ã s 22:00), adicione os slots correspondentes no array "slots".
-5. Retorne a resposta estritamente no formato JSON, sem qualquer outro texto ou explicaÃ§Ãµes, no seguinte esquema:
+1. Os dias da semana no JSON final devem ser estritamente em inglês como chaves: "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday".
+2. Para cada dia da semana, se o restaurante estiver aberto nesse dia, defina "isOpen": true e inclua o slot de horário no array "slots" com "start" e "end" formatados como HH:MM (24 horas, ex: "11:00" ou "22:30").
+3. Se o dia for explicitamente fechado ou não mencionado em dias de funcionamento normais, defina "isOpen": false e "slots": [].
+4. Se houver mais de um período de funcionamento no mesmo dia (ex: almoço 11:30 às 14:30 e jantar 18:00 às 22:00), adicione os slots correspondentes no array "slots".
+5. Retorne a resposta estritamente no formato JSON, sem qualquer outro texto ou explicações, no seguinte esquema:
 {
   "monday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "22:00" }] },
   "tuesday": { "isOpen": true, "slots": [{ "start": "11:00", "end": "22:00" }] },
@@ -2363,7 +2363,7 @@ Regras importantes:
   "sunday": { "isOpen": false, "slots": [] }
 }
 
-Texto bruto com os horÃ¡rios colados:
+Texto bruto com os horários colados:
 ${aiHoursPastedContent}
 `;
 
@@ -2443,26 +2443,26 @@ ${aiHoursPastedContent}
         openingHours: validatedHours
       }));
 
-      showSuccess(`Sucesso! HorÃ¡rios de funcionamento extraÃ­dos e preenchidos pela IA.`);
+      showSuccess(`Sucesso! Horários de funcionamento extraídos e preenchidos pela IA.`);
       setAiHoursPastedContent('');
     } catch (e: any) {
       console.error(e);
-      showError(`Falha na extraÃ§Ã£o de horÃ¡rios: ${e.message || 'Verifique o formato e as chaves de API.'}`);
+      showError(`Falha na extração de horários: ${e.message || 'Verifique o formato e as chaves de API.'}`);
     } finally {
       setIsExtractingHoursAI(false);
     }
   };
 
   const handleDeleteMenu = () => {
-    if (!window.confirm('Deseja realmente excluir todo o cardÃ¡pio deste restaurante?')) return;
+    if (!window.confirm('Deseja realmente excluir todo o cardápio deste restaurante?')) return;
     setEditedData((prev: any) => ({
       ...prev,
       menu_categories: []
     }));
-    showSuccess('CardÃ¡pio limpo no formulÃ¡rio de ediÃ§Ã£o.');
+    showSuccess('Cardápio limpo no formulário de edição.');
   };
 
-  // FunÃ§Ãµes de manipulaÃ§Ã£o do cardÃ¡pio estruturado no Form
+  // Funções de manipulação do cardápio estruturado no Form
   const handleEditCategoryName = (catId: string, name: string) => {
     setEditedData((prev: any) => ({
       ...prev,
@@ -2779,7 +2779,7 @@ ${aiHoursPastedContent}
         blob = base64ToBlob(base64Data);
       } catch (err: any) {
         if (err.message !== "extension_not_available") {
-          console.warn("Erro ao baixar via extensÃ£o:", err);
+          console.warn("Erro ao baixar via extensão:", err);
         }
         
         const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(url)}&path=${encodeURIComponent(storagePath)}`, {
@@ -2821,7 +2821,7 @@ ${aiHoursPastedContent}
           image_url: newUrl
         }));
         setLogoTimestamp(Date.now());
-        showSuccess('Logo baixada e hospedada no Supabase via ExtensÃ£o!');
+        showSuccess('Logo baixada e hospedada no Supabase via Extensão!');
       }
     } catch (e: any) {
       console.error(e);
@@ -2858,7 +2858,7 @@ ${aiHoursPastedContent}
         blob = base64ToBlob(base64Data);
       } catch (err: any) {
         if (err.message !== "extension_not_available") {
-          console.warn("Erro ao baixar via extensÃ£o:", err);
+          console.warn("Erro ao baixar via extensão:", err);
         }
         const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(url)}&path=${encodeURIComponent(storagePath)}`, {
           method: 'POST'
@@ -2899,7 +2899,7 @@ ${aiHoursPastedContent}
           cover_image_url: newUrl
         }));
         setCoverTimestamp(Date.now());
-        showSuccess('Imagem de capa baixada e hospedada no Supabase via ExtensÃ£o!');
+        showSuccess('Imagem de capa baixada e hospedada no Supabase via Extensão!');
       }
     } catch (e: any) {
       console.error(e);
@@ -2977,7 +2977,7 @@ ${aiHoursPastedContent}
       } catch (err: any) {
         extensionError = err;
         if (err.message !== "extension_not_available") {
-          console.warn("Erro ao baixar via extensÃ£o:", err);
+          console.warn("Erro ao baixar via extensão:", err);
         }
         const res = await fetch(`/api/local-collector/download-and-upload?url=${encodeURIComponent(urlToProcess)}&path=${encodeURIComponent(storagePath)}`, {
           method: 'POST'
@@ -3037,16 +3037,16 @@ ${aiHoursPastedContent}
         });
 
         setNewGalleryUrl('');
-        showSuccess('Foto baixada e adicionada Ã  galeria!');
+        showSuccess('Foto baixada e adicionada à galeria!');
       } else {
         if (extensionError) {
           if (extensionError.message === "extension_not_available") {
-            showError('ExtensÃ£o auxiliar do Chrome nÃ£o configurada ou inativa. Configure o ID nas configuraÃ§Ãµes.');
+            showError('Extensão auxiliar do Chrome não configurada ou inativa. Configure o ID nas configurações.');
           } else {
-            showError('Erro ao baixar imagem via extensÃ£o: ' + extensionError.message);
+            showError('Erro ao baixar imagem via extensão: ' + extensionError.message);
           }
         } else {
-          showError('NÃ£o foi possÃ­vel fazer download e upload desta foto. Certifique-se de que o link Ã© vÃ¡lido e pÃºblico.');
+          showError('Não foi possível fazer download e upload desta foto. Certifique-se de que o link é válido e público.');
         }
       }
     } catch (err: any) {
@@ -3091,53 +3091,85 @@ ${aiHoursPastedContent}
 
   if (!restaurant) return null;
 
-  const isSynced = restaurant.is_published === true;
+  const showComboEditor = typeof window !== 'undefined' && Boolean((window as any).__filterFoodEnableComboEditor);
+
+  const getRestaurantStatusBadge = () => {
+    const statusSource = editedData || restaurant;
+    const menuStatus = String(statusSource?.menu_status || '');
+
+    if (statusSource.is_deleted === true) {
+      return {
+        label: 'Rejeitado',
+        className: 'bg-rose-100 text-rose-800 border-none font-bold text-[10px] py-0.5',
+      };
+    }
+    if (statusSource.is_published === true) {
+      return {
+        label: 'Publicado',
+        className: 'bg-green-100 text-green-800 border-none font-bold text-[10px] py-0.5',
+      };
+    }
+    if (menuStatus === 'found') {
+      return {
+        label: 'Pronto p/ App',
+        className: 'bg-emerald-100 text-emerald-800 border-none font-bold text-[10px] py-0.5',
+      };
+    }
+    if (['manual_required', 'blocked', 'invalid_source', 'failed', 'needs_review'].includes(menuStatus)) {
+      return {
+        label: 'Revisão Humana',
+        className: 'bg-violet-100 text-violet-800 border-none font-bold text-[10px] py-0.5',
+      };
+    }
+    return {
+      label: 'Pendente',
+      className: 'bg-slate-100 text-slate-500 border-none font-semibold text-[10px] py-0.5',
+    };
+  };
+  const statusBadge = getRestaurantStatusBadge();
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
-      <DialogContent className="w-[96vw] max-w-6xl max-h-[92vh] overflow-hidden flex flex-col p-0 bg-white rounded-3xl">
-        <DialogHeader className="p-6 pb-2 border-b border-gray-100 flex flex-row items-center justify-between">
-          <div>
-            <DialogTitle className="text-2xl font-bold text-primary flex items-center gap-2">
+      <DialogContent data-testid="restaurant-details-dialog" className="w-[calc(100vw-2rem)] max-w-[1400px] max-h-[92vh] overflow-hidden overflow-x-hidden flex flex-col gap-0 p-0 bg-white rounded-3xl min-w-0 box-border">
+        <DialogHeader className="p-6 pb-2 border-b border-gray-100 flex flex-row items-center justify-between min-w-0">
+          <div className="min-w-0">
+            <DialogTitle className="text-2xl font-bold text-primary flex items-center gap-2 min-w-0">
               {restaurant.name}
-              {isSynced ? (
-                <Badge className="bg-green-100 text-green-800 border-none font-bold text-[10px] py-0.5">Sincronizado</Badge>
-              ) : (
-                <Badge className="bg-slate-100 text-slate-500 border-none font-semibold text-[10px] py-0.5">Pendente (Local)</Badge>
-              )}
+              <Badge className={statusBadge.className}>{statusBadge.label}</Badge>
             </DialogTitle>
             <DialogDescription className="text-xs mt-1">
-              {restaurant.category} â€¢ ID: {restaurant.id}
+              {restaurant.category} • ID: {restaurant.id}
             </DialogDescription>
           </div>
         </DialogHeader>
 
-        <Tabs value={activeDialogTab} onValueChange={setActiveDialogTab} className="flex-1 overflow-hidden flex flex-col">
-          <div className="px-6 bg-slate-50 border-b border-gray-100 flex items-center justify-between">
-            <TabsList className="bg-transparent h-auto py-1 shadow-none border-b-0 rounded-none">
+        <Tabs value={activeDialogTab} onValueChange={setActiveDialogTab} className="flex-1 overflow-hidden flex flex-col min-w-0 min-h-0 w-full max-w-full">
+          <div className="px-6 bg-slate-50 border-b border-gray-100 flex items-center justify-between min-w-0 max-w-full overflow-x-auto overflow-y-hidden">
+            <TabsList className="bg-transparent h-auto py-1 shadow-none border-b-0 rounded-none shrink-0">
               <TabsTrigger value="preview" disabled={isEditing} className="py-2.5 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent font-semibold text-sm">
-                VisualizaÃ§Ã£o
+                Visualização
               </TabsTrigger>
-              <TabsTrigger value="edit" className="py-2.5 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent font-semibold text-sm">
-                EdiÃ§Ã£o {isEditing && '*'}
+              <TabsTrigger value="edit" data-testid="restaurant-dialog-edit-tab" className="py-2.5 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent font-semibold text-sm">
+                Edição {isEditing && '*'}
               </TabsTrigger>
               <TabsTrigger value="ai" className="py-2.5 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent font-semibold text-sm text-purple-700 gap-1">
-                <Sparkles className="w-3.5 h-3.5" /> ExtraÃ§Ã£o via IA
+                <Sparkles className="w-3.5 h-3.5" /> Extração via IA
               </TabsTrigger>
             </TabsList>
             
             {!isEditing && activeDialogTab === 'edit' && (
               <Button 
                 size="sm" 
+                data-testid="restaurant-dialog-enable-edit"
                 onClick={() => setIsEditing(true)}
                 className="bg-purple-600 hover:bg-purple-700 text-white font-bold h-8 gap-1"
               >
-                <Edit2 className="w-3.5 h-3.5" /> Habilitar EdiÃ§Ã£o
+                <Edit2 className="w-3.5 h-3.5" /> Habilitar Edição
               </Button>
             )}
           </div>
 
-          <ScrollArea className="flex-1 p-4 sm:p-6 overflow-y-auto max-h-[68vh]">
+          <div className="flex-1 min-h-0 p-4 sm:p-6 pb-28 sm:pb-32 overflow-y-auto overflow-x-hidden max-h-[68vh] min-w-0 w-full max-w-full">
             {/* Tab 1: Preview */}
             <TabsContent value="preview" className="m-0 space-y-6">
               {restaurant && (
@@ -3175,17 +3207,17 @@ ${aiHoursPastedContent}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Dados Gerais */}
                     <div className="space-y-4">
-                      <h3 className="font-bold text-sm text-primary uppercase tracking-wider">InformaÃ§Ãµes Gerais</h3>
+                      <h3 className="font-bold text-sm text-primary uppercase tracking-wider">Informações Gerais</h3>
                       <div className="space-y-2 text-xs">
                         <p>
-                          <span className="font-bold text-gray-500">EndereÃ§o:</span>{' '}
+                          <span className="font-bold text-gray-500">Endereço:</span>{' '}
                           {restaurant.address}
                           {restaurant.number ? `, ${restaurant.number}` : ''}
                           {restaurant.neighborhood ? ` - ${restaurant.neighborhood}` : ''}
                           , {restaurant.city} - {restaurant.state}
                           {restaurant.cep ? `, ${restaurant.cep}` : ''}
                         </p>
-                        <p><span className="font-bold text-gray-500">Telefone:</span> {hasNoPhone(restaurant) ? <span className="text-red-500 font-semibold">NÃ£o informado</span> : restaurant.phone}</p>
+                        <p><span className="font-bold text-gray-500">Telefone:</span> {hasNoPhone(restaurant) ? <span className="text-red-500 font-semibold">Não informado</span> : restaurant.phone}</p>
                         <p>
                           <span className="font-bold text-gray-500">Links Sociais:</span>
                           <span className="inline-flex items-center gap-2 ml-2">
@@ -3206,8 +3238,8 @@ ${aiHoursPastedContent}
                             )}
                           </span>
                         </p>
-                        <p><span className="font-bold text-gray-500">Google Maps:</span> {restaurant.googleMapsUrl ? <a href={restaurant.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Ver no Maps â†—</a> : 'NÃ£o cadastrado'}</p>
-                        <p><span className="font-bold text-gray-500">DescriÃ§Ã£o:</span> {restaurant.description || 'Nenhuma descriÃ§Ã£o fornecida.'}</p>
+                        <p><span className="font-bold text-gray-500">Google Maps:</span> {((editedData || restaurant).googleMapsUrl || (editedData || restaurant).google_maps_url) ? <a href={(editedData || restaurant).googleMapsUrl || (editedData || restaurant).google_maps_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Ver no Maps ↗</a> : 'Não cadastrado'}</p>
+                        <p><span className="font-bold text-gray-500">Descrição:</span> {restaurant.description || 'Nenhuma descrição fornecida.'}</p>
                       </div>
 
                       {/* Galeria de Fotos */}
@@ -3216,8 +3248,8 @@ ${aiHoursPastedContent}
                         {restaurant.galleryImages && restaurant.galleryImages.length > 0 ? (
                           <div className="flex gap-2 overflow-x-auto py-1">
                             {restaurant.galleryImages.map((img: string, idx: number) => (
-                              <div key={idx} className="w-24 h-16 rounded-xl overflow-hidden shrink-0 border border-gray-200">
-                                <img src={img} alt={`Galeria ${idx}`} className="w-full h-full object-cover" />
+                              <div key={idx} className="w-40 h-28 rounded-xl overflow-hidden shrink-0 border border-gray-200 bg-slate-100">
+                                <img src={img} alt={`Galeria ${idx}`} className="w-full h-full object-contain" />
                               </div>
                             ))}
                           </div>
@@ -3227,16 +3259,16 @@ ${aiHoursPastedContent}
                       </div>
                     </div>
 
-                    {/* HorÃ¡rios */}
+                    {/* Horários */}
                     <div className="space-y-4">
-                      <h3 className="font-bold text-sm text-primary uppercase tracking-wider">HorÃ¡rios de Funcionamento</h3>
+                      <h3 className="font-bold text-sm text-primary uppercase tracking-wider">Horários de Funcionamento</h3>
                       {renderOpeningHours(restaurant.openingHours || restaurant.opening_hours)}
                     </div>
                   </div>
 
-                  {/* CardÃ¡pio Estruturado */}
+                  {/* Cardápio Estruturado */}
                   <div className="space-y-4 pt-4 border-t border-gray-100">
-                    <h3 className="font-bold text-sm text-primary uppercase tracking-wider">CardÃ¡pio Estruturado</h3>
+                    <h3 className="font-bold text-sm text-primary uppercase tracking-wider">Cardápio Estruturado</h3>
                     {restaurant.menu_categories && restaurant.menu_categories.length > 0 ? (
                       <div className="space-y-4">
                         {restaurant.menu_categories.map((cat: any) => (
@@ -3295,8 +3327,8 @@ ${aiHoursPastedContent}
                                               <div key={gIdx} className="space-y-1">
                                                 <p className="text-[8px] font-extrabold text-slate-400 uppercase tracking-wider">
                                                   {optGroup.name}
-                                                  {optGroup.is_required ? ' â€¢ obrigatÃ³rio' : ''}
-                                                  {optGroup.max_quantity ? ` â€¢ atÃ© ${optGroup.max_quantity}` : ''}
+                                                  {optGroup.is_required ? ' • obrigatório' : ''}
+                                                  {optGroup.max_quantity ? ` • até ${optGroup.max_quantity}` : ''}
                                                 </p>
                                                 <div className="grid grid-cols-1 gap-1 text-[10px]">
                                                   {(optGroup.items || []).map((opt: any, oIdx: number) => {
@@ -3329,7 +3361,7 @@ ${aiHoursPastedContent}
                       </div>
                     ) : (
                       <div className="text-center py-6 bg-slate-50 rounded-2xl border border-dashed border-gray-200">
-                        <p className="text-xs text-gray-500 font-bold">Nenhum cardÃ¡pio estruturado.</p>
+                        <p className="text-xs text-gray-500 font-bold">Nenhum cardápio estruturado.</p>
                         {restaurant.menuSourceUrl && (
                           <p className="text-[10px] text-gray-400 mt-1">
                             Possui link de origem:{' '}
@@ -3346,38 +3378,38 @@ ${aiHoursPastedContent}
             </TabsContent>
 
             {/* Tab 2: Edit Form */}
-            <TabsContent value="edit" className="m-0 space-y-6">
+            <TabsContent value="edit" className="m-0 space-y-6 min-w-0 w-full max-w-full overflow-x-hidden">
               {!isEditing ? (
                 <div className="text-center py-12 bg-slate-50 border border-dashed border-gray-200 rounded-3xl space-y-3">
-                  <p className="text-sm text-gray-500 font-bold">O modo de ediÃ§Ã£o estÃ¡ desabilitado.</p>
+                  <p className="text-sm text-gray-500 font-bold">O modo de edição está desabilitado.</p>
                   <Button 
                     size="sm" 
                     onClick={() => setIsEditing(true)}
                     className="bg-purple-600 hover:bg-purple-700 text-white font-bold gap-1"
                   >
-                    <Edit2 className="w-3.5 h-3.5" /> Habilitar EdiÃ§Ã£o
+                    <Edit2 className="w-3.5 h-3.5" /> Habilitar Edição
                   </Button>
                 </div>
               ) : editedData && (
-                <div className="space-y-6">
-                  {/* Log de ValidaÃ§Ã£o da IA */}
+                <div className="space-y-6 min-w-0 w-full max-w-full overflow-x-hidden">
+                  {/* Log de Validação da IA */}
                   {editedData.ai_log && (
-                    <div className="bg-purple-50/50 p-5 rounded-2xl border border-purple-100 space-y-3">
+                    <div className="bg-purple-50/50 p-5 rounded-2xl border border-purple-100 space-y-3 min-w-0 max-w-full overflow-hidden">
                       <h4 className="font-bold text-sm text-purple-700 uppercase tracking-wider mb-2 border-b border-purple-100 pb-1 flex items-center gap-2">
                         <Sparkles className="w-4 h-4" />
-                        Log de ValidaÃ§Ã£o da IA
+                        Log de Validação da IA
                       </h4>
-                      <div className="bg-white p-3 rounded-xl border border-purple-100/50 text-xs text-slate-600 whitespace-pre-wrap font-mono leading-relaxed shadow-inner overflow-y-auto max-h-[200px]">
+                      <div className="bg-white p-3 rounded-xl border border-purple-100/50 text-xs text-slate-600 whitespace-pre-wrap break-all [overflow-wrap:anywhere] font-mono leading-relaxed shadow-inner overflow-y-auto overflow-x-hidden max-h-[200px] max-w-full min-w-0">
                         {editedData.ai_log}
                       </div>
                     </div>
                   )}
 
-                  {/* Infos Gerais FormulÃ¡rio */}
-                  <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4">
-                    <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Cadastro BÃ¡sico</h4>
+                  {/* Infos Gerais Formulário */}
+                  <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4 min-w-0 max-w-full overflow-hidden">
+                    <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Cadastro Básico</h4>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-w-0">
                       <div className="space-y-1">
                         <Label htmlFor="edit-name" className="text-xs font-bold">Nome do Restaurante</Label>
                         <Input 
@@ -3407,7 +3439,7 @@ ${aiHoursPastedContent}
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 min-w-0">
                       <div className="space-y-1 md:col-span-2">
                         <Label htmlFor="edit-address" className="text-xs font-bold">Rua / Logradouro</Label>
                         <Input 
@@ -3418,7 +3450,7 @@ ${aiHoursPastedContent}
                         />
                       </div>
                       <div className="space-y-1">
-                        <Label htmlFor="edit-number" className="text-xs font-bold">NÃºmero</Label>
+                        <Label htmlFor="edit-number" className="text-xs font-bold">Número</Label>
                         <Input 
                           id="edit-number"
                           value={editedData.number || ''}
@@ -3437,7 +3469,7 @@ ${aiHoursPastedContent}
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 min-w-0">
                       <div className="space-y-1">
                         <Label htmlFor="edit-neighborhood" className="text-xs font-bold">Bairro</Label>
                         <Input 
@@ -3476,7 +3508,7 @@ ${aiHoursPastedContent}
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 min-w-0">
                       <div className="space-y-1">
                         <Label htmlFor="edit-instagram" className="text-xs font-bold">Instagram URL</Label>
                         <div className="flex gap-1">
@@ -3534,18 +3566,18 @@ ${aiHoursPastedContent}
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-w-0">
                       <div className="space-y-1">
                         <Label htmlFor="edit-maps" className="text-xs font-bold">Link Google Maps</Label>
                         <Input 
                           id="edit-maps"
-                          value={editedData.googleMapsUrl || ''}
-                          onChange={(e) => setEditedData({ ...editedData, googleMapsUrl: e.target.value })}
+                          value={editedData.googleMapsUrl || editedData.google_maps_url || ''}
+                          onChange={(e) => setEditedData({ ...editedData, googleMapsUrl: e.target.value, google_maps_url: e.target.value })}
                           className="bg-white border-gray-300 text-xs h-9"
                         />
                       </div>
                       <div className="space-y-1">
-                        <Label htmlFor="edit-menu-source" className="text-xs font-bold">Link Origem CardÃ¡pio (menuSourceUrl)</Label>
+                        <Label htmlFor="edit-menu-source" className="text-xs font-bold">Link Origem Cardápio (menuSourceUrl)</Label>
                         <Input 
                           id="edit-menu-source"
                           value={editedData.menuSourceUrl || ''}
@@ -3579,13 +3611,13 @@ ${aiHoursPastedContent}
                       <div className="space-y-3">
                         {getEditedContacts().length === 0 ? (
                           <div className="rounded-xl border border-dashed border-emerald-200 bg-white/70 p-4 text-xs text-emerald-700 font-semibold">
-                            Nenhum contato adicional salvo ainda. Clique em â€œContatoâ€ ou rode o Validar IA para coletar automaticamente.
+                            Nenhum contato adicional salvo ainda. Clique em “Contato” ou rode o Validar IA para coletar automaticamente.
                           </div>
                         ) : (
                           getEditedContacts().map((contact: ContactCandidate, index: number) => (
                             <div key={`${contact.normalized_phone || 'novo'}-${index}`} className="grid grid-cols-1 lg:grid-cols-12 gap-2 bg-white rounded-xl border border-emerald-100 p-3 shadow-sm">
                               <div className="lg:col-span-3 space-y-1">
-                                <Label className="text-[11px] font-bold text-slate-600">NÃºmero</Label>
+                                <Label className="text-[11px] font-bold text-slate-600">Número</Label>
                                 <Input
                                   value={contact.phone || ''}
                                   onChange={(e) => updateContactAt(index, { phone: e.target.value })}
@@ -3624,7 +3656,7 @@ ${aiHoursPastedContent}
                                 <Input
                                   value={contact.source_url || contact.whatsapp_url || ''}
                                   onChange={(e) => updateContactAt(index, { source_url: e.target.value })}
-                                  placeholder="URL onde o nÃºmero foi encontrado"
+                                  placeholder="URL onde o número foi encontrado"
                                   className="h-9 text-xs"
                                 />
                               </div>
@@ -3656,7 +3688,7 @@ ${aiHoursPastedContent}
                       <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Identidade Visual (Logo e Capa)</h4>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* SeÃ§Ã£o da Logo */}
+                        {/* Seção da Logo */}
                         <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4">
                           <Label className="text-xs font-bold text-slate-700 block">Logo do Restaurante</Label>
                           
@@ -3679,7 +3711,7 @@ ${aiHoursPastedContent}
                               ) : (
                                 <div className={`w-full h-full flex items-center justify-center ${editedData.logo ? 'bg-red-50 text-red-500' : 'text-gray-400'}`}>
                                   <span className="text-[10px] font-bold text-center leading-none">
-                                    {editedData.logo ? "InvÃ¡lida" : "Sem Logo"}
+                                    {editedData.logo ? "Inválida" : "Sem Logo"}
                                   </span>
                                 </div>
                               )}
@@ -3722,7 +3754,7 @@ ${aiHoursPastedContent}
                                 ) : (
                                   <Sparkles className="w-3.5 h-3.5 text-pink-600" />
                                 )}
-                                Coletar via RobÃ´ (Instagram)
+                                Coletar via Robô (Instagram)
                               </Button>
                             </div>
                           </div>
@@ -3746,7 +3778,7 @@ ${aiHoursPastedContent}
                           </div>
                         </div>
 
-                        {/* SeÃ§Ã£o da Capa */}
+                        {/* Seção da Capa */}
                         <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4">
                           <Label className="text-xs font-bold text-slate-700 block">Imagem de Capa (Banner)</Label>
                           
@@ -3769,7 +3801,7 @@ ${aiHoursPastedContent}
                               ) : (
                                 <div className={`w-full h-full flex items-center justify-center ${(editedData.coverImage || editedData.cover_image_url) ? 'bg-red-50 text-red-500' : 'text-gray-400'}`}>
                                   <span className="text-[10px] font-bold text-center leading-none">
-                                    {(editedData.coverImage || editedData.cover_image_url) ? "InvÃ¡lida" : "Sem Capa"}
+                                    {(editedData.coverImage || editedData.cover_image_url) ? "Inválida" : "Sem Capa"}
                                   </span>
                                 </div>
                               )}
@@ -3826,7 +3858,7 @@ ${aiHoursPastedContent}
                     </div>
 
                     <div className="space-y-1">
-                      <Label htmlFor="edit-description" className="text-xs font-bold">Sobre o Restaurante (DescriÃ§Ã£o)</Label>
+                      <Label htmlFor="edit-description" className="text-xs font-bold">Sobre o Restaurante (Descrição)</Label>
                       <Textarea 
                         id="edit-description"
                         value={editedData.description || ''}
@@ -3836,22 +3868,22 @@ ${aiHoursPastedContent}
                     </div>
                   </div>
 
-                  {/* HorÃ¡rios FormulÃ¡rio */}
-                  <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4">
+                  {/* Horários Formulário */}
+                  <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4 min-w-0 max-w-full overflow-hidden">
                     <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Funcionamento semanal</h4>
 
-                    {/* IA HorÃ¡rios Input */}
+                    {/* IA Horários Input */}
                     <div className="bg-white p-4 rounded-xl border border-gray-200 space-y-3 shadow-sm mb-4">
                       <div className="flex items-center justify-between">
                         <Label htmlFor="ai-hours-paste" className="text-xs font-black text-slate-700 flex items-center gap-1.5">
                           <Sparkles className="w-3.5 h-3.5 text-[#df4b1c]" />
-                          Preencher HorÃ¡rios por IA
+                          Preencher Horários por IA
                         </Label>
                         <span className="text-[10px] text-slate-400 font-semibold">Gemini / GPT</span>
                       </div>
                       <Textarea 
                         id="ai-hours-paste"
-                        placeholder="Cole o texto bruto de horÃ¡rios do restaurante aqui. Ex: 'Segunda a Sexta das 11h Ã s 23h. SÃ¡bado das 12h Ã s 00h. Domingo fechado.'"
+                        placeholder="Cole o texto bruto de horários do restaurante aqui. Ex: 'Segunda a Sexta das 11h às 23h. Sábado das 12h às 00h. Domingo fechado.'"
                         value={aiHoursPastedContent}
                         onChange={(e) => setAiHoursPastedContent(e.target.value)}
                         className="bg-[#F9FAFB] border-gray-300 text-xs min-h-[50px] placeholder:text-gray-400"
@@ -3868,12 +3900,12 @@ ${aiHoursPastedContent}
                           {isExtractingHoursAI ? (
                             <>
                               <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
-                              Processando HorÃ¡rios...
+                              Processando Horários...
                             </>
                           ) : (
                             <>
                               <Sparkles className="w-3 h-3 mr-1 text-white fill-white" />
-                              Extrair HorÃ¡rios
+                              Extrair Horários
                             </>
                           )}
                         </Button>
@@ -3899,14 +3931,14 @@ ${aiHoursPastedContent}
                             
                             {dayInfo.isOpen && (
                               <div className="flex items-center gap-2">
-                                <span className="text-xs text-gray-500">HorÃ¡rio:</span>
+                                <span className="text-xs text-gray-500">Horário:</span>
                                 <Input 
                                   value={slot.start}
                                   placeholder="11:00"
                                   onChange={(e) => handleEditHoursSlot(dayKey, 0, 'start', e.target.value)}
                                   className="w-16 h-8 text-center text-xs p-1"
                                 />
-                                <span className="text-xs text-gray-400">atÃ©</span>
+                                <span className="text-xs text-gray-400">até</span>
                                 <Input 
                                   value={slot.end}
                                   placeholder="22:00"
@@ -3924,16 +3956,16 @@ ${aiHoursPastedContent}
                     </div>
                   </div>
 
-                  {/* Galeria FormulÃ¡rio */}
-                  <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4">
+                  {/* Galeria Formulário */}
+                  <div data-testid="restaurant-edit-gallery-section" className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-4 min-w-0 max-w-full overflow-hidden">
                     <h4 className="font-bold text-sm text-primary uppercase tracking-wider mb-2 border-b border-gray-250 pb-1">Galeria de Fotos</h4>
                     
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2 min-w-0">
                       <Input 
                         placeholder="Colar URL de imagem da fachada ou prato..."
                         value={newGalleryUrl}
                         onChange={(e) => setNewGalleryUrl(e.target.value)}
-                        className="bg-white border-gray-300 text-xs h-9 flex-1"
+                        className="bg-white border-gray-300 text-xs h-9 flex-1 min-w-0"
                       />
                       <Button 
                         size="sm" 
@@ -3955,32 +3987,37 @@ ${aiHoursPastedContent}
                     </div>
 
                     {/* Lista de Imagens na Galeria */}
-                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-slate-500">
+                        {((editedData.gallery_images || editedData.galleryImages || []) as string[]).length} foto(s) salvas
+                      </span>
+                    </div>
+                     <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 min-w-0 max-h-80 overflow-y-auto pr-1">
                        {((editedData.gallery_images || editedData.galleryImages || []) as string[]).map((url, idx) => (
-                         <div key={idx} className="relative group h-20 bg-slate-100 rounded-xl overflow-hidden border border-gray-250">
-                            {isVideoUrl(url) ? (
-                              <div className="relative w-full h-full">
-                                <video 
-                                  src={url}
-                                  muted
-                                  playsInline
-                                  preload="metadata"
-                                  className="w-full h-full object-cover"
-                                />
-                                <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-10">
-                                  <Play className="w-5 h-5 text-white fill-white" />
-                                </div>
-                              </div>
-                            ) : (
-                              <img 
-                                key={url}
-                                src={url} 
-                                alt={`Galeria ${idx}`} 
-                                className="w-full h-full object-cover" 
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).style.display = 'none';
-                                  const parent = (e.target as HTMLImageElement).parentElement;
-                                  if (parent && !parent.querySelector('.img-error-fallback')) {
+                         <div key={idx} className="relative group h-24 bg-white rounded-lg overflow-hidden border border-gray-250 min-w-0">
+                             {isVideoUrl(url) ? (
+                               <div className="relative w-full h-full">
+                                 <video 
+                                   src={url}
+                                   muted
+                                   playsInline
+                                   preload="metadata"
+                                   className="w-full h-full object-contain bg-slate-100"
+                                 />
+                                 <div className="absolute inset-0 flex items-center justify-center bg-black/10 z-10">
+                                   <Play className="w-5 h-5 text-white fill-white" />
+                                 </div>
+                               </div>
+                             ) : (
+                               <img 
+                                 key={url}
+                                 src={url} 
+                                 alt={`Galeria ${idx}`} 
+                                 className="w-full h-full object-contain bg-slate-100" 
+                                 onError={(e) => {
+                                   (e.target as HTMLImageElement).style.display = 'none';
+                                   const parent = (e.target as HTMLImageElement).parentElement;
+                                   if (parent && !parent.querySelector('.img-error-fallback')) {
                                     const fallback = document.createElement('div');
                                     fallback.className = 'img-error-fallback flex items-center justify-center w-full h-full bg-red-50 text-red-500';
                                     fallback.innerHTML = '<span class="text-[8px] font-bold text-center">Erro imagem</span>';
@@ -4001,16 +4038,16 @@ ${aiHoursPastedContent}
                      </div>
                   </div>
 
-                  {/* CardÃ¡pio FormulÃ¡rio */}
-                  <div className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-6">
+                  {/* Cardápio Formulário */}
+                  <div data-testid="restaurant-edit-menu-section" className="bg-slate-50/50 p-5 rounded-2xl border border-gray-150 space-y-6 min-w-0 max-w-full overflow-hidden">
                     <div className="flex justify-between items-center border-b border-gray-250 pb-2">
-                      <h4 className="font-bold text-sm text-primary uppercase tracking-wider">CardÃ¡pio Estruturado</h4>
+                      <h4 className="font-bold text-sm text-primary uppercase tracking-wider">Cardápio Estruturado</h4>
                       <div className="flex gap-2">
                         <Button size="sm" onClick={handleAddCategory} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
                           <PlusCircle className="w-3.5 h-3.5 mr-1" /> Nova Categoria
                         </Button>
                         <Button size="sm" variant="destructive" onClick={handleDeleteMenu} className="font-bold bg-red-600 hover:bg-red-700">
-                          <Trash className="w-3.5 h-3.5 mr-1" /> Excluir CardÃ¡pio
+                          <Trash className="w-3.5 h-3.5 mr-1" /> Excluir Cardápio
                         </Button>
                       </div>
                     </div>
@@ -4044,7 +4081,7 @@ ${aiHoursPastedContent}
                             <div className="space-y-3 pl-0 sm:pl-3 min-w-0">
                               {(cat.items || cat.menu_items || []).map((item: any) => (
                                 <div key={item.id} className="relative p-3 bg-slate-50/50 hover:bg-slate-50 border border-gray-150 rounded-xl flex flex-col sm:flex-row gap-3 items-start min-w-0 overflow-hidden">
-                                  {/* PrÃ©-visualizaÃ§Ã£o da Imagem do Prato */}
+                                  {/* Pré-visualização da Imagem do Prato */}
                                   <div key={item.image_url || 'no-image'} className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gray-250 bg-slate-100 flex items-center justify-center self-center sm:self-start shadow-inner">
                                     {item.image_url ? (
                                       <img 
@@ -4057,7 +4094,7 @@ ${aiHoursPastedContent}
                                           if (parent && !parent.querySelector('.img-error-fallback')) {
                                             const fallback = document.createElement('div');
                                             fallback.className = 'img-error-fallback flex flex-col items-center justify-center p-1 text-center w-full h-full bg-red-50 text-red-400';
-                                            fallback.innerHTML = '<span class="text-[8px] font-bold leading-tight">Link invÃ¡lido</span>';
+                                            fallback.innerHTML = '<span class="text-[8px] font-bold leading-tight">Link inválido</span>';
                                             parent.appendChild(fallback);
                                           }
                                         }}
@@ -4081,16 +4118,64 @@ ${aiHoursPastedContent}
                                       />
                                       <Textarea 
                                         value={item.description}
-                                        placeholder="DescriÃ§Ã£o dos ingredientes, acompanhamentos..."
+                                        placeholder="Descrição dos ingredientes, acompanhamentos..."
                                         onChange={(e) => handleEditItem(cat.id, item.id, 'description', e.target.value)}
                                         className="text-xs min-h-[40px] bg-white border-gray-300"
                                       />
-                                      {(item.commercial_type || item.commercialType) === 'combo_builder' && (() => {
+                                      {(() => {
+                                        const optionGroups = normalizeAdminOptionGroups(item);
+                                        const optionCount = optionGroups.reduce((sum: number, group: any) => sum + ((group.items || []).length || 0), 0);
+                                        if (!optionGroups.length) return null;
+                                        return (
+                                          <div className="rounded-xl border border-slate-200 bg-white p-2.5 space-y-2 min-w-0">
+                                            <div className="flex flex-wrap items-center justify-between gap-2">
+                                              <p className="text-[10px] font-black uppercase text-slate-500">
+                                                Opcoes/adicionais coletados
+                                              </p>
+                                              <Badge variant="secondary" className="bg-slate-100 text-slate-600 text-[9px]">
+                                                {optionGroups.length} grupo(s) / {optionCount} opcao(oes)
+                                              </Badge>
+                                            </div>
+                                            <div className="space-y-2 max-h-44 overflow-y-auto pr-1">
+                                              {optionGroups.map((group: any, groupIndex: number) => (
+                                                <div key={`${group.name}-${groupIndex}`} className="rounded-lg border border-slate-100 bg-slate-50 p-2 space-y-1.5">
+                                                  <div className="flex flex-wrap items-center gap-1.5">
+                                                    <span className="text-[10px] font-bold text-slate-700">{group.name}</span>
+                                                    {group.is_required && <Badge variant="outline" className="h-5 text-[9px] bg-white">Obrigatorio</Badge>}
+                                                    {group.max_quantity !== null && group.max_quantity !== undefined && (
+                                                      <span className="text-[9px] font-semibold text-slate-400">max {group.max_quantity}</span>
+                                                    )}
+                                                  </div>
+                                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                                                    {(group.items || []).slice(0, 24).map((option: any, optionIndex: number) => {
+                                                      const optionPrice = parseComboMoney(option.price_delta ?? option.price) || 0;
+                                                      return (
+                                                        <div key={`${option.name}-${optionIndex}`} className="flex items-center justify-between gap-2 rounded-md bg-white border border-slate-100 px-2 py-1">
+                                                          <span className="text-[10px] font-medium text-slate-700 truncate">{option.name}</span>
+                                                          <span className={`text-[9px] font-bold shrink-0 ${optionPrice > 0 ? 'text-[#df4b1c]' : 'text-emerald-600'}`}>
+                                                            {optionPrice > 0 ? `+R$ ${optionPrice.toFixed(2).replace('.', ',')}` : 'Incluso'}
+                                                          </span>
+                                                        </div>
+                                                      );
+                                                    })}
+                                                  </div>
+                                                  {(group.items || []).length > 24 && (
+                                                    <p className="text-[9px] font-semibold text-slate-400">
+                                                      +{(group.items || []).length - 24} opcao(oes) neste grupo
+                                                    </p>
+                                                  )}
+                                                </div>
+                                              ))}
+                                            </div>
+                                          </div>
+                                        );
+                                      })()}
+                                      {showComboEditor && (item.commercial_type || item.commercialType) === 'combo_builder' && (() => {
                                         const comboComponents = getComboComponentsForEditor(item);
                                         const groupLabel = (type: string) => type === 'fixed_item'
                                           ? 'Itens inclusos'
                                           : type === 'choice_group'
-                                            ? 'Escolhas obrigatÃ³rias'
+                                            ? 'Escolhas obrigatórias'
                                             : type === 'upsell_group'
                                               ? 'Upsell'
                                               : 'Adicionais do combo';
@@ -4099,7 +4184,7 @@ ${aiHoursPastedContent}
                                             <div className="flex flex-wrap items-center justify-between gap-2">
                                               <div>
                                                 <p className="text-[11px] font-black uppercase tracking-wide text-rose-600">Editor de combo estruturado</p>
-                                                <p className="text-[10px] text-rose-500">Cada linha vira parte visÃ­vel/clicÃ¡vel no card especial do app.</p>
+                                                <p className="text-[10px] text-rose-500">Cada linha vira parte visível/clicável no card especial do app.</p>
                                               </div>
                                               <span className="rounded-full bg-white px-2 py-0.5 text-[9px] font-bold text-rose-500">card especial no app</span>
                                             </div>
@@ -4122,7 +4207,7 @@ ${aiHoursPastedContent}
                                             </div>
                                             {comboComponents.length === 0 && (
                                               <div className="rounded-xl border border-dashed border-rose-200 bg-white/70 p-3 text-[11px] text-rose-500">
-                                                Nenhum componente cadastrado. Adicione itens inclusos, escolhas ou adicionais especÃ­ficos deste combo.
+                                                Nenhum componente cadastrado. Adicione itens inclusos, escolhas ou adicionais específicos deste combo.
                                               </div>
                                             )}
                                             {comboComponents.map((component: any, groupIndex: number) => (
@@ -4144,10 +4229,10 @@ ${aiHoursPastedContent}
                                                 <div className="space-y-1.5">
                                                   {(component.items || []).map((option: any, optionIndex: number) => (
                                                     <div key={`${groupIndex}-${optionIndex}`} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-1.5 items-center min-w-0">
-                                                      <Input value={option.name || ''} placeholder={component.type === 'fixed_item' ? 'Ex: 1x Batata mÃ©dia' : 'Ex: Blitz Bacon'} onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'name', e.target.value)} className="h-8 text-[11px] xl:col-span-3 min-w-0" />
+                                                      <Input value={option.name || ''} placeholder={component.type === 'fixed_item' ? 'Ex: 1x Batata média' : 'Ex: Blitz Bacon'} onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'name', e.target.value)} className="h-8 text-[11px] xl:col-span-3 min-w-0" />
                                                       <Input value={option.price_delta ?? option.price ?? ''} placeholder={component.type === 'fixed_item' ? 'Valor ref.' : '+ R$'} onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, component.type === 'fixed_item' ? 'price' : 'price_delta', e.target.value)} className="h-8 text-[11px] xl:col-span-2 min-w-0" />
-                                                      <Input value={option.description || ''} placeholder="DescriÃ§Ã£o literal/opcional" onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'description', e.target.value)} className="h-8 text-[11px] xl:col-span-3 min-w-0" />
-                                                      <Input value={option.image_url || ''} placeholder="Foto desta opÃ§Ã£o" onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'image_url', e.target.value)} className="h-8 text-[10px] xl:col-span-3 min-w-0" />
+                                                      <Input value={option.description || ''} placeholder="Descrição literal/opcional" onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'description', e.target.value)} className="h-8 text-[11px] xl:col-span-3 min-w-0" />
+                                                      <Input value={option.image_url || ''} placeholder="Foto desta opção" onChange={(e) => handleUpdateComboComponentItem(cat.id, item.id, groupIndex, optionIndex, 'image_url', e.target.value)} className="h-8 text-[10px] xl:col-span-3 min-w-0" />
                                                       <Button type="button" size="icon" variant="ghost" onClick={() => handleRemoveComboComponentItem(cat.id, item.id, groupIndex, optionIndex)} className="h-8 w-8 text-red-500 hover:bg-red-50">
                                                         <XCircle className="w-3.5 h-3.5" />
                                                       </Button>
@@ -4162,7 +4247,7 @@ ${aiHoursPastedContent}
                                           </div>
                                         );
                                       })()}
-                                      {false && (item.commercial_type || item.commercialType) === 'combo_builder' && (
+                                      {showComboEditor && (item.commercial_type || item.commercialType) === 'combo_builder' && (
                                         <div className="rounded-2xl border border-rose-100 bg-rose-50/60 p-3 space-y-2">
                                           <div className="flex items-center justify-between gap-2">
                                             <p className="text-[11px] font-black uppercase tracking-wide text-rose-600">Editor de combo</p>
@@ -4176,7 +4261,7 @@ ${aiHoursPastedContent}
                                           />
                                           <Textarea
                                             value={item.combo_included_text ?? comboLinesFromComponents(item, 'fixed_item')}
-                                            placeholder={'Itens inclusos, um por linha. Ex:\n1x Burger artesanal | 34\n1x Batata mÃ©dia | 16\n2x Suco natural | 16'}
+                                            placeholder={'Itens inclusos, um por linha. Ex:\n1x Burger artesanal | 34\n1x Batata média | 16\n2x Suco natural | 16'}
                                             onChange={(e) => handleEditItem(cat.id, item.id, 'combo_included_text', e.target.value)}
                                             className="min-h-[76px] bg-white text-[11px]"
                                           />
@@ -4204,7 +4289,7 @@ ${aiHoursPastedContent}
                                           </div>
                                           <Textarea
                                             value={item.combo_choices_text ?? comboLinesFromComponents(item, 'choice_group')}
-                                            placeholder={'OpÃ§Ãµes escolhÃ­veis, uma por linha. Ex:\nBlitz Salada\nBlitz Bacon | 2 | acrÃ©scimo se escolhido'}
+                                            placeholder={'Opções escolhíveis, uma por linha. Ex:\nBlitz Salada\nBlitz Bacon | 2 | acréscimo se escolhido'}
                                             onChange={(e) => handleEditItem(cat.id, item.id, 'combo_choices_text', e.target.value)}
                                             className="min-h-[62px] bg-white text-[11px]"
                                           />
@@ -4241,7 +4326,7 @@ ${aiHoursPastedContent}
                                       </Select>
                                       <Input 
                                         value={item.price || ''}
-                                        placeholder="PreÃ§o (ex: 35.90)"
+                                        placeholder="Preço (ex: 35.90)"
                                         onChange={(e) => handleEditItem(cat.id, item.id, 'price', e.target.value)}
                                         className="text-xs h-8 bg-white border-gray-300 font-bold"
                                       />
@@ -4267,14 +4352,14 @@ ${aiHoursPastedContent}
                               ))}
 
                               {(cat.items || cat.menu_items || []).length === 0 && (
-                                <p className="text-[11px] text-gray-400 italic text-center py-2">Esta categoria nÃ£o tem nenhum prato.</p>
+                                <p className="text-[11px] text-gray-400 italic text-center py-2">Esta categoria não tem nenhum prato.</p>
                               )}
                             </div>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-gray-500 text-center py-6">Nenhuma categoria ou prato criado. Clique em "Nova Categoria" para comeÃ§ar!</p>
+                      <p className="text-xs text-gray-500 text-center py-6">Nenhuma categoria ou prato criado. Clique em "Nova Categoria" para começar!</p>
                     )}
                   </div>
                 </div>
@@ -4286,8 +4371,8 @@ ${aiHoursPastedContent}
               <div className="space-y-2">
                 <h4 className="font-bold text-sm text-purple-900">Extrator Manual com IA</h4>
                 <p className="text-xs text-gray-500 leading-relaxed">
-                  Copie e cole o texto bruto do cardÃ¡pio ou o cÃ³digo-fonte HTML da pÃ¡gina de cardÃ¡pio digital do restaurante. 
-                  Nossa inteligÃªncia artificial estruturarÃ¡ automaticamente em categorias, pratos, preÃ§os, descriÃ§Ãµes e identificarÃ¡ links de imagens.
+                  Copie e cole o texto bruto do cardápio ou o código-fonte HTML da página de cardápio digital do restaurante.
+                  Nossa inteligência artificial estruturará automaticamente em categorias, pratos, preços, descrições e identificará links de imagens.
                 </p>
               </div>
 
@@ -4316,12 +4401,12 @@ ${aiHoursPastedContent}
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="ai-pasted-menu" className="text-xs font-bold">ConteÃºdo do CardÃ¡pio (Texto ou HTML)</Label>
+                <Label htmlFor="ai-pasted-menu" className="text-xs font-bold">Conteúdo do Cardápio (Texto ou HTML)</Label>
                 <Textarea 
                   id="ai-pasted-menu"
                   value={aiPastedContent}
                   onChange={(e) => setAiPastedContent(e.target.value)}
-                  placeholder="Cole o cardÃ¡pio bruto aqui..."
+                  placeholder="Cole o cardápio bruto aqui..."
                   className="min-h-[220px] bg-slate-50 border-gray-300 text-xs font-mono"
                 />
               </div>
@@ -4374,7 +4459,7 @@ ${aiHoursPastedContent}
                 </div>
               )}
             </TabsContent>
-          </ScrollArea>
+          </div>
 
           {/* Dialog Footer Actions */}
           <div className="p-4 sm:p-6 border-t border-gray-100 bg-slate-50 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-3 rounded-b-3xl">

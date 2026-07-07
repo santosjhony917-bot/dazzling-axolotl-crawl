@@ -4,18 +4,18 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap text-[15px] font-semibold transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 soft-pill", 
+  "inline-flex items-center justify-center whitespace-nowrap text-[15px] font-semibold transition-all [transition-duration:var(--ff-motion-normal)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 soft-pill", 
   {
     variants: {
       variant: {
-        default: "bg-highlight text-white hover:bg-highlight/90 shadow-[0_6px_16px_rgba(223,75,28,0.14)] hover:shadow-[0_8px_20px_rgba(223,75,28,0.18)]",
+        default: "bg-[var(--ff-primary)] text-white shadow-[var(--ff-shadow-button)] hover:bg-[var(--ff-primary-dark)]",
         destructive: "bg-red-500 text-white hover:bg-red-600 shadow-[0_4px_14px_rgba(239,68,68,0.22)]",
-        outline: "bg-white text-foreground border border-slate-200/80 shadow-none hover:bg-slate-50",
+        outline: "bg-white text-[var(--ff-text-primary)] border border-[var(--ff-border-soft)] shadow-none hover:bg-[var(--ff-surface-warm)]",
         secondary: "bg-slate-100 text-foreground hover:bg-slate-200",
         ghost: "hover:bg-slate-100 text-foreground",
-        link: "text-highlight underline-offset-4 hover:underline",
-        highlight: "bg-highlight text-white hover:bg-highlight/90 shadow-[0_6px_16px_rgba(223,75,28,0.14)] hover:shadow-[0_8px_20px_rgba(223,75,28,0.18)]",
-        channel: "bg-white text-foreground border border-slate-200/80 shadow-none hover:bg-slate-50",
+        link: "text-[var(--ff-primary)] underline-offset-4 hover:underline",
+        highlight: "bg-[var(--ff-primary)] text-white shadow-[var(--ff-shadow-button)] hover:bg-[var(--ff-primary-dark)]",
+        channel: "bg-white text-[var(--ff-text-primary)] border border-[var(--ff-border-soft)] shadow-none hover:bg-[var(--ff-surface-warm)]",
       },
       size: {
         default: "h-11 px-6",

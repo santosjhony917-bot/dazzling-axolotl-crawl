@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+﻿import { defineConfig } from "vite";
 import dyadComponentTagger from "@dyad-sh/react-vite-component-tagger";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -14,8 +14,10 @@ const extensionCommandQueue: any[] = [];
 const extensionCommandResults: any[] = [];
 const EXTENSION_COMMAND_LIMIT = 100;
 const EXTENSION_COMMAND_RESULT_LIMIT = 200;
+const DEFAULT_EXTENSION_LANE_ID = "default";
 const extensionMonitorDir = path.join(__dirname, ".tmp", "extension-monitor");
 const extensionSnapshotDir = path.join(extensionMonitorDir, "snapshots");
+const scratchDir = path.join(__dirname, "scratch");
 
 function readRequestBody(req: any, maxBytes = 1024 * 1024): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -35,20 +37,38 @@ function createExtensionCommandId() {
   return `cmd_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
+function normalizeExtensionLaneId(value: any) {
+  const raw = String(value || "").trim();
+  const normalized = raw
+    .replace(/[^A-Za-z0-9_.:-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+  return normalized || DEFAULT_EXTENSION_LANE_ID;
+}
+
 function ensureExtensionSnapshotDir() {
   fs.mkdirSync(extensionSnapshotDir, { recursive: true });
 }
 
-function saveExtensionSnapshot(commandId: string, dataUrl: string) {
+function ensureScratchDir() {
+  fs.mkdirSync(scratchDir, { recursive: true });
+}
+
+function saveExtensionSnapshot(commandId: string, dataUrl: string, laneId = DEFAULT_EXTENSION_LANE_ID) {
   const match = String(dataUrl || "").match(/^data:image\/(png|jpe?g|webp);base64,([A-Za-z0-9+/=]+)$/);
   if (!match) return null;
-  ensureExtensionSnapshotDir();
+  const safeLaneId = normalizeExtensionLaneId(laneId);
+  const snapshotDir = safeLaneId === DEFAULT_EXTENSION_LANE_ID
+    ? extensionSnapshotDir
+    : path.join(extensionSnapshotDir, safeLaneId);
+  fs.mkdirSync(snapshotDir, { recursive: true });
   const ext = match[1].replace("jpeg", "jpg");
   const fileName = `${commandId}.${ext}`;
-  const filePath = path.join(extensionSnapshotDir, fileName);
+  const filePath = path.join(snapshotDir, fileName);
   const buffer = Buffer.from(match[2], "base64");
   fs.writeFileSync(filePath, buffer);
   return {
+    laneId: safeLaneId,
     snapshotFile: fileName,
     snapshotPath: filePath,
     bytes: buffer.length
@@ -79,12 +99,86 @@ function loadLocalDotEnv() {
       if (!process.env[key]) process.env[key] = value;
     }
   } catch (err: any) {
-    console.warn('[local-collector] Não foi possível carregar .env:', err?.message || err);
+    console.warn('[local-collector] NÃ£o foi possÃ­vel carregar .env:', err?.message || err);
   }
 }
 
 loadLocalDotEnv();
+type ImageHashResult = {
+  image: string;
+  hash: string | null;
+  duplicateOf?: number;
+  reason?: string;
+};
 
+function hammingDistanceBits(a: string, b: string) {
+  if (!a || !b || a.length !== b.length) return Number.POSITIVE_INFINITY;
+  let distance = 0;
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i] !== b[i]) distance += 1;
+  }
+  return distance;
+}
+
+async function computePerceptualImageHash(imageUrl: string): Promise<string | null> {
+  try {
+    const canvas = await import("@napi-rs/canvas");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const response = await fetch(imageUrl, {
+      signal: controller.signal,
+      headers: {
+        "User-Agent": "Mozilla/5.0 ValidarIA/1.0",
+        "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+      }
+    });
+    clearTimeout(timeout);
+    if (!response.ok) return null;
+    const contentType = response.headers.get("content-type") || "";
+    if (!/^image\//i.test(contentType)) return null;
+    const buffer = Buffer.from(await response.arrayBuffer());
+    if (buffer.length < 512) return null;
+
+    const image = await canvas.loadImage(buffer);
+    const size = 8;
+    const surface = canvas.createCanvas(size, size);
+    const ctx = surface.getContext("2d");
+    ctx.drawImage(image as any, 0, 0, size, size);
+    const pixels = ctx.getImageData(0, 0, size, size).data;
+    const gray: number[] = [];
+    for (let i = 0; i < pixels.length; i += 4) {
+      gray.push(0.299 * pixels[i] + 0.587 * pixels[i + 1] + 0.114 * pixels[i + 2]);
+    }
+    const average = gray.reduce((sum, value) => sum + value, 0) / gray.length;
+    return gray.map(value => value >= average ? "1" : "0").join("");
+  } catch (_) {
+    return null;
+  }
+}
+
+async function dedupeImagesByVisualHash(images: string[], maxDistance = 5): Promise<{ images: string[]; hashes: ImageHashResult[]; removed: number }> {
+  const hashes: ImageHashResult[] = [];
+  const accepted: ImageHashResult[] = [];
+  for (const image of images) {
+    const hash = await computePerceptualImageHash(image);
+    let duplicateOf: number | undefined;
+    if (hash) {
+      duplicateOf = accepted.findIndex(item => item.hash && hammingDistanceBits(hash, item.hash) <= maxDistance);
+    }
+    if (duplicateOf !== undefined && duplicateOf >= 0) {
+      hashes.push({ image, hash, duplicateOf, reason: "visual_duplicate" });
+      continue;
+    }
+    const entry = { image, hash };
+    hashes.push(entry);
+    accepted.push(entry);
+  }
+  return {
+    images: accepted.map(item => item.image),
+    hashes,
+    removed: hashes.filter(item => item.duplicateOf !== undefined && item.duplicateOf >= 0).length,
+  };
+}
 export default defineConfig(() => ({
   server: {
     host: "::",
@@ -115,6 +209,7 @@ export default defineConfig(() => ({
         server.middlewares.use((req, res, next) => {
           if (req.url && req.url.startsWith("/api/local-collector")) {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
+            ensureScratchDir();
             
             const urlParts = req.url.split("?");
             const urlPath = urlParts[0];
@@ -171,22 +266,40 @@ export default defineConfig(() => ({
             }
 
             if (urlPath === "/api/local-collector/extension-command") {
+              const requestLaneId = normalizeExtensionLaneId(urlParams.get("laneId") || urlParams.get("lane") || req.headers["x-filterfood-lane-id"]);
               if (req.method === "GET") {
-                const command = extensionCommandQueue.shift() || null;
+                const commandIndex = extensionCommandQueue.findIndex((entry) => normalizeExtensionLaneId(entry?.laneId) === requestLaneId);
+                const command = commandIndex >= 0 ? extensionCommandQueue.splice(commandIndex, 1)[0] : null;
                 res.writeHead(200);
                 res.end(JSON.stringify({
                   success: true,
+                  laneId: requestLaneId,
                   command,
-                  queued: extensionCommandQueue.length
+                  queued: extensionCommandQueue.filter((entry) => normalizeExtensionLaneId(entry?.laneId) === requestLaneId).length,
+                  queuedAll: extensionCommandQueue.length
                 }));
                 return;
               }
 
               if (req.method === "DELETE") {
-                extensionCommandQueue.length = 0;
-                extensionCommandResults.length = 0;
+                const all = urlParams.get("all") === "true";
+                if (all) {
+                  extensionCommandQueue.length = 0;
+                  extensionCommandResults.length = 0;
+                } else {
+                  for (let index = extensionCommandQueue.length - 1; index >= 0; index -= 1) {
+                    if (normalizeExtensionLaneId(extensionCommandQueue[index]?.laneId) === requestLaneId) {
+                      extensionCommandQueue.splice(index, 1);
+                    }
+                  }
+                  for (let index = extensionCommandResults.length - 1; index >= 0; index -= 1) {
+                    if (normalizeExtensionLaneId(extensionCommandResults[index]?.laneId) === requestLaneId) {
+                      extensionCommandResults.splice(index, 1);
+                    }
+                  }
+                }
                 res.writeHead(200);
-                res.end(JSON.stringify({ success: true }));
+                res.end(JSON.stringify({ success: true, laneId: requestLaneId, all }));
                 return;
               }
 
@@ -200,9 +313,11 @@ export default defineConfig(() => ({
                       res.end(JSON.stringify({ success: false, error: "Missing command type" }));
                       return;
                     }
+                    const laneId = normalizeExtensionLaneId(parsed.laneId || parsed.lane || requestLaneId);
                     const command = {
                       ...parsed,
                       id: parsed.id || createExtensionCommandId(),
+                      laneId,
                       type,
                       queuedAt: new Date().toISOString()
                     };
@@ -213,8 +328,10 @@ export default defineConfig(() => ({
                     res.writeHead(200);
                     res.end(JSON.stringify({
                       success: true,
+                      laneId,
                       command,
-                      queued: extensionCommandQueue.length
+                      queued: extensionCommandQueue.filter((entry) => normalizeExtensionLaneId(entry?.laneId) === laneId).length,
+                      queuedAll: extensionCommandQueue.length
                     }));
                   })
                   .catch((error) => {
@@ -233,37 +350,53 @@ export default defineConfig(() => ({
             }
 
             if (urlPath === "/api/local-collector/extension-command-result") {
+              const requestLaneId = normalizeExtensionLaneId(urlParams.get("laneId") || urlParams.get("lane") || req.headers["x-filterfood-lane-id"]);
               if (req.method === "GET") {
+                const laneResults = extensionCommandResults.filter((entry) => normalizeExtensionLaneId(entry?.laneId) === requestLaneId);
                 res.writeHead(200);
                 res.end(JSON.stringify({
                   success: true,
-                  queued: extensionCommandQueue.length,
-                  count: extensionCommandResults.length,
-                  results: extensionCommandResults.slice(-100)
+                  laneId: requestLaneId,
+                  queued: extensionCommandQueue.filter((entry) => normalizeExtensionLaneId(entry?.laneId) === requestLaneId).length,
+                  queuedAll: extensionCommandQueue.length,
+                  count: laneResults.length,
+                  countAll: extensionCommandResults.length,
+                  results: laneResults.slice(-100)
                 }));
                 return;
               }
 
               if (req.method === "DELETE") {
-                extensionCommandResults.length = 0;
+                const all = urlParams.get("all") === "true";
+                if (all) {
+                  extensionCommandResults.length = 0;
+                } else {
+                  for (let index = extensionCommandResults.length - 1; index >= 0; index -= 1) {
+                    if (normalizeExtensionLaneId(extensionCommandResults[index]?.laneId) === requestLaneId) {
+                      extensionCommandResults.splice(index, 1);
+                    }
+                  }
+                }
                 res.writeHead(200);
-                res.end(JSON.stringify({ success: true }));
+                res.end(JSON.stringify({ success: true, laneId: requestLaneId, all }));
                 return;
               }
 
               if (req.method === "POST") {
-                readRequestBody(req, 12 * 1024 * 1024)
+                readRequestBody(req, 64 * 1024 * 1024)
                   .then((body) => {
                     const parsed = body ? JSON.parse(body) : {};
                     const commandId = String(parsed.commandId || parsed.command?.id || createExtensionCommandId());
+                    const laneId = normalizeExtensionLaneId(parsed.laneId || parsed.command?.laneId || parsed.command?.lane || requestLaneId);
                     const result = parsed.result || {};
                     let snapshot: any = null;
                     if (typeof result.dataUrl === "string") {
-                      snapshot = saveExtensionSnapshot(commandId, result.dataUrl);
+                      snapshot = saveExtensionSnapshot(commandId, result.dataUrl, laneId);
                       delete result.dataUrl;
                     }
                     storeExtensionCommandResult({
                       receivedAt: new Date().toISOString(),
+                      laneId,
                       commandId,
                       command: parsed.command || null,
                       success: parsed.success !== false,
@@ -272,7 +405,7 @@ export default defineConfig(() => ({
                       snapshot
                     });
                     res.writeHead(200);
-                    res.end(JSON.stringify({ success: true, snapshot }));
+                    res.end(JSON.stringify({ success: true, laneId, snapshot }));
                   })
                   .catch((error) => {
                     res.writeHead(400);
@@ -302,13 +435,13 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/run-maps" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
 
               const hasState = fs.existsSync(stateFilePath);
               const fresh = urlParams.get("fresh") === "true" || !hasState;
-              const city = urlParams.get("city") || "João Pessoa";
+              const city = urlParams.get("city") || "JoÃ£o Pessoa";
               const state = urlParams.get("state") || "PB";
               const cityId = urlParams.get("cityId") || "";
               let freshLog = "";
@@ -317,10 +450,10 @@ export default defineConfig(() => ({
                 if (fs.existsSync(stateFilePath)) {
                   try {
                     fs.unlinkSync(stateFilePath);
-                    freshLog += "🧹 Estado anterior do robô descartado.\n";
+                    freshLog += "ðŸ§¹ Estado anterior do robÃ´ descartado.\n";
                   } catch (unlinkErr: any) {
-                    console.error("Erro ao limpar arquivo de estado do robô:", unlinkErr);
-                    freshLog += `⚠️ [Aviso] Não foi possível limpar o estado anterior: ${unlinkErr.message}\n`;
+                    console.error("Erro ao limpar arquivo de estado do robÃ´:", unlinkErr);
+                    freshLog += `âš ï¸ [Aviso] NÃ£o foi possÃ­vel limpar o estado anterior: ${unlinkErr.message}\n`;
                   }
                 }
 
@@ -329,26 +462,26 @@ export default defineConfig(() => ({
                 if (fs.existsSync(outputFilePath)) {
                   try {
                     fs.unlinkSync(outputFilePath);
-                    freshLog += "🗑️ Arquivo de resultados anteriores (scraped_restaurants_google.json) removido.\n";
+                    freshLog += "ðŸ—‘ï¸ Arquivo de resultados anteriores (scraped_restaurants_google.json) removido.\n";
                   } catch (outputErr: any) {
-                    console.error("Erro ao limpar arquivo de resultados do robô:", outputErr);
-                    freshLog += `⚠️ [Aviso] Não foi possível limpar os resultados anteriores: ${outputErr.message}\n`;
+                    console.error("Erro ao limpar arquivo de resultados do robÃ´:", outputErr);
+                    freshLog += `âš ï¸ [Aviso] NÃ£o foi possÃ­vel limpar os resultados anteriores: ${outputErr.message}\n`;
                   }
                 }
 
-                // Deleta arquivo de cardápios anteriores
+                // Deleta arquivo de cardÃ¡pios anteriores
                 const menusFilePath = path.join(__dirname, "scraped_menus.json");
                 if (fs.existsSync(menusFilePath)) {
                   try {
                     fs.unlinkSync(menusFilePath);
-                    freshLog += "🗑️ Arquivo de cardápios anteriores (scraped_menus.json) removido.\n";
+                    freshLog += "ðŸ—‘ï¸ Arquivo de cardÃ¡pios anteriores (scraped_menus.json) removido.\n";
                   } catch (menusErr: any) {
-                    console.error("Erro ao limpar arquivo de cardápios do robô:", menusErr);
+                    console.error("Erro ao limpar arquivo de cardÃ¡pios do robÃ´:", menusErr);
                   }
                 }
               }
               
-              logBuffer = freshLog + `🚀 Iniciando Coleta do Google Maps (Fase 1) em ${city} - ${state}...\n`;
+              logBuffer = freshLog + `ðŸš€ Iniciando Coleta do Google Maps (Fase 1) em ${city} - ${state}...\n`;
               const proc = spawn("node", ["scratch/google_maps_scraper.cjs", "--city", city, "--state", state, "--cityId", cityId]);
               activeProcess = proc;
               
@@ -358,11 +491,11 @@ export default defineConfig(() => ({
               });
               
               proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                logBuffer += `âš ï¸ [ERRO] ${data.toString("utf-8")}`;
               });
               
               proc.on("close", (code) => {
-                logBuffer += `\n🏁 Coleta do Google Maps concluída com código de saída: ${code}\n`;
+                logBuffer += `\nðŸ Coleta do Google Maps concluÃ­da com cÃ³digo de saÃ­da: ${code}\n`;
                 activeProcess = null;
               });
               
@@ -374,11 +507,11 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/run-social" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
               
-              logBuffer = "🚀 Iniciando Enriquecimento de Redes Sociais (Fase 2)...\n";
+              logBuffer = "ðŸš€ Iniciando Enriquecimento de Redes Sociais (Fase 2)...\n";
               const proc = spawn("node", ["scratch/social_enricher.cjs"]);
               activeProcess = proc;
               
@@ -388,11 +521,11 @@ export default defineConfig(() => ({
               });
               
               proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                logBuffer += `âš ï¸ [ERRO] ${data.toString("utf-8")}`;
               });
               
               proc.on("close", (code) => {
-                logBuffer += `\n🏁 Enriquecimento de Redes Sociais concluído com código de saída: ${code}\n`;
+                logBuffer += `\nðŸ Enriquecimento de Redes Sociais concluÃ­do com cÃ³digo de saÃ­da: ${code}\n`;
                 activeProcess = null;
               });
               
@@ -404,11 +537,11 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/run-menu" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
               
-              logBuffer = "🚀 Iniciando Coleta de Cardápios (Fase 2)...\n";
+              logBuffer = "ðŸš€ Iniciando Coleta de CardÃ¡pios (Fase 2)...\n";
               const proc = spawn("node", ["scratch/menu_scraper.cjs"]);
               activeProcess = proc;
               
@@ -418,16 +551,16 @@ export default defineConfig(() => ({
               });
               
               proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                logBuffer += `âš ï¸ [ERRO] ${data.toString("utf-8")}`;
               });
               
               proc.on("close", (code) => {
-                logBuffer += `\n🏁 Coleta de Cardápios concluída com código de saída: ${code}\n`;
+                logBuffer += `\nðŸ Coleta de CardÃ¡pios concluÃ­da com cÃ³digo de saÃ­da: ${code}\n`;
                 activeProcess = null;
               });
               
               res.writeHead(200);
-              res.end(JSON.stringify({ message: "Coleta de Cardápios iniciada." }));
+              res.end(JSON.stringify({ message: "Coleta de CardÃ¡pios iniciada." }));
               return;
             }
 
@@ -436,18 +569,18 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/re-search-social" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
               
               const restaurantId = urlParams.get("restaurantId");
               if (!restaurantId) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                res.end(JSON.stringify({ error: "ID do restaurante nÃ£o fornecido." }));
                 return;
               }
 
-              logBuffer = `🚀 Iniciando rebusca de Instagram para o restaurante ID ${restaurantId}...\n`;
+              logBuffer = `ðŸš€ Iniciando rebusca de Instagram para o restaurante ID ${restaurantId}...\n`;
               const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "instagram"]);
               activeProcess = proc;
               
@@ -464,11 +597,11 @@ export default defineConfig(() => ({
               });
               
               proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                logBuffer += `âš ï¸ [ERRO] ${data.toString("utf-8")}`;
               });
               
               proc.on("close", (code) => {
-                logBuffer += `\n🏁 Rebusca concluída com código de saída: ${code}\n`;
+                logBuffer += `\nðŸ Rebusca concluÃ­da com cÃ³digo de saÃ­da: ${code}\n`;
                 activeProcess = null;
                 
                 try {
@@ -477,7 +610,7 @@ export default defineConfig(() => ({
                   res.end(JSON.stringify(result));
                 } catch (err) {
                   res.writeHead(500);
-                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robÃ´." }));
                 }
               });
               return;
@@ -495,7 +628,7 @@ export default defineConfig(() => ({
                   
                   // Chamar OpenAI diretamente daqui do servidor node local.
                   // Preferimos a chave OpenAI/GPT do projeto; OpenRouter fica como fallback
-                  // configurável. O modelo "openrouter/free" quebrava a navegação com HTTP 500.
+                  // configurÃ¡vel. O modelo "openrouter/free" quebrava a navegaÃ§Ã£o com HTTP 500.
                   const { OpenAI } = await import('openai');
                   const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
                   const openRouterKey = process.env.VITE_OPENROUTER_API_KEY || '';
@@ -512,7 +645,7 @@ export default defineConfig(() => ({
                     });
                     model = process.env.VITE_OPENROUTER_MODEL || process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini';
                   } else {
-                    throw new Error('Chave de API não configurada no .env');
+                    throw new Error('Chave de API nÃ£o configurada no .env');
                   }
 
                   const createChatCompletionWithRetry = async () => {
@@ -561,6 +694,31 @@ export default defineConfig(() => ({
               return;
             }
 
+            if (urlPath === "/api/local-collector/image-visual-hash" && req.method === "POST") {
+              readRequestBody(req, 256 * 1024)
+                .then(async (body) => {
+                  try {
+                    const parsed = JSON.parse(body || "{}");
+                    const image = String(parsed.image || parsed.url || "").trim();
+                    if (!/^https?:\/\//i.test(image)) {
+                      res.writeHead(400, { "Content-Type": "application/json" });
+                      res.end(JSON.stringify({ success: false, error: "URL de imagem invalida." }));
+                      return;
+                    }
+                    const hash = await computePerceptualImageHash(image);
+                    res.writeHead(200, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: Boolean(hash), hash }));
+                  } catch (err: any) {
+                    res.writeHead(500, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: err?.message || String(err) }));
+                  }
+                })
+                .catch((err) => {
+                  res.writeHead(400, { "Content-Type": "application/json" });
+                  res.end(JSON.stringify({ success: false, error: err?.message || String(err) }));
+                });
+              return;
+            }
             if (urlPath === "/api/local-collector/filter-instagram-gallery" && req.method === "POST") {
               let bodyData = '';
               req.on('data', chunk => { bodyData += chunk.toString(); });
@@ -598,27 +756,37 @@ export default defineConfig(() => ({
                   } else if (apiKey) {
                     openai = new OpenAI({ apiKey });
                   } else {
-                    throw new Error('Chave de API não configurada no .env');
+                    throw new Error('Chave de API nÃ£o configurada no .env');
+                  }
+                  const visuallyUniqueInput = await dedupeImagesByVisualHash(images, 5);
+                  if (visuallyUniqueInput.removed > 0) {
+                    console.warn(`[filter-instagram-gallery] ${visuallyUniqueInput.removed} candidata(s) removida(s) por duplicidade visual antes da IA.`);
+                  }
+                  const candidateImages = visuallyUniqueInput.images;
+                  if (candidateImages.length === 0) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: true, filteredImages: [] }));
+                    return;
                   }
 
                   // Executar a IA Vision em paralelo para cada imagem
-                  const promises = images.map(async (img) => {
+                  const promises = candidateImages.map(async (img) => {
                     try {
                       const response = await openai.chat.completions.create({
                         model: model,
                         messages: [
                           {
                             role: 'system',
-                            content: 'Voce e um assistente de IA que escolhe fotos para a galeria publica de um restaurante. Responda apenas com a palavra "APROVADO" ou "REJEITADO". APROVADO: foto real, bonita e util de comida, bebida, sobremesa, prato servido, fachada limpa, salao/ambiente limpo ou vitrine/balcao apresentavel do proprio restaurante. REJEITADO: video, thumbnail com play, cardapio impresso/digital, print de app, panfleto, flyer, arte promocional, logo isolado, meme, texto como foco principal, pessoas/rostos como foco, funcionario ou cliente posando, mesa vazia ou suja, lixo, embalagem sem comida, imagem borrada, escura, cortada demais, generica ou que nao pareca pertencer ao restaurante.'
+                            content: 'Voce escolhe fotos para a galeria publica de um restaurante. Responda apenas com "APROVADO_COMIDA", "APROVADO_FACHADA" ou "REJEITADO". APROVADO_COMIDA somente quando a foto for real, bonita, nitida e focada em comida, bebida ou sobremesa pronta/servida, com o prato/produto aparecendo inteiro ou quase inteiro. APROVADO_FACHADA quando for fachada externa real, limpa, nitida, bem enquadrada e util para reconhecer o restaurante. REJEITADO sempre que for video, Reels, thumbnail com botao de play, frame de video, pessoa/rosto/funcionario/cliente/cliente na borda/qualquer pessoa visivel mesmo pequena, mesa vazia, mesa suja, lixo, louca suja, ambiente interno sem comida, salao sem comida, vitrine, logo isolado, cardapio impresso/digital, print de app, panfleto, flyer, arte promocional, montagem, selo, marca dagua, moldura, medidas/desenhos sobrepostos, texto como foco principal, embalagem sem comida, prato/produto cortado nas bordas, imagem borrada, escura, cortada demais, panoramica 360 distorcida, foto visualmente duplicada de outra candidata, generica ou que nao pareca pertencer ao restaurante.'
                           },
                           {
                             role: 'system',
-                            content: 'Regra obrigatoria e conservadora: priorize fotos de comida; use fotos de ambiente/fachada apenas quando forem limpas, bem enquadradas e ajudarem o usuario a reconhecer o restaurante. Fotos de cardapio nao pertencem a galeria; elas sao evidencias para extracao de cardapio. Na duvida, responda REJEITADO.'
+                            content: 'Regra obrigatoria e conservadora: a galeria automatica deve ter somente fotos estaticas: comida/bebida/sobremesa boa e, quando houver, pelo menos uma fachada externa limpa do restaurante. Nao aprove video, Reels, thumbnail com play, ambiente interno, mesa, qualquer pessoa visivel, foto social ou panoramica 360 distorcida. Fotos de cardapio nao pertencem a galeria; elas sao evidencias para extracao de cardapio. Tambem rejeite imagens vindas/parecidas com aba Menu/Cardapio do Google, print de produtos, lista de itens, foto de cardapio fisico ou arte de produto isolado sobre fundo grafico. Rejeite duplicatas visuais: se a foto parecer igual a outra candidata ja aprovada, ela nao deve entrar. Na duvida, responda REJEITADO.'
                           },
                           {
                             role: 'user',
                             content: [
-                              { type: 'text', text: `Origem: ${source}. Analise esta imagem e responda apenas APROVADO ou REJEITADO:` },
+                              { type: 'text', text: `Origem: ${source}. Analise esta imagem e responda apenas APROVADO_COMIDA, APROVADO_FACHADA ou REJEITADO:` },
                               { type: 'image_url', image_url: { url: img } }
                             ]
                           }
@@ -627,19 +795,91 @@ export default defineConfig(() => ({
                       });
                       
                       const classification = response.choices[0].message.content?.trim().toUpperCase() || '';
+                      const isFacade = classification.includes('APROVADO_FACHADA');
                       const isApproved = classification.includes('APROVADO') && !classification.includes('REJEITADO');
-                      return { img, isApproved };
+                      return { img, isApproved, isFacade };
                     } catch (err: any) {
-                      console.error('Erro na classificação de imagem via IA:', err.message);
-                      return { img, isApproved: false };
+                      console.error('Erro na classificaÃ§Ã£o de imagem via IA:', err.message);
+                      return { img, isApproved: false, isFacade: false };
                     }
                   });
 
                   const results = await Promise.all(promises);
-                  const approvedImages = results.filter(r => r.isApproved).map(r => r.img).slice(0, maxImages);
+                  const approvedFacade = results.find(r => r.isApproved && r.isFacade);
+                  let approvedImages = [
+                    ...(approvedFacade ? [approvedFacade.img] : []),
+                    ...results
+                      .filter(r => r.isApproved && !r.isFacade)
+                      .map(r => r.img)
+                  ].slice(0, maxImages);
+
+                  const approvedVisualDedupe = await dedupeImagesByVisualHash(approvedImages, 5);
+                  if (approvedVisualDedupe.removed > 0) {
+                    console.warn(`[filter-instagram-gallery] ${approvedVisualDedupe.removed} foto(s) aprovada(s) removida(s) por duplicidade visual.`);
+                    approvedImages = approvedVisualDedupe.images.slice(0, maxImages);
+                  }
+
+                  if (approvedImages.length > 1) {
+                    try {
+                      const diversityContent: any[] = [
+                        {
+                          type: 'text',
+                          text: [
+                            `Origem: ${source}.`,
+                            'Escolha no maximo as melhores fotos para uma galeria publica, removendo duplicatas visuais.',
+                            'Fotos duplicadas incluem a mesma comida/produto/fachada com crop, zoom, resolucao, fundo ou enquadramento levemente diferente.',
+                            'Se varias imagens mostram praticamente a mesma composicao, mantenha somente uma.',
+                            'Prefira: 1 fachada limpa quando existir, depois pratos/produtos diferentes entre si.',
+                            'Responda somente JSON: {"selected_indices":[1,3,5],"reason":"curto"}. Os indices sao 1-based na ordem abaixo.'
+                          ].join(' ')
+                        }
+                      ];
+                      approvedImages.slice(0, 12).forEach((img, index) => {
+                        diversityContent.push({ type: 'text', text: `Imagem ${index + 1}` });
+                        diversityContent.push({ type: 'image_url', image_url: { url: img } });
+                      });
+                      const diversityResponse = await openai.chat.completions.create({
+                        model,
+                        temperature: 0,
+                        response_format: { type: 'json_object' },
+                        messages: [
+                          {
+                            role: 'system',
+                            content: 'Voce faz curadoria visual comparativa de galeria. Sua prioridade e evitar repeticao. Nunca selecione duas fotos visualmente iguais ou quase iguais. Nao invente: escolha apenas pelos indices enviados.'
+                          },
+                          { role: 'user', content: diversityContent }
+                        ],
+                      });
+                      const raw = diversityResponse.choices[0]?.message?.content || '{}';
+                      const parsedDiversity = JSON.parse(String(raw).match(/\{[\s\S]*\}/)?.[0] || '{}');
+                      const selectedIndices = Array.isArray(parsedDiversity?.selected_indices)
+                        ? parsedDiversity.selected_indices
+                            .map((index: any) => Number(index))
+                            .filter((index: number) => Number.isFinite(index) && index >= 1 && index <= approvedImages.length)
+                        : [];
+                      const seen = new Set<number>();
+                      const curated = selectedIndices
+                        .filter((index: number) => {
+                          if (seen.has(index)) return false;
+                          seen.add(index);
+                          return true;
+                        })
+                        .slice(0, maxImages)
+                        .map((index: number) => approvedImages[index - 1])
+                        .filter(Boolean);
+                      if (curated.length > 0) approvedImages = curated;
+                    } catch (diversityErr: any) {
+                      console.warn('[filter-instagram-gallery] Curadoria comparativa falhou; mantendo aprovadas individuais:', diversityErr?.message || diversityErr);
+                    }
+                  }
+                  const finalVisualDedupe = await dedupeImagesByVisualHash(approvedImages, 5);
+                  if (finalVisualDedupe.removed > 0) {
+                    console.warn(`[filter-instagram-gallery] ${finalVisualDedupe.removed} duplicata(s) visual(is) removida(s) no fechamento da galeria.`);
+                    approvedImages = finalVisualDedupe.images.slice(0, maxImages);
+                  }
 
                   res.writeHead(200, { 'Content-Type': 'application/json' });
-                  res.end(JSON.stringify({ success: true, filteredImages: approvedImages }));
+                  res.end(JSON.stringify({ success: true, filteredImages: approvedImages, visualDedupeRemoved: visuallyUniqueInput.removed + approvedVisualDedupe.removed + finalVisualDedupe.removed }));
                 } catch (err: any) {
                   res.writeHead(500, { 'Content-Type': 'application/json' });
                   res.end(JSON.stringify({ success: false, error: err.message }));
@@ -667,7 +907,7 @@ export default defineConfig(() => ({
 
                   const { OpenAI } = await import('openai');
                   const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
-                  if (!apiKey) throw new Error('Chave OpenAI não configurada no .env');
+                  if (!apiKey) throw new Error('Chave OpenAI nÃ£o configurada no .env');
                   const openai = new OpenAI({ apiKey, timeout: 20000, maxRetries: 1 });
 
                   const accepted: any[] = [];
@@ -681,16 +921,16 @@ export default defineConfig(() => ({
                           {
                             role: 'system',
                             content: [
-                              'Você analisa imagens públicas de restaurante.',
-                              'Determine se a imagem contém cardápio, tabela de preços, lista de pratos, placa de menu ou print legível de delivery.',
-                              'Extraia somente texto visível relacionado a itens/preços; não invente.',
-                              'Responda JSON: {"is_menu":true|false,"confidence":0_a_1,"raw_text":"texto extraído","reason":"curto"}.'
+                              'VocÃª analisa imagens pÃºblicas de restaurante.',
+                              'Determine se a imagem contÃ©m cardÃ¡pio, tabela de preÃ§os, lista de pratos, placa de menu ou print legÃ­vel de delivery.',
+                              'Extraia somente texto visÃ­vel relacionado a itens/preÃ§os; nÃ£o invente.',
+                              'Responda JSON: {"is_menu":true|false,"confidence":0_a_1,"raw_text":"texto extraÃ­do","reason":"curto"}.'
                             ].join(' ')
                           },
                           {
                             role: 'user',
                             content: [
-                              { type: 'text', text: 'Esta imagem contém cardápio/preços? Extraia o texto se houver.' },
+                              { type: 'text', text: 'Esta imagem contÃ©m cardÃ¡pio/preÃ§os? Extraia o texto se houver.' },
                               { type: 'image_url', image_url: { url: image } }
                             ]
                           }
@@ -713,7 +953,7 @@ export default defineConfig(() => ({
 
                   if (!accepted.length) {
                     res.writeHead(200, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ success: false, error: 'Nenhuma imagem foi classificada como cardápio com confiança suficiente.' }));
+                    res.end(JSON.stringify({ success: false, error: 'Nenhuma imagem foi classificada como cardÃ¡pio com confianÃ§a suficiente.' }));
                     return;
                   }
 
@@ -762,7 +1002,7 @@ export default defineConfig(() => ({
                       visualAudit: {
                         usable: false,
                         recommendation: 'needs_more_screenshots',
-                        reason: 'Nenhum screenshot visual do cardápio foi enviado.'
+                        reason: 'Nenhum screenshot visual do cardÃ¡pio foi enviado.'
                       }
                     }));
                     return;
@@ -770,7 +1010,7 @@ export default defineConfig(() => ({
 
                   const { OpenAI } = await import('openai');
                   const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
-                  if (!apiKey) throw new Error('Chave OpenAI não configurada no .env');
+                  if (!apiKey) throw new Error('Chave OpenAI nÃ£o configurada no .env');
                   const openai = new OpenAI({ apiKey, timeout: 45000, maxRetries: 1 });
 
                   const compactMenu = (Array.isArray(structuredMenu) ? structuredMenu : [])
@@ -798,13 +1038,13 @@ export default defineConfig(() => ({
                       {
                         role: 'system',
                         content: [
-                          'Você é auditor visual de cardápios para um app público de restaurantes.',
-                          'Compare screenshots reais do cardápio com o JSON estruturado proposto.',
-                          'Procure sinais de categorias, abas, subcategorias, combos, escolhas obrigatórias e adicionais que sumiram ou foram transformados em itens/categorias erradas.',
-                          'Não exija extrair o cardápio completo pelo print: a tarefa é detectar inconsistências estruturais evidentes.',
-                          'Se o print mostra abas/categorias/subcategorias que não aparecem no JSON, marque needs_restructure.',
+                          'VocÃª Ã© auditor visual de cardÃ¡pios para um app pÃºblico de restaurantes.',
+                          'Compare screenshots reais do cardÃ¡pio com o JSON estruturado proposto.',
+                          'Procure sinais de categorias, abas, subcategorias, combos, escolhas obrigatÃ³rias e adicionais que sumiram ou foram transformados em itens/categorias erradas.',
+                          'NÃ£o exija extrair o cardÃ¡pio completo pelo print: a tarefa Ã© detectar inconsistÃªncias estruturais evidentes.',
+                          'Se o print mostra abas/categorias/subcategorias que nÃ£o aparecem no JSON, marque needs_restructure.',
                           'Se o JSON colocou adicionais/escolhas como itens principais, marque needs_restructure.',
-                          'Se a estrutura parece coerente com o que está visível, marque ready.',
+                          'Se a estrutura parece coerente com o que estÃ¡ visÃ­vel, marque ready.',
                           'Responda somente JSON: {"usable":true,"confidence":0.0,"structure_matches":true,"recommendation":"ready|needs_restructure|needs_more_screenshots","visual_summary":"curto","missing_categories":[],"missing_subcategories":[],"missing_options_or_addons":[],"wrongly_promoted_items":[],"warnings":[],"reason":"curto"}.'
                         ].join(' ')
                       },
@@ -867,7 +1107,7 @@ export default defineConfig(() => ({
 
                   const { OpenAI } = await import('openai');
                   const apiKey = process.env.VITE_OPENAI_API_KEY || process.env.OPENAI_API_KEY || '';
-                  if (!apiKey) throw new Error('Chave OpenAI não configurada no .env');
+                  if (!apiKey) throw new Error('Chave OpenAI nÃ£o configurada no .env');
                   const openai = new OpenAI({ apiKey, timeout: 60000, maxRetries: 1 });
 
                   const compactMenu = (menu: any[]) => menu.slice(0, 35).map((category: any) => ({
@@ -895,16 +1135,16 @@ export default defineConfig(() => ({
                           'A IA nao e redatora. Ela so pode classificar/posicionar textos existentes: categoria, subcategoria, item, combo, escolha, adicional, preco e horario.',
                           'Nao crie nomes amigaveis, nao renomeie combo, nao crie categoria por interpretacao e nao escreva descricoes de marketing. Se nao estiver literalmente ou claramente no texto/print, remova ou bloqueie.',
                           'correctedMenu deve ser um subconjunto/reorganizacao fiel da fonte. Nao acrescente nenhum texto novo exceto campos tecnicos vazios/nulos.',
-                          'Você é o AGENTE AUDITOR do Validar IA. Sua função é fiscalizar a IA curadora, não agradar.',
-                          'Compare o cardápio estruturado proposto contra a fonte original: texto bruto, itens brutos do extrator, auditoria visual e prints.',
-                          'Regra principal: NUNCA permita invenção. Item, preço, categoria, descrição, combo, adicional e opção precisam estar apoiados na fonte.',
-                          'Descrições genéricas inventadas como "deliciosa", "perfeita", "item montável", "valor final conforme escolhas", "combinação perfeita" devem ser removidas, salvo se aparecerem literalmente na fonte.',
-                          'Se o item existe mas a descrição foi inventada, mantenha o item e deixe descrição vazia ou factual somente com palavras da fonte.',
-                          'Se categoria pública está errada/duplicada, corrija. Ex: massa não deve ficar em Pratos Principais se já há Massas.',
+                          'VocÃª Ã© o AGENTE AUDITOR do Validar IA. Sua funÃ§Ã£o Ã© fiscalizar a IA curadora, nÃ£o agradar.',
+                          'Compare o cardÃ¡pio estruturado proposto contra a fonte original: texto bruto, itens brutos do extrator, auditoria visual e prints.',
+                          'Regra principal: NUNCA permita invenÃ§Ã£o. Item, preÃ§o, categoria, descriÃ§Ã£o, combo, adicional e opÃ§Ã£o precisam estar apoiados na fonte.',
+                          'DescriÃ§Ãµes genÃ©ricas inventadas como "deliciosa", "perfeita", "item montÃ¡vel", "valor final conforme escolhas", "combinaÃ§Ã£o perfeita" devem ser removidas, salvo se aparecerem literalmente na fonte.',
+                          'Se o item existe mas a descriÃ§Ã£o foi inventada, mantenha o item e deixe descriÃ§Ã£o vazia ou factual somente com palavras da fonte.',
+                          'Se categoria pÃºblica estÃ¡ errada/duplicada, corrija. Ex: massa nÃ£o deve ficar em Pratos Principais se jÃ¡ hÃ¡ Massas.',
                           'Se combo estiver como combo_builder, ele deve ter combo_components/option_groups apoiados na fonte. Combo sem componentes claros deve bloquear ou virar item simples somente se a fonte vender como item fechado.',
                           'Se adicional/escolha foi promovido a item principal, corrija para option_groups/combo_components ou bloqueie.',
                           'Se uma subcategoria/aba aparece na fonte visual/textual e sumiu no proposto, corrija ou bloqueie.',
-                          'Você pode retornar correctedMenu limpo. Se corrigir, preserve apenas dados apoiados na fonte.',
+                          'VocÃª pode retornar correctedMenu limpo. Se corrigir, preserve apenas dados apoiados na fonte.',
                           'Responda somente JSON. Em reason e message, explique objetivamente o que foi corrigido ou por que bloqueou; nunca responda com placeholder. Formato: {"verdict":"pass|corrected|block","confidence":0.0,"reason":"ex: removi descricoes inventadas e mantive itens com nome/preco comprovados","errors":[{"type":"invented_description|invented_item|wrong_category|missing_category|combo_without_components|addon_promoted|price_mismatch|unsupported_data","severity":"warning|blocking","item":"nome","message":"ex: descricao nao aparece literalmente na fonte"}],"correctedMenu":[{"name":"Categoria","items":[{"name":"Item","description":"","price":35.9,"display_price":35.9,"price_type":"fixed|starting_at|range|option_only","commercial_type":"simple_item|configurable_item|combo_builder|simple_with_addons","search_display_name":"", "search_keywords":"", "combo_rules":null, "combo_components":[], "option_groups":[]}]}]}'
                         ].join(' ')
                       },
@@ -934,7 +1174,7 @@ export default defineConfig(() => ({
                 } catch (err: any) {
                   console.error('[audit-menu-consistency] Erro:', err?.message || err);
                   res.writeHead(500, { 'Content-Type': 'application/json' });
-                  res.end(JSON.stringify({ success: false, error: err?.message || 'Erro desconhecido na auditoria de consistência' }));
+                  res.end(JSON.stringify({ success: false, error: err?.message || 'Erro desconhecido na auditoria de consistÃªncia' }));
                 }
               });
               return;
@@ -943,18 +1183,18 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/re-search-menu" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
               
               const restaurantId = urlParams.get("restaurantId");
               if (!restaurantId) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                res.end(JSON.stringify({ error: "ID do restaurante nÃ£o fornecido." }));
                 return;
               }
 
-              logBuffer = `🚀 Iniciando rebusca de Cardápio para o restaurante ID ${restaurantId}...\n`;
+              logBuffer = `ðŸš€ Iniciando rebusca de CardÃ¡pio para o restaurante ID ${restaurantId}...\n`;
               const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "menu"]);
               activeProcess = proc;
               
@@ -971,11 +1211,11 @@ export default defineConfig(() => ({
               });
               
               proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                logBuffer += `âš ï¸ [ERRO] ${data.toString("utf-8")}`;
               });
               
               proc.on("close", (code) => {
-                logBuffer += `\n🏁 Rebusca concluída com código de saída: ${code}\n`;
+                logBuffer += `\nðŸ Rebusca concluÃ­da com cÃ³digo de saÃ­da: ${code}\n`;
                 activeProcess = null;
                 
                 try {
@@ -984,7 +1224,7 @@ export default defineConfig(() => ({
                   res.end(JSON.stringify(result));
                 } catch (err) {
                   res.writeHead(500);
-                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robÃ´." }));
                 }
               });
               return;
@@ -993,14 +1233,14 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/re-scrape-menu" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
               
               const restaurantId = urlParams.get("restaurantId");
               if (!restaurantId) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                res.end(JSON.stringify({ error: "ID do restaurante nÃ£o fornecido." }));
                 return;
               }
 
@@ -1017,7 +1257,7 @@ export default defineConfig(() => ({
                   }
                 } catch(e) {}
 
-                logBuffer = `🚀 Iniciando extração de Cardápio (Fase 3) para o restaurante ID ${restaurantId}...\n`;
+                logBuffer = `ðŸš€ Iniciando extraÃ§Ã£o de CardÃ¡pio (Fase 3) para o restaurante ID ${restaurantId}...\n`;
                 
                 const valArgs = ["scratch/menu_scraper.cjs", "--single", "--id", restaurantId];
                 
@@ -1047,14 +1287,14 @@ export default defineConfig(() => ({
                 });
                 
                 proc.stderr.on("data", (data) => {
-                  logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                  logBuffer += `âš ï¸ [ERRO] ${data.toString("utf-8")}`;
                 });
                 
                 proc.on("close", (code) => {
-                  logBuffer += `\n🏁 Coleta de Cardápio concluída com código de saída: ${code}\n`;
+                  logBuffer += `\nðŸ Coleta de CardÃ¡pio concluÃ­da com cÃ³digo de saÃ­da: ${code}\n`;
                   activeProcess = null;
                   
-                  // Limpa arquivos temporários
+                  // Limpa arquivos temporÃ¡rios
                   if (parsedMenu) {
                     const tempJsonFile = path.join(process.cwd(), 'scratch', `temp_menu_json_${restaurantId}.json`);
                     try { fs.unlinkSync(tempJsonFile); } catch(e) {}
@@ -1069,7 +1309,7 @@ export default defineConfig(() => ({
                     res.end(JSON.stringify(result));
                   } catch (err) {
                     res.writeHead(500);
-                    res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                    res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robÃ´." }));
                   }
                 });
               });
@@ -1080,14 +1320,14 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/extract-maps" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
               const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
               const restaurantId = urlParams.get("restaurantId");
               if (!restaurantId) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                res.end(JSON.stringify({ error: "ID do restaurante nÃ£o fornecido." }));
                 return;
               }
 
@@ -1102,7 +1342,7 @@ export default defineConfig(() => ({
                   }
                 } catch(e) {}
               
-                logBuffer += `\n🚀 Iniciando Extração Maps via IA para ID: ${restaurantId}...\n`;
+                logBuffer += `\nðŸš€ Iniciando ExtraÃ§Ã£o Maps via IA para ID: ${restaurantId}...\n`;
                 const valArgs = ["scratch/extract_maps_data.cjs", "--id", restaurantId];
                 if (browserContext) {
                   const tempFile = path.join(process.cwd(), 'scratch', `temp_maps_${restaurantId}.txt`);
@@ -1128,7 +1368,7 @@ export default defineConfig(() => ({
 
                 valProc.on("close", (code) => {
                   activeProcess = null;
-                  logBuffer += `\n🏁 Extração Maps concluída.\n`;
+                  logBuffer += `\nðŸ ExtraÃ§Ã£o Maps concluÃ­da.\n`;
                   res.writeHead(200, { 'Content-Type': 'application/json' });
                   res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
                 });
@@ -1139,7 +1379,7 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/agentic-step" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
               const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
@@ -1154,7 +1394,7 @@ export default defineConfig(() => ({
                   snapshot = parsed.snapshot || '';
                 } catch(e) {}
               
-                logBuffer += `\n🤖 Agente IA analisando tela...\n`;
+                logBuffer += `\nðŸ¤– Agente IA analisando tela...\n`;
                 const valArgs = ["scratch/agentic_step.cjs"];
                 if (restaurantId) valArgs.push("--id", restaurantId);
                 
@@ -1192,14 +1432,14 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/validate-instagram" && req.method === "POST") {
               if (validationProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma validação em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma validaÃ§Ã£o em execuÃ§Ã£o." }));
                 return;
               }
               const urlParams = new URL(req.url, `http://${req.headers.host}`).searchParams;
               const restaurantId = urlParams.get("restaurantId");
               if (!restaurantId) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                res.end(JSON.stringify({ error: "ID do restaurante nÃ£o fornecido." }));
                 return;
               }
 
@@ -1212,6 +1452,7 @@ export default defineConfig(() => ({
                 let restaurantName = '';
                 let restaurantCity = '';
                 let restaurantAddress = '';
+                let restaurantPhone = '';
                 try {
                   if (bodyData) {
                     const parsed = JSON.parse(bodyData);
@@ -1221,39 +1462,46 @@ export default defineConfig(() => ({
                     restaurantName = parsed.restaurantName || '';
                     restaurantCity = parsed.restaurantCity || '';
                     restaurantAddress = parsed.restaurantAddress || '';
+                    restaurantPhone = parsed.restaurantPhone || '';
                   }
                 } catch(e) {}
               
-                logBuffer += `\n🤖 Iniciando Validação de Instagram para ID: ${restaurantId}...\n`;
+                logBuffer += `\nðŸ¤– Iniciando ValidaÃ§Ã£o de Instagram para ID: ${restaurantId}...\n`;
                 
-                // Se recebeu múltiplos candidatos, usa o novo script de seleção
+                // Se recebeu mÃºltiplos candidatos, usa o novo script de seleÃ§Ã£o
                 if (candidates.length > 0) {
-                  logBuffer += `📋 ${candidates.length} candidato(s) recebido(s) para validação:\n`;
+                  logBuffer += `ðŸ“‹ ${candidates.length} candidato(s) recebido(s) para validaÃ§Ã£o:\n`;
                   candidates.forEach((c: any, i: number) => {
                     logBuffer += `  ${i+1}. ${c.url} (${c.followers} seguidores) - Bio: ${(c.bio || '').substring(0, 80)}...\n`;
                   });
                   
-                  // Salva candidatos em arquivo temporário para o script processar
+                  // Salva candidatos em arquivo temporÃ¡rio para o script processar
                   const tempCandidatesFile = path.join(process.cwd(), 'scratch', `temp_candidates_${restaurantId}.json`);
                   fs.writeFileSync(tempCandidatesFile, JSON.stringify({
                     candidates,
                     restaurantName,
                     restaurantCity,
-                    restaurantAddress
+                    restaurantAddress,
+                    restaurantPhone
                   }));
                   
                   const valArgs = ["scratch/validate_instagram.cjs", "--id", restaurantId, "--candidates-file", tempCandidatesFile];
                   const valProc = spawn("node", valArgs);
                   validationProcess = valProc;
                   let jsonResult: any = null;
+                  let stdoutBuffer = "";
 
                   valProc.stdout.on("data", (data: any) => {
                     const str = data.toString();
-                    const match = str.match(/RESULT:(.+)/);
-                    if (match) {
-                      try { jsonResult = JSON.parse(match[1]); } catch(e) {}
-                    } else {
-                      logBuffer += str;
+                    stdoutBuffer += str;
+                    logBuffer += str.replace(/RESULT:.+/g, "");
+                    const markerIndex = stdoutBuffer.lastIndexOf("RESULT:");
+                    if (markerIndex >= 0) {
+                      const resultTail = stdoutBuffer.slice(markerIndex + "RESULT:".length);
+                      const firstLine = resultTail.split(/\r?\n/)[0]?.trim();
+                      if (firstLine) {
+                        try { jsonResult = JSON.parse(firstLine); } catch(e) {}
+                      }
                     }
                   });
 
@@ -1261,13 +1509,25 @@ export default defineConfig(() => ({
 
                   valProc.on("close", (code: any) => {
                     validationProcess = null;
-                    logBuffer += `\n🏁 Validação Instagram concluída.\n`;
+                    logBuffer += `\nðŸ ValidaÃ§Ã£o Instagram concluÃ­da.\n`;
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
                   });
                 } else {
-                  // Modo legado: um único candidato
+                  // Modo legado: um Ãºnico candidato
                   const valArgs = ["scratch/validate_instagram.cjs", "--id", restaurantId, "--instagram-url", instagramUrl];
+                  if (restaurantName) {
+                    valArgs.push("--restaurant-name", restaurantName);
+                  }
+                  if (restaurantCity) {
+                    valArgs.push("--restaurant-city", restaurantCity);
+                  }
+                  if (restaurantAddress) {
+                    valArgs.push("--restaurant-address", restaurantAddress);
+                  }
+                  if (restaurantPhone) {
+                    valArgs.push("--restaurant-phone", restaurantPhone);
+                  }
                   if (instagramContext) {
                     const tempInstaFile = path.join(process.cwd(), 'scratch', `temp_insta_${restaurantId}.txt`);
                     fs.writeFileSync(tempInstaFile, instagramContext);
@@ -1277,14 +1537,19 @@ export default defineConfig(() => ({
                   const valProc = spawn("node", valArgs);
                   validationProcess = valProc;
                   let jsonResult: any = null;
+                  let stdoutBuffer = "";
 
                   valProc.stdout.on("data", (data: any) => {
                     const str = data.toString();
-                    const match = str.match(/RESULT:(.+)/);
-                    if (match) {
-                      try { jsonResult = JSON.parse(match[1]); } catch(e) {}
-                    } else {
-                      logBuffer += str;
+                    stdoutBuffer += str;
+                    logBuffer += str.replace(/RESULT:.+/g, "");
+                    const markerIndex = stdoutBuffer.lastIndexOf("RESULT:");
+                    if (markerIndex >= 0) {
+                      const resultTail = stdoutBuffer.slice(markerIndex + "RESULT:".length);
+                      const firstLine = resultTail.split(/\r?\n/)[0]?.trim();
+                      if (firstLine) {
+                        try { jsonResult = JSON.parse(firstLine); } catch(e) {}
+                      }
                     }
                   });
 
@@ -1292,7 +1557,7 @@ export default defineConfig(() => ({
 
                   valProc.on("close", (code: any) => {
                     validationProcess = null;
-                    logBuffer += `\n🏁 Validação Instagram concluída.\n`;
+                    logBuffer += `\nðŸ ValidaÃ§Ã£o Instagram concluÃ­da.\n`;
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify(jsonResult || { success: false, error: "Nenhum resultado recebido" }));
                   });
@@ -1304,14 +1569,14 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/re-ai-validation" && req.method === "POST") {
               if (validationProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma validação individual em execução. Aguarde." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma validaÃ§Ã£o individual em execuÃ§Ã£o. Aguarde." }));
                 return;
               }
               
               const restaurantId = urlParams.get("restaurantId");
               if (!restaurantId) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                res.end(JSON.stringify({ error: "ID do restaurante nÃ£o fornecido." }));
                 return;
               }
               
@@ -1347,9 +1612,9 @@ export default defineConfig(() => ({
                   }
                 } catch(e) {}
               
-                // Horários já foram coletados pelo frontend via extensão Chrome.
-                // Vamos direto para a Validação IA (Fase 5).
-                logBuffer += `\n🤖 Iniciando Validação IA (Fase 5) para ID: ${restaurantId}...\n`;
+                // HorÃ¡rios jÃ¡ foram coletados pelo frontend via extensÃ£o Chrome.
+                // Vamos direto para a ValidaÃ§Ã£o IA (Fase 5).
+                logBuffer += `\nðŸ¤– Iniciando ValidaÃ§Ã£o IA (Fase 5) para ID: ${restaurantId}...\n`;
                 
                 const valArgs = ["scratch/hybrid_restaurant_validator.cjs", "--single", "--id", restaurantId];
                 if (browserContext) {
@@ -1374,7 +1639,7 @@ export default defineConfig(() => ({
                 }
                 
                 {
-                // Bloco de escopo para evitar conflito de variáveis
+                // Bloco de escopo para evitar conflito de variÃ¡veis
                   
                   const valProc = spawn("node", valArgs);
                   validationProcess = valProc;
@@ -1392,7 +1657,7 @@ export default defineConfig(() => ({
                   });
 
                   valProc.on("close", (valCode) => {
-                    logBuffer += `\n🏁 Validação IA concluída com código de saída: ${valCode}\n`;
+                    logBuffer += `\nðŸ ValidaÃ§Ã£o IA concluÃ­da com cÃ³digo de saÃ­da: ${valCode}\n`;
                     
                     if (!validationProcess) {
                       res.writeHead(200);
@@ -1400,7 +1665,7 @@ export default defineConfig(() => ({
                       return;
                     }
 
-                    logBuffer += `\n📸 Iniciando Curadoria de Galeria de Fotos (Fase 6) para ID: ${restaurantId}...\n`;
+                    logBuffer += `\nðŸ“¸ Iniciando Curadoria de Galeria de Fotos (Fase 6) para ID: ${restaurantId}...\n`;
                     const galleryArgs = ["scratch/gallery_enricher.cjs", "--single", "--id", restaurantId];
                     if (instagramHighlights && instagramHighlights.length > 0) {
                       const tempHighlightsFile = path.join(process.cwd(), 'scratch', `temp_highlights_${restaurantId}.json`);
@@ -1419,11 +1684,11 @@ export default defineConfig(() => ({
                     });
 
                     galleryProc.on("close", (galleryCode) => {
-                      logBuffer += `\n🏁 Curadoria de Galeria concluída com código: ${galleryCode}\n`;
+                      logBuffer += `\nðŸ Curadoria de Galeria concluÃ­da com cÃ³digo: ${galleryCode}\n`;
                       
                       // Logo Scraper e Screenshot removidos daqui
-                      // Logo é feita pelo frontend no PASSO 4 via extensão
-                      // Screenshot pode ser gerado manualmente se necessário
+                      // Logo Ã© feita pelo frontend no PASSO 4 via extensÃ£o
+                      // Screenshot pode ser gerado manualmente se necessÃ¡rio
                       validationProcess = null;
 
                       try {
@@ -1432,7 +1697,7 @@ export default defineConfig(() => ({
                         res.end(JSON.stringify(result));
                       } catch (err) {
                         res.writeHead(500);
-                        res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                        res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robÃ´." }));
                       }
                     });
                   });
@@ -1444,18 +1709,18 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/re-search-hours" && req.method === "POST") {
               if (activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe uma coleta em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe uma coleta em execuÃ§Ã£o." }));
                 return;
               }
               
               const restaurantId = urlParams.get("restaurantId");
               if (!restaurantId) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "ID do restaurante não fornecido." }));
+                res.end(JSON.stringify({ error: "ID do restaurante nÃ£o fornecido." }));
                 return;
               }
 
-              logBuffer = `🚀 Iniciando rebusca de Horários para o restaurante ID ${restaurantId}...\n`;
+              logBuffer = `ðŸš€ Iniciando rebusca de HorÃ¡rios para o restaurante ID ${restaurantId}...\n`;
               const proc = spawn("node", ["scratch/social_enricher.cjs", "--single", "--id", restaurantId, "--field", "hours"], { shell: true });
               activeProcess = proc;
               
@@ -1472,11 +1737,11 @@ export default defineConfig(() => ({
               });
               
               proc.stderr.on("data", (data) => {
-                logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                logBuffer += `âš ï¸ [ERRO] ${data.toString("utf-8")}`;
               });
               
               proc.on("close", (code) => {
-                logBuffer += `\n🏁 Rebusca concluída com código de saída: ${code}\n`;
+                logBuffer += `\nðŸ Rebusca concluÃ­da com cÃ³digo de saÃ­da: ${code}\n`;
                 activeProcess = null;
                 
                 try {
@@ -1485,7 +1750,7 @@ export default defineConfig(() => ({
                   res.end(JSON.stringify(result));
                 } catch (err) {
                   res.writeHead(500);
-                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robô." }));
+                  res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado do robÃ´." }));
                 }
               });
               return;
@@ -1494,7 +1759,7 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/extract-menu" && req.method === "POST") {
               if (validationProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Já existe um processo de validação em execução." }));
+                res.end(JSON.stringify({ error: "JÃ¡ existe um processo de validaÃ§Ã£o em execuÃ§Ã£o." }));
                 return;
               }
 
@@ -1507,11 +1772,74 @@ export default defineConfig(() => ({
                 const restaurantId = parsed.restaurantId;
                 if (!restaurantId) {
                   res.writeHead(400);
-                  res.end(JSON.stringify({ error: "restaurantId não fornecido." }));
+                  res.end(JSON.stringify({ error: "restaurantId nÃ£o fornecido." }));
                   return;
                 }
 
-                logBuffer += `\n🍽️ Iniciando extração de cardápio para restaurante ID ${restaurantId}...\n`;
+                logBuffer += `\nðŸ½ï¸ Iniciando extraÃ§Ã£o de cardÃ¡pio para restaurante ID ${restaurantId}...\n`;
+
+                if ((parsed.dryRun || parsed.previewOnly) && parsed.menuEvidence?.success) {
+                  const categories = Array.isArray(parsed.menuEvidence.categories) ? parsed.menuEvidence.categories : [];
+                  const getItems = (category: any) => Array.isArray(category?.items)
+                    ? category.items
+                    : (Array.isArray(category?.menu_items) ? category.menu_items : []);
+                  const itemCount = categories.reduce((total: number, category: any) => total + getItems(category).length, 0);
+                  const optionCount = categories.reduce((total: number, category: any) => total + getItems(category).reduce((itemTotal: number, item: any) => {
+                    const flatOptions = Array.isArray(item?.options) ? item.options.length : 0;
+                    const groupedOptions = Array.isArray(item?.option_groups)
+                      ? item.option_groups.reduce((groupTotal: number, group: any) => groupTotal + (Array.isArray(group?.items) ? group.items.length : 0), 0)
+                      : 0;
+                    return itemTotal + flatOptions + groupedOptions;
+                  }, 0), 0);
+                  const pricedItemCount = categories.reduce((total: number, category: any) => total + getItems(category).filter((item: any) => Number(item?.price ?? item?.price_min ?? item?.display_price) > 0).length, 0);
+
+                  if (categories.length > 0 && itemCount > 0) {
+                    const directResult = {
+                      success: true,
+                      dryRun: true,
+                      message: `Previa estruturada a partir da fonte nativa: ${itemCount} itens em ${categories.length} categorias.`,
+                      categories,
+                      normalizedMenu: categories,
+                      platform: parsed.menuEvidence.platform || '',
+                      source: parsed.menuEvidence.source || '',
+                      sourceUrl: parsed.menuEvidence.sourceUrl || parsed.menuEvidence.finalUrl || '',
+                      finalUrl: parsed.menuEvidence.finalUrl || '',
+                      publicSourceUrl: parsed.menuEvidence.publicSourceUrl || '',
+                      canonicalSourceUrl: parsed.menuEvidence.canonicalSourceUrl || '',
+                      metrics: parsed.menuEvidence.metrics || {},
+                      audit: {
+                        approved: true,
+                        categoryCount: categories.length,
+                        itemCount,
+                        pricedItemCount,
+                        optionCount,
+                        source: 'menuEvidence',
+                        platform: parsed.menuEvidence.platform || '',
+                        sourceUrl: parsed.menuEvidence.sourceUrl || parsed.menuEvidence.finalUrl || '',
+                        issues: [],
+                        warnings: [],
+                      },
+                    };
+                    logBuffer += `Previa local sem script externo OK: ${itemCount} item(ns), ${optionCount} opcao(oes), ${categories.length} categoria(s).\n`;
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify(directResult));
+                    return;
+                  }
+
+                  res.writeHead(200, { 'Content-Type': 'application/json' });
+                  res.end(JSON.stringify({
+                    success: false,
+                    message: "menuEvidence recebido, mas sem categorias/itens suficientes para previa.",
+                    audit: {
+                      approved: false,
+                      categoryCount: categories.length,
+                      itemCount,
+                      optionCount,
+                      issues: ["Fonte estruturada sem itens utilizaveis."],
+                    },
+                  }));
+                  return;
+                }
 
                 const args = ["scratch/hybrid_menu_extractor_v2.cjs", "--id", restaurantId];
                 if (parsed.menuEvidence) {
@@ -1543,11 +1871,11 @@ export default defineConfig(() => ({
                 });
 
                 proc.stderr.on("data", (data) => {
-                  logBuffer += `⚠️ [ERRO] ${data.toString("utf-8")}`;
+                  logBuffer += `âš ï¸ [ERRO] ${data.toString("utf-8")}`;
                 });
 
                 proc.on("close", (code) => {
-                  logBuffer += `\n🏁 Extração de cardápio concluída com código: ${code}\n`;
+                  logBuffer += `\nðŸ ExtraÃ§Ã£o de cardÃ¡pio concluÃ­da com cÃ³digo: ${code}\n`;
                   validationProcess = null;
                   try {
                     const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false, message: "Nenhum resultado retornado." };
@@ -1555,7 +1883,7 @@ export default defineConfig(() => ({
                     res.end(JSON.stringify(result));
                   } catch (err) {
                     res.writeHead(500);
-                    res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado da extração de cardápio." }));
+                    res.end(JSON.stringify({ success: false, error: "Erro ao processar resultado da extraÃ§Ã£o de cardÃ¡pio." }));
                   }
                 });
               });
@@ -1565,13 +1893,13 @@ export default defineConfig(() => ({
             if (urlPath === "/api/local-collector/stop" && req.method === "POST") {
               if (!activeProcess) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "Nenhuma coleta em execução." }));
+                res.end(JSON.stringify({ error: "Nenhuma coleta em execuÃ§Ã£o." }));
                 return;
               }
               
               activeProcess.kill();
               activeProcess = null;
-              logBuffer += "\n🛑 Coleta interrompida pelo usuário.\n";
+              logBuffer += "\nðŸ›‘ Coleta interrompida pelo usuÃ¡rio.\n";
               
               res.writeHead(200);
               res.end(JSON.stringify({ message: "Processo interrompido." }));
@@ -1618,7 +1946,7 @@ export default defineConfig(() => ({
                     res.end(JSON.stringify({ message: "Dados atualizados com sucesso localmente!" }));
                   } catch (e: any) {
                     res.writeHead(400);
-                    res.end(JSON.stringify({ error: "JSON inválido ou falha ao gravar: " + e.message }));
+                    res.end(JSON.stringify({ error: "JSON invÃ¡lido ou falha ao gravar: " + e.message }));
                   }
                 });
               } catch (err: any) {
@@ -1633,12 +1961,23 @@ export default defineConfig(() => ({
               
               if (!url || !storagePath) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "URL ou path não fornecido." }));
+                res.end(JSON.stringify({ error: "URL ou path nÃ£o fornecido." }));
                 return;
               }
               
-              const proc = spawn("node", ["scratch/download_upload_helper.cjs", url, storagePath], { shell: false });
+              const helperPath = path.resolve(__dirname, "scratch/download_upload_helper.cjs");
+              if (!fs.existsSync(helperPath)) {
+                res.writeHead(200);
+                res.end(JSON.stringify({
+                  success: false,
+                  error: `Helper de download nao encontrado: ${path.relative(__dirname, helperPath)}`
+                }));
+                return;
+              }
+
+              const proc = spawn("node", [helperPath, url, storagePath], { shell: false });
               let resultJsonStr = "";
+              let stderrText = "";
               
               proc.stdout.on("data", (data) => {
                 const text = data.toString("utf-8");
@@ -1647,10 +1986,16 @@ export default defineConfig(() => ({
                   resultJsonStr = match[1].trim();
                 }
               });
+
+              proc.stderr.on("data", (data) => {
+                stderrText += data.toString("utf-8");
+              });
               
               proc.on("close", (code) => {
                 try {
-                  const result = resultJsonStr ? JSON.parse(resultJsonStr) : { success: false, error: "Sem output" };
+                  const result = resultJsonStr
+                    ? JSON.parse(resultJsonStr)
+                    : { success: false, error: stderrText.trim() || `Helper sem output (exit ${code ?? "desconhecido"})` };
                   res.writeHead(200);
                   res.end(JSON.stringify(result));
                 } catch (err) {
@@ -1670,7 +2015,7 @@ export default defineConfig(() => ({
                   res.end(data);
                 } else {
                   res.writeHead(404);
-                  res.end(JSON.stringify({ error: "Nenhum dado de cardápio encontrado." }));
+                  res.end(JSON.stringify({ error: "Nenhum dado de cardÃ¡pio encontrado." }));
                 }
               } catch (err: any) {
                 res.writeHead(500);
@@ -1688,7 +2033,7 @@ export default defineConfig(() => ({
                   const image = parsed.image;
                   if (!image) {
                     res.writeHead(400);
-                    res.end(JSON.stringify({ error: "O parâmetro 'image' (base64) é obrigatório." }));
+                    res.end(JSON.stringify({ error: "O parÃ¢metro 'image' (base64) Ã© obrigatÃ³rio." }));
                     return;
                   }
                   
@@ -1713,7 +2058,7 @@ export default defineConfig(() => ({
               
               if (!restaurantId) {
                 res.writeHead(400);
-                res.end(JSON.stringify({ error: "O parâmetro 'id' (Restaurant ID) é obrigatório." }));
+                res.end(JSON.stringify({ error: "O parÃ¢metro 'id' (Restaurant ID) Ã© obrigatÃ³rio." }));
                 return;
               }
 
@@ -1747,9 +2092,9 @@ export default defineConfig(() => ({
                   res.writeHead(200);
                   res.end(JSON.stringify({ success: true, message: "Print gerado com sucesso.", stdout: stdoutData }));
                 } else {
-                  console.error(`[API] Erro ao gerar print. Código: ${code}. Stderr: ${stderrData}`);
+                  console.error(`[API] Erro ao gerar print. CÃ³digo: ${code}. Stderr: ${stderrData}`);
                   res.writeHead(500);
-                  res.end(JSON.stringify({ success: false, error: `Processo finalizou com código ${code}`, stderr: stderrData }));
+                  res.end(JSON.stringify({ success: false, error: `Processo finalizou com cÃ³digo ${code}`, stderr: stderrData }));
                 }
               });
               return;
@@ -1784,3 +2129,6 @@ export default defineConfig(() => ({
     }
   }
 }));
+
+
+

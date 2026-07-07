@@ -81,6 +81,33 @@ const STATE_CITIES: Record<string, string[]> = {
   TO: ['Palmas', 'Araguaína', 'Gurupi', 'Porto Nacional', 'Paraíso do Tocantins', 'Araguatins', 'Colinas do Tocantins']
 };
 
+const normalizeProjectCityName = (city: string | null | undefined, state: string | null | undefined) => {
+  const rawCity = String(city || '').trim().replace(/\s*-\s*[A-Z]{2}$/i, '');
+  const rawState = String(state || '').trim().toUpperCase();
+  const normalized = rawCity
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!rawCity || rawCity.toUpperCase() === rawState || rawCity.length <= 2) return '';
+  if (rawState === 'PB' && normalized.includes('campina grande') && !normalized.includes('campina grande do sul')) {
+    return 'Campina Grande';
+  }
+  if (/^\d/.test(rawCity) || /(?:^|\s)(?:loja|box|sala|bloco|quadra)\b/i.test(rawCity)) return '';
+  if (/^(?:r\.|rua|av\.|avenida|travessa|tv\.|rod\.|rodovia|praca|praça|alameda|estrada)\b/i.test(normalized)) return '';
+  if (rawCity.includes(' - ') && /campina grande/i.test(rawCity)) return '';
+  return rawCity;
+};
+
+const getProjectStatsKey = (city: string | null | undefined, state: string | null | undefined) => {
+  const cleanedCity = normalizeProjectCityName(city, state);
+  const cleanedState = String(state || '').trim().toUpperCase();
+  if (!cleanedCity || !cleanedState) return '';
+  return `${cleanedCity.toLowerCase()}-${cleanedState}`;
+};
+
 export default function ExpansionHub() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<ExpansionProject[]>([]);
@@ -113,12 +140,13 @@ export default function ExpansionHub() {
   const fetchAllRestaurantsForExpansionMetrics = async () => {
     const pageSize = 1000;
     let from = 0;
-    const allRows: Array<{ plan: string | null; city: string | null; state: string | null }> = [];
+    const allRows: Array<{ plan: string | null; city: string | null; state: string | null; is_deleted?: boolean | null }> = [];
 
     while (true) {
       const { data, error } = await supabase
         .from('restaurants')
-        .select('plan, city, state')
+        .select('plan, city, state, is_deleted')
+        .or('is_deleted.eq.false,is_deleted.is.null')
         .range(from, from + pageSize - 1);
 
       if (error) throw error;
@@ -154,11 +182,11 @@ export default function ExpansionHub() {
         const uniqueCities: Record<string, {name: string, state: string}> = {};
         restData.forEach(r => {
           if (r.city && r.state) {
-            const cleanedCity = r.city.trim().replace(/\s*-\s*[A-Z]{2}$/i, '');
+            const cleanedCity = normalizeProjectCityName(r.city, r.state);
             const cleanedState = r.state.trim().toUpperCase();
             
             // Skip dirty/short name data (e.g. state abbreviation as city)
-            if (!cleanedCity || cleanedCity.toUpperCase() === cleanedState || cleanedCity.length <= 2) {
+            if (!cleanedCity) {
               return;
             }
 
@@ -169,8 +197,12 @@ export default function ExpansionHub() {
           }
         });
 
-        const existingProjectKeys = new Set((projData || []).map(p => `${p.name.trim().toLowerCase()}-${p.state.trim().toUpperCase()}`));
-        const missingProjects = Object.values(uniqueCities).filter(c => !existingProjectKeys.has(`${c.name.toLowerCase()}-${c.state}`));
+        const existingProjectKeys = new Set(
+          (projData || [])
+            .map(p => getProjectStatsKey(p.name, p.state))
+            .filter(Boolean)
+        );
+        const missingProjects = Object.values(uniqueCities).filter(c => !existingProjectKeys.has(getProjectStatsKey(c.name, c.state)));
 
         if (missingProjects.length > 0) {
           const inserts = missingProjects.map(c => ({
@@ -189,9 +221,6 @@ export default function ExpansionHub() {
           }
         }
       }
-
-      setProjects(projData || []);
-
       let totalPremium = 0;
       let totalFree = 0;
       let totalLeads = (restData || []).length;
@@ -208,8 +237,9 @@ export default function ExpansionHub() {
         }
         
         if (r.city && r.state) {
-          const cleanedCity = r.city.trim().replace(/\s*-\s*[A-Z]{2}$/i, '');
+          const cleanedCity = normalizeProjectCityName(r.city, r.state);
           const cleanedState = r.state.trim().toUpperCase();
+          if (!cleanedCity) return;
           const key = `${cleanedCity.toLowerCase()}-${cleanedState}`;
           if (!stats[key]) stats[key] = { leads: 0, premium: 0, revenue: 0, healthScore: 100 };
           stats[key].leads++;
@@ -220,11 +250,17 @@ export default function ExpansionHub() {
         }
       });
 
-      const activeCities = (projData || []).filter(p => p.status === 'Operação').length;
-      const planningCities = (projData || []).filter(p => p.status === 'Planejamento' || p.status === 'Campanha').length;
+      const projectsWithLeads = (projData || []).filter(p => {
+        const key = getProjectStatsKey(p.name, p.state);
+        return key && (stats[key]?.leads || 0) > 0;
+      });
+
+      const activeCities = projectsWithLeads.filter(p => p.status === 'Operação').length;
+      const planningCities = projectsWithLeads.filter(p => p.status === 'Planejamento' || p.status === 'Campanha').length;
 
       setMetrics({ mrr, activeCities, planningCities, totalPremium, totalFree, totalLeads });
       setCityStats(stats);
+      setProjects(projectsWithLeads);
     } catch (err: any) {
       console.error(err);
       showError('Erro ao carregar dados do hub de expansão');
@@ -801,7 +837,7 @@ export default function ExpansionHub() {
                   variant="outline"
                   onClick={() => {
                     const nextCity = groupedProjects[stateAbbr].find(p => {
-                      const key = `${p.name.toLowerCase()}-${p.state.toUpperCase()}`;
+                      const key = getProjectStatsKey(p.name, p.state);
                       const stat = cityStats[key] || { leads: 0, premium: 0, revenue: 0, healthScore: p.health_score || 100 };
                       return !stat.leads || stat.leads === 0;
                     }) || groupedProjects[stateAbbr][0];
@@ -816,7 +852,7 @@ export default function ExpansionHub() {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {groupedProjects[stateAbbr].map((city) => {
-                const key = `${city.name.toLowerCase()}-${city.state.toUpperCase()}`;
+                const key = getProjectStatsKey(city.name, city.state);
                 const stat = cityStats[key] || { leads: 0, premium: 0, revenue: 0, healthScore: city.health_score || 100 };
                 const nextAction = getNextAction(city, stat);
                 const NextIcon = nextAction.icon;
