@@ -1733,6 +1733,24 @@ async function insertMenuItemWithSchemaFallback(supabase, item, categoryId, cate
   return basicResult.data;
 }
 
+async function resolveCommittedMenuItemId(supabase, insertedItem, sourceItem, restaurantId) {
+  const directId = insertedItem?.id;
+  if (directId) return directId;
+
+  const sourceExternalId = clean(sourceItem?.external_id || sourceItem?.source_external_id || sourceItem?.id);
+  if (sourceExternalId) {
+    const { data, error } = await supabase
+      .from('menu_items')
+      .select('id')
+      .eq('restaurant_id', restaurantId)
+      .eq('source_external_id', sourceExternalId)
+      .maybeSingle();
+    if (!error && data?.id) return data.id;
+  }
+
+  throw new Error(`Nao foi possivel resolver o menu_item_id persistido para "${sourceItem?.name || 'item sem nome'}".`);
+}
+
 function groupOptions(options) {
   const groups = new Map();
   for (const option of options || []) {
@@ -1951,7 +1969,8 @@ async function commit(supabase, restaurantId, categories, evidence, resultAudit,
       if (categoryError) throw categoryError;
       for (const item of category.items) {
         const insertedItem = await insertMenuItemWithSchemaFallback(supabase, item, insertedCategory.id, category.name);
-        await insertOptionsWithSchemaFallback(supabase, insertedItem.id, item);
+        const committedMenuItemId = await resolveCommittedMenuItemId(supabase, insertedItem, item, restaurantId);
+        await insertOptionsWithSchemaFallback(supabase, committedMenuItemId, item);
       }
     }
     const currentRestaurantResult = await supabase
