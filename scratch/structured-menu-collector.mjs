@@ -2782,6 +2782,28 @@ function parseVisiblePrice(value) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function inferVisibleItemIdentity(rawItem, categoryName = '') {
+  const rawText = clean(rawItem?.text || '');
+  if (!rawText) return { name: '', description: '', shouldSkip: true };
+  const priceMatches = [...rawText.matchAll(/R\$\s*[0-9]{1,4}(?:[.,][0-9]{2})?/gi)];
+  if (priceMatches.length > 2) return { name: '', description: '', shouldSkip: true };
+
+  const firstPrice = priceMatches[0];
+  const beforePrice = clean(firstPrice ? rawText.slice(0, firstPrice.index) : rawText)
+    .replace(/\bA partir de\b/gi, '')
+    .trim();
+  const afterPrice = clean(firstPrice ? rawText.slice(firstPrice.index + firstPrice[0].length) : '');
+  let name = clean(rawItem?.name) || beforePrice || rawText;
+  if (categoryName && normalize(name).startsWith(normalize(categoryName))) {
+    name = clean(name.slice(categoryName.length));
+  }
+  if (name.length > 120) {
+    name = clean(name.split(/[.!?](?:\s+|$)/)[0]).slice(0, 120);
+  }
+  const description = clean(rawItem?.description || afterPrice).slice(0, 500);
+  return { name, description, shouldSkip: !name };
+}
+
 function normalizeBrowserVisibleCategories(rawCategories, sourceUrl, itemDetailsByClickIndex = new Map()) {
   const seen = new Set();
   const categories = [];
@@ -2789,16 +2811,17 @@ function normalizeBrowserVisibleCategories(rawCategories, sourceUrl, itemDetails
     const categoryName = clean(rawCategory?.name || 'Cardapio');
     const items = [];
     for (const rawItem of rawCategory?.items || []) {
-      const name = clean(rawItem?.name);
+      const inferred = inferVisibleItemIdentity(rawItem, categoryName);
+      const name = clean(inferred.name);
       const price = money(rawItem?.price ?? parseVisiblePrice(rawItem?.priceText));
       const modalDetail = itemDetailsByClickIndex.get(Number(rawItem?.clickIndex));
       const dedupeKey = normalize(`${categoryName}|${name}|${price ?? ''}`);
-      if (!name || seen.has(dedupeKey)) continue;
+      if (inferred.shouldSkip || !name || seen.has(dedupeKey)) continue;
       seen.add(dedupeKey);
       items.push({
         external_id: rawItem.external_id || null,
         name,
-        description: clean(rawItem.description),
+        description: inferred.description,
         image_url: rawItem.image_url || null,
         price,
         price_min: price,
@@ -2929,6 +2952,63 @@ function categoriesFromGenericNetworkEntries(networkEntries, sourceUrl) {
   return null;
 }
 
+async function followGenericMenuRedirects(page) {
+  const supportedHostRe = /(pedir\.online|pedir\.delivery|fazerpedido\.com\.br|menudino\.com|app\.menudino\.com|ola\.click|olaclick)/i;
+  for (let hop = 0; hop < 3; hop += 1) {
+    const currentUrl = page.url();
+    const candidate = await page.evaluate(({ currentUrl, supportedHostReSource }) => {
+      const supportedHostRe = new RegExp(supportedHostReSource, 'i');
+      const cleanValue = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+      const absolute = (value) => {
+        try {
+          return new URL(value, location.href).href;
+        } catch {
+          return '';
+        }
+      };
+      const scoreUrl = (url, text = '') => {
+        if (!url || url === currentUrl) return -1;
+        if (!supportedHostRe.test(url)) return -1;
+        const sameHost = new URL(url).hostname === new URL(currentUrl).hostname;
+        let score = sameHost ? 2 : 6;
+        if (/pedir\.online|pedir\.delivery|menudino\.com|ola\.click|olaclick/i.test(url)) score += 5;
+        if (/fazer pedido|peca online|pedir agora|abrir cardapio|cardapio atualizado|novo link/i.test(text)) score += 6;
+        return score;
+      };
+
+      const candidates = [];
+      const refresh = document.querySelector('meta[http-equiv="refresh" i]')?.getAttribute('content') || '';
+      const refreshMatch = refresh.match(/url\s*=\s*([^;]+)/i);
+      if (refreshMatch) {
+        const url = absolute(refreshMatch[1].trim());
+        candidates.push({ url, score: scoreUrl(url, 'meta refresh') });
+      }
+
+      const canonicalHref = document.querySelector('link[rel="canonical"]')?.getAttribute('href');
+      if (canonicalHref) {
+        const url = absolute(canonicalHref);
+        candidates.push({ url, score: scoreUrl(url, 'canonical') });
+      }
+
+      for (const anchor of document.querySelectorAll('a[href]')) {
+        const text = cleanValue(anchor.innerText || anchor.textContent || anchor.getAttribute('aria-label') || '');
+        const url = absolute(anchor.getAttribute('href'));
+        const score = scoreUrl(url, text);
+        if (score < 0) continue;
+        candidates.push({ url, score });
+      }
+
+      candidates.sort((left, right) => right.score - left.score);
+      return candidates[0] || null;
+    }, { currentUrl, supportedHostReSource: supportedHostRe.source });
+
+    if (!candidate?.url || candidate.url === currentUrl) return;
+    await page.goto(candidate.url, { waitUntil: 'domcontentloaded', timeout: TIMEOUT_MS });
+    await page.waitForNetworkIdle({ idleTime: 1400, timeout: TIMEOUT_MS }).catch(() => null);
+    await sleep(1200);
+  }
+}
+
 async function captureBrowserVisibleMenu(page, target, targetDir) {
   const networkEntries = [];
   page.on('response', async (response) => {
@@ -2964,6 +3044,7 @@ async function captureBrowserVisibleMenu(page, target, targetDir) {
   await page.goto(target.sourceUrl, { waitUntil: 'domcontentloaded', timeout: TIMEOUT_MS });
   await page.waitForNetworkIdle({ idleTime: 1400, timeout: TIMEOUT_MS }).catch(() => null);
   await sleep(1200);
+  await followGenericMenuRedirects(page).catch(() => null);
 
   const initialScreenshotPath = path.join(targetDir, 'generic-browser-initial.jpg');
   await page.screenshot({ path: initialScreenshotPath, type: 'jpeg', quality: 78, fullPage: true }).catch(() => null);
