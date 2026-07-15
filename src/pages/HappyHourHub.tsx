@@ -30,8 +30,8 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
 import { Switch } from '@/components/ui/switch';
-import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
+import { fetchPublicCatalogRestaurantsByName } from '@/integrations/supabase/publicCatalog';
 
 export default function HappyHourHub() {
   const navigate = useNavigate();
@@ -213,14 +213,7 @@ export default function HappyHourHub() {
     }
 
     try {
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select('*')
-        .ilike('name', `%${restaurantSearchQuery}%`)
-        .limit(5);
-
-      if (error) throw error;
-      setRestaurantSearchResults(data || []);
+      setRestaurantSearchResults(await fetchPublicCatalogRestaurantsByName(restaurantSearchQuery, 5));
     } catch (e) {
       console.error(e);
       showError('Erro ao buscar restaurantes.');
@@ -412,7 +405,9 @@ export default function HappyHourHub() {
                             if (parsed && typeof parsed === 'object' && 'text' in parsed) {
                               return parsed.text || "";
                             }
-                          } catch (e) {}
+                          } catch {
+                            // Descrições legadas podem ser texto simples, não JSON.
+                          }
                           return hh.description;
                         })()}
                       </p>

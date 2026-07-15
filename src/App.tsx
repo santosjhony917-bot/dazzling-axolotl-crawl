@@ -1,60 +1,59 @@
 "use client";
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import ToastProvider from '@/components/ToastProvider';
 
-// Layouts
-import SharedLayoutWrapper from '@/layouts/SharedLayoutWrapper'; // Import the wrapper
+const SharedLayoutWrapper = React.lazy(() => import('@/layouts/SharedLayoutWrapper'));
+const Index = React.lazy(() => import('@/pages/Index'));
+const Home = React.lazy(() => import('@/pages/Home'));
+const Onboarding = React.lazy(() => import('@/pages/Onboarding'));
+const Welcome = React.lazy(() => import('@/pages/Welcome'));
+const LandingPage = React.lazy(() => import('@/pages/LandingPage'));
+const AuthComponent = React.lazy(() => import('@/pages/Auth'));
+const RestaurantProfilePublic = React.lazy(() => import('@/pages/RestaurantProfilePublic'));
+const MenuItemDetails = React.lazy(() => import('@/pages/MenuItemDetails'));
+const HelpCenter = React.lazy(() => import('@/pages/HelpCenter'));
+const Legal = React.lazy(() => import('@/pages/Legal'));
+const RestaurantResultsPage = React.lazy(() => import('@/pages/RestaurantResults'));
+const ForgotPassword = React.lazy(() => import('@/pages/ForgotPassword'));
+const PromoRedirect = React.lazy(() => import('@/pages/PromoRedirect'));
+const ClientProfilePage = React.lazy(() => import('@/pages/ClientProfilePage'));
+const FavoritesPage = React.lazy(() => import('@/pages/Favorites'));
+const SearchUnifiedPage = React.lazy(() => import('@/pages/SearchUnifiedPage'));
+const FullMenuPage = React.lazy(() => import('@/pages/FullMenuPage'));
+const FriendsPage = React.lazy(() => import('@/pages/FriendsPage'));
+const HappyHourHub = React.lazy(() => import('@/pages/HappyHourHub'));
+const HappyHourRoom = React.lazy(() => import('@/pages/HappyHourRoom'));
+const RestaurantAreaHub = React.lazy(() => import('@/pages/RestaurantAreaHub'));
+const ProfileSettingsPage = React.lazy(() => import('@/pages/restaurant/ProfileSettingsPage'));
+const MenuManagement = React.lazy(() => import('@/pages/restaurant/MenuManagement'));
+const GalleryManagement = React.lazy(() => import('@/pages/restaurant/GalleryManagement'));
+const UpgradePage = React.lazy(() => import('@/pages/Upgrade'));
+const RestaurantLogin = React.lazy(() => import('@/pages/RestaurantLogin'));
+const RestaurantSignup = React.lazy(() => import('@/pages/RestaurantSignup'));
+const ClaimRestaurant = React.lazy(() => import('@/pages/ClaimRestaurant'));
+const CategoryDetails = React.lazy(() => import('@/pages/restaurant/CategoryDetails'));
+const MetricsPage = React.lazy(() => import('@/pages/restaurant/MetricsPage'));
+const AdminLayout = React.lazy(() => import('@/pages/admin/AdminLayout'));
+const AdminDashboard = React.lazy(() => import('@/pages/admin/AdminDashboard'));
+const AdminLogin = React.lazy(() => import('@/pages/admin/AdminLogin'));
+const GoogleMapsCollector = React.lazy(() => import('@/pages/admin/GoogleMapsCollector'));
+const AdminCrm = React.lazy(() => import('@/pages/admin/AdminCrm'));
+const ExpansionHub = React.lazy(() => import('@/pages/admin/expansion/ExpansionHub'));
+const CityDashboard = React.lazy(() => import('@/pages/admin/expansion/CityDashboard'));
 
-// Pages
-import Index from '@/pages/Index'; // Redireciona para Splash
-import Home from '@/pages/Home'; // Home do Cliente
-import Onboarding from '@/pages/Onboarding';
-import Welcome from '@/pages/Welcome';
-import LandingPage from '@/pages/LandingPage';
-import AuthComponent from '@/pages/Auth';
-import RestaurantProfilePublic from '@/pages/RestaurantProfilePublic';
-import MenuItemDetails from '@/pages/MenuItemDetails';
-import HelpCenter from '@/pages/HelpCenter';
-import Legal from '@/pages/Legal';
-import RestaurantResultsPage from '@/pages/RestaurantResults';
-import ForgotPassword from '@/pages/ForgotPassword'; // Adicionado ForgotPassword
-import PromoRedirect from '@/pages/PromoRedirect'; // ADICIONADO: Redirecionador do QR Code
-
-// Client Pages
-import ClientProfilePage from '@/pages/ClientProfilePage';
-import FavoritesPage from '@/pages/Favorites';
-import SearchUnifiedPage from '@/pages/SearchUnifiedPage';
-import FullMenuPage from '@/pages/FullMenuPage'; // Importar o componente FullMenuPage
-import FriendsPage from '@/pages/FriendsPage';
-import HappyHourHub from '@/pages/HappyHourHub';
-import HappyHourRoom from '@/pages/HappyHourRoom';
-import ComboFinderPage from '@/pages/ComboFinderPage';
-
-// Restaurant Area Pages
-import RestaurantAreaHub from '@/pages/RestaurantAreaHub';
-import ProfileSettingsPage from '@/pages/restaurant/ProfileSettingsPage';
-import MenuManagement from '@/pages/restaurant/MenuManagement'; // ADICIONADO
-import GalleryManagement from '@/pages/restaurant/GalleryManagement';
-import UpgradePage from '@/pages/Upgrade';
-import RestaurantLogin from '@/pages/RestaurantLogin';
-import RestaurantSignup from '@/pages/RestaurantSignup';
-import ClaimRestaurant from '@/pages/ClaimRestaurant';
-import CategoryDetails from '@/pages/restaurant/CategoryDetails';
-import MetricsPage from '@/pages/restaurant/MetricsPage'; // Adicionado MetricsPage
-
-// Admin Pages
-import AdminLayout from '@/pages/admin/AdminLayout';
-import AdminDashboard from '@/pages/admin/AdminDashboard';
-import AdminLogin from '@/pages/admin/AdminLogin';
-import GoogleMapsCollector from '@/pages/admin/GoogleMapsCollector';
-import AdminCrm from '@/pages/admin/AdminCrm';
-
-// Novas Rotas de Expansão (City-Centric)
-import ExpansionHub from '@/pages/admin/expansion/ExpansionHub';
-import CityDashboard from '@/pages/admin/expansion/CityDashboard';
+function RouteFallback() {
+  return (
+    <div className="flex min-h-[100dvh] items-center justify-center bg-[var(--ff-background)] font-['Poppins'] text-[var(--ff-text-primary)]" role="status" aria-live="polite">
+      <div className="text-center">
+        <span className="mx-auto block h-9 w-9 animate-spin rounded-full border-2 border-[var(--ff-primary)]/25 border-t-[var(--ff-primary)]" aria-hidden="true" />
+        <p className="mt-4 text-sm font-semibold">Carregando experiência...</p>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   React.useEffect(() => {
@@ -70,6 +69,7 @@ function App() {
   return (
     <Router>
       <ToastProvider />
+      <Suspense fallback={<RouteFallback />}>
       <Routes>
         {/* Rotas Públicas/Gerais */}
         <Route path="/" element={<Index />} />
@@ -102,7 +102,7 @@ function App() {
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/happy-hours" element={<HappyHourHub />} />
           <Route path="/happy-hour/:id" element={<HappyHourRoom />} />
-          <Route path="/combo-finder" element={<ComboFinderPage />} />
+          <Route path="/combo-finder" element={<Navigate to="/home?assistant=1" replace />} />
         </Route>
 
         {/* Rotas Protegidas da Área do Restaurante (Usando SharedLayoutWrapper e Proteção de Role) */}
@@ -134,6 +134,7 @@ function App() {
         {/* Fallback de Rota não Encontrada */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </Suspense>
     </Router>
   );
 }

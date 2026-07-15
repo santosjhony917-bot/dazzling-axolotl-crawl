@@ -67,7 +67,7 @@ interface FetchRestaurantsFilters {
 const getLocalFallbackRestaurants = (): Restaurant[] => {
   try {
     const saved = localStorage.getItem('mock-supabase-fallback-restaurants');
-    let list: Restaurant[] = saved ? JSON.parse(saved) : [];
+    const list: Restaurant[] = saved ? JSON.parse(saved) : [];
     
     // Always merge completed restaurants if they are not in the list or update details
     const mockCompleted = localStorage.getItem('mock-completed-restaurants');
@@ -381,27 +381,8 @@ const updateMultipleRestaurantPlans = async ({ restaurantIds, newPlan }: UpdateM
 
 const updateRestaurantVisitStatus = async ({ restaurantId, newStatus }: UpdateStatusPayload): Promise<void> => {
   if (newStatus === true) {
-    const localRestaurant = getLocalFallbackRestaurants().find(r => r.id === restaurantId);
-    const isLocalOnly = restaurantId.startsWith('mock-') || restaurantId.startsWith('scraped-');
-
-    if (isLocalOnly && localRestaurant?.menu_status !== 'found') {
-      showError('Este restaurante so pode ser publicado depois que o cardapio estiver validado pela IA.');
-      throw new Error('Publication blocked: menu_status is not found.');
-    }
-
-    if (!isLocalOnly) {
-      const uuidId = getDeterministicUUID(restaurantId);
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select('menu_status')
-        .eq('id', uuidId)
-        .maybeSingle();
-
-      if (error || data?.menu_status !== 'found') {
-        showError('Este restaurante so pode ser publicado depois que o cardapio estiver validado pela IA.');
-        throw new Error(`Publication blocked: menu_status is ${data?.menu_status || 'unknown'}.`);
-      }
-    }
+    showError('Publicacao direta desativada. Use o publication_gate somente depois do Nivel 6 e de autorizacao explicita.');
+    throw new Error('Publication blocked: legacy admin path cannot prove the final publication gate.');
   }
 
   // Always update locally first

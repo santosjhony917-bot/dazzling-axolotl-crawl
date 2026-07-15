@@ -34,7 +34,7 @@ export default function Welcome() {
           alt=""
           aria-hidden="true"
           className="h-full w-full object-cover object-[center_38%]"
-          src="/images/filterfood_welcome_food_hero.png"
+          src="/images/filterfood_welcome_food_hero.webp"
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_46%_30%,transparent_0%,rgba(255,250,246,0.02)_48%,rgba(255,250,246,0.58)_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--ff-surface-warm)] via-[var(--ff-surface-warm)]/42 to-transparent" />
@@ -50,7 +50,7 @@ export default function Welcome() {
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--ff-primary)] text-white shadow-[0_8px_16px_rgba(223,75,28,0.18)]">
               <MapPin className="h-4 w-4" />
             </span>
-            Cardápios da cidade
+            Cardápios disponíveis
           </div>
         </motion.div>
 
@@ -85,8 +85,8 @@ export default function Welcome() {
           >
             <FFSectionTitle
               align="center"
-              title="Todos os cardápios da cidade"
-              description="Consulte pratos, preços e restaurantes em um só lugar."
+              title="Pergunte. A IA consulta os cardápios disponíveis."
+              description="Encontre pratos, preços e restaurantes publicados perto de você."
             />
           </motion.div>
 

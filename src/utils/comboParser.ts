@@ -1,5 +1,6 @@
-import { Profile, Restaurant, MenuItem, RestaurantWithDistance } from '@/types/supabase';
-import { supabase } from '@/integrations/supabase/client';
+import { MenuItem, RestaurantWithDistance } from '@/types/supabase';
+import { DEMO_LABEL, IS_DEMO_MODE } from '@/lib/runtimeMode';
+import { fetchPublicCatalogMenuEntriesByRestaurantIds } from '@/integrations/supabase/publicCatalog';
 
 export interface ParsedQuery {
   maxBudget: number;
@@ -26,39 +27,17 @@ export interface MealCombo {
   economy: number;
 }
 
-// Repositório mockado de pratos para restaurantes no modo offline
-const MOCK_ITEMS: Record<string, MenuItem[]> = {
-  'mock-premium-restaurant-id': [
-    { id: 'item-p1', category_id: 'cat-1', name: 'Hamburguer Blend Gourmet', price: 38.00, description: 'Hambúrguer artesanal de 180g, queijo cheddar, bacon crocante e molho da casa.', image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500' },
-    { id: 'item-p2', category_id: 'cat-1', name: 'Cheeseburger Clássico', price: 32.00, description: 'Hambúrguer de 150g com muito queijo prato no pão brioche.', image_url: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500' },
-    { id: 'item-p3', category_id: 'cat-2', name: 'Batata Frita Tradicional Grande', price: 22.00, description: 'Batatas fritas super crocantes acompanhadas de maionese verde.', image_url: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500' },
-    { id: 'item-p4', category_id: 'cat-2', name: 'Anéis de Cebola Empanados', price: 24.00, description: 'Anéis de cebola crocantes acompanhados de molho barbecue.', image_url: 'https://images.unsplash.com/photo-1639024471283-2bc7b3c6a267?w=500' },
-    { id: 'item-p5', category_id: 'cat-3', name: 'Suco Natural de Laranja 500ml', price: 10.00, description: 'Suco espremido na hora 100% natural.', image_url: 'https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=500' },
-    { id: 'item-p6', category_id: 'cat-3', name: 'Refrigerante Coca-Cola Lata', price: 7.00, description: 'Coca-cola original de 350ml bem gelada.', image_url: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500' },
-    { id: 'item-p7', category_id: 'cat-3', name: 'Milkshake de Chocolate Belga', price: 18.00, description: 'Milkshake cremoso de chocolate premium.', image_url: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500' }
+// Fixtures are reachable only when VITE_DEMO_MODE=true and are visibly labelled.
+const DEMO_ITEMS: Record<string, MenuItem[]> = {
+  'demo-premium-restaurant-id': [
+    { id: 'demo-item-main-1', category_id: 'demo-category-main', name: `${DEMO_LABEL} Hambúrguer ilustrativo`, price: 38, description: `${DEMO_LABEL} Item fictício para demonstração.`, image_url: null },
+    { id: 'demo-item-side-1', category_id: 'demo-category-side', name: `${DEMO_LABEL} Batata ilustrativa`, price: 18, description: `${DEMO_LABEL} Acompanhamento fictício para demonstração.`, image_url: null },
+    { id: 'demo-item-drink-1', category_id: 'demo-category-drink', name: `${DEMO_LABEL} Suco ilustrativo`, price: 9, description: `${DEMO_LABEL} Bebida fictícia para demonstração.`, image_url: null },
   ],
-  'mock-free-restaurant-id': [
-    { id: 'item-f1', category_id: 'cat-f1', name: 'X-Burguer Tradicional', price: 18.00, description: 'Hambúrguer tradicional de carne, queijo e presunto no pão com gergelim.', image_url: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500' },
-    { id: 'item-f2', category_id: 'cat-f1', name: 'X-Salada Especial', price: 20.00, description: 'Hambúrguer, queijo, alface, tomate, maionese e milho.', image_url: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=500' },
-    { id: 'item-f3', category_id: 'cat-f1', name: 'X-Tudo Monstro', price: 28.00, description: 'Hambúrguer, ovo, bacon, salsicha, queijo, presunto, alface e tomate.', image_url: 'https://images.unsplash.com/photo-1549611016-3a70d82b5040?w=500' },
-    { id: 'item-f4', category_id: 'cat-f2', name: 'Batata Frita Simples Média', price: 15.00, description: 'Porção média de batata frita.', image_url: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=500' },
-    { id: 'item-f5', category_id: 'cat-f3', name: 'Refrigerante Guaraná Lata', price: 6.00, description: 'Lata de Guaraná Antarctica bem fria.', image_url: 'https://images.unsplash.com/photo-1527960656306-fffe3a612317?w=500' },
-    { id: 'item-f6', category_id: 'cat-f3', name: 'Suco de Uva Copo', price: 6.00, description: 'Suco de uva integral gelado.', image_url: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500' }
-  ]
-};
-
-// Adiciona alguns itens adicionais simulando outros tipos de comida
-const OTHER_FOOD_ITEMS: Record<string, MenuItem[]> = {
-  'mock-pizza-items': [
-    { id: 'item-pi1', category_id: 'cat-pi', name: 'Pizza Calabresa Grande (8 fatias)', price: 58.00, description: 'Molho de tomate artesanal, muçarela, calabresa fatiada, cebola e azeitonas.', image_url: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500' },
-    { id: 'item-pi2', category_id: 'cat-pi', name: 'Pizza Quatro Queijos Grande (8 fatias)', price: 65.00, description: 'Muçarela, provolone, gorgonzola e catupiry original.', image_url: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500' },
-    { id: 'item-pi3', category_id: 'cat-pi-side', name: 'Pão de Alho Especial Recheado', price: 18.00, description: 'Pão recheado com pasta de alho e muçarela gratinada.', image_url: 'https://images.unsplash.com/photo-1544982503-9f984c14501a?w=500' }
+  'demo-casual-restaurant-id': [
+    { id: 'demo-item-main-2', category_id: 'demo-category-main-2', name: `${DEMO_LABEL} Sanduíche ilustrativo`, price: 24, description: `${DEMO_LABEL} Item fictício para demonstração.`, image_url: null },
+    { id: 'demo-item-drink-2', category_id: 'demo-category-drink-2', name: `${DEMO_LABEL} Refrigerante ilustrativo`, price: 7, description: `${DEMO_LABEL} Bebida fictícia para demonstração.`, image_url: null },
   ],
-  'mock-japa-items': [
-    { id: 'item-ja1', category_id: 'cat-ja', name: 'Combinado Sushi & Sashimi (20 peças)', price: 79.00, description: 'Sashimis de salmão, niguiris, hossomakis e uramakis variados.', image_url: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500' },
-    { id: 'item-ja2', category_id: 'cat-ja', name: 'Yakisoba de Carne Individual', price: 38.00, description: 'Macarrão oriental com carnes selecionadas e legumes ao molho shoyu.', image_url: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500' },
-    { id: 'item-ja3', category_id: 'cat-ja-side', name: 'Porção de Hot Roll (8 peças)', price: 24.00, description: 'Sushi frito com recheio de salmão e cream cheese, molho tarê.', image_url: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=500' }
-  ]
 };
 
 /**
@@ -167,9 +146,14 @@ export function buildRestaurantCombos(
 
   // Mapeia palavras-chave para classificação inteligente sem DB rígido
   menuItems.forEach(item => {
+    const numericPrice = Number(item.price);
+    if (!Number.isFinite(numericPrice) || numericPrice < 0 || item.is_illustrative === true || item.needs_review === true) {
+      return;
+    }
+
+    const pricedItem: MenuItem = { ...item, price: numericPrice };
     const name = item.name.toLowerCase();
     const desc = (item.description || '').toLowerCase();
-    const price = item.price;
 
     if (
       name.includes('suco') || 
@@ -179,10 +163,9 @@ export function buildRestaurantCombos(
       name.includes('lata') || 
       name.includes('água') || 
       name.includes('bebida') ||
-      name.includes('shake') ||
-      price < 12.00
+      name.includes('shake')
     ) {
-      drinks.push(item);
+      drinks.push(pricedItem);
     } else if (
       name.includes('frita') || 
       name.includes('batata') || 
@@ -191,12 +174,11 @@ export function buildRestaurantCombos(
       name.includes('pão de alho') ||
       name.includes('hot roll') ||
       desc.includes('porção') ||
-      desc.includes('acompanhamento') ||
-      (price >= 12.00 && price <= 25.00)
+      desc.includes('acompanhamento')
     ) {
-      sides.push(item);
+      sides.push(pricedItem);
     } else {
-      mains.push(item);
+      mains.push(pricedItem);
     }
   });
 
@@ -207,36 +189,40 @@ export function buildRestaurantCombos(
 
   // Algoritmo de Combinações Heurísticas por contagem de pessoas
   if (numPeople === 1) {
-    // 1 Pessoa: 1 Principal + 1 Bebida (Opcional: + 1 Acompanhamento)
+    // Usa apenas bebidas realmente cadastradas; quando não existem, sugere o prato sem inventar itens.
     mains.forEach(main => {
-      const availableDrinks = drinks.length > 0 ? drinks : [{ id: 'd-1', name: 'Refrigerante Lata', price: 6.00 } as MenuItem];
+      const availableDrinks: Array<MenuItem | null> = drinks.length > 0 ? drinks : [null];
       
       availableDrinks.forEach(drink => {
-        const costOption1 = main.price + drink.price;
+        const costOption1 = Number(main.price) + (drink ? Number(drink.price) : 0);
         if (costOption1 <= maxBudget) {
           combos.push({
             restaurant,
-            items: [main, drink],
+            items: drink ? [main, drink] : [main],
             totalPrice: costOption1,
             numPeople: 1,
             category,
             economy: maxBudget - costOption1,
-            explanation: `Combinação individual ideal no ${restaurant.name}: 1 Prato Principal (${main.name}) e 1 Bebida refrescante (${drink.name}).`,
+            explanation: drink
+              ? `Combinação individual no ${restaurant.name}: ${main.name} com ${drink.name}, ambos disponíveis no cardápio.`
+              : `Opção individual no ${restaurant.name}: ${main.name}, disponível no cardápio. O cardápio consultado não informou uma bebida para esta combinação.`,
           });
         }
 
         // Tenta adicionar um acompanhamento se couber no orçamento
         sides.forEach(side => {
-          const costOption2 = main.price + side.price + drink.price;
+          const costOption2 = Number(main.price) + Number(side.price) + (drink ? Number(drink.price) : 0);
           if (costOption2 <= maxBudget) {
             combos.push({
               restaurant,
-              items: [main, side, drink],
+              items: drink ? [main, side, drink] : [main, side],
               totalPrice: costOption2,
               numPeople: 1,
               category,
               economy: maxBudget - costOption2,
-              explanation: `Combo individual completo no ${restaurant.name}: 1 Prato Principal (${main.name}) + 1 Acompanhamento crocante (${side.name}) + 1 Bebida (${drink.name}).`,
+              explanation: drink
+                ? `Combinação individual no ${restaurant.name}: ${main.name}, ${side.name} e ${drink.name}, todos disponíveis no cardápio.`
+                : `Combinação individual no ${restaurant.name}: ${main.name} e ${side.name}, ambos disponíveis no cardápio. Nenhuma bebida foi adicionada porque o cardápio consultado não informou uma opção.`,
             });
           }
         });
@@ -254,7 +240,7 @@ export function buildRestaurantCombos(
         const m1 = mains[i];
         const m2 = mains[j];
 
-        const availableDrinks = drinks.length > 0 ? drinks : [{ id: 'd-1', name: 'Refrigerante Lata', price: 6.00 } as MenuItem];
+        const availableDrinks: Array<MenuItem | null> = drinks.length > 0 ? drinks : [null];
         
         for (let di = 0; di < availableDrinks.length; di++) {
           for (let dj = di; dj < availableDrinks.length; dj++) {
@@ -263,31 +249,35 @@ export function buildRestaurantCombos(
 
             // A: Com Acompanhamento
             sides.forEach(side => {
-              const cost = m1.price + m2.price + side.price + d1.price + d2.price;
+              const cost = Number(m1.price) + Number(m2.price) + Number(side.price) + (d1 ? Number(d1.price) : 0) + (d2 ? Number(d2.price) : 0);
               if (cost <= maxBudget) {
                 combos.push({
                   restaurant,
-                  items: [m1, m2, side, d1, d2],
+                  items: [m1, m2, side, d1, d2].filter(Boolean) as MenuItem[],
                   totalPrice: cost,
                   numPeople: 2,
                   category,
                   economy: maxBudget - cost,
-                  explanation: `Sugestão de Combo para Casal no ${restaurant.name}: Inclui 2 pratos principais (${m1.name} e ${m2.name}) + 1 Acompanhamento para dividir (${side.name}) + 2 Bebidas geladas. Perfeito para vocês dois!`,
+                  explanation: d1 && d2
+                    ? `Combinação para 2 no ${restaurant.name}: ${m1.name}, ${m2.name}, ${side.name}, ${d1.name} e ${d2.name}, conforme o cardápio.`
+                    : `Combinação para 2 no ${restaurant.name}: ${m1.name}, ${m2.name} e ${side.name}, conforme o cardápio. Nenhuma bebida foi adicionada porque o cardápio consultado não informou uma opção.`,
                 });
               }
             });
 
             // C: Apenas prato e bebida
-            const costNoSide = m1.price + m2.price + d1.price + d2.price;
+            const costNoSide = Number(m1.price) + Number(m2.price) + (d1 ? Number(d1.price) : 0) + (d2 ? Number(d2.price) : 0);
             if (costNoSide <= maxBudget) {
               combos.push({
                 restaurant,
-                items: [m1, m2, d1, d2],
+                items: [m1, m2, d1, d2].filter(Boolean) as MenuItem[],
                 totalPrice: costNoSide,
                 numPeople: 2,
                 category,
                 economy: maxBudget - costNoSide,
-                explanation: `Combo Duplo Simples no ${restaurant.name}: 2 pratos principais (${m1.name} e ${m2.name}) + 2 Bebidas (${d1.name} e ${d2.name}). Cabe perfeitamente no seu orçamento!`,
+                explanation: d1 && d2
+                  ? `Combinação para 2 no ${restaurant.name}: ${m1.name}, ${m2.name}, ${d1.name} e ${d2.name}, conforme o cardápio.`
+                  : `Combinação para 2 no ${restaurant.name}: ${m1.name} e ${m2.name}, conforme o cardápio. Nenhuma bebida foi adicionada porque o cardápio consultado não informou uma opção.`,
               });
             }
           }
@@ -301,26 +291,28 @@ export function buildRestaurantCombos(
                         main.name.toLowerCase().includes('combinado') ||
                         main.name.toLowerCase().includes('tábua') ||
                         main.name.toLowerCase().includes('porção') ||
-                        main.price > 45.00;
+                        Number(main.price) > 45.00;
 
       if (isSharing) {
-        const availableDrinks = drinks.length > 0 ? drinks : [{ id: 'd-1', name: 'Refrigerante Lata', price: 6.00 } as MenuItem];
+        const availableDrinks: Array<MenuItem | null> = drinks.length > 0 ? drinks : [null];
         
         for (let di = 0; di < availableDrinks.length; di++) {
           for (let dj = di; dj < availableDrinks.length; dj++) {
             const d1 = availableDrinks[di];
             const d2 = availableDrinks[dj];
 
-            const cost = main.price + d1.price + d2.price;
+            const cost = Number(main.price) + (d1 ? Number(d1.price) : 0) + (d2 ? Number(d2.price) : 0);
             if (cost <= maxBudget) {
               combos.push({
                 restaurant,
-                items: [main, d1, d2],
+                items: [main, d1, d2].filter(Boolean) as MenuItem[],
                 totalPrice: cost,
                 numPeople: 2,
                 category,
                 economy: maxBudget - cost,
-                explanation: `Opção compartilhável para 2 pessoas no ${restaurant.name}: 1 Prato Especial para dividir (${main.name}) + 2 Bebidas (${d1.name} e ${d2.name}). Prático e econômico.`,
+                explanation: d1 && d2
+                  ? `Opção compartilhável para 2 no ${restaurant.name}: ${main.name}, ${d1.name} e ${d2.name}, conforme o cardápio.`
+                  : `Opção compartilhável para 2 no ${restaurant.name}: ${main.name}, conforme o cardápio. Nenhuma bebida foi adicionada porque o cardápio consultado não informou uma opção.`,
               });
             }
           }
@@ -331,17 +323,16 @@ export function buildRestaurantCombos(
     // 3 ou mais Pessoas (Grupo): N Principais + N Bebidas (Opcional: + Acompanhamentos)
     // Para simplificar a geração, fazemos uma média de prato por pessoa
     const peopleCount = numPeople;
-    const bestMain = mains[0]; // Pega o principal de melhor custo/benefício
-    const bestDrink = drinks[0] || { id: 'd-1', name: 'Refrigerante Lata', price: 6.00 } as MenuItem;
-    
     // Tenta montar um super combo
     const items: MenuItem[] = [];
     for (let p = 0; p < peopleCount; p++) {
       // Distribui os principais de forma alternada se houver mais de um
       const mIdx = p % mains.length;
-      const dIdx = p % (drinks.length || 1);
       items.push(mains[mIdx]);
-      items.push(drinks.length > 0 ? drinks[dIdx] : bestDrink);
+      if (drinks.length > 0) {
+        const dIdx = p % drinks.length;
+        items.push(drinks[dIdx]);
+      }
     }
     
     // Adiciona 2 acompanhamentos para o grupo se houver
@@ -350,7 +341,7 @@ export function buildRestaurantCombos(
       if (sides.length > 1) items.push(sides[1]);
     }
 
-    const totalCost = items.reduce((sum, item) => sum + item.price, 0);
+    const totalCost = items.reduce((sum, item) => sum + Number(item.price), 0);
     if (totalCost <= maxBudget) {
       combos.push({
         restaurant,
@@ -359,7 +350,9 @@ export function buildRestaurantCombos(
         numPeople: peopleCount,
         category,
         economy: maxBudget - totalCost,
-        explanation: `Super Combo de Grupo (${peopleCount} pessoas) no ${restaurant.name}: Selecionamos pratos principais e bebidas individuais para todos do grupo, mais acompanhamentos para dividir no centro da mesa. Tudo por R$ ${totalCost.toFixed(2)}!`,
+        explanation: drinks.length > 0
+          ? `Combinação para ${peopleCount} pessoas no ${restaurant.name}, formada somente por pratos, bebidas e acompanhamentos disponíveis no cardápio. Total de R$ ${totalCost.toFixed(2)}.`
+          : `Combinação para ${peopleCount} pessoas no ${restaurant.name}, formada somente por pratos e acompanhamentos disponíveis no cardápio. Nenhuma bebida foi adicionada porque o cardápio consultado não informou uma opção. Total de R$ ${totalCost.toFixed(2)}.`,
       });
     }
   }
@@ -375,77 +368,50 @@ export function buildRestaurantCombos(
 }
 
 /**
- * Pega todos os itens cadastrados (Supabase real ou simulado localmente no mock).
+ * Busca itens reais e auditáveis. Fixtures só existem no modo de demonstração explícito.
  */
 export async function getItemsForComboSearch(
   restaurantIds: string[]
 ): Promise<Record<string, MenuItem[]>> {
-  // 1. Se estivermos testando com IDs mock, retorna dados simulados imediatamente
-  const hasMockIds = restaurantIds.some(id => id.startsWith('mock-'));
-  if (hasMockIds) {
-    const res: Record<string, MenuItem[]> = {};
-    restaurantIds.forEach(id => {
-      if (MOCK_ITEMS[id]) {
-        res[id] = MOCK_ITEMS[id];
-      } else {
-        // Gera itens mockados aleatórios se o ID do restaurante não estiver mapeado
-        // Para simular categorias diversas (Pizza, Japonesa)
-        if (id.includes('pizza') || id.includes('italiana')) {
-          res[id] = OTHER_FOOD_ITEMS['mock-pizza-items'];
-        } else if (id.includes('sushi') || id.includes('japa') || id.includes('japonesa')) {
-          res[id] = OTHER_FOOD_ITEMS['mock-japa-items'];
-        } else {
-          // Fallback para lanches premium
-          res[id] = MOCK_ITEMS['mock-premium-restaurant-id'];
-        }
-      }
+  const uniqueRestaurantIds = [...new Set(restaurantIds.filter(Boolean))];
+  if (uniqueRestaurantIds.length === 0) return {};
+
+  const hasFixtureIds = uniqueRestaurantIds.some(id => id.startsWith('demo-') || id.startsWith('mock-'));
+  if (hasFixtureIds) {
+    if (!IS_DEMO_MODE) {
+      throw new Error('Dados de demonstração não estão habilitados neste ambiente.');
+    }
+
+    const demoResult: Record<string, MenuItem[]> = {};
+    uniqueRestaurantIds.forEach(id => {
+      if (DEMO_ITEMS[id]) demoResult[id] = DEMO_ITEMS[id];
     });
-    return res;
+    return demoResult;
   }
 
-  // 2. Consulta real no Supabase
   try {
-    // Busca todas as categorias dos restaurantes indicados
-    const { data: categories, error: catError } = await supabase
-      .from('menu_categories')
-      .select('id, restaurant_id')
-      .in('restaurant_id', restaurantIds);
-
-    if (catError) throw catError;
-    if (!categories || categories.length === 0) return {};
-
-    const categoryIds = categories.map(c => c.id);
-
-    // Busca os itens do cardápio dessas categorias
-    const { data: items, error: itemsError } = await supabase
-      .from('menu_items')
-      .select('*')
-      .in('category_id', categoryIds)
-      .eq('is_active', true);
-
-    if (itemsError) throw itemsError;
-    if (!items) return {};
-
-    // Agrupa os itens de volta por restaurant_id usando o mapeamento das categorias
-    const catToRestMap: Record<string, string> = {};
-    categories.forEach(c => {
-      catToRestMap[c.id] = c.restaurant_id;
-    });
+    const items = await fetchPublicCatalogMenuEntriesByRestaurantIds(uniqueRestaurantIds);
 
     const groupedItems: Record<string, MenuItem[]> = {};
-    items.forEach(item => {
-      const restId = catToRestMap[item.category_id];
+    items
+      .map((item) => ({
+        ...item,
+        price: item.promotional_price ?? item.display_price ?? item.price_min ?? item.price,
+      }))
+      .filter(item => Number.isFinite(Number(item.price)) && Number(item.price) >= 0)
+      .forEach(item => {
+      const restId = item.restaurant_id;
       if (restId) {
         if (!groupedItems[restId]) {
           groupedItems[restId] = [];
         }
-        groupedItems[restId].push(item);
+        groupedItems[restId].push({ ...item, price: Number(item.price) });
       }
     });
 
     return groupedItems;
   } catch (e) {
     console.error('Error fetching items for combo search:', e);
-    return {};
+    throw new Error('Não foi possível consultar os itens dos cardápios agora.');
   }
 }

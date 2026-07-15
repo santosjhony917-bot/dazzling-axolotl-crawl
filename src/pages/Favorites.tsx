@@ -10,6 +10,7 @@ import { showError, showSuccess } from '@/utils/toast';
 import { PLACEHOLDER_IMAGE_URL } from '@/constants/assets';
 import Header from '@/components/Header';
 import PhoneShell from '@/components/layout/PhoneShell';
+import { fetchPublicCatalogRestaurantsByIds } from '@/integrations/supabase/publicCatalog';
 
 type FavoriteRestaurantData = {
   restaurant: Restaurant;
@@ -22,7 +23,7 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurantData[]>
 
   const { data, error } = await supabase
     .from('user_favorites')
-    .select('restaurant:restaurants(*)')
+    .select('restaurant_id')
     .eq('user_id', userId);
 
   if (error) {
@@ -31,8 +32,8 @@ const fetchFavorites = async (userId: string): Promise<FavoriteRestaurantData[]>
   }
 
   if (!data) return [];
-
-  return (data as unknown as FavoriteRestaurantData[]).filter(item => item && item.restaurant);
+  const restaurants = await fetchPublicCatalogRestaurantsByIds(data.map((item) => item.restaurant_id));
+  return restaurants.map((restaurant) => ({ restaurant }));
 };
 
 const removeFavorite = async (restaurantId: string, userId: string) => {

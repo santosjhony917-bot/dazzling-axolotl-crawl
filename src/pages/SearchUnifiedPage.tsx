@@ -1,29 +1,46 @@
-﻿import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { MapPin, Search, Loader2, Utensils, ChevronRight, Filter, DollarSign, Compass, ArrowLeft, Pizza } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { createPageUrl } from '@/utils/url';
-import { showInfo, showError } from '@/utils/toast';
-import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
-import SearchToggle from '@/components/SearchToggle';
-import SearchItemCard from '@/components/search/SearchItemCard';
-import { useAuthData } from '@/context/AuthContext';
-import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import {
+  AlertCircle,
+  ArrowLeft,
+  ChevronRight,
+  Compass,
+  DollarSign,
+  Loader2,
+  MapPin,
+  Search,
+  SlidersHorizontal,
+} from 'lucide-react';
+
 import Header from '@/components/Header';
-import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
-import { useUserRole } from '@/hooks/useUserRole';
-import { motion } from 'framer-motion';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useSearchItems, SearchItemResult } from '@/hooks/useSearchItems';
-import { useNearbyRestaurants, RestaurantWithDistance } from '@/hooks/useNearbyRestaurants';
+import SearchToggle from '@/components/SearchToggle';
 import AdvancedFilterDrawer from '@/components/search/AdvancedFilterDrawer';
-import { useMenuCategories } from '@/hooks/useMenuCategories';
-import { cn } from '@/lib/utils';
+import SearchByDistanceModal from '@/components/search/SearchByDistanceModal';
+import SearchByPriceModal from '@/components/search/SearchByPriceModal';
+import SearchItemCard from '@/components/search/SearchItemCard';
 import SoftSearchInput from '@/components/search/SoftSearchInput';
-import { parseSearchQuery } from '@/utils/searchParser';
-import { getRestaurantOpenStatus } from '@/lib/schedule';
+import UserLocationModal from '@/components/restaurant/UserLocationModal';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { DiscoveryStatePanel, IntentSummary } from '@/features/menu-assistant/components';
+import {
+  menuIntentCacheKey,
+  menuIntentFromSearchParams,
+  menuIntentToSearchParams,
+  parseMenuSearchIntent,
+  useMenuDiscoverySession,
+} from '@/features/menu-assistant';
+import type {
+  MenuDiscoveryResult,
+  MenuSearchIntent,
+  MenuSearchIntentPatch,
+  MenuSearchLocation,
+  UnappliedCriterion,
+} from '@/features/menu-assistant';
+import { useUserSearchLocation } from '@/hooks/useUserSearchLocation';
+import { cn } from '@/lib/utils';
+import { createPageUrl } from '@/utils/url';
+import { showError, showInfo } from '@/utils/toast';
 
 type SearchType = 'dish' | 'restaurant';
 
@@ -39,739 +56,706 @@ interface SearchItem {
   commercialType?: string | null;
   isConfigurable?: boolean | null;
   imageUrl: string | null;
-  type: 'dish' | 'restaurant';
+  type: SearchType;
   category?: string | null;
   city?: string | null;
   distance_km?: number;
   restaurantName?: string | null;
   itemCategoryName?: string | null;
   itemCategoryId?: string;
-  opening_hours?: any;
+  neighborhood?: string | null;
+}
+
+const PAGE_LIMIT = 20;
+const EXPANDED_LIMIT = 50;
+
+const SUGGESTED_SEARCHES = [
+  'Pizza para 2 pessoas até R$ 100',
+  'Hambúrguer até R$ 30',
+  'Salada vegetariana até R$ 40',
+  'Sushi sem cream cheese',
+] as const;
+
+const ACTIVE_REQUEST_STATUSES = new Set([
+  'checking_coverage',
+  'parsing',
+  'searching',
+  'rewriting',
+]);
+
+const criterionLabels: Record<UnappliedCriterion, string> = {
+  query: 'termos da pergunta',
+  category: 'categoria',
+  price: 'preço',
+  people: 'quantidade de pessoas',
+  restriction: 'restrição alimentar',
+  excluded_ingredient: 'ingrediente excluído',
+  distance: 'distância',
+  city: 'cidade',
+  region: 'região',
+  neighborhood: 'bairro',
+  occasion: 'ocasião',
+  sort_distance: 'ordenação por distância',
+};
+
+const canonicalParameterNames = [
+  'q',
+  'min',
+  'max',
+  'people',
+  'cat',
+  'restriction',
+  'without',
+  'occasion',
+  'sort',
+  'lat',
+  'lng',
+  'location',
+  'neighborhood',
+  'region',
+  'city',
+  'state',
+  'radius',
+  'locationSource',
+  'locationCleared',
+] as const;
+
+function normalizeText(value: string | null | undefined) {
+  return String(value ?? '')
+    .toLocaleLowerCase('pt-BR')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}
+
+/**
+ * Mantém links antigos funcionando, mas converte-os imediatamente para o
+ * contrato compartilhado pela Home, Busca e assistente.
+ */
+function normalizeUrlParameters(input: URLSearchParams): URLSearchParams {
+  const output = new URLSearchParams();
+
+  canonicalParameterNames.forEach((name) => {
+    input.getAll(name).forEach((value) => output.append(name, value));
+  });
+
+  if (!output.has('q') && input.get('searchQuery')?.trim()) {
+    output.set('q', input.get('searchQuery')!.trim());
+  }
+  if (!output.has('min') && input.has('minPrice')) output.set('min', input.get('minPrice') ?? '');
+  if (!output.has('max') && input.has('maxPrice')) output.set('max', input.get('maxPrice') ?? '');
+  if (!output.has('radius') && input.has('maxDistance')) {
+    output.set('radius', input.get('maxDistance') ?? '');
+  }
+
+  if (!output.has('cat')) {
+    const categories = (input.get('includedCategories') ?? '')
+      .split(',')
+      .map((category) => category.trim())
+      .filter(Boolean);
+    categories.forEach((category) => output.append('cat', category));
+  }
+
+  const requestedView = input.get('view')
+    ?? (input.get('searchType') === 'restaurant' ? 'restaurants' : null);
+  if (requestedView === 'restaurants') output.set('view', 'restaurants');
+
+  return output;
+}
+
+function paramsForIntent(intent: MenuSearchIntent, view: SearchType): URLSearchParams {
+  const params = menuIntentToSearchParams(intent);
+  if (view === 'restaurant') params.set('view', 'restaurants');
+  return params;
+}
+
+function mapDishResult(result: MenuDiscoveryResult): SearchItem {
+  return {
+    id: result.itemId,
+    name: result.itemName,
+    description: result.itemDescription,
+    price: result.price.value,
+    priceType: result.price.type,
+    displayPrice: result.price.value,
+    priceMin: result.price.min,
+    priceMax: result.price.max,
+    imageUrl: result.itemImageUrl,
+    type: 'dish',
+    category: result.restaurantCategory,
+    city: result.restaurantCity,
+    distance_km: result.distanceKm ?? undefined,
+    restaurantName: result.restaurantName,
+    itemCategoryName: result.itemCategoryName,
+    itemCategoryId: result.itemCategoryId,
+    neighborhood: result.restaurantNeighborhood,
+  };
+}
+
+/**
+ * A RPC canônica devolve itens publicados. A aba de restaurantes é apenas uma
+ * projeção deduplicada desses mesmos registros — ela não dispara outra busca e
+ * não inventa foto, nota, funcionamento ou disponibilidade do restaurante.
+ */
+function groupRestaurants(results: MenuDiscoveryResult[]): SearchItem[] {
+  const restaurants = new Map<string, SearchItem>();
+
+  results.forEach((result) => {
+    if (restaurants.has(result.restaurantId)) return;
+    restaurants.set(result.restaurantId, {
+      id: result.restaurantId,
+      name: result.restaurantName,
+      description: null,
+      imageUrl: null,
+      type: 'restaurant',
+      category: result.restaurantCategory,
+      city: result.restaurantCity,
+      distance_km: result.distanceKm ?? undefined,
+      neighborhood: result.restaurantNeighborhood,
+    });
+  });
+
+  return [...restaurants.values()];
+}
+
+function blankNamedLocation(neighborhood: string, current: MenuSearchLocation | null): MenuSearchLocation {
+  return {
+    latitude: null,
+    longitude: null,
+    label: neighborhood,
+    neighborhood,
+    regionId: null,
+    city: current?.city ?? null,
+    state: current?.state ?? null,
+    radiusKm: null,
+    source: 'manual',
+  };
 }
 
 export default function SearchUnifiedPage() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const { user, restaurant } = useAuthData();
-  const { isPremium } = useUserRole();
-  const isRestaurantOwner = !!restaurant;
-  
-  const { location, isLoading: isLocationLoading } = useUserSearchLocation();
-  const { categories: allMenuCategories, isLoading: categoriesLoading } = useMenuCategories();
-  
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeSearchType, setActiveSearchType] = useState<SearchType>('dish');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const {
+    location,
+    hasLocation,
+    isLoading: isLocationLoading,
+    source: locationSource,
+    refetch: refetchLocation,
+  } = useUserSearchLocation();
+  const session = useMenuDiscoverySession({ surface: 'search' });
+
+  const [searchQuery, setSearchQuery] = useState(session.rawText);
+  const [activeSearchType, setActiveSearchType] = useState<SearchType>(
+    searchParams.get('view') === 'restaurants' || searchParams.get('searchType') === 'restaurant'
+      ? 'restaurant'
+      : 'dish',
+  );
+  const [isSubmitted, setIsSubmitted] = useState(Boolean(session.intent));
   const [isPriceModalOpen, setIsPriceModalOpen] = useState(false);
   const [isDistanceModalOpen, setIsDistanceModalOpen] = useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [requestedLimit, setRequestedLimit] = useState(PAGE_LIMIT);
 
-  const [minPriceFilter, setMinPriceFilter] = useState<number | null>(null);
-  const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
-  const [maxDistanceFilter, setMaxDistanceFilter] = useState<number | null>(null);
-  const [excludedDishCategoryIds, setExcludedDishCategoryIds] = useState<string[]>([]);
-  const [includedRestaurantCategories, setIncludedRestaurantCategories] = useState<string[]>([]); // Alterado para categorias INCLUÍDAS
-  const [selectedNeighborhoodFilter, setSelectedNeighborhoodFilter] = useState<string | null>(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const hydratedUrlRef = useRef<string | null>(null);
+  const initializedWithoutUrlRef = useRef(false);
+  const pendingFilterPatchRef = useRef<MenuSearchIntentPatch>({});
+  const pendingFilterTimerRef = useRef<number | null>(null);
+  const sessionSnapshotRef = useRef({
+    intent: session.intent,
+    status: session.status,
+    resultsLength: session.results.length,
+  });
+  sessionSnapshotRef.current = {
+    intent: session.intent,
+    status: session.status,
+    resultsLength: session.results.length,
+  };
 
-  const userLat = location.latitude;
-  const userLon = location.longitude;
+  const menuLocation = useMemo<MenuSearchLocation | null>(() => {
+    if (!hasLocation || location.latitude === null || location.longitude === null) return null;
+    return {
+      latitude: location.latitude,
+      longitude: location.longitude,
+      label: location.address || null,
+      neighborhood: null,
+      regionId: null,
+      city: null,
+      state: null,
+      radiusKm: 10,
+      source: locationSource === 'gps' ? 'gps' : locationSource === 'saved' ? 'profile' : 'manual',
+    };
+  }, [hasLocation, location.address, location.latitude, location.longitude, locationSource]);
 
-  const [page, setPage] = useState(1); // Estado para a página atual
-  const pageSize = 10; // Número de itens por página
+  const menuLocationKey = useMemo(() => JSON.stringify(menuLocation), [menuLocation]);
+  const paramsKey = searchParams.toString();
+  const hydrateFromSearchParams = session.hydrateFromSearchParams;
+  const submitIntent = session.submitIntent;
+  const refine = session.refine;
 
-  // New states for accumulated results
-  const [accumulatedDishResults, setAccumulatedDishResults] = useState<SearchItemResult[]>([]);
-  const [accumulatedRestaurantResults, setAccumulatedRestaurantResults] = useState<RestaurantWithDistance[]>([]);
+  const syncUrl = useCallback((intent: MenuSearchIntent, view: SearchType, replace = true) => {
+    const nextParams = paramsForIntent(intent, view);
+    hydratedUrlRef.current = nextParams.toString();
+    setSearchParams(nextParams, { replace });
+  }, [setSearchParams]);
 
-  // NLP Search query parsing
-  const parsedQuery = useMemo(() => {
-    return parseSearchQuery(searchQuery);
-  }, [searchQuery]);
-
-  const dbSearchQuery = useMemo(() => {
-    if (!searchQuery) return '';
-    return parsedQuery.cleanedQuery || parsedQuery.category || '';
-  }, [searchQuery, parsedQuery]);
-
-  // Efeito para ler os parâmetros da URL e inicializar os estados
   useEffect(() => {
-    const urlSearchQuery = searchParams.get('searchQuery') || '';
-    const urlMinPrice = searchParams.get('minPrice');
-    const urlMaxPrice = searchParams.get('maxPrice');
-    const urlMaxDistance = searchParams.get('maxDistance');
-    const urlExcludedCategoryIds = searchParams.get('excludedCategoryIds');
-    const urlIncludedCategories = searchParams.get('includedCategories');
-    const urlSearchType = (searchParams.get('searchType') as SearchType) || 'dish';
-    const urlNeighborhood = searchParams.get('neighborhood');
+    const sourceParams = new URLSearchParams(paramsKey);
+    const normalizedParams = normalizeUrlParameters(sourceParams);
+    const requestedView: SearchType = normalizedParams.get('view') === 'restaurants' ? 'restaurant' : 'dish';
+    const hasDiscoveryInput = normalizedParams.has('q') || normalizedParams.has('cat');
 
-    setSearchQuery(urlSearchQuery);
-    setActiveSearchType(urlSearchType);
-    setMinPriceFilter(urlMinPrice ? parseFloat(urlMinPrice) : null);
-    setMaxPriceFilter(urlMaxPrice ? parseFloat(urlMaxPrice) : null);
-    setMaxDistanceFilter(urlMaxDistance ? parseFloat(urlMaxDistance) : null);
-    setExcludedDishCategoryIds(urlExcludedCategoryIds ? urlExcludedCategoryIds.split(',') : []);
-    setIncludedRestaurantCategories(urlIncludedCategories ? urlIncludedCategories.split(',') : []);
-    setSelectedNeighborhoodFilter(urlNeighborhood);
-    setPage(1); // Resetar a página ao carregar da URL
-    setAccumulatedDishResults([]); // Clear accumulated results
-    setAccumulatedRestaurantResults([]); // Clear accumulated results
-    
-    if (urlSearchQuery || urlNeighborhood || urlMinPrice || urlMaxPrice || urlExcludedCategoryIds || urlIncludedCategories) {
+    setActiveSearchType(requestedView);
+
+    if (!hasDiscoveryInput) {
+      if (!initializedWithoutUrlRef.current) {
+        initializedWithoutUrlRef.current = true;
+        const current = sessionSnapshotRef.current;
+        if (current.intent) {
+          setSearchQuery(current.intent.rawText);
+          setIsSubmitted(true);
+        }
+      }
+      return;
+    }
+
+    const normalizedKey = normalizedParams.toString();
+    if (hydratedUrlRef.current === normalizedKey) return;
+
+    // A Home antiga aponta para `searchQuery`. Quando a intenção já está na
+    // sessão singleton, preservar o objeto completo evita perder localização,
+    // resultados e refinamentos ao abrir a tela de busca.
+    const legacyQuery = sourceParams.has('q') ? null : sourceParams.get('searchQuery')?.trim();
+    const hasLegacyFilter = [
+      'minPrice',
+      'maxPrice',
+      'maxDistance',
+      'excludedCategoryIds',
+      'includedCategories',
+      'neighborhood',
+    ].some((key) => sourceParams.has(key));
+    const currentBeforeHydration = sessionSnapshotRef.current;
+    if (
+      legacyQuery
+      && !hasLegacyFilter
+      && currentBeforeHydration.intent
+      && normalizeText(currentBeforeHydration.intent.rawText) === normalizeText(legacyQuery)
+      && (currentBeforeHydration.resultsLength > 0 || currentBeforeHydration.status !== 'idle')
+    ) {
+      hydratedUrlRef.current = normalizedKey;
+      setSearchQuery(currentBeforeHydration.intent.rawText);
       setIsSubmitted(true);
-    } else {
-      setIsSubmitted(false);
-    }
-  }, [searchParams]);
-
-  const isSearchEnabled = isSubmitted && !isLocationLoading && userLat !== null && userLon !== null;
-
-  const {
-    items: dishSearchResults,
-    loading: dishesLoading,
-    error: dishesError,
-    refetch: refetchDishes,
-    hasMore: dishesHasMore, // Get hasMore from hook
-  } = useSearchItems({
-    searchQuery: dbSearchQuery,
-    rawSearchQuery: searchQuery,
-    enabled: activeSearchType === 'dish' && isSearchEnabled,
-    limit: pageSize, // Fetch only one page at a time
-    offset: (page - 1) * pageSize, // Calculate offset based on current page
-    excludedCategoryIds: excludedDishCategoryIds,
-  });
-
-  const {
-    data: restaurantSearchResults,
-    isLoading: restaurantsLoading,
-    error: restaurantsError,
-    refetch: refetchRestaurants,
-    hasMore: restaurantsHasMore, // Get hasMore from hook
-  } = useNearbyRestaurants({
-    userLat,
-    userLon,
-    enabled: activeSearchType === 'restaurant' && isSearchEnabled,
-    searchQuery: dbSearchQuery,
-    includedCategories: includedRestaurantCategories,
-    limit: pageSize, // Fetch only one page at a time
-    offset: (page - 1) * pageSize, // Calculate offset based on current page
-  });
-
-  const [displayedResults, setDisplayedResults] = useState<SearchItem[]>([]);
-  const [resultsLoading, setResultsLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true); // State to control if there are more items
-
-  useEffect(() => {
-    const isActiveLoading = activeSearchType === 'dish' ? dishesLoading : restaurantsLoading;
-    setResultsLoading(isLocationLoading || isActiveLoading);
-  }, [isLocationLoading, dishesLoading, restaurantsLoading, activeSearchType]);
-
-  // Effect to accumulate dish results
-  useEffect(() => {
-    if (activeSearchType === 'dish' && !dishesLoading && dishSearchResults) {
-      setAccumulatedDishResults(prev => {
-        if (page === 1) {
-          return dishSearchResults;
-        }
-        // Filter out items that are already in the accumulated list to prevent duplicates
-        const newItems = dishSearchResults.filter(newItem => !prev.some(existingItem => existingItem.item_id === newItem.item_id));
-        return [...prev, ...newItems];
-      });
-      setHasMore(dishesHasMore);
-    }
-  }, [activeSearchType, dishSearchResults, dishesLoading, page, dishesHasMore]);
-
-  // Effect to accumulate restaurant results
-  useEffect(() => {
-    if (activeSearchType === 'restaurant' && !restaurantsLoading && restaurantSearchResults) {
-      setAccumulatedRestaurantResults(prev => {
-        if (page === 1) {
-          return restaurantSearchResults;
-        }
-        // Filter out restaurants that are already in the accumulated list to prevent duplicates
-        const newRestaurants = restaurantSearchResults.filter(newRest => !prev.some(existingRest => existingRest.id === newRest.id));
-        return [...prev, ...newRestaurants];
-      });
-      setHasMore(restaurantsHasMore);
-    }
-  }, [activeSearchType, restaurantSearchResults, restaurantsLoading, page, restaurantsHasMore]);
-
-  // Group João Pessoa neighborhoods by region
-  const REGIONS_NEIGHBORHOODS = useMemo(() => ({
-    orla: ['Tambaú', 'Cabo Branco', 'Manaíra', 'Bessa', 'Altiplano', 'Jardim Oceania', 'Aeroclube'],
-    zona_sul: ['Bancários', 'Mangabeira', 'Geisel', 'Valentina', 'Castelo Branco', 'Portal do Sol', 'José Américo', 'Cidade Universitária'],
-    centro_norte: ['Centro', 'Torre', 'Tambiá', 'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre Zé', 'Miramar', 'Tambauzinho', 'Expedicionários']
-  }), []);
-
-  // Effect to apply filters to accumulated results and set displayedResults
-  useEffect(() => {
-    let processedResults: SearchItem[] = [];
-    
-    // Neighborhood filters: either manually selected or parsed via NLP
-    const activeNeighborhood = selectedNeighborhoodFilter || parsedQuery.neighborhood;
-    
-    const matchesNeighborhood = (itemNeigh: string | null | undefined) => {
-      if (!activeNeighborhood) return true;
-      if (!itemNeigh) return false;
-      const normItem = itemNeigh.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const normFilter = activeNeighborhood.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      return normItem.includes(normFilter) || normFilter.includes(normItem);
-    };
-
-    const matchesRegion = (itemNeigh: string | null | undefined) => {
-      if (!parsedQuery.regionId) return true;
-      if (!itemNeigh) return false;
-      const neighborhoods = REGIONS_NEIGHBORHOODS[parsedQuery.regionId as keyof typeof REGIONS_NEIGHBORHOODS] || [];
-      const normItem = itemNeigh.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      return neighborhoods.some(neigh => {
-        const normNeigh = neigh.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        return normItem.includes(normNeigh) || normNeigh.includes(normItem);
-      });
-    };
-
-    const matchesCategory = (item: any) => {
-      if (!parsedQuery.category) return true;
-      const normFilter = parsedQuery.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      
-      if (activeSearchType === 'dish') {
-        const catName = (item.item_category_name || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const restCat = (item.restaurant_category || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const itemName = (item.item_name || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        return catName.includes(normFilter) || restCat.includes(normFilter) || itemName.includes(normFilter);
-      } else {
-        const restCat = (item.category || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const restName = (item.name || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        return restCat.includes(normFilter) || restName.includes(normFilter);
-      }
-    };
-
-    const isRestaurantOpen = (openingHours: any) => {
-      if (openingHours) {
-        try {
-          const status = getRestaurantOpenStatus(openingHours);
-          return status.isOpen;
-        } catch (e) {
-          // Fallback
-        }
-      }
-      const hour = new Date().getHours();
-      return hour >= 11 && hour < 22;
-    };
-
-    if (activeSearchType === 'dish') {
-      processedResults = accumulatedDishResults
-        .filter(item => {
-          const price = item.item_price;
-          const matchesMinPrice = minPriceFilter === null || price >= minPriceFilter;
-          const matchesMaxPrice = maxPriceFilter === null || price <= maxPriceFilter;
-          const neighMatches = matchesNeighborhood(item.restaurant_neighborhood);
-          const regionMatches = matchesRegion(item.restaurant_neighborhood);
-          const categoryMatches = matchesCategory(item);
-          return matchesMinPrice && matchesMaxPrice && neighMatches && regionMatches && categoryMatches;
-        })
-        .map(item => ({
-          id: item.item_id,
-          name: item.item_name,
-          description: item.item_description,
-          price: item.item_price,
-          priceType: item.item_price_type,
-          displayPrice: item.item_display_price,
-          priceMin: item.item_price_min,
-          priceMax: item.item_price_max,
-          commercialType: item.item_commercial_type,
-          isConfigurable: item.item_is_configurable,
-          imageUrl: item.item_image_url,
-          type: 'dish',
-          category: item.restaurant_category,
-          city: null,
-          restaurantName: item.restaurant_name,
-          itemCategoryName: item.item_category_name,
-          itemCategoryId: item.item_category_id,
-          neighborhood: item.restaurant_neighborhood,
-          opening_hours: item.restaurant_opening_hours,
-        }));
-    } else { // activeSearchType === 'restaurant'
-      processedResults = (accumulatedRestaurantResults || [])
-        .filter(restaurant => {
-          const distance = restaurant.distance_km;
-          const matchesDistance = maxDistanceFilter === null || distance <= maxDistanceFilter;
-          const neighMatches = matchesNeighborhood(restaurant.neighborhood);
-          const regionMatches = matchesRegion(restaurant.neighborhood);
-          const categoryMatches = matchesCategory(restaurant);
-          return matchesDistance && neighMatches && regionMatches && categoryMatches;
-        })
-        .map(restaurant => ({
-          id: restaurant.id,
-          name: restaurant.name,
-          description: restaurant.description,
-          price: undefined,
-          imageUrl: restaurant.image_url,
-          type: 'restaurant',
-          category: restaurant.category,
-          city: restaurant.city,
-          distance_km: restaurant.distance_km,
-          neighborhood: restaurant.neighborhood,
-          opening_hours: restaurant.opening_hours,
-        }));
+      syncUrl(currentBeforeHydration.intent, requestedView);
+      return;
     }
 
-    // Priorizar abertos
-    processedResults.sort((a, b) => {
-      const aOpen = isRestaurantOpen(a.opening_hours);
-      const bOpen = isRestaurantOpen(b.opening_hours);
-      if (aOpen && !bOpen) return -1;
-      if (!aOpen && bOpen) return 1;
-      return 0;
+    const parsed = menuIntentFromSearchParams(normalizedParams);
+    if (!parsed) return;
+    if (!parsed.location && isLocationLoading) return;
+
+    const effectiveIntent: MenuSearchIntent = parsed.location
+      ? parsed
+      : { ...parsed, location: menuLocation };
+    const current = sessionSnapshotRef.current;
+    const sameIntent = current.intent
+      && menuIntentCacheKey(current.intent) === menuIntentCacheKey(effectiveIntent)
+      && current.intent.rawText === effectiveIntent.rawText;
+
+    hydratedUrlRef.current = normalizedKey;
+    setSearchQuery(effectiveIntent.rawText);
+    setIsSubmitted(true);
+    setRequestedLimit(PAGE_LIMIT);
+
+    if (sameIntent && (current.resultsLength > 0 || current.status !== 'idle')) {
+      syncUrl(current.intent!, requestedView);
+      return;
+    }
+
+    const hydratedIntent = hydrateFromSearchParams(normalizedParams);
+    if (!hydratedIntent) return;
+    const intentWithLocation: MenuSearchIntent = hydratedIntent.location
+      ? hydratedIntent
+      : { ...hydratedIntent, location: menuLocation };
+
+    void submitIntent(intentWithLocation, { limit: PAGE_LIMIT }).then((next) => {
+      if (next.intent) syncUrl(next.intent, requestedView);
     });
-
-    setDisplayedResults(processedResults);
   }, [
-    activeSearchType,
-    accumulatedDishResults,
-    accumulatedRestaurantResults,
-    minPriceFilter,
-    maxPriceFilter,
-    maxDistanceFilter,
-    selectedNeighborhoodFilter,
-    parsedQuery,
-    REGIONS_NEIGHBORHOODS
+    hydrateFromSearchParams,
+    isLocationLoading,
+    menuLocation,
+    menuLocationKey,
+    paramsKey,
+    submitIntent,
+    syncUrl,
   ]);
 
-  const handleSearch = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (userLat === null || userLon === null) {
-      showError("Aguarde enquanto sua localização é definida para realizar a busca.");
-      return;
+  useEffect(() => () => {
+    if (pendingFilterTimerRef.current !== null) {
+      window.clearTimeout(pendingFilterTimerRef.current);
     }
-    setIsSubmitted(true);
-    setPage(1); // Resetar a página para 1 ao fazer uma nova busca
-    setAccumulatedDishResults([]); // Clear accumulated results
-    setAccumulatedRestaurantResults([]); // Clear accumulated results
-    refetchDishes(); // This will trigger a fetch for page 1
-    refetchRestaurants(); // This will trigger a fetch for page 1
-  };
-
-  const handleInputChange = (value: string) => {
-    setSearchQuery(value);
-    setIsSubmitted(false);
-  };
-
-  const handleSuggestionClick = (queryText: string) => {
-    setSearchQuery(queryText);
-    setIsSubmitted(true);
-    setPage(1);
-    setAccumulatedDishResults([]);
-    setAccumulatedRestaurantResults([]);
-  };
-
-  // Predefined search suggestion combos mapping João Pessoa neighborhood and categories
-  const SUGGESTED_COMBOS = useMemo(() => [
-    { text: 'Pizzaria em Tambaú', query: 'Pizzaria em Tambaú' },
-    { text: 'Hamburgueria nos Bancários', query: 'Hamburgueria nos Bancários' },
-    { text: 'Restaurantes na Orla', query: 'Restaurantes na Orla' },
-    { text: 'Churrasco no Centro', query: 'Churrasco no Centro' },
-    { text: 'Sorvete em Cabo Branco', query: 'Sorvete em Cabo Branco' },
-    { text: 'Sushi em Manaíra', query: 'Sushi em Manaíra' },
-    { text: 'Café em Tambaú', query: 'Café em Tambaú' },
-    { text: 'Açaí em Mangabeira', query: 'Açaí em Mangabeira' },
-  ], []);
-
-  // Predictive autocompletes based on typed content mapping João Pessoa details local parser
-  const generateAutocompleteSuggestions = useCallback((query: string) => {
-    const normalized = query.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    if (!normalized) return [];
-
-    const suggestionsList: { text: string; query: string; type: 'category' | 'neighborhood' | 'combo' | 'general' }[] = [];
-
-    // Mappings from searchParser
-    const NEIGHBORHOODS_LIST = [
-      'Tambaú', 'Cabo Branco', 'Manaíra', 'Bessa', 'Bancários', 'Mangabeira',
-      'Geisel', 'Valentina', 'Centro', 'Torre', 'Altiplano', 'Tambiá',
-      'Bairro dos Estados', 'Jaguaribe', 'Mandacaru', 'Roger', 'Padre Zé',
-      'Miramar', 'Tambauzinho', 'Jardim Oceania', 'Aeroclube', 'Castelo Branco', 
-      'Portal do Sol', 'José Américo', 'Cidade Universitária', 'Expedicionários'
-    ];
-
-    const CATEGORIES_LIST = [
-      { key: 'pizza', label: 'Pizzaria' },
-      { key: 'hamburguer', label: 'Hamburgueria' },
-      { key: 'sushi', label: 'Japonesa' },
-      { key: 'cafe', label: 'Cafeteria' },
-      { key: 'churrasco', label: 'Churrascaria' },
-      { key: 'sorvete', label: 'Açaí / Sorveteria' },
-      { key: 'saudavel', label: 'Saudável / Fit' }
-    ];
-
-    const REGIONS_LIST = [
-      { key: 'orla', label: 'Orla' },
-      { key: 'praia', label: 'Orla' },
-      { key: 'zona sul', label: 'Zona Sul' },
-      { key: 'centro', label: 'Centro / Norte' }
-    ];
-
-    // Find matches
-    const matchedCats = CATEGORIES_LIST.filter(c => c.key.includes(normalized) || c.label.toLowerCase().includes(normalized));
-    const matchedNeighs = NEIGHBORHOODS_LIST.filter(n => n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(normalized));
-    const matchedRegions = REGIONS_LIST.filter(r => r.key.includes(normalized) || r.label.toLowerCase().includes(normalized));
-
-    if (matchedCats.length > 0) {
-      const categoryName = matchedCats[0].label;
-      suggestionsList.push({
-        text: `ðŸ” Buscar por ${categoryName}`,
-        query: categoryName,
-        type: 'category'
-      });
-      // Add popular neighborhood combos for category
-      ['Tambaú', 'Cabo Branco', 'Bancários', 'Manaíra'].forEach(neigh => {
-        suggestionsList.push({
-          text: `ðŸ” ${categoryName} em ${neigh}`,
-          query: `${categoryName} em ${neigh}`,
-          type: 'combo'
-        });
-      });
-    }
-
-    if (matchedNeighs.length > 0) {
-      matchedNeighs.slice(0, 2).forEach(neighName => {
-        suggestionsList.push({
-          text: `ðŸ“ Ir para ${neighName}`,
-          query: neighName,
-          type: 'neighborhood'
-        });
-        // Add popular category combos
-        ['Pizzaria', 'Hamburgueria', 'Cafeteria', 'Açaí / Sorveteria'].forEach(cat => {
-          suggestionsList.push({
-            text: `ðŸ” ${cat} em ${neighName}`,
-            query: `${cat} em ${neighName}`,
-            type: 'combo'
-          });
-        });
-      });
-    }
-
-    if (matchedRegions.length > 0) {
-      const regionLabel = matchedRegions[0].label;
-      suggestionsList.push({
-        text: `ðŸ–ï¸ Restaurantes na ${regionLabel}`,
-        query: `Restaurantes na ${regionLabel}`,
-        type: 'combo'
-      });
-      suggestionsList.push({
-        text: `ðŸ” Hamburgueria na ${regionLabel}`,
-        query: `Hamburgueria na ${regionLabel}`,
-        type: 'combo'
-      });
-    }
-
-    // Parse to see if it's already a combo (NLP)
-    const parsed = parseSearchQuery(query);
-    if (parsed.category && parsed.neighborhood) {
-      suggestionsList.unshift({
-        text: `✨ Buscar ${parsed.category} em ${parsed.neighborhood}`,
-        query: `${parsed.category} em ${parsed.neighborhood}`,
-        type: 'combo'
-      });
-    } else if (parsed.cleanedQuery && parsed.neighborhood) {
-      suggestionsList.unshift({
-        text: `✨ Buscar "${parsed.cleanedQuery}" em ${parsed.neighborhood}`,
-        query: `${parsed.cleanedQuery} em ${parsed.neighborhood}`,
-        type: 'combo'
-      });
-    }
-
-    suggestionsList.push({
-      text: `ðŸ” Buscar por "${query}"`,
-      query: query,
-      type: 'general'
-    });
-
-    const seenText = new Set<string>();
-    return suggestionsList.filter(item => {
-      if (seenText.has(item.text)) return false;
-      seenText.add(item.text);
-      return true;
-    }).slice(0, 6);
   }, []);
-  
-  const handleItemClick = (itemId: string, type: SearchType) => {
-    if (type === 'restaurant') {
-      navigate(createPageUrl('restaurantProfile', { restaurantId: itemId }));
-    } else {
-      navigate(createPageUrl('menuItemDetails', { itemId: itemId }));
+
+  const submitSearch = useCallback(async (text: string) => {
+    const clean = text.trim();
+    if (!clean) return;
+
+    setSearchQuery(clean);
+    setIsSubmitted(true);
+    setRequestedLimit(PAGE_LIMIT);
+
+    const parsed = parseMenuSearchIntent(clean);
+    const intent: MenuSearchIntent = {
+      ...parsed,
+      location: parsed.location ?? menuLocation,
+    };
+    const next = await submitIntent(intent, { limit: PAGE_LIMIT });
+    if (next.intent) syncUrl(next.intent, activeSearchType, false);
+  }, [activeSearchType, menuLocation, submitIntent, syncUrl]);
+
+  const applyRefinement = useCallback(async (patch: MenuSearchIntentPatch) => {
+    if (!sessionSnapshotRef.current.intent) return;
+    setIsSubmitted(true);
+    setRequestedLimit(PAGE_LIMIT);
+    const next = await refine(patch);
+    if (next.intent) syncUrl(next.intent, activeSearchType);
+  }, [activeSearchType, refine, syncUrl]);
+
+  /** O drawer emite categoria, bairro e preço separadamente; agrupamos tudo
+   * no mesmo tick para executar uma única consulta canônica. */
+  const queueFilterRefinement = useCallback((patch: MenuSearchIntentPatch) => {
+    pendingFilterPatchRef.current = { ...pendingFilterPatchRef.current, ...patch };
+    if (pendingFilterTimerRef.current !== null) {
+      window.clearTimeout(pendingFilterTimerRef.current);
     }
-  };
-  
-  const handleSearchByPrice = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de preço.");
-      return;
-    }
-    setIsPriceModalOpen(true);
-  };
+    pendingFilterTimerRef.current = window.setTimeout(() => {
+      const combinedPatch = pendingFilterPatchRef.current;
+      pendingFilterPatchRef.current = {};
+      pendingFilterTimerRef.current = null;
+      void applyRefinement(combinedPatch);
+    }, 0);
+  }, [applyRefinement]);
 
-  const handleApplyPriceFilter = (min: number, max: number) => {
-    setMinPriceFilter(min);
-    setMaxPriceFilter(max);
-    showInfo(`Filtro de preço aplicado: R$${min.toFixed(2)} a R$${max.toFixed(2)}. Atualizando resultados.`);
-    setIsPriceModalOpen(false);
-    setPage(1); // Resetar a página ao aplicar filtro
-    setAccumulatedDishResults([]); // Clear accumulated results
-    setAccumulatedRestaurantResults([]); // Clear accumulated results
-    refetchDishes(); // Refetch with new price filter
-  };
+  const dishResults = useMemo(() => session.results.map(mapDishResult), [session.results]);
+  const restaurantResults = useMemo(() => groupRestaurants(session.results), [session.results]);
+  const displayedResults = activeSearchType === 'dish' ? dishResults : restaurantResults;
 
-  const handleSearchNearby = () => {
-    if (userLat === null || userLon === null) {
-      showError("Defina sua localização primeiro para usar o filtro de distância.");
-      return;
-    }
-    setIsDistanceModalOpen(true);
-  };
-  
-  const handleApplyDistanceFilter = (distance: number) => {
-    setMaxDistanceFilter(distance);
-    showInfo(`Filtro de distância aplicado: até ${distance} km. Atualizando resultados.`);
-    setIsDistanceModalOpen(false);
-    setPage(1); // Resetar a página ao aplicar filtro
-    setAccumulatedDishResults([]); // Clear accumulated results
-    setAccumulatedRestaurantResults([]); // Clear accumulated results
-    refetchRestaurants(); // Refetch with new distance filter
-  };
+  const dishCategoryOptions = useMemo(() => {
+    const options = new Map<string, { id: string; name: string }>();
+    session.results.forEach((result) => {
+      options.set(result.itemCategoryId, { id: result.itemCategoryId, name: result.itemCategoryName });
+    });
+    return [...options.values()];
+  }, [session.results]);
 
-  const handleApplyDishCategoryFilter = (newExcludedIds: string[]) => {
-    setExcludedDishCategoryIds(newExcludedIds);
-    showInfo(`Filtro de categorias de pratos aplicado. Atualizando resultados.`);
-    setPage(1); // Resetar a página ao aplicar filtro
-    setAccumulatedDishResults([]); // Clear accumulated results
-    setAccumulatedRestaurantResults([]); // Clear accumulated results
-    refetchDishes(); // Refetch with new category filter
-  };
+  const restaurantCategoryOptions = useMemo(() => {
+    const names = new Set(
+      session.results
+        .map((result) => result.restaurantCategory?.trim())
+        .filter((name): name is string => Boolean(name)),
+    );
+    return [...names].map((name) => ({ id: name, name }));
+  }, [session.results]);
 
-  const handleApplyRestaurantCategoryFilter = (newIncludedCategories: string[]) => {
-    setIncludedRestaurantCategories(newIncludedCategories);
-    showInfo(`Filtro de categorias de restaurantes aplicado. Atualizando resultados.`);
-    setPage(1); // Resetar a página ao aplicar filtro
-    setAccumulatedDishResults([]); // Clear accumulated results
-    setAccumulatedRestaurantResults([]); // Clear accumulated results
-    refetchRestaurants(); // Refetch with new category filter
-  };
+  const activeCategoryOptions = activeSearchType === 'dish'
+    ? dishCategoryOptions
+    : restaurantCategoryOptions;
 
-  const handleApplyPrice = (min: number | null, max: number | null) => {
-    setMinPriceFilter(min);
-    setMaxPriceFilter(max);
-    setPage(1);
-    setAccumulatedDishResults([]);
-    setAccumulatedRestaurantResults([]);
+  const selectedCategoryIds = useMemo(() => {
+    const selected = new Set((session.intent?.categories ?? []).map(normalizeText));
+    return activeCategoryOptions
+      .filter((category) => selected.has(normalizeText(category.name)))
+      .map((category) => category.id);
+  }, [activeCategoryOptions, session.intent?.categories]);
+
+  const minPriceFilter = session.intent?.priceMin ?? null;
+  const maxPriceFilter = session.intent?.priceMax ?? null;
+  const maxDistanceFilter = session.intent?.location?.radiusKm ?? null;
+  const selectedNeighborhoodFilter = session.intent?.location?.neighborhood ?? null;
+  const customDistance = maxDistanceFilter !== null && maxDistanceFilter !== (menuLocation?.radiusKm ?? null);
+  const hasActiveFilters = Boolean(
+    minPriceFilter !== null
+      || maxPriceFilter !== null
+      || selectedNeighborhoodFilter
+      || selectedCategoryIds.length > 0
+      || customDistance,
+  );
+  const resultsLoading = ACTIVE_REQUEST_STATUSES.has(session.status);
+
+  const handleApplyCategories = (ids: string[]) => {
+    const selectedNames = ids
+      .map((id) => activeCategoryOptions.find((category) => category.id === id)?.name)
+      .filter((name): name is string => Boolean(name));
+    queueFilterRefinement({ categories: selectedNames });
   };
 
   const handleApplyNeighborhood = (neighborhood: string | null) => {
-    setSelectedNeighborhoodFilter(neighborhood);
-    setPage(1);
-    setAccumulatedDishResults([]);
-    setAccumulatedRestaurantResults([]);
-  };
-
-  const toggleType = activeSearchType === 'dish' ? 'dishes' : 'restaurants';
-  const handleToggleChange = (type: 'dishes' | 'restaurants') => {
-    setActiveSearchType(type === 'dishes' ? 'dish' : 'restaurant');
-    // Resetar filtros e página ao trocar de aba
-    setMinPriceFilter(null);
-    setMaxPriceFilter(null);
-    setMaxDistanceFilter(null);
-    setSelectedNeighborhoodFilter(null);
-    setExcludedDishCategoryIds([]);
-    setIncludedRestaurantCategories([]);
-    setPage(1);
-    setAccumulatedDishResults([]); // Clear accumulated results
-    setAccumulatedRestaurantResults([]); // Clear accumulated results
-  };
-  
-  const handleBack = () => {
-    navigate(-1);
-  };
-
-  const allRestaurantCategories = useMemo(() => {
-    const categories = new Set<string>();
-    // Usar todos os resultados carregados para popular as categorias
-    accumulatedRestaurantResults?.forEach(r => { // Use accumulated results
-      if (r.category) {
-        categories.add(r.category);
-      }
+    const currentLocation = sessionSnapshotRef.current.intent?.location ?? null;
+    queueFilterRefinement({
+      location: neighborhood
+        ? blankNamedLocation(neighborhood, currentLocation)
+        : menuLocation,
     });
-    return Array.from(categories).map(cat => ({ id: cat, name: cat }));
-  }, [accumulatedRestaurantResults]); // Depend on accumulated results
+  };
 
-  const handleLoadMore = () => {
-    console.log('handleLoadMore called. Current page:', page, 'Next page:', page + 1);
-    setPage(prevPage => prevPage + 1);
+  const handleApplyPrice = (min: number | null, max: number | null) => {
+    queueFilterRefinement({ priceMin: min, priceMax: max });
+  };
+
+  const handleApplyPriceFilter = (min: number, max: number) => {
+    setIsPriceModalOpen(false);
+    showInfo(`Buscando itens publicados entre R$ ${min.toFixed(2)} e R$ ${max.toFixed(2)}.`);
+    void applyRefinement({ priceMin: min, priceMax: max });
+  };
+
+  const handleApplyDistanceFilter = (distance: number) => {
+    const currentLocation = sessionSnapshotRef.current.intent?.location ?? menuLocation;
+    if (!currentLocation || currentLocation.latitude === null || currentLocation.longitude === null) {
+      setIsDistanceModalOpen(false);
+      showError('Defina uma localização com coordenadas para aplicar o filtro de distância.');
+      setIsLocationModalOpen(true);
+      return;
+    }
+    setIsDistanceModalOpen(false);
+    showInfo(`Buscando no catálogo publicado em um raio de até ${distance} km.`);
+    void applyRefinement({ location: { ...currentLocation, radiusKm: distance } });
   };
 
   const handleClearFilters = () => {
-    setMinPriceFilter(null);
-    setMaxPriceFilter(null);
-    setMaxDistanceFilter(null);
-    setSelectedNeighborhoodFilter(null);
-    setExcludedDishCategoryIds([]);
-    setIncludedRestaurantCategories([]);
-    setPage(1);
-    setAccumulatedDishResults([]);
-    setAccumulatedRestaurantResults([]);
+    void applyRefinement({
+      priceMin: null,
+      priceMax: null,
+      categories: [],
+      restrictions: [],
+      excludedIngredients: [],
+      location: menuLocation,
+      sort: 'relevance',
+    });
   };
 
-  const hasActiveFilters = minPriceFilter !== null || maxPriceFilter !== null || maxDistanceFilter !== null || selectedNeighborhoodFilter !== null;
+  const handleToggleChange = (type: 'dishes' | 'restaurants') => {
+    const nextType: SearchType = type === 'dishes' ? 'dish' : 'restaurant';
+    setActiveSearchType(nextType);
+    if (session.intent) syncUrl(session.intent, nextType);
+  };
+
+  const handleLoadMore = async () => {
+    if (!session.intent) return;
+    setRequestedLimit(EXPANDED_LIMIT);
+    const next = await submitIntent(session.intent, { limit: EXPANDED_LIMIT, offset: 0 });
+    if (next.intent) syncUrl(next.intent, activeSearchType);
+  };
+
+  const handleRetry = () => {
+    if (session.intent) {
+      void submitIntent(session.intent, { limit: requestedLimit }).then((next) => {
+        if (next.intent) syncUrl(next.intent, activeSearchType);
+      });
+      return;
+    }
+    void submitSearch(searchQuery);
+  };
+
+  const handleItemClick = (itemId: string, type: SearchType) => {
+    navigate(type === 'restaurant'
+      ? createPageUrl('restaurantProfile', { restaurantId: itemId })
+      : createPageUrl('menuItemDetails', { itemId }));
+  };
+
+  const stateNeedsPanel = [
+    'checking_coverage',
+    'parsing',
+    'searching',
+    'rewriting',
+    'no_result',
+    'no_coverage',
+    'offline',
+    'error',
+  ].includes(session.status) && !(session.status === 'offline' && session.results.length > 0);
 
   const pageContent = (
     <div className="space-y-4 px-5 pb-5 pt-4">
-
-      {/* Filtros Rápidos — estilo pill compacto */}
-      <div className="flex flex-wrap gap-2">
-        <motion.button
-          whileTap={{ scale: 0.96 }}
-          onClick={handleSearchByPrice}
+      <div className="flex flex-wrap gap-2" aria-label="Filtros rápidos">
+        <button
+          type="button"
+          onClick={() => setIsPriceModalOpen(true)}
           className={cn(
-            'flex h-9 items-center gap-1.5 rounded-full border px-3.5 text-[13px] font-semibold transition-all duration-200',
+            'flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 text-[13px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight',
             minPriceFilter !== null || maxPriceFilter !== null
               ? 'border-highlight bg-highlight text-white shadow-sm'
-              : 'border-slate-100 bg-white text-text-secondary shadow-soft hover:border-highlight/30'
+              : 'border-slate-100 bg-white text-text-secondary shadow-soft hover:border-highlight/30',
           )}
         >
-          <DollarSign className="h-3.5 w-3.5" />
+          <DollarSign className="h-3.5 w-3.5" aria-hidden="true" />
           {minPriceFilter !== null || maxPriceFilter !== null
-            ? `R$${minPriceFilter || 0}–R$${maxPriceFilter || '∞'}`
+            ? `R$ ${minPriceFilter ?? 0}–R$ ${maxPriceFilter ?? '∞'}`
             : 'Preço'}
-        </motion.button>
+        </button>
 
-        <motion.button
-          whileTap={{ scale: 0.96 }}
-          onClick={handleSearchNearby}
+        <button
+          type="button"
+          onClick={() => {
+            const locationWithCoordinates = session.intent?.location ?? menuLocation;
+            if (!locationWithCoordinates
+              || locationWithCoordinates.latitude === null
+              || locationWithCoordinates.longitude === null) {
+              showError('Defina sua localização para filtrar por distância.');
+              setIsLocationModalOpen(true);
+              return;
+            }
+            setIsDistanceModalOpen(true);
+          }}
           className={cn(
-            'flex h-9 items-center gap-1.5 rounded-full border px-3.5 text-[13px] font-semibold transition-all duration-200',
+            'flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 text-[13px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight',
             maxDistanceFilter !== null
               ? 'border-highlight bg-highlight text-white shadow-sm'
-              : 'border-slate-100 bg-white text-text-secondary shadow-soft hover:border-highlight/30'
+              : 'border-slate-100 bg-white text-text-secondary shadow-soft hover:border-highlight/30',
           )}
         >
-          <Compass className="h-3.5 w-3.5" />
+          <Compass className="h-3.5 w-3.5" aria-hidden="true" />
           {maxDistanceFilter !== null ? `Até ${maxDistanceFilter} km` : 'Distância'}
-        </motion.button>
+        </button>
 
-        {selectedNeighborhoodFilter !== null && (
-          <div className="flex h-9 items-center gap-1.5 rounded-full border border-highlight bg-highlight px-3.5 text-[13px] font-semibold text-white shadow-sm">
-            <MapPin className="h-3.5 w-3.5" />
+        {selectedNeighborhoodFilter && (
+          <span className="flex min-h-11 items-center gap-1.5 rounded-full border border-highlight bg-highlight px-3.5 text-[13px] font-semibold text-white shadow-sm">
+            <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
             {selectedNeighborhoodFilter}
-          </div>
+          </span>
         )}
 
         {hasActiveFilters && (
-          <motion.button
-            whileTap={{ scale: 0.96 }}
+          <button
+            type="button"
             onClick={handleClearFilters}
-            className="flex h-9 items-center gap-1.5 rounded-full border border-highlight/15 bg-highlight/10 px-3.5 text-[13px] font-semibold text-highlight transition-all duration-200"
+            className="flex min-h-11 items-center gap-1.5 rounded-full border border-highlight/15 bg-highlight/10 px-3.5 text-[13px] font-semibold text-highlight transition-colors hover:bg-highlight/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight"
           >
-            ✕ Limpar
-          </motion.button>
+            Limpar filtros
+          </button>
         )}
       </div>
 
-      <SearchToggle activeType={toggleType} onToggle={handleToggleChange} />
+      {session.intent && (
+        <div className="rounded-[22px] border border-slate-100 bg-white p-3 shadow-soft">
+          <IntentSummary intent={session.intent} onPatch={(patch) => void applyRefinement(patch)} />
+        </div>
+      )}
 
-      <div className="flex items-center justify-between">
-        <h2 className="text-[18px] font-semibold tracking-tight text-[#3C2F2F]">
-          Resultados da busca
-        </h2>
-        {activeSearchType === 'dish' && (
-          <AdvancedFilterDrawer
-            selectedCategoryIds={excludedDishCategoryIds}
-            onApplyCategories={handleApplyDishCategoryFilter}
-            allCategories={allMenuCategories}
-            selectedNeighborhood={selectedNeighborhoodFilter}
-            onApplyNeighborhood={handleApplyNeighborhood}
-            minPrice={minPriceFilter}
-            maxPrice={maxPriceFilter}
-            onApplyPrice={handleApplyPrice}
-            filterMode="exclude"
-          />
-        )}
-        {activeSearchType === 'restaurant' && (
-          <AdvancedFilterDrawer
-            selectedCategoryIds={includedRestaurantCategories}
-            onApplyCategories={handleApplyRestaurantCategoryFilter}
-            allCategories={allRestaurantCategories}
-            selectedNeighborhood={selectedNeighborhoodFilter}
-            onApplyNeighborhood={handleApplyNeighborhood}
-            minPrice={minPriceFilter}
-            maxPrice={maxPriceFilter}
-            onApplyPrice={handleApplyPrice}
-            filterMode="include"
-          />
-        )}
+      <SearchToggle
+        activeType={activeSearchType === 'dish' ? 'dishes' : 'restaurants'}
+        onToggle={handleToggleChange}
+      />
+
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <h2 className="text-[18px] font-semibold tracking-tight text-[#3C2F2F]">
+            {activeSearchType === 'dish' ? 'Pratos encontrados' : 'Restaurantes encontrados'}
+          </h2>
+          {session.coverage?.regionLabel && (
+            <p className="mt-0.5 text-xs text-text-secondary">Cobertura: {session.coverage.regionLabel}</p>
+          )}
+        </div>
+        <AdvancedFilterDrawer
+          selectedCategoryIds={selectedCategoryIds}
+          onApplyCategories={handleApplyCategories}
+          allCategories={activeCategoryOptions}
+          selectedNeighborhood={selectedNeighborhoodFilter}
+          onApplyNeighborhood={handleApplyNeighborhood}
+          minPrice={minPriceFilter}
+          maxPrice={maxPriceFilter}
+          onApplyPrice={handleApplyPrice}
+          filterMode="include"
+        />
       </div>
 
-      <motion.div
-        key={activeSearchType}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="space-y-4"
-      >
-        <div className="space-y-3">
+      {session.status === 'partial' && (
+        <div role="status" className="rounded-[20px] border border-amber-200 bg-amber-50 p-3 text-sm leading-5 text-amber-950">
+          <strong>Resultado parcial.</strong>{' '}
+          {session.unappliedCriteria.length > 0
+            ? `Ainda não foi possível comprovar: ${session.unappliedCriteria.map((criterion) => criterionLabels[criterion]).join(', ')}.`
+            : 'A cobertura publicada nesta região ainda é limitada.'}
+        </div>
+      )}
+
+      {session.status === 'stale' && (
+        <div role="status" className="rounded-[20px] border border-slate-200 bg-slate-50 p-3 text-sm leading-5 text-slate-700">
+          <strong>Dados salvos.</strong> Não foi possível atualizar agora; confira a origem e a data antes de decidir.
+        </div>
+      )}
+
+      {session.status === 'offline' && session.results.length > 0 && (
+        <div role="status" className="rounded-[20px] border border-slate-200 bg-slate-50 p-3 text-sm leading-5 text-slate-700">
+          <strong>Sem conexão.</strong> Estes são dados salvos de uma consulta anterior e podem estar desatualizados.
+        </div>
+      )}
+
+      {stateNeedsPanel && (
+        <DiscoveryStatePanel
+          status={session.status}
+          error={session.error}
+          coverage={session.coverage}
+          onRetry={handleRetry}
+          onSetLocation={() => setIsLocationModalOpen(true)}
+        />
+      )}
+
+      {session.status === 'cancelled' && (
+        <div role="status" className="rounded-[24px] border border-slate-100 bg-white p-6 text-center shadow-soft">
+          <AlertCircle className="mx-auto h-6 w-6 text-text-secondary" aria-hidden="true" />
+          <h3 className="mt-3 text-base font-semibold text-[#3C2F2F]">A consulta foi interrompida</h3>
+          <Button type="button" variant="outline" onClick={handleRetry} className="mt-4 min-h-11 rounded-full">
+            Consultar novamente
+          </Button>
+        </div>
+      )}
+
+      {!stateNeedsPanel && session.status !== 'cancelled' && (
+        <div className="space-y-3" aria-live="polite">
           {resultsLoading && displayedResults.length === 0 ? (
             Array.from({ length: 3 }).map((_, index) => (
               <Skeleton key={index} className="h-24 w-full rounded-2xl" />
             ))
           ) : displayedResults.length > 0 ? (
             <>
+              <p className="sr-only">{displayedResults.length} resultados do catálogo publicado.</p>
               {displayedResults.map((item) => (
-                <SearchItemCard 
-                  key={item.id} 
-                  item={item} 
-                  onClick={handleItemClick}
-                />
+                <SearchItemCard key={`${item.type}:${item.id}`} item={item} onClick={handleItemClick} />
               ))}
-              {hasMore && (
+              {session.hasMore && requestedLimit < EXPANDED_LIMIT && (
                 <Button
-                  onClick={handleLoadMore}
+                  type="button"
+                  onClick={() => void handleLoadMore()}
                   variant="outline"
-                  className="mt-4 h-11 w-full rounded-2xl border-slate-200 text-xs font-semibold text-slate-700 shadow-none transition-all hover:bg-highlight/10"
-                  disabled={
-                    (activeSearchType === 'dish' && dishesLoading) ||
-                    (activeSearchType === 'restaurant' && restaurantsLoading)
-                  }
+                  className="mt-4 min-h-11 w-full rounded-2xl border-slate-200 text-xs font-semibold text-slate-700 shadow-none hover:bg-highlight/10"
+                  disabled={resultsLoading}
                 >
-                  {((activeSearchType === 'dish' && dishesLoading) ||
-                   (activeSearchType === 'restaurant' && restaurantsLoading)) ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : null}
-                  Ver Mais
+                  {resultsLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin motion-reduce:animate-none" /> : null}
+                  Ver mais resultados publicados
                 </Button>
               )}
             </>
           ) : (
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="flex flex-col items-center justify-center px-6 py-14 text-center"
-            >
-              {/* Ilustração emoji grande */}
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-slate-100 bg-white text-highlight shadow-soft">
-                <Search className="h-5 w-5" />
-              </div>
-              <h2 className="mb-2 text-[20px] font-semibold text-[#3C2F2F]">Não achamos nada</h2>
-              <p className="mb-6 text-[14px] font-normal leading-relaxed text-text-secondary">
-                Tente usar palavras diferentes ou remover os filtros aplicados.
+            <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
+              <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-slate-100 bg-white text-highlight shadow-soft">
+                <Search className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <h2 className="mb-2 text-[20px] font-semibold text-[#3C2F2F]">
+                Nenhum resultado publicado nesta visão
+              </h2>
+              <p className="mb-6 text-[14px] leading-relaxed text-text-secondary">
+                Tente editar a pergunta ou remover um critério. Não exibiremos opções de outra intenção sem avisar.
               </p>
               {hasActiveFilters && (
                 <button
+                  type="button"
                   onClick={handleClearFilters}
-                  className="h-11 rounded-[18px] bg-highlight px-7 text-[15px] font-semibold text-white shadow-none transition-transform active:scale-95"
+                  className="min-h-11 rounded-[18px] bg-highlight px-7 text-[15px] font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2"
                 >
                   Limpar filtros
                 </button>
               )}
-            </motion.div>
+            </div>
           )}
         </div>
-      </motion.div>
-      
+      )}
+
       <SearchByPriceModal
         isOpen={isPriceModalOpen}
         onClose={() => setIsPriceModalOpen(false)}
@@ -782,117 +766,90 @@ export default function SearchUnifiedPage() {
         onClose={() => setIsDistanceModalOpen(false)}
         onApplyFilter={handleApplyDistanceFilter}
       />
+      <UserLocationModal
+        isOpen={isLocationModalOpen}
+        onClose={() => setIsLocationModalOpen(false)}
+        currentAddress={location.address}
+        onLocationSaved={refetchLocation}
+      />
     </div>
   );
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSearch(e);
-  };
-
   const renderSuggestions = () => {
-    if (searchQuery === '') {
-      return (
-        <div className="space-y-6 px-5 pt-6">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-[#3C2F2F]">
-              <span className="text-[13px] font-semibold uppercase tracking-wide text-[#3C2F2F]/75">
-                Buscas recomendadas
-              </span>
-              <span className="rounded-full bg-highlight/10 px-2 py-0.5 text-[10px] font-semibold text-highlight">
-                Novo
-              </span>
-            </div>
-            <p className="text-[12px] font-normal leading-relaxed text-text-secondary">
-              Combine pratos, categorias e bairros de João Pessoa em uma única busca natural.
-            </p>
-            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {SUGGESTED_COMBOS.map((combo, idx) => (
-                <motion.button
-                  key={idx}
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleSuggestionClick(combo.query)}
-                  className="flex items-center justify-between rounded-[20px] border border-slate-100 bg-white p-4 text-left shadow-soft transition-all duration-300 hover:border-highlight/25"
-                >
-                  <span className="text-[14px] font-semibold text-[#3C2F2F]">{combo.text}</span>
-                  <ChevronRight className="h-4 w-4 text-text-secondary" />
-                </motion.button>
-              ))}
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    const autocompleteList = generateAutocompleteSuggestions(searchQuery);
-
-    if (autocompleteList.length === 0) return null;
-
+    const cleanQuery = searchQuery.trim();
     return (
-      <div className="space-y-3 px-5 pt-4">
-        <h3 className="pl-1 text-[12px] font-semibold uppercase tracking-wide text-text-secondary">
-          Sugestões de busca
-        </h3>
-        <div className="overflow-hidden rounded-[24px] border border-slate-100 bg-white shadow-soft">
-          {autocompleteList.map((item, idx) => (
-            <motion.button
-              key={idx}
-              whileTap={{ scale: 0.99 }}
-              onClick={() => handleSuggestionClick(item.query)}
-              className={cn(
-                "flex w-full items-center justify-between border-b border-slate-50 p-4 text-left transition-all duration-150 last:border-0 hover:bg-slate-50/80",
-                idx === 0 && "bg-highlight/5 hover:bg-highlight/10"
-              )}
-            >
-              <div className="flex items-center gap-3">
-                <div className={cn(
-                  "flex h-9 w-9 items-center justify-center rounded-full",
-                  item.type === 'neighborhood' ? "bg-highlight/10 text-highlight" :
-                  item.type === 'category' ? "bg-amber-50 text-amber-500" :
-                  item.type === 'combo' ? "bg-emerald-50 text-emerald-500" : "bg-slate-50 text-slate-400"
-                )}>
-                  {item.type === 'neighborhood' ? (
-                    <MapPin className="h-4 w-4" />
-                  ) : item.type === 'category' ? (
-                    <Pizza className="h-4 w-4" />
-                  ) : (
-                    <Search className="h-4 w-4" />
-                  )}
-                </div>
-                <div>
-                  <span className="text-[14px] font-semibold text-[#3C2F2F]">
-                    {item.text}
-                  </span>
-                </div>
-              </div>
-              <ChevronRight className="h-4 w-4 text-text-secondary" />
-            </motion.button>
-          ))}
-        </div>
+      <div className="space-y-6 px-5 pt-6">
+        {cleanQuery && (
+          <button
+            type="button"
+            onClick={() => void submitSearch(cleanQuery)}
+            className="flex min-h-14 w-full items-center justify-between rounded-[20px] border border-highlight/20 bg-white p-4 text-left shadow-soft transition-colors hover:bg-highlight/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight"
+          >
+            <span className="flex min-w-0 items-center gap-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-highlight/10 text-highlight">
+                <Search className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-text-secondary">Consultar cardápios</span>
+                <span className="block truncate text-[14px] font-semibold text-[#3C2F2F]">“{cleanQuery}”</span>
+              </span>
+            </span>
+            <ChevronRight className="h-4 w-4 shrink-0 text-text-secondary" aria-hidden="true" />
+          </button>
+        )}
+
+        <section aria-labelledby="suggested-searches-title">
+          <div className="flex items-center gap-2 text-[#3C2F2F]">
+            <SlidersHorizontal className="h-4 w-4 text-highlight" aria-hidden="true" />
+            <h2 id="suggested-searches-title" className="text-[13px] font-semibold uppercase tracking-wide">
+              Perguntas para experimentar
+            </h2>
+          </div>
+          <p className="mt-2 text-[12px] leading-relaxed text-text-secondary">
+            A consulta cruza apenas informações presentes nos cardápios publicados.
+          </p>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {SUGGESTED_SEARCHES.map((suggestion) => (
+              <button
+                key={suggestion}
+                type="button"
+                onClick={() => void submitSearch(suggestion)}
+                className="flex min-h-14 items-center justify-between rounded-[20px] border border-slate-100 bg-white p-4 text-left shadow-soft transition-colors hover:border-highlight/25 hover:bg-highlight/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight"
+              >
+                <span className="text-[14px] font-semibold text-[#3C2F2F]">{suggestion}</span>
+                <ChevronRight className="h-4 w-4 shrink-0 text-text-secondary" aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+        </section>
       </div>
     );
   };
 
   return (
-    <div className="flex flex-col w-full flex-grow bg-[#FAFAFA] font-['Poppins'] relative">
+    <div className="relative flex w-full flex-grow flex-col bg-[#FAFAFA] font-['Poppins']">
       <Header
         title="Buscar"
-        subtitle="Encontre pratos e restaurantes"
-        leftAction={{ icon: ArrowLeft, onClick: handleBack }}
+        subtitle="Consulte os cardápios publicados"
+        leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1), ariaLabel: 'Voltar' }}
       >
-        <div className="relative z-20">
-          <SoftSearchInput
-            placeholder={activeSearchType === 'dish' ? "Buscar por prato..." : "Buscar por restaurante..."}
-            value={searchQuery}
-            onChange={(e) => handleInputChange(e.target.value)}
-            onSubmitAction={handleSearchSubmit}
-          />
-        </div>
+        <SoftSearchInput
+          aria-label="Pergunte sobre pratos, preços ou restaurantes"
+          placeholder="Ex.: jantar para 2 até R$ 100"
+          value={searchQuery}
+          onChange={(event) => {
+            setSearchQuery(event.target.value);
+            setIsSubmitted(false);
+          }}
+          onSubmitAction={(event) => {
+            event.preventDefault();
+            void submitSearch(searchQuery);
+          }}
+        />
       </Header>
-      <div className="flex-grow w-full pb-8">
+      <main className="w-full flex-grow pb-8">
         {isSubmitted ? pageContent : renderSuggestions()}
-      </div>
+      </main>
     </div>
   );
 }

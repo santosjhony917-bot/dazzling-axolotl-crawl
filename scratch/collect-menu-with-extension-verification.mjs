@@ -54,13 +54,18 @@ function readEnv() {
   return env;
 }
 
-const env = readEnv();
+const fileEnv = readEnv();
+const env = { ...fileEnv, ...process.env };
+const supabaseUrl = env.SUPABASE_URL || env.VITE_SUPABASE_URL;
+const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY
+  || env.VITE_SUPABASE_SERVICE_ROLE_KEY
+  || env.SERVICE_ROLE_KEY;
+if (!supabaseUrl || !serviceRoleKey) {
+  throw new Error('collect-menu-with-extension-verification requer SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY. Use with-service-role.ps1.');
+}
 const supabase = createClient(
-  env.VITE_SUPABASE_URL || env.SUPABASE_URL,
-  env.SUPABASE_SERVICE_ROLE_KEY
-    || env.VITE_SUPABASE_SERVICE_ROLE_KEY
-    || env.SERVICE_ROLE_KEY
-    || env.VITE_SUPABASE_ANON_KEY,
+  supabaseUrl,
+  serviceRoleKey,
   { auth: { persistSession: false } },
 );
 
@@ -394,7 +399,9 @@ async function wakeExtension() {
         await new Promise((resolve) => setTimeout(resolve, 1200));
         return true;
       }, EXTENSION_ID);
-      if (!clicked) throw new Error(`Nao consegui recarregar a extensao ${EXTENSION_ID}.`);
+      if (!clicked) {
+        console.warn(`Nao consegui recarregar a extensao ${EXTENSION_ID}; seguindo com a instancia atual.`);
+      }
     } finally {
       await page.close().catch(() => {});
     }

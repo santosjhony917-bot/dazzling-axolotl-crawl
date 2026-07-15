@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { supabase } from '@/integrations/supabase/client';
 import { Restaurant } from '@/types/supabase';
+import { ALLOW_LOCAL_FIXTURES } from '@/lib/runtimeMode';
 
 const fetchRestaurant = async (id: string | undefined): Promise<Restaurant | null> => {
   if (!id) {
@@ -8,6 +9,7 @@ const fetchRestaurant = async (id: string | undefined): Promise<Restaurant | nul
   }
 
   if (id.startsWith('mock-')) {
+    if (!ALLOW_LOCAL_FIXTURES) return null;
     // Tenta carregar do localStorage mockSession
     try {
       const saved = localStorage.getItem('mockSession');

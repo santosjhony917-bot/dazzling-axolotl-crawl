@@ -49,6 +49,10 @@ const DIRECT_MENU_PLATFORMS = new Set([
   'instadelivery',
   'brendi',
   'olaclick',
+  'cardapiodigital',
+  'livemenu',
+  'menupick',
+  'fastydiggy',
   'diggy',
   'meucarrinho',
   'yooga',
@@ -98,7 +102,7 @@ function isGenericPlatformListing(candidate) {
   const host = hostOf(link);
   if (!link) return true;
   if (platform === 'instadelivery' && /^\/(cabedelo|joao-pessoa|campina-grande)?\/?$/.test(pathname)) return true;
-  if (platform === 'menudino' && /\/delivery\/[^/]+-[a-z]{2}\/?$/.test(pathname)) return true;
+  if (platform === 'menudino' && /\/delivery\/[^/]+-[a-z]{2}(?:\/[^/]+)?\/?$/.test(pathname)) return true;
   if (platform === 'deliverydireto' && pathname.split('/').filter(Boolean).length < 2) return true;
   if (platform === 'whatsmenu' && pathname.split('/').filter(Boolean).length < 1) return true;
   if (platform === 'cardapioweb' && !pathname.split('/').filter(Boolean).length && !host.includes('app.')) return true;

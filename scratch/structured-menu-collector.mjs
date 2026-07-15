@@ -4,6 +4,7 @@ import { spawn } from 'node:child_process';
 import vm from 'node:vm';
 import puppeteer from 'puppeteer';
 import { createClient } from '@supabase/supabase-js';
+import { extractGoomerSource } from '../scripts/ops/adapters/goomer-extractor.mjs';
 
 function loadPlatformAdapters() {
   const adapterPath = path.join(process.cwd(), 'public', 'chrome-extension', 'platform-adapters.js');
@@ -35,15 +36,18 @@ const hasFlag = (name) => args.includes(name);
 
 const RUN_ID = `${new Date().toISOString().replace(/[:.]/g, '-')}-${process.pid}`;
 const OUT_DIR = path.join('scratch', 'structured-menu-collection', RUN_ID);
-const PLATFORM = argValue('--platform', 'cardapioweb');
+const PLATFORM = argValue('--platform', '');
 const LIMIT = Math.max(1, Math.min(Number(argValue('--limit', '5')) || 5, 100));
 const QUEUE_FILE = argValue('--queue-file', '');
 const IDS_FILE = argValue('--ids-file', '');
 const ONLY_ID = argValue('--id', '');
 const APPLY = hasFlag('--apply');
+const COMMIT_REVIEWED_YELLOW = hasFlag('--commit-reviewed-yellow') || hasFlag('--commit-yellow');
 const CONCURRENCY = Math.max(1, Math.min(Number(argValue('--concurrency', '2')) || 2, 8));
 const TIMEOUT_MS = Math.max(30000, Math.min(Number(argValue('--timeout-ms', '90000')) || 90000, 240000));
 const KEEP_BROWSERBASE_SESSION = hasFlag('--keep-session');
+const GENERIC_BROWSER_FALLBACK = !hasFlag('--no-generic-browser-fallback');
+const GENERIC_MODAL_LIMIT = Math.max(0, Math.min(Number(argValue('--generic-modal-limit', '80')) || 80, 200));
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -124,6 +128,8 @@ function latestQueueFile() {
 function platformOf(url) {
   const lower = String(url || '').toLowerCase();
   if (lower.includes('ifood.com')) return 'ifood';
+  if (lower.includes('livemenu.app')) return 'livemenu';
+  if (lower.includes('menu-pick') || lower.includes('menupick')) return 'menupick';
   if (lower.includes('cardapioweb')) return 'cardapioweb';
   if (lower.includes('anota.ai')) return 'anota_ai';
   if (lower.includes('restaurantlogin.com') || lower.includes('saborvip') || lower.includes('pizzariabomsaborpb.com.br')) return 'restaurantlogin';
@@ -2619,6 +2625,41 @@ async function extractCardapioWebDetails(page, sourceUrl) {
   });
 }
 
+async function extractGoomerDetails(page, sourceUrl, sourceIdentity = {}) {
+  try {
+    await page.goto(sourceUrl, { waitUntil: 'domcontentloaded', timeout: TIMEOUT_MS });
+    await page.waitForNetworkIdle({ idleTime: 1200, timeout: TIMEOUT_MS }).catch(() => null);
+    await sleep(1200);
+    return await page.evaluate((fallback) => {
+      const clean = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+      return {
+        url: location.href,
+        title: document.title || fallback.name || 'Goomer',
+        bodyTextSample: clean(document.body?.innerText || '').slice(0, 8000),
+        goomerStore: {
+          name: fallback.name || null,
+          slug: fallback.slug || null,
+          store_id: fallback.store_id || null,
+          menu_url: fallback.menu_url || null,
+        },
+        metrics: {
+          scrollHeight: document.documentElement?.scrollHeight || document.body?.scrollHeight || 0,
+          bodyLength: document.body?.innerHTML?.length || 0,
+          imageCount: document.images?.length || 0,
+        },
+      };
+    }, sourceIdentity || {});
+  } catch (error) {
+    return {
+      url: sourceUrl,
+      title: sourceIdentity.name || 'Goomer',
+      bodyTextSample: '',
+      goomerStore: sourceIdentity || {},
+      metrics: { pageError: error.message || String(error) },
+    };
+  }
+}
+
 async function extractAnotaAiNetworkMenu(page, sourceUrl, targetDir) {
   const networkEntries = [];
   page.on('response', async (response) => {
@@ -2733,6 +2774,428 @@ function summarizeCategories(categories = []) {
   return { categoryCount: categories.length, itemCount, optionCount, operationalCategoryCount, operationalItemCount, operationalOptionCount, samples };
 }
 
+function parseVisiblePrice(value) {
+  const text = clean(value);
+  const match = text.match(/R\$\s*([0-9]{1,4}(?:[.,][0-9]{2})?)/i);
+  if (!match) return null;
+  const parsed = Number(match[1].replace(/\./g, '').replace(',', '.'));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function normalizeBrowserVisibleCategories(rawCategories, sourceUrl, itemDetailsByClickIndex = new Map()) {
+  const seen = new Set();
+  const categories = [];
+  for (const rawCategory of rawCategories || []) {
+    const categoryName = clean(rawCategory?.name || 'Cardapio');
+    const items = [];
+    for (const rawItem of rawCategory?.items || []) {
+      const name = clean(rawItem?.name);
+      const price = money(rawItem?.price ?? parseVisiblePrice(rawItem?.priceText));
+      const modalDetail = itemDetailsByClickIndex.get(Number(rawItem?.clickIndex));
+      const dedupeKey = normalize(`${categoryName}|${name}|${price ?? ''}`);
+      if (!name || seen.has(dedupeKey)) continue;
+      seen.add(dedupeKey);
+      items.push({
+        external_id: rawItem.external_id || null,
+        name,
+        description: clean(rawItem.description),
+        image_url: rawItem.image_url || null,
+        price,
+        price_min: price,
+        price_max: price,
+        price_type: price != null ? 'fixed' : 'unknown',
+        price_source: price != null ? 'browser_visible_dom.price_text' : null,
+        options: [],
+        source_url: sourceUrl,
+        raw_data: {
+          ...rawItem,
+          browser_click_detail: modalDetail ? {
+            captured: true,
+            priceLines: modalDetail.priceLines || [],
+            textSample: clean(modalDetail.text || modalDetail.newText || '').slice(0, 8000),
+            hasHtml: Boolean(modalDetail.html),
+          } : { captured: false },
+        },
+        extraction_confidence: price != null ? 0.72 : 0.45,
+        needs_review: true,
+        order_index: Number(rawItem.order_index || items.length),
+      });
+    }
+    if (items.length) {
+      categories.push({
+        external_id: rawCategory.external_id || null,
+        name: categoryName,
+        order_index: Number(rawCategory.order_index || categories.length),
+        items,
+      });
+    }
+  }
+  return categories;
+}
+
+function normalizeOlaClickCategories(payload, sourceUrl) {
+  const categories = [];
+  const rawCategories = Array.isArray(payload?.data) ? payload.data : [];
+  for (const category of rawCategories) {
+    if (category.visible === false) continue;
+    if (looksLikeOperationalMenuEntity(category.name)) continue;
+    const items = [];
+    for (const product of category.products || []) {
+      if (product.visible === false) continue;
+      if (looksLikeOperationalMenuItem(product)) continue;
+      const variants = Array.isArray(product.product_variants) ? product.product_variants : [];
+      const variantPrices = variants
+        .map((variant) => money(variant.price ?? variant.original_price))
+        .filter((value) => value != null && value > 0);
+      const directPrice = variantPrices.length ? Math.min(...variantPrices) : null;
+      const options = [];
+      for (const group of product.modifier_categories || []) {
+        if (group.is_active === false || looksLikeOperationalMenuEntity(group.name)) continue;
+        const modifiers = Array.isArray(group.modifiers) ? group.modifiers : [];
+        const rule = {
+          min_quantity: Number(group.min_modifiers ?? 0) || 0,
+          max_quantity: Number(group.max_modifiers ?? modifiers.length) || modifiers.length,
+          is_required: Boolean(group.required) || Number(group.min_modifiers ?? 0) > 0,
+        };
+        modifiers.forEach((modifier, optionIndex) => {
+          if (modifier.visible === false) return;
+          if (looksLikeOperationalMenuEntity(modifier.name)) return;
+          const optionPrice = money(modifier.price ?? modifier.original_price);
+          const included = optionPrice == null || optionPrice === 0;
+          options.push({
+            external_id: clean(modifier.id) || null,
+            group_name: clean(group.name || 'Opcoes'),
+            name: clean(modifier.name),
+            description: clean(modifier.description),
+            image_url: modifier.image_url || null,
+            price: included ? null : optionPrice,
+            price_delta: included ? null : optionPrice,
+            price_behavior: included ? 'included' : 'price_delta',
+            min_quantity: rule.min_quantity,
+            max_quantity: rule.max_quantity,
+            is_required: rule.is_required,
+            order_index: Number(modifier.position ?? optionIndex),
+            raw_data: modifier,
+          });
+        });
+      }
+      const optionPrices = options.map((option) => money(option.price_delta)).filter((value) => value != null && value > 0);
+      const allPrices = [directPrice, ...optionPrices].filter((value) => value != null && value > 0);
+      items.push({
+        external_id: clean(product.id) || null,
+        name: clean(product.name),
+        description: clean(product.description),
+        image_url: product.images?.[0]?.image_url || null,
+        price: directPrice,
+        price_min: directPrice,
+        price_max: directPrice != null && optionPrices.length ? directPrice + Math.max(...optionPrices) : directPrice,
+        price_type: directPrice != null ? 'fixed' : optionPrices.length ? 'option_only' : 'unknown',
+        price_source: directPrice != null ? 'olaclick.product_variants.price' : optionPrices.length ? 'olaclick.modifiers.price' : null,
+        options,
+        source_url: sourceUrl,
+        raw_data: product,
+        extraction_confidence: allPrices.length ? 0.94 : 0.72,
+        needs_review: !allPrices.length,
+        order_index: Number(product.position ?? items.length),
+      });
+    }
+    if (items.length) {
+      categories.push({
+        external_id: clean(category.id) || null,
+        name: clean(category.name || 'Cardapio'),
+        order_index: Number(category.position ?? categories.length),
+        items,
+      });
+    }
+  }
+  return categories;
+}
+
+function categoriesFromGenericNetworkEntries(networkEntries, sourceUrl) {
+  for (const entry of networkEntries || []) {
+    const url = String(entry.url || '');
+    if (/api\.olaclick\.app\/ms-products\/public\/companies\/[^/]+\/categories/i.test(url) && entry.jsonBody) {
+      const categories = normalizeOlaClickCategories(entry.jsonBody, sourceUrl);
+      if (categories.length) {
+        return {
+          categories,
+          endpoint: url,
+          evidencePlatform: 'olaclick_network_api',
+          stats: summarizeCategories(categories),
+        };
+      }
+    }
+  }
+  return null;
+}
+
+async function captureBrowserVisibleMenu(page, target, targetDir) {
+  const networkEntries = [];
+  page.on('response', async (response) => {
+    const url = response.url();
+    if (!/(menu|cardap|catalog|product|categoria|category|item|option|complement|addon|store|restaurant|loja|pedido)/i.test(url)) return;
+    const contentType = response.headers()['content-type'] || '';
+    if (!/json|text|javascript/i.test(contentType)) return;
+    const entry = {
+      url,
+      status: response.status(),
+      contentType,
+      method: response.request().method(),
+      capturedAt: new Date().toISOString(),
+      textSample: '',
+      jsonKeys: null,
+      error: null,
+    };
+    try {
+      const text = await response.text();
+      entry.textLength = text.length;
+      entry.textSample = text.slice(0, 12000);
+      if (/json/i.test(contentType)) {
+        const parsed = JSON.parse(text);
+        entry.jsonKeys = Array.isArray(parsed) ? ['array', parsed.length] : Object.keys(parsed || {}).slice(0, 40);
+        entry.jsonBody = parsed;
+      }
+    } catch (error) {
+      entry.error = error.message || String(error);
+    }
+    networkEntries.push(entry);
+  });
+
+  await page.goto(target.sourceUrl, { waitUntil: 'domcontentloaded', timeout: TIMEOUT_MS });
+  await page.waitForNetworkIdle({ idleTime: 1400, timeout: TIMEOUT_MS }).catch(() => null);
+  await sleep(1200);
+
+  const initialScreenshotPath = path.join(targetDir, 'generic-browser-initial.jpg');
+  await page.screenshot({ path: initialScreenshotPath, type: 'jpeg', quality: 78, fullPage: true }).catch(() => null);
+
+  const snapshot = await page.evaluate(() => {
+    const cleanValue = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+    const isVisible = (element) => {
+      const rect = element.getBoundingClientRect();
+      const style = window.getComputedStyle(element);
+      return rect.width > 2 && rect.height > 2 && style.visibility !== 'hidden' && style.display !== 'none' && Number(style.opacity || 1) > 0;
+    };
+    const priceRe = /R\$\s*[0-9]{1,4}(?:[.,][0-9]{2})?/i;
+    const all = [...document.querySelectorAll('body *')].filter(isVisible);
+    const headingCandidates = all
+      .filter((element) => /^(H1|H2|H3|H4|H5|BUTTON|A|ION-SEGMENT-BUTTON|ION-TAB-BUTTON)$/.test(element.tagName) || /tab|category|categoria|menu/i.test(element.getAttribute('role') || element.className || ''))
+      .map((element, index) => ({
+        index,
+        text: cleanValue(element.innerText || element.textContent || '').slice(0, 100),
+        top: element.getBoundingClientRect().top + window.scrollY,
+      }))
+      .filter((entry) => entry.text && entry.text.length <= 80 && !priceRe.test(entry.text));
+    const categoryForTop = (top) => {
+      let best = null;
+      for (const heading of headingCandidates) {
+        if (heading.top <= top + 4 && (!best || heading.top > best.top)) best = heading;
+      }
+      return best?.text || 'Cardapio';
+    };
+    const itemCards = [];
+    const seen = new Set();
+    for (const element of all) {
+      const text = cleanValue(element.innerText || element.textContent || '');
+      if (!priceRe.test(text) || text.length < 5 || text.length > 1800) continue;
+      let card = element;
+      for (let depth = 0; depth < 5 && card.parentElement; depth += 1) {
+        const parentText = cleanValue(card.parentElement.innerText || card.parentElement.textContent || '');
+        if (priceRe.test(parentText) && parentText.length <= 1600) card = card.parentElement;
+      }
+      const cardText = cleanValue(card.innerText || card.textContent || '');
+      const rect = card.getBoundingClientRect();
+      const key = `${Math.round(rect.top + window.scrollY)}|${cardText.slice(0, 120)}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const lines = cardText.split(/\n+/).map(cleanValue).filter(Boolean);
+      const priceLineIndex = lines.findIndex((line) => priceRe.test(line));
+      const nameLine = lines.slice(0, priceLineIndex >= 0 ? priceLineIndex : 2)
+        .find((line) => line && !priceRe.test(line) && line.length <= 120)
+        || lines.find((line) => line && !priceRe.test(line) && line.length <= 120)
+        || '';
+      const description = lines
+        .filter((line) => line !== nameLine && !priceRe.test(line) && line.length > 2)
+        .slice(0, 4)
+        .join(' ');
+      const image = card.querySelector('img');
+      const clickable = card.closest('button,a,[role="button"],ion-card,.card,[class*="item"],[class*="product"],[class*="produto"]') || card;
+      const clickIndex = itemCards.length;
+      clickable.setAttribute('data-ff-generic-click-index', String(clickIndex));
+      itemCards.push({
+        clickIndex,
+        category: categoryForTop(rect.top + window.scrollY),
+        name: nameLine,
+        description,
+        priceText: (cardText.match(priceRe) || [''])[0],
+        image_url: image?.currentSrc || image?.src || null,
+        text: cardText.slice(0, 1800),
+        top: Math.round(rect.top + window.scrollY),
+      });
+    }
+    const byCategory = new Map();
+    for (const item of itemCards) {
+      const categoryName = item.category || 'Cardapio';
+      if (!byCategory.has(categoryName)) byCategory.set(categoryName, []);
+      byCategory.get(categoryName).push(item);
+    }
+    const deliveryDiretoCategories = [...document.querySelectorAll('.js-products-section')].map((section, order_index) => {
+      const head = section.querySelector('.js-products-section-head [data-name], .js-products-section-head .title');
+      const name = cleanValue(head?.getAttribute('data-name') || head?.innerText || '');
+      const items = [...section.querySelectorAll('li.js-items-list-item')].map((item, itemIndex) => {
+        const title = cleanValue(item.querySelector('.item__left-side .title')?.innerText || '');
+        const description = cleanValue(item.querySelector('.item__left-side .description')?.innerText || '');
+        const priceText = cleanValue(item.querySelector('.price-value')?.innerText || '');
+        const image = item.querySelector('img');
+        return {
+          external_id: item.getAttribute('data-id') || null,
+          name: title,
+          description,
+          priceText,
+          image_url: image?.currentSrc || image?.getAttribute('data-src') || image?.src || null,
+          status: item.getAttribute('data-status') || 'ACTIVE',
+          order_index: itemIndex,
+        };
+      }).filter((item) => item.name && item.status !== 'OUT_OF_STOCK');
+      return { external_id: section.getAttribute('data-category_id') || null, name, order_index, items };
+    }).filter((category) => category.name && category.items.length);
+    return {
+      url: location.href,
+      title: document.title,
+      bodyTextSample: cleanValue(document.body?.innerText || '').slice(0, 20000),
+      html: document.documentElement?.outerHTML || '',
+      metrics: {
+        scrollHeight: document.documentElement?.scrollHeight || document.body?.scrollHeight || 0,
+        bodyLength: document.body?.innerHTML?.length || 0,
+        imageCount: document.images?.length || 0,
+        visibleItemCount: itemCards.length,
+      },
+      deliveryDiretoCategories,
+      rawCategories: [...byCategory.entries()].map(([name, items], order_index) => ({ name, order_index, items })),
+      itemCards,
+    };
+  });
+
+  fs.writeFileSync(path.join(targetDir, 'generic-browser-page.html'), snapshot.html, 'utf8');
+  if (target.platform === 'deliverydireto' && !snapshot.deliveryDiretoCategories?.length) {
+    try {
+      const ldJson = [...snapshot.html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+        .map((match) => JSON.parse(match[1].trim()))
+        .find((payload) => payload?.['@type'] === 'Restaurant' && Array.isArray(payload.owns));
+      const items = (ldJson?.owns || []).map((product, order_index) => ({
+        external_id: null,
+        name: clean(product.name),
+        description: clean(product.description),
+        priceText: product.offers?.price != null ? `R$ ${String(product.offers.price).replace('.', ',')}` : '',
+        image_url: product.image || null,
+        status: /OutOfStock/i.test(product.offers?.availability || '') ? 'OUT_OF_STOCK' : 'ACTIVE',
+        order_index,
+      })).filter((item) => item.name && item.status !== 'OUT_OF_STOCK');
+      if (items.length) snapshot.deliveryDiretoCategories = [{ external_id: null, name: 'DeliveryDireto', order_index: 0, items }];
+    } catch (error) {
+      snapshot.deliveryDiretoSchemaError = error.message || String(error);
+    }
+  }
+  fs.writeFileSync(path.join(targetDir, 'generic-browser-visible-items.json'), JSON.stringify({
+    url: snapshot.url,
+    title: snapshot.title,
+    metrics: snapshot.metrics,
+    deliveryDiretoCategories: snapshot.deliveryDiretoCategories || [],
+    rawCategories: snapshot.rawCategories,
+  }, null, 2), 'utf8');
+
+  const modalDetails = [];
+  const limit = Math.min(GENERIC_MODAL_LIMIT, snapshot.itemCards.length);
+  for (let index = 0; index < limit; index += 1) {
+    const before = await page.evaluate(() => document.body?.innerText || '');
+    const clicked = await page.evaluate((clickIndex) => {
+      const element = document.querySelector(`[data-ff-generic-click-index="${clickIndex}"]`);
+      if (!element) return false;
+      element.scrollIntoView({ block: 'center', inline: 'center' });
+      element.click();
+      return true;
+    }, index).catch(() => false);
+    if (!clicked) continue;
+    await sleep(650);
+    const detail = await page.evaluate((clickIndex, previousText) => {
+      const cleanValue = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+      const priceRe = /R\$\s*[0-9]{1,4}(?:[.,][0-9]{2})?/i;
+      const candidates = [
+        ...document.querySelectorAll('[role="dialog"], ion-modal, .modal, [class*="modal"], [class*="drawer"], [class*="bottom-sheet"], [class*="product-detail"], [class*="produto"]'),
+      ];
+      const visible = candidates
+        .map((element) => {
+          const rect = element.getBoundingClientRect();
+          const style = window.getComputedStyle(element);
+          const text = cleanValue(element.innerText || element.textContent || '');
+          return { element, rect, style, text };
+        })
+        .filter((entry) => entry.rect.width > 20 && entry.rect.height > 20 && entry.style.display !== 'none' && entry.style.visibility !== 'hidden' && entry.text.length > 20)
+        .sort((a, b) => b.text.length - a.text.length);
+      const selected = visible[0]?.element || document.body;
+      const text = cleanValue(selected.innerText || selected.textContent || '');
+      const newText = cleanValue(String(document.body?.innerText || '').replace(previousText, ''));
+      const html = selected === document.body ? '' : selected.outerHTML;
+      const lines = text.split(/\n+/).map(cleanValue).filter(Boolean);
+      const priceLines = lines.filter((line) => priceRe.test(line)).slice(0, 80);
+      return {
+        clickIndex,
+        url: location.href,
+        text: text.slice(0, 12000),
+        newText: newText.slice(0, 12000),
+        html: html.slice(0, 200000),
+        priceLines,
+      };
+    }, index, before).catch((error) => ({ clickIndex: index, error: error.message || String(error) }));
+    modalDetails.push(detail);
+    if (detail?.html || detail?.text) {
+      fs.writeFileSync(path.join(targetDir, `generic-item-${String(index + 1).padStart(3, '0')}.json`), JSON.stringify(detail, null, 2), 'utf8');
+    }
+    await page.keyboard.press('Escape').catch(() => null);
+    await sleep(150);
+  }
+  fs.writeFileSync(path.join(targetDir, 'generic-browser-item-details.json'), JSON.stringify(modalDetails, null, 2), 'utf8');
+  fs.writeFileSync(path.join(targetDir, 'generic-browser-network.json'), JSON.stringify(networkEntries, null, 2), 'utf8');
+
+  const networkMenu = categoriesFromGenericNetworkEntries(networkEntries, snapshot.url || target.sourceUrl);
+  const itemDetailsByClickIndex = new Map(modalDetails.map((detail) => [Number(detail.clickIndex), detail]));
+  const categories = networkMenu?.categories || normalizeBrowserVisibleCategories(
+    snapshot.deliveryDiretoCategories?.length ? snapshot.deliveryDiretoCategories : snapshot.rawCategories,
+    snapshot.url || target.sourceUrl,
+    itemDetailsByClickIndex,
+  );
+  const details = {
+    url: snapshot.url || target.sourceUrl,
+    title: snapshot.title || target.restaurantName,
+    companySlug: new URL(snapshot.url || target.sourceUrl).hostname,
+    bodyTextSample: snapshot.bodyTextSample,
+    metrics: {
+      ...snapshot.metrics,
+      genericModalDetailsCaptured: modalDetails.length,
+      networkEntryCount: networkEntries.length,
+      networkMenuEndpoint: networkMenu?.endpoint || null,
+    },
+    browserVisibleStore: {
+      name: snapshot.title || target.restaurantName,
+      phone: target.phone || null,
+      formattedAddress: target.address || null,
+      address: {
+        address: target.address || null,
+        city: target.city || null,
+        state: target.state || null,
+      },
+    },
+  };
+  return {
+    details,
+    categories,
+    stats: networkMenu?.stats || summarizeCategories(categories),
+    endpoint: networkMenu?.endpoint || 'browser_visible_dom_plus_click_details',
+    itemDetailCount: modalDetails.length,
+    networkEntryCount: networkEntries.length,
+    initialScreenshotPath,
+  };
+}
+
 function digits(value) {
   return String(value || '').replace(/\D+/g, '');
 }
@@ -2744,22 +3207,84 @@ function significantTokens(value) {
     .filter((token) => token.length >= 3 && !stopwords.has(token));
 }
 
+function editDistanceWithin(left, right, maxDistance = 1) {
+  if (left === right) return true;
+  if (Math.abs(left.length - right.length) > maxDistance) return false;
+  let previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+  for (let i = 1; i <= left.length; i += 1) {
+    const current = [i];
+    let rowMin = current[0];
+    for (let j = 1; j <= right.length; j += 1) {
+      const cost = left[i - 1] === right[j - 1] ? 0 : 1;
+      const value = Math.min(
+        previous[j] + 1,
+        current[j - 1] + 1,
+        previous[j - 1] + cost,
+      );
+      current[j] = value;
+      rowMin = Math.min(rowMin, value);
+    }
+    if (rowMin > maxDistance) return false;
+    previous = current;
+  }
+  return previous[right.length] <= maxDistance;
+}
+
 function hasTokenEvidence(haystack, value, minHits = 2) {
   const tokens = significantTokens(value);
   if (!tokens.length) return false;
-  const hits = tokens.filter((token) => haystack.includes(token)).length;
+  const haystackTokens = haystack.split(/[^a-z0-9]+/).filter((token) => token.length >= 3);
+  const hits = tokens.filter((token) => {
+    if (haystack.includes(token)) return true;
+    if (token.length < 5) return false;
+    return haystackTokens.some((candidate) => candidate.length >= 5 && editDistanceWithin(token, candidate, 2));
+  }).length;
   return hits >= Math.min(minHits, tokens.length);
 }
 
+function sourceStoreIdentityText(details) {
+  const stores = [
+    details?.yoogaStore,
+    details?.whatsMenuStore,
+    details?.brendiStore,
+    details?.cardapioDigitalStore,
+    details?.instaDeliveryStore,
+    details?.meuCarrinhoStore,
+    details?.restaurantLoginStore,
+    details?.browserVisibleStore,
+  ].filter(Boolean);
+
+  return stores.map((store) => {
+    const address = store.address || {};
+    return [
+      store.name,
+      store.phone,
+      store.formattedAddress,
+      store.addressText,
+      address.address,
+      address.street,
+      address.number,
+      address.neighbourhood,
+      address.neighborhood,
+      address.city,
+      address.state,
+      store.city,
+      store.state,
+    ].filter(Boolean).join(' ');
+  }).join(' ');
+}
+
 function sourceIdentityEvidence(details, target) {
+  const sourceStoreText = sourceStoreIdentityText(details);
   const haystack = normalize([
     details?.title,
     details?.url,
     details?.companySlug,
     details?.bodyTextSample,
+    sourceStoreText,
   ].filter(Boolean).join(' '));
-  const bodyOnly = normalize(details?.bodyTextSample || '');
-  const pageDigits = digits(details?.bodyTextSample || '');
+  const bodyOnly = normalize(`${details?.bodyTextSample || ''} ${sourceStoreText}`);
+  const pageDigits = digits(`${details?.bodyTextSample || ''} ${sourceStoreText}`);
   const phoneDigits = digits(target.phone || '');
   const address = clean(target.address || '');
   const addressNumber = (address.match(/\b\d{1,6}\b/) || [])[0] || '';
@@ -2814,6 +3339,45 @@ function sourceIdentityForTarget(details, target) {
       bioLinkTrustReason: 'Link veio da bio do Instagram ja validado e a pagina confirma nome, endereco ou cidade/UF do restaurante.',
     };
   }
+  const sourceFlags = Array.isArray(target.queueEntry?.source_flags) ? target.queueEntry.source_flags : [];
+  const sourceText = normalize([
+    target.queueEntry?.source_title,
+    target.queueEntry?.source_snippet,
+    target.queueEntry?.source_url,
+  ].filter(Boolean).join(' '));
+  const dataForSeoDirectTrust = target.queueEntry?.discovery_status === 'dataforseo_menu_source_found'
+    && target.queueEntry?.queue_reason === 'strict_direct_menu_source'
+    && target.queueEntry?.tier === 'green'
+    && sourceFlags.length === 0
+    && (
+      hasTokenEvidence(sourceText, target.restaurantName, 2)
+      || (target.city && sourceText.includes(normalize(target.city)))
+      || (target.state && new RegExp(`\\b${normalize(target.state)}\\b`).test(sourceText))
+    );
+  if (!identity.confirmed && dataForSeoDirectTrust && (identity.pageHasName || identity.urlHasName || hasTokenEvidence(sourceText, target.restaurantName, 2))) {
+    return {
+      ...identity,
+      confirmed: true,
+      dataForSeoDirectTrust: true,
+      dataForSeoDirectTrustReason: 'Fonte direta verde do DataForSEO sem flags; titulo/snippet/URL confirma nome ou localidade, e a pagina confirma nome/URL do restaurante.',
+    };
+  }
+  const manualQueueTrust = target.queueEntry?.queue_reason === 'manual_identity_confirmed_menu_source'
+    && target.queueEntry?.tier === 'green'
+    && sourceFlags.length === 0
+    && (
+      hasTokenEvidence(sourceText, target.restaurantName, 2)
+      || (target.city && sourceText.includes(normalize(target.city)))
+      || (target.state && new RegExp(`\\b${normalize(target.state)}\\b`).test(sourceText))
+    );
+  if (!identity.confirmed && manualQueueTrust && (identity.pageHasName || identity.urlHasName || identity.pageHasCity || identity.pageHasState)) {
+    return {
+      ...identity,
+      confirmed: true,
+      manualQueueTrust: true,
+      manualQueueTrustReason: 'Fila manual verde sem flags; titulo/snippet/URL confirma nome ou localidade, e a pagina confirma nome, URL ou cidade/UF.',
+    };
+  }
   return identity;
 }
 
@@ -2839,6 +3403,83 @@ function runImporter(restaurantId, evidencePath, dryRun = true) {
       resolve({ code, result, stdoutTail: stdout.slice(-4000), stderrTail: stderr.slice(-4000) });
     });
   });
+}
+
+async function extractLiveMenuNativeMenu(page, sourceUrl, targetDir) {
+  const parsed = new URL(sourceUrl);
+  const venueId = parsed.pathname.split('/').filter(Boolean).pop();
+  if (!/^[a-f0-9]{24}$/i.test(venueId || '')) throw new Error('ID LiveMenu invalido.');
+  const endpoint = `https://customers.tagme.com.br/dine-in/menu/${venueId}/Dine-in?ignoreDisabled=1`;
+  const response = await fetch(endpoint);
+  const responseText = await response.text();
+  let payload;
+  try { payload = JSON.parse(responseText); } catch { throw new Error(`LiveMenu API retornou nao JSON: ${responseText.slice(0, 200)}`); }
+  if (!response.ok) throw new Error(`LiveMenu API HTTP ${response.status}`);
+  const translated = (value) => clean(typeof value === 'object' ? (value?.pt || value?.en || Object.values(value || {})[0] || '') : value);
+  const categories = [];
+  const walk = (node, ancestors = []) => {
+    const nodeName = translated(node?.name) || 'Cardapio';
+    const categoryName = [...ancestors, nodeName].filter(Boolean).join(' / ');
+    const items = (node?.menuItems || []).map((item, index) => {
+      const directPrice = money(item?.promoPriceEnabled && Number(item?.promoPrice) > 0 ? item.promoPrice : item?.price);
+      const options = (item?.options || []).flatMap((option, optionIndex) => [{
+        external_id: option?._id || option?.id || null,
+        group_name: translated(option?.groupName || option?.group) || 'Opcoes',
+        name: translated(option?.name || option?.descript) || `Opcao ${optionIndex + 1}`,
+        price: money(option?.price),
+        price_delta: option?.relativePrice ? money(option?.price) : null,
+        is_required: false,
+        raw_data: option,
+      }, ...(option?.sons || option?.subitems || []).map((child) => ({
+        external_id: child?._id || child?.id || null,
+        group_name: translated(option?.name) || 'Opcoes',
+        name: translated(child?.name),
+        price: money(child?.price),
+        price_delta: child?.relativePrice ? money(child?.price) : null,
+        is_required: false,
+        raw_data: child,
+      }))]);
+      return {
+        external_id: item?._id || item?.id || null,
+        name: translated(item?.name),
+        description: translated(item?.descript),
+        image_url: item?.avatarUrl
+          ? (/^https?:\/\//i.test(String(item.avatarUrl)) ? item.avatarUrl : `https://static.tagme.com.br/pubimg/${item.avatarUrl}`)
+          : null,
+        price: directPrice,
+        price_min: directPrice,
+        price_max: directPrice,
+        price_type: directPrice == null ? 'unknown' : 'fixed',
+        price_source: directPrice == null ? null : 'item.price',
+        options,
+        order_index: index,
+        source_url: sourceUrl,
+        raw_data: { ...item, category_path: [...ancestors, nodeName] },
+        extraction_confidence: 0.99,
+        needs_review: directPrice == null,
+      };
+    }).filter((item) => item.name);
+    if (items.length) categories.push({ external_id: node?._id || node?.id || null, name: categoryName, order_index: categories.length, items });
+    for (const child of node?.menus || []) walk(child, [...ancestors, nodeName]);
+  };
+  for (const root of Array.isArray(payload) ? payload : [payload]) walk(root);
+  if (!categories.length) throw new Error('LiveMenu API sem categorias com itens.');
+  fs.writeFileSync(path.join(targetDir, 'raw-livemenu-response.json'), JSON.stringify({ endpoint, status: response.status, payload }, null, 2), 'utf8');
+  await page.goto(sourceUrl, { waitUntil: 'domcontentloaded', timeout: TIMEOUT_MS });
+  await page.waitForNetworkIdle({ idleTime: 800, timeout: TIMEOUT_MS }).catch(() => null);
+  const pageDetails = await page.evaluate(() => ({
+    url: location.href,
+    title: document.title,
+    bodyTextSample: String(document.body?.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 12000),
+    metrics: { bodyLength: document.body?.innerHTML?.length || 0, imageCount: document.images?.length || 0 },
+  }));
+  const itemCount = categories.reduce((total, category) => total + (category.items || []).length, 0);
+  return {
+    details: { ...pageDetails, companySlug: venueId },
+    categories,
+    endpoint,
+    stats: { endpointStatus: response.status, itemCount, categoryCount: categories.length },
+  };
 }
 
 function countOperationalInDryRun(dryRunResult) {
@@ -2873,12 +3514,18 @@ function classify({ dryRun, rawSummary, identity }) {
   const audit = dryRun?.result?.audit || {};
   const dryRunApproved = dryRun?.result?.success === true && audit.approved === true;
   const dryRunOperational = countOperationalInDryRun(dryRun?.result);
+  const itemCount = Number(audit.itemCount ?? 0);
+  const resolvedPriceCount = Number(audit.resolvedPriceCount ?? 0);
+  const unresolvedPriceCount = Number(audit.unresolvedPriceCount ?? 0);
+  const itemPriceCoverage = itemCount > 0 ? resolvedPriceCount / itemCount : 0;
   if (!identity?.confirmed) flags.push('source_identity_not_confirmed');
   if (!dryRunApproved) flags.push('dry_run_not_approved');
   if (dryRunOperational.total > 0) flags.push('operational_entities_after_importer_cleanup');
   if ((rawSummary.itemCount || 0) <= 0) flags.push('no_items');
-  if (Number(audit.pricedRatio ?? 0) < 0.95) flags.push('price_coverage_review');
-  if (Number(audit.unresolvedPriceCount ?? 0) > 0) flags.push('unresolved_prices');
+  if (unresolvedPriceCount > 0) flags.push('unresolved_prices');
+  if (Number(audit.pricedRatio ?? 0) < 0.95 && !(itemPriceCoverage >= 0.95 && unresolvedPriceCount === 0)) {
+    flags.push('price_coverage_review');
+  }
   return {
     tier: flags.length ? 'yellow' : 'green',
     flags,
@@ -2895,6 +3542,17 @@ function classify({ dryRun, rawSummary, identity }) {
     identity: identity || null,
     audit,
   };
+}
+
+function canCommitReviewedYellow(review) {
+  if (!COMMIT_REVIEWED_YELLOW || !review || review.tier !== 'yellow') return false;
+  const hasStrongPageIdentity = review.identity?.pageHasName === true && review.identity?.urlHasName === true;
+  const hasManualTrustedIdentity = review.identity?.manualQueueTrust === true;
+  if (!(review.identity?.confirmed || hasStrongPageIdentity || hasManualTrustedIdentity) || !review.dryRunApproved || review.itemCount <= 0) return false;
+
+  const allowedFlags = new Set(['price_coverage_review']);
+  if (hasStrongPageIdentity || hasManualTrustedIdentity) allowedFlags.add('source_identity_not_confirmed');
+  return (review.flags || []).every((flag) => allowedFlags.has(flag));
 }
 
 async function collectOne(browser, target, index) {
@@ -2928,7 +3586,15 @@ async function collectOne(browser, target, index) {
     let probeSource = '';
     let probeExtra = {};
 
-    if (target.platform === 'cardapioweb') {
+    if (target.platform === 'livemenu') {
+      const liveMenu = await extractLiveMenuNativeMenu(page, target.sourceUrl, dir);
+      details = liveMenu.details;
+      categories = liveMenu.categories;
+      endpoint = liveMenu.endpoint;
+      evidencePlatform = 'livemenu_tagme';
+      probeSource = 'browserbase_plus_livemenu_public_api';
+      probeExtra = { liveMenuStats: liveMenu.stats };
+    } else if (target.platform === 'cardapioweb') {
       details = await extractCardapioWebDetails(page, target.sourceUrl);
       if (!details.companyId || !details.companySlug) throw new Error('CardapioWeb sem company/company-id detectavel.');
       endpoint = 'https://integracao.cardapioweb.com/api/menu/company/categories?only_available_for=delivery&origin=catalogo';
@@ -3026,6 +3692,31 @@ async function collectOne(browser, target, index) {
       evidencePlatform = 'meucarrinho_native_api';
       probeSource = 'browserbase_plus_meucarrinho_network_api';
       probeExtra = { meuCarrinhoStats: meuCarrinho.stats, meuCarrinhoSlug: meuCarrinho.slug };
+    } else if (target.platform === 'goomer') {
+      const goomer = await extractGoomerSource({ sourceUrl: target.sourceUrl, cwd: process.cwd(), timeoutMs: TIMEOUT_MS });
+      details = await extractGoomerDetails(page, target.sourceUrl, goomer.source_identity);
+      categories = goomer.categories;
+      endpoint = goomer.source_identity?.menu_url || null;
+      evidencePlatform = 'goomer_public_webmenu';
+      probeSource = 'goomer_public_webmenu_json';
+      probeExtra = {
+        goomerStats: goomer.summary,
+        goomerSlug: goomer.source_identity?.slug || null,
+        goomerStoreId: goomer.source_identity?.store_id || null,
+      };
+    } else if (GENERIC_BROWSER_FALLBACK) {
+      const browserVisible = await captureBrowserVisibleMenu(page, target, dir);
+      details = browserVisible.details;
+      categories = browserVisible.categories;
+      endpoint = browserVisible.endpoint;
+      evidencePlatform = 'browser_visible_dom';
+      probeSource = 'browserbase_generic_dom_click_capture';
+      probeExtra = {
+        browserVisibleStats: browserVisible.stats,
+        genericItemDetailCount: browserVisible.itemDetailCount,
+        networkEntryCount: browserVisible.networkEntryCount,
+        initialScreenshotPath: browserVisible.initialScreenshotPath,
+      };
     } else {
       throw new Error(`structured collector ainda nao implementou ${target.platform}`);
     }
@@ -3037,7 +3728,7 @@ async function collectOne(browser, target, index) {
 
     entry.rawSummary = summarizeCategories(categories);
     const identity = sourceIdentityForTarget(details, target);
-    const sourceStore = details?.yoogaStore || details?.whatsMenuStore || details?.brendiStore || details?.cardapioDigitalStore || details?.instaDeliveryStore || details?.meuCarrinhoStore || details?.restaurantLoginStore || {};
+    const sourceStore = details?.yoogaStore || details?.whatsMenuStore || details?.brendiStore || details?.cardapioDigitalStore || details?.instaDeliveryStore || details?.meuCarrinhoStore || details?.goomerStore || details?.restaurantLoginStore || details?.browserVisibleStore || {};
     const sourceAddress = sourceStore.address || {};
     const sourceLatitude = finiteNumber(sourceStore.latitude ?? sourceAddress.latitude);
     const sourceLongitude = finiteNumber(sourceStore.longitude ?? sourceAddress.longitude);
@@ -3089,10 +3780,12 @@ async function collectOne(browser, target, index) {
     fs.writeFileSync(path.join(dir, 'dry-run.json'), JSON.stringify(dryRun, null, 2), 'utf8');
     entry.review = classify({ dryRun, rawSummary: entry.rawSummary, identity });
 
-    if (APPLY && entry.review.tier === 'green') {
+    const commitAllowed = entry.review.tier === 'green' || canCommitReviewedYellow(entry.review);
+    if (APPLY && commitAllowed) {
       const commit = await runImporter(target.restaurantId, evidencePath, false);
       entry.commit = commit;
       entry.committed = commit.result?.success === true;
+      entry.commitMode = entry.review.tier === 'green' ? 'green' : 'reviewed_yellow';
       fs.writeFileSync(path.join(dir, 'commit.json'), JSON.stringify(commit, null, 2), 'utf8');
     } else if (APPLY) {
       entry.commitSkippedReason = `review_tier_${entry.review.tier}`;
@@ -3176,6 +3869,7 @@ async function main() {
     queuePath,
     platform: PLATFORM,
     apply: APPLY,
+    commitReviewedYellow: COMMIT_REVIEWED_YELLOW,
     concurrency: CONCURRENCY,
     targetCount: targets.length,
     browserbase: {

@@ -1,630 +1,718 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { 
-  Sparkles, 
-  Users, 
-  Utensils, 
-  Store, 
-  MapPin, 
-  TrendingUp, 
-  CheckCircle2, 
-  ArrowRight, 
-  Search, 
-  ChevronRight, 
-  ShieldCheck, 
-  Clock, 
-  HelpCircle,
+import { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import {
+  ArrowRight,
+  BadgeCheck,
+  BookOpen,
+  Check,
+  ChevronDown,
+  Clock3,
+  Database,
+  Eye,
+  Globe2,
+  Heart,
+  Layers3,
+  Mail,
+  MapPin,
   Menu,
-  X
+  MessageCircle,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Store,
+  UtensilsCrossed,
+  X,
+  Zap,
 } from 'lucide-react';
-import { createPageUrl } from '@/utils/url';
+import { InteractiveAiDemo } from '@/components/landing/InteractiveAiDemo';
 import { useAuthData } from '@/context/AuthContext';
+import { trackLandingEvent } from '@/lib/landingAnalytics';
 
-const LOGO_URL = "/assets/filterfood-logo.png";
+const navItems = [
+  { label: 'Como funciona', href: '#como-funciona' },
+  { label: 'Por que é diferente', href: '#diferenca' },
+  { label: 'Para restaurantes', href: '#restaurantes' },
+  { label: 'Dúvidas', href: '#duvidas' },
+];
 
-export default function LandingPage() {
+const faqs = [
+  {
+    question: 'Onde o FilterFood está disponível?',
+    answer:
+      'O mapeamento inicial está concentrado em João Pessoa. A cobertura consultável é informada por região dentro do aplicativo e cresce conforme novos cardápios passam por validação e publicação.',
+  },
+  {
+    question: 'A busca é gratuita para quem quer comer?',
+    answer:
+      'Sim. Você pode experimentar a demonstração da busca sem cadastro. Opções reais só aparecem quando o aplicativo confirma cobertura publicada para a região; salvar escolhas e continuar no aplicativo podem solicitar uma conta.',
+  },
+  {
+    question: 'Os preços e cardápios estão sempre atualizados?',
+    answer:
+      'O FilterFood organiza informações encontradas nas fontes disponíveis e sinaliza o contexto da resposta. Como restaurantes podem alterar preço, item ou horário, confirme a condição final no canal oficial antes de pedir ou visitar.',
+  },
+  {
+    question: 'O FilterFood faz entrega ou recebe pedidos?',
+    answer:
+      'Não é uma plataforma de entrega. O FilterFood ajuda você a descobrir, comparar e chegar ao canal oficial do restaurante quando esse contato estiver identificado.',
+  },
+  {
+    question: 'A IA pode errar uma recomendação?',
+    answer:
+      'Pode. A IA ajuda a organizar a decisão, mas a disponibilidade e as condições finais pertencem ao restaurante. Por isso, a experiência destaca fonte, atualização e contato quando disponíveis.',
+  },
+  {
+    question: 'Como meus dados são tratados?',
+    answer:
+      'A busca usa o texto informado para gerar a experiência. Para detalhes sobre conta, retenção e direitos do usuário, consulte os Termos e a Política de Privacidade do FilterFood.',
+  },
+  {
+    question: 'Reivindicar um restaurante é gratuito?',
+    answer:
+      'A reivindicação do perfil pode ser iniciada gratuitamente. O responsável identifica o estabelecimento, comprova o vínculo e passa a revisar as informações liberadas para gestão.',
+  },
+  {
+    question: 'O que o restaurante ganha ao manter o perfil correto?',
+    answer:
+      'Um perfil claro aumenta a chance de aparecer quando alguém procura exatamente o que o estabelecimento oferece e facilita o contato pelo canal oficial informado.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'FilterFood',
+  url: 'https://filterfood.com.br/',
+  description: 'Demonstração da busca inteligente de pratos, preços, cardápios e restaurantes, com mapeamento inicial em João Pessoa.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://filterfood.com.br/search?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'FilterFood',
+  url: 'https://filterfood.com.br/',
+  email: 'suporte@filterfood.com.br',
+};
+
+function BrandWordmark({ light = false, compact = false }: { light?: boolean; compact?: boolean }) {
+  return (
+    <span
+      className={`font-['Lobster'] font-normal leading-none ${compact ? 'text-[30px]' : 'text-[34px]'} ${
+        light ? 'text-white' : 'text-[var(--ff-primary)]'
+      }`}
+    >
+      FilterFood
+    </span>
+  );
+}
+
+function SectionEyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+  return (
+    <span className={`text-sm font-bold uppercase tracking-[0.13em] ${light ? 'text-[#82F3EE]' : 'text-[var(--ff-primary)]'}`}>
+      {children}
+    </span>
+  );
+}
+
+function LandingPage() {
   const navigate = useNavigate();
   const { user } = useAuthData();
+  const reduceMotion = useReducedMotion();
+  const demoInputRef = useRef<HTMLInputElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const handleClientCTA = () => {
-    if (user) {
-      navigate('/home');
-    } else {
-      navigate('/auth');
+  const openApp = (source: string, prompt = '') => {
+    trackLandingEvent('cta_click', { source, destination: user ? 'home' : 'auth' });
+    const cleanPrompt = prompt.trim().slice(0, 500);
+    if (cleanPrompt) {
+      try {
+        sessionStorage.setItem('filterfood_pending_prompt', cleanPrompt);
+      } catch {
+        // A navegação continua mesmo quando o navegador bloqueia armazenamento de sessão.
+      }
     }
+    if (user) {
+      navigate('/home?assistant=1');
+      return;
+    }
+    navigate('/auth', {
+      state: { from: { pathname: '/home', search: '?assistant=1' } },
+    });
   };
 
-  const handleRestaurantCTA = () => {
+  const openRestaurantArea = (source: string) => {
+    trackLandingEvent('restaurant_cta_click', { source, destination: 'restaurant-area-hub' });
     navigate('/restaurant-area-hub');
   };
 
-  const handleClaimCTA = () => {
+  const claimRestaurant = (source: string) => {
+    trackLandingEvent('restaurant_cta_click', { source, destination: 'claim' });
     navigate('/restaurant-area/claim');
   };
 
-  return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-highlight selection:text-white overflow-x-hidden">
-      {/* Header / Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center cursor-pointer" onClick={() => navigate('/')}>
-            <img src={LOGO_URL} alt="FilterFood Logo" className="h-10 w-auto mr-3" />
-            <span className="text-xl font-bold tracking-tight text-white hidden sm:block">
-              Filter<span className="text-highlight">Food</span>
-            </span>
-          </div>
+  const scrollToDemo = (source: string) => {
+    setMobileMenuOpen(false);
+    trackLandingEvent('cta_click', { source, destination: 'demo' });
+    document.querySelector('#demo-ia')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    window.setTimeout(() => demoInputRef.current?.focus(), reduceMotion ? 0 : 520);
+  };
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-slate-300 hover:text-white transition-colors text-sm font-medium">Como Funciona</a>
-            <a href="#restaurants" className="text-slate-300 hover:text-white transition-colors text-sm font-medium">Para Restaurantes</a>
-            <a href="#statistics" className="text-slate-300 hover:text-white transition-colors text-sm font-medium">Números</a>
+  const followAnchor = (href: string, label: string) => {
+    setMobileMenuOpen(false);
+    trackLandingEvent('navigation_click', { label, destination: href });
+    document.querySelector(href)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
+
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-[var(--ff-background)] font-['Poppins'] text-[var(--ff-text-primary)] selection:bg-[var(--ff-primary)] selection:text-white">
+      <Helmet>
+        <title>FilterFood | A IA dos cardápios</title>
+        <meta
+          name="description"
+          content="Descreva o que quer comer, seu orçamento e a ocasião. Veja como o FilterFood organiza pratos, preços e cardápios disponíveis."
+        />
+        <link rel="canonical" href="https://filterfood.com.br/landing" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta property="og:site_name" content="FilterFood" />
+        <meta property="og:title" content="FilterFood | A IA dos cardápios" />
+        <meta property="og:description" content="Uma pergunta para comparar pratos, preços e restaurantes dentro do seu orçamento." />
+        <meta property="og:url" content="https://filterfood.com.br/landing" />
+        <meta property="og:image" content="https://filterfood.com.br/images/filterfood_welcome_food_hero.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="FilterFood | A IA dos cardápios" />
+        <meta name="twitter:description" content="Veja como consultar cardápios disponíveis usando linguagem natural." />
+        <meta name="twitter:image" content="https://filterfood.com.br/images/filterfood_welcome_food_hero.webp" />
+        <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
+
+      <a
+        href="#main-content"
+        className="fixed left-4 top-3 z-[60] -translate-y-24 rounded-full bg-white px-5 py-3 text-sm font-bold text-[var(--ff-primary)] shadow-[var(--ff-shadow-floating)] transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-[var(--ff-primary)]"
+      >
+        Ir para o conteúdo
+      </a>
+
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--ff-border-soft)] bg-[var(--ff-background)]/96 shadow-[0_8px_24px_rgba(15,23,42,0.035)] backdrop-blur-xl">
+        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
+          <Link
+            to="/landing"
+            className="inline-flex min-h-11 items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/35 focus-visible:ring-offset-4"
+            aria-label="Página inicial do FilterFood"
+          >
+            <BrandWordmark compact />
+          </Link>
+
+          <nav className="hidden items-center gap-5 lg:flex" aria-label="Navegação principal">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(event) => {
+                  event.preventDefault();
+                  followAnchor(item.href, item.label);
+                }}
+                className="inline-flex min-h-11 items-center rounded-full px-2 text-sm font-semibold text-[#5E6675] transition-colors duration-200 hover:text-[var(--ff-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/30"
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
 
-          {/* Nav Buttons */}
-          <div className="hidden md:flex items-center gap-4">
-            <button 
-              onClick={handleRestaurantCTA}
-              className="text-slate-300 hover:text-white transition-all text-sm font-medium px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-500"
+          <div className="hidden items-center gap-2 lg:flex">
+            <Link
+              to="/restaurant-area-hub"
+              onClick={() => trackLandingEvent('restaurant_cta_click', { source: 'header', destination: 'restaurant-area-hub' })}
+              className="inline-flex min-h-11 items-center rounded-full px-4 text-sm font-semibold text-[#5E6675] transition-colors hover:bg-white hover:text-[var(--ff-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/30"
             >
-              Área do Restaurante
-            </button>
-            <button 
-              onClick={handleClientCTA}
-              className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-semibold text-sm px-5 py-2.5 rounded-2xl transition-all shadow-none hover:shadow-[#df4b1c]/10 flex items-center gap-1.5"
+              Área do restaurante
+            </Link>
+            <button
+              type="button"
+              onClick={() => scrollToDemo('header')}
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[var(--ff-primary)] px-6 text-sm font-bold text-white shadow-[var(--ff-shadow-button)] transition-colors duration-200 hover:bg-[var(--ff-primary-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/35 focus-visible:ring-offset-2"
             >
-              Acessar Aplicativo
-              <ArrowRight className="w-4 h-4" />
+              Encontrar onde comer <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-slate-400 hover:text-white focus:outline-none"
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((current) => !current)}
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--ff-orange-soft)] text-[var(--ff-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/35 lg:hidden"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="landing-mobile-menu"
+            aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
           </button>
         </div>
 
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 flex flex-col gap-4"
-          >
-            <a 
-              href="#features" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-white py-2 text-base font-medium"
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              id="landing-mobile-menu"
+              initial={reduceMotion ? false : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18 }}
+              className="border-t border-[var(--ff-border-soft)] bg-white px-5 py-4 shadow-[var(--ff-shadow-floating)] lg:hidden"
             >
-              Como Funciona
-            </a>
-            <a 
-              href="#restaurants" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-white py-2 text-base font-medium"
-            >
-              Para Restaurantes
-            </a>
-            <a 
-              href="#statistics" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-300 hover:text-white py-2 text-base font-medium"
-            >
-              Números
-            </a>
-            <div className="h-px bg-slate-800 my-2" />
-            <button 
-              onClick={() => { setMobileMenuOpen(false); handleRestaurantCTA(); }}
-              className="w-full text-center text-slate-300 hover:text-white py-2.5 rounded-lg border border-slate-700 font-medium"
-            >
-              Área do Restaurante
-            </button>
-            <button 
-              onClick={() => { setMobileMenuOpen(false); handleClientCTA(); }}
-              className="w-full bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-semibold py-2.5 rounded-2xl text-center flex items-center justify-center gap-1.5 shadow-none"
-            >
-              Acessar Aplicativo
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </motion.div>
-        )}
+              <nav className="mx-auto flex max-w-lg flex-col gap-1" aria-label="Navegação para celular">
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      followAnchor(item.href, item.label);
+                    }}
+                    className="flex min-h-12 items-center rounded-2xl px-3 text-base font-semibold text-[#4F5663] hover:bg-[var(--ff-surface-warm)] hover:text-[var(--ff-primary)]"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+                <Link
+                  to="/restaurant-area-hub"
+                  onClick={() => trackLandingEvent('restaurant_cta_click', { source: 'mobile_menu', destination: 'restaurant-area-hub' })}
+                  className="mt-2 flex min-h-12 items-center rounded-2xl border border-[var(--ff-border-warm)] px-4 font-semibold text-[var(--ff-primary)]"
+                >
+                  Área do restaurante
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => scrollToDemo('mobile_menu')}
+                  className="mt-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--ff-primary)] px-5 font-bold text-white"
+                >
+                  Encontrar onde comer <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0a1428] to-slate-900">
-        {/* Ambient Blur Graphics */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-highlight/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
-        <div className="absolute top-1/3 left-1/4 -translate-y-1/2 w-[350px] h-[350px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            
-            {/* Left Column: Heading & Subtext */}
-            <div className="lg:col-span-7 text-center lg:text-left flex flex-col items-center lg:items-start">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 bg-highlight/10 border border-highlight/25 px-4 py-1.5 rounded-full text-[#df4b1c] text-sm font-semibold mb-6"
-              >
-                <Sparkles className="w-4 h-4 animate-pulse" />
-                O buscador inteligente de cardápios de João Pessoa
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6"
-              >
-                Encontre o prato perfeito pelo <span className="bg-gradient-to-r from-[#df4b1c] to-[#df4b1c]/80 bg-clip-text text-transparent">preço que deseja pagar</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg text-slate-300 max-w-2xl mb-8 leading-relaxed"
-              >
-                Chega de abrir aplicativo por aplicativo. Use nossa Inteligência Artificial para achar combos econômicos no seu orçamento, comparar cardápios reais e organizar Happy Hours com seus amigos.
-              </motion.p>
-
-              {/* Action Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
-              >
-                <button
-                  onClick={handleClientCTA}
-                  className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-bold text-lg px-8 py-4 rounded-2xl transition-all shadow-none hover:shadow-[#df4b1c]/12 flex items-center justify-center gap-2"
-                >
-                  Buscar Restaurantes
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={handleRestaurantCTA}
-                  className="bg-slate-800/80 hover:bg-slate-800 text-white font-semibold text-lg px-8 py-4 rounded-2xl transition-all border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-2"
-                >
-                  Sou Proprietário
-                </button>
-              </motion.div>
-
-              {/* Search Bar Preview */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="mt-12 p-1.5 bg-slate-800/40 backdrop-blur-sm border border-slate-700 rounded-2xl w-full max-w-xl flex items-center shadow-none"
-              >
-                <div className="pl-3 text-slate-400">
-                  <Search className="w-5 h-5" />
-                </div>
-                <input 
-                  type="text" 
-                  disabled
-                  placeholder="Ex: Combo de lanches para casal por até R$ 80" 
-                  className="bg-transparent border-none text-slate-300 placeholder:text-slate-500 text-sm focus:outline-none flex-grow px-3 py-2 cursor-default"
-                />
-                <button 
-                  onClick={handleClientCTA}
-                  className="bg-slate-700 hover:bg-highlight text-white font-semibold text-xs px-4 py-2.5 rounded-2xl transition-all"
-                >
-                  Pesquisar IA
-                </button>
-              </motion.div>
+      <main id="main-content" className="pt-[76px]">
+        <section className="relative mx-auto max-w-[1480px] px-0 lg:px-5 lg:pt-5">
+          <div className="relative isolate overflow-visible px-5 pb-16 pt-12 text-white sm:px-8 sm:pb-20 sm:pt-16 lg:px-14 lg:py-20">
+            <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-[linear-gradient(rgba(91,31,10,0.08),rgba(91,31,10,0.08)),radial-gradient(circle_at_76%_20%,#ff9b56_0%,#ff5a2a_40%,var(--ff-primary)_100%)] lg:rounded-[44px]" aria-hidden="true">
+              <div className="absolute right-[-140px] top-[-190px] h-[520px] w-[520px] rounded-full border border-white/12" />
             </div>
 
-            {/* Right Column: Visual Device Mockup */}
-            <div className="lg:col-span-5 flex justify-center items-center relative">
+            <div className="mx-auto grid max-w-[1340px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-10">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, type: "spring" }}
-                className="relative w-[300px] h-[610px] bg-slate-950 rounded-[50px] p-3 shadow-none border-4 border-slate-800 flex flex-col overflow-hidden z-10 group"
+                initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
+                className="relative z-30 text-center lg:text-left"
               >
-                {/* Phone Speaker & Camera Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-7 bg-slate-950 rounded-b-3xl z-30 flex items-center justify-center">
-                  <div className="w-12 h-1 bg-slate-800 rounded-full mb-2"></div>
+                <div className="inline-flex items-center gap-2 text-sm font-semibold text-white/90">
+                  <MapPin className="h-4 w-4 text-[#8FF8F3]" aria-hidden="true" /> Mapeamento em João Pessoa
                 </div>
-
-                {/* Simulated Screen Content */}
-                <div className="flex-grow bg-background-light rounded-[40px] overflow-y-auto overflow-x-hidden flex flex-col relative pt-8 pb-4 text-slate-900 select-none">
-                  {/* Simulated App Header */}
-                  <div className="bg-gradient-to-br from-primary to-[#011b3e] text-white p-5 pt-6 pb-8 rounded-b-[30px] shadow-none flex flex-col gap-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-[#df4b1c]">Assistente Gourmet</span>
-                      <Sparkles className="w-4 h-4 text-[#df4b1c] animate-pulse" />
-                    </div>
-                    <span className="text-lg font-bold leading-tight">Monte seu Combo Ideal!</span>
-                  </div>
-
-                  {/* Simulated Chat bubble */}
-                  <div className="px-4 mt-4 flex flex-col gap-3">
-                    <div className="bg-white p-3 rounded-2xl rounded-tl-none shadow-none text-xs border border-slate-100 max-w-[85%] self-start text-slate-700">
-                      💡 *"Quero comer lanche com meu namorado e gastar até R$ 70"*
-                    </div>
-
-                    {/* Simulated IA Response */}
-                    <div className="bg-primary text-white p-3.5 rounded-2xl rounded-tr-none shadow-none text-xs max-w-[88%] self-end flex flex-col gap-2">
-                      <span>🤖 **Encontrei a melhor opção na sua região!**</span>
-                      <span className="text-[11px] text-slate-200">No *Meu Hot Dog*, montei este combo especial para 2 pessoas:</span>
-                      
-                      {/* Combo Items */}
-                      <div className="bg-white/10 rounded-2xl p-2.5 flex flex-col gap-1.5 text-[11px]">
-                        <div className="flex justify-between font-semibold">
-                          <span>2x Hot Dog Especial</span>
-                          <span>R$ 38,00</span>
-                        </div>
-                        <div className="flex justify-between font-semibold">
-                          <span>1x Batata Frita Média</span>
-                          <span>R$ 16,00</span>
-                        </div>
-                        <div className="flex justify-between font-semibold">
-                          <span>2x Suco de Laranja</span>
-                          <span>R$ 12,00</span>
-                        </div>
-                        <div className="h-px bg-white/20 my-1" />
-                        <div className="flex justify-between font-bold text-[#df4b1c]">
-                          <span>Total do Combo</span>
-                          <span>R$ 66,00</span>
-                        </div>
-                      </div>
-                      
-                      <div className="flex justify-between items-center text-[10px] bg-highlight/20 text-[#df4b1c] px-2 py-1 rounded-lg border border-highlight/20">
-                        <span>Economia Real</span>
-                        <span className="font-bold">R$ 4,00</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Simulated Restaurant Card */}
-                  <div className="px-4 mt-4">
-                    <div className="bg-white rounded-2xl p-3 shadow-none border border-slate-100 flex flex-col gap-2">
-                      <div className="relative h-24 rounded-2xl overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400')` }}>
-                        <div className="absolute inset-0 bg-slate-900/40"></div>
-                        <span className="absolute bottom-2 left-2 text-white font-bold text-xs bg-slate-900/60 px-2 py-0.5 rounded-md">Bancários</span>
-                      </div>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h4 className="font-bold text-xs">Meu Hot Dog - Self Service</h4>
-                          <p className="text-[10px] text-slate-500">Lanchonete e Hamburgueria</p>
-                        </div>
-                        <div className="flex items-center gap-0.5 bg-[#df4b1c]/10 text-[#df4b1c] px-1.5 py-0.5 rounded text-[10px] font-bold">
-                          ★ 4.5
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Floating Action Button */}
-                  <div className="absolute bottom-4 right-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white p-3 rounded-full shadow-none border border-white/20">
-                    <Sparkles className="w-5 h-5 animate-pulse" />
-                  </div>
+                <h1 className="mx-auto mt-6 max-w-[680px] text-balance text-[2.6rem] font-bold leading-[1.04] tracking-[-0.045em] sm:text-[3.7rem] lg:mx-0 lg:text-[4.15rem]">
+                  A IA que consulta cardápios disponíveis para a sua fome e o seu bolso.
+                </h1>
+                <p className="mx-auto mt-6 max-w-xl text-base font-normal leading-7 text-white/92 sm:text-lg sm:leading-8 lg:mx-0">
+                  Conte o prato, o bairro, a ocasião e quanto quer gastar. O FilterFood consulta o catálogo publicado e organiza opções para você decidir sem abrir dezenas de cardápios.
+                </p>
+                <div className="mt-8 flex justify-center lg:justify-start">
+                  <button
+                    type="button"
+                    onClick={() => scrollToDemo('hero')}
+                    className="group inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-white px-7 text-base font-bold text-[var(--ff-primary-dark)] shadow-[0_18px_34px_rgba(91,31,10,0.18)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/75 sm:w-auto"
+                  >
+                    Encontrar onde comer <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </button>
                 </div>
-
-                {/* Simulated Phone Home Bar */}
-                <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-slate-800 rounded-full"></div>
+                <p className="mt-4 text-sm font-medium text-white/85">Demonstração ilustrativa sem cadastro.</p>
               </motion.div>
 
-              {/* Decorative Background Elements */}
-              <div className="absolute -right-4 top-20 w-32 h-32 bg-highlight/10 rounded-full blur-xl border border-highlight/20 z-0"></div>
-              <div className="absolute -left-12 bottom-10 w-44 h-44 bg-blue-500/10 rounded-full blur-2xl border border-blue-500/20 z-0"></div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="py-24 bg-slate-950 border-t border-slate-900 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-base text-highlight font-bold uppercase tracking-wider mb-3">Funcionalidades Incríveis</h2>
-            <p className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
-              Tudo o que você precisa para escolher onde e o que comer
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1: Combo Finder */}
-            <motion.div 
-              whileHover={{ y: -6 }}
-              className="p-8 bg-slate-900/60 rounded-3xl border border-slate-800/80 shadow-none relative overflow-hidden group"
-            >
-              <div className="w-12 h-12 bg-highlight/10 border border-highlight/25 rounded-2xl flex items-center justify-center text-[#df4b1c] mb-6 group-hover:scale-110 transition-transform">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Assistente Gourmet IA</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Digite o quanto quer gastar e para quantas pessoas. Nosso algoritmo inteligente vasculha os cardápios de João Pessoa e monta combos ideais sob medida, garantindo economia real.
-              </p>
-            </motion.div>
-
-            {/* Feature 2: Happy Hour */}
-            <motion.div 
-              whileHover={{ y: -6 }}
-              className="p-8 bg-slate-900/60 rounded-3xl border border-slate-800/80 shadow-none relative overflow-hidden group"
-            >
-              <div className="w-12 h-12 bg-blue-500/10 border border-blue-500/25 rounded-2xl flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Happy Hour Coletivo</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Reúna amigos em salas virtuais de votação. Cada participante adiciona seus restaurantes favoritos e vota em tempo real. O app calcula o vencedor democraticamente e possui chat integrado.
-              </p>
-            </motion.div>
-
-            {/* Feature 3: Scraped Menus */}
-            <motion.div 
-              whileHover={{ y: -6 }}
-              className="p-8 bg-slate-900/60 rounded-3xl border border-slate-800/80 shadow-none relative overflow-hidden group"
-            >
-              <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/25 rounded-2xl flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
-                <Utensils className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">Cardápios Atualizados com IA</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Nosso robô de varredura automatizada localiza, extrai e limpa dados de cardápios reais, mídias sociais e fotos de restaurantes diariamente, mantendo tudo atualizado sem erros.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* For Restaurant Owners Section */}
-      <section id="restaurants" className="py-24 bg-slate-900 relative overflow-hidden border-t border-slate-950">
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] bg-highlight/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            
-            {/* Left Column: Visual Mockup */}
-            <div className="order-2 lg:order-1 flex justify-center">
-              <motion.div 
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="bg-slate-950 rounded-3xl p-8 border border-slate-800 shadow-none max-w-lg w-full flex flex-col gap-6"
-              >
-                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-highlight/10 rounded-2xl flex items-center justify-center text-[#df4b1c]">
-                      <Store className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white text-sm">Portal do Proprietário</h4>
-                      <p className="text-xs text-slate-400">FilterFood Business</p>
-                    </div>
-                  </div>
-                  <span className="text-xs bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">Grátis</span>
-                </div>
-
-                <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900">
+              <div className="relative z-20 mx-auto w-full max-w-[760px]">
+                <InteractiveAiDemo reduceMotion={reduceMotion} inputRef={demoInputRef} onOpenApp={openApp} />
+                <div className="pointer-events-none absolute -bottom-16 -right-44 z-10 hidden h-[440px] w-[440px] 2xl:block">
+                  <span className="absolute bottom-[2.5%] left-1/2 h-[5.5%] w-[44%] -translate-x-1/2 rounded-[50%] border border-[#67E8E3]/70 bg-[#14c8c3]/15 shadow-[0_0_28px_rgba(20,200,195,0.48)]" aria-hidden="true" />
                   <img
-                    src="/images/whatsapp_real_mockup.png"
-                    alt="Mensagem de ativacao do perfil FilterFood pelo WhatsApp"
-                    className="w-full max-h-[420px] object-cover object-top"
+                    src="/images/filterfood_avatar_city_clean.webp"
+                    alt="Assistente do FilterFood apresentando a busca"
+                    className="relative z-10 h-full w-full object-contain drop-shadow-[0_30px_52px_rgba(91,31,10,0.25)]"
+                    style={{
+                      WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 88%, rgba(0,0,0,0.72) 95%, transparent 100%)',
+                      maskImage: 'linear-gradient(to bottom, #000 0%, #000 88%, rgba(0,0,0,0.72) 95%, transparent 100%)',
+                    }}
+                    width="1123"
+                    height="1434"
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-[#df4b1c]">Perfil pronto para reivindicar</p>
-                    <p className="text-sm font-bold text-white">Mostre o restaurante publicado antes de pedir cadastro.</p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-4 text-sm text-slate-300">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-highlight mt-0.5 flex-shrink-0" />
-                    <span>Seu restaurante já possui uma página pré-cadastrada no app com fotos e notas coletadas pelo nosso robô.</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-highlight mt-0.5 flex-shrink-0" />
-                    <span>Ao reivindicar seu perfil, você ganha acesso total para editar seu cardápio, fotos de capa, horários e links do Instagram.</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-highlight mt-0.5 flex-shrink-0" />
-                    <span>Clientes locais poderão falar diretamente com você pelo WhatsApp oficial de vendas. Sem taxas, sem comissão por pedido!</span>
-                  </div>
-                </div>
-
-                <div className="h-px bg-slate-800 my-2" />
-
-                <div className="flex flex-col gap-3">
-                  <button 
-                    onClick={handleClaimCTA}
-                    className="w-full bg-highlight hover:bg-[#df4b1c]/90 text-white font-bold py-3 rounded-2xl transition-all shadow-none text-center"
-                  >
-                    Reivindicar meu Restaurante
-                  </button>
-                  <button 
-                    onClick={handleRestaurantCTA}
-                    className="w-full bg-slate-900 hover:bg-slate-850 text-slate-300 font-semibold py-3 rounded-2xl transition-all text-center border border-slate-700"
-                  >
-                    Criar Conta de Proprietário
-                  </button>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Right Column: Copywriting */}
-            <div className="order-1 lg:order-2">
-              <h2 className="text-base text-highlight font-bold uppercase tracking-wider mb-3">Para Proprietários</h2>
-              <h3 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-6">
-                Seu restaurante já está no FilterFood. Reivindique agora!
-              </h3>
-              <p className="text-slate-300 mb-8 leading-relaxed">
-                Varremos João Pessoa e pré-cadastramos os principais locais de alimentação. Reivindicando seu restaurante de forma 100% gratuita, você garante que as informações dos seus pratos estejam corretas e direciona clientes diretamente para o seu WhatsApp de entrega.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#df4b1c]">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-semibold text-slate-200">Exposição Local Grátis</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#df4b1c]">
-                    <TrendingUp className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-semibold text-slate-200">Aumento de Vendas</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#df4b1c]">
-                    <Clock className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-semibold text-slate-200">Atualização em Segundos</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-highlight/10 flex items-center justify-center text-[#df4b1c]">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-semibold text-slate-200">Público Filtrado por Bairro</span>
                 </div>
               </div>
             </div>
-
           </div>
-        </div>
-      </section>
 
-      {/* Statistics Section */}
-      <section id="statistics" className="py-20 bg-slate-950 border-t border-b border-slate-900 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-base text-highlight font-bold uppercase tracking-wider mb-3">Nossos Números em João Pessoa</h2>
-            <p className="text-2xl sm:text-3xl font-extrabold text-white">
-              Crescemos diariamente para catalogar todo o polo gastronômico da cidade
+          <div className="relative z-30 mx-5 mt-6 rounded-[24px] border border-[var(--ff-border-soft)] bg-white p-5 lg:mx-auto lg:max-w-6xl lg:p-6">
+            <div className="grid grid-cols-3 gap-2 sm:gap-5">
+              {[
+                ['6.314', 'estabelecimentos mapeados'],
+                ['4.611', 'com canal identificado'],
+                ['13 jul 2026', 'leitura atualizada'],
+              ].map(([value, label]) => (
+                <div key={value} className="border-r border-[var(--ff-border-soft)] px-1 text-center last:border-r-0 sm:px-3">
+                  <p className="text-lg font-bold leading-tight text-[#252228] sm:text-3xl">{value}</p>
+                  <p className="mx-auto mt-2 max-w-xs text-sm font-normal leading-5 text-[var(--ff-text-secondary)]">{label}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 border-t border-[var(--ff-border-soft)] pt-4 text-center text-sm leading-5 text-[#626A77]">
+              Leitura da base interna. <strong>Mapeado não significa cardápio auditado, restaurante ativo ou parceiro.</strong>
             </p>
           </div>
+        </section>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {/* Stat 1 */}
-            <div className="p-6 bg-slate-900/40 rounded-2xl border border-slate-800">
-              <span className="block text-4xl sm:text-5xl font-extrabold text-highlight mb-2">54</span>
-              <span className="text-sm text-slate-400 font-medium">Bairros Varridos</span>
-            </div>
-            {/* Stat 2 */}
-            <div className="p-6 bg-slate-900/40 rounded-2xl border border-slate-800">
-              <span className="block text-4xl sm:text-5xl font-extrabold text-highlight mb-2">1.500+</span>
-              <span className="text-sm text-slate-400 font-medium">Restaurantes Únicos</span>
-            </div>
-            {/* Stat 3 */}
-            <div className="p-6 bg-slate-900/40 rounded-2xl border border-slate-800">
-              <span className="block text-4xl sm:text-5xl font-extrabold text-highlight mb-2">5</span>
-              <span className="text-sm text-slate-400 font-medium">Categorias Principais</span>
-            </div>
-            {/* Stat 4 */}
-            <div className="p-6 bg-slate-900/40 rounded-2xl border border-slate-800">
-              <span className="block text-4xl sm:text-5xl font-extrabold text-highlight mb-2">100%</span>
-              <span className="text-sm text-slate-400 font-medium">Automação de Contatos</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
-      <section className="py-24 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-slate-900 via-[#0a1428] to-slate-900 relative overflow-hidden">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-highlight/10 rounded-full blur-[110px] pointer-events-none z-0"></div>
-
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6">
-            Pronto para economizar escolhendo sua refeição?
-          </h2>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-10">
-            Acesse o aplicativo web agora mesmo e encontre os melhores restaurantes de João Pessoa organizados pelo preço e bairros de entrega.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={handleClientCTA}
-              className="bg-[#df4b1c] hover:bg-[#df4b1c]/90 text-white font-bold text-lg px-8 py-4 rounded-2xl transition-all shadow-none hover:shadow-[#df4b1c]/12 flex items-center justify-center gap-2"
-            >
-              Começar a Usar Grátis
-              <ArrowRight className="w-5 h-5" />
-            </button>
-            <button
-              onClick={handleClaimCTA}
-              className="bg-slate-850 hover:bg-slate-800 text-slate-200 font-semibold text-lg px-8 py-4 rounded-2xl transition-all border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-2"
-            >
-              Reivindicar meu Restaurante
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-950 border-t border-slate-900 py-16 text-slate-400">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            
-            {/* Column 1: App Info */}
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center">
-                <img src={LOGO_URL} alt="FilterFood Logo" className="h-9 w-auto mr-3" />
-                <span className="text-lg font-bold text-white">Filter<span className="text-highlight">Food</span></span>
+        <section id="como-funciona" className="scroll-mt-24 px-5 py-20 sm:px-6 sm:py-24 lg:px-8">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+            <div className="relative mx-auto w-full max-w-[540px] overflow-hidden rounded-[32px] bg-[#E7ECEB] shadow-[var(--ff-shadow-floating)]">
+              <img
+                src="/images/filterfood_welcome_food_hero.webp"
+                alt="Mesa com sushi, pizza, ramen e massa representando a variedade de escolhas"
+                className="aspect-[4/3] h-full w-full object-cover sm:aspect-[4/4.6]"
+                loading="lazy"
+                width="910"
+                height="1638"
+              />
+              <div className="absolute inset-x-5 bottom-5 rounded-[22px] bg-[#252228]/88 p-4 text-white backdrop-blur-md">
+                <p className="text-sm font-semibold uppercase tracking-[0.1em] text-[#82F3EE]">Uma pergunta, várias cozinhas</p>
+                <p className="mt-1 text-base font-medium">Lanches, regional, japonês, pizza, massas e muito mais.</p>
               </div>
-              <p className="text-sm text-slate-500">
-                O maior indexador e buscador inteligente de cardápios de João Pessoa - PB.
-              </p>
             </div>
 
-            {/* Column 2: App Links */}
             <div>
-              <h4 className="text-white font-semibold text-sm mb-4">Aplicativo</h4>
-              <ul className="flex flex-col gap-2.5 text-sm">
-                <li><button onClick={handleClientCTA} className="hover:text-white transition-colors">Buscar Comida</button></li>
-                <li><button onClick={() => navigate('/auth')} className="hover:text-white transition-colors">Entrar / Cadastrar</button></li>
-                <li><button onClick={handleRestaurantCTA} className="hover:text-white transition-colors">Painel do Restaurante</button></li>
-                <li><button onClick={handleClaimCTA} className="hover:text-white transition-colors">Reivindicar Estabelecimento</button></li>
-              </ul>
-            </div>
-
-            {/* Column 3: Institutional */}
-            <div>
-              <h4 className="text-white font-semibold text-sm mb-4">Institucional</h4>
-              <ul className="flex flex-col gap-2.5 text-sm">
-                <li><a href="/help-center" className="hover:text-white transition-colors">Central de Ajuda</a></li>
-                <li><a href="/legal" className="hover:text-white transition-colors">Termos e Privacidade</a></li>
-              </ul>
-            </div>
-
-            {/* Column 4: Help */}
-            <div className="flex flex-col gap-4">
-              <h4 className="text-white font-semibold text-sm mb-4">Contato & Suporte</h4>
-              <p className="text-sm text-slate-500">
-                Dúvidas ou sugestões? Fale com nosso suporte técnico local.
+              <SectionEyebrow>Como funciona</SectionEyebrow>
+              <h2 className="mt-4 max-w-3xl text-balance text-3xl font-bold leading-tight tracking-[-0.035em] text-[#252228] sm:text-5xl">
+                Da intenção à escolha em três passos claros.
+              </h2>
+              <p className="mt-5 max-w-2xl text-base font-normal leading-7 text-[var(--ff-text-secondary)] sm:text-lg sm:leading-8">
+                O FilterFood não começa pelo nome do restaurante. Começa pelo que você realmente precisa naquele momento.
               </p>
-              <a 
-                href="mailto:suporte@filterfood.com.br"
-                className="text-sm text-[#df4b1c] hover:text-[#df4b1c]/80 font-semibold"
+              <div className="mt-8 space-y-4">
+                {[
+                  [Search, '1. Descreva a situação', 'Prato, orçamento, bairro, número de pessoas ou ocasião.'],
+                  [Layers3, '2. Compare com contexto', 'Veja combinações, preços, itens e o estabelecimento em uma mesma resposta.'],
+                  [MessageCircle, '3. Confirme no canal oficial', 'Quando disponível, siga para o contato do restaurante e confirme as condições finais.'],
+                ].map(([Icon, title, text]) => {
+                  const StepIcon = Icon as typeof Search;
+                  return (
+                    <div key={title as string} className="flex gap-4 rounded-[24px] border border-[var(--ff-border-soft)] bg-white p-5 shadow-[var(--ff-shadow-card)]">
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--ff-orange-soft)] text-[var(--ff-primary)]">
+                        <StepIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div>
+                        <h3 className="text-base font-bold text-[#252228]">{title as string}</h3>
+                        <p className="mt-1.5 text-base font-normal leading-6 text-[var(--ff-text-secondary)]">{text as string}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <button
+                type="button"
+                onClick={() => scrollToDemo('how_it_works')}
+                className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-[var(--ff-primary)] px-6 text-sm font-bold text-white shadow-[var(--ff-shadow-button)] transition-colors hover:bg-[var(--ff-primary-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/35"
               >
-                suporte@filterfood.com.br
-              </a>
+                Encontrar onde comer <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="diferenca" className="scroll-mt-24 bg-[#FFFBF8] px-5 py-20 sm:px-6 sm:py-24 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-3xl text-center">
+              <SectionEyebrow>Por que é diferente</SectionEyebrow>
+              <h2 className="mt-4 text-balance text-3xl font-bold leading-tight tracking-[-0.035em] text-[#252228] sm:text-5xl">
+                Não é mais um lugar para abrir cardápios. É uma forma de decidir.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-base font-normal leading-7 text-[var(--ff-text-secondary)] sm:text-lg sm:leading-8">
+                Cada ferramenta resolve uma parte da jornada. O FilterFood conecta intenção, comparação e contato.
+              </p>
             </div>
 
+            <div className="mt-12 grid grid-cols-2 gap-4 xl:grid-cols-4">
+              {[
+                [Globe2, 'Busca comum', 'Ajuda a encontrar páginas e nomes para você investigar.'],
+                [Store, 'App de entrega', 'Organiza catálogo e pedido dentro da própria plataforma.'],
+                [Eye, 'Redes sociais', 'Mostram posts, destaques e a comunicação do estabelecimento.'],
+                [Sparkles, 'FilterFood', 'Parte do que você quer, cruza contexto e organiza opções para comparar.'],
+              ].map(([Icon, title, text], index) => {
+                const ItemIcon = Icon as typeof Search;
+                const highlighted = index === 3;
+                return (
+                  <article
+                    key={title as string}
+                    className={`rounded-[26px] border p-6 ${
+                      highlighted
+                        ? 'border-[var(--ff-primary)] bg-[var(--ff-primary)] text-white shadow-[var(--ff-shadow-button)]'
+                        : 'border-[var(--ff-border-soft)] bg-white text-[#252228] shadow-[var(--ff-shadow-card)]'
+                    }`}
+                  >
+                    <span className={`flex h-12 w-12 items-center justify-center rounded-full ${highlighted ? 'bg-white/16 text-white' : 'bg-[var(--ff-orange-soft)] text-[var(--ff-primary)]'}`}>
+                      <ItemIcon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <h3 className="mt-5 text-lg font-bold">{title as string}</h3>
+                    <p className={`mt-3 text-base font-normal leading-7 ${highlighted ? 'text-white/90' : 'text-[var(--ff-text-secondary)]'}`}>{text as string}</p>
+                  </article>
+                );
+              })}
+            </div>
           </div>
+        </section>
 
-          <div className="h-px bg-slate-900 mb-8" />
+        <section className="px-5 py-20 sm:px-6 sm:py-24 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+              <div className="rounded-[32px] bg-[#3C2F2F] p-7 text-white sm:p-10">
+                <SectionEyebrow light>Transparência antes da promessa</SectionEyebrow>
+                <h2 className="mt-4 text-balance text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-4xl">
+                  Uma boa recomendação mostra de onde vem a confiança.
+                </h2>
+                <p className="mt-5 text-base font-normal leading-7 text-white/78">
+                  Nem todo item encontrado está pronto para ser recomendado. O FilterFood separa descoberta, validação e publicação para reduzir respostas enganosas.
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {[
+                  [Database, 'Fonte identificada', 'O cardápio precisa estar ligado a uma origem consultável.'],
+                  [Clock3, 'Atualização contextualizada', 'Datas e sinais de revisão ajudam a avaliar a informação.'],
+                  [BadgeCheck, 'Contato reconhecido', 'O canal oficial reduz desvios entre a escolha e o restaurante.'],
+                ].map(([Icon, title, text]) => {
+                  const TrustIcon = Icon as typeof Database;
+                  return (
+                    <article key={title as string} className="rounded-[28px] border border-[var(--ff-border-soft)] bg-white p-6 shadow-[var(--ff-shadow-card)]">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--ff-tech-soft)] text-[var(--ff-tech-teal-dark)]">
+                        <TrustIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <h3 className="mt-5 text-lg font-bold text-[#252228]">{title as string}</h3>
+                      <p className="mt-3 text-base font-normal leading-7 text-[var(--ff-text-secondary)]">{text as string}</p>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
-            <span>
-              © 2026 FilterFood. Todos os direitos reservados.
-            </span>
-            <span className="flex items-center gap-1">
-              Desenvolvido com carinho para João Pessoa - PB
-            </span>
+        <section id="restaurantes" className="scroll-mt-24 px-5 py-4 pb-20 sm:px-6 sm:pb-24 lg:px-8">
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[36px] bg-[#3C2F2F] text-white shadow-[var(--ff-shadow-floating)]">
+            <div className="grid items-center gap-10 px-6 py-10 sm:px-10 sm:py-14 lg:grid-cols-[1fr_0.9fr] lg:px-14 lg:py-16">
+              <div>
+                <SectionEyebrow light>Para restaurantes</SectionEyebrow>
+                <h2 className="mt-4 max-w-3xl text-balance text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-5xl">
+                  Apareça quando alguém procura exatamente o que você vende.
+                </h2>
+                <p className="mt-5 max-w-2xl text-base font-normal leading-7 text-white/78 sm:text-lg sm:leading-8">
+                  Reivindique o estabelecimento, revise cardápio, horário, fotos e canais oficiais. Um perfil completo facilita a descoberta por intenção — não apenas por nome.
+                </p>
+                <div className="mt-7 rounded-[22px] border border-white/12 bg-white/7 p-5">
+                  <p className="font-semibold text-white">Como funciona a reivindicação</p>
+                  <ol className="mt-4 grid gap-3 text-sm font-normal leading-6 text-white/78 sm:grid-cols-3">
+                    <li><strong className="block text-[#82F3EE]">1. Identifique</strong> Encontre o perfil do estabelecimento.</li>
+                    <li><strong className="block text-[#82F3EE]">2. Comprove</strong> Informe o vínculo com o negócio.</li>
+                    <li><strong className="block text-[#82F3EE]">3. Revise</strong> Atualize os dados liberados para gestão.</li>
+                  </ol>
+                </div>
+                <p className="mt-5 flex items-start gap-2 text-sm leading-6 text-white/78">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#82F3EE]" aria-hidden="true" />
+                  O início da reivindicação é gratuito. Recursos adicionais podem depender das condições apresentadas na área do restaurante.
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={() => claimRestaurant('restaurant_section')}
+                    className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[var(--ff-primary)] px-7 font-bold text-white shadow-[var(--ff-shadow-button)] transition-colors hover:bg-[#F05A28] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#82F3EE]"
+                  >
+                    Reivindicar meu restaurante <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openRestaurantArea('restaurant_section')}
+                    className="min-h-14 rounded-full border border-white/24 px-7 font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#82F3EE]"
+                  >
+                    Conhecer a área do restaurante
+                  </button>
+                </div>
+              </div>
+
+              <div className="relative mx-auto hidden w-full max-w-[470px] rounded-[30px] bg-[var(--ff-surface-warm)] p-5 text-[var(--ff-text-primary)] sm:block">
+                <div className="flex items-center justify-between border-b border-[var(--ff-border-warm)] pb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--ff-orange-soft)] text-[var(--ff-primary)]"><Store className="h-5 w-5" aria-hidden="true" /></span>
+                    <div><p className="font-bold">Seu restaurante</p><p className="mt-0.5 text-sm font-normal text-[var(--ff-text-secondary)]">Perfil no FilterFood</p></div>
+                  </div>
+                  <span className="rounded-full bg-[var(--ff-success-soft)] px-3 py-1.5 text-sm font-semibold text-[var(--ff-success-dark)]">Identificado</span>
+                </div>
+                <div className="mt-5 rounded-[24px] border border-[var(--ff-border-warm)] bg-white p-5 shadow-[var(--ff-shadow-card)]">
+                  <div className="mb-4 flex items-center gap-3"><BookOpen className="h-5 w-5 text-[var(--ff-primary)]" aria-hidden="true" /><span className="font-semibold">Perfil preparado para busca</span></div>
+                  <div className="space-y-3">
+                    {[
+                      ['Cardápio com fonte', UtensilsCrossed],
+                      ['Horários revisados', Clock3],
+                      ['Contato reconhecido', MessageCircle],
+                    ].map(([text, Icon]) => {
+                      const StatusIcon = Icon as typeof Check;
+                      return (
+                        <div key={text as string} className="flex items-center gap-3 text-base font-normal text-[#555B66]">
+                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--ff-tech-soft)] text-[var(--ff-tech-teal-dark)]"><StatusIcon className="h-4 w-4" aria-hidden="true" /></span>
+                          {text as string}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center gap-2 rounded-[20px] bg-[var(--ff-tech-soft)] px-4 py-3 text-sm font-semibold text-[var(--ff-tech-teal-dark)]"><Sparkles className="h-4 w-4" aria-hidden="true" /> Pronto para entrar em buscas compatíveis</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="duvidas" className="scroll-mt-24 bg-[var(--ff-surface-warm)] px-5 py-20 sm:px-6 sm:py-24 lg:px-8">
+          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+            <div>
+              <SectionEyebrow>Dúvidas frequentes</SectionEyebrow>
+              <h2 className="mt-4 text-3xl font-bold leading-tight tracking-[-0.035em] text-[#252228] sm:text-4xl">Confiança também se constrói respondendo o que é difícil.</h2>
+              <p className="mt-4 text-base font-normal leading-7 text-[var(--ff-text-secondary)]">Cobertura, atualização, erros da IA, privacidade e relação com o restaurante — sem letras pequenas.</p>
+              <Link
+                to="/help-center"
+                onClick={() => trackLandingEvent('navigation_click', { label: 'Central de Ajuda', destination: '/help-center' })}
+                className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full font-bold text-[var(--ff-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/30"
+              >
+                Visitar Central de Ajuda <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
+
+            <div className="divide-y divide-[var(--ff-border-warm)] border-y border-[var(--ff-border-warm)]">
+              {faqs.map((faq, index) => {
+                const isOpen = openFaq === index;
+                return (
+                  <div key={faq.question}>
+                    <h3>
+                      <button
+                        type="button"
+                        onClick={() => setOpenFaq(isOpen ? null : index)}
+                        className="flex min-h-[76px] w-full items-center justify-between gap-4 py-5 text-left text-base font-semibold text-[#252228] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/30"
+                        aria-expanded={isOpen}
+                        aria-controls={`faq-panel-${index}`}
+                      >
+                        {faq.question}
+                        <ChevronDown className={`h-5 w-5 shrink-0 text-[var(--ff-primary)] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
+                      </button>
+                    </h3>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          id={`faq-panel-${index}`}
+                          initial={reduceMotion ? false : { opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <p className="max-w-2xl pb-6 pr-8 text-base font-normal leading-7 text-[var(--ff-text-secondary)]">{faq.answer}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-5 py-14 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 rounded-[30px] border border-[var(--ff-border-soft)] bg-white p-7 text-center shadow-[var(--ff-shadow-card)] sm:p-9 lg:flex-row lg:text-left">
+            <div className="flex items-start gap-4">
+              <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--ff-tech-soft)] text-[var(--ff-tech-teal-dark)] sm:flex"><Mail className="h-5 w-5" aria-hidden="true" /></span>
+              <div>
+                <h2 className="text-2xl font-bold text-[#252228]">Ainda não quer criar uma conta?</h2>
+                <p className="mt-2 max-w-2xl text-base font-normal leading-7 text-[var(--ff-text-secondary)]">Envie um e-mail e peça para receber novidades sobre cobertura e expansão. Sem fingir que existe uma inscrição automática.</p>
+              </div>
+            </div>
+            <a
+              href="mailto:suporte@filterfood.com.br?subject=Quero%20receber%20novidades%20do%20FilterFood"
+              onClick={() => trackLandingEvent('newsletter_intent', { source: 'secondary_conversion', channel: 'email' })}
+              className="inline-flex min-h-12 w-full shrink-0 items-center justify-center gap-2 rounded-full border border-[var(--ff-primary)]/25 px-6 font-bold text-[var(--ff-primary)] transition-colors hover:bg-[var(--ff-orange-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/30 sm:w-auto"
+            >
+              Receber novidades <Mail className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+        </section>
+
+        <section className="bg-[radial-gradient(circle_at_75%_15%,#ff9b56_0%,#ff5a2a_42%,var(--ff-primary)_100%)] px-5 py-16 text-white sm:px-6 sm:py-20 lg:px-8">
+          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 text-center lg:flex-row lg:text-left">
+            <div>
+              <BrandWordmark light />
+              <h2 className="mt-4 max-w-3xl text-balance text-3xl font-bold leading-tight tracking-[-0.035em] sm:text-4xl">Diga o que quer comer. A IA organiza o caminho até a escolha.</h2>
+              <p className="mt-3 max-w-2xl text-base font-normal leading-7 text-white/88">Faça a primeira pergunta aqui mesmo e continue no aplicativo somente quando fizer sentido.</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => scrollToDemo('final_cta')}
+              className="group inline-flex min-h-14 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-white px-7 font-bold text-[var(--ff-primary-dark)] shadow-[0_18px_34px_rgba(91,31,10,0.18)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/75 sm:w-auto"
+            >
+              Encontrar onde comer <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[#3C2F2F] px-5 py-12 text-white/76 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 border-b border-white/12 pb-10 md:grid-cols-[1.5fr_1fr_1fr]">
+            <div>
+              <BrandWordmark light compact />
+              <p className="mt-5 max-w-sm text-sm font-normal leading-6">Busca inteligente para descobrir pratos e cardápios disponíveis, com mapeamento inicial em João Pessoa.</p>
+            </div>
+            <div>
+              <h2 className="font-semibold text-white">Explore</h2>
+              <ul className="mt-2 text-sm font-normal">
+                <li><button type="button" onClick={() => scrollToDemo('footer')} className="inline-flex min-h-11 items-center hover:text-white">Encontrar onde comer</button></li>
+                <li><Link to="/restaurant-area-hub" className="inline-flex min-h-11 items-center hover:text-white">Área do restaurante</Link></li>
+                <li><Link to="/restaurant-area/claim" className="inline-flex min-h-11 items-center hover:text-white">Reivindicar perfil</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="font-semibold text-white">Informações</h2>
+              <ul className="mt-2 text-sm font-normal">
+                <li><Link to="/help-center" className="inline-flex min-h-11 items-center hover:text-white">Central de Ajuda</Link></li>
+                <li><Link to="/legal" className="inline-flex min-h-11 items-center hover:text-white">Termos e privacidade</Link></li>
+                <li><a href="mailto:suporte@filterfood.com.br" className="inline-flex min-h-11 items-center hover:text-white">suporte@filterfood.com.br</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 pt-7 text-sm font-normal sm:flex-row sm:items-center sm:justify-between">
+            <p>© {new Date().getFullYear()} FilterFood. Todos os direitos reservados.</p>
+            <p>Informação organizada para decisões mais simples.</p>
           </div>
         </div>
       </footer>
     </div>
   );
 }
+
+export default LandingPage;

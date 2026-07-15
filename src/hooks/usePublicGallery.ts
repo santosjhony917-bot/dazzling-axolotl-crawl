@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchPublicCatalogGallery } from '@/integrations/supabase/publicCatalog';
 
 export interface PublicGalleryImage {
   id: string;
@@ -11,17 +11,13 @@ export interface PublicGalleryImage {
 const PUBLIC_GALLERY_QUERY_KEY = (restaurantId: string) => ['publicRestaurantGallery', restaurantId];
 
 const fetchPublicGallery = async (restaurantId: string): Promise<PublicGalleryImage[]> => {
-  const { data, error } = await supabase
-    .from('restaurant_gallery')
-    .select('id, image_url, caption, order_index')
-    .eq('restaurant_id', restaurantId)
-    .order('order_index', { ascending: true });
-
-  if (error) {
-    console.error("Error fetching public gallery:", error);
-    throw new Error(error.message);
-  }
-  return data as PublicGalleryImage[];
+  const rows = await fetchPublicCatalogGallery(restaurantId);
+  return rows.map(({ id, image_url, caption, order_index }) => ({
+    id,
+    image_url,
+    caption: caption ?? null,
+    order_index: order_index ?? 0,
+  }));
 };
 
 export function usePublicGallery(restaurantId: string | null) {

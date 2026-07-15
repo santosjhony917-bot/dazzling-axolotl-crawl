@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, Profile } from '@/types/supabase';
 import { useQuery } from '@tanstack/react-query';
 import { getProfile, getRestaurantByUserId } from '@/integrations/supabase/profile';
+import { ALLOW_LOCAL_FIXTURES } from '@/lib/runtimeMode';
 
 interface AuthContextType {
   user: User | null;
@@ -32,6 +33,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     profile: any;
     restaurant: any;
   } | null>(() => {
+    if (!ALLOW_LOCAL_FIXTURES) return null;
     const saved = localStorage.getItem('mockSession');
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -54,7 +56,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
     return null;
   });
-  const [isLoading, setIsLoading] = useState(() => !localStorage.getItem('mockSession'));
+  const [isLoading, setIsLoading] = useState(() => !ALLOW_LOCAL_FIXTURES || !localStorage.getItem('mockSession'));
   const isAuthenticated = !!user || !!mockSession;
 
   // Query para buscar Profile
@@ -117,6 +119,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const handleMockSessionUpdate = () => {
+      if (!ALLOW_LOCAL_FIXTURES) return;
       const saved = localStorage.getItem('mockSession');
       if (saved) {
         setMockSession(JSON.parse(saved));
@@ -136,6 +139,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const signInWithMock = (email: string) => {
+    if (!ALLOW_LOCAL_FIXTURES) return false;
     let mockData = null;
     const cleanEmail = email.toLowerCase().trim();
     if (cleanEmail.includes('premium') || cleanEmail === 'premium@restaurante.com') {

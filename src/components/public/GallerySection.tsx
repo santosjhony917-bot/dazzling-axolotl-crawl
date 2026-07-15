@@ -2,8 +2,7 @@ import React from 'react';
 import { Camera, Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { showError } from '@/utils/toast';
+import { fetchPublicCatalogGallery } from '@/integrations/supabase/publicCatalog';
 
 interface GalleryImage {
   id: string;
@@ -12,17 +11,8 @@ interface GalleryImage {
 }
 
 const fetchGallery = async (restaurantId: string): Promise<GalleryImage[]> => {
-  const { data, error } = await supabase
-    .from('restaurant_gallery')
-    .select('id, image_url, caption')
-    .eq('restaurant_id', restaurantId)
-    .order('order_index', { ascending: true });
-
-  if (error) {
-    showError("Erro ao carregar galeria.");
-    throw error;
-  }
-  return data as GalleryImage[];
+  const rows = await fetchPublicCatalogGallery(restaurantId);
+  return rows.map(({ id, image_url, caption }) => ({ id, image_url, caption: caption ?? null }));
 };
 
 interface GallerySectionProps {

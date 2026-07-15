@@ -8,24 +8,31 @@ export interface UserSearchLocation {
   id: string | null;
   user_id: string | null;
   address: string;
-  latitude: number;
-  longitude: number;
+  latitude: number | null;
+  longitude: number | null;
   cep: string | null;
 }
 
-export const DEFAULT_LOCATION: UserSearchLocation = {
+export type UserSearchLocationSource = 'none' | 'saved' | 'manual' | 'gps' | 'demo';
+export type UserSearchLocationStatus = 'loading' | 'ready' | 'missing' | 'error';
+
+export const EMPTY_LOCATION: UserSearchLocation = {
   id: null,
   user_id: null,
-  address: "Av. Cabo Branco, 2000 - Cabo Branco, João Pessoa - PB",
-  latitude: -7.1195,
-  longitude: -34.8450,
-  cep: '58038-000',
+  address: '',
+  latitude: null,
+  longitude: null,
+  cep: null,
 };
 
 interface UserSearchLocationContextType {
   location: UserSearchLocation;
   isLoading: boolean;
-  saveLocation: (addressData: GeocodedAddress) => Promise<{ error: string | null }>;
+  status: UserSearchLocationStatus;
+  source: UserSearchLocationSource;
+  error: string | null;
+  hasLocation: boolean;
+  saveLocation: (addressData: GeocodedAddress, source?: 'manual' | 'gps') => Promise<{ error: string | null }>;
   refetch: () => void;
 }
 
@@ -33,24 +40,38 @@ const UserSearchLocationContext = createContext<UserSearchLocationContextType | 
 
 export const UserSearchLocationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { user, isLoading: authLoading } = useAuthData();
-  const [location, setLocation] = useState<UserSearchLocation>(DEFAULT_LOCATION);
-  const [isLoading, setIsLoading] = useState(true);
+  const [location, setLocation] = useState<UserSearchLocation>(EMPTY_LOCATION);
+  const [status, setStatus] = useState<UserSearchLocationStatus>('loading');
+  const [source, setSource] = useState<UserSearchLocationSource>('none');
+  const [error, setError] = useState<string | null>(null);
+
+  const isLoading = status === 'loading';
+  const hasLocation = status === 'ready'
+    && location.latitude !== null
+    && location.longitude !== null
+    && location.address.trim().length > 0;
 
   const fetchLocation = useCallback(async (userId: string) => {
-    setIsLoading(true);
+    setStatus('loading');
+    setError(null);
     if (userId.startsWith('mock-')) {
       const saved = localStorage.getItem(`mock-search-location-${userId}`);
       if (saved) {
         try {
-          setLocation(JSON.parse(saved));
+          const parsed = JSON.parse(saved) as UserSearchLocation;
+          if (typeof parsed.latitude === 'number' && typeof parsed.longitude === 'number' && parsed.address) {
+            setLocation(parsed);
+            setSource('demo');
+            setStatus('ready');
+            return;
+          }
         } catch (e) {
           console.error("Error parsing saved mock location:", e);
-          setLocation({ ...DEFAULT_LOCATION, user_id: userId });
         }
-      } else {
-        setLocation({ ...DEFAULT_LOCATION, user_id: userId });
       }
-      setIsLoading(false);
+      setLocation({ ...EMPTY_LOCATION, user_id: userId });
+      setSource('none');
+      setStatus('missing');
       return;
     }
     try {
@@ -75,14 +96,20 @@ export const UserSearchLocationProvider: React.FC<{ children: ReactNode }> = ({ 
           longitude: data.longitude,
           cep: data.cep,
         });
+        setSource('saved');
+        setStatus('ready');
       } else {
-        setLocation({ ...DEFAULT_LOCATION, user_id: userId });
+        setLocation({ ...EMPTY_LOCATION, user_id: userId });
+        setSource('none');
+        setStatus('missing');
       }
     } catch (e) {
       console.error("Error fetching user search location:", e);
-      setLocation({ ...DEFAULT_LOCATION, user_id: userId });
-    } finally {
-      setIsLoading(false);
+      const message = e instanceof Error ? e.message : 'Não foi possível carregar a localização.';
+      setLocation({ ...EMPTY_LOCATION, user_id: userId });
+      setSource('none');
+      setError(message);
+      setStatus('error');
     }
   }, []);
 
@@ -91,19 +118,22 @@ export const UserSearchLocationProvider: React.FC<{ children: ReactNode }> = ({ 
       if (user) {
         fetchLocation(user.id);
       } else {
-        setIsLoading(false);
-        setLocation(DEFAULT_LOCATION);
+        setLocation(EMPTY_LOCATION);
+        setSource('none');
+        setError(null);
+        setStatus('missing');
       }
     }
   }, [user, authLoading, fetchLocation]);
 
-  const saveLocation = useCallback(async (addressData: GeocodedAddress) => {
+  const saveLocation = useCallback(async (addressData: GeocodedAddress, nextSource: 'manual' | 'gps' = 'manual') => {
     if (!user) {
       showError("Usuário não autenticado.");
       return { error: "Usuário não autenticado." };
     }
     
-    setIsLoading(true);
+    setStatus('loading');
+    setError(null);
     
     if (user.id.startsWith('mock-')) {
       const mockLoc = {
@@ -116,7 +146,8 @@ export const UserSearchLocationProvider: React.FC<{ children: ReactNode }> = ({ 
       };
       setLocation(mockLoc);
       localStorage.setItem(`mock-search-location-${user.id}`, JSON.stringify(mockLoc));
-      setIsLoading(false);
+      setSource('demo');
+      setStatus('ready');
       return { error: null };
     }
     
@@ -145,15 +176,17 @@ export const UserSearchLocationProvider: React.FC<{ children: ReactNode }> = ({ 
         longitude: data.longitude,
         cep: data.cep,
       });
-      
-      setIsLoading(false);
+      setSource(nextSource);
+      setStatus('ready');
       return { error: null };
     } catch (e) {
       console.error("Error saving user search location:", e);
-      setIsLoading(false);
-      return { error: (e as Error).message };
+      const message = e instanceof Error ? e.message : 'Não foi possível salvar a localização.';
+      setError(message);
+      setStatus(location.latitude !== null && location.longitude !== null ? 'ready' : 'error');
+      return { error: message };
     }
-  }, [user]);
+  }, [location.latitude, location.longitude, user]);
 
   const refetch = useCallback(() => {
     if (user) {
@@ -162,7 +195,7 @@ export const UserSearchLocationProvider: React.FC<{ children: ReactNode }> = ({ 
   }, [user, fetchLocation]);
 
   return (
-    <UserSearchLocationContext.Provider value={{ location, isLoading, saveLocation, refetch }}>
+    <UserSearchLocationContext.Provider value={{ location, isLoading, status, source, error, hasLocation, saveLocation, refetch }}>
       {children}
     </UserSearchLocationContext.Provider>
   );

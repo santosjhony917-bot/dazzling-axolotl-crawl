@@ -51,7 +51,7 @@ export type MapsCollectionExtensionTerm = {
   coverage: MapsCollectionTermCoverage;
 };
 
-export const MAPS_COLLECTION_EXTENSION_TERMS: MapsCollectionExtensionTerm[] = [
+export const MAPS_COLLECTION_EXTENSION_TERMS: MapsCollectionExtensionTerm[] = ([
   { label: 'Restaurantes gerais', term: 'restaurantes', coverage: 'all_neighborhoods' },
   { label: 'Lanches/Fast Food', term: 'pizzaria', coverage: 'all_neighborhoods' },
   { label: 'Lanches/Fast Food', term: 'lanchonete', coverage: 'all_neighborhoods' },
@@ -92,7 +92,7 @@ export const MAPS_COLLECTION_EXTENSION_TERMS: MapsCollectionExtensionTerm[] = [
   { label: 'Refeições/Restaurantes', term: 'comida nordestina', coverage: 'commercial_poles' },
   { label: 'Refeições/Restaurantes', term: 'frango assado', coverage: 'commercial_poles' },
   { label: 'Refeições/Restaurantes', term: 'frutos do mar', coverage: 'commercial_poles' },
-].filter((entry, index, all) => {
+] satisfies MapsCollectionExtensionTerm[]).filter((entry, index, all) => {
   const key = `${normalizeExpansionKey(entry.coverage)}:${normalizeExpansionKey(entry.term)}`;
   return all.findIndex(other => `${normalizeExpansionKey(other.coverage)}:${normalizeExpansionKey(other.term)}` === key) === index;
 });

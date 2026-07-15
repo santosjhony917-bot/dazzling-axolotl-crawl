@@ -1,5 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
 import { Profile, Restaurant } from '@/types/supabase';
+import { fetchPublicCatalogRestaurantsByIds } from '@/integrations/supabase/publicCatalog';
 
 export interface HappyHour {
   id: string;
@@ -456,10 +457,14 @@ export async function getHappyHourDetails(
     // 4. Restaurantes da Enquete
     const { data: pollRests, error: restsErr } = await supabase
       .from('happy_hour_restaurants')
-      .select('restaurant_id, restaurant:restaurants(*)')
+      .select('restaurant_id')
       .eq('happy_hour_id', happyHourId);
 
     if (restsErr) throw restsErr;
+    const publicRestaurants = await fetchPublicCatalogRestaurantsByIds(
+      (pollRests || []).map((row) => row.restaurant_id),
+    );
+    const publicRestaurantById = new Map(publicRestaurants.map((restaurant) => [restaurant.id, restaurant]));
 
     // 5. Votos da enquete
     const { data: votes, error: votesErr } = await supabase
@@ -472,8 +477,9 @@ export async function getHappyHourDetails(
     const userVoteItem = (votes || []).find((v: any) => v.user_id === currentUserId);
     const userVote = userVoteItem ? userVoteItem.restaurant_id : null;
 
-    const pollRestaurants: PollRestaurant[] = (pollRests || []).map((pr: any) => {
-      const rest = pr.restaurant;
+    const pollRestaurants: PollRestaurant[] = (pollRests || []).flatMap((pr: any) => {
+      const rest = publicRestaurantById.get(pr.restaurant_id);
+      if (!rest) return [];
       const filteredVotes = (votes || []).filter((v: any) => v.restaurant_id === rest.id);
       
       const voters = filteredVotes.map((v: any) => ({
@@ -482,7 +488,7 @@ export async function getHappyHourDetails(
         avatar_url: v.profile?.avatar_url || ''
       }));
 
-      return {
+      return [{
         restaurant_id: rest.id,
         name: rest.name,
         image_url: rest.image_url,
@@ -490,7 +496,7 @@ export async function getHappyHourDetails(
         address: rest.address,
         votesCount: voters.length,
         voters
-      };
+      }];
     });
 
     return {
@@ -678,7 +684,9 @@ export async function updateHappyHourSettings(
         isDateVoting = parsed.is_date_voting === true;
         suggestedDates = parsed.suggested_dates || [];
         dateVotes = parsed.date_votes || {};
-      } catch (e) {}
+      } catch {
+        // Mantém os valores padrão quando uma descrição legada não é JSON.
+      }
 
       hh.description = JSON.stringify({
         text: text || "",
@@ -708,7 +716,9 @@ export async function updateHappyHourSettings(
         isDateVoting = parsed.is_date_voting === true;
         suggestedDates = parsed.suggested_dates || [];
         dateVotes = parsed.date_votes || {};
-      } catch (e) {}
+      } catch {
+        // Mantém os valores padrão quando uma descrição legada não é JSON.
+      }
     }
 
     const newDescription = JSON.stringify({

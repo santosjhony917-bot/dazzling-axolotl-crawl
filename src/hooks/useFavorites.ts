@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuthData } from "@/context/AuthContext";
 import { showError, showSuccess } from "@/utils/toast";
 import { Restaurant } from "@/types/supabase";
+import { fetchPublicCatalogRestaurantsByIds } from '@/integrations/supabase/publicCatalog';
 
 // --- Tipos de Retorno ---
 interface Favorite {
@@ -34,10 +35,7 @@ const fetchFavorites = async (userId: string): Promise<Favorite[]> => {
 
   const { data, error } = await supabase
     .from('user_favorites')
-    .select(`
-      *,
-      restaurants (*)
-    `)
+    .select('id,restaurant_id,user_id,created_at')
     .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
@@ -45,8 +43,12 @@ const fetchFavorites = async (userId: string): Promise<Favorite[]> => {
   
   if (!data) return [];
 
-  // Filtra para garantir que apenas objetos Favorite válidos sejam retornados
-  return data.filter(item => item.restaurants) as Favorite[];
+  const restaurants = await fetchPublicCatalogRestaurantsByIds(data.map((item) => item.restaurant_id));
+  const byId = new Map(restaurants.map((restaurant) => [restaurant.id, restaurant]));
+  return data.flatMap((item) => {
+    const restaurant = byId.get(item.restaurant_id);
+    return restaurant ? [{ ...item, restaurants: restaurant } as Favorite] : [];
+  });
 };
 
 // --- Main Hook ---

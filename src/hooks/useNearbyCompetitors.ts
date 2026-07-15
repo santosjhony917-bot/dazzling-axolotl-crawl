@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { RestaurantWithDistance } from '@/types/supabase'; // Importando o tipo correto
+import { fetchNearbyPublicCatalogRestaurants } from '@/integrations/supabase/publicCatalog';
 
 interface NearbyCompetitor {
   id: string;
@@ -34,30 +33,16 @@ export const useNearbyCompetitors = (
       setError(null);
 
       try {
-        const { data: deletedRests } = await supabase
-          .from('restaurants')
-          .select('id')
-          .eq('is_deleted', true);
-        const deletedIds = new Set(deletedRests?.map(r => r.id) || []);
-
-        // Using the existing RPC function to find nearby restaurants
-        const { data, error } = await supabase.rpc('find_nearby_restaurants', {
-          user_lat: latitude,
-          user_lng: longitude,
-          max_distance_km: 10, // Default search radius of 10km
-          search_query: null,
+        const nearbyRestaurants = await fetchNearbyPublicCatalogRestaurants({
+          latitude,
+          longitude,
+          maxDistanceKm: 10,
+          limit: 50,
         });
-
-        if (error) {
-          throw new Error(error.message);
-        }
-
-        // Explicitly cast data to RestaurantWithDistance[]
-        const nearbyRestaurants = data as RestaurantWithDistance[];
 
         // Filter out the current restaurant and map to the required structure
         const filteredCompetitors: NearbyCompetitor[] = nearbyRestaurants
-          .filter((r) => r.id !== currentRestaurantId && !deletedIds.has(r.id))
+          .filter((r) => r.id !== currentRestaurantId)
           .map((r) => ({
             id: r.id,
             name: r.name,

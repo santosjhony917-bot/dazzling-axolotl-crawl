@@ -2,9 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { supabase } from '../integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -45,30 +42,16 @@ const ClaimRestaurant = () => {
     setIsLoading(true);
     setError(null);
 
-    if (claimCode.toUpperCase().startsWith('MOCK')) {
-      localStorage.setItem('claimCode', claimCode.toUpperCase());
-      setIsCodeVerified(true);
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      const { data: restaurant, error: dbError } = await supabase
-        .from('restaurants')
-        .select('id, user_id')
-        .eq('claim_code', claimCode.toUpperCase())
-        .or('is_deleted.eq.false,is_deleted.is.null')
-        .maybeSingle();
-
-      if (dbError || !restaurant) {
-        throw new Error('Código de acesso inválido ou não encontrado.');
+      const normalizedCode = claimCode.trim().toUpperCase();
+      if (!/^[A-Z0-9]{8}$/.test(normalizedCode)) {
+        throw new Error('O código deve ter exatamente 8 letras ou números.');
       }
 
-      if (restaurant.user_id) {
-        throw new Error('Este restaurante já foi reivindicado.');
-      }
-
-      localStorage.setItem('claimCode', claimCode.toUpperCase());
+      // A validade e a disponibilidade do código são verificadas somente pelo Edge
+      // Function autenticado `claim-restaurant`. Consultar `restaurants.claim_code`
+      // no navegador exporia um segredo operacional e deixa de funcionar com o RLS.
+      localStorage.setItem('claimCode', normalizedCode);
       setIsCodeVerified(true);
     } catch (e: any) {
       setError(e.message);
@@ -135,7 +118,7 @@ const ClaimRestaurant = () => {
             ) : (
               <div className="mt-5">
                 <p className="text-text-secondary mb-5 text-center text-sm leading-relaxed">
-                  Código verificado! Agora, crie sua conta ou faça login para continuar.
+                  Código recebido. Crie sua conta ou faça login para validá-lo com segurança e assumir o perfil.
                 </p>
                 <CustomAuth />
               </div>

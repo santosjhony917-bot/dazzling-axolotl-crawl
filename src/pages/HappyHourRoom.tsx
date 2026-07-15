@@ -37,8 +37,8 @@ import {
   voteForDate,
   addDateToPoll
 } from '@/services/happyHourService';
-import { supabase } from '@/integrations/supabase/client';
 import { Restaurant, Profile } from '@/types/supabase';
+import { fetchPublicCatalogRestaurantsByName } from '@/integrations/supabase/publicCatalog';
 import { getFriendships } from '@/services/friendsService';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
@@ -282,14 +282,7 @@ export default function HappyHourRoom() {
 
     // Busca Supabase real
     try {
-      const { data, error } = await supabase
-        .from('restaurants')
-        .select('*')
-        .ilike('name', `%${searchQuery}%`)
-        .limit(5);
-
-      if (error) throw error;
-      setSearchResults(data || []);
+      setSearchResults(await fetchPublicCatalogRestaurantsByName(searchQuery, 5));
     } catch (e) {
       console.error(e);
       showError('Erro ao buscar restaurantes.');

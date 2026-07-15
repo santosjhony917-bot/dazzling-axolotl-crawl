@@ -11,28 +11,26 @@ import { Button } from "@/components/ui/button";
 import { MapPin } from 'lucide-react';
 
 // Tipos de preferência de localização
-export type LocationPreference = 'granted' | 'denied' | 'unset' | 'mock';
+export type LocationPreference = 'granted' | 'denied' | 'unset';
 
 interface LocationPermissionModalProps {
   isOpen: boolean;
   onGrant: () => void;
   onDeny: () => void;
-  // Adicionando a prop onUseMockLocation que estava faltando
-  onUseMockLocation: () => void;
 }
 
 // Função utilitária para verificar a preferência de localização (agora síncrona)
 export const checkLocationPreference = (): LocationPreference => {
   const preference = localStorage.getItem('location_preference') as LocationPreference;
   
-  if (preference === 'granted' || preference === 'denied' || preference === 'mock') {
+  if (preference === 'granted' || preference === 'denied') {
     return preference;
   }
   
   return 'unset';
 };
 
-const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpen, onGrant, onDeny, onUseMockLocation }) => {
+const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpen, onGrant, onDeny }) => {
   
   const handleGrant = () => {
     localStorage.setItem('location_preference', 'granted');
@@ -44,11 +42,6 @@ const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpe
     onDeny();
   };
   
-  const handleUseMock = () => {
-    localStorage.setItem('location_preference', 'mock');
-    onUseMockLocation();
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleDeny()}>
       <DialogContent className="sm:max-w-[425px] rounded-2xl p-6 shadow-none">
@@ -71,13 +64,6 @@ const LocationPermissionModal: React.FC<LocationPermissionModalProps> = ({ isOpe
             className="w-full h-12 rounded-2xl font-bold shadow-none"
           >
             Permitir Localização
-          </Button>
-          <Button 
-            onClick={handleUseMock}
-            variant="outline"
-            className="w-full h-12 rounded-2xl border-gray-300 text-gray-700 hover:bg-gray-100 shadow-none"
-          >
-            Usar Localização Padrão
           </Button>
           <Button 
             onClick={handleDeny}

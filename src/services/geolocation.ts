@@ -2,7 +2,6 @@ import axios from 'axios';
 import { checkLocationPreference } from '@/components/LocationPermissionModal'; // Import the checkLocationPreference function
 
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
-const MOCK_LOCATION = { lat: -7.1195, lon: -34.8450 }; // João Pessoa, PB
 const LAST_SEARCH_LOCATION_KEY = 'last_search_location'; // Chave para localStorage
 
 interface AddressDetails {
@@ -90,25 +89,25 @@ export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
   const preference = checkLocationPreference();
   const savedLocation = loadLastSearchLocation(); // Carrega a última localização salva
 
-  // Função de fallback para usar a localização salva ou o mock padrão
-  const fallbackToSavedOrMock = async () => {
+  // Uma localização previamente escolhida pelo usuário é um fallback honesto.
+  // Nunca substituímos ausência/erro por coordenadas fictícias.
+  const fallbackToSaved = async () => {
     if (savedLocation) {
       console.warn("Geolocation failed. Falling back to saved location.");
       return reverseGeocode(savedLocation.lat, savedLocation.lon);
     }
-    console.warn("Geolocation failed. Falling back to mock location.");
-    return reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon);
+    throw new Error('Não foi possível obter sua localização. Informe um endereço para continuar.');
   };
 
-  if (preference === 'mock') {
-    console.warn("Using mock location based on user preference.");
-    return reverseGeocode(MOCK_LOCATION.lat, MOCK_LOCATION.lon);
+  if (preference === 'denied') {
+    return fallbackToSaved();
   }
 
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      console.warn("Geolocation is not supported by this browser. Falling back to saved/mock location.");
-      return resolve(fallbackToSavedOrMock());
+      console.warn("Geolocation is not supported by this browser. Falling back to saved location.");
+      fallbackToSaved().then(resolve).catch(reject);
+      return;
     }
 
     const options: PositionOptions = {
@@ -125,14 +124,12 @@ export async function getCurrentLocationAddress(): Promise<GeocodedAddress> {
           resolve(address);
         } catch (error) {
           console.error("Reverse geocoding failed:", error);
-          // Se o reverse geocoding falhar, usa o fallback
-          resolve(fallbackToSavedOrMock());
+          fallbackToSaved().then(resolve).catch(reject);
         }
       },
       (error) => {
         console.error("Geolocation error:", error);
-        // Se o geolocation falhar, usa o fallback
-        resolve(fallbackToSavedOrMock());
+        fallbackToSaved().then(resolve).catch(reject);
       },
       options
     );

@@ -202,16 +202,22 @@ function flattenItems(items = []) {
 }
 
 export async function dataForSeoOrganicSearch(env, query, options = {}) {
-  const locationName = options.locationName || env.DATAFORSEO_LOCATION_NAME || 'Brazil';
-  const payload = await dataForSeoPost(env, '/serp/google/organic/live/advanced', [{
+  const locationName = clean(options.locationName || '');
+  const locationCode = Number(options.locationCode || env.DATAFORSEO_LOCATION_CODE || 0);
+  const requestTask = {
     keyword: query,
     language_code: options.languageCode || 'pt',
-    location_name: locationName,
     se_domain: options.seDomain || 'google.com.br',
     depth: Number(options.numResults || 10),
     device: 'desktop',
     os: 'windows',
-  }], options.timeoutMs || 60000);
+  };
+  if (Number.isFinite(locationCode) && locationCode > 0) {
+    requestTask.location_code = locationCode;
+  } else if (locationName) {
+    requestTask.location_name = locationName;
+  }
+  const payload = await dataForSeoPost(env, '/serp/google/organic/live/advanced', [requestTask], options.timeoutMs || 60000);
 
   const task = payload.tasks?.[0] || {};
   const result = task.result?.[0] || {};

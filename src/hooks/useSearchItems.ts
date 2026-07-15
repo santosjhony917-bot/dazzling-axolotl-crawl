@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { isMissingPublicCatalogContract } from '@/integrations/supabase/publicCatalog';
 export interface SearchItemResult {
   item_id: string;
   item_name: string;
@@ -145,19 +146,30 @@ export function useSearchItems({
     setLoading(true);
     setError(null);
     try {
-      const { data: deletedRests } = await supabase
-        .from('restaurants')
-        .select('id')
-        .eq('is_deleted', true);
-      const deletedIds = new Set(deletedRests?.map(r => r.id) || []);
-
       const fetchRpc = async (query: string) => {
-        return supabase.rpc('search_menu_items', {
-          search_query: query,
+        let response = await supabase.rpc('search_public_catalog', {
+          p_queries: query.trim() ? [query] : [],
           p_limit: limit,
           p_offset: offset,
-          excluded_category_ids: excludedCategoryIds,
+          p_category: null,
+          p_city: null,
+          p_state: null,
+          p_neighborhood: null,
+          p_min_price: null,
+          p_max_price: null,
+          p_lat: null,
+          p_lng: null,
+          p_max_distance_km: null,
         });
+        if (response.error && isMissingPublicCatalogContract(response.error)) {
+          response = await supabase.rpc('search_menu_items', {
+            search_query: query,
+            p_limit: limit,
+            p_offset: offset,
+            excluded_category_ids: excludedCategoryIds,
+          });
+        }
+        return response;
       };
 
       const { data, error } = await fetchRpc(searchQuery);
@@ -165,7 +177,7 @@ export function useSearchItems({
       if (error) throw error;
 
       const originalData = data || [];
-      let mergedData = [...originalData];
+      const mergedData = [...originalData];
       const canUseAiFallback =
         offset === 0 &&
         limit > 0 &&
@@ -192,7 +204,10 @@ export function useSearchItems({
         }
       }
 
-      const filtered = mergedData.filter((item: any) => !deletedIds.has(item.restaurant_id)).slice(0, limit);
+      const excludedIds = new Set(excludedCategoryIds || []);
+      const filtered = mergedData
+        .filter((item: any) => !excludedIds.has(item.item_category_id))
+        .slice(0, limit);
       setItems(filtered);
       // AQUI ESTÁ A MUDANÇA: hasMore é true se o número de resultados for igual ao limite
       setHasMore(originalData.length === limit);

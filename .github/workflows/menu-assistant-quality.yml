@@ -1,0 +1,60 @@
+name: Menu assistant quality
+
+on:
+  pull_request:
+    paths:
+      - 'src/features/home/**'
+      - 'src/features/menu-assistant/**'
+      - 'src/components/navigation/**'
+      - 'src/components/ClientBottomNav.tsx'
+      - 'src/components/restaurant/RestaurantBottomNav.tsx'
+      - 'src/pages/Home.tsx'
+      - 'src/pages/SearchUnifiedPage.tsx'
+      - 'src/pages/LandingPage.tsx'
+      - 'supabase/functions/rewrite-search-query-ai/**'
+      - 'supabase/migrations/0063_harden_catalog_rls_and_eligibility.sql'
+      - 'supabase/migrations/0064_public_catalog_search_and_coverage.sql'
+      - 'scratch/menu-assistant-telemetry.test.mjs'
+      - 'scratch/navigation-shell.test.mjs'
+      - 'scratch/rewrite-search-query-ai.test.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/menu-assistant-quality.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VITE_SUPABASE_URL: https://example.supabase.co
+      VITE_SUPABASE_ANON_KEY: ci-placeholder-key
+      VITE_DEMO_MODE: 'false'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Contract tests
+        run: npm run test:menu-assistant
+
+      - name: Production build
+        run: npm run build
+
+      - name: Reject illustrative Home fixtures in production
+        run: |
+          if grep -R -E 'illustrative-item-|illustrative_fixture|Burger Órbita|Cozinha Órbita|Arroz da Panela Beta' dist; then
+            echo 'Illustrative Home content leaked into the production bundle.'
+            exit 1
+          fi

@@ -470,12 +470,16 @@ async function fetchSerpApi(apiKey, query) {
 
 async function fetchSearchProvider(env, apiKey, query) {
   if (SEARCH_PROVIDER === 'serpapi') return fetchSerpApi(apiKey, query);
+  const normalizedCity = CITY.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+  const locationCode =
+    Number(env.DATAFORSEO_LOCATION_CODE || 0) ||
+    (normalizedCity === 'joao pessoa' && STATE.toUpperCase() === 'PB' ? 1001622 : 0);
   return dataForSeoOrganicSearch(env, query, {
     numResults: NUM_RESULTS,
     timeoutMs: 60000,
     languageCode: 'pt',
     seDomain: 'google.com.br',
-    locationName: `${CITY}, Paraiba, Brazil`,
+    locationCode,
   });
 }
 
@@ -550,6 +554,38 @@ async function fetchTargets(supabase) {
     return [{ id: null, name: QUERY, google_maps_name: QUERY, synthetic: true }];
   }
   const ids = [...new Set([ONLY_ID, ...parseIdsFile(IDS_FILE)].filter(Boolean))];
+  if (ids.length > 1) {
+    const { data, error } = await supabase
+      .from('restaurants')
+      .select([
+        'id',
+        'name',
+        'google_maps_name',
+        'category',
+        'address',
+        'number',
+        'neighborhood',
+        'city',
+        'state',
+        'phone',
+        'rating',
+        'reviews_count',
+        'other_url',
+        'external_url',
+        'other_url_label',
+        'menu_status',
+        'is_deleted',
+      ].join(','))
+      .in('id', ids)
+      .eq('city', CITY)
+      .eq('state', STATE)
+      .or('is_deleted.eq.false,is_deleted.is.null');
+    if (error) throw error;
+    const order = new Map(ids.map((id, index) => [id, index]));
+    return (data || [])
+      .sort((left, right) => (order.get(left.id) ?? 999999) - (order.get(right.id) ?? 999999))
+      .slice(0, LIMIT);
+  }
   const rows = [];
   for (let from = 0; rows.length < LIMIT; from += 1000) {
     let query = supabase

@@ -1467,7 +1467,28 @@ function findFullPriceDeltaAnomalies(categories) {
 
 function audit(categories, evidence) {
   const items = categories.flatMap(category => category.items);
-  const uniqueKeys = new Set(items.map(item => item.external_id || `${item.name.toLowerCase()}::${item.description || ''}`));
+  const duplicateGroups = new Map();
+  for (const category of categories) {
+    for (const item of category.items || []) {
+      const key = item.external_id || `${item.name.toLowerCase()}::${item.description || ''}`;
+      if (!duplicateGroups.has(key)) duplicateGroups.set(key, []);
+      duplicateGroups.get(key).push({
+        category: category.name,
+        price: finite(item.display_price ?? item.price_min ?? item.price),
+        description: clean(item.description || ''),
+      });
+    }
+  }
+  const duplicateConflicts = [...duplicateGroups.values()].filter(group => {
+    if (group.length <= 1) return false;
+    const categoryCount = new Set(group.map(entry => normalizeKeywordText(entry.category))).size;
+    const priceCount = new Set(group.map(entry => entry.price == null ? 'null' : String(entry.price))).size;
+    const descriptionCount = new Set(group.map(entry => entry.description)).size;
+    // Cross-listing the same product in multiple categories is common in owner-made menus
+    // (e.g. "mais pedidos", "veganas" and the canonical category). Only block if the
+    // duplicate is ambiguous within the same category or conflicts in price/description.
+    return categoryCount < group.length || priceCount > 1 || descriptionCount > 1;
+  });
   const unresolved = items.filter(item => item.price_type === 'unknown');
   const optionOnly = items.filter(item => ['option_only', 'range'].includes(item.price_type));
   const interfaceNoise = items.filter(isMenuInterfaceNoiseItem);
@@ -1478,7 +1499,7 @@ function audit(categories, evidence) {
     return value != null && (isFakeOrTokenPrice(value) || value > 1000);
   });
   const fullPriceDeltaAnomalies = findFullPriceDeltaAnomalies(categories);
-  const duplicates = Math.max(0, items.length - uniqueKeys.size);
+  const duplicates = duplicateConflicts.length;
   const issues = [];
   if (!categories.length) issues.push('sem_categorias');
   if (!items.length) issues.push('sem_itens');

@@ -95,7 +95,7 @@ const PrivacyPolicyContent = () => (
     <LegalSection
       number={4}
       title="Segurança"
-      content="Implementamos medidas de segurança robustas, incluindo criptografia e RLS (Row Level Security) no Supabase, para proteger seus dados contra acesso não autorizado."
+      content="Adotamos controles técnicos e organizacionais para reduzir acessos indevidos e revisamos periodicamente permissões, autenticação e armazenamento. Nenhum mecanismo isolado é apresentado como garantia absoluta de segurança."
     />
     <LegalSection
       number={5}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ChevronLeft, Activity, Database, CheckCircle, CheckCircle2, Circle, Briefcase, CreditCard, Sparkles, MapPin, Loader2, Eye, LockKeyhole } from 'lucide-react';
+import { ChevronLeft, Activity, Database, CheckCircle, CheckCircle2, Briefcase, CreditCard, Sparkles, MapPin, Loader2, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -10,13 +10,15 @@ import { ExpansionProject } from '@/types/supabase';
 import { toast } from 'sonner';
 
 // Módulos
-import CitySettings from './components/CitySettings';
 import CityCollection from './components/CityCollection';
 import CityValidation from './components/CityValidation';
 import CityVitrineCrm from './components/CityVitrineCrm';
 import CityCrm from './components/CityCrm';
 import CitySubscriptions from './components/CitySubscriptions';
 import CityAnalytics from './components/CityAnalytics';
+import CityOperationsControlCenter from './components/operations/CityOperationsControlCenter';
+import { useCityOperationState } from './components/operations/useCityOperationState';
+import { OperationScoreboardData } from './components/operations/types';
 
 const readAiLog = (restaurant: any) => {
   const raw = restaurant?.ai_log;
@@ -68,6 +70,7 @@ const emptyWorkflow: WorkflowState = {
 
 export default function CityDashboard() {
   const { cityId } = useParams();
+  const operationState = useCityOperationState(cityId);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const requestedTab = searchParams.get('tab') || 'operations';
@@ -77,7 +80,7 @@ export default function CityDashboard() {
   const [loading, setLoading] = useState(true);
   const [workflow, setWorkflow] = useState<WorkflowState>(emptyWorkflow);
 
-  const loadWorkflow = async (cityData: ExpansionProject) => {
+  const loadWorkflow = React.useCallback(async (cityData: ExpansionProject) => {
     if (!cityId) return;
 
     const countRestaurants = async (configureQuery: (query: any) => any) => {
@@ -144,7 +147,7 @@ export default function CityDashboard() {
       firstWaveSent: strategyRows.filter((item: any) => Boolean(item.sent_to_crm_at)).length,
       missingStrategyTable,
     });
-  };
+  }, [cityId]);
 
   useEffect(() => {
     async function loadCity() {
@@ -161,7 +164,7 @@ export default function CityDashboard() {
       }
     }
     loadCity();
-  }, [cityId]);
+  }, [cityId, loadWorkflow]);
 
   const handleTabChange = (val: string) => {
     if (val === 'validation' && workflow.totalLeads === 0) {
@@ -171,8 +174,8 @@ export default function CityDashboard() {
     }
 
     if (['vitrine-crm', 'crm'].includes(val) && workflow.published === 0) {
-      toast.warning('Antes desta etapa, publique ao menos um restaurante validado com cardápio encontrado.');
-      setSearchParams({ tab: workflow.totalLeads > 0 ? 'validation' : 'collection' });
+      toast.warning('A cidade pode encerrar com perfis incompletos, mas Vitrine/CRM exige ao menos um perfil aprovado pelo gate final.');
+      setSearchParams({ tab: workflow.totalLeads > 0 ? 'operations' : 'collection' });
       return;
     }
 
@@ -253,7 +256,9 @@ export default function CityDashboard() {
         </div>
       </div>
 
-      <WorkflowRail workflow={workflow} currentTab={currentTab} onGo={handleTabChange} />
+      {currentTab !== 'operations' && (
+        <WorkflowRail workflow={workflow} operations={operationState.scoreboard} currentTab={currentTab} onGo={handleTabChange} />
+      )}
 
       {/* Tabs / Módulos - Linear Style Navigation */}
       <Tabs value={currentTab} onValueChange={handleTabChange} className="min-w-0 w-full">
@@ -318,7 +323,7 @@ export default function CityDashboard() {
         </div>
 
         <div className="mt-0 min-w-0">
-          <TabsContent value="operations" className="mt-0 min-w-0 outline-none"><CitySettings /></TabsContent>
+          <TabsContent value="operations" className="mt-0 min-w-0 outline-none"><CityOperationsControlCenter state={operationState} /></TabsContent>
           <TabsContent value="collection" className="mt-0 min-w-0 outline-none"><CityCollection /></TabsContent>
           <TabsContent value="validation" className="mt-0 min-w-0 outline-none"><CityValidation /></TabsContent>
           <TabsContent value="vitrine-crm" className="mt-0 min-w-0 outline-none"><CityVitrineCrm /></TabsContent>
@@ -331,94 +336,59 @@ export default function CityDashboard() {
   );
 }
 
-function WorkflowRail({ workflow, currentTab, onGo }: { workflow: WorkflowState; currentTab: string; onGo: (tab: string) => void }) {
+function WorkflowRail({
+  workflow,
+  operations,
+  currentTab,
+  onGo,
+}: {
+  workflow: WorkflowState;
+  operations: OperationScoreboardData;
+  currentTab: string;
+  onGo: (tab: string) => void;
+}) {
+  const hasRunEvidence = operations.candidatesDiscovered > 0 || operations.restaurantsWithJobs > 0;
+  const guidance = !hasRunEvidence && workflow.totalLeads > 0
+    ? `${operations.restaurantsWithoutJobs || workflow.totalLeads} registros legados aguardam reconciliacao com um City Run.`
+    : operations.needsHumanReview > 0
+      ? `${operations.needsHumanReview} caso(s) exigem revisao humana; lacunas comuns podem encerrar como accepted_incomplete.`
+      : operations.cityRemaining > 0
+        ? `${operations.cityRemaining} restaurante(s) ainda nao possuem decisao terminal.`
+        : operations.activeRestaurants > 0
+          ? 'Cidade operacionalmente decidida. Nivel 6 e publicacao seguem em fluxo separado.'
+          : 'Inicie o censo para descobrir e reconciliar os restaurantes da cidade.';
   const steps = [
-    {
-      tab: 'collection',
-      label: 'Coleta',
-      metric: `${workflow.totalLeads} leads`,
-      done: workflow.totalLeads > 0,
-      locked: false,
-    },
-    {
-      tab: 'validation',
-      label: 'Validação',
-      metric: `${workflow.published}/${workflow.validated} publicados`,
-      done: workflow.published > 0,
-      locked: workflow.totalLeads === 0,
-    },
-    {
-      tab: 'vitrine-crm',
-      label: 'Vitrine',
-      metric: workflow.missingStrategyTable ? 'migration 0062' : `${workflow.strategyRows} regras`,
-      done: workflow.strategyRows > 0,
-      locked: workflow.published === 0,
-    },
-    {
-      tab: 'crm',
-      label: 'Sales Hub',
-      metric: `${workflow.crmLeads} leads`,
-      done: workflow.crmLeads > 0,
-      locked: workflow.published === 0 || (workflow.strategyRows === 0 && workflow.crmLeads === 0 && !workflow.missingStrategyTable),
-    },
-    {
-      tab: 'subscriptions',
-      label: 'Financeiro',
-      metric: `${workflow.paidPremium} pagantes`,
-      done: workflow.paidPremium > 0,
-      locked: false,
-    },
+    { label: 'Descobertos', value: operations.candidatesDiscovered || workflow.totalLeads },
+    { label: 'Reconciliados', value: operations.activeRestaurants },
+    { label: 'Decididos', value: operations.cityProcessed },
+    { label: 'Revisao humana', value: operations.needsHumanReview },
+    { label: 'Auditados (N6)', value: operations.level6 },
+    { label: 'Publicados', value: workflow.published },
   ];
 
-  const nextStep = steps.find((step) => !step.done && !step.locked) || steps.find((step) => !step.locked) || steps[0];
-  const guidance = workflow.totalLeads === 0
-    ? 'Comece coletando restaurantes pelo Motor de Coleta.'
-    : workflow.published === 0
-      ? 'Valide, publique e confirme cardápio antes de qualquer contato comercial.'
-      : workflow.strategyRows === 0
-        ? 'Monte a Vitrine & CRM para separar âncoras, cortesia visual e primeira onda.'
-        : workflow.crmLeads === 0
-          ? 'Envie a primeira onda para o Sales Hub e acompanhe respostas.'
-          : 'Agora acompanhe contato, resposta humana, inválidos e conversões.';
-
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-        <div>
-          <p className="text-xs font-black uppercase tracking-wider text-indigo-600">Fluxo operacional da cidade</p>
-          <h2 className="mt-1 text-lg font-black text-slate-950">Próxima melhor ação</h2>
-          <p className="mt-1 text-sm font-medium text-slate-500">{guidance}</p>
+    <section className="rounded-lg border border-slate-200 bg-white shadow-sm">
+      <div className="flex flex-col gap-3 border-b border-slate-200 px-4 py-3 lg:flex-row lg:items-center lg:justify-between">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className={`h-4 w-4 ${operations.cityRemaining === 0 && operations.activeRestaurants > 0 ? 'text-emerald-600' : 'text-blue-600'}`} />
+            <p className="text-xs font-black uppercase text-slate-600">Fechamento da cidade</p>
+          </div>
+          <p className="mt-1 truncate text-sm font-semibold text-slate-700">{guidance}</p>
         </div>
-        <Button onClick={() => onGo(nextStep.tab)} className="w-full bg-slate-950 font-bold text-white hover:bg-slate-800 xl:w-auto">
-          Abrir {nextStep.label}
-        </Button>
+        {currentTab !== 'operations' && (
+          <Button onClick={() => onGo('operations')} variant="outline" className="h-9 rounded-md text-xs font-black">
+            Abrir operacao
+          </Button>
+        )}
       </div>
-
-      <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
-        {steps.map((step) => {
-          const isActive = currentTab === step.tab;
-          const Icon = step.locked ? LockKeyhole : step.done ? CheckCircle2 : Circle;
-          return (
-            <button
-              key={step.tab}
-              type="button"
-              onClick={() => onGo(step.tab)}
-              className={`min-w-0 rounded-xl border p-3 text-left transition ${
-                isActive
-                  ? 'border-indigo-200 bg-indigo-50 text-indigo-900'
-                  : step.locked
-                    ? 'border-slate-200 bg-slate-50 text-slate-400'
-                    : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span className="truncate text-sm font-black">{step.label}</span>
-                <Icon className={`h-4 w-4 shrink-0 ${step.done ? 'text-emerald-500' : step.locked ? 'text-slate-300' : 'text-indigo-500'}`} />
-              </div>
-              <p className="mt-1 truncate text-xs font-semibold opacity-75">{step.metric}</p>
-            </button>
-          );
-        })}
+      <div className="grid grid-cols-2 divide-x divide-y divide-slate-200 sm:grid-cols-3 xl:grid-cols-6 xl:divide-y-0">
+        {steps.map((step) => (
+          <div key={step.label} className="px-3 py-2.5">
+            <p className="text-[10px] font-black uppercase text-slate-500">{step.label}</p>
+            <p className="mt-1 text-lg font-black tabular-nums text-slate-900">{step.value}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

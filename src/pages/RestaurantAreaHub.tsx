@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, FileText, Loader2, LogIn, Store, UserPlus } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { createPageUrl, PathKey } from '@/utils/url';
@@ -17,7 +18,7 @@ import { FFActionCard, FFIconBadge } from '@/components/filterfood/FilterFoodUI'
 interface Option {
   title: string;
   description: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
   path: PathKey;
 }
 

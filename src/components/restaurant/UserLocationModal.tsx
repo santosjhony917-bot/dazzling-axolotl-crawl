@@ -81,7 +81,7 @@ export default function UserLocationModal({ isOpen, onClose, currentAddress, onL
   useEffect(() => {
     if (isOpen) {
       // Tenta preencher o CEP e endereço se já houver uma localização salva
-      if (userLocation.address !== "Localização Padrão (João Pessoa)" && userLocation.cep) {
+      if (userLocation.cep) {
         reset({
           cep: formatCEP(userLocation.cep),
           address: userLocation.address.split(',')[0]?.trim() || '',

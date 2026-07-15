@@ -23,12 +23,13 @@ import {
 } from 'lucide-react';
 import { parseNaturalQuery, buildRestaurantCombos, getItemsForComboSearch, MealCombo } from '@/utils/comboParser';
 import { getHappyHours, addRestaurantToPoll, HappyHour } from '@/services/happyHourService';
-import { supabase } from '@/integrations/supabase/client';
+import { fetchNearbyPublicCatalogRestaurants } from '@/integrations/supabase/publicCatalog';
 import { showError, showSuccess } from '@/utils/toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
 import { useImageCacheBuster } from '@/hooks/useImageCacheBuster';
+import { DEMO_LABEL, IS_DEMO_MODE } from '@/lib/runtimeMode';
 
 // Interfaces de mensagens do chat
 interface ChatMessage {
@@ -44,13 +45,15 @@ export default function ComboFinderPage() {
   const queryParam = searchParams.get('q');
   const { user } = useAuthData();
   const currentUserId = user?.id || '';
-  const { location, isLoading: isLocationLoading } = useUserSearchLocation();
+  const { location, isLoading: isLocationLoading, hasLocation, status: locationStatus } = useUserSearchLocation();
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
       sender: 'bot',
-      text: 'Olá! Sou o seu Assistente Gourmet IA. ✨\n\nMe diga o que você está com vontade de comer, com quem vai e qual o seu orçamento máximo. Eu vou varrer o cardápio dos restaurantes próximos de você e montar a combinação de pratos ideal que cabe no seu bolso!\n\nExemplo: "Quero lanche com minha esposa e gastar até R$ 130".'
+      text: IS_DEMO_MODE
+        ? `${DEMO_LABEL} Modo de demonstração ativo. Os restaurantes e itens desta experiência são fictícios e aparecem identificados.\n\nExemplo: "Quero lanche para 2 até R$ 130".`
+        : 'Olá! Eu consulto cardápios publicados perto de você e monto combinações usando somente os itens e preços encontrados.\n\nExemplo: "Quero lanche para 2 até R$ 130".'
     }
   ]);
   const [inputText, setInputText] = useState('');
@@ -82,57 +85,44 @@ export default function ComboFinderPage() {
   }, [currentUserId]);
 
   const fetchNearbyRestaurantsForCombo = async (lat: number, lng: number, maxDistKm: number) => {
+    if (IS_DEMO_MODE) {
+      return [
+        {
+          id: 'demo-premium-restaurant-id',
+          name: `${DEMO_LABEL} Restaurante Gourmet`,
+          category: 'Demonstração',
+          image_url: null,
+          distance_km: 1.2,
+          latitude: lat,
+          longitude: lng,
+          plan: 'premium',
+          is_demo: true,
+        },
+        {
+          id: 'demo-casual-restaurant-id',
+          name: `${DEMO_LABEL} Lanchonete Exemplo`,
+          category: 'Demonstração',
+          image_url: null,
+          distance_km: 2.5,
+          latitude: lat + 0.005,
+          longitude: lng + 0.005,
+          plan: 'free',
+          is_demo: true,
+        },
+      ].filter(restaurant => restaurant.distance_km <= maxDistKm);
+    }
+
     try {
-      const { data: deletedRests } = await supabase
-        .from('restaurants')
-        .select('id')
-        .eq('is_deleted', true);
-      const deletedIds = new Set(deletedRests?.map(r => r.id) || []);
-
-      const { data, error } = await supabase.rpc('find_nearby_restaurants', {
-        user_lat: lat,
-        user_lng: lng,
-        p_limit: 50,
-        p_offset: 0
-      });
-      if (!error && data) {
-        const ids = data.map((r: any) => r.id).filter(Boolean);
-        const { data: statusRows } = ids.length
-          ? await supabase
-            .from('restaurants')
-            .select('id, is_published, is_deleted, menu_status')
-            .in('id', ids)
-          : { data: [] as any[] };
-        const publishableIds = new Set((statusRows || [])
-          .filter((row: any) => row.is_published === true && row.is_deleted !== true && row.menu_status === 'found')
-          .map((row: any) => row.id));
-
-        return data.filter((r: any) => r.distance_km <= maxDistKm && !deletedIds.has(r.id) && publishableIds.has(r.id));
-      }
-    } catch(e){}
-
-    return [
-      {
-        id: 'mock-premium-restaurant-id',
-        name: 'Sabor Premium Gourmet',
-        category: 'Italiana',
-        image_url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500',
-        distance_km: 1.2,
+      return await fetchNearbyPublicCatalogRestaurants({
         latitude: lat,
         longitude: lng,
-        plan: 'premium'
-      },
-      {
-        id: 'mock-free-restaurant-id',
-        name: 'Lancheira do Zé (Free)',
-        category: 'Lanches',
-        image_url: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500',
-        distance_km: 2.5,
-        latitude: lat + 0.005,
-        longitude: lng + 0.005,
-        plan: 'free'
-      }
-    ].filter(r => r.distance_km <= maxDistKm);
+        maxDistanceKm: maxDistKm,
+        limit: 50,
+      });
+    } catch (error) {
+      console.error('Failed to fetch restaurants for the menu assistant.', error);
+      throw new Error('Não foi possível consultar os restaurantes próximos agora.');
+    }
   };
 
   const processSearch = async (query: string) => {
@@ -157,8 +147,26 @@ export default function ComboFinderPage() {
       const parsed = parseNaturalQuery(query);
       setParsedInfo(parsed);
 
-      const lat = location.latitude || -23.55052;
-      const lng = location.longitude || -46.633308;
+      if (isLocationLoading || locationStatus === 'loading') {
+        setMessages(prev => prev.filter(m => m.id !== 'typing').concat({
+          id: `bot-${Date.now()}`,
+          sender: 'bot',
+          text: 'Ainda estou carregando sua localização. Aguarde um instante e tente novamente.'
+        }));
+        return;
+      }
+
+      if (!hasLocation || location.latitude === null || location.longitude === null) {
+        setMessages(prev => prev.filter(m => m.id !== 'typing').concat({
+          id: `bot-${Date.now()}`,
+          sender: 'bot',
+          text: 'Preciso de uma localização real para consultar cardápios próximos. Defina sua localização e tente novamente.'
+        }));
+        return;
+      }
+
+      const lat = location.latitude;
+      const lng = location.longitude;
 
       const nearbyRests = await fetchNearbyRestaurantsForCombo(lat, lng, parsed.maxDistance);
       
@@ -166,7 +174,7 @@ export default function ComboFinderPage() {
         setMessages(prev => prev.filter(m => m.id !== 'typing').concat({
           id: `bot-${Date.now()}`,
           sender: 'bot',
-          text: `Não encontrei nenhum restaurante cadastrado em um raio de ${parsed.maxDistance} km. Tente aumentar a distância na sua busca!`
+          text: `Ainda não há cobertura de cardápios publicados em um raio de ${parsed.maxDistance} km para esta localização. Você pode aumentar a distância ou tentar outra região.`
         }));
         setLoading(false);
         return;
@@ -174,9 +182,19 @@ export default function ComboFinderPage() {
 
       const restaurantIds = nearbyRests.map(r => r.id);
       const itemsGrouped = await getItemsForComboSearch(restaurantIds);
+      const restaurantsWithMenuItems = nearbyRests.filter(restaurant => (itemsGrouped[restaurant.id] || []).length > 0);
+
+      if (restaurantsWithMenuItems.length === 0) {
+        setMessages(prev => prev.filter(m => m.id !== 'typing').concat({
+          id: `bot-${Date.now()}`,
+          sender: 'bot',
+          text: `Encontrei ${nearbyRests.length} restaurante(s) publicado(s) na região, mas nenhum possui itens de cardápio auditáveis disponíveis para montar esta combinação.`
+        }));
+        return;
+      }
 
       const allSuggestedCombos: MealCombo[] = [];
-      nearbyRests.forEach(r => {
+      restaurantsWithMenuItems.forEach(r => {
         const items = itemsGrouped[r.id] || [];
         if (items.length > 0) {
           const restaurantCombos = buildRestaurantCombos(r as any, items, parsed);
@@ -191,9 +209,9 @@ export default function ComboFinderPage() {
 
       let responseText = '';
       if (allSuggestedCombos.length > 0) {
-        responseText = `Encontrei ${allSuggestedCombos.length} sugestão(ões) de combos perfeitos de **${parsed.category === 'geral' ? 'comida' : parsed.category}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}** dentro do seu orçamento de **R$ ${parsed.maxBudget.toFixed(2)}**!\n\nVeja as sugestões abaixo do chat e escolha o seu preferido.👇`;
+        responseText = `Encontrei ${allSuggestedCombos.length} combinação(ões) de **${parsed.category === 'geral' ? 'comida' : parsed.category}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}** dentro do orçamento de **R$ ${parsed.maxBudget.toFixed(2)}**. Todas usam somente itens e preços presentes nos cardápios consultados.\n\nVeja as opções abaixo.`;
       } else {
-        responseText = `Infelizmente, varri o cardápio dos restaurantes num raio de ${parsed.maxDistance} km mas nenhum deles possui itens de **${parsed.category}** que caibam no orçamento de **R$ ${parsed.maxBudget.toFixed(2)}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}**.\n\nTente aumentar o orçamento ou simplificar o pedido!`;
+        responseText = `Consultei ${restaurantsWithMenuItems.length} cardápio(s) publicado(s), mas não encontrei uma combinação de **${parsed.category}** que caiba no orçamento de **R$ ${parsed.maxBudget.toFixed(2)}** para **${parsed.numPeople} ${parsed.numPeople === 1 ? 'pessoa' : 'pessoas'}**.\n\nTente aumentar o orçamento ou simplificar o pedido.`;
       }
 
       setMessages(prev => prev.filter(m => m.id !== 'typing').concat({
@@ -203,11 +221,11 @@ export default function ComboFinderPage() {
       }));
 
     } catch (e) {
-      console.error(e);
+      console.error('Menu assistant search failed.', e);
       setMessages(prev => prev.filter(m => m.id !== 'typing').concat({
         id: `bot-${Date.now()}`,
         sender: 'bot',
-        text: 'Desculpe, ocorreu um erro ao processar sua busca. Tente novamente em instantes.'
+        text: 'Não foi possível consultar os cardápios agora. Isso é diferente de uma busca sem resultados; tente novamente em instantes.'
       }));
     } finally {
       setLoading(false);
@@ -260,6 +278,12 @@ export default function ComboFinderPage() {
         leftAction={{ icon: ArrowLeft, onClick: () => navigate(-1) }}
         rightAction={{ icon: Menu, onClick: () => showSuccess("Menu de suporte ativo!") }}
       />
+
+      {IS_DEMO_MODE && (
+        <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-center text-[11px] font-bold uppercase tracking-wide text-amber-900" role="status">
+          {DEMO_LABEL} Dados fictícios de demonstração
+        </div>
+      )}
 
       {/* Área de Conversa de Chat - Ocupa todo o espaço vertical disponível */}
       <div className="flex-grow overflow-y-auto px-4 pt-6 pb-32 space-y-6 min-h-0 hide-scrollbar flex flex-col bg-gradient-to-b from-slate-50/60 to-slate-100/40">

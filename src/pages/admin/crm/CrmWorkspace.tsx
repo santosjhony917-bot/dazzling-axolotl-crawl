@@ -441,7 +441,7 @@ async function fetchCrmLeads(citySlug?: string) {
     .neq('restaurants.is_deleted', true);
 
   const { data, error } = await query;
-  if (!error) return { city, leads: (data || []) as LeadCard[] };
+  if (!error) return { city, leads: (data || []) as unknown as LeadCard[] };
   if (!isSchemaMissingError(error)) throw error;
 
   let legacyQuery = supabase
@@ -613,7 +613,11 @@ async function syncPublishedRestaurants(citySlug?: string) {
     }
 
     const legacyResult = await legacyRestaurantQuery;
-    restaurants = legacyResult.data;
+    restaurants = (legacyResult.data || []).map((restaurant) => ({
+      ...restaurant,
+      contact_candidates: null,
+      primary_contact_source: null,
+    }));
     error = legacyResult.error;
   }
   if (error) throw error;

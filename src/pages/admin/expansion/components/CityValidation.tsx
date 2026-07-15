@@ -106,7 +106,6 @@ const TRAINING_VALIDATE_BATCH_LIMIT = 10;
 const VALIDATION_FETCH_BATCH_SIZE = 20;
 const VALIDATION_INITIAL_ROW_LIMIT = VALIDATION_FETCH_BATCH_SIZE;
 const AUTO_VALIDATE_ROW_COOLDOWN_MS = 1500;
-const APPROVE_BATCH_LIMIT = 20;
 const FIXED_EXTENSION_ID = 'kehbedmdplkodjgfiohgnebicblmhghe';
 const REQUIRED_EXTENSION_VERSION = '1.10.53';
 const CHROME_EXTENSION_ID_RE = /^[a-p]{32}$/;
@@ -720,7 +719,6 @@ export default function CityValidation() {
   const [serverQaStats, setServerQaStats] = useState<QaStats | null>(null);
   const [activeTriageFilter, setActiveTriageFilter] = useState<LeadTriageKey | 'all'>('all');
   const [showValidationDiagnostics, setShowValidationDiagnostics] = useState(false);
-  const [isApproving, setIsApproving] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState<any | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [validatingId, setValidatingId] = useState<string | null>(null);
@@ -1116,8 +1114,8 @@ export default function CityValidation() {
       reasonCode,
       nextAction,
       status,
-      blocksPublication: status !== 'found',
-      publishable: status === 'found',
+      blocksPublication: true,
+      publishable: false,
       reason,
     };
   };
@@ -5689,8 +5687,8 @@ export default function CityValidation() {
     if (hasStructuredMenu(restaurant)) {
       return {
         key: 'pronto',
-        label: 'Pronto p/ app',
-        action: 'Pode aprovar lote',
+        label: 'Candidato Nivel 3',
+        action: 'Exige QA semantico e gates finais',
         className: 'bg-emerald-50 text-emerald-700 border-emerald-200',
       };
     }
@@ -5714,8 +5712,8 @@ export default function CityValidation() {
     if (MENU_NO_CARDAPIO_STATUSES.includes(menuStatus || '')) {
       return {
         key: 'sem_cardapio',
-        label: 'Sem cardÃ¡pio',
-        action: 'NÃ£o publicar; possÃ­vel CRM',
+        label: 'Aceito sem cardapio',
+        action: 'Cidade segue; enriquecer depois',
         className: 'bg-orange-50 text-orange-700 border-orange-200',
       };
     }
@@ -5872,12 +5870,12 @@ export default function CityValidation() {
     : triageCards.find(card => card.key === activeTriageFilter) || null;
 
   const qaTabs: { key: ValidationTab; label: string; count: number; hint: string }[] = [
-    { key: 'pendentes', label: 'Pendentes Validar IA', count: qaStats.pendentes, hint: 'Coletados na Fase 1 e ainda nÃ£o auditados.' },
-    { key: 'prontos', label: 'Prontos p/ App', count: qaStats.prontos, hint: 'Validar IA encontrou cardÃ¡pio estruturado.' },
-    { key: 'sem_cardapio', label: 'Sem CardÃ¡pio', count: qaStats.sem_cardapio, hint: 'Existe no Maps, mas nÃ£o achou cardÃ¡pio pÃºblico confiÃ¡vel.' },
-    { key: 'revisao', label: 'RevisÃ£o Humana', count: qaStats.revisao, hint: 'Bloqueio, captcha, login, fonte invÃ¡lida ou QA incompleto.' },
-    { key: 'rejeitados', label: 'Rejeitados', count: qaStats.rejeitados, hint: 'Removidos por regra de produto: fechado, mercado, padaria, evento, rua/ponto pÃºblico ou nÃ£o-food.' },
-    { key: 'importados', label: 'Base Publicada', count: qaStats.importados, hint: 'JÃ¡ visÃ­veis no app pÃºblico.' },
+    { key: 'pendentes', label: 'Legado nao reconciliado', count: qaStats.pendentes, hint: 'Registros anteriores ao City Run que ainda precisam de decisao operacional.' },
+    { key: 'prontos', label: 'Menu encontrado', count: qaStats.prontos, hint: 'Candidato a Nivel 3; semantic_menu_qa e decisao continuam obrigatorios.' },
+    { key: 'sem_cardapio', label: 'Sem menu confiavel', count: qaStats.sem_cardapio, hint: 'Ausencia legitima pode encerrar como not_found ou accepted_incomplete.' },
+    { key: 'revisao', label: 'Revisao humana', count: qaStats.revisao, hint: 'Somente ambiguidades que nao podem ser resolvidas automaticamente.' },
+    { key: 'rejeitados', label: 'Encerrados/rejeitados', count: qaStats.rejeitados, hint: 'Fonte rejeitada, duplicidade, inatividade ou caso fora do produto.' },
+    { key: 'importados', label: 'Publicados', count: qaStats.importados, hint: 'Perfis que ja passaram pelo gate final separado.' },
   ];
 
   const normalizedSearchTerm = searchTerm.trim().toLowerCase();
@@ -8941,100 +8939,14 @@ export default function CityValidation() {
     };
   }, [filteredRestaurants, isExtensionReady, isTrainingValidarIa, isValidating, validatingId, restaurants, cityScope]);
 
-  const handleApproveBatch = async () => {
-    if (activeTab !== 'prontos') {
-      toast.info('Abra a aba "Prontos p/ App" para publicar restaurantes.');
-      return;
-    }
-    // Aprova todos os pendentes filtrados atualmente na tela (para nÃ£o aprovar cidades erradas acidentalmente)
-    const approveCandidates = filteredRestaurants.filter(r => {
-      if (r.is_published === true || r.is_deleted === true || r.ai_validated !== true) return false;
-      if (!hasStructuredMenu(r)) return false;
-      return true;
-    });
-    const toApprove = approveCandidates.slice(0, APPROVE_BATCH_LIMIT);
-
-    if (toApprove.length === 0) {
-      toast.info('NÃ£o hÃ¡ restaurantes prontos para publicar. O lote agora exige Validar IA + cardÃ¡pio estruturado.');
-      return;
-    }
-
-    if (approveCandidates.length > APPROVE_BATCH_LIMIT) {
-      addLog(`Publicacao em lote limitada a ${APPROVE_BATCH_LIMIT} por clique para manter a tela leve. Restantes: ${approveCandidates.length - APPROVE_BATCH_LIMIT}.`);
-      toast.info(`Vou publicar os primeiros ${APPROVE_BATCH_LIMIT} de ${approveCandidates.length}. Clique novamente para continuar.`);
-    }
-    try {
-      setIsApproving(true);
-      addLog(`Aprovando lote de ${toApprove.length} restaurantes...`);
-      toast.loading(`Aprovando ${toApprove.length} restaurantes...`);
-
-      const ids = toApprove.map(r => r.id);
-      const { error } = await supabase
-        .from('restaurants')
-        .update({ is_published: true })
-        .in('id', ids)
-        .eq('menu_status', 'found');
-
-      if (error) throw error;
-
-      addLog(`Lote aprovado com sucesso. ${toApprove.length} restaurantes publicados.`);
-      toast.success(`${toApprove.length} restaurantes aprovados.`);
-      fetchRestaurants();
-
-    } catch (err: any) {
-      toast.error('Erro ao aprovar lote: ' + err.message);
-    } finally {
-      setIsApproving(false);
-      toast.dismiss();
-    }
-  };
-
-  const handleApproveSingle = async (e: React.MouseEvent, restaurant: any) => {
-    e.stopPropagation();
-
-    if (restaurant?.is_published === true) {
-      toast.info('Esse restaurante jÃ¡ estÃ¡ publicado.');
-      return;
-    }
-
-    if (restaurant?.ai_validated !== true || !hasStructuredMenu(restaurant) || getMenuStatus(restaurant) !== 'found') {
-      toast.warning('Esse restaurante ainda nÃ£o estÃ¡ pronto para publicar.');
-      return;
-    }
-
-    const eligibility = classifyRestaurantEligibilityLocal(restaurant);
-    if (eligibility.status === 'ineligible' && eligibility.confidence >= 0.9) {
-      toast.warning(`NÃ£o vou publicar: ${eligibility.reason}`);
-      return;
-    }
-
-    try {
-      setIsApproving(true);
-      const { error } = await supabase
-        .from('restaurants')
-        .update({ is_published: true })
-        .eq('id', restaurant.id)
-        .eq('menu_status', 'found');
-
-      if (error) throw error;
-
-      addLog(`${restaurant.name || 'Restaurante'} publicado individualmente.`);
-      toast.success(`${restaurant.name || 'Restaurante'} publicado.`);
-      fetchRestaurants();
-    } catch (err: any) {
-      toast.error('Erro ao publicar restaurante: ' + (err?.message || err));
-    } finally {
-      setIsApproving(false);
-    }
-  };
-
   return (
     <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-black tracking-tight text-slate-900">ValidaÃ§Ã£o de Dados (QA)</h2>
-          <p className="text-sm font-medium text-slate-500 mt-1">InspeÃ§Ã£o visual e enriquecimento automatizado antes do CRM.</p>
+          <h2 className="text-2xl font-black tracking-tight text-slate-900">Inspecao manual de excecoes</h2>
+          <p className="text-sm font-medium text-slate-500 mt-1">Use esta fila para needs_human_review e reparos dirigidos. Conclusao da cidade fica no Centro de Operacoes.</p>
         </div>
+        {showValidationDiagnostics ? (
         <div className="flex items-center gap-2">
             {!isExtensionActive && (
               <div className="flex items-center gap-2 mr-2">
@@ -9076,17 +8988,14 @@ export default function CityValidation() {
             title={!isExtensionReady ? `Atualize/carregue a extensÃ£o ${REQUIRED_EXTENSION_VERSION}+ antes de validar.` : undefined}
           >
             {isValidating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
-            {isValidating ? 'Validando...' : 'Auto-Validar IA'}
-          </Button>
-          <Button
-            onClick={handleApproveBatch}
-            disabled={isApproving || activeTab !== 'prontos' || filteredRestaurants.length === 0}
-            className="bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-md hover:-translate-y-0.5 transition-all"
-          >
-            {isApproving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Check className="w-4 h-4 mr-2" />}
-            Publicar Prontos
+            {isValidating ? 'Analisando...' : 'Analisar lote legado'}
           </Button>
         </div>
+        ) : (
+          <Badge variant="outline" className="h-9 border-slate-200 bg-white px-3 text-slate-600">
+            Publicacao disponivel somente no gate final
+          </Badge>
+        )}
       </div>
 
       {showValidationDiagnostics ? (
@@ -9098,8 +9007,8 @@ export default function CityValidation() {
             {cityScope ? `${cityScope.name}/${cityScope.state}` : 'Cidade atual'}
           </h3>
           <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-            Fase 1 sÃ³ cria candidatos do Maps. O Validar IA decide elegibilidade, status do Maps,
-            cardÃ¡pio e se o restaurante pode ir para o app.
+            Esta ferramenta legada investiga candidatos e coleta evidencias. Ela nao encerra o City Run
+            e nao autoriza publicacao; as decisoes pertencem ao pipeline operacional.
           </p>
           <div className="grid grid-cols-2 gap-2 mt-4">
             <div className="rounded-xl bg-white/80 border border-indigo-100 p-2">
@@ -9226,10 +9135,10 @@ export default function CityValidation() {
       ) : (
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-[11px] font-black uppercase tracking-wider text-slate-500">Modo leve ativo</p>
-            <h3 className="text-base font-black text-slate-900">Diagnosticos de triagem ocultos</h3>
+            <p className="text-[11px] font-black uppercase tracking-wider text-slate-500">Workspace de excecoes</p>
+            <h3 className="text-base font-black text-slate-900">Ferramentas legadas ocultas</h3>
             <p className="text-xs text-slate-500 mt-1 max-w-2xl">
-              A fila carrega primeiro com poucos registros. Abra os diagnosticos somente quando precisar investigar categorias, bloqueios ou regras da Fase 1.
+              Abra somente para investigar uma ambiguidade, reparar dados ou acompanhar a extensao. O processamento em escala pertence aos workers.
             </p>
           </div>
           <Button
@@ -9239,7 +9148,7 @@ export default function CityValidation() {
             onClick={() => setShowValidationDiagnostics(true)}
             className="rounded-xl bg-white"
           >
-            Mostrar diagnosticos
+            Abrir ferramentas
           </Button>
         </div>
       )}
@@ -9259,7 +9168,7 @@ export default function CityValidation() {
         ))}
       </div>
 
-      {/* Terminal de Logs */}
+      {(showValidationDiagnostics || isValidating) && (
       <div className="mb-6">
         <div className="border-slate-800 shadow-xl shadow-slate-900/20 rounded-2xl overflow-hidden bg-slate-950 text-slate-300 flex flex-col h-[200px]">
           <div className="p-3 border-b border-slate-800/60 bg-[#0A0D14] flex justify-between items-center px-4 shrink-0">
@@ -9356,6 +9265,7 @@ export default function CityValidation() {
           </div>
         )}
       </div>
+      )}
 
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
         <div className="p-4 border-b border-slate-100 flex flex-col gap-3 bg-slate-50/80 lg:flex-row lg:items-center lg:justify-between">
@@ -9443,12 +9353,12 @@ export default function CityValidation() {
               <TableHeader>
                 <TableRow className="bg-slate-50/50 hover:bg-slate-50/50">
                   <TableHead className="font-bold text-slate-900 text-[13px]">Restaurante</TableHead>
-                  <TableHead className="font-bold text-slate-900 text-[13px]">Triagem</TableHead>
-                  <TableHead className="font-bold text-slate-900 text-[13px]">DecisÃ£o QA</TableHead>
-                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">Telefone</TableHead>
+                  <TableHead className="font-bold text-slate-900 text-[13px]">Identidade</TableHead>
+                  <TableHead className="font-bold text-slate-900 text-[13px]">Estado legado</TableHead>
+                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">Canal</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">Instagram</TableHead>
-                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">CardÃ¡pio</TableHead>
-                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">Galeria</TableHead>
+                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">Menu</TableHead>
+                  <TableHead className="text-center font-bold text-slate-900 text-[13px]">Midia</TableHead>
                   <TableHead className="text-center font-bold text-slate-900 text-[13px]">HorÃ¡rio</TableHead>
                   <TableHead className="text-right font-bold text-slate-900 text-[13px]">AÃ§Ã£o</TableHead>
                 </TableRow>
@@ -9463,16 +9373,16 @@ export default function CityValidation() {
                     state: r.state,
                     neighborhood: r.neighborhood,
                   });
-                  const hasPhone = !!r.phone && r.ai_validated;
-                  const hasInsta = (!!r.instagram || !!r.social_networks) && r.ai_validated;
+                  const hasPhone = !!r.phone;
+                  const hasInsta = !!r.instagram || !!r.social_networks;
                   const hasMenu = hasStructuredMenu(r);
-                  const hasGallery = (!!r.image_url || !!r.cover_image_url) && r.ai_validated;
-                  const hasHours = !!r.opening_hours && r.ai_validated;
+                  const hasGallery = !!r.image_url || !!r.cover_image_url;
+                  const hasHours = !!r.opening_hours;
                   const isReadyForApp = r.ai_validated === true && hasMenu && getMenuStatus(r) === 'found';
                   const menuUrl = `/restaurant/${r.id}/menu`;
 
                   const StatusDot = ({ active }: { active: boolean }) => (
-                    <div className={`w-3.5 h-3.5 rounded-full mx-auto shadow-sm transition-colors duration-500 ${active ? 'bg-emerald-400 ring-2 ring-emerald-50' : 'bg-rose-500 ring-2 ring-rose-50'}`} title={active ? 'ExtraÃ­do e validado pela IA' : 'Pendente de validaÃ§Ã£o ou nÃ£o encontrado'} />
+                    <div className={`w-3.5 h-3.5 rounded-full mx-auto transition-colors duration-500 ${active ? 'bg-emerald-500 ring-2 ring-emerald-50' : 'bg-slate-300 ring-2 ring-slate-100'}`} title={active ? 'Dado presente; a origem pode ser legada ate auditoria.' : 'Ausente no nivel atual; nao bloqueia a conclusao da cidade.'} />
                   );
 
                   return (
@@ -9537,17 +9447,6 @@ export default function CityValidation() {
                               className="h-8 px-3 text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:bg-emerald-50"
                             >
                               <Eye className="w-3.5 h-3.5 mr-1.5" /> Ver menu
-                            </Button>
-                          )}
-                          {activeTab === 'prontos' && isReadyForApp && r.is_published !== true && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={(e) => handleApproveSingle(e, r)}
-                              disabled={isApproving}
-                              className="h-8 px-3 text-xs font-bold text-green-700 hover:text-green-800 hover:bg-green-50"
-                            >
-                              <Check className="w-3.5 h-3.5 mr-1.5" /> Publicar
                             </Button>
                           )}
                             <Button
@@ -9671,17 +9570,18 @@ export default function CityValidation() {
                 .maybeSingle();
 
               if (!error && freshRestaurant) {
-                setSelectedRestaurant(freshRestaurant);
+                const refreshedRestaurant = freshRestaurant as unknown as Record<string, any>;
+                setSelectedRestaurant(refreshedRestaurant);
                 setRestaurants(prevRows => (
-                  prevRows.some(row => row.id === freshRestaurant.id)
-                    ? prevRows.map(row => row.id === freshRestaurant.id ? freshRestaurant : row)
+                  prevRows.some(row => row.id === refreshedRestaurant.id)
+                    ? prevRows.map(row => row.id === refreshedRestaurant.id ? refreshedRestaurant : row)
                     : prevRows
                 ));
 
-                const nextStatus = getMenuStatus(freshRestaurant);
-                if (freshRestaurant.is_deleted === true) {
+                const nextStatus = getMenuStatus(refreshedRestaurant);
+                if (refreshedRestaurant.is_deleted === true) {
                   nextTab = 'rejeitados';
-                } else if (freshRestaurant.is_published === true && nextStatus === 'found') {
+                } else if (refreshedRestaurant.is_published === true && nextStatus === 'found') {
                   nextTab = 'importados';
                 } else if (nextStatus === 'found') {
                   nextTab = 'prontos';

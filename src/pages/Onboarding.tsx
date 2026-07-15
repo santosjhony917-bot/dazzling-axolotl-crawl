@@ -48,10 +48,10 @@ const onboardingSlides: OnboardingSlide[] = [
     tone: 'ai',
     topChip: 'IA do FilterFood',
     TopIcon: Sparkles,
-    avatar: '/images/filterfood_ai_avatar_search_clean.png',
+    avatar: '/images/filterfood_ai_avatar_search_clean.webp',
     callout: 'Busca inteligente',
     title: 'Busque pratos com IA',
-    description: 'Diga o que quer comer e encontre opções por preço, bairro e cardápio.',
+    description: 'Diga o que quer comer. A IA consulta os cardápios disponíveis e organiza opções por preço e bairro.',
     accentLine: 'Pratos certos, sem abrir vários links',
     cta: 'Continuar',
   },
@@ -59,7 +59,7 @@ const onboardingSlides: OnboardingSlide[] = [
     tone: 'friends',
     topChip: 'Com amigos',
     TopIcon: Sparkles,
-    avatar: '/images/filterfood_avatar_friends_clean.png',
+    avatar: '/images/filterfood_avatar_friends_clean.webp',
     callout: 'Com amigos',
     title: 'Crie grupos com seus amigos',
     description: 'Compartilhe opções, vote junto e escolha onde todo mundo quer comer.',
@@ -68,12 +68,12 @@ const onboardingSlides: OnboardingSlide[] = [
   },
   {
     tone: 'city',
-    topChip: 'Cidade inteira',
+    topChip: 'Na sua região',
     TopIcon: MapPin,
-    avatar: '/images/filterfood_avatar_city_clean.png',
+    avatar: '/images/filterfood_avatar_city_clean.webp',
     callout: 'Cardápios reunidos',
-    title: 'Todos os cardápios da cidade em um só app',
-    description: 'Compare restaurantes, veja pratos, preços e escolha mais rápido.',
+    title: 'Cardápios disponíveis na sua região em um só app',
+    description: 'Compare restaurantes publicados, confira pratos e preços e escolha com mais contexto.',
     cta: 'Começar',
     benefits: [
       { icon: Search, label: 'Compare opções', color: 'bg-[#FFE5DE] text-[var(--ff-primary)]' },
@@ -341,9 +341,9 @@ function CardTitle({ slide }: { slide: OnboardingSlide }) {
 
   return (
     <h1 className="mx-auto max-w-[370px] text-center text-[clamp(24px,6.1vw,31px)] font-bold leading-[1.12] tracking-tight text-[var(--ff-text-primary)]">
-      Todos os
+      Cardápios disponíveis
       <br />
-      <span className="text-[var(--ff-primary)]">cardápios da cidade</span>
+      <span className="text-[var(--ff-primary)]">na sua região</span>
       <br />
       em um só app
     </h1>

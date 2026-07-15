@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
 import { Loader2, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-type ButtonBaseProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonBaseProps = Omit<HTMLMotionProps<'button'>, 'children'> & {
+  children?: React.ReactNode;
   icon?: LucideIcon;
   loading?: boolean;
 };
@@ -89,7 +90,7 @@ export const FFCard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
 );
 FFCard.displayName = 'FFCard';
 
-type FFActionCardProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type FFActionCardProps = HTMLMotionProps<'button'> & {
   icon: LucideIcon;
   title: string;
   description?: string;
