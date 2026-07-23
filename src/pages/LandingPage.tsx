@@ -240,13 +240,6 @@ function LandingPage() {
           </nav>
 
           <div className="hidden items-center gap-2 lg:flex">
-            <Link
-              to="/restaurant-area-hub"
-              onClick={() => trackLandingEvent('restaurant_cta_click', { source: 'header', destination: 'restaurant-area-hub' })}
-              className="inline-flex min-h-11 items-center rounded-full px-4 text-sm font-semibold text-[#5E6675] transition-colors hover:bg-white hover:text-[var(--ff-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/30"
-            >
-              Área do restaurante
-            </Link>
             <button
               type="button"
               onClick={() => scrollToDemo('header')}
@@ -292,13 +285,6 @@ function LandingPage() {
                     {item.label}
                   </a>
                 ))}
-                <Link
-                  to="/restaurant-area-hub"
-                  onClick={() => trackLandingEvent('restaurant_cta_click', { source: 'mobile_menu', destination: 'restaurant-area-hub' })}
-                  className="mt-2 flex min-h-12 items-center rounded-2xl border border-[var(--ff-border-warm)] px-4 font-semibold text-[var(--ff-primary)]"
-                >
-                  Área do restaurante
-                </Link>
                 <button
                   type="button"
                   onClick={() => scrollToDemo('mobile_menu')}
@@ -681,16 +667,16 @@ function LandingPage() {
         </section>
       </main>
 
-      <footer className="bg-[#3C2F2F] px-5 py-12 text-white/76 sm:px-6 lg:px-8">
+      <footer className="bg-[#3C2F2F] px-5 py-12 text-white/75 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 border-b border-white/12 pb-10 md:grid-cols-[1.5fr_1fr_1fr]">
             <div>
               <BrandWordmark light compact />
-              <p className="mt-5 max-w-sm text-sm font-normal leading-6">Busca inteligente para descobrir pratos e cardápios disponíveis, com mapeamento inicial em João Pessoa.</p>
+              <p className="mt-5 max-w-sm text-sm font-normal leading-6 text-white/75">Busca inteligente para descobrir pratos e cardápios disponíveis, com mapeamento inicial em João Pessoa.</p>
             </div>
             <div>
               <h2 className="font-semibold text-white">Explore</h2>
-              <ul className="mt-2 text-sm font-normal">
+              <ul className="mt-2 text-sm font-normal text-white/75">
                 <li><button type="button" onClick={() => scrollToDemo('footer')} className="inline-flex min-h-11 items-center hover:text-white">Encontrar onde comer</button></li>
                 <li><Link to="/restaurant-area-hub" className="inline-flex min-h-11 items-center hover:text-white">Área do restaurante</Link></li>
                 <li><Link to="/restaurant-area/claim" className="inline-flex min-h-11 items-center hover:text-white">Reivindicar perfil</Link></li>
@@ -698,14 +684,14 @@ function LandingPage() {
             </div>
             <div>
               <h2 className="font-semibold text-white">Informações</h2>
-              <ul className="mt-2 text-sm font-normal">
+              <ul className="mt-2 text-sm font-normal text-white/75">
                 <li><Link to="/help-center" className="inline-flex min-h-11 items-center hover:text-white">Central de Ajuda</Link></li>
                 <li><Link to="/legal" className="inline-flex min-h-11 items-center hover:text-white">Termos e privacidade</Link></li>
                 <li><a href="mailto:suporte@filterfood.com.br" className="inline-flex min-h-11 items-center hover:text-white">suporte@filterfood.com.br</a></li>
               </ul>
             </div>
           </div>
-          <div className="flex flex-col gap-2 pt-7 text-sm font-normal sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-2 pt-7 text-sm font-normal text-white/65 sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} FilterFood. Todos os direitos reservados.</p>
             <p>Informação organizada para decisões mais simples.</p>
           </div>
