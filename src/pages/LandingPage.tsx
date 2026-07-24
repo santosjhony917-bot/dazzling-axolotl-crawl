@@ -93,11 +93,11 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'FilterFood',
-  url: 'https://filterfood.com.br/',
+  url: 'https://www.filterfood.com.br/',
   description: 'Demonstração da busca inteligente de pratos, preços, cardápios e restaurantes, com mapeamento inicial em João Pessoa.',
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://filterfood.com.br/search?q={search_term_string}',
+    target: 'https://www.filterfood.com.br/search?q={search_term_string}',
     'query-input': 'required name=search_term_string',
   },
 };
@@ -106,7 +106,7 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'FilterFood',
-  url: 'https://filterfood.com.br/',
+  url: 'https://www.filterfood.com.br/',
   email: 'suporte@filterfood.com.br',
 };
 
@@ -168,18 +168,21 @@ function LandingPage() {
           name="description"
           content="Descreva o que quer comer, seu orçamento e a ocasião. Veja como o FilterFood organiza pratos, preços e cardápios disponíveis."
         />
-        <link rel="canonical" href="https://filterfood.com.br/landing" />
+        <link rel="canonical" href="https://www.filterfood.com.br/" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="pt_BR" />
         <meta property="og:site_name" content="FilterFood" />
         <meta property="og:title" content="FilterFood | A IA dos cardápios" />
         <meta property="og:description" content="Uma pergunta para comparar pratos, preços e restaurantes dentro do seu orçamento." />
-        <meta property="og:url" content="https://filterfood.com.br/landing" />
-        <meta property="og:image" content="https://filterfood.com.br/images/filterfood_welcome_food_hero.webp" />
+        <meta property="og:url" content="https://www.filterfood.com.br/" />
+        <meta property="og:image" content="https://www.filterfood.com.br/images/filterfood_welcome_food_hero.png" />
+        <meta property="og:image:secure_url" content="https://www.filterfood.com.br/images/filterfood_welcome_food_hero.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:alt" content="Mesa com pizza, sushi, ramen e massa representando opções de comida no FilterFood" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="FilterFood | A IA dos cardápios" />
         <meta name="twitter:description" content="Veja como consultar cardápios disponíveis usando linguagem natural." />
-        <meta name="twitter:image" content="https://filterfood.com.br/images/filterfood_welcome_food_hero.webp" />
+        <meta name="twitter:image" content="https://www.filterfood.com.br/images/filterfood_welcome_food_hero.png" />
         <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
