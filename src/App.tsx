@@ -6,7 +6,6 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import ToastProvider from '@/components/ToastProvider';
 
 const SharedLayoutWrapper = React.lazy(() => import('@/layouts/SharedLayoutWrapper'));
-const Index = React.lazy(() => import('@/pages/Index'));
 const Home = React.lazy(() => import('@/pages/Home'));
 const Onboarding = React.lazy(() => import('@/pages/Onboarding'));
 const Welcome = React.lazy(() => import('@/pages/Welcome'));
@@ -72,7 +71,7 @@ function App() {
       <Suspense fallback={<RouteFallback />}>
       <Routes>
         {/* Rotas Públicas/Gerais */}
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/c/:shortCode" element={<PromoRedirect />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/welcome" element={<Welcome />} />
