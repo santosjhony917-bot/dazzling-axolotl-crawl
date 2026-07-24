@@ -27,7 +27,6 @@ import {
   Zap,
 } from 'lucide-react';
 import { InteractiveAiDemo } from '@/components/landing/InteractiveAiDemo';
-import { useAuthData } from '@/context/AuthContext';
 import { trackLandingEvent } from '@/lib/landingAnalytics';
 
 const navItems = [
@@ -133,30 +132,10 @@ function SectionEyebrow({ children, light = false }: { children: React.ReactNode
 
 function LandingPage() {
   const navigate = useNavigate();
-  const { user } = useAuthData();
   const reduceMotion = useReducedMotion();
   const demoInputRef = useRef<HTMLInputElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  const openApp = (source: string, prompt = '') => {
-    trackLandingEvent('cta_click', { source, destination: user ? 'home' : 'auth' });
-    const cleanPrompt = prompt.trim().slice(0, 500);
-    if (cleanPrompt) {
-      try {
-        sessionStorage.setItem('filterfood_pending_prompt', cleanPrompt);
-      } catch {
-        // A navegação continua mesmo quando o navegador bloqueia armazenamento de sessão.
-      }
-    }
-    if (user) {
-      navigate('/home?assistant=1');
-      return;
-    }
-    navigate('/auth', {
-      state: { from: { pathname: '/home', search: '?assistant=1' } },
-    });
-  };
 
   const openRestaurantArea = (source: string) => {
     trackLandingEvent('restaurant_cta_click', { source, destination: 'restaurant-area-hub' });
@@ -334,7 +313,7 @@ function LandingPage() {
               </motion.div>
 
               <div className="relative z-20 mx-auto w-full max-w-[760px]">
-                <InteractiveAiDemo reduceMotion={reduceMotion} inputRef={demoInputRef} onOpenApp={openApp} />
+                <InteractiveAiDemo reduceMotion={reduceMotion} inputRef={demoInputRef} />
                 <div className="pointer-events-none absolute -bottom-16 -right-44 z-10 hidden h-[440px] w-[440px] 2xl:block">
                   <span className="absolute bottom-[2.5%] left-1/2 h-[5.5%] w-[44%] -translate-x-1/2 rounded-[50%] border border-[#67E8E3]/70 bg-[#14c8c3]/15 shadow-[0_0_28px_rgba(20,200,195,0.48)]" aria-hidden="true" />
                   <img

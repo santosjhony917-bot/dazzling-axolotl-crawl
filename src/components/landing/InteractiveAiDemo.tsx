@@ -122,10 +122,9 @@ function resolveScenario(prompt: string): DemoScenario {
 type InteractiveAiDemoProps = {
   reduceMotion: boolean | null;
   inputRef: RefObject<HTMLInputElement | null>;
-  onOpenApp: (source: string, prompt: string) => void;
 };
 
-export function InteractiveAiDemo({ reduceMotion, inputRef, onOpenApp }: InteractiveAiDemoProps) {
+export function InteractiveAiDemo({ reduceMotion, inputRef }: InteractiveAiDemoProps) {
   const [input, setInput] = useState('');
   const [scenario, setScenario] = useState<DemoScenario>(scenarios[0]);
   const [isThinking, setIsThinking] = useState(false);
@@ -235,9 +234,9 @@ export function InteractiveAiDemo({ reduceMotion, inputRef, onOpenApp }: Interac
                         onClick={() => {
                           const combo = visibleScenario.combos[0];
                           trackLandingEvent('demo_result_click', { scenario: visibleScenario.id, restaurant: combo.restaurant });
-                          onOpenApp('demo_result', visibleScenario.prompt);
+                          runDemo(visibleScenario.prompt, 'suggestion');
                         }}
-                        aria-label="Levar esta pergunta demonstrativa ao aplicativo"
+                        aria-label="Usar esta pergunta na demonstração"
                         className="group grid min-h-[124px] cursor-pointer grid-cols-[1fr_auto] gap-x-3 rounded-[18px] border border-[var(--ff-border-warm)] bg-white p-3.5 text-left transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-[var(--ff-primary)]/45 hover:shadow-[var(--ff-shadow-card)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/35"
                       >
                         <span className="min-w-0">
@@ -253,10 +252,10 @@ export function InteractiveAiDemo({ reduceMotion, inputRef, onOpenApp }: Interac
                         onClick={() => {
                           const combo = visibleScenario.combos[1];
                           trackLandingEvent('demo_result_click', { scenario: visibleScenario.id, restaurant: combo.restaurant });
-                          onOpenApp('demo_result_compact', visibleScenario.prompt);
+                          runDemo(visibleScenario.prompt, 'suggestion');
                         }}
                         className="group flex min-h-16 items-center justify-between gap-3 rounded-2xl border border-[var(--ff-border-warm)] bg-white px-3.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ff-primary)]/35"
-                        aria-label="Levar esta pergunta ao aplicativo e consultar o catálogo disponível"
+                        aria-label="Usar esta pergunta na demonstração"
                       >
                         <span className="min-w-0 text-sm"><span className="block truncate font-semibold text-[var(--ff-text-secondary)]">{visibleScenario.combos[1].restaurant}</span><span className="font-bold text-[#252228]">{visibleScenario.combos[1].name}</span></span>
                         <span className="flex shrink-0 items-center gap-2 text-sm font-bold text-[var(--ff-primary-dark)]"><span className="text-[var(--ff-success-dark)]">{visibleScenario.combos[1].price}</span><span className="hidden sm:inline">Usar pergunta</span><ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" /></span>
